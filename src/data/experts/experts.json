@@ -1,0 +1,66 @@
+ [
+    {
+        "category_id": "1",
+        "description": "dfkdfjkjfd",
+        "volunteers": {
+                "people": [
+                    {
+                        "id": 1
+                    }
+                ],
+                "organisations": [
+                    {
+                        "id": 1
+                    }
+                ]
+            }
+    },
+    {
+        "category_id": "2",
+        "description": "dfkdfjkjfd",
+        "volunteers": {
+                "people": [
+                    {
+                        "id": 1
+                    }
+                ],
+                "organisations": [
+                    {
+                        "id": 1
+                    }
+                ]
+            }
+    },
+    {
+        "category_id": "3",
+        "description": "dfkdfjkjfd",
+        "volunteers": {
+                "people": [
+                    {
+                        "id": 1
+                    }
+                ],
+                "organisations": [
+                    {
+                        "id": 1
+                    }
+                ]
+            }
+    },
+    {
+        "category_id": "4",
+        "description": "dfkdfjkjfd",
+        "volunteers": {
+                "people": [
+                    {
+                        "id": 1
+                    }
+                ],
+                "organisations": [
+                    {
+                        "id": 1
+                    }
+                ]
+            }
+    }
+ ]

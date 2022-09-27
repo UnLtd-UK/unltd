@@ -1,0 +1,10 @@
+---
+import Template from '../layouts/Layout.astro';
+const name = "Meet the Team";
+const description = "Meet the Team description"
+---
+
+<Template name="{ `${name}` }" description="{ `${description}` }">
+	<h1>{ name }</h1>
+    <p>{ description }</p>
+</Template>

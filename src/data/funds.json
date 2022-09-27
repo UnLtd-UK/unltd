@@ -1,0 +1,129 @@
+[
+    {
+        "name": "Awards",
+        "support": true,
+        "funded": [
+            "Millenium Awards Trust"
+        ],
+        "eligibility": {
+            "grantee": {
+                "age": "16+",
+                "located": "United Kingdom"
+            },
+            "enterprise": {
+                "turnover of last finanical year": "-£250,000"
+
+            }
+        },
+        "grants": [
+            {
+                "maximum": "£8,000",
+                "eligibility": {
+                    "enterprise": {
+                        "running": "under a year"
+                    }
+                }
+            },
+            {
+                "maximum": "£18,000",
+                "eligibility": {
+                    "enterprise": {
+                        "running": "over a year and under 4 years"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "Technical Assistant Fund",
+        "funded": [
+            ""
+        ],
+        "distributed": [
+            ""
+        ],
+        "eligibility": "",
+        "support": true
+    },
+    {
+        "name": "Ecwiti",
+        "funders": [
+            "Welsh Government"
+        ],
+        "distributers": [
+            "Social Firms Wales"
+        ],
+        "eligibility": {
+            "grantee": {
+                "age": "16+",
+                "located": "Wales"
+            },
+            "enterprise": {
+                "turnover of last finanical year": "-£250,000"
+
+            }
+        },
+        "grants": [
+            {
+                "maximum": "£8,000",
+                "eligibility": {
+                    "enterprise": {
+                        "running": "under a year"
+                    }
+                }
+            },
+            {
+                "maximum": "£18,000",
+                "eligibility": {
+                    "enterprise": {
+                        "running": "over a year and under 4 years"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "name": "Comic Relief",
+        "funded": [
+            ""
+        ],
+        "distributed": [
+            ""
+        ],
+        "eligibility": "",
+        "support": true
+    },
+    {
+        "name": "Healthy Ageing Fund",
+        "funded": [
+            ""
+        ],
+        "distributed": [
+            ""
+        ],
+        "eligibility": "",
+        "support": true
+    },
+    {
+        "name": "Small Business Research Initiative",
+        "funded": [
+            ""
+        ],
+        "distributed": [
+            ""
+        ],
+        "eligibility": "",
+        "support": true
+    },
+    {
+        "name": "Sporty",
+        "funded": [
+            "Sport England", "Millenium Award Trust"
+        ],
+        "distributed": [
+            ""
+        ],
+        "eligibility": "",
+        "support": true
+    }
+]

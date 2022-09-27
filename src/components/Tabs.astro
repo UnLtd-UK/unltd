@@ -1,0 +1,50 @@
+---
+const { parentItems, childrenItems, pathways } = Astro.props;
+---
+
+<script is:inline>
+    function openTab(evt, name) {
+        let i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(name).style.display = "block";
+        evt.currentTarget.className += " active";
+
+    }
+</script>
+
+<div class="mt-3 sm:mt-4">
+    <div class="sm:hidden">
+        <label for="current-tab" class="sr-only">Select a tab</label>
+        <select id="current-tab" name="current-tab"
+            class="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+            { parentItems.map((parentItem) => (
+            <option><button onclick={`openTab(event, '${parentItem.slug}')`}></button>{ parentItem.name }</option>
+            ))}
+        </select>
+    </div>
+    <!-- Tabs at small breakpoint and up -->
+    <div class="hidden sm:block">
+        <nav class="-mb-px flex space-x-8">
+            <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
+            {
+                parentItems.map((parentItem, parentItemIndex) => (
+                    <div>
+                        { parentItemIndex === 0 ? 
+                            <button id="{`button-${parentItem.slug}`}" type="button" onclick={`openTab(event, '${parentItem.slug}')`} class="border-indigo-500 text-indigo-600 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm active" aria-current="page">{ parentItem.name }</button>
+                            :
+                            <button id="{`button-${parentItem.slug}`}" type="button" onclick={`openTab(event, '${parentItem.slug}')`} class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">{ parentItem.name }</button>
+                        }
+                    </div>
+                ))
+            }
+        </nav>
+    </div>
+</div>
+<slot/>

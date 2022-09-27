@@ -1,0 +1,45 @@
+---
+const { name, description } = Astro.props;
+
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>UnLtd</title>
+    <meta name="title" content={ `${Astro.props.name}` } />
+    <meta name="description" content={ `${Astro.props.description}` } />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="" />
+    <meta property="og:url" content={ `${Astro.props.url}` } />
+    <meta property="og:title" content={ `${Astro.props.name}` } />
+    <meta property="og:description" content={ `${Astro.props.name}` } />
+    <meta property="og:image" content="" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="" />
+    <meta property="twitter:url" content="" />
+    <meta property="twitter:title" content={ `${Astro.props.name}` } />
+    <meta property="twitter:description" content={ `${Astro.props.description }` } />
+    <meta property="twitter:image" content="" />
+
+    <!-- Fontawesome Icons -->
+    <script
+      src="https://kit.fontawesome.com/0ff725f684.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body class="bg-violet-900 text-slate-50">
+    <Header />
+    <slot />
+    <Footer />
+  </body>
+</html>
