@@ -16,16 +16,15 @@ import funds from "../data/funds.json";
 
 const name = "Support";
 const description =
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia dolores corrupti labore tempora, rem quidem maxime ad asperiores eveniet maiores nobis assumenda facilis quisquam fugiat accusamus nulla similique tenetur hic?";
-
+  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia dolores corrupti labore tempora, rem quidem maximead asperiores eveniet maiores nobis assumenda facilis quisquam fugiat accusamus nulla similique tenetur hic?";
 ---
 
 <Template name="{ `${name}` }" description="{ `${description}` }">
   <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
     <div class="flex flex-col gap-10">
-      <div class="flex flex-col gap-5">
-        <h1 class="text-8xl">{name}</h1>
-        <p class="text-xl">{description}</p>
+      <div class="flex flex-col gap-5 p-10">
+        <h1 class="text-8xl font-bold">{name}</h1>
+        <p class="text-2xl">{description}</p>
       </div>
 
       <div class="flex">
@@ -109,84 +108,14 @@ const description =
             }
           </Tabs>
         </div>
-
-        <div class="border-dashed border-2 border-indigo-600">
-          <h3 class="text-xl">How we will support you</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam aut
-            porro odio dolores minima, repellat assumenda soluta ipsa mollitia
-            nulla eos a sint fugiat. Quo consequuntur aut numquam laudantium
-            dolore.
-          </p>
-          <div class="flex flex-col gap-10">
-            <div class="flex">
-              <div>
-                <div class="flex gap-5 align-center">
-                  <i class="fa-solid fa-file"></i>
-                  <h4>Docs</h4>
-                </div>
-                <p>
-                  How we can support you etur docs elit, sed do eiusmod tempor
-                  incididunt ut audio et dolore magna aliqua. Ut videos ad minim
-                  Online veniam, quis nostrud exercitation ullamco In-person
-                  nisi ut aliquip ex ea commodo consequat.anim id est laborum.
-                </p>
-              </div>
-              <div>
-                <p>Guides</p>
-                <p>Tutorials</p>
-                <p>Explainers</p>
-              </div>
-            </div>
-            <div class="flex">
-              <div>
-                <div class="flex gap-5 align-center">
-                  <i class="fa-solid fa-file"></i>
-                  <h4>Events</h4>
-                </div>
-                <p>
-                  How we can support you etur docs elit, sed do eiusmod tempor
-                  incididunt ut audio et dolore magna aliqua. Ut videos ad minim
-                  Online veniam, quis nostrud exercitation ullamco In-person
-                  nisi ut aliquip ex ea commodo consequat.anim id est laborum.
-                </p>
-              </div>
-              <div>
-                <p>Guides</p>
-                <p>Tutorials</p>
-                <p>Explainers</p>
-              </div>
-            </div>
-            <div class="flex">
-              <div>
-                <div class="flex gap-5 align-center">
-                  <i class="fa-solid fa-file"></i>
-                  <h4>Events</h4>
-                </div>
-                <p>
-                  How we can support you etur docs elit, sed do eiusmod tempor
-                  incididunt ut audio et dolore magna aliqua. Ut videos ad minim
-                  Online veniam, quis nostrud exercitation ullamco In-person
-                  nisi ut aliquip ex ea commodo consequat.anim id est laborum.
-                </p>
-              </div>
-              <div>
-                <p>Workshops</p>
-                <p>Lectures</p>
-                <p>Explainers</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="border-dashed border-2 border-indigo-600">
-          <h3>Experts</h3>
-        </div>
       </div>
     </div>
   </div>
 
-  <Showcase name="Resources" subtitle="Documents, Videos, Audio, it all" bg="bg-blue-200" text="text-blue-600" px="px-3.0" icon="file" description="How we can support you etur In-person adipiscing elit, sed do eiusmod tempor Online ut labore et dolore magna aliqua. Ut enim ad minim Online veniam, quis nostrud exercitation ullamco In-person nisi ut aliquip ex ea commodo consequat.anim id est laborum.">
-    {
+  <!-- <Showcase name="Resources" subtitle="Documents, Videos, Audio, it all" bg="bg-blue-200" text="text-blue-600"
+        px="px-3.0" icon="file"
+        description="How we can support you etur In-person adipiscing elit, sed do eiusmod tempor Online ut labore et dolore magna aliqua. Ut enim ad minim Online veniam, quis nostrud exercitation ullamco In-person nisi ut aliquip ex ea commodo consequat.anim id est laborum.">
+        {
       experts.map((expert) => (
         <div class="bg-white p-8 text-black rounded-b-xl">
           <h3>{expert.category_id} Experts</h3>
@@ -201,44 +130,129 @@ const description =
         </div>
       ))
     }
-</Showcase>
+    </Showcase> -->
 
-  <Showcase name="Events" subtitle="Jump on a call... or a bus" bg="bg-orange-200" text="text-orange-600" px="px-3.0" icon="calendar" description="How we can support you etur In-person adipiscing elit, sed do eiusmod tempor Online ut labore et dolore magna aliqua. Ut enim ad minim Online veniam, quis nostrud exercitation ullamco In-person nisi ut aliquip ex ea commodo consequat.anim id est laborum.">
+  <Showcase
+    name="Events"
+    subtitle="Jump on a call... or a bus"
+    bg="bg-orange-200"
+    text="text-orange-600"
+    px="px-3.0"
+    icon="calendar"
+    description="How we can support you etur In-person adipiscing elit, sed do eiusmod tempor Online ut labore et dolore magna aliqua. Ut enim ad minim Online veniam, quis nostrud exercitation ullamco In-person nisi ut aliquip ex ea commodo consequat.anim id est laborum."
+  >
     <div class="flex gap-2">
       {
         events.formats.map((format) => (
-          <Badge bg="hover:bg-orange-100" text="text-orange-800">{ format.name }</Badge>
+          <Badge bg="hover:bg-orange-100" text="text-orange-800">
+            {format.name}
+          </Badge>
         ))
       }
     </div>
     <div class="text-black">
-      {
-        events.formats.map((format, index) => (
-            <p>{ format.description }</p>
-        ))
-      }
+      {events.formats.map((format, index) => <p>{format.description}</p>)}
     </div>
+  </Showcase>
 
-</Showcase>
+  <Showcase
+    name="Experts"
+    subtitle="Get paired with a pro"
+    bg="bg-green-200"
+    text="text-green-600"
+    px="px-3.0"
+    icon="bolt"
+    description="An Expert is a employee of an organisations or a volunteer we have partnered with. Navigate our topics and see if an expert is available. If they are you will see summary of what expertise they can lend and what you could expect from being paired with them. One-off conversation or regular meetings."
+  >
 
-  <Showcase name="Experts" subtitle="Get paired with a pro" bg="bg-green-200" text="text-green-600" px="px-3.0" icon="bolt" description="An Expert is a employee of an organisations or a volunteer we have partnered with. Navigate our topics and see if an expert is available. If they are you will see summary of what expertise they can lend and what you could expect from being paired with them. One-off conversation or regular meetings.">
-      {
-        experts.map((expert) => (
-          <div class="bg-white p-8 text-black rounded-b-xl">
-            <h3>{expert.category_id} Experts</h3>
-            <p>{expert.category_id} Experts</p>
-            <div class="flex gap-2">
-              {topics.map((topic) => (
-                <div class="border inline-block p-3 rounded-full">
-                  <p class="text-sm">{topic.name}</p>
-                </div>
-              ))}
-            </div>
+{
+    categories.map((category) => (
+      <div class="p-8 text-black rounded-xl basis-1/2 bg-grey-200">
+        <h3 class="font-bold text-xl">{category.name} Experts</h3>
+        <p>{category.description}</p>
+        <div class="flex agap-2"></div>
+        {pathways.map((pathway) => {
+          if (category.id === pathway.category.id)
+            return (
+              <Fragment>
+                {topics.map((topic) => (
+                    topic.id === pathway.topic.id &&
+                        <p class="bg-blue-200 m-2 inline py-2 px-4 rounded-full ">{topic.name}</p>
+                    ))}
+              </Fragment>
+            );
+        })}
+      </div>
+    ))
+  }
+
+    {
+      categories.map((category) => {
+        return <p class="text-black">{category.id}</p>;
+        pathways.map((pathway) => {
+          return <p class="text-black">{pathway.id}</p>;
+          if (category.id === pathway.category.id) {
+            return <p>{category.name}</p>;
+            topics.map((topic) => {
+              return <p>{topic.name}</p>;
+            });
+          }
+        });
+      })
+    }
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <div class="bg-white">
+      <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+        <p class="text-center text-lg font-semibold text-gray-600">
+          Our Experts are made up volunteers, independent and from organisations
+        </p>
+        <div class="mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8">
+          <div class="col-span-1 flex justify-center bg-gray-50 py-8 px-8">
+            <img
+              class="max-h-12"
+              src="https://tailwindui.com/img/logos/transistor-logo-gray-400.svg"
+              alt="Workcation"
+            />
           </div>
-        ))
-      }
-</Showcase>
-
+          <div class="col-span-1 flex justify-center bg-gray-50 py-8 px-8">
+            <img
+              class="max-h-12"
+              src="https://tailwindui.com/img/logos/mirage-logo-gray-400.svg"
+              alt="Mirage"
+            />
+          </div>
+          <div class="col-span-1 flex justify-center bg-gray-50 py-8 px-8">
+            <img
+              class="max-h-12"
+              src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg"
+              alt="Tuple"
+            />
+          </div>
+          <div class="col-span-1 flex justify-center bg-gray-50 py-8 px-8">
+            <img
+              class="max-h-12"
+              src="https://tailwindui.com/img/logos/laravel-logo-gray-400.svg"
+              alt="Laravel"
+            />
+          </div>
+          <div class="col-span-1 flex justify-center bg-gray-50 py-8 px-8">
+            <img
+              class="max-h-12"
+              src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg"
+              alt="StaticKit"
+            />
+          </div>
+          <div class="col-span-1 flex justify-center bg-gray-50 py-8 px-8">
+            <img
+              class="max-h-12"
+              src="https://tailwindui.com/img/logos/statamic-logo-gray-400.svg"
+              alt="Statamic"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </Showcase>
 
   <div class="fixed inset-x-0 bottom-0 pb-2 sm:pb-5">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -260,7 +274,8 @@ const description =
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   d="M10.34 15.84c-.688-.06-1.386-.09-2.09-.09H7.5a4.5 4.5 0 110-9h.75c.704 0 1.402-.03 2.09-.09m0 9.18c.253.962.584 1.892.985 2.783.247.55.06 1.21-.463 1.511l-.657.38c-.551.318-1.26.117-1.527-.461a20.845 20.845 0 01-1.44-4.282m3.102.069a18.03 18.03 0 01-.59-4.59c0-1.586.205-3.124.59-4.59m0 9.18a23.848 23.848 0 018.835 2.535M10.34 6.66a23.847 23.847 0 008.835-2.535m0 0A23.74 23.74 0 0018.795 3m.38 1.125a23.91 23.91 0 011.014 5.395m-1.014 8.855c-.118.38-.245.754-.38 1.125m.38-1.125a23.91 23.91 0 001.014-5.395m0-3.46c.495.413.811 1.035.811 1.73 0 .695-.316 1.317-.811 1.73m0-3.46a24.347 24.347 0 010 3.46"
-                ></path>
+                >
+                </path>
               </svg>
             </span>
             <p class="ml-3 truncate font-medium text-white">

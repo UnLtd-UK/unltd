@@ -16,11 +16,31 @@
     ],
     "formats": [
         {
-            "name": "Workshop",
+            "name": "Conference",
             "description": "Bring people together to participate in a collective activity."
         },
         {
-            "name": "Lectures",
+            "name": "Workshop",
+            "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
+        },
+        {
+            "name": "Festival",
+            "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
+        },
+        {
+            "name": "Networking",
+            "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
+        },
+        {
+            "name": "Social Gathering",
+            "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
+        },
+        {
+            "name": "Lecture",
+            "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
+        },
+        {
+            "name": "Tour",
             "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
         }
     ]
