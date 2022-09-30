@@ -10,7 +10,8 @@
                 ],
                 "organisations": [
                     {
-                        "id": 1
+                        "id": 1,
+                        "img": "https://tailwindui.com/img/logos/transistor-logo-gray-400.svg"
                     }
                 ]
             }
@@ -26,7 +27,8 @@
                 ],
                 "organisations": [
                     {
-                        "id": 1
+                        "id": 1,
+                        "img": "https://tailwindui.com/img/logos/transistor-logo-gray-400.svg"
                     }
                 ]
             }
@@ -42,7 +44,8 @@
                 ],
                 "organisations": [
                     {
-                        "id": 1
+                        "id": 1,
+                        "img": "https://tailwindui.com/img/logos/transistor-logo-gray-400.svg"
                     }
                 ]
             }
@@ -58,7 +61,8 @@
                 ],
                 "organisations": [
                     {
-                        "id": 1
+                        "id": 1,
+                        "img": "https://tailwindui.com/img/logos/transistor-logo-gray-400.svg"
                     }
                 ]
             }

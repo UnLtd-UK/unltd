@@ -159,47 +159,36 @@ const description =
     name="Experts"
     subtitle="Get paired with a pro"
     bg="bg-green-200"
-    text="text-green-600"
+    text="text-green-700"
     px="px-3.0"
     icon="bolt"
     description="An Expert is a employee of an organisations or a volunteer we have partnered with. Navigate our topics and see if an expert is available. If they are you will see summary of what expertise they can lend and what you could expect from being paired with them. One-off conversation or regular meetings."
   >
-
-{
+<div class="flex flex-col gap-3">
+  {
     categories.map((category) => (
-      <div class="p-8 text-black rounded-xl basis-1/2 bg-grey-200">
-        <h3 class="font-bold text-xl">{category.name} Experts</h3>
+      <div class="p-8 text-black rounded-xl basis-1/2 bg-gray-100 gap-4 flex flex-col">
+        <div class="flex flex-col gap-1">
+          <h3 class="font-bold text-xl">{category.name} Experts</h3>
         <p>{category.description}</p>
-        <div class="flex agap-2"></div>
+        </div>
+        <div class="flex gap-2">
         {pathways.map((pathway) => {
           if (category.id === pathway.category.id)
             return (
               <Fragment>
                 {topics.map((topic) => (
                     topic.id === pathway.topic.id &&
-                        <p class="bg-blue-200 m-2 inline py-2 px-4 rounded-full ">{topic.name}</p>
+                        <p class="inline py-2 px-4 rounded-full text-sm font-bold text-green-700 bg-green-200">{topic.name}</p>
                     ))}
               </Fragment>
             );
         })}
       </div>
+    </div>
     ))
   }
-
-    {
-      categories.map((category) => {
-        return <p class="text-black">{category.id}</p>;
-        pathways.map((pathway) => {
-          return <p class="text-black">{pathway.id}</p>;
-          if (category.id === pathway.category.id) {
-            return <p>{category.name}</p>;
-            topics.map((topic) => {
-              return <p>{topic.name}</p>;
-            });
-          }
-        });
-      })
-    }
+</div>
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="bg-white">
       <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
