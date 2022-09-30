@@ -28,6 +28,7 @@
                 "organisations": [
                     {
                         "id": 1,
+                        "name": "",
                         "img": "https://tailwindui.com/img/logos/transistor-logo-gray-400.svg"
                     }
                 ]
