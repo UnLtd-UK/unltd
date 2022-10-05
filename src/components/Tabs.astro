@@ -52,17 +52,17 @@ const { parentItems, childrenItems, pathways } = Astro.props;
             }
         </nav>
     </div>
-    { parentItems.map((parentItem, parentItemIndex) => (
-        parentItemIndex === 0 ?
-            <div id={ parentItem.slug } class="tabcontent">
-                <p>{ parentItem.name }</p>
-            </div>
-            :
-            <div id={ parentItem.slug } class="tabcontent hidden">
-                <p>{ parentItem.name }</p>
-            </div>
-    ))}
 </div>
+{ parentItems.map((parentItem, parentItemIndex) => (
+    parentItemIndex === 0 ?
+        <div id={ parentItem.slug } class="tabcontent">
+            <p>{ parentItem.name }</p>
+        </div>
+        :
+        <div id={ parentItem.slug } class="tabcontent hidden">
+            <p>{ parentItem.name }</p>
+        </div>
+))}
 
 <!-- <div id="{parentItem.slug}"  class="tabcontent"> { childrenItems.map( (childrenItem) => ( <p>{ childrenItem.name }</p> ))}</div>
 <div id="{parentItem.slug}"  class="tabcontent hidden"> { childrenItems.map( (childrenItem) => ( <p>{ childrenItem.name }</p> ))}</div> -->

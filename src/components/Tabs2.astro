@@ -1,0 +1,121 @@
+---
+const { parentItems, childrenItems, pathways } = Astro.props;
+---
+
+<script is:inline>
+  // mobile - get chosen element with argumenmt
+  function function1(name) {
+
+    name = name || document.getElementById("tabs").value;
+
+    console.log(name)
+
+    // make all tab content hidden
+    let tabcontent = document.getElementsByClassName("tabcontent");
+    for (let i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].className = "tabcontent hidden";
+    }
+
+    // make all tablinks non-selected
+    let tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className =
+        "tablinks whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300";
+    }
+
+    //make selected
+    let optionElem = document.getElementById(`option-${name}`);
+
+    let aElem = document.getElementById(`a-${name}`);
+
+    let contentElem = document.getElementById(`content-${name}`);
+
+    optionElem.setAttribute("selected", "");
+    contentElem.classList.remove("hidden");
+    aElem.setAttribute("aria-current", "page");
+    aElem.className =
+      "tablinks whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm border-indigo-500 text-indigo-600";
+  }
+</script>
+
+<div>
+  <div class="sm:hidden">
+    <label for="tabs" class="sr-only">Select a tab</label>
+    <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+
+    <select
+      onchange="function1()"
+      id="tabs"
+      name="tabs"
+      class="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+    >
+      {
+        parentItems.map((parentItem, parentItemIndex) =>
+          parentItemIndex === 0 ? (
+            <option
+              id={`option-${parentItem.slug}`}
+              value={parentItem.slug}
+              selected
+            >
+              {parentItem.name}
+            </option>
+          ) : (
+            <option
+              id={`option-${parentItem.slug}`}
+              value={parentItem.slug}
+              onchange={`myFunction("${parentItem.slug}")`}
+            >
+              {parentItem.name}
+            </option>
+          )
+        )
+      }
+    </select>
+  </div>
+  <div class="hidden sm:block">
+    <div class="border-b border-gray-200">
+      <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+        <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
+        {
+          parentItems.map((parentItem, parentItemIndex) =>
+            parentItemIndex === 0 ? (
+              <a
+                id={`a-${parentItem.slug}`}
+                onclick={`function1('${parentItem.slug}')`}
+                href={`#${parentItem.slug}`}
+                class="border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+                aria-current="page"
+              >
+                {parentItem.name}
+              </a>
+            ) : (
+              <a
+                id={`a-${parentItem.slug}`}
+                onclick={`function1('${parentItem.slug}')`}
+                href={`#${parentItem.slug}`}
+                class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm"
+              >
+                {parentItem.name}
+              </a>
+            )
+          )
+        }
+      </nav>
+    </div>
+  </div>
+  <div>
+    {
+      parentItems.map((parentItem, parentItemIndex) =>
+        parentItemIndex === 0 ? (
+          <div id={`content-${parentItem.slug}`} class="tabcontent">
+            <p class="text-black">{parentItem.name}</p>
+          </div>
+        ) : (
+          <div id={`content-${parentItem.slug}`} class="tabcontent hidden">
+            <p class="text-black">{parentItem.name}</p>
+          </div>
+        )
+      )
+    }
+  </div>
+</div>
