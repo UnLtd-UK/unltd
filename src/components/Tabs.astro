@@ -7,14 +7,15 @@ const { parentItems, childrenItems, pathways } = Astro.props;
         let i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
+            tabcontent[i].className = "tabcontent hidden"; 
         }
         tablinks = document.getElementsByClassName("tablinks");
         for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
+            tablinks[i].className = tablinks[i].className.replace(" border-indigo-500 text-indigo-600", "border-transparent text-gray-500");
         }
-        document.getElementById(name).style.display = "block";
-        evt.currentTarget.className += " active";
+        console.log(name)
+        document.getElementById(name).classList.remove("hidden");
+        evt.currentTarget.className += " border-indigo-500 text-indigo-600";
 
     }
 </script>
@@ -37,14 +38,26 @@ const { parentItems, childrenItems, pathways } = Astro.props;
                 parentItems.map((parentItem, parentItemIndex) => (
                     <div>
                         { parentItemIndex === 0 ? 
-                            <button id="{`button-${parentItem.slug}`}" type="button" onclick={`openTab(event, '${parentItem.slug}')`} class="border-indigo-500 text-indigo-600 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm active" aria-current="page">{ parentItem.name }</button>
+                            <button id={`button-${parentItem.slug}`} type="button" onclick={`openTab(event, '${parentItem.slug}')`} class="border-indigo-500 text-indigo-600 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm active" aria-current="page">{ parentItem.name }</button>
                             :
-                            <button id="{`button-${parentItem.slug}`}" type="button" onclick={`openTab(event, '${parentItem.slug}')`} class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">{ parentItem.name }</button>
+                            <button id={`button-${parentItem.slug}`} type="button" onclick={`openTab(event, '${parentItem.slug}')`} class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">{ parentItem.name }</button>
                         }
                     </div>
                 ))
             }
         </nav>
     </div>
+    { parentItems.map((parentItem, parentItemIndex) => (
+        parentItemIndex === 0 ?
+            <div id={ parentItem.slug } class="tabcontent">
+                <p>{ parentItem.name }</p>
+            </div>
+            :
+            <div id={ parentItem.slug } class="tabcontent hidden">
+                <p>{ parentItem.name }</p>
+            </div>
+    ))}
 </div>
-<slot/>
+
+<!-- <div id="{parentItem.slug}"  class="tabcontent"> { childrenItems.map( (childrenItem) => ( <p>{ childrenItem.name }</p> ))}</div>
+<div id="{parentItem.slug}"  class="tabcontent hidden"> { childrenItems.map( (childrenItem) => ( <p>{ childrenItem.name }</p> ))}</div> -->

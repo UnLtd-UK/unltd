@@ -10,6 +10,7 @@ import categories from "../data/support/categories.json";
 import topics from "../data/support/topics.json";
 import events from "../data/events.json";
 import pathways from "../data/support/pathways.json";
+import quotes from "../data/quotes.json";
 
 import experts from "../data/experts/experts.json";
 
@@ -93,20 +94,6 @@ const description =
             childrenItems={topics}
             pathways={pathways}
           >
-            {
-              categories.map((category) => (
-                <div>
-                  {topics.map((topic) => (
-                    <div id={category.slug} class="tabcontent hidden">
-                      <div>
-                        <h3>{topic.name}</h3>
-                        <p>{topic.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ))
-            }
           </Tabs>
         </div>
       </div>
@@ -142,7 +129,7 @@ const description =
     icon="calendar"
     description="How we can support you etur In-person adipiscing elit, sed do eiusmod tempor Online ut labore et dolore magna aliqua. Ut enim ad minim Online veniam, quis nostrud exercitation ullamco In-person nisi ut aliquip ex ea commodo consequat.anim id est laborum."
   >
-    <div class="flex gap-2">
+    <div class="flex gap-2 flex-wrap">
       {
         events.formats.map((format) => (
           <Badge bg="hover:bg-orange-100" text="text-orange-800">
@@ -153,6 +140,27 @@ const description =
     </div>
     <div class="text-black">
       {events.formats.map((format, index) => <p>{format.description}</p>)}
+    </div>
+
+    <div class="flex gap-3 flex-wrap">
+      {
+        quotes.map((quote) => (
+          <div class="text-black bg-gray-00 p-6 rounded-md flex flex-col gap-4">
+            
+            <i class="text-2xl fa-solid fa-quote-left"></i>
+            <p class="">{ quote.description }</p>
+            <div class="flex gap-2 items-center">
+              <img src={ quote.img } alt="" class="w-10 h-10 rounded-full">
+              <div class="flex flex-col">
+                <span class=" text-xs p-1 inline">{ quote.type }</span>
+                <p class="font-bold">{ quote.name }</p>
+              <p class="text-sm">{ quote.organisation }</p>
+              </div>
+              
+            </div>
+          </div>
+        ))
+      }
     </div>
   </Showcase>
 
@@ -173,7 +181,7 @@ const description =
               <h3 class="font-bold text-xl">{category.name} Experts</h3>
               <p>{category.description}</p>
             </div>
-            <div class="flex gap-2">
+            <div class="flex gap-2 flex-wrap">
               {pathways.map((pathway) => {
                 if (category.id === pathway.category.id)
                   return (
@@ -181,7 +189,7 @@ const description =
                       {topics.map(
                         (topic) =>
                           topic.id === pathway.topic.id && (
-                            <p class="inline py-2 px-4 rounded-full text-sm font-bold text-green-700 bg-green-200">
+                            <p class="inline py-2 px-4 rounded-full text-xs font-bold text-green-700 bg-green-200">
                               {topic.name}
                             </p>
                           )
@@ -190,12 +198,12 @@ const description =
                   );
               })}
             </div>
-          </div>
+          </div>  
         ))
       }
+
     </div>
-    <!-- This example requires Tailwind CSS v2.0+ -->
-    <div class="bg-white">
+
       <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-10 lg:px-8">
         <p class="text-center text-lg font-semibold text-gray-600">
           Our Experts are made up volunteers, independent and from organisations
@@ -215,6 +223,25 @@ const description =
           }
         </div>
       </div>
-    </div>
+
+      <div class="flex gap-3 flex-wrap">
+        {
+          quotes.map((quote) => (
+            <div class="text-black bg-gray-00 p-6 rounded-md flex flex-col gap-4">
+              <i class="text-2xl fa-solid fa-quote-left"></i>
+              <p class="">{ quote.description }</p>
+              <div class="flex gap-2 items-center">
+                <img src={ quote.img } alt="" class="w-10 h-10 rounded-full">
+                <div class="flex flex-col">
+                  <p class="font-bold">{ quote.name }</p>
+                <p>{ quote.organisation }</p>
+                </div>
+                
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
   </Showcase>
 </Template>
