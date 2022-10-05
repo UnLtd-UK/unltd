@@ -5,17 +5,22 @@ const { parentItems, childrenItems, pathways } = Astro.props;
 <script is:inline>
     function openTab(evt, name) {
         let i, tabcontent, tablinks;
+
+        // make all tab content hidden
         tabcontent = document.getElementsByClassName("tabcontent");
         for (i = 0; i < tabcontent.length; i++) {
             tabcontent[i].className = "tabcontent hidden"; 
         }
+
+        // make all tablinks non-selected
         tablinks = document.getElementsByClassName("tablinks");
         for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" border-indigo-500 text-indigo-600", "border-transparent text-gray-500");
+            tablinks[i].className = "tablinks whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300";
         }
-        console.log(name)
+
+        //make selected
         document.getElementById(name).classList.remove("hidden");
-        evt.currentTarget.className += " border-indigo-500 text-indigo-600";
+        evt.currentTarget.className = "tablinks whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm border-indigo-500 text-indigo-600";
 
     }
 </script>
@@ -38,9 +43,9 @@ const { parentItems, childrenItems, pathways } = Astro.props;
                 parentItems.map((parentItem, parentItemIndex) => (
                     <div>
                         { parentItemIndex === 0 ? 
-                            <button id={`button-${parentItem.slug}`} type="button" onclick={`openTab(event, '${parentItem.slug}')`} class="border-indigo-500 text-indigo-600 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm active" aria-current="page">{ parentItem.name }</button>
+                            <button id={`button-${parentItem.slug}`} type="button" onclick={`openTab(event, '${parentItem.slug}')`} class="tablinks whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm border-indigo-500 text-indigo-600" aria-current="page">{ parentItem.name }</button>
                             :
-                            <button id={`button-${parentItem.slug}`} type="button" onclick={`openTab(event, '${parentItem.slug}')`} class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm">{ parentItem.name }</button>
+                            <button id={`button-${parentItem.slug}`} type="button" onclick={`openTab(event, '${parentItem.slug}')`} class="tablinks whitespace-nowrap pb-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">{ parentItem.name }</button>
                         }
                     </div>
                 ))
