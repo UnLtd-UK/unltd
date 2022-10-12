@@ -28,7 +28,28 @@
         {
             "name": "Get Involved",
             "slug": "get-involved",
-            "children": []
+            "children": [
+                {
+                    "name": "Donate",
+                    "slug": "donate"
+                },
+                {
+                    "name": "Fundraise",
+                    "slug": "fundraise"
+                },
+                {
+                    "name": "Campaign",
+                    "slug": "campaign"
+                },
+                {
+                    "name": "Volunteer",
+                    "slug": "volunteer"
+                },
+                {
+                    "name": "Partner",
+                    "slug": "partner"
+                }
+            ]
         },
         {
             "name": "About us",

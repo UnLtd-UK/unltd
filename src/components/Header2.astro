@@ -1,0 +1,107 @@
+---
+import nav from "../data/nav.json";
+---
+
+<script is:inline>
+  function myFunction(item) {
+    console.log("Specific click");
+    let dropdownContent = document.getElementById("dropdownContent-" + item);
+    let dropdownButton = document.getElementById("dropdownButton-" + item);
+    let dropdownContents = document.getElementsByClassName("dropdownContent");
+    let dropdownButtons = document.getElementsByClassName("dropdownButton");
+
+    // hide all unhidden content except the elemet clicked
+    for (let i = 0; i < dropdownContents.length; i++) {
+      if (!dropdownContents[i].id === "dropdownContent-" + item) {
+        if (dropdownContents[i].classList.contains("hidden")) {
+          dropdownContents[i].classList.add("hidden");
+        }
+      }
+    }
+
+    // 'aria-expanded: false' all 'aria-expanded: true' buttons
+    for (let i = 0; i < dropdownButtons.length; i++) {
+      if (!dropdownButtons[i].id === "dropdownButton-" + item) {
+        if (dropdownButtons[i].getAttribute("aria-expanded") == "true") {
+          dropdownButtons[i].setAttribute("aria-expanded", false);
+        }
+      }
+    }
+
+    // toggle hidden on content
+    dropdownContent.classList.toggle("hidden");
+
+    // toggle aria-expanded on button
+    let jog = dropdownButton.getAttribute("aria-expanded");
+    console.log(jog);
+    if (jog == "true") {
+      console.log("closing", dropdownButton.getAttribute("aria-expanded"));
+      dropdownButton.setAttribute("aria-expanded", "false");
+    } else {
+      console.log("opening", dropdownButton.getAttribute("aria-expanded"));
+      dropdownButton.setAttribute("aria-expanded", "true");
+    }
+  }
+
+  // Close the dropdown if the user clicks outside of it
+  // if event
+  // window.onclick = function (event) {
+  //   console.log('Any click')
+  //   // event id  is not equal
+  //   if (!event.target.matches('.dropdown')) {
+  //     let dropdownContent = document.getElementsByClassName("dropdownContent");
+  //     let i;
+  //     for (i = 0; i < dropdownContent.length; i++) {
+  //       let openDropdown = dropdownContent[i];
+  //       if (!openDropdown.classList.contains("hidden")) {
+  //         openDropdown.classList.add("hidden");
+  //       }
+  //       openDropdown.setAttribute('aria-expanded', false);
+  //     }
+  //   }
+  // };
+</script>
+
+<div class="flex gap-10 m-10">
+  {
+    nav.header.map((navItem) => (
+      <div>
+        {navItem.children.length >= 1 ? (
+          <div class="dropdown">
+            <button
+              id={`dropdownButton-${navItem.slug}`}
+              class="dropdownButton text-base font-medium text-gray-500 hover:text-gray-900"
+              onclick={`myFunction("${navItem.slug}")`}
+              aria-expanded="false"
+            >
+              {navItem.name}
+            </button>
+
+            <div
+              id={`dropdownContent-${navItem.slug}`}
+              class="dropdownContent hidden"
+            >
+              <div class="flex flex-col">
+                {navItem.children.map((navItemChild) => (
+                  <a
+                    href={navItemChild.link}
+                    class="text-base font-medium text-gray-500 hover:text-gray-900"
+                  >
+                    {navItemChild.name}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <a
+            href={`/${navItem.slug}`}
+            class="text-base font-medium text-gray-500 hover:text-gray-900"
+          >
+            {navItem.name}
+          </a>
+        )}
+      </div>
+    ))
+  }
+</div>

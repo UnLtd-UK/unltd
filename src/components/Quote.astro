@@ -1,0 +1,15 @@
+---
+const { text, img, name, organisation } = Astro.props;
+---
+
+<div class="text-black bg-gray-00 p-6 rounded-md flex flex-col gap-4">
+  <i class="text-2xl fa-solid fa-quote-left"></i>
+  <p class="">{text}</p>
+  <div class="flex gap-2 items-center">
+    <img src={img} alt="" class="w-10 h-10 rounded-full" />
+    <div class="flex flex-col">
+      <p class="font-bold">{name}</p>
+      <p>{organisation}</p>
+    </div>
+  </div>
+</div>
