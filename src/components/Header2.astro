@@ -3,34 +3,52 @@ import nav from "../data/nav.json";
 ---
 
 <script is:inline>
+  let dropdownButtons = document.getElementsByClassName("dropdownButton");
+  let dropdownContents = document.getElementsByClassName("dropdownContent");
+  let dropdownItems = document.getElementsByClassName("dropdownItem");
+  let dropdownAs = document.getElementsByClassName("dropdownA");
+
+  // button styling reset expect the selected one
+
+  function hideContent(dropdownContent) {
+    if (!dropdownContent.classList.contains("hidden")) {
+      dropdownContent.classList.add("hidden");
+    }
+  }
+
+  function hideButton(dropdownButton) {
+    if (dropdownButton.getAttribute("aria-expanded") === "true") {
+      dropdownButton.setAttribute("aria-expanded", false);
+    }
+  }
+
   function myFunction(item) {
     let dropdownContentId = "dropdownContent-" + item;
     let dropdownButtonId = "dropdownButton-" + item;
     let dropdownContent = document.getElementById(dropdownContentId);
     let dropdownButton = document.getElementById(dropdownButtonId);
-    let dropdownContents = document.getElementsByClassName("dropdownContent");
-    let dropdownButtons = document.getElementsByClassName("dropdownButton");
 
     // hide all unhidden content except the elemet clicked
     for (let i = 0; i < dropdownContents.length; i++) {
-      if (!(dropdownContents[i].id === dropdownContentId) && !(dropdownContents[i].classList.contains("hidden"))) {
-          dropdownContents[i].classList.add("hidden");
-        }
+      if (!(dropdownContents[i].id === dropdownContentId)) {
+        hideContent(dropdownContents[i]);
+      }
     }
 
     // 'aria-expanded: false' all 'aria-expanded: true' buttons
     for (let i = 0; i < dropdownButtons.length; i++) {
-      if (!(dropdownButtons[i].id === dropdownButtonId) && dropdownButtons[i].getAttribute("aria-expanded") === "true") {
-        dropdownButtons[i].setAttribute("aria-expanded", false);
+      if (!(dropdownButtons[i].id === dropdownButtonId)) {
+        hideButton(dropdownButtons[i]);
       }
     }
+
+    // button styling
 
     // toggle hidden on content
     dropdownContent.classList.toggle("hidden");
 
     // toggle aria-expanded on button
-    let jog = dropdownButton.getAttribute("aria-expanded");
-    if (jog == "true") {
+    if (dropdownButton.getAttribute("aria-expanded") === "true") {
       dropdownButton.setAttribute("aria-expanded", "false");
     } else {
       dropdownButton.setAttribute("aria-expanded", "true");
@@ -39,21 +57,20 @@ import nav from "../data/nav.json";
 
   // Close the dropdown if the user clicks outside of it
   // if event
-  // window.onclick = function (event) {
-  //   console.log('Any click')
-  //   // event id  is not equal
-  //   if (!event.target.matches('.dropdown')) {
-  //     let dropdownContent = document.getElementsByClassName("dropdownContent");
-  //     let i;
-  //     for (i = 0; i < dropdownContent.length; i++) {
-  //       let openDropdown = dropdownContent[i];
-  //       if (!openDropdown.classList.contains("hidden")) {
-  //         openDropdown.classList.add("hidden");
-  //       }
-  //       openDropdown.setAttribute('aria-expanded', false);
-  //     }
-  //   }
-  // };
+  window.onclick = function (event) {
+    if (!(event.target.classList.contains("dropdownButton") || event.target.classList.contains("dropdownContent") || event.target.classList.contains("dropdownItem") || event.target.classList.contains("dropdownA"))) {
+      for (let i = 0; i < dropdownContents.length; i++) {
+        hideContent(dropdownContents[i]);
+      }
+
+      for (let i = 0; i < dropdownButtons.length; i++) {
+        hideButton(dropdownButtons[i]);
+      }
+
+      // reset button styling
+
+    }
+  };
 </script>
 
 <div class="flex gap-10 m-10">
@@ -64,22 +81,22 @@ import nav from "../data/nav.json";
           <div class="dropdown">
             <button
               id={`dropdownButton-${navItem.slug}`}
-              class="dropdownButton text-base font-medium text-gray-500 hover:text-gray-900"
+              class="dropdownButton text-base font-medium hover:bg-gray-300 p-3 text-gray-500 hover:text-gray-900"
               onclick={`myFunction("${navItem.slug}")`}
               aria-expanded="false"
             >
-              {navItem.name}
+              {navItem.name} &#5167;
             </button>
 
             <div
               id={`dropdownContent-${navItem.slug}`}
-              class="dropdownContent hidden"
+              class="hidden p-3 bg-gray-300 border border-sky-500 dropdownContent absolute"
             >
-              <div class="flex flex-col">
+              <div class="flex flex-col gap-1 p-1 bg-gray-200 border border-red-500 dropdownItem">
                 {navItem.children.map((navItemChild) => (
                   <a
-                    href={navItemChild.link}
-                    class="text-base font-medium text-gray-500 hover:text-gray-900"
+                    href={`/${navItemChild.slug}`}
+                    class="text-base font-medium p-2 bg-gray-100 border border-green-500 dropdownA"
                   >
                     {navItemChild.name}
                   </a>
@@ -90,7 +107,7 @@ import nav from "../data/nav.json";
         ) : (
           <a
             href={`/${navItem.slug}`}
-            class="text-base font-medium text-gray-500 hover:text-gray-900"
+            class="text-base font-medium hover:bg-gray-300 p-3 text-gray-500 hover:text-gray-900"
           >
             {navItem.name}
           </a>
