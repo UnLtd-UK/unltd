@@ -65,7 +65,7 @@ import nav from "../data/nav.json";
   };
 </script>
 
-<div class="flex gap-10 p-10">
+<main class="flex gap-10 p-10">
   {
     nav.header.map((navItem) => (
       <div>
@@ -97,14 +97,25 @@ import nav from "../data/nav.json";
             </div>
           </div>
         ) : (
-          <a
-            href={`/${navItem.slug}`}
-            class="p-3 font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900"
-          >
-            {navItem.name}
-          </a>
+          <div>
+            {navItem.slug ? (
+              <a
+                href={`/${navItem.slug}`}
+                class="p-3 font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900"
+              >
+                {navItem.name}
+              </a>
+            ) : (
+              <a
+              href={ navItem.link } target="_blank"
+                class="p-3 font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900"
+              >
+                {navItem.name} &#10532;
+              </a>
+            )}
+          </div>
         )}
       </div>
     ))
   }
-</div>
+</main>
