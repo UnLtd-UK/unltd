@@ -65,10 +65,10 @@ import nav from "../data/nav.json";
   };
 </script>
 
-<main class="flex gap-10 p-10">
+<main class="flex gap-10 p-10 items-center">
   {
     nav.header.map((navItem) => (
-      <div>
+      <div class="">
         {navItem.children.length >= 1 ? (
           <div class="dropdown">
             <button
@@ -97,7 +97,7 @@ import nav from "../data/nav.json";
             </div>
           </div>
         ) : (
-          <div>
+          <div class="">
             {navItem.slug ? (
               <a
                 href={`/${navItem.slug}`}
