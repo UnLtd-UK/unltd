@@ -5,20 +5,16 @@ import nav from "../data/nav.json";
 <script is:inline>
   let dropdownButtons = document.getElementsByClassName("dropdownButton");
   let dropdownContents = document.getElementsByClassName("dropdownContent");
-  let dropdownItems = document.getElementsByClassName("dropdownItem");
-  let dropdownAs = document.getElementsByClassName("dropdownA");
-
-  // button styling reset expect the selected one
-
-  function hideContent(dropdownContent) {
-    if (!dropdownContent.classList.contains("hidden")) {
-      dropdownContent.classList.add("hidden");
-    }
-  }
 
   function hideButton(dropdownButton) {
     if (dropdownButton.getAttribute("aria-expanded") === "true") {
       dropdownButton.setAttribute("aria-expanded", false);
+    }
+  }
+
+  function hideContent(dropdownContent) {
+    if (!dropdownContent.classList.contains("hidden")) {
+      dropdownContent.classList.add("hidden");
     }
   }
 
@@ -28,26 +24,20 @@ import nav from "../data/nav.json";
     let dropdownContent = document.getElementById(dropdownContentId);
     let dropdownButton = document.getElementById(dropdownButtonId);
 
-    // hide all unhidden content except the elemet clicked
-    for (let i = 0; i < dropdownContents.length; i++) {
-      if (!(dropdownContents[i].id === dropdownContentId)) {
-        hideContent(dropdownContents[i]);
-      }
-    }
-
-    // 'aria-expanded: false' all 'aria-expanded: true' buttons
     for (let i = 0; i < dropdownButtons.length; i++) {
       if (!(dropdownButtons[i].id === dropdownButtonId)) {
         hideButton(dropdownButtons[i]);
       }
     }
 
-    // button styling
+    for (let i = 0; i < dropdownContents.length; i++) {
+      if (!(dropdownContents[i].id === dropdownContentId)) {
+        hideContent(dropdownContents[i]);
+      }
+    }
 
-    // toggle hidden on content
     dropdownContent.classList.toggle("hidden");
 
-    // toggle aria-expanded on button
     if (dropdownButton.getAttribute("aria-expanded") === "true") {
       dropdownButton.setAttribute("aria-expanded", "false");
     } else {
@@ -55,10 +45,15 @@ import nav from "../data/nav.json";
     }
   }
 
-  // Close the dropdown if the user clicks outside of it
-  // if event
   window.onclick = function (event) {
-    if (!(event.target.classList.contains("dropdownButton") || event.target.classList.contains("dropdownContent") || event.target.classList.contains("dropdownItem") || event.target.classList.contains("dropdownA"))) {
+    if (
+      !(
+        event.target.classList.contains("dropdownButton") ||
+        event.target.classList.contains("dropdownContent") ||
+        event.target.classList.contains("dropdownItem") ||
+        event.target.classList.contains("dropdownA")
+      )
+    ) {
       for (let i = 0; i < dropdownContents.length; i++) {
         hideContent(dropdownContents[i]);
       }
@@ -66,14 +61,11 @@ import nav from "../data/nav.json";
       for (let i = 0; i < dropdownButtons.length; i++) {
         hideButton(dropdownButtons[i]);
       }
-
-      // reset button styling
-
     }
   };
 </script>
 
-<div class="flex gap-10 m-10">
+<div class="flex gap-10 p-10">
   {
     nav.header.map((navItem) => (
       <div>
@@ -81,7 +73,7 @@ import nav from "../data/nav.json";
           <div class="dropdown">
             <button
               id={`dropdownButton-${navItem.slug}`}
-              class="dropdownButton text-base font-medium hover:bg-gray-300 p-3 text-gray-500 hover:text-gray-900"
+              class="dropdownButton p-3 font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 focus:font-bold focus:bg-gray-300 focus:text-gray-900"
               onclick={`myFunction("${navItem.slug}")`}
               aria-expanded="false"
             >
@@ -107,7 +99,7 @@ import nav from "../data/nav.json";
         ) : (
           <a
             href={`/${navItem.slug}`}
-            class="text-base font-medium hover:bg-gray-300 p-3 text-gray-500 hover:text-gray-900"
+            class="p-3 font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900"
           >
             {navItem.name}
           </a>
