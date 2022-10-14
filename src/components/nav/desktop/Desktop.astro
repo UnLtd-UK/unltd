@@ -5,9 +5,6 @@ import Dropdown from "./Dropdown.astro";
 ---
 
 <script is:inline>
-  let dropdownButtons = document.getElementsByClassName("dropdownButton");
-  let dropdownContents = document.getElementsByClassName("dropdownContent");
-
   function hideButton(dropdownButton) {
     if (dropdownButton.getAttribute("aria-expanded") === "true") {
       dropdownButton.setAttribute("aria-expanded", false);
@@ -21,14 +18,15 @@ import Dropdown from "./Dropdown.astro";
   }
 
   window.onclick = function (event) {
-    if (
-      !(
-        event.target.classList.contains("dropdownButton") ||
-        event.target.classList.contains("dropdownContent") ||
-        event.target.classList.contains("dropdownItem") ||
-        event.target.classList.contains("dropdownA")
-      )
-    ) {
+    if (!event.target.dataset.dropdown) {
+      let dropdownContents = document.querySelectorAll(
+        "[data-dropdown=dropdownContent]"
+      );
+
+      let dropdownButtons = document.querySelectorAll(
+        "[data-dropdown=dropdownButton]"
+      );
+
       for (let i = 0; i < dropdownContents.length; i++) {
         hideContent(dropdownContents[i]);
       }
@@ -44,6 +42,14 @@ import Dropdown from "./Dropdown.astro";
     let dropdownButtonId = "dropdownButton-" + item;
     let dropdownContent = document.getElementById(dropdownContentId);
     let dropdownButton = document.getElementById(dropdownButtonId);
+
+    let dropdownButtons = document.querySelectorAll(
+      "[data-dropdown=dropdownButton]"
+    );
+
+    let dropdownContents = document.querySelectorAll(
+      "[data-dropdown=dropdownContent]"
+    );
 
     for (let i = 0; i < dropdownButtons.length; i++) {
       if (!(dropdownButtons[i].id === dropdownButtonId)) {
@@ -68,11 +74,27 @@ import Dropdown from "./Dropdown.astro";
 </script>
 
 <nav>
-  <ul class="dropdown hidden lg:flex gap-10 p-10 items-center">
-    { nav.header.map((navItem) => (
-      <>
-      <li>{ navItem.children.length >= 1 ? <Dropdown name={navItem.name} slug={navItem.slug} children={navItem.children}></Dropdown> : <Anchor name={ navItem.name } slug={ navItem.slug } link={ navItem.link }></Anchor> } </li>
-      </>   
-    ))}     
+  <ul class="hidden lg:flex gap-10 p-10 items-center" data-dropdown="dropdown">
+    {
+      nav.header.map((navItem) => (
+        <>
+          <li>
+            {navItem.children.length >= 1 ? (
+              <Dropdown
+                name={navItem.name}
+                slug={navItem.slug}
+                children={navItem.children}
+              />
+            ) : (
+              <Anchor
+                name={navItem.name}
+                slug={navItem.slug}
+                link={navItem.link}
+              />
+            )}{" "}
+          </li>
+        </>
+      ))
+    }
   </ul>
 </nav>
