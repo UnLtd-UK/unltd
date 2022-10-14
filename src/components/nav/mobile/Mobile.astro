@@ -1,0 +1,184 @@
+---
+import nav from "../../../data/nav.json";
+import Item from "./Item.astro";
+import Dropdown from "./DropdownItem.astro";
+import DropdownItem from "./DropdownItem.astro";
+import Logo from "../../Logo.astro";
+---
+
+<script is:inline>
+  let mobileDropdownButtons = document.getElementsByClassName(
+    "mobileDropdownButton"
+  );
+  let mobileDropdownContents = document.getElementsByClassName(
+    "mobileDropdownContent"
+  );
+
+  function hideButton(mobileDropdownButton) {
+    if (mobileDropdownButton.getAttribute("aria-expanded") === "true") {
+      mobileDropdownButton.setAttribute("aria-expanded", false);
+    }
+  }
+
+  function hideContent(mobileDropdownContent) {
+    if (!mobileDropdownContent.classList.contains("hidden")) {
+      mobileDropdownContent.classList.add("hidden");
+    }
+  }
+
+  function hamburgerMenu() {
+    let hamburgerButton = document.getElementById("hamburgerButton");
+    let hamburgerMenu = document.getElementById("hamburgerMenu");
+    hamburgerMenu.classList.toggle("hidden");
+
+    if (hamburgerButton.getAttribute("aria-expanded") === "true") {
+      hamburgerButton.setAttribute("aria-expanded", "false");
+    } else {
+      hamburgerButton.setAttribute("aria-expanded", "true");
+    }
+
+    // change hamburgerButton class so icon changes
+  }
+
+  // window.onclick = function (event) {
+  //   console.log(
+  //     "mobileDropdownButtons",
+  //     event.target.classList.contains("mobileDropdownButtons")
+  //   );
+  //   console.log(
+  //     "mobileDropdownContents",
+  //     event.target.classList.contains("mobileDropdownContents")
+  //   );
+  //   console.log(
+  //     "mobileDropdownItems",
+  //     event.target.classList.contains("mobileDropdownItems")
+  //   );
+  //   console.log(
+  //     "mobileDropdownAs",
+  //     event.target.classList.contains("mobileDropdownAs")
+  //   );
+  //   console.log(
+  //     "hamburgerButton",
+  //     event.target.classList.contains("hamburgerButton")
+  //   );
+  //   console.log(
+  //     "hamburgerMenu",
+  //     event.target.classList.contains("hamburgerMenu")
+  //   );
+  //   console.log("hamburgerButton", event.target.id === "hamburgerButton");
+  //   console.log("hamburgerMenu", event.target.id === "hamburgerMenu");
+  //   if (
+  //     event.target.classList.contains("mobileDropdownButtons") ||
+  //     event.target.classList.contains("mobileDropdownContents") ||
+  //     event.target.classList.contains("mobileDropdownItems") ||
+  //     event.target.classList.contains("mobileDropdownAs") ||
+  //     event.target.id != "hamburgerButton" ||
+  //     event.target.id != "hamburgerMenu"
+  //   ) {
+  //     console.log("CLEAN");
+  //     for (let i = 0; i < mobileDropdownContents.length; i++) {
+  //       hideContent(mobileDropdownContents[i]);
+  //     }
+
+  //     for (let i = 0; i < mobileDropdownButtons.length; i++) {
+  //       hideButton(mobileDropdownButtons[i]);
+  //     }
+
+  //     hamburgerMenu();
+  //   }
+  // };
+
+  function mobile(item) {
+    let mobileDropdownContentId = "mobileDropdownContent-" + item;
+    let mobileDropdownButtonId = "mobileDropdownButton-" + item;
+    let mobileDropdownContent = document.getElementById(
+      mobileDropdownContentId
+    );
+    let mobileDropdownButton = document.getElementById(mobileDropdownButtonId);
+
+    for (let i = 0; i < mobileDropdownButtons.length; i++) {
+      if (!(mobileDropdownButtons[i].id === mobileDropdownButtonId)) {
+        hideButton(mobileDropdownButtons[i]);
+      }
+    }
+
+    for (let i = 0; i < mobileDropdownContents.length; i++) {
+      if (!(mobileDropdownContents[i].id === mobileDropdownContentId)) {
+        hideContent(mobileDropdownContents[i]);
+      }
+    }
+
+    mobileDropdownContent.classList.toggle("hidden");
+
+    if (mobileDropdownButton.getAttribute("aria-expanded") === "true") {
+      mobileDropdownButton.setAttribute("aria-expanded", "false");
+    } else {
+      mobileDropdownButton.setAttribute("aria-expanded", "true");
+    }
+  }
+</script>
+
+<nav class="flex flex-col lg:hidden gap-2">
+  <div class="bar flex justify-around bg-gray-300 p-3">
+    <div class="logo">
+      <p>{Astro.url.pathname}</p>
+    </div>
+    <div>
+      <button
+        id="hamburgerButton"
+        onclick="hamburgerMenu()"
+        aria-expanded="false">&#9776;</button
+      >
+    </div>
+  </div>
+
+  <ul id="hamburgerMenu" class="flex flex-col gap-5 bg-gray-300 hidden">
+    {
+      nav.header.map((navItem) =>
+        navItem.children.length >= 1 ? (
+          <li class="mobileDropdown">
+            <button
+              id={`mobileDropdownButton-${navItem.slug}`}
+              class="mobileDropdownButtons p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 focus:font-bold focus:bg-gray-300 focus:text-gray-900"
+              onclick={`mobile("${navItem.slug}")`}
+              aria-expanded="false"
+            >
+              {navItem.name} &#5167;
+            </button>
+
+            <ul
+              id={`mobileDropdownContent-${navItem.slug}`}
+              class="mobileDropdownContent hidden p-3 bg-gray-300 border border-sky-500 absolute"
+            >
+              <li class="flex flex-col gap-1 p-1 bg-gray-200 border border-red-500 mobileDropdownItem">
+                {navItem.children.map((navItemChild) => (
+                  <a
+                    href={`/${navItemChild.slug}`}
+                    class="text-sm font-medium p-2 bg-gray-100 border border-green-500 block"
+                  >
+                    {navItemChild.name}
+                  </a>
+                ))}
+              </li>
+            </ul>
+          </li>
+        ) : navItem.slug ? (
+          <li><a
+            href={`/${navItem.slug}`}
+            class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900"
+          >
+            {navItem.name}
+          </a></li>
+        ) : (
+		<li><a
+            href={navItem.link}
+            target="_blank"
+            class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900"
+          >
+            {navItem.name} &#10532;
+          </a></li>
+        )
+      )
+    }
+  </ul>
+</nav>

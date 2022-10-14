@@ -1,0 +1,28 @@
+---
+const { name, slug, children } = Astro.props;
+import Button from "./Button.astro";
+import Anchor from "./Button.astro";
+
+---
+
+<Button name={ name } slug={ slug }></Button>
+
+<ul
+  id={`dropdownContent-${slug}`}
+  class="flex flex-col gap-4 p-3 bg-gray-300 border border-sky-500 dropdownContent absolute hidden"
+>
+  {
+    children.map((navItem) => (
+      <li>
+        <a
+          href={ (navItem.slug && !navItem.link) ? `/${navItem.slug}` : `${navItem.link}`}
+          target={(!navItem.slug && navItem.link) && "_blank" }
+          class="block text-sm font-medium p-2 bg-gray-100 hover:bg-gray-300 border border-green-500 dropdownA"
+        >
+          {navItem.name}
+          {(!navItem.slug && navItem.link) && "+" }
+        </a>
+      </li>
+    ))
+  }
+</ul>

@@ -1,0 +1,78 @@
+---
+import nav from "../../../data/nav.json";
+import Anchor from "./Anchor.astro";
+import Dropdown from "./Dropdown.astro";
+---
+
+<script is:inline>
+  let dropdownButtons = document.getElementsByClassName("dropdownButton");
+  let dropdownContents = document.getElementsByClassName("dropdownContent");
+
+  function hideButton(dropdownButton) {
+    if (dropdownButton.getAttribute("aria-expanded") === "true") {
+      dropdownButton.setAttribute("aria-expanded", false);
+    }
+  }
+
+  function hideContent(dropdownContent) {
+    if (!dropdownContent.classList.contains("hidden")) {
+      dropdownContent.classList.add("hidden");
+    }
+  }
+
+  window.onclick = function (event) {
+    if (
+      !(
+        event.target.classList.contains("dropdownButton") ||
+        event.target.classList.contains("dropdownContent") ||
+        event.target.classList.contains("dropdownItem") ||
+        event.target.classList.contains("dropdownA")
+      )
+    ) {
+      for (let i = 0; i < dropdownContents.length; i++) {
+        hideContent(dropdownContents[i]);
+      }
+
+      for (let i = 0; i < dropdownButtons.length; i++) {
+        hideButton(dropdownButtons[i]);
+      }
+    }
+  };
+
+  function desktop(item) {
+    let dropdownContentId = "dropdownContent-" + item;
+    let dropdownButtonId = "dropdownButton-" + item;
+    let dropdownContent = document.getElementById(dropdownContentId);
+    let dropdownButton = document.getElementById(dropdownButtonId);
+
+    for (let i = 0; i < dropdownButtons.length; i++) {
+      if (!(dropdownButtons[i].id === dropdownButtonId)) {
+        hideButton(dropdownButtons[i]);
+      }
+    }
+
+    for (let i = 0; i < dropdownContents.length; i++) {
+      if (!(dropdownContents[i].id === dropdownContentId)) {
+        hideContent(dropdownContents[i]);
+      }
+    }
+
+    dropdownContent.classList.toggle("hidden");
+
+    if (dropdownButton.getAttribute("aria-expanded") === "true") {
+      dropdownButton.setAttribute("aria-expanded", "false");
+    } else {
+      dropdownButton.setAttribute("aria-expanded", "true");
+    }
+  }
+</script>
+
+<nav>
+  <ul class="dropdown hidden lg:flex gap-10 p-10 items-center">
+    { nav.header.map((navItem) => (
+      <>
+      <li>{ navItem.children.length >= 1 ? <Dropdown name={navItem.name} slug={navItem.slug} children={navItem.children}></Dropdown> : <Anchor name={ navItem.name } slug={ navItem.slug } link={ navItem.link }></Anchor> } </li>
+      </>   
+    ))}     
+  </ul>
+</nav>
