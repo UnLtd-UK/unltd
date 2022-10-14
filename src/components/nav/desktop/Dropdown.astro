@@ -9,7 +9,7 @@ import Anchor from "./Button.astro";
 
 <ul
   id={`dropdownContent-${slug}`}
-  class="flex flex-col gap-4 p-3 bg-gray-300 border border-sky-500 absolute hidden"
+  class="flex flex-col gap-4 p-3 bg-white text-black rounded-md absolute z-10 hidden"
   data-dropdown="dropdownContent"
 >
   {
@@ -18,11 +18,11 @@ import Anchor from "./Button.astro";
         <a
           href={ (navItem.slug && !navItem.link) ? `/${navItem.slug}` : `${navItem.link}`}
           target={(!navItem.slug && navItem.link) && "_blank" }
-          class="block text-sm font-medium p-2 bg-gray-100 hover:bg-gray-300 border border-green-500"
+          class="block text-sm font-medium p-2 hover:bg-violet-100 rounded-md"
           data-dropdown="dropdownA"
         >
-          {navItem.name}
-          {(!navItem.slug && navItem.link) && "+" }
+          <span>{navItem.name}</span>
+          {(!navItem.slug && navItem.link) && <i class="text-xs fa-solid fa-arrow-trend-up"></i> }
         </a>
       </li>
     ))

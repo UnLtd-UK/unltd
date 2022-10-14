@@ -5,9 +5,9 @@ const { name, slug, link } = Astro.props;
 <a
   href={ (slug && !link) ? `/${slug}` : `${link}`}
   target={(!slug && link) && "_blank" }
-  class="block text-sm font-medium p-2 bg-gray-100 hover:bg-gray-300"
+  class="text-base font-medium text-white hover:text-amber-500"
   data-dropdown="dropdownA"
 >
-  {name}
-  {(!slug && link) && "+" }
+  <span data-dropdown="dropdownA">{name}</span>
+  {(!slug && link) &&  <i data-dropdown="dropdownA" class="text-xs fa-solid fa-arrow-trend-up"></i> }
 </a>

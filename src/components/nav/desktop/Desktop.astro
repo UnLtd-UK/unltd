@@ -1,5 +1,6 @@
 ---
 import nav from "../../../data/nav.json";
+import Logo from "../../Logo.astro";
 import Anchor from "./Anchor.astro";
 import Dropdown from "./Dropdown.astro";
 ---
@@ -73,7 +74,52 @@ import Dropdown from "./Dropdown.astro";
   }
 </script>
 
-<nav>
+<header class="bg-violet-900">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
+    <div class="w-full py-6 flex items-center justify-between lg:border-none">
+      <div class="flex items-center justify-between">
+        <a href="/">
+          <span class="sr-only">UnLtd</span>
+          <Logo />
+        </a>
+      </div>
+      <div class="ml-10 space-x-4 flex gap-5 flex-col flex-end flex-wrap">
+        <div class="hidden lg:flex lg:ml-auto lg:flex-end">
+          <a
+            href="/"
+            class="py-1 px-8 rounded-full text-base font-medium border-solid border-2 border-white text-white hover:text-amber-500"
+            >My award account</a
+          >
+        </div>
+        <ul class="navbar hidden ml-10 space-x-8 lg:flex list-none">
+          {
+            nav.header.map((navItem) => (
+              <>
+                <li>
+                  {navItem.children.length >= 1 ? (
+                    <Dropdown
+                      name={navItem.name}
+                      slug={navItem.slug}
+                      children={navItem.children}
+                    />
+                  ) : (
+                    <Anchor
+                      name={navItem.name}
+                      slug={navItem.slug}
+                      link={navItem.link}
+                    />
+                  )}{" "}
+                </li>
+              </>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- <nav>
   <ul class="hidden lg:flex gap-10 p-10 items-center" data-dropdown="dropdown">
     {
       nav.header.map((navItem) => (
@@ -97,4 +143,4 @@ import Dropdown from "./Dropdown.astro";
       ))
     }
   </ul>
-</nav>
+</nav> -->
