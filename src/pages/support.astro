@@ -1,7 +1,8 @@
 ---
-import Template from "../layouts/Layout.astro";
+import Layout from "../layouts/Layout.astro";
 
 import Showcase from "../components/Showcase.astro";
+import Banner from "../components/Banner.astro";
 import Quote from "../components/Quote.astro";
 import Badge from "../components/Badge.astro";
 import Tabs from "../components/Tabs.astro";
@@ -19,85 +20,49 @@ import topics from "../data/support/topics.json";
 import pathways from "../data/support/pathways.json";
 
 import experts from "../data/experts/experts.json";
+import Hero from "../components/Hero.astro";
 
 const name = "Support";
-const description =
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia dolores corrupti labore tempora, rem quidem maximead asperiores eveniet maiores nobis assumenda facilis quisquam fugiat accusamus nulla similique tenetur hic?";
+const description ="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia dolores corrupti labore tempora, rem quidem maximead asperiores eveniet maiores nobis assumenda facilis quisquam fugiat accusamus nulla similique tenetur";
 ---
 
-<Template name="{ `${name}` }" description="{ `${description}` }">
+<Layout name="{ `${name}` }" description="{ `${description}` }">
 
-  <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-    <div class="flex flex-col gap-10">
-      <div class="rounded-md bg-blue-50 p-4">
-        <div class="flex">
-          <div class="flex-shrink-0">
-            <!-- Heroicon name: mini/information-circle -->
-            <svg
-              class="h-5 w-5 text-blue-400"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M19 10.5a8.5 8.5 0 11-17 0 8.5 8.5 0 0117 0zM8.25 9.75A.75.75 0 019 9h.253a1.75 1.75 0 011.709 2.13l-.46 2.066a.25.25 0 00.245.304H11a.75.75 0 010 1.5h-.253a1.75 1.75 0 01-1.709-2.13l.46-2.066a.25.25 0 00-.245-.304H9a.75.75 0 01-.75-.75zM10 7a1 1 0 100-2 1 1 0 000 2z"
-                clip-rule="evenodd"></path>
-            </svg>
-          </div>
-          <div class="ml-3 flex-1 md:flex md:justify-between">
-            <p class="text-sm text-blue-700">
-              You must have funding to access UnLtd Support
-            </p>
-            <p class="mt-3 text-sm md:mt-0 md:ml-6">
-              <a
-                href="#"
-                class="whitespace-nowrap font-medium text-blue-700 hover:text-blue-600"
-              >
-                Go to Grants
-                <span aria-hidden="true"> &rarr;</span>
-              </a>
-            </p>
-          </div>
+    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-20 py-5">
+
+        <div class="flex flex-col gap-10">
+            <!-- <Banner description="You must have funding to access UnLtd Support" linkText="Go to Grants" link="grants"></Banner> -->
+            <Hero name={ name } description={ description } features={[{ icon: "fa-user", name: "Available to Grantees and Investees"}, { icon: "fa-certificate", name: "Across the United Kingdom"}, { icon: "fa-calendar", name: "12 months access"}, { icon: "fa-certificate", name: "Free forever"}]}></Hero>
+            <div class="flex flex-col lg:flex-row gap-10 px-20">
+                <Mention name="Your manager"
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+                    items={users} icon="headset" />
+
+                <Mention name="Your peers"
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+                    items={users} icon="people-group" />
+
+                <Mention name="Your experts"
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+                    items={users} icon="star" />
+            </div>
         </div>
-      </div>
-      <div class="flex flex-col gap-5">
-        <h1 class="text-8xl font-bold">{name}</h1>
-        <p class="text-2xl">{description}</p>
-        <div class="flex gap-10 text-xl">
-          <p class="font-bold">UK-wide</p>
-          <p class="font-bold">Free</p>
-          <p class="font-bold">Available for 1 year</p>
+
+
+
+        <div class="bg-white flex flex-col text-black p-10 rounded-xl">
+            <div class="border-b border-gray-200 pb-5 sm:pb-0">
+                <h2 class="text-lg font-medium leading-6 text-gray-900">
+                    Explore our topics
+                </h2>
+                <p>Pick and mix from our topics to grow you and your venture.</p>
+                <Tabs parentItems={categories} childrenItems={topics} pathways={pathways} />
+            </div>
         </div>
-      </div>
-
-      <div class="flex gap-10">
-        <Mention name="Your manager" description="Your coach who will help you navigate our topics and find the best resources, events and experts" items={users}></Mention>
-
-        <Mention name="Your peers" description="You are not alone, there are Social Entrepreneurs who are on the same journey with you and who you will connect with at our events" items={users}></Mention>
-
-        <Mention name="Your experts" description="We have partnered with" items={users}></Mention>
-      </div>
 
     </div>
 
-    <div class="bg-white flex flex-col text-black p-10 rounded-xl">
-      <div class="border-b border-gray-200 pb-5 sm:pb-0">
-        <h2 class="text-lg font-medium leading-6 text-gray-900">
-          Explore our topics
-        </h2>
-        <p>Pick and mix from our topics to grow you and your venture.</p>
-        <Tabs
-          parentItems={categories}
-          childrenItems={topics}
-          pathways={pathways}
-        />
-      </div>
-    </div>
-  </div>
-
-  <!-- <Showcase name="Resources" subtitle="Documents, Videos, Audio, it all" bg="bg-blue-200" text="text-blue-600"
+    <!-- <Showcase name="Resources" subtitle="Documents, Videos, Audio, it all" bg="bg-blue-200" text="text-blue-600"
         px="px-3.0" icon="file"
         description="How we can support you etur In-person adipiscing elit, sed do eiusmod tempor Online ut labore et dolore magna aliqua. Ut enim ad minim Online veniam, quis nostrud exercitation ullamco In-person nisi ut aliquip ex ea commodo consequat.anim id est laborum.">
         {
@@ -117,115 +82,99 @@ const description =
     }
     </Showcase> -->
 
-  <Showcase
-    name="Events"
-    subtitle="Jump on a call... or a bus"
-    bg="bg-orange-200"
-    text="text-orange-600"
-    px="px-3.0"
-    icon="calendar"
-    description="How we can support you etur In-person adipiscing elit, sed do eiusmod tempor Online ut labore et dolore magna aliqua. Ut enim ad minim Online veniam, quis nostrud exercitation ullamco In-person nisi ut aliquip ex ea commodo consequat.anim id est laborum."
-  >
-    <div class="flex gap-2 flex-wrap">
-      {
-        events.formats.map((format) => (
-          <Badge bg="hover:bg-orange-100" text="text-orange-800">
-            {format.name}
-          </Badge>
-        ))
-      }
-    </div>
-    <div class="text-black">
-      {events.formats.map((format, index) => <p>{format.description}</p>)}
-    </div>
+    <Showcase name="Events" subtitle="Jump on a call... or a bus" bg="bg-orange-200" text="text-orange-600" px="px-3.0"
+        icon="calendar"
+        description="How we can support you etur In-person adipiscing elit, sed do eiusmod tempor Online ut labore et dolore magna aliqua. Ut enim ad minim Online veniam, quis nostrud exercitation ullamco In-person nisi ut aliquip ex ea commodo consequat.anim id est laborum.">
+        <div class="flex gap-2 flex-wrap">
+            {
+            events.formats.map((format) => (
+            <Badge bg="hover:bg-orange-100" text="text-orange-800">
+                {format.name}
+            </Badge>
+            ))
+            }
+        </div>
+        <div class="text-black">
+            {events.formats.map((format, index) => <p>{format.description}</p>)}
+        </div>
 
-    <div class="flex gap-3 flex-wrap">
-      {
-        quotes.map((quote) => (
-          <div class="text-black bg-gray-00 p-6 rounded-md flex flex-col gap-4">
-            <i class="text-2xl fa-solid fa-quote-left" />
-            <p class="">{quote.description}</p>
-            <div class="flex gap-2 items-center">
-              <img src={quote.img} alt="" class="w-10 h-10 rounded-full" />
-              <div class="flex flex-col">
-                <span class=" text-xs p-1 inline">{quote.type}</span>
-                <p class="font-bold">{quote.name}</p>
-                <p class="text-sm">{quote.organisation}</p>
-              </div>
-            </div>
-          </div>
-        ))
-      }
-    </div>
-  </Showcase>
-
-  <Showcase
-    name="Experts"
-    subtitle="Get paired with a pro"
-    bg="bg-green-200"
-    text="text-green-700"
-    px="px-3.0"
-    icon="bolt"
-    description="An Expert is a employee of an organisations or a volunteer we have partnered with. Navigate our topics and see if an expert is available. If they are you will see summary of what expertise they can lend and what you could expect from being paired with them. One-off conversation or regular meetings."
-  >
-    <div class="flex flex-col gap-3">
-      {
-        categories.map((category) => (
-          <div class="p-8 text-black rounded-xl basis-1/2 bg-gray-100 gap-4 flex flex-col">
-            <div class="flex flex-col gap-1">
-              <h3 class="font-bold text-xl">{category.name} Experts</h3>
-              <p>{category.description}</p>
-            </div>
-            <div class="flex gap-2 flex-wrap">
-              {pathways.map((pathway) => {
-                if (category.id === pathway.category.id)
-                  return (
-                    <Fragment>
-                      {topics.map(
-                        (topic) =>
-                          topic.id === pathway.topic.id && (
-                            <p class="inline py-2 px-4 rounded-full text-xs font-bold text-green-700 bg-green-200">
-                              {topic.name}
-                            </p>
-                          )
-                      )}
-                    </Fragment>
-                  );
-              })}
-            </div>
-          </div>
-        ))
-      }
-    </div>
-
-    <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-10 lg:px-8">
-      <p class="text-center text-lg font-semibold text-gray-600">
-        Our Experts are made up volunteers, independent and from organisations
-      </p>
-      <div class="mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8">
-        {
-          organisations.map(
-            (organisation) =>
-              organisation.public && (
-                <div class="col-span-1 flex justify-center bg-gray-50 py-8 px-8">
-                  <img
-                    class="max-h-12"
-                    src={organisation.img}
-                    alt={organisation.name}
-                  />
+        <div class="flex gap-3 flex-wrap">
+            {
+            quotes.map((quote) => (
+            <div class="text-black bg-gray-00 p-6 rounded-md flex flex-col gap-4">
+                <i class="text-2xl fa-solid fa-quote-left" />
+                <p class="">{quote.description}</p>
+                <div class="flex gap-2 items-center">
+                    <img src={quote.img} alt="" class="w-10 h-10 rounded-full" />
+                    <div class="flex flex-col">
+                        <span class=" text-xs p-1 inline">{quote.type}</span>
+                        <p class="font-bold">{quote.name}</p>
+                        <p class="text-sm">{quote.organisation}</p>
+                    </div>
                 </div>
-              )
-          )
-        }
-      </div>
-    </div>
+            </div>
+            ))
+            }
+        </div>
+    </Showcase>
 
-    <div class="flex gap-3 flex-wrap">
-      {
-        users.map((user) => (
-            <Quote text={user.quotes[0].text} img={user.img} name={user.name} organisation={ user.organisation }></Quote>
-        ))
-      }
-    </div>
-  </Showcase>
-</Template>
+    <Showcase name="Experts" subtitle="Get paired with a pro" bg="bg-green-200" text="text-green-700" px="px-3.0"
+        icon="bolt"
+        description="An Expert is a employee of an organisations or a volunteer we have partnered with. Navigate our topics and see if an expert is available. If they are you will see summary of what expertise they can lend and what you could expect from being paired with them. One-off conversation or regular meetings.">
+        <div class="flex flex-col gap-3">
+            {
+            categories.map((category) => (
+            <div class="p-8 text-black rounded-xl basis-1/2 bg-gray-100 gap-4 flex flex-col">
+                <div class="flex flex-col gap-1">
+                    <h3 class="font-bold text-xl">{category.name} Experts</h3>
+                    <p>{category.description}</p>
+                </div>
+                <div class="flex gap-2 flex-wrap">
+                    {pathways.map((pathway) => {
+                    if (category.id === pathway.category.id)
+                    return (
+                    <Fragment>
+                        {topics.map(
+                        (topic) =>
+                        topic.id === pathway.topic.id && (
+                        <p class="inline py-2 px-4 rounded-full text-xs font-bold text-green-700 bg-green-200">
+                            {topic.name}
+                        </p>
+                        )
+                        )}
+                    </Fragment>
+                    );
+                    })}
+                </div>
+            </div>
+            ))
+            }
+        </div>
+
+        <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-10 lg:px-8">
+            <p class="text-center text-lg font-semibold text-gray-600">
+                Our Experts are made up volunteers, independent and from organisations
+            </p>
+            <div class="mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8">
+                {
+                organisations.map(
+                (organisation) =>
+                organisation.public && (
+                <div class="col-span-1 flex justify-center bg-gray-50 py-8 px-8">
+                    <img class="max-h-12" src={organisation.img} alt={organisation.name} />
+                </div>
+                )
+                )
+                }
+            </div>
+        </div>
+
+        <div class="flex gap-3 flex-wrap">
+            {
+            users.map((user) => (
+            <Quote text={user.quotes[0].text} img={user.img} name={user.name} organisation={user.organisation} />
+            ))
+            }
+        </div>
+    </Showcase>
+</Layout>
