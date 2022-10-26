@@ -2,8 +2,8 @@
 const { sup, topic } = Astro.props;
 ---
 
-<div class={`text-black rounded-xl flex flex-col border border-violet-100 transition ease-in-out delay-50 duration-300 hover:-translate-y-1 hover:scale-100`}>
-  <div class="bg-white p-6 w-96 rounded-t-xl flex flex-col gap-2">
+<div class={`text-black rounded-xl flex flex-col border border-violet-100 transition ease-in-out delay-50 duration-300 hover:-translate-y-1 hover:scale-100 lg:w-96`}>
+  <div class="bg-white p-6 rounded-t-xl flex flex-col gap-2">
     <div>
       <span
       class={`inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 capitalize gap-1`}
@@ -27,7 +27,7 @@ const { sup, topic } = Astro.props;
   </div>
   {
     sup &&
-  <div class={`bg-gray-50 p-6 w-96 rounded-b-xl flex flex-col gap-3`}>
+  <div class={`bg-gray-50 p-6 rounded-b-xl flex flex-col gap-3`}>
     <i class="fa-solid fa-quote-left text-gray-700"></i>
     <p class="text-sm">{sup.review.description}</p>
     <div class="flex gap-2 items-center">
