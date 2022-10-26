@@ -3,86 +3,253 @@ import Layout from "../layouts/Layout.astro";
 
 import Showcase from "../components/Showcase.astro";
 import Banner from "../components/Banner.astro";
-import Quote from "../components/Quote.astro";
 import Badge from "../components/Badge.astro";
 import Tabs from "../components/Tabs.astro";
 import Mention from "../components/Mention.astro";
 import Tabs2 from "../components/Tabs2.astro";
+import TypeCard from "../components/TypeCard.astro";
 
 import organisations from "../data/organisations.json";
 import events from "../data/events.json";
-import quotes from "../data/quotes.json";
 import users from "../data/users.json";
 import funds from "../data/funds.json";
 
 import categories from "../data/support/categories.json";
 import topics from "../data/support/topics.json";
-import pathways from "../data/support/pathways.json";
+import categoriesTopics from "../data/support/categoriesTopics.json";
+import types from "../data/support/types.json";
 
 import experts from "../data/experts/experts.json";
 import Hero from "../components/Hero.astro";
 
 const name = "Support";
-const description ="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia dolores corrupti labore tempora, rem quidem maximead asperiores eveniet maiores nobis assumenda facilis quisquam fugiat accusamus nulla similique tenetur";
+const description ="We go beyond funding. Explore our library of topics delivered by our community of Social Entrepreneurs and Experts in the industry";
 ---
 
 <Layout name="{ `${name}` }" description="{ `${description}` }">
 
-    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-20 py-5">
+    <div class="mx-auto max-w-7xl flex flex-col gap-20">
 
-        <div class="flex flex-col gap-10">
+        <div class="flex flex-col gap-20 mx-4 lg:mx-0">
             <!-- <Banner description="You must have funding to access UnLtd Support" linkText="Go to Grants" link="grants"></Banner> -->
-            <Hero name={ name } description={ description } features={[{ icon: "fa-user", name: "Available to Grantees and Investees"}, { icon: "fa-certificate", name: "Across the United Kingdom"}, { icon: "fa-calendar", name: "12 months access"}, { icon: "fa-certificate", name: "Free forever"}]}></Hero>
-            <div class="flex flex-col lg:flex-row gap-10 px-20">
-                <Mention name="Your manager"
+            <Hero name={ name } description={ description } features={[{ icon: "user", name: "Available to Grantees and Investees"}, { icon: "earth-europe", name: "Across the United Kingdom"}, { icon: "certificate", name: "Free forever"}]}></Hero>
+            
+            <div>
+            <div class="flex flex-row gap-10">
+                <div class="col">
+                    <h3 class="text-3xl">Start your support</h3>
+                    <p class="text-xl">Something explaining how our support will involve interacting and learning from a bunch of people. By exploring our topics you will discoer Events and Experts to support you on your journey. Your manager will guide you and you will be on the same journey as your peers</p>
+                
+                    <Mention name="Investee Manager"
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
-                    items={users} icon="headset" />
+                    items={users} icon="headset" tag="Till investment ends"/>
+    
+    
+                    <Mention name="Grantee Manager"
+                        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+                        items={users} icon="headset" tag="12 months"/>
+                </div>
+                <div class="flex flex-col gap-5">
+    
+                </div>
 
-                <Mention name="Your peers"
-                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
-                    items={users} icon="people-group" />
-
-                <Mention name="Your experts"
-                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
-                    items={users} icon="star" />
             </div>
-        </div>
+<div class="flex gap-3">
 
-
-
-        <div class="bg-white flex flex-col text-black p-10 rounded-xl">
-            <div class="border-b border-gray-200 pb-5 sm:pb-0">
-                <h2 class="text-lg font-medium leading-6 text-gray-900">
-                    Explore our topics
-                </h2>
-                <p>Pick and mix from our topics to grow you and your venture.</p>
-                <Tabs parentItems={categories} childrenItems={topics} pathways={pathways} />
-            </div>
-        </div>
-
-    </div>
-
-    <!-- <Showcase name="Resources" subtitle="Documents, Videos, Audio, it all" bg="bg-blue-200" text="text-blue-600"
-        px="px-3.0" icon="file"
-        description="How we can support you etur In-person adipiscing elit, sed do eiusmod tempor Online ut labore et dolore magna aliqua. Ut enim ad minim Online veniam, quis nostrud exercitation ullamco In-person nisi ut aliquip ex ea commodo consequat.anim id est laborum.">
-        {
-      experts.map((expert) => (
-        <div class="bg-white p-8 text-black rounded-b-xl">
-          <h3>{expert.category_id} Experts</h3>
-          <p>{expert.category_id} Experts</p>
+    <div class="text-black rounded-md flex flex-col">
+        <div class="bg-white p-6 w-96 rounded-t-xl">
+          <p class="text-sm">Online | 90 minutes</p>
+          <p class="font-bold">Induction</p>
+          <span
+          class={`inline-flex items-center rounded-full bg-pink-100 px-2.5 py-0.5 text-xs font-medium text-pink-800 capitalize gap-1`}
+        >
+          <i class={`fa-solid fa-train`}></i>
+          <p>Bonkers</p>
+        </span>
+      
+      
           <div class="flex gap-2">
-            {topics.map((topic) => (
-              <div class="border inline-block p-3 rounded-full">
-                <p class="text-sm">{topic.name}</p>
-              </div>
-            ))}
+      
+            <p class="text-sm">Attendees: Grantees</p>
+            <p class="text-sm">Fund: Awards</p>
+            <p class="text-sm">Countries: United Kingdom</p>
+            <p class="text-sm">Sector: Healthy Ageing</p>
+      
+      
           </div>
         </div>
-      ))
-    }
-    </Showcase> -->
+      </div>
+      
+<div class="bg-white text-black w-96 p-10 rounded-md">
+    <p>Induction</p>
 
-    <Showcase name="Events" subtitle="Jump on a call... or a bus" bg="bg-orange-200" text="text-orange-600" px="px-3.0"
+</div>
+
+<div class="bg-white text-black w-96 p-10 rounded-md">
+    <p>hello world</p>
+</div>
+
+<div class="bg-white text-black w-96 p-10 rounded-md">
+    <p>hello world</p>
+</div>
+
+<div class="bg-white text-black w-96 p-10 rounded-md">
+    <p>hello world</p>
+</div>
+</div>
+        </div>
+
+        <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:px-8">
+      
+            <!-- <div class="flex flex-col">
+
+                <Mention name="Experts"
+                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+                items={users} icon="star" />
+
+                <ul>
+                    <li></li>
+                </ul>
+                
+            </div> -->
+            <!-- <div class="mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8">
+                {
+                organisations.map(
+                (organisation) =>
+                organisation.public && (
+                <div class="col-span-1 flex justify-center bg-gray-50 py-8 px-8">
+                    <img class="max-h-12" src={organisation.img} alt={organisation.name} />
+                </div>
+                )
+                )
+                }
+            </div> -->
+
+        </div>
+
+
+        <div class="flex flex-row gap-10">
+            <div class="">
+                <h3 class="text-3xl">Peer Sector support</h3>
+                <p class="text-xl">Something explaining how our support will involve interacting and learning from a bunch of people. By exploring our topics you will discoer Events and Experts to support you on your journey. Your manager will guide you and you will be on the same journey as your peers</p>
+            </div>
+            <div class="flex flex-row gap-5">
+
+                <Mention name="Healthy Ageing"
+                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+                items={users} icon="headset" />
+
+
+                <Mention name="Access to Employment"
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+                    items={users} icon="headset" />
+            </div>
+        </div>
+
+        <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
+                <div>
+                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Your manager</h2>
+                <p class="mt-3 max-w-3xl text-lg text-violet-200">You will get an induction to what support is availbale to you and how to access it</p>
+                </div>
+                <div class="mt-8 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-0 lg:grid-cols-2">
+                    <Mention name="Investee Manager"
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+                    items={users} icon="headset" tag="Till investment ends"/>
+    
+    
+                    <Mention name="Grantee Manager"
+                        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+                        items={users} icon="headset" tag="12 months"/>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
+                <div>
+                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Your induction</h2>
+                <p class="mt-3 max-w-3xl text-lg text-violet-200">You will get an induction to what support is availbale to you and how to access it</p>
+                </div>
+                <div class="mt-8 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-0 lg:grid-cols-2">
+                    { funds.map((fund) => (
+                        <div class="col-span-1 flex justify-center py-8 px-8">
+                            <p>{ fund.name }</p>
+                        </div>
+                    ))
+                    }
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
+                <div>
+                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Your peers</h2>
+                <p class="mt-3 max-w-3xl text-lg text-violet-200">Something about how we run exclusive support which brings fundee's together who are working towards a common goal.</p>
+                </div>
+                <div class="mt-8 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-0 lg:grid-cols-2">
+                    <Mention name="Investee Manager"
+                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+                    items={users} icon="headset" tag="Till investment ends"/>
+    
+    
+                    <Mention name="Grantee Manager"
+                        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+                        items={users} icon="headset" tag="12 months"/>
+                </div>
+            </div>
+        </div>
+
+            
+            <div>
+                <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+                    <div class="lg:grid lg:grid-cols-2 lg:items-center lg:gap-8">
+                        <div>
+                        <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Your library</h2>
+                        <p class="mt-3 max-w-3xl text-lg text-violet-200">Something explaining how our support will involve interacting and learning from a bunch of people. By exploring our topics you will discoer Events and Experts to support you on your journey. Your manager will guide you and you will be on the same journey as your peers.</p>
+                        </div>
+                        <div class="mt-8 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-0 lg:grid-cols-2">
+                            <div class="col-span-1 flex justify-center py-8 px-8">
+                                <img class="max-h-12" src="https://tailwindui.com/img/logos/transistor-logo-gray-400.svg" alt="Workcation">
+                            </div>
+                            <div class="col-span-1 flex justify-center py-8 px-8">
+                                <img class="max-h-12" src="https://tailwindui.com/img/logos/mirage-logo-gray-400.svg" alt="Mirage">
+                            </div>
+                            <div class="col-span-1 flex justify-center py-8 px-8">
+                                <img class="max-h-12" src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg" alt="Tuple">
+                            </div>
+                            <div class="col-span-1 flex justify-center py-8 px-8">
+                                <img class="max-h-12" src="https://tailwindui.com/img/logos/laravel-logo-gray-400.svg" alt="Laravel">
+                            </div>
+                            <div class="col-span-1 flex justify-center  py-8 px-8">
+                                <img class="max-h-12" src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg" alt="StaticKit">
+                            </div>
+                            <div class="col-span-1 flex justify-center py-8 px-8">
+                                <img class="max-h-12" src="https://tailwindui.com/img/logos/statamic-logo-gray-400.svg" alt="Statamic">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-violet-50 flex flex-col text-gray-700 rounded-t-xl px-10 py-10 lg:px-20 lg:py-10 gap-6">
+                    <Tabs parentItems={categories} childrenItems={topics} relationships={categoriesTopics}>
+                    </Tabs>
+                </div>
+                <div class="bg-violet-50 flex flex-col text-gray-700 rounded-b-xl px-10 py-10 lg:px-20 lg:py-12 border-dashed border-t-4 border-violet-200 gap-24">
+            
+                    { types.map((type) => (
+                        <TypeCard id={type.id} name={type.plural.name} description={type.description} colour={ type.colour } icon={ type.icon }/>))
+                    }
+
+                </div>
+            </div>
+        </div>
+
+
+    <!-- <Showcase name="Events" subtitle="Jump on a call... or a bus" bg="bg-orange-200" text="text-orange-600" px="px-3.0"
         icon="calendar"
         description="How we can support you etur In-person adipiscing elit, sed do eiusmod tempor Online ut labore et dolore magna aliqua. Ut enim ad minim Online veniam, quis nostrud exercitation ullamco In-person nisi ut aliquip ex ea commodo consequat.anim id est laborum.">
         <div class="flex gap-2 flex-wrap">
@@ -99,26 +266,11 @@ const description ="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mo
         </div>
 
         <div class="flex gap-3 flex-wrap">
-            {
-            quotes.map((quote) => (
-            <div class="text-black bg-gray-00 p-6 rounded-md flex flex-col gap-4">
-                <i class="text-2xl fa-solid fa-quote-left" />
-                <p class="">{quote.description}</p>
-                <div class="flex gap-2 items-center">
-                    <img src={quote.img} alt="" class="w-10 h-10 rounded-full" />
-                    <div class="flex flex-col">
-                        <span class=" text-xs p-1 inline">{quote.type}</span>
-                        <p class="font-bold">{quote.name}</p>
-                        <p class="text-sm">{quote.organisation}</p>
-                    </div>
-                </div>
-            </div>
-            ))
-            }
-        </div>
-    </Showcase>
 
-    <Showcase name="Experts" subtitle="Get paired with a pro" bg="bg-green-200" text="text-green-700" px="px-3.0"
+        </div>
+    </Showcase> -->
+
+    <!-- <Showcase name="Experts" subtitle="Get paired with a pro" bg="bg-green-200" text="text-green-700" px="px-3.0"
         icon="bolt"
         description="An Expert is a employee of an organisations or a volunteer we have partnered with. Navigate our topics and see if an expert is available. If they are you will see summary of what expertise they can lend and what you could expect from being paired with them. One-off conversation or regular meetings.">
         <div class="flex flex-col gap-3">
@@ -130,10 +282,10 @@ const description ="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mo
                     <p>{category.description}</p>
                 </div>
                 <div class="flex gap-2 flex-wrap">
-                    {pathways.map((pathway) => {
+                    {categoriesTopics.map((pathway) => {
                     if (category.id === pathway.category.id)
                     return (
-                    <Fragment>
+                    <>
                         {topics.map(
                         (topic) =>
                         topic.id === pathway.topic.id && (
@@ -142,7 +294,7 @@ const description ="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mo
                         </p>
                         )
                         )}
-                    </Fragment>
+                    </>
                     );
                     })}
                 </div>
@@ -151,30 +303,10 @@ const description ="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mo
             }
         </div>
 
-        <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:py-10 lg:px-8">
-            <p class="text-center text-lg font-semibold text-gray-600">
-                Our Experts are made up volunteers, independent and from organisations
-            </p>
-            <div class="mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8">
-                {
-                organisations.map(
-                (organisation) =>
-                organisation.public && (
-                <div class="col-span-1 flex justify-center bg-gray-50 py-8 px-8">
-                    <img class="max-h-12" src={organisation.img} alt={organisation.name} />
-                </div>
-                )
-                )
-                }
-            </div>
-        </div>
 
         <div class="flex gap-3 flex-wrap">
-            {
-            users.map((user) => (
-            <Quote text={user.quotes[0].text} img={user.img} name={user.name} organisation={user.organisation} />
-            ))
-            }
         </div>
-    </Showcase>
+    </Showcase> -->
+
+    </div>
 </Layout>

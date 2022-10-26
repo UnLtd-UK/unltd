@@ -3,16 +3,16 @@ const { name, description, features } = Astro.props;
 ---
 
 
-<div class="flex flex-col gap-10 bg-violet-800 px-12 py-12 lg:px-20 lg:py-10 rounded-xl border-2 border-violet-700 mx-4 lg:mx-0">
+<div class="flex flex-col gap-10 bg-violet-800 px-12 py-12 lg:px-20 lg:py-16 rounded-3xl border-2 border-violet-700">
     <div class="flex flex-col gap-5">
-        <h1 class="text-6xl font-bold">{name}</h1>
-        <p class="text-xl">{description}</p>
+        <h1 class="text-7xl font-bold">{name}</h1>
+        <p class="text-3xl">{description}</p>
     </div>
     <div class="flex flex-col lg:flex-row gap-10 lg:items-center">
         {
             features.map((feature) => (
                 <div class="flex items-center gap-3">
-                    <i class={`a-solid ${feature.icon}`}></i>
+                    <i class={`text-2xl fa-solid fa-${feature.icon}`}></i>
                     <p class="font-bold">{feature.name}</p>
                 </div>
             ))
