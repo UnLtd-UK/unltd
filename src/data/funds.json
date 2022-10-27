@@ -35,7 +35,14 @@
         ]
     },
     {
+        "name": "Growth Impact Fund",
+        "investments": {
+
+        }
+    },
+    {
         "name": "Technical Assistant Fund",
+        "grants": {},
         "funded": [
             ""
         ],
@@ -84,6 +91,7 @@
     },
     {
         "name": "Comic Relief",
+        "grants": {},
         "funded": [
             ""
         ],
@@ -95,6 +103,7 @@
     },
     {
         "name": "Healthy Ageing Fund",
+        "grants": {},
         "funded": [
             ""
         ],
@@ -106,6 +115,7 @@
     },
     {
         "name": "Small Business Research Initiative",
+        "grants": {},
         "funded": [
             ""
         ],
@@ -116,7 +126,8 @@
         "support": true
     },
     {
-        "name": "Sporty",
+        "name": "Sport England Fund",
+        "grants": {},
         "funded": [
             "Sport England", "Millenium Award Trust"
         ],

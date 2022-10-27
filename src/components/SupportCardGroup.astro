@@ -1,0 +1,75 @@
+---
+const { support, type } = Astro.props;
+import groups from "../data/support/groups.json";
+
+let group;
+
+for (let index = 0; index < groups.length; index++) {
+  if (support.group.id === groups[index].id) {
+    group = groups[index];
+  }
+}
+---
+
+
+  <div class="bg-white p-6 rounded-xl flex flex-col gap-2 text-black border border-violet-100 transition ease-in-out delay-50 duration-300 hover:-translate-y-1 hover:scale-100">
+    <div>
+      <span
+        class={`inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 capitalize gap-1`}
+      >
+        <i class={`fa-solid fa-${type.icon}`}></i>
+        <p>{type.singular.name}</p>
+      </span>
+      <span
+        class={`inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 capitalize gap-1`}
+      >
+        <p>{support.schedule}</p>
+      </span>
+    </div>
+
+    <p class="font-bold text-orange-800 text-xl">{group.name}</p>
+    <p class="text-sm">{support.location} | {support.duration} minutes</p>
+
+
+    <div class="bg-gray-100 p-4 rounded-xl">
+       <p class="text-sm font-bold">{group.name}</p>
+        <p class="text-sm">{group.description}</p>
+    </div>
+
+    <div class="flex flex-row gap-10">
+      <div class="flex flex-col">
+        <p class="text-xs text-gray-500 uppercase">Schedule</p>
+        <p class="text-xs font-bold capitalize">{support.schedule}</p>
+      </div>
+
+      <div class="flex flex-col">
+        <p class="text-xs text-gray-500 uppercase">Attendees</p>
+        <p class="text-xs font-bold capitalize">{support.fundee}</p>
+      </div>
+
+      <div class="flex flex-col">
+        <p class="text-xs text-gray-500 uppercase">Fund</p>
+        <p class="text-xs font-bold capitalize">{support.fund}</p>
+      </div>
+
+      <div class="flex flex-col">
+        <p class="text-xs text-gray-500 uppercase">Countries</p>
+        <p class="text-xs font-bold capitalize">{support.countries}</p>
+      </div>
+    </div>
+
+  <!-- {
+    support &&
+  <div class={`bg-gray-50 p-6 rounded-b-xl flex flex-col gap-3`}>
+    <i class="fa-solid fa-quote-left text-gray-700"></i>
+    <p class="text-sm">{support.review.description}</p>
+    <div class="flex gap-2 items-center">
+      <img src={support.review.img} alt="" class="w-10 h-10 rounded-full" />
+      <div class="flex flex-col">
+        <p class="text-sm font-bold">{support.review.name}</p>
+        <p class="text-sm text-gray-600">{support.review.organisation}</p>
+      </div>
+    </div>
+  </div>
+} -->
+</div>

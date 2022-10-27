@@ -1,20 +1,20 @@
 ---
-const {id, name, description, colour, icon } = Astro.props;
-import SupportCard from "../components/SupportCard.astro";
-import support from "../data/support.json";
+const { type } = Astro.props;
+import SupportCardTopic from "../components/SupportCardTopic.astro";
+import supportTopics from "../data/support-topics.json";
 ---
 
 <div class={`rounded-xl flex flex-col lg:flex-row gap-10`}>
-    <div class="rounded-t-xl basis-2/5">
+    <div class="rounded-t-xl basis-2/5 text-white">
         <div class="flex flex-col gap-7">
             <div class="rounded-t-xl flex items-center gap-3 ">
                 <div class={`bg-orange-100 rounded-full w-20 h-20 flex items-center justify-center`}>
-                    <i class={`text-3xl fa-solid fa-${icon} text-orange-800`}></i>
+                    <i class={`text-3xl fa-solid fa-${type.icon} text-orange-800`}></i>
                 </div>
             </div>
             <div>
-                <p class={`text-2xl font-bold text-orange-800`}>{ name }</p>
-                <p class="text-gray-700 text-md">{ description }</p>
+                <p class={`text-2xl font-bold `}>{ type.plural.name }</p>
+                <p class=" text-md">{ type.description }</p>
 
             </div>
 
@@ -23,11 +23,19 @@ import support from "../data/support.json";
 
     <div class={`basis-3/5`}>
         <div class="flex flex-col lg:flex-row gap-3">
-            { support.map((sup) =>
-                sup.support.topic.id === id && (
-            <SupportCard sup={sup} topic={ Astro.props } />
-            ))
+            { 
+                supportTopics.map((supportTopic) => supportTopic.type.id === type.id && (
+                        <SupportCardTopic support={supportTopic} type={type} />
+                ))
             }
+
+<!-- { 
+    supportTopics.map((supportTopic) => supportTopic.support.type.id === type.id && (
+        topics.map((topic) => supportTopic.support.topic.id === topic.id && (
+            <SupportCardTopic support={supportTopic} type={ type } topic={ topic } />
+        ))
+    ))
+} -->
         </div>
     </div>
 </div>

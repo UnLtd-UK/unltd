@@ -58,6 +58,8 @@ const { parentItems, childrenItems, relationships } = Astro.props;
   }
 </script>
 
+<div class="bg-violet-50 flex flex-col text-gray-700 rounded-xl px-10 py-10 lg:px-20 lg:py-10 gap-6">
+
 <div class="mt-3 sm:mt-4">
   <!-- Mobile -->
   <div class="lg:hidden">
@@ -72,7 +74,7 @@ const { parentItems, childrenItems, relationships } = Astro.props;
 
   <!-- Desktop -->
   <div class="hidden lg:block">
-    <nav class="-mb-px flex space-x-8 border-b border-gray-200">
+    <nav class="-mb-px flex space-x-8">
       {
         parentItems.map((parentItem, parentItemIndex) => (
           <button
@@ -124,5 +126,4 @@ const { parentItems, childrenItems, relationships } = Astro.props;
     ))
   }
 </div>
-
-<!-- border-b-2 border-violet-500 text-violet-600 -->
+</div>
