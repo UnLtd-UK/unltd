@@ -23,11 +23,12 @@ for (let index = 0; index < groups.length; index++) {
       <span
         class={`inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 capitalize gap-1`}
       >
-        <p>{support.schedule}</p>
+      <i class="fa-solid fa-star"></i>
+        <p>{group.name}</p>
       </span>
     </div>
 
-    <p class="font-bold text-orange-800 text-xl">{group.name}</p>
+    <p class="font-bold text-orange-800 text-xl">{group.name} Meet-up</p>
     <p class="text-sm">{support.location} | {support.duration} minutes</p>
 
 

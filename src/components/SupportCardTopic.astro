@@ -21,14 +21,12 @@ for (let index = 0; index < topics.length; index++) {
       <i class={`fa-solid fa-${type.icon}`}></i>
       <p>{type.singular.name}</p>
     </span>
-    </div>
-
-    <div>
-      <span
-      class={`inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 capitalize gap-1`}
-    >
-      <p>{topic.name}</p>
-    </span>
+    <span
+    class={`inline-flex items-center rounded-full bg-orange-100 px-2.5 py-0.5 text-xs font-medium text-orange-800 capitalize gap-1`}
+  >
+  <i class="fa-solid fa-book"></i>
+    <p>{topic.name}</p>
+  </span>
     </div>
 
     <p class="font-bold text-orange-800">{support.thing} to {topic.name}</p>

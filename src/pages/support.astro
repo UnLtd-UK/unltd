@@ -1,108 +1,95 @@
 ---
+// LAYOUT
 import Layout from "../layouts/Layout.astro";
 
+// COMPONENTS
 import Tabs from "../components/Tabs.astro";
 import Mention from "../components/Mention.astro";
 import TypeCard from "../components/TypeCard.astro";
 import Block from "../components/Block.astro";
+import Divider from "../components/Divider.astro";
 import SupportCardGroup from "../components/SupportCardGroup.astro";
+import Hero from "../components/Hero.astro";
 
+// DATA
 import users from "../data/users.json";
 import funds from "../data/funds.json";
 import supportGroups from "../data/support-groups.json";
-
 import categories from "../data/support/categories.json";
 import topics from "../data/support/topics.json";
 import categoriesTopics from "../data/support/categoriesTopics.json";
 import types from "../data/support/types.json";
 
-import Hero from "../components/Hero.astro";
 
 const name = "Support";
 const description =
-"We go beyond funding. Explore our library of topics delivered by our community of Social Entrepreneurs and Experts in the industry";
+"We go beyond funding. Explore our support and tailor it to your needs";
 ---
 
-<Layout name="{ `${name}` }" description="{ `${description}` }">
+<Layout name={`${name}`} description={`${description}`}>
     <div class="mx-auto max-w-7xl flex flex-col gap-20">
         <div class="flex flex-col gap-20 mx-4 lg:mx-0">
             <Hero name={name} description={description} features={[ { icon: "user", name: "Availble to Grantees for 12 months" },{ icon: "user", name: "Availble for Investees indefinitely" }, { icon: "earth-europe", name: "Across the United Kingdom" }, { icon: "certificate" , name: "Free forever" }, ]} />
 
-            <Block name="Your induction" description="We will introduce to your support specific to your grant or investment. You will attend this with your peers, other fundee's who's got funding.">
+            <Block name="Your induction" description="Learn about what support is available to you on your funding. Your induction will be with your peers so you're on this journey alone.">
                 <div class="flex">
-                <div>
-                    <p>Grant funds</p>
-                    <div class="flex gap-1">
-                        { funds.map((fund) => fund.grants &&
-                            <span class="inline-flex items-center rounded-full bg-pink-100 px-3 py-0.5 text-sm font-medium text-pink-800">
-                                {fund.name}
-                            </span>
-                            )
-                        }
-                    </div>
-                </div>
-
-                <div>
-                    <p>Investment funds</p>
                     <div>
-                        { funds.map((fund) => fund.investments && 
-                            <span class="inline-flex items-center rounded-full bg-pink-100 px-3 py-0.5 text-sm font-medium text-pink-800">
+                        <p>Grant funds</p> 
+                        <div class="flex gap-1">
+                            { funds.map((fund) => fund.grants &&
+                                <span class="inline-flex items-center rounded-full bg-pink-100 px-3 py-0.5 text-sm font-medium text-pink-800">
                                     {fund.name}
                                 </span>
-        
                                 )
                             }
+                        </div>
+                    </div>
+
+                    <div>
+                        <p>Investment funds</p>
+                        <div>
+                            { funds.map((fund) => fund.investments && 
+                                <span class="inline-flex items-center rounded-full bg-pink-100 px-3 py-0.5 text-sm font-medium text-pink-800">
+                                        {fund.name}
+                                    </span>
+            
+                                    )
+                                }
+                        </div>
                     </div>
                 </div>
-            </div>
             </Block>
 
-            <Block name="Your manager" description="You will be introduced to your manager, they will be your direct contact to UnLtd and are here to help you navigate your support and provide ">
-                <Mention name="Investee Manager" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud." items={users} icon="headset" tag="For as long as you are an Investee" />
-                <Mention name="Grantee Manager" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud." items={users} icon="headset" tag="12 months acccess" />
+            <Divider/>
+
+            <Block name="Your manager" description="Your direct contact to UnLtd, here to help you navigate your support and funding and make the most of what we have to offer.">
+                <Mention name="Portfolio Manager" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud." items={users} icon="headset" tag="For as long as you are an Investee" />
+                <Mention name="Suppoort Manager" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud." items={users} icon="headset" tag="12 months acccess" />
             </Block>
 
-            <Block name="Your peers" description="We are run montly socials for Social Entrepreneurs working in specific sectors we feel need the most attendion. The monthly events are made up of speakers, ">
+            <Divider/>
 
-                <!-- <div>
-                    { supportGroups.map((supportGroup) => { 
-                        types.map((type) => supportGroup.type.id === type.id && (
-                            <p>{ supportGroup.thing }</p>
-                            // <SupportCardGroup support={supportGroup} type={ type }/>
-                        ))
+            <Block name="Your sector" description="We run regular support for fundee's working in specific sectors.">
+                <div class="flex flex-col gap-3">
+                    {supportGroups.map((supportGroup) => {
+                        return (
+                        <Fragment>
+                            {types.map(
+                            (type) =>
+                                type.id === supportGroup.type.id && (
+                                    <SupportCardGroup support={supportGroup} type={ type }/>
+                                )
+                            )}
+                        </Fragment>
+                        );
                     })}
-                </div> -->
-
-<div class="flex flex-col gap-3">
-    {supportGroups.map((supportGroup) => {
-        return (
-          <Fragment>
-            {types.map(
-              (type) =>
-                type.id === supportGroup.type.id && (
-                    <SupportCardGroup support={supportGroup} type={ type }/>
-                )
-            )}
-          </Fragment>
-        );
-    })}
-</div>
-
-        
-
-                <!-- <div>
-                    { supportGroups.map((supportGroup) => (
-                        <div>
-                            <p>{ supportGroup.thing }</p>
-                        </div>
-                    ))}
-                </div> -->
-
+                </div>
             </Block>
 
-            <div>
+            <Divider/>
 
-                <Block name="Your library" description="Something explaining how our support will involve interacting and learning from a bunch of people. By exploring our topics you will discoer Events and Experts to support you on your journey. Your manager will guide you and you will be on the same journey as your peers.">
+            <div class="flex flex-col gap-10">
+                <Block name="Your library" description="Exploring our library of topics and the numerous ways to deliver them. Find the topic and delivery method which works best for your growth. We have partnered with experts in the industry to ensure the knowledge you get is first-class.">
                     <div class="mt-8 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-0 lg:grid-cols-2">
                     <div class="col-span-1 flex justify-center py-8 px-8">
                         <img class="max-h-12" src="https://tailwindui.com/img/logos/transistor-logo-gray-400.svg" alt="Workcation" />
@@ -128,7 +115,7 @@ const description =
                 <Tabs parentItems={categories} childrenItems={topics} relationships={categoriesTopics} />
 
                 <div
-                    class=" flex flex-col text-gray-700 rounded-b-xl px-10 py-10 lg:px-20 lg:py-12 gap-24">
+                    class=" flex flex-col text-gray-700 rounded-b-xl lg:px-20 lg:py-12 gap-24">
                     {
                         types.map((type) => (
                             <TypeCard type={type} />
