@@ -1,16 +1,18 @@
 ---
-import Doc from '../layouts/Doc.astro';
-import Input from '../components/application/Input.astro';
+import Layout from "../layouts/Layout.astro";
+import TextInput from '../components/form/inputs/TextInput.astro';
+import FormBody from "../components/form/FormBody.astro"
+
+const name = "Application";
+const description =
+  "We go beyond funding. Explore our support and tailor it to your needs";
 ---
-<Doc>
 
-    <Input name="Postcode" type="text" slug="postcode">
-    </Input>
-    
-    <Input name="Address line 1" type="text" slug="addresss-line-1">
-    </Input>
-    
-    <Input name="Address line 2" type="text" slug="addresss-line-2">
-    </Input>
+<Layout name={`${name}`} description={`${description}`}>
+  <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <h1 class="text-4xl">Grant application preview</h1>
+  </div>
+  <br><br>
+<FormBody></FormBody>
 
-</Doc>
+</Layout>

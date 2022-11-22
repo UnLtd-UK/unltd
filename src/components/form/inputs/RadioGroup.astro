@@ -1,0 +1,23 @@
+---
+const { name, description, slug, required, options } = Astro.props;
+---
+
+<fieldset>
+    <div class="flex justify-between">
+        <label for={slug} class="block text-sm font-medium text-gray-700">{name}</label>
+        <span class="text-sm text-gray-500" id="email-required">{ required === "true" && `Required`}</span>
+    </div>
+    <p class="mt-2 text-sm text-gray-500" id={`${slug}-description}`}>{description}</p>
+    <div class="-space-y-px rounded-md bg-white">
+      { options.map((item) => (
+          <label class="relative border p-4 flex cursor-pointer focus:outline-none">
+            <input type="radio" name="privacy-setting" value="Private to Project Members" class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer text-violet-600 border-gray-300 focus:ring-violet-500" aria-labelledby="privacy-setting-1-label" aria-describedby="privacy-setting-1-description">
+            <span class="ml-3 flex flex-col">
+              <span id="privacy-setting-1-label" class="block text-sm font-medium text-gray-700">{item.name}</span>
+              <span id="privacy-setting-1-description" class="block text-sm text-gray-700">{item.description}</span>
+            </span>
+          </label>
+        ))
+      }
+    </div>
+</fieldset>

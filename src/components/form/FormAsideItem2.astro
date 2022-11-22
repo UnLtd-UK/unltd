@@ -1,0 +1,28 @@
+---
+const { name, slug, status, description } = Astro.props;
+---
+
+<a
+  href={`#${slug}`}
+  class={status === "true"
+    ? `bg-white text-indigo-700 hover:text-violet-900 hover:bg-violet-100 group rounded-md px-3 py-4 flex text-sm font-medium flex-col gap-1`
+    : `text-white hover:text-white hover:bg-violet-800 group rounded-md px-3 py-4 flex text-sm font-medium flex-col gap-1`}
+>
+  <!-- <svg
+    class={status === "true" ? `text-violet group-hover:text-violet flex-shrink-0 -ml-1 mr-3 h-6 w-6` : `text-white group-hover:text-white flex-shrink-0 -ml-1 mr-3 h-6 w-6`}
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    aria-hidden="true"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z"
+    ></path>
+  </svg> -->
+  <span class="truncate">{name}</span>
+  {description && <p class="text-xs text-violet-200 leading-relaxed">{description}</p>}
+</a>

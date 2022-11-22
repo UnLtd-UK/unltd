@@ -1,0 +1,165 @@
+---
+import FormAside from "../../components/form/FormAside.astro";
+import FormAside2 from "../../components/form/FormAside2.astro";
+import FormSection from "../../components/form/FormSection.astro";
+import TextInput from '../../components/form/inputs/TextInput.astro';
+import TextDropdown from '../../components/form/inputs/TextDropdown.astro';
+import FormAsideItem from "../../components/form/FormAsideItem.astro";
+import FormAsideItem2 from "../../components/form/FormAsideItem2.astro";
+import Checkbox from "../../components/form/inputs/Checkbox.astro";
+import RadioGroup from "../../components/form/inputs/RadioGroup.astro";
+import Textarea from "../../components/form/inputs/Textarea.astro";
+
+const options = [ "", "Yes", "No" ];
+const options2 = ["", "Another organisation or individual","Another UnLtd Award Winner - Please specify","Enterprising Communities","Event","Leaflet or Poster","Marketing email/Mailshot","Not supplied","Partner organisation staff member","Precious Awards","Referred for Systems Award","Resilient Communities - Please specify","Social Media","UnLtd Event","UnLtd Staff Member - Please specify","UnLtd Website","Website","Other - Please specify"]
+const options3 = ["Access to education","Access to employment","Access to legal services","Climate change & energy","Conservation","Digital","Equality & empowerment","Food, nutrition & agriculture","Homelessness/housing","Independence","Life satisfaction","Loneliness","Physical health","Poverty reduction & income generation","Quality of life","Resilient communities","Routes to market","Skills and training","Social isolation","Social purpose/purposely","Social value","Solutions for an ageing society","Sustainability","Urban environments/community","Volunteering","Water & sanitation","Wellbeing","Women","Youth","Other (please specify)"]
+const options4 = ["Individuals who identify as Black, Asian or minority ethnic","Carers","Children & families","Children/young People (<18)","Disabled people (incl. people with a learning difficulty)","Ex-armed forces","Ex-offenders","Homeless people (incl. temp accommodation)","Informal health & social care providers - individuals (incl. friends & family)","Individuals who identify as LGBTQIA+","Long-term unemployed","NEET (Not in education, employment, or training)","People in later life (those over the age of 55)","People recovering from addiction","People with audio-visual impairment","People with autism-spectrum disorder","People with dementia/Alzheimer's","People with mental health problems","Refugees & migrants","Women","Young adults (18-34)","Other (please specify)"];
+const options5 = ["", "Awards (grants)", "Investment", "I'm not sure"];
+const options6 = [{ "name": "Direct", "description": "Someone who uses their first-hand experience of a social issue to create positive change for and with the communities and people they share those experiences with. For example: Someone who has been homeless and is working to improve homelessness services, A disabled person who has set up and is running a peer-to-peer support service for other disabled people, A person who experienced exclusion and unemployment as a young person and sets up and runs a service for young people not in training, education, or employment" }, { "name": "Indirect", "description": "Someone who uses their familiarity with a social issue to create positive change for the communities and people who experience the issue first-hand. For example: The parent of a disabled child providing services for disabled people, The carer of someone with dementia selling products to support people with dementia to live independently" }, { "name": "Professional", "description": "Someone who uses their professional experience of an issue to create positive change for the communities and people who experience the issue first-hand. For example: Someone who has worked in the NHS managing care services, setting up a care provider, A former teacher setting up a service for young people not in employment, education, or training" }, { "name": "Not Applicable", "description": "" }];
+---
+
+<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+  <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
+
+    <div class="lg:col-span-3">
+      <FormAside2>
+
+        <FormAsideItem2 name="Forming: I have an idea" description="You have an idea, and it is in the early stages of development." slug="contact-details" status="false" />
+
+        <FormAsideItem2 name="I've been trading for less than 1 year" description="Your venture is established but has been trading for less than a year. By trading we mean selling goods or services, not including grants." slug="complete-your-details" status="false" />
+  
+        <FormAsideItem2 name="I've been trading for 1 year" description="Your venture is established and has been trading for between one and four years. By trading we mean selling goods or services, not including grants. If you select this stage, we require some financial data to support your application, details of which can be found on our financial data webpage. If you think you might need support to provide this data, please get in touch with us." slug="getting-to-know-your-venture" status="false" />
+
+      </FormAside2>
+    </div>
+
+    <div class="lg:col-span-3">
+      <FormAside>
+        <FormAsideItem name="Contact details" slug="contact-details" status="false" />
+
+        <FormAsideItem name="Complete your details" slug="complete-your-details" status="false" />
+  
+        <FormAsideItem name="Getting to know your venture" slug="getting-to-know-your-venture" status="false" />
+  
+        <FormAsideItem name="Getting to know you" slug="getting-to-know-you" status="false" />
+  
+        <FormAsideItem name="What stage are you at" slug="what-stage-are-you-at" status="false" />
+  
+        <FormAsideItem name="Venture payments" slug="venture-payments" status="false" />
+  
+        <FormAsideItem name="References" slug="references" status="false" />
+  
+        <FormAsideItem name="Completed" slug="completed" status="false" />
+      </FormAside>
+    </div>
+
+    <div class="space-y-8 sm:px-6 lg:col-span-6 lg:px-0">
+
+      <FormSection name="Contact details" slug="contact-details" description="">
+        <div class="col-span-12">
+          <TextInput name="Postcode" description="" slug="postcode" type="text" placeholder="" required="true" />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="Address Line 1" description="" slug="address-line-1" type="text" placeholder="" required="true" />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="Address Line 2" description="" slug="address-line-2" type="text" placeholder="" required="false" />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="Address Line 3" description="" slug="address-line-3" type="text" placeholder="" required="false" />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="City" description="" slug="city" type="text" placeholder="" required="true" />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="County" description="" slug="county" type="text" placeholder="" required="false" />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="Country" description="" slug="country" type="text" placeholder="" required="true" />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="Home Phone" description="Please supply at least one contact number." slug="home-phone" type="tel" placeholder="" required="false" />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="Mobile Phone" description="" slug="country" type="tel" placeholder="" required="false" />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="Date of Birth" description="We ask for your date of birth to ensure eligibility; we unfortunately cannot support entrepreneurs under the age of 16 and we also want to ensure our awards are reaching people at all stages of life." slug="date-of-birth" type="date" placeholder="" required="true" />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="National Insurance" description="We ask for your National Insurance number to ensure that we can correctly link records, should you have a number of applications with us." slug="national-insurance" type="number" placeholder="" required="true" />
+        </div>
+      </FormSection>
+
+      <FormSection name="Complete your details" slug="complete-your-details" description="">
+        <div class="col-span-12">
+          <TextDropdown name="Do you have the right to live and work in the UK?" description="Whilst we recognise that there are many fantastic entrepreneurs who may not have the right to live and work in the UK, unfortunately we are only able to work with those who do." slug="do-you-have-the-right-to-live-and-work-in-the-uk?" required="true" options={ options } />
+        </div>
+
+        <div class="col-span-12">
+          <TextDropdown name="How did you find out about UnLtd?" description="Please select the most relevant response for how you first found out about UnLtd/our award programmes and be specific about names and organisations. This helps us track the success of our communications and our work with local partners." required="true" options={ options2 } />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="Please specify" description="" slug="please-specify" type="text" placeholder="" required="" />
+        </div>
+      </FormSection>
+
+      <FormSection name="Getting to know your venture" slug="getting-to-know-your-venture" description="">
+
+        <div class="col-span-12">
+          <TextInput name="Name of venture or proposed name" description="Enter the name of your venture, or proposed name, if you are at idea stage." slug="name-of-venture-or-proposed-name" type="text" placeholder="" required="true" />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="Venture website" description="If your venture has a website, please tell us the address." slug="venture-website" type="text" placeholder="" required="true" />
+        </div>
+
+        <div class="col-span-12">
+          <TextInput name="Location of venture" description="Here we want you to tell us where in the UK your venture will be working. This could be in your local community, borough, city, or county, It could be in several locations or UK wide." slug="location-of-venture" type="text" placeholder="" required="true" />
+        </div>
+
+        <div class="col-span-12">
+          <Checkbox name="Which sectors does your venture operate in?" description="You can select up to a maximum of three sectors that most closely fit by using the 'Add Sectors' button on the right." required="true" options={ options3 } />
+        </div>
+
+        <div class="col-span-12">
+          <Textarea name="What is the social or environmental issue you're addressing?" description="In your answer we want to know what your understanding of the problem is, who it affects and how. What is the scale of this problem? How deeply do you understand it? Is it a local issue, or national? Does it have a short-term or long-term impact for people or our planet? It would be helpful to back this up with some data if you have it." required="true"  />
+        </div>
+
+        <div class="col-span-12">
+          <Checkbox name="Who might benefit from your venture?" description="You can select up to a maximum of three types of beneficiaries that most closely fit by using the 'Add Impact Beneficiaries' button on the right." required="true" options={ options4 } />
+        </div>
+
+        <div class="col-span-12">
+          <TextDropdown name="What type of financial support are you primarily interested in?" description="An award (grant) from UnLtd is funding that is not repaid, whilst there is an expectation that an investment is repaid. Our awards and current investment opportunities are on our website. You can select the 'I'm not sure' option if you don't know which option may be right for you yet." required="true" options={ options5 } />
+        </div>
+
+      </FormSection>
+
+      <FormSection name="Getting to know you" slug="getting-to-know you" description="">
+
+        <div class="col-span-12">
+          <Textarea name="Tell us about yourself and why you want to make a difference." description="What inspires you to address this particular social or environmental issue? What is your understanding of this issue and why is it important to you? What makes you the right person to address this issue? Please note we are sensitive to the fact that many applicants have personal experience of the issues they are trying to address. Please do not feel pressure to share anything that may be upsetting for you, or of a sensitive nature. Any information you may choose to share will be treated sensitively and confidentially by our team." required="true"  />
+        </div>
+
+        <div class="col-span-12">
+          <RadioGroup name="Are you a leader with direct, indirect, or professional experience of the issue that your venture addresses?" description="We really value the wide range of experiences that social entrepreneurs bring to their venture, whether from their work or their personal experience. Please state whether you have direct, indirect, or professional experience. We have explained what we mean by these terms below:" required="true" options={ options6 } />
+        </div>
+
+        </FormSection>
+    </div>
+
+  </div>
+    
+</div>

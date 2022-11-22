@@ -1,0 +1,24 @@
+---
+const { name, description, slug, required, options } = Astro.props;
+---
+
+<fieldset class="bg-white">
+  <div class="flex justify-between">
+    <legend class="block text-sm font-medium text-gray-700">{ name }</legend>
+    <span class="text-sm text-gray-500" id="email-required">{ required === "true" ? `Required` : `Optional`}</span>
+  </div>
+  <p class="mt-2 text-sm text-gray-500" id={`${slug}-description}`}>
+    {description}
+  </p>
+  <div class="mt-1 -space-y-px rounded-md shadow-sm">
+    <div>
+      <label for={ slug } class="sr-only">{ name }</label>
+      <select id={ slug } name={ slug } autocomplete={`${name}-name`} class="relative block w-full rounded-md text-gray-700 border-gray-300 bg-transparent focus:z-10 focus:border-violet-500 focus:ring-violet-500 sm:text-sm">
+        {options.map((item) => (
+          <option>{item}</option>
+        ))}
+      </select>
+    </div>
+  </div>
+
+</fieldset>
