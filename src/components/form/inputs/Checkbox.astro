@@ -1,37 +1,17 @@
 ---
-const { name, description, slug, type, placeholder, required, options } = Astro.props;
+const { name, description, slug, required } = Astro.props;
 ---
-
-<fieldset>
-  <div class="flex justify-between">
-    <legend class="block text-sm font-medium text-gray-700">{name}</legend>
-    <span class="text-sm text-gray-500" id="email-required"
-      >{required === "true" ? `Required` : `Optional`}</span
-    >
-  </div>
-  <p class="mt-2 text-sm text-gray-500" id={`${slug}-description}`}>
-    {description}
-  </p>
-  <div class="mt-4 divide-y divide-gray-200 border-t border-b border-gray-200">
-    {
-      options.map((item) => (
-        <div class="relative flex items-start py-4">
-          <div class="min-w-0 flex-1 text-sm">
-            <label for="person-1" class="select-none font-medium text-gray-700">
-              {item}
-            </label>
-          </div>
-          <div class="ml-3 flex h-5 items-center">
-            <input
-              id="person-1"
-              name="person-1"
-              type="checkbox"
-              class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-            />
-          </div>
+<div>
+    <div class="relative flex items-start">
+      <div class="flex h-5 items-center">
+        <input id={`${slug}`} aria-describedby={`${slug}-description`} name={`${slug}`} type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:violet-indigo-500">
+      </div>
+      <div class="ml-3 text-sm">
+        <div class="flex justify-between">
+            <label for={ slug } class="font-medium text-gray-700">{ name }</label>
+            <span class="text-sm text-gray-500" id="email-required">{ required === "true" && `Required`}</span>
         </div>
-      ))
-    }
-  </div>
-
-</fieldset>
+        <p id={`${slug}-description`} class="mt-2 text-sm text-gray-500 leading-relaxed">{ description  }</p>
+      </div>
+    </div>
+</div>

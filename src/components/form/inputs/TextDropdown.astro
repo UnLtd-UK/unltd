@@ -5,9 +5,9 @@ const { name, description, slug, required, options } = Astro.props;
 <fieldset class="bg-white">
   <div class="flex justify-between">
     <legend class="block text-sm font-medium text-gray-700">{ name }</legend>
-    <span class="text-sm text-gray-500" id="email-required">{ required === "true" ? `Required` : `Optional`}</span>
+    <span class="text-sm text-gray-500" id="email-required">{ required === "true" && `Required`}</span>
   </div>
-  <p class="mt-2 text-sm text-gray-500" id={`${slug}-description}`}>
+  <p class="mt-2 text-sm text-gray-500 leading-relaxed" id={`${slug}-description}`}>
     {description}
   </p>
   <div class="mt-1 -space-y-px rounded-md shadow-sm">

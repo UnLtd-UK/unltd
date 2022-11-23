@@ -1,5 +1,5 @@
 ---
-const { name, description, slug, type, placeholder, required } = Astro.props;
+const { name, description, slug, type, placeholder, prefix, required } = Astro.props;
 ---
 
 <div>
@@ -7,18 +7,13 @@ const { name, description, slug, type, placeholder, required } = Astro.props;
     <label for={slug} class="block text-sm font-medium text-gray-700">{name}</label>
     <span class="text-sm text-gray-500" id="email-required">{ required === "true" && `Required`}</span>
   </div>
-  <p class="mt-2 text-sm text-gray-500" id={`${slug}-description}`}>
+  <p class="mt-2 text-sm text-gray-500 leading-relaxed" id={`${slug}-description}`}>
     {description}
   </p>
-  <div class="mt-1">
-    <input
-      type={type}
-      name={slug}
-      id={slug}
-      class="text-gray-700 block w-full rounded-md border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"
-      placeholder={placeholder}
-      aria-describedby={`${slug}-description}`}
-    />
-  </div>
+
+  <div class="mt-1 flex rounded-md shadow-sm">
+    { prefix && <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm">{ prefix }</span> }
+  <input type={type} name={ slug } id={ slug } aria-describedby={`${slug}-description}`} placeholder={placeholder} class="text-gray-700 block w-full min-w-0 flex-1  border border-r-0 border-gray-300 px-3 py-2 focus:border-violet-500 focus:ring-violet-500 sm:text-sm rounded-md" placeholder="">
+</div>
 
 </div>
