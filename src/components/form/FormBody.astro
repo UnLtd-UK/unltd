@@ -10,7 +10,6 @@ import Checkboxs from "../../components/form/inputs/Checkboxs.astro";
 import Checkbox from "../../components/form/inputs/Checkbox.astro";
 import RadioGroup from "../../components/form/inputs/RadioGroup.astro";
 import Textarea from "../../components/form/inputs/Textarea.astro";
-import URL from "../../components/form/inputs/url.astro";
 
 const options2 = [
   "",
@@ -246,8 +245,27 @@ const options16 = [
 
 <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
   <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
-    <div class="lg:col-span-3">
+    <div class="lg:col-span-3 col-span-12 self-start sticky top-0">
       <FormAside2>
+        <fieldset class="p-3">
+          <div class="flex justify-between">
+            <label class="block text-sm font-medium text-white"
+              >Please select one of the following options to tell us the stage
+              your venture is at:</label
+            >
+          </div>
+          <p
+            class="mt-2 text-sm text-white leading-relaxed"
+            id="undefined-description}"
+          >
+            If you have been operating for less than a year you are eligible to
+            apply for up to £8,000 which can be used for organisational costs
+            not including a personal income. If you have been operating for a
+            year or more you are eligible to apply for up to £18,000 which can
+            be used for organisational costs, salary, or a combination of both.
+          </p>
+        </fieldset>
+
         <FormAsideItem2
           name="Forming: I have an idea"
           description="You have an idea, and it is in the early stages of development."
@@ -271,613 +289,709 @@ const options16 = [
       </FormAside2>
     </div>
 
-    <div class="lg:col-span-3">
-      <FormAside>
-        <FormAsideItem
+    <div class="lg:col-span-9 col-span-12 flex flex-col lg:flex-row gap-2">
+        <FormAside>
+
+          <div>
+
+
+            <FormAsideItem
+            name="Contact details"
+            slug="contact-details"
+            status="false"
+          />
+
+          <FormAsideItem
+            name="Complete your details"
+            slug="complete-your-details"
+            status="false"
+          />
+
+          <FormAsideItem
+            name="Getting to know your venture"
+            slug="getting-to-know-your-venture"
+            status="false"
+          />
+
+          <FormAsideItem
+            name="Getting to know you"
+            slug="getting-to-know-you"
+            status="false"
+          />
+
+          <FormAsideItem
+            name="What stage are you at?"
+            slug="what-stage-are-you-at?"
+            status="false"
+          />
+
+          <FormAsideItem
+            name="Forming: I have an idea"
+            slug="forming-i-have-an-idea"
+            status="false"
+          />
+
+          <FormAsideItem
+            name="Equal opportunities"
+            slug="equal-opportunities"
+            status="false"
+          />
+
+          <FormAsideItem name="References" slug="references" status="false" />
+
+          <FormAsideItem name="Completed" slug="completed" status="false" />
+
+          </div>
+
+          <div class="relative">
+            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+              <div class="w-full border-t border-gray-300"></div>
+            </div>
+          </div>
+
+          <div class="p-3">
+            <h3 class="text font-medium leading-6 text-gray-900">
+              Ready to start your Awards application?
+            </h3>
+            <div
+              class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between"
+            >
+              <div class="max-w-xl text-sm text-gray-500">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Recusandae voluptatibus corrupti atque repudiandae nam.
+                </p>
+              </div>
+              <div
+                class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center"
+              >
+                <button
+                  type="button"
+                  class="inline-flex items-center rounded-md border border-transparent bg-violet-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
+                  >Sign-up</button
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+              <div class="w-full border-t border-gray-300"></div>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <div>
+              <button
+                onclick="window.print()"
+                class="rounded px-2.5 py-1.5 text-xs font-medium text-violet-900 hover:bg-violet-100 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+                >Download PDF</button
+              >
+            </div>
+            <div>
+              <a
+                href=""
+                class="rounded px-2.5 py-1.5 text-xs font-medium text-violet-900 hover:bg-violet-100 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+                >Download GDOC (Google Docs)</a
+              >
+            </div>
+            <div>
+              <a
+                href=""
+                class="rounded px-2.5 py-1.5 text-xs font-medium text-violet-900 hover:bg-violet-100 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+                >Download DOCX (Micirosft 365 Word)</a
+              >
+            </div>
+          </div>
+
+        </FormAside>
+
+      <div class="flex-auto flex flex-col gap-2 lg:top-10">
+        <FormSection
           name="Contact details"
           slug="contact-details"
-          status="false"
-        />
+          description=""
+        >
+          <div class="space-between">
+            <TextInput
+              name="Postcode"
+              description=""
+              slug="postcode"
+              type="text"
+              placeholder=""
+              required="true"
+            />
+          </div>
 
-        <FormAsideItem
+          <div class="col-span-12">
+            <TextInput
+              name="Address Line 1"
+              description=""
+              slug="address-line-1"
+              type="text"
+              placeholder=""
+              required="true"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="Address Line 2"
+              description=""
+              slug="address-line-2"
+              type="text"
+              placeholder=""
+              required="false"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="Address Line 3"
+              description=""
+              slug="address-line-3"
+              type="text"
+              placeholder=""
+              required="false"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="City"
+              description=""
+              slug="city"
+              type="text"
+              placeholder=""
+              required="true"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="County"
+              description=""
+              slug="county"
+              type="text"
+              placeholder=""
+              required="false"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="Country"
+              description=""
+              slug="country"
+              type="text"
+              placeholder=""
+              required="true"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="Home Phone"
+              description="Please supply at least one contact number."
+              slug="home-phone"
+              type="tel"
+              placeholder=""
+              required="false"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="Mobile Phone"
+              description=""
+              slug="mobile-phone"
+              type="tel"
+              placeholder=""
+              required="false"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="Date of Birth"
+              description="We ask for your date of birth to ensure eligibility; we unfortunately cannot support entrepreneurs under the age of 16 and we also want to ensure our awards are reaching people at all stages of life."
+              slug="date-of-birth"
+              type="date"
+              placeholder=""
+              required="true"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="National Insurance"
+              description="We ask for your National Insurance number to ensure that we can correctly link records, should you have a number of applications with us."
+              slug="national-insurance"
+              type="number"
+              placeholder=""
+              required="true"
+            />
+          </div>
+        </FormSection>
+
+        <FormSection
           name="Complete your details"
           slug="complete-your-details"
-          status="false"
-        />
+          description=""
+        >
+          <div class="col-span-12">
+            <Checkbox
+              name="Do you have the right to live and work in the UK?"
+              description="Whilst we recognise that there are many fantastic entrepreneurs who may not have the right to live and work in the UK, unfortunately we are only able to work with those who do."
+              slug="do-you-have-the-right-to-live-and-work-in-the-uk?"
+              required="true"
+            />
+          </div>
 
-        <FormAsideItem
+          <div class="col-span-12">
+            <TextDropdown
+              name="How did you find out about UnLtd?"
+              description="Please select the most relevant response for how you first found out about UnLtd/our award programmes and be specific about names and organisations. This helps us track the success of our communications and our work with local partners."
+              required="true"
+              options={options2}
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="Please specify"
+              description=""
+              slug="please-specify"
+              type="text"
+              placeholder=""
+              required=""
+            />
+          </div>
+        </FormSection>
+
+        <FormSection
           name="Getting to know your venture"
           slug="getting-to-know-your-venture"
-          status="false"
-        />
+          description=""
+        >
+          <div class="col-span-12">
+            <TextInput
+              name="Name of venture or proposed name"
+              description="Enter the name of your venture, or proposed name, if you are at idea stage."
+              slug="name-of-venture-or-proposed-name"
+              type="text"
+              placeholder=""
+              required="true"
+            />
+          </div>
 
-        <FormAsideItem
+          <div class="col-span-12">
+            <TextInput
+              name="Venture website"
+              description="If your venture has a website, please tell us the address."
+              slug="venture-website"
+              prefix="https://"
+              required="true"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="Location of venture"
+              description="Here we want you to tell us where in the UK your venture will be working. This could be in your local community, borough, city, or county, It could be in several locations or UK wide."
+              slug="location-of-venture"
+              type="text"
+              placeholder=""
+              required="true"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <Checkboxs
+              name="Which sectors does your venture operate in?"
+              description="You can select up to a maximum of three sectors that most closely fit by using the 'Add Sectors' button on the right."
+              required="true"
+              options={options3}
+            />
+          </div>
+
+          <div class="col-span-12">
+            <Textarea
+              name="What is the social or environmental issue you're addressing?"
+              description="In your answer we want to know what your understanding of the problem is, who it affects and how. What is the scale of this problem? How deeply do you understand it? Is it a local issue, or national? Does it have a short-term or long-term impact for people or our planet? It would be helpful to back this up with some data if you have it."
+              required="true"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <Checkboxs
+              name="Who might benefit from your venture?"
+              description="You can select up to a maximum of three types of beneficiaries that most closely fit by using the 'Add Impact Beneficiaries' button on the right."
+              required="true"
+              options={options4}
+            />
+          </div>
+
+          <div class="col-span-12">
+            <RadioGroup
+              name="What type of financial support are you primarily interested in?"
+              description="An award (grant) from UnLtd is funding that is not repaid, whilst there is an expectation that an investment is repaid. Our awards and current investment opportunities are on our website. You can select the 'I'm not sure' option if you don't know which option may be right for you yet."
+              required="true"
+              options={options5}
+            />
+          </div>
+        </FormSection>
+
+        <FormSection
           name="Getting to know you"
           slug="getting-to-know-you"
-          status="false"
-        />
+          description=""
+        >
+          <div class="col-span-12">
+            <Textarea
+              name="Tell us about yourself and why you want to make a difference."
+              description="What inspires you to address this particular social or environmental issue? What is your understanding of this issue and why is it important to you? What makes you the right person to address this issue? Please note we are sensitive to the fact that many applicants have personal experience of the issues they are trying to address. Please do not feel pressure to share anything that may be upsetting for you, or of a sensitive nature. Any information you may choose to share will be treated sensitively and confidentially by our team."
+              required="true"
+            />
+          </div>
 
-        <FormAsideItem
+          <div class="col-span-12">
+            <RadioGroup
+              name="Are you a leader with direct, indirect, or professional experience of the issue that your venture addresses?"
+              description="We really value the wide range of experiences that social entrepreneurs bring to their venture, whether from their work or their personal experience. Please state whether you have direct, indirect, or professional experience. We have explained what we mean by these terms below:"
+              required="true"
+              options={options6}
+            />
+          </div>
+
+          <div class="col-span-12">
+            <Checkboxs
+              name="Your experiences"
+              description="Of your direct, indirect, or professional experience, please select the social issues that most closely fit your experience by using the 'Add Experience' button on the right, you can select a maximum of three."
+              required="true"
+              options={options7}
+            />
+          </div>
+        </FormSection>
+
+        <FormSection
           name="What stage are you at?"
           slug="what-stage-are-you-at?"
-          status="false"
-        />
+          description=""
+        >
+          <div class="col-span-12">
+            <RadioGroup
+              name="Please select one of the following options to tell us the stage your venture is at:"
+              description="The questions that follow will depend on the stage you select here. If you have been operating for less than a year you are eligible to apply for up to £8,000 which can be used for organisational costs not including a personal income. If you have been operating for a year or more you are eligible to apply for up to £18,000 which can be used for organisational costs, salary, or a combination of both."
+              required="true"
+              options={options8}
+            />
+          </div>
+        </FormSection>
 
-        <FormAsideItem
+        <FormSection
           name="Forming: I have an idea"
           slug="forming-i-have-an-idea"
-          status="false"
-        />
+          description=""
+        >
+          <div class="col-span-12">
+            <Textarea
+              name="How do you plan to tackle the social/environmental problem that you have identified?"
+              description="Please give us an overview of the social/environmental problem you want to solve and how you plan to go about it for example: If you are looking to tackle the disability employment gap then you may be proposing a solution which creates opportunities to support disabled people into employment. Your response might also include: What kind of service or product you plan to offer, How your product or service results in a social, Details about the type of work you might deliver to achieve your impact and a timeline of when key activities might take place, The partners you might want to involve in your work (such as a local authority or NHS provider for example), What other resources you think that you will need - these could be physical, human and/or financial. You might have a clear idea of the difference you want to make but have not had a chance to test that your theory will work in practice. These questions are prompts to give us a sense of your plans and where UnLtd might be able to support you."
+              required="true"
+            />
+          </div>
 
-        <FormAsideItem
+          <div class="col-span-12">
+            <Textarea
+              name="How do you plan to make a difference?"
+              description="We want to understand your business model, by this we mean what products or services might you be selling to become financially sustainable which in turn will allow you to create a social impact. Your response might also include: How it will be funded, How you know your customers/service users will pay, What's unique about your venture, How it tackles a problem for people that existing products or services don't. It may be that you have developed a product or service offering but you aren't sure how best to get in front of your target customer, or maybe you have questions around your pricing structure. These are just examples but please do indicate if you have identified areas where in which you would like some support from us."
+              required="true"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="How many unique individuals have directly benefited from products, services, or interventions offered by your social venture in the last 12 months?"
+              type="number"
+              description="Tell us how many unique individuals your venture has directly made a positive difference for - by unique individuals we mean that if a person has, for example, attended three workshops they should only count once. If your venture is new or early stage and has not yet benefitted people, please enter '0'."
+              slug="how-many-unique-individuals-have-directly-benefited-from-products-services-or-interventions-offered-by-your-social-venture-in-the-last-12-months"
+              required="true"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="How many unique individuals do you expect to benefit from the products, services, or interventions offered by your social venture in the next 12 months?"
+              type="number"
+              description="Tell us how many unique individuals your venture will benefit in the next 12 months, and as above, one individual should only count once in your total."
+              slug="how-many-unique-individuals-do-you-expect-to-benefit-from-the-products-services-or-interventions-offered-by-your-social-venture-in-the-next-12-months"
+              required="true"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <Textarea
+              name="Please describe the intended impact of your work on the individuals who benefit from it and how long you expect that impact might last:"
+              description="We would like to understand how your work will make a positive difference to people, and whether you are working with them over a short period of time or through more regular interactions. Your response might include: How people will benefit from the activities/products/services the venture will provide, How often you anticipate people will engage with your work (for example once in a workshop, or through daily or weekly interactions)"
+              required="true"
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="Please add the total amount you would like to apply for from UnLtd:"
+              type="number"
+              description="We can consider requests from £500 to £8,000 for ideas or early-stage ventures."
+              slug="please-add-the-total-amount-you-would-like-to-apply-for-from-unltd"
+              prefix="£"
+              required="true"
+            />
+          </div>
+        </FormSection>
+
+        <FormSection
           name="Equal opportunities"
           slug="equal-opportunities"
-          status="false"
-        />
-
-        <FormAsideItem name="References" slug="references" status="false" />
-
-        <FormAsideItem name="Completed" slug="completed" status="false" />
-      </FormAside>
-    </div>
-
-    <div class="space-y-10 sm:px-6 lg:col-span-6 lg:px-0">
-      <FormSection name="Contact details" slug="contact-details" description="">
-        <div class="col-span-12">
-          <TextInput
-            name="Postcode"
-            description=""
-            slug="postcode"
-            type="text"
-            placeholder=""
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="Address Line 1"
-            description=""
-            slug="address-line-1"
-            type="text"
-            placeholder=""
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="Address Line 2"
-            description=""
-            slug="address-line-2"
-            type="text"
-            placeholder=""
-            required="false"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="Address Line 3"
-            description=""
-            slug="address-line-3"
-            type="text"
-            placeholder=""
-            required="false"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="City"
-            description=""
-            slug="city"
-            type="text"
-            placeholder=""
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="County"
-            description=""
-            slug="county"
-            type="text"
-            placeholder=""
-            required="false"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="Country"
-            description=""
-            slug="country"
-            type="text"
-            placeholder=""
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="Home Phone"
-            description="Please supply at least one contact number."
-            slug="home-phone"
-            type="tel"
-            placeholder=""
-            required="false"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="Mobile Phone"
-            description=""
-            slug="mobile-phone"
-            type="tel"
-            placeholder=""
-            required="false"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="Date of Birth"
-            description="We ask for your date of birth to ensure eligibility; we unfortunately cannot support entrepreneurs under the age of 16 and we also want to ensure our awards are reaching people at all stages of life."
-            slug="date-of-birth"
-            type="date"
-            placeholder=""
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="National Insurance"
-            description="We ask for your National Insurance number to ensure that we can correctly link records, should you have a number of applications with us."
-            slug="national-insurance"
-            type="number"
-            placeholder=""
-            required="true"
-          />
-        </div>
-      </FormSection>
-
-      <FormSection
-        name="Complete your details"
-        slug="complete-your-details"
-        description=""
-      >
-        <div class="col-span-12">
-          <Checkbox
-            name="Do you have the right to live and work in the UK?"
-            description="Whilst we recognise that there are many fantastic entrepreneurs who may not have the right to live and work in the UK, unfortunately we are only able to work with those who do."
-            slug="do-you-have-the-right-to-live-and-work-in-the-uk?"
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextDropdown
-            name="How did you find out about UnLtd?"
-            description="Please select the most relevant response for how you first found out about UnLtd/our award programmes and be specific about names and organisations. This helps us track the success of our communications and our work with local partners."
-            required="true"
-            options={options2}
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="Please specify"
-            description=""
-            slug="please-specify"
-            type="text"
-            placeholder=""
-            required=""
-          />
-        </div>
-      </FormSection>
-
-      <FormSection
-        name="Getting to know your venture"
-        slug="getting-to-know-your-venture"
-        description=""
-      >
-        <div class="col-span-12">
-          <TextInput
-            name="Name of venture or proposed name"
-            description="Enter the name of your venture, or proposed name, if you are at idea stage."
-            slug="name-of-venture-or-proposed-name"
-            type="text"
-            placeholder=""
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="Venture website"
-            description="If your venture has a website, please tell us the address."
-            slug="venture-website"
-            prefix="https://"
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="Location of venture"
-            description="Here we want you to tell us where in the UK your venture will be working. This could be in your local community, borough, city, or county, It could be in several locations or UK wide."
-            slug="location-of-venture"
-            type="text"
-            placeholder=""
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <Checkboxs
-            name="Which sectors does your venture operate in?"
-            description="You can select up to a maximum of three sectors that most closely fit by using the 'Add Sectors' button on the right."
-            required="true"
-            options={options3}
-          />
-        </div>
-
-        <div class="col-span-12">
-          <Textarea
-            name="What is the social or environmental issue you're addressing?"
-            description="In your answer we want to know what your understanding of the problem is, who it affects and how. What is the scale of this problem? How deeply do you understand it? Is it a local issue, or national? Does it have a short-term or long-term impact for people or our planet? It would be helpful to back this up with some data if you have it."
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <Checkboxs
-            name="Who might benefit from your venture?"
-            description="You can select up to a maximum of three types of beneficiaries that most closely fit by using the 'Add Impact Beneficiaries' button on the right."
-            required="true"
-            options={options4}
-          />
-        </div>
-
-        <div class="col-span-12">
-          <RadioGroup
-            name="What type of financial support are you primarily interested in?"
-            description="An award (grant) from UnLtd is funding that is not repaid, whilst there is an expectation that an investment is repaid. Our awards and current investment opportunities are on our website. You can select the 'I'm not sure' option if you don't know which option may be right for you yet."
-            required="true"
-            options={options5}
-          />
-        </div>
-      </FormSection>
-
-      <FormSection
-        name="Getting to know you"
-        slug="getting-to-know-you"
-        description=""
-      >
-        <div class="col-span-12">
-          <Textarea
-            name="Tell us about yourself and why you want to make a difference."
-            description="What inspires you to address this particular social or environmental issue? What is your understanding of this issue and why is it important to you? What makes you the right person to address this issue? Please note we are sensitive to the fact that many applicants have personal experience of the issues they are trying to address. Please do not feel pressure to share anything that may be upsetting for you, or of a sensitive nature. Any information you may choose to share will be treated sensitively and confidentially by our team."
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <RadioGroup
-            name="Are you a leader with direct, indirect, or professional experience of the issue that your venture addresses?"
-            description="We really value the wide range of experiences that social entrepreneurs bring to their venture, whether from their work or their personal experience. Please state whether you have direct, indirect, or professional experience. We have explained what we mean by these terms below:"
-            required="true"
-            options={options6}
-          />
-        </div>
-
-        <div class="col-span-12">
-          <Checkboxs
-            name="Your experiences"
-            description="Of your direct, indirect, or professional experience, please select the social issues that most closely fit your experience by using the 'Add Experience' button on the right, you can select a maximum of three."
-            required="true"
-            options={options7}
-          />
-        </div>
-      </FormSection>
-
-      <FormSection
-        name="What stage are you at?"
-        slug="what-stage-are-you-at?"
-        description=""
-      >
-        <div class="col-span-12">
-          <RadioGroup
-            name="Please select one of the following options to tell us the stage your venture is at:"
-            description="The questions that follow will depend on the stage you select here. If you have been operating for less than a year you are eligible to apply for up to £8,000 which can be used for organisational costs not including a personal income. If you have been operating for a year or more you are eligible to apply for up to £18,000 which can be used for organisational costs, salary, or a combination of both."
-            required="true"
-            options={options8}
-          />
-        </div>
-      </FormSection>
-
-      <FormSection
-        name="Forming: I have an idea"
-        slug="forming-i-have-an-idea"
-        description=""
-      >
-        <div class="col-span-12">
-          <Textarea
-            name="How do you plan to tackle the social/environmental problem that you have identified?"
-            description="Please give us an overview of the social/environmental problem you want to solve and how you plan to go about it for example: If you are looking to tackle the disability employment gap then you may be proposing a solution which creates opportunities to support disabled people into employment. Your response might also include: What kind of service or product you plan to offer, How your product or service results in a social, Details about the type of work you might deliver to achieve your impact and a timeline of when key activities might take place, The partners you might want to involve in your work (such as a local authority or NHS provider for example), What other resources you think that you will need - these could be physical, human and/or financial. You might have a clear idea of the difference you want to make but have not had a chance to test that your theory will work in practice. These questions are prompts to give us a sense of your plans and where UnLtd might be able to support you."
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <Textarea
-            name="How do you plan to make a difference?"
-            description="We want to understand your business model, by this we mean what products or services might you be selling to become financially sustainable which in turn will allow you to create a social impact. Your response might also include: How it will be funded, How you know your customers/service users will pay, What's unique about your venture, How it tackles a problem for people that existing products or services don't. It may be that you have developed a product or service offering but you aren't sure how best to get in front of your target customer, or maybe you have questions around your pricing structure. These are just examples but please do indicate if you have identified areas where in which you would like some support from us."
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="How many unique individuals have directly benefited from products, services, or interventions offered by your social venture in the last 12 months?"
-            type="number"
-            description="Tell us how many unique individuals your venture has directly made a positive difference for - by unique individuals we mean that if a person has, for example, attended three workshops they should only count once. If your venture is new or early stage and has not yet benefitted people, please enter '0'."
-            slug="how-many-unique-individuals-have-directly-benefited-from-products-services-or-interventions-offered-by-your-social-venture-in-the-last-12-months"
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="How many unique individuals do you expect to benefit from the products, services, or interventions offered by your social venture in the next 12 months?"
-            type="number"
-            description="Tell us how many unique individuals your venture will benefit in the next 12 months, and as above, one individual should only count once in your total."
-            slug="how-many-unique-individuals-do-you-expect-to-benefit-from-the-products-services-or-interventions-offered-by-your-social-venture-in-the-next-12-months"
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <Textarea
-            name="Please describe the intended impact of your work on the individuals who benefit from it and how long you expect that impact might last:"
-            description="We would like to understand how your work will make a positive difference to people, and whether you are working with them over a short period of time or through more regular interactions. Your response might include: How people will benefit from the activities/products/services the venture will provide, How often you anticipate people will engage with your work (for example once in a workshop, or through daily or weekly interactions)"
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="Please add the total amount you would like to apply for from UnLtd:"
-            type="number"
-            description="We can consider requests from £500 to £8,000 for ideas or early-stage ventures."
-            slug="please-add-the-total-amount-you-would-like-to-apply-for-from-unltd"
-            prefix="£"
-            required="true"
-          />
-        </div>
-      </FormSection>
-
-      <FormSection
-        name="Equal opportunities"
-        slug="equal-opportunities"
-        description="UnLtd is committed to supporting individuals from all backgrounds to reflect the diverse communities that we serve. Our ambition is for 50% of the awards that we make to go to people who are either: Black, Asian, or from a marginalised ethnic group, Disabled. Having this data enables us to spot where we aren't doing enough to ensure our support is truly inclusive for everyone. Through our commitment to continuous learning we proactively use this data to drive improvements in our support. We know that some of these questions are very personal.  Information provided on this form will be used to ensure that our processes are fair and transparent. We want to assure all applicants that no information will be published or used in any way which allows any individual to be identified."
-      >
-        <div class="col-span-12">
-          <RadioGroup
-            name="Do you consider yourself to have a disability (including neurodivergent)?"
-            description="We use the definition of disability under the Equality Act 2010. We highly value lived experience and equality of opportunity and you should feel confident to share without fear of discrimination or bias. Our commitments to inclusion can be found on our website and are monitored."
-            slug="do-you-consider-yourself-to-have-a-disability-including-neurodivergent"
-            required=""
-            options={[{ name: "Yes" }, { name: "No" }]}
-          />
-        </div>
-
-        <div class="col-span-12">
-          <Textarea
-            name="UnLtd can make reasonable adjustments to support disabled people in completing the application process. If you have a disability and would like us to provide additional support please specify how we can help."
-            description="Giving us as much information as you are comfortable with will allow our teams to better support you through our assessment process. This can include adjusting our panel process or identifying support such as interpreters. Please specify in what ways we can ensure our process is accessible to you."
-            required="true"
-          />
-        </div>
-
-        <div class="col-span-12">
-          <RadioGroup
-            name="Which best describes your gender?"
-            description=""
-            options={options9}
-          />
-        </div>
-
-        <div class="col-span-12">
-          <RadioGroup
-            name="Is your gender identity the same as the sex you were assigned at birth?"
-            description=""
-            required=""
-            options={[{ name: "Yes" }, { name: "No" }]}
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextDropdown
-            name="What is your ethnic group?"
-            description=""
-            required=""
-            options={options10}
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextDropdown
-            name="What is your current marital status?"
-            description=""
-            options={options15}
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextDropdown
-            name="What is your religion/faith?"
-            description=""
-            options={options14}
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextInput
-            name="Religion/Faith - Other"
-            description=""
-            slug="religion-faith-other"
-            type="text"
-            placeholder=""
-            required=""
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextDropdown
-            name="What is your sexual orientation?"
-            description=""
-            options={options13}
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextDropdown
-            name="What is your current employment status?"
-            description=""
-            options={options12}
-          />
-        </div>
-
-        <div class="col-span-12">
-          <TextDropdown
-            name="What is your highest level of qualification?"
-            description=""
-            options={options11}
-          />
-        </div>
-      </FormSection>
-
-      <FormSection
-        name="References"
-        slug="references"
-        description="Please provide details of two people who we can contact to provide a reference for you. They should have known you for a minimum of six months and should be aware of your plans for your venture. At least one of these two individuals should know you in a professional capacity (such as an employer, teacher, colleague) the second can be a character/personal referee. To avoid processing delays, please ensure that you enter the email addresses correctly."
-      >
-        <div class="col-span-12">
-          <h2 class="text-gray-700">Referenes one</h2>
+          description="UnLtd is committed to supporting individuals from all backgrounds to reflect the diverse communities that we serve. Our ambition is for 50% of the awards that we make to go to people who are either: Black, Asian, or from a marginalised ethnic group, Disabled. Having this data enables us to spot where we aren't doing enough to ensure our support is truly inclusive for everyone. Through our commitment to continuous learning we proactively use this data to drive improvements in our support. We know that some of these questions are very personal.  Information provided on this form will be used to ensure that our processes are fair and transparent. We want to assure all applicants that no information will be published or used in any way which allows any individual to be identified."
+        >
           <div class="col-span-12">
-            <div class="col-span-12">
-              <TextInput
-                name="First name"
-                description=""
-                slug="first-name"
-                type="text"
-                placeholder=""
-                required="true"
-              />
-            </div>
+            <RadioGroup
+              name="Do you consider yourself to have a disability (including neurodivergent)?"
+              description="We use the definition of disability under the Equality Act 2010. We highly value lived experience and equality of opportunity and you should feel confident to share without fear of discrimination or bias. Our commitments to inclusion can be found on our website and are monitored."
+              slug="do-you-consider-yourself-to-have-a-disability-including-neurodivergent"
+              required=""
+              options={[{ name: "Yes" }, { name: "No" }]}
+            />
+          </div>
 
-            <div class="col-span-12">
-              <TextInput
-                name="Last name"
-                description=""
-                slug="second-name"
-                type="text"
-                placeholder=""
-                required="true"
-              />
-            </div>
+          <div class="col-span-12">
+            <Textarea
+              name="UnLtd can make reasonable adjustments to support disabled people in completing the application process. If you have a disability and would like us to provide additional support please specify how we can help."
+              description="Giving us as much information as you are comfortable with will allow our teams to better support you through our assessment process. This can include adjusting our panel process or identifying support such as interpreters. Please specify in what ways we can ensure our process is accessible to you."
+              required="true"
+            />
+          </div>
 
-            <div class="col-span-12">
-              <TextInput
-                name="Email"
-                description=""
-                slug="email"
-                type="email"
-                placeholder=""
-                required="true"
-              />
-            </div>
+          <div class="col-span-12">
+            <RadioGroup
+              name="Which best describes your gender?"
+              description=""
+              options={options9}
+            />
+          </div>
 
+          <div class="col-span-12">
+            <RadioGroup
+              name="Is your gender identity the same as the sex you were assigned at birth?"
+              description=""
+              required=""
+              options={[{ name: "Yes" }, { name: "No" }]}
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextDropdown
+              name="What is your ethnic group?"
+              description=""
+              required=""
+              options={options10}
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextDropdown
+              name="What is your current marital status?"
+              description=""
+              options={options15}
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextDropdown
+              name="What is your religion/faith?"
+              description=""
+              options={options14}
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextInput
+              name="Religion/Faith - Other"
+              description=""
+              slug="religion-faith-other"
+              type="text"
+              placeholder=""
+              required=""
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextDropdown
+              name="What is your sexual orientation?"
+              description=""
+              options={options13}
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextDropdown
+              name="What is your current employment status?"
+              description=""
+              options={options12}
+            />
+          </div>
+
+          <div class="col-span-12">
+            <TextDropdown
+              name="What is your highest level of qualification?"
+              description=""
+              options={options11}
+            />
+          </div>
+        </FormSection>
+
+        <FormSection
+          name="References"
+          slug="references"
+          description="Please provide details of two people who we can contact to provide a reference for you. They should have known you for a minimum of six months and should be aware of your plans for your venture. At least one of these two individuals should know you in a professional capacity (such as an employer, teacher, colleague) the second can be a character/personal referee. To avoid processing delays, please ensure that you enter the email addresses correctly."
+        >
+          <div class="col-span-12">
+            <h2 class="text-gray-700">Referenes one</h2>
             <div class="col-span-12">
-              <TextDropdown
-                name="What is your ethnic group?"
-                description=""
-                required="true"
-                options={options16}
-              />
+              <div class="col-span-12">
+                <TextInput
+                  name="First name"
+                  description=""
+                  slug="first-name"
+                  type="text"
+                  placeholder=""
+                  required="true"
+                />
+              </div>
+
+              <div class="col-span-12">
+                <TextInput
+                  name="Last name"
+                  description=""
+                  slug="second-name"
+                  type="text"
+                  placeholder=""
+                  required="true"
+                />
+              </div>
+
+              <div class="col-span-12">
+                <TextInput
+                  name="Email"
+                  description=""
+                  slug="email"
+                  type="email"
+                  placeholder=""
+                  required="true"
+                />
+              </div>
+
+              <div class="col-span-12">
+                <TextDropdown
+                  name="What is your ethnic group?"
+                  description=""
+                  required="true"
+                  options={options16}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-span-12">
+            <h2 class="text-gray-700">Referenes two</h2>
+            <div class="col-span-12">
+              <div class="col-span-12">
+                <TextInput
+                  name="First name"
+                  description=""
+                  slug="first-name"
+                  type="text"
+                  placeholder=""
+                  required="true"
+                />
+              </div>
+
+              <div class="col-span-12">
+                <TextInput
+                  name="Last name"
+                  description=""
+                  slug="second-name"
+                  type="text"
+                  placeholder=""
+                  required="true"
+                />
+              </div>
+
+              <div class="col-span-12">
+                <TextInput
+                  name="Email"
+                  description=""
+                  slug="email"
+                  type="email"
+                  placeholder=""
+                  required="true"
+                />
+              </div>
+
+              <div class="col-span-12">
+                <TextDropdown
+                  name="What is your ethnic group?"
+                  description=""
+                  required="true"
+                  options={options16}
+                />
+              </div>
+            </div>
+          </div>
+        </FormSection>
+
+        <FormSection
+          name="Completed"
+          slug="completed"
+          description="You have now provided all the information we require. If you are ready to submit your application please select 'Yes' and then the 'Submit' button and we will then send you a copy of your answers once we receive your application. If you are not ready to submit please select 'No' and then the ‘Save and Close’ button which will direct you back to your Application Homepage."
+        >
+          <div class="col-span-12">
+            <RadioGroup
+              name="Are you ready to submit your application?"
+              description=""
+              required="true"
+              options={[{ name: "Yes" }, { name: "No" }]}
+            />
+          </div>
+        </FormSection>
+
+        <div class="bg-white shadow sm:rounded-lg mb-10">
+          <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">
+              Ready to start?
+            </h3>
+            <div class="mt-2 sm:flex sm:items-start sm:justify-between">
+              <div class="max-w-xl text-sm text-gray-500">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Recusandae voluptatibus corrupti atque repudiandae nam.
+                </p>
+              </div>
+              <div
+                class="mt-5 sm:mt-0 sm:ml-6 sm:flex sm:flex-shrink-0 sm:items-center"
+              >
+                <button
+                  type="button"
+                  class="inline-flex items-center rounded-md border border-transparent bg-violet-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
+                  >Sign-up</button
+                >
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="col-span-12">
-          <h2 class="text-gray-700">Referenes two</h2>
-          <div class="col-span-12">
-            <div class="col-span-12">
-              <TextInput
-                name="First name"
-                description=""
-                slug="first-name"
-                type="text"
-                placeholder=""
-                required="true"
-              />
-            </div>
-
-            <div class="col-span-12">
-              <TextInput
-                name="Last name"
-                description=""
-                slug="second-name"
-                type="text"
-                placeholder=""
-                required="true"
-              />
-            </div>
-
-            <div class="col-span-12">
-              <TextInput
-                name="Email"
-                description=""
-                slug="email"
-                type="email"
-                placeholder=""
-                required="true"
-              />
-            </div>
-
-            <div class="col-span-12">
-              <TextDropdown
-                name="What is your ethnic group?"
-                description=""
-                required="true"
-                options={options16}
-              />
-            </div>
-          </div>
-        </div>
-      </FormSection>
-
-
-      <FormSection
-      name="Completed"
-      slug="completed"
-      description="You have now provided all the information we require. If you are ready to submit your application please select 'Yes' and then the 'Submit' button and we will then send you a copy of your answers once we receive your application. If you are not ready to submit please select 'No' and then the ‘Save and Close’ button which will direct you back to your Application Homepage."
-    >
-
-    <div class="col-span-12">
-        <RadioGroup
-          name="Are you ready to submit your application?"
-          description=""
-          required="true"
-          options={[{ name: "Yes" }, { name: "No" }]}
-        />
       </div>
-    </FormSection>
     </div>
   </div>
 </div>

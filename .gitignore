@@ -18,3 +18,12 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+
+# macOS-specific files
+.DS_Store
+
+
+pocketbase_0.8.0_darwin_arm64/CHANGELOG.md
+pocketbase_0.8.0_darwin_arm64/LICENSE.md
+pocketbase_0.8.0_darwin_arm64/pocketbase

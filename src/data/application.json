@@ -13,7 +13,7 @@
                     "slug": "postcode",
                     "type": "text",
                     "description": "",
-                    "placeholder": "",
+                    "placeholder": "EC1Y 8JJ",
                     "required": true,
                     "prefix": "",
                     "suffix": ""

@@ -1,0 +1,74 @@
+[
+    {
+        "name": "",
+        "slug": ""
+    },
+    {
+        "name": "Another organisation or individual",
+        "slug": "another-organisation-or-individual"
+    },
+    {
+        "name": "Another UnLtd Award Winner - Please specify",
+        "slug": "another-unltd-award-winner-please-specify"
+    },
+    {
+        "name": "Enterprising Communities",
+        "slug": "enterprising-communities"
+    },
+    {
+        "name": "Event",
+        "slug": "event"
+    },
+    {
+        "name": "Leaflet or Poster",
+        "slug": "leaflet-or-poster"
+    },
+    {
+        "name": "Marketing email/Mailshot",
+        "slug": "marketing-email-mailshot"
+    },
+    {
+        "name": "Not supplied",
+        "slug": "not-supplied"
+    },
+    {
+        "name": "Partner organisation staff member",
+        "slug": "partner-organisation-staff-member"
+    },
+    {
+        "name": "Precious Awards",
+        "slug": "precious-awards"
+    },
+    {
+        "name": "Referred for Systems Award",
+        "slug": "referred-for-systems-award"
+    },
+    {
+        "name": "Resilient Communities - Please specify",
+        "slug": "resilient-communities-please-specify"
+    },
+    {
+        "name": "Social Media",
+        "slug": "social-media"
+    },
+    {
+        "name": "UnLtd Event",
+        "slug": "unltd-event"
+    },
+    {
+        "name": "UnLtd Staff Member - Please specify",
+        "slug": "unltd-staff-member-please-specify"
+    },
+    {
+        "name": "UnLtd Website",
+        "slug": "unltd-website"
+    },
+    {
+        "name": "Website",
+        "slug": "website"
+    },
+    {
+        "name": "Other - Please specify",
+        "slug": "other-please-specify"
+    }
+  ]

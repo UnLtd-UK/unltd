@@ -13,7 +13,7 @@ const { name, description, slug, type, placeholder, prefix, required } = Astro.p
 
   <div class="mt-1 flex rounded-md shadow-sm">
     { prefix && <span class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm">{ prefix }</span> }
-  <input type={type} name={ slug } id={ slug } aria-describedby={`${slug}-description}`} placeholder={placeholder} class="text-gray-700 block w-full min-w-0 flex-1  border border-r-0 border-gray-300 px-3 py-2 focus:border-violet-500 focus:ring-violet-500 sm:text-sm rounded-md" placeholder="">
+  <input type={type} name={ slug } id={ slug } aria-describedby={`${slug}-description}`} placeholder={placeholder} class="text-gray-700 block w-full min-w-0 flex-1  border border-r-0 border-gray-300 px-3 py-2 focus:border-violet-500 focus:ring-violet-500 sm:text-sm rounded-md disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-50 disabled:text-gray-500" disabled placeholder={ placeholder }>
 </div>
 
 </div>
