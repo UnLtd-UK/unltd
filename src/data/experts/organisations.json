@@ -1,68 +1,66 @@
 [
-    {
-        "name": "A&L Goodbody",
-        "Make public": true
-
-    },
-    { 
-        "name": "Alvarez & Marsal",
-        "Make public": false
-    
-    },
-    {
-        "name": "Arthur Cox",
-        "Make public": true
-    },
-    {
-        "name": "Bates Wells",
-        "Make public": false
-    },
-    {
-        "name": "Baker McKenzie",
-        "Make public": false
-    },
-    {
-        "name": "BRIFFA",
-        "Make public": false
-    },
-    {
-        "name": "Cooley ",
-        "Make public": true
-    },
-    {
-        "name": "CMS",
-        "Make public": true
-    },
-    {
-        "name": "Debevoise & Plimpton",
-        "Make public": true
-    },
-    {
-        "name": "Dechert",
-        "Make public": true
-    },
-    {
-        "name": "Dentons",
-        "Make public": true
-    },
-    {
-        "name": "Green Accountancy",
-        "Make public": true
-    },
-    {
-        "name": "Herbert Smith Freehills",
-        "Make public": true
-    },
-    {
-        "name": "Johnson & Johnson",
-        "Make public": true
-    },
-    {
-        "name": "Mayer Brown",
-        "Make public": true
-    },
-    {
-        "name": "Orrick",
-        "Make public": true
-    },
+  {
+    "name": "A&L Goodbody",
+    "Make public": true
+  },
+  {
+    "name": "Alvarez & Marsal",
+    "Make public": false
+  },
+  {
+    "name": "Arthur Cox",
+    "Make public": true
+  },
+  {
+    "name": "Bates Wells",
+    "Make public": false
+  },
+  {
+    "name": "Baker McKenzie",
+    "Make public": false
+  },
+  {
+    "name": "BRIFFA",
+    "Make public": false
+  },
+  {
+    "name": "Cooley ",
+    "Make public": true
+  },
+  {
+    "name": "CMS",
+    "Make public": true
+  },
+  {
+    "name": "Debevoise & Plimpton",
+    "Make public": true
+  },
+  {
+    "name": "Dechert",
+    "Make public": true
+  },
+  {
+    "name": "Dentons",
+    "Make public": true
+  },
+  {
+    "name": "Green Accountancy",
+    "Make public": true
+  },
+  {
+    "name": "Herbert Smith Freehills",
+    "Make public": true
+  },
+  {
+    "name": "Johnson & Johnson",
+    "Make public": true
+  },
+  {
+    "name": "Mayer Brown",
+    "Make public": true
+  },
+  {
+    "name": "Orrick",
+    "Make public": true
+  }
 ]

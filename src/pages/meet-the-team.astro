@@ -1,10 +1,175 @@
 ---
-import Template from '../layouts/Layout.astro';
+import Template from "../layouts/Layout.astro";
 const name = "Meet the Team";
-const description = "Meet the Team description"
+const description = "Meet the Team description";
+
+import { pb } from "../data/pocketbase.js";
+
+// you can also fetch all records at once via getFullList
+const teams = await pb.collection("teams").getFullList(200 /* batch size */, {
+  sort: "name",
+});
+
+const roles = await pb.collection("roles").getFullList(200 /* batch size */, {
+  sort: "name",
+});
+
+const people = await pb.collection("people").getFullList(200 /* batch size */, {
+  sort: "name",
+});
+
+const applications = await pb
+  .collection("applications")
+  .getFullList(200 /* batch size */, {
+    sort: "order",
+  });
+
+console.log(applications);
 ---
 
 <Template name="{ `${name}` }" description="{ `${description}` }">
-	<h1>{ name }</h1>
-    <p>{ description }</p>
+  <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <div class="bg-violet-800 rounded-md">
+      <div
+        class="py-16 px-4 sm:py-24 sm:px-6 lg:flex lg:justify-between lg:px-8"
+      >
+        <div class="max-w-xl">
+          <h2
+            class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
+          >
+            {name}
+          </h2>
+          <p class="mt-5 text-xl text-gray-400">{description}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  {
+    teams.map((team) => (
+      <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:px-8 lg:py-24">
+        <div class="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-8">
+          <div class="space-y-5 sm:space-y-4">
+            <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
+              {team.name}
+            </h2>
+            <p class="text-xl text-gray-300">{team.description}</p>
+          </div>
+          <div class="lg:col-span-2">
+            <ul
+              role="list"
+              class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-12 sm:space-y-0 lg:gap-x-8"
+            >
+              {teams.map((team) => {
+                return (
+                  <Fragment>
+                    {people.map((person) => {
+                      return (
+                        <Fragment>
+                          {roles.map((role) => {
+                            if (role.team === team.id) {
+                              <li>
+                                <div class="flex items-center space-x-4 lg:space-x-6">
+                                  {person.image ? (
+                                    <img
+                                      class="h-16 w-16 rounded-full lg:h-20 lg:w-20 shadow-md"
+                                      src={`http://127.0.0.1:8090/api/files/people/${person.id}/${person.image}`}
+                                      alt=""
+                                    />
+                                  ) : (
+                                    <div class="h-16 w-16 rounded-full lg:h-20 lg:w-20 bg-white shadow-md" />
+                                  )}
+                                  <div class="space-y-2 text-lg font-medium leading-6">
+                                    <a href={person.linkedin} target="_blank">
+                                      <h3
+                                        class={
+                                          person.linkedin &&
+                                          "underline underline-offset-4"
+                                        }
+                                      >
+                                        {person.name}
+                                        {person.pronouns &&
+                                          `(${person.pronouns})`}
+                                      </h3>
+                                    </a>
+                                    <p class="text-violet-100 text-sm">
+                                      {role.name}
+                                    </p>
+                                    {role.geography && (
+                                      <span class="inline-flex items-center rounded-full border border-violet-200 px-2 py-0.5 text-xs font-medium text-violet-200 gap-2">
+                                        <i class="fa-solid fa-location-pin" />
+                                        {role.geography[0]
+                                          ? role.geography
+                                          : "United Kingdom"}
+                                      </span>
+                                    )}
+                                    {role.sector && (
+                                      <span class="inline-flex items-center rounded-full border border-violet-200 px-2 py-0.5 text-xs font-medium text-violet-200 gap-2">
+                                        <i class="fa-solid fa-industry" />
+                                        {role.sector}
+                                      </span>
+                                    )}
+                                    {role.fund && (
+                                      <span class="inline-flex items-center rounded-full border border-violet-200 px-2 py-0.5 text-xs font-medium text-violet-200 gap-2">
+                                        <i class="fa-solid fa-piggy-bank" />
+                                        {role.fund}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              </li>;
+                            }
+                          })}
+                        </Fragment>
+                      );
+                    })}
+                  </Fragment>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </div>
+    ))
+  }
+  <!-- <div>
+  {
+    teams.map((team) => {
+      return (
+        <Fragment>
+          {people.map((person) => {
+            return (
+              <Fragment>
+                {roles.map((role) => person.role === role.id && (<p>{ team.name } - { person.name } - { role.name }</p>))}
+              </Fragment>
+            );
+          })}
+        </Fragment>
+      );
+    })
+  }
+</div> -->
+
+  <div>
+    {
+      teams.map((team) => {
+        return (
+          <Fragment>
+            {people.map((person) => {
+              return (
+                <Fragment>
+                  {roles.map((role) => {
+                    person.role === role.id && role.team === team.id && (
+                      <p>
+                        {team.name} - {person.name} - {role.name}
+                      </p>
+                    );
+                  })}
+                </Fragment>
+              );
+            })}
+          </Fragment>
+        );
+      })
+    }
+  </div>
 </Template>

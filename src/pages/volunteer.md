@@ -2,6 +2,7 @@
 layout: ../layouts/Doc.astro
 title: Volunteer
 ---
+
 # Volunteer
 
 Our mentoring support connects social entrepreneurs with professionals who can help them to develop.
@@ -30,18 +31,19 @@ A mentor is a valuable resource for a social entrepreneurs. A good mentor can:
 Mentors can be professionals with expert knowledge, or social entrepreneurs who have successfully grown their venture and want to help someone else trying to do the same.
 
 - Business skills and commercial expertise
-We look for mentors with experience and practical know-how. Mentors can be based anywhere in the UK and have a range of different experience: business consulting, marketing and PR, legal, finance, IT, HR or academia. Many run their own business. Others use business skills in their job. Some are a social entrepreneurs.
-Self awareness and emotional intelligence
+  We look for mentors with experience and practical know-how. Mentors can be based anywhere in the UK and have a range of different experience: business consulting, marketing and PR, legal, finance, IT, HR or academia. Many run their own business. Others use business skills in their job. Some are a social entrepreneurs.
+  Self awareness and emotional intelligence
 
 - A good mentor is aware of their own strengths and weaknesses. This helps them to be an open sounding board for the social entrepreneur. Our mentors are comfortable delivering the benefits of their experience. When our mentors share their experience, they do it openly and honestly.
 
 - The ability to listen and ask good questions
-Mentoring is about helping others to reach their own decisions. Our mentors must be good listeners. They need to be able to ask probing questions that challenge, stretch, encourage and guide, but avoid telling social entrepreneurs.
+  Mentoring is about helping others to reach their own decisions. Our mentors must be good listeners. They need to be able to ask probing questions that challenge, stretch, encourage and guide, but avoid telling social entrepreneurs.
 
 - Strong interpersonal skills
-Mentoring partnerships are usually made or broken in the first couple of meetings - depending on whether the mentor and social entrepreneur get on. Our mentors have strong interpersonal skills and are comfortable meeting a social entrepreneur who may have a different background and life experiences.
+  Mentoring partnerships are usually made or broken in the first couple of meetings - depending on whether the mentor and social entrepreneur get on. Our mentors have strong interpersonal skills and are comfortable meeting a social entrepreneur who may have a different background and life experiences.
 
 ## Become a mentoring partner
+
 We work with large organisations to develop bespoke mentoring support. Mentoring is a great way of developing employees’ skills and leadership qualities, giving them confidence in sharing their expertise. In the past, we have worked with Actis, Deutsche Bank and UBS.
 
 Connect with our mentoring team.
@@ -49,6 +51,7 @@ Connect with our mentoring team.
 Download our guide to mentoring social entrepreneurs
 
 ## Find a mentor
+
 Our mentor support is available to all of our social entrepreneurs. We know that starting up and running any kind of venture can be a long and lonely journey. Having a trusted and experienced guide can make a real difference to your wellbeing and chances of success.
 
 **Contact your award manager to connect with a mentor.**
@@ -76,5 +79,5 @@ Social Entrepreneur
 Mentor
 
 > My mentor has helped to build my confidence and I am genuinely grateful for his commitment to me. He has been a great sounding board and a great listener
-> 
-Social Entrepreneur
+>
+> Social Entrepreneur

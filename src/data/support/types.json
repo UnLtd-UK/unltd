@@ -1,74 +1,74 @@
 [
-    {
-        "id": 1,
-        "plural": {
-            "name": "Workshops"
-        },
-        "singular": {
-            "name": "Workshop"
-        },
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
-        "icon": "pen-ruler",
-        "colour": "indigo"
+  {
+    "id": 1,
+    "plural": {
+      "name": "Workshops"
     },
-    {
-        "id": 2,
-        "plural": {
-            "name": "Clinics"
-        },
-        "singular": {
-            "name": "Clinic"
-        },
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
-        "icon": "truck-medical",
-        "colour": "violet"
+    "singular": {
+      "name": "Workshop"
     },
-    {
-        "id": 3,
-        "plural": {
-            "name": "One-to-ones"
-        },
-        "singular": {
-            "name": "One-to-one"
-        },
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
-        "icon": "handshake",
-        "colour": "purple"
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
+    "icon": "pen-ruler",
+    "colour": "indigo"
+  },
+  {
+    "id": 2,
+    "plural": {
+      "name": "Clinics"
     },
-    {
-        "id": 4,
-        "plural": {
-            "name": "Challenges"
-        },
-        "singular": {
-            "name": "Challenge"
-        },
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
-        "icon": "people-group",
-        "colour": "fuchsia"
+    "singular": {
+      "name": "Clinic"
     },
-    {
-        "id": 5,
-        "plural": {
-            "name": "Socials"
-        },
-        "singular": {
-            "name": "Social"
-        },
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
-        "icon": "landmark",
-        "colour": "pink"
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
+    "icon": "truck-medical",
+    "colour": "violet"
+  },
+  {
+    "id": 3,
+    "plural": {
+      "name": "One-to-ones"
     },
-    {
-        "id": 6,
-        "plural": {
-            "name": "Talks"
-        },
-        "singular": {
-            "name": "Talk"
-        },
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
-        "icon": "comment",
-        "colour": "rose"
-    }
+    "singular": {
+      "name": "One-to-one"
+    },
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
+    "icon": "handshake",
+    "colour": "purple"
+  },
+  {
+    "id": 4,
+    "plural": {
+      "name": "Challenges"
+    },
+    "singular": {
+      "name": "Challenge"
+    },
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
+    "icon": "people-group",
+    "colour": "fuchsia"
+  },
+  {
+    "id": 5,
+    "plural": {
+      "name": "Socials"
+    },
+    "singular": {
+      "name": "Social"
+    },
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
+    "icon": "landmark",
+    "colour": "pink"
+  },
+  {
+    "id": 6,
+    "plural": {
+      "name": "Talks"
+    },
+    "singular": {
+      "name": "Talk"
+    },
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
+    "icon": "comment",
+    "colour": "rose"
+  }
 ]

@@ -163,20 +163,24 @@ import Logo from "../../Logo.astro";
             </ul>
           </li>
         ) : navItem.slug ? (
-          <li><a
-            href={`/${navItem.slug}`}
-            class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900"
-          >
-            {navItem.name}
-          </a></li>
+          <li>
+            <a
+              href={`/${navItem.slug}`}
+              class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900"
+            >
+              {navItem.name}
+            </a>
+          </li>
         ) : (
-		<li><a
-            href={navItem.link}
-            target="_blank"
-            class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900"
-          >
-            {navItem.name} &#10532;
-          </a></li>
+          <li>
+            <a
+              href={navItem.link}
+              target="_blank"
+              class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900"
+            >
+              {navItem.name} &#10532;
+            </a>
+          </li>
         )
       )
     }

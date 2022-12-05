@@ -1,47 +1,44 @@
 {
-    "name": "events",
-    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below.",
-    "type": [
-        {
-            "name": "online",
-            "platform": [
-                "Zoom",
-                "Microsoft Teams"
-            ]
-        },
-        {
-            "name": "in-person",
-            "address":""
-        }
-    ],
-    "formats": [
-        {
-            "name": "Conference",
-            "description": "Bring people together to participate in a collective activity."
-        },
-        {
-            "name": "Workshop",
-            "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
-        },
-        {
-            "name": "Festival",
-            "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
-        },
-        {
-            "name": "Networking",
-            "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
-        },
-        {
-            "name": "Social Gathering",
-            "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
-        },
-        {
-            "name": "Lecture",
-            "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
-        },
-        {
-            "name": "Tour",
-            "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
-        }
-    ]
+  "name": "events",
+  "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below.",
+  "type": [
+    {
+      "name": "online",
+      "platform": ["Zoom", "Microsoft Teams"]
+    },
+    {
+      "name": "in-person",
+      "address": ""
+    }
+  ],
+  "formats": [
+    {
+      "name": "Conference",
+      "description": "Bring people together to participate in a collective activity."
+    },
+    {
+      "name": "Workshop",
+      "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
+    },
+    {
+      "name": "Festival",
+      "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
+    },
+    {
+      "name": "Networking",
+      "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
+    },
+    {
+      "name": "Social Gathering",
+      "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
+    },
+    {
+      "name": "Lecture",
+      "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
+    },
+    {
+      "name": "Tour",
+      "description": "a session where students listen to a lecturer, who talks through a particular topic. Lectures can be led in large groups, or small groups, and often take place in lecture theatres"
+    }
+  ]
 }

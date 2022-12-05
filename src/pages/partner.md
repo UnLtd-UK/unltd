@@ -2,6 +2,7 @@
 layout: ../layouts/Doc.astro
 title: Partner
 ---
+
 # Partner
 
 If you would like to find out more about partnering with UnLtd to support social entrepreneurs and the change they make, please contact our Partnerships Team at [Partnerships@unltd.org.uk](mailto:Partnerships@unltd.org.uk).
@@ -25,12 +26,15 @@ We work with a number of different partners to help create an environment where 
 ## Other ways to partner with UnLtd
 
 ### Delivery partners
+
 Our delivery partners help us offer social entrepreneurs the support they need. They might offer expert advice to specific kinds of social entrepreneurs such as young people or graduates, have industry knowledge or provide local expertise. They can help us reach out to social entrepreneurs in areas where we're not as well connected.
 
 ### Influential partners
+
 We want to hear from those with expertise or the knowledge to help us take social entrepreneurship mainstream in the UK. We work with government, businesses and other specialist organisations to help us achieve this. Find out more about our past and current campaigns.
 
 ### Pro-bono partners
+
 Social entrepreneurs can often feel isolated or not know where to turn for advice or specific skills. Our volunteering and pro-bono partners offer their expertise with social entrepreneurs through mentoring or skills sharing. Staff get to give-back, learn new skills and lighten the load for a social entrepreneur.
 
 ## Quotes
@@ -39,7 +43,7 @@ Social entrepreneurs can often feel isolated or not know where to turn for advic
 
 **Jill Humphrey** - Director, Human Resources, Deutsche Bank AG London
 
-> By supporting Hackney Connect (an UnLtd programme)  we have been able to combine our long-term focus on the neighbouring London Borough of Hackney, with our established and growing programme of supporting social entrepreneurship
+> By supporting Hackney Connect (an UnLtd programme) we have been able to combine our long-term focus on the neighbouring London Borough of Hackney, with our established and growing programme of supporting social entrepreneurship
 
 Sarah Craner - Director, Corporate Responsibility & Community Affairs, UBS
 

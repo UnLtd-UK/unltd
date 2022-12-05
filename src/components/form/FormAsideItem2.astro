@@ -24,5 +24,9 @@ const { name, slug, status, description } = Astro.props;
     ></path>
   </svg> -->
   <span class="truncate">{name}</span>
-  {description && <p class="text-xs text-violet-200 leading-relaxed">{description}</p>}
+  {
+    description && (
+      <p class="text-xs text-violet-200 leading-relaxed">{description}</p>
+    )
+  }
 </a>

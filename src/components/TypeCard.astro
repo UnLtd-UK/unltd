@@ -5,37 +5,40 @@ import supportTopics from "../data/support-topics.json";
 ---
 
 <div class={`rounded-xl flex flex-col lg:flex-row gap-10`}>
-    <div class="rounded-t-xl basis-2/5 text-white">
-        <div class="flex flex-col gap-7">
-            <div class="rounded-t-xl flex items-center gap-3 ">
-                <div class={`bg-orange-100 rounded-full w-20 h-20 flex items-center justify-center`}>
-                    <i class={`text-3xl fa-solid fa-${type.icon} text-orange-800`}></i>
-                </div>
-            </div>
-            <div>
-                <p class={`text-2xl font-bold `}>{ type.plural.name }</p>
-                <p class=" text-md text-slate-300">{ type.description }</p>
-
-            </div>
-
+  <div class="rounded-t-xl basis-2/5 text-white">
+    <div class="flex flex-col gap-7">
+      <div class="rounded-t-xl flex items-center gap-3">
+        <div
+          class={`bg-orange-100 rounded-full w-20 h-20 flex items-center justify-center`}
+        >
+          <i class={`text-3xl fa-solid fa-${type.icon} text-orange-800`}></i>
         </div>
+      </div>
+      <div>
+        <p class={`text-2xl font-bold `}>{type.plural.name}</p>
+        <p class="text-md text-slate-300">{type.description}</p>
+      </div>
     </div>
+  </div>
 
-    <div class={`basis-3/5`}>
-        <div class="flex flex-col lg:flex-row gap-3">
-            { 
-                supportTopics.map((supportTopic) => supportTopic.type.id === type.id && (
-                        <SupportCardTopic support={supportTopic} type={type} />
-                ))
-            }
+  <div class={`basis-3/5`}>
+    <div class="flex flex-col lg:flex-row gap-3">
+      {
+        supportTopics.map(
+          (supportTopic) =>
+            supportTopic.type.id === type.id && (
+              <SupportCardTopic support={supportTopic} type={type} />
+            )
+        )
+      }
 
-<!-- { 
+      <!-- { 
     supportTopics.map((supportTopic) => supportTopic.support.type.id === type.id && (
         topics.map((topic) => supportTopic.support.topic.id === topic.id && (
             <SupportCardTopic support={supportTopic} type={ type } topic={ topic } />
         ))
     ))
 } -->
-        </div>
     </div>
+  </div>
 </div>

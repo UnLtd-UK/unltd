@@ -1,142 +1,142 @@
 [
-    {
-        "id": 1,
-        "name": "Business 1",
-        "slug": "business-1",
-        "new": true,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 2,
-        "name": "Business 2",
-        "slug": "Business-2",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 3,
-        "name": "Business 3",
-        "slug": "business-3",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 4,
-        "name": "Business 4",
-        "slug": "business-4",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 5,
-        "name": "Business 5",
-        "slug": "business-5",
-        "new": true,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 6,
-        "name": "Business 6",
-        "slug": "Business-6",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 7,
-        "name": "Business 7",
-        "slug": "business-7",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 8,
-        "name": "Business 8",
-        "slug": "business-8",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 9,
-        "name": "Finance and Accounting 1",
-        "slug": "finance-and-accounting-1",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 10,
-        "name": "Finance and Accounting 2",
-        "slug": "finance-and-accounting-2",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 11,
-        "name": "Finance and Accounting 3",
-        "slug": "finance-and-accounting-3",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 12,
-        "name": "Finance and Accounting 4",
-        "slug": "finance-and-accounting-4",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 13,
-        "name": "IT & Software 1",
-        "slug": "it-&-software-1",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 14,
-        "name": "IT & Software 2",
-        "slug": "it-&-software-2",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 15,
-        "name": "IT & Software 3",
-        "slug": "it-&-software-3",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 16,
-        "name": "IT & Software 4",
-        "slug": "it-&-software-4",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 17,
-        "name": "Personal Development 1",
-        "slug": "personal-development-1",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 18,
-        "name": "Personal Development 2",
-        "slug": "personal-development-2",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 19,
-        "name": "Marketing 1",
-        "slug": "marketing-1",
-        "new": true,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    },
-    {
-        "id": 20,
-        "name": "Marketing 2",
-        "slug": "marketing-2",
-        "new": false,
-        "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
-    }
+  {
+    "id": 1,
+    "name": "Business 1",
+    "slug": "business-1",
+    "new": true,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 2,
+    "name": "Business 2",
+    "slug": "Business-2",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 3,
+    "name": "Business 3",
+    "slug": "business-3",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 4,
+    "name": "Business 4",
+    "slug": "business-4",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 5,
+    "name": "Business 5",
+    "slug": "business-5",
+    "new": true,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 6,
+    "name": "Business 6",
+    "slug": "Business-6",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 7,
+    "name": "Business 7",
+    "slug": "business-7",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 8,
+    "name": "Business 8",
+    "slug": "business-8",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 9,
+    "name": "Finance and Accounting 1",
+    "slug": "finance-and-accounting-1",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 10,
+    "name": "Finance and Accounting 2",
+    "slug": "finance-and-accounting-2",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 11,
+    "name": "Finance and Accounting 3",
+    "slug": "finance-and-accounting-3",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 12,
+    "name": "Finance and Accounting 4",
+    "slug": "finance-and-accounting-4",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 13,
+    "name": "IT & Software 1",
+    "slug": "it-&-software-1",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 14,
+    "name": "IT & Software 2",
+    "slug": "it-&-software-2",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 15,
+    "name": "IT & Software 3",
+    "slug": "it-&-software-3",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 16,
+    "name": "IT & Software 4",
+    "slug": "it-&-software-4",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 17,
+    "name": "Personal Development 1",
+    "slug": "personal-development-1",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 18,
+    "name": "Personal Development 2",
+    "slug": "personal-development-2",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 19,
+    "name": "Marketing 1",
+    "slug": "marketing-1",
+    "new": true,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  },
+  {
+    "id": 20,
+    "name": "Marketing 2",
+    "slug": "marketing-2",
+    "new": false,
+    "description": "We provide wide-ranging support for your personal development as well as for starting or growing your venture. Explore a few of the topics we can support you with below."
+  }
 ]

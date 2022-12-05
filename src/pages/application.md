@@ -9,60 +9,76 @@ date: "09 Aug 2022"
 
 <span style="background-color: #f3f3f3; color: black; padding: 1rem; border-radius: 99rem;">Contact details</span>
 
-### Postcode <span style="color:red">*</span>
+### Postcode <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Address Line 1 <span style="color:red">*</span>
+### Address Line 1 <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
 ### Address Line 2
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
 ### Address Line 3
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### City <span style="color:red">*</span>
+### City <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
 ### County
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Country <span style="color:red">*</span>
+### Country <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
 ### Home phone
+
 Please supply at least one contact number.
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
 ### Mobile phone
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
 ### Date of Birth
+
 We ask for your date of birth to ensure eligibility; we unfortunately cannot support entrepreneurs under the age of 16 and we also want to ensure our awards are reaching people at all stages of life.
 
-### Day <span style="color:red">*</span>
+### Day <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Month <span style="color:red">*</span>
+### Month <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Year <span style="color:red">*</span>
+### Year <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### National Insurance Number <span style="color:red">*</span>
+### National Insurance Number <span style="color:red">\*</span>
+
 We ask for your National Insurance number to ensure that we can correctly link records, should you have a number of applications with us.
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
@@ -72,8 +88,10 @@ We ask for your National Insurance number to ensure that we can correctly link r
 
 <span style="background-color: #f3f3f3; color: black; padding: 1rem; border-radius: 99rem;">Complete your details</span>
 
-### Do you have the right to live and work in the UK? <span style="color:red">*</span>
+### Do you have the right to live and work in the UK? <span style="color:red">\*</span>
+
 Whilst we recognise that there are many fantastic entrepreneurs who may not have the right to live and work in the UK, unfortunately we are only able to work with those who do.
+
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem 0;">
 
 <ul>
@@ -84,9 +102,9 @@ Whilst we recognise that there are many fantastic entrepreneurs who may not have
 
 </div>
 
-### How did you find out about UnLtd? <span style="color:red">*</span>
-Please select the most relevant response for how you first found out about UnLtd/our award programmes and be specific about names and organisations. This helps us track the success of our communications and our work with local partners.
+### How did you find out about UnLtd? <span style="color:red">\*</span>
 
+Please select the most relevant response for how you first found out about UnLtd/our award programmes and be specific about names and organisations. This helps us track the success of our communications and our work with local partners.
 
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem 0;">
 
@@ -124,26 +142,31 @@ Please select the most relevant response for how you first found out about UnLtd
 
 <span style="background-color: #f3f3f3; color: black; padding: 1rem; border-radius: 99rem;">Getting to know your venture</span>
 
-### Name of venture or proposed name <span style="color:red">*</span>
+### Name of venture or proposed name <span style="color:red">\*</span>
+
 Enter the name of your venture, or proposed name, if you are at idea stage.
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Venture website <span style="color:red">*</span>
-*If your venture has a website, please tell us the address.*
+### Venture website <span style="color:red">\*</span>
+
+_If your venture has a website, please tell us the address._
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Location of venture <span style="color:red">*</span>
+### Location of venture <span style="color:red">\*</span>
+
 Here we want you to tell us where in the UK your venture will be working. This could be in your local community, borough, city, or county, it could be in several locations or UK wide.
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Which sectors does your venture operate in?<span style="color:red">*</span>
+### Which sectors does your venture operate in?<span style="color:red">\*</span>
+
 You can select up to a maximum of three sectors that most closely fit.
+
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem 0;">
 <ul>
 <li>Access to education</li>
@@ -180,7 +203,7 @@ You can select up to a maximum of three sectors that most closely fit.
 
 </div>
 
-### What is the social or environmental issue you're addressing? <span style="color:red">*</span>
+### What is the social or environmental issue you're addressing? <span style="color:red">\*</span>
 
 (Max 2000 characters)
 
@@ -191,9 +214,10 @@ In your answer we want to know what your understanding of the problem is, who it
 <div style="outline-style: solid; height: 6rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Who might benefit from your venture?<span style="color:red">*</span>
+### Who might benefit from your venture?<span style="color:red">\*</span>
 
 You can select up to a maximum of three types of beneficiaries that most closely fit by using the 'Add Impact Beneficiaries' button on the right.
+
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem 0;">
 <ul>
 <li>Individuals who identify as Black, Asian or minority ethnic</li>
@@ -221,7 +245,7 @@ You can select up to a maximum of three types of beneficiaries that most closely
 </ul>
 </div>
 
-### What type of financial support are you primarily interested in?<span style="color:red">*</span>
+### What type of financial support are you primarily interested in?<span style="color:red">\*</span>
 
 An award (grant) from UnLtd is funding that is not repaid, whilst there is an expectation that an investment is repaid. Our awards and current investment opportunities are on our website. You can select the 'I'm not sure' option if you don't know which option may be right for you yet.
 
@@ -241,9 +265,10 @@ An award (grant) from UnLtd is funding that is not repaid, whilst there is an ex
 <span style="background-color: #f3f3f3; color: black; padding: 1rem; border-radius: 99rem;">Getting to know you</span>
 
 ### Tell us about yourself and why you want to make a difference.
+
 (Max 2000 characters)
 
-2000 characters remaining. <span style="color:red">*</span>
+2000 characters remaining. <span style="color:red">\*</span>
 
 What inspires you to address this particular social or environmental issue? What is your understanding of this issue and why is it important to you? What makes you the right person to address this issue?
 
@@ -357,16 +382,15 @@ If you have been established for over four years, or had a turnover of over £25
 </ul>
 </div>
 
-
 ## Forming: I have an idea
 
 <span style="background-color: #f3f3f3; padding: 1rem; border-radius: 99rem;">Just an idea</span>
 
-
 ### How do you plan to tackle the social/environmental problem that you've identified?
+
 (Max 2000 characters)
 
-2000 characters remaining. <span style="color:red">*</span>
+2000 characters remaining. <span style="color:red">\*</span>
 
 Please give us an overview of the social/environmental problem you want to solve and how you plan to go about it for example: If you are looking to tackle the disability employment gap then you may be proposing a solution which creates opportunities to support disabled people into employment.
 
@@ -384,9 +408,10 @@ You might have a clear idea of the difference you want to make but have not had 
 </div>
 
 ### How do you plan to make a difference?
+
 (Max 2000 characters)
 
-2000 characters remaining. <span style="color:red">*</span>
+2000 characters remaining. <span style="color:red">\*</span>
 
 We want to understand your business model, by this we mean what products or services might you be selling to become financially sustainable which in turn will allow you to create a social impact.
 
@@ -402,39 +427,40 @@ It may be that you have developed a product or service offering but you aren't s
 <div style="outline-style: solid; height: 6rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### How many unique individuals have directly benefited from the products, services, or interventions offered by your social venture in the last 12 months? <span style="color:red">*</span>
+### How many unique individuals have directly benefited from the products, services, or interventions offered by your social venture in the last 12 months? <span style="color:red">\*</span>
 
 Tell us how many unique individuals your venture has directly made a positive difference for – by unique individuals we mean that if a person has, for example, attended three workshops they should only count once. If your venture is new or early stage and has not yet benefitted people, please enter '0'.
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### How many unique individuals do you expect to benefit from the products, services, or interventions offered by your social venture in the next 12 months? <span style="color:red">*</span>
+### How many unique individuals do you expect to benefit from the products, services, or interventions offered by your social venture in the next 12 months? <span style="color:red">\*</span>
 
 Tell us how many unique individuals your venture will benefit in the next 12 months, and as above, one individual should only count once in your total.
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Please describe the intended impact of your work on the individuals who benefit from it and how long you expect that impact might last: <span style="color:red">*</span>
+### Please describe the intended impact of your work on the individuals who benefit from it and how long you expect that impact might last: <span style="color:red">\*</span>
 
 We would like to understand how your work will make a positive difference to people, and whether you are working with them over a short period of time or through more regular interactions.
 
 Your response might include:
+
 - How people will benefit from the activities/products/services the venture will provide
 - How often you anticipate people will engage with your work (for example once in a workshop, or through daily or weekly interactions
 
 <div style="outline-style: solid; height: 6rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Please add the total amount you would like to apply for from UnLtd: <span style="color:red">*</span>
+### Please add the total amount you would like to apply for from UnLtd: <span style="color:red">\*</span>
 
 We can consider requests from £500 to £8,000 for ideas or early-stage ventures.
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Please add a breakdown of the total budget including the key items you would like the award to cover. <span style="color:red">*</span>
+### Please add a breakdown of the total budget including the key items you would like the award to cover. <span style="color:red">\*</span>
 
 We would like to understand what your venture costs are. When planning your budget please bear in mind that an UnLtd award can only be used to cover costs after the approval date. Any costs you incur before this date cannot count towards award expenditure. We may discuss your budget with you in more detail as your application progresses.
 
@@ -452,16 +478,19 @@ We can consider all costs relating to establishing or growing a venture which co
 - Mentoring and support
 
 Please note that the following expenses will not be considered:
+
 - At this stage we cannot cover living costs
 - Funding activities outside the law, against public policy or anything that fosters ethnic, religious, or commercial disharmony
 - Funding to undertake formal qualifications (but can be used to provide short term training if critical to success of the venture)
 - Funding to employ others to undertake the bulk of the award activity
 
-Item <span style="color:red">*</span>
+Item <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-Cost <span style="color:red">*</span>
+Cost <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
@@ -471,10 +500,9 @@ Cost <span style="color:red">*</span>
 
 <span style="background-color: #f3f3f3; padding: 1rem; border-radius: 99rem;">Less than 1 year</span>
 
-### My venture is incorporated as a: <span style="color:red">*</span>
+### My venture is incorporated as a: <span style="color:red">\*</span>
 
 If your organisation is incorporated under more than one structure (e.g., if you have a charity foundation and a trading arm) then select the option for which the majority of your trading income comes through.
-
 
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem ; padding: 1rem 0;">
 
@@ -499,13 +527,12 @@ If your organisation is incorporated under more than one structure (e.g., if you
 
 </div>
 
-### ...and was incorporated on: <span style="color:red">*</span>
+### ...and was incorporated on: <span style="color:red">\*</span>
 
 Enter the exact date of incorporation, found on your certificate of incorporation, or on Companies House/Charity Commission.
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
-
 
 ### Company or Charity Number:
 
@@ -514,14 +541,14 @@ Enter the company or charity number, found on your certificate of incorporation,
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-
-### How are you currently tackling the social/environmental problem that you've identified or how do you plan to tackle it in the future? <span style="color:red">*</span>
+### How are you currently tackling the social/environmental problem that you've identified or how do you plan to tackle it in the future? <span style="color:red">\*</span>
 
 (Max 2000 characters)
 
 Tell us how your work addresses the root cause of the problem you are tackling. Your response should include an overview of your work and how it enables you to tackle the social issue you have identified.
 
 Your response might also include:
+
 - Key achievements to date
 - Information or insights that lead you to believe your work is making a difference and how you collect this data
 - Contracts, funding, or key partnerships you have secured to deliver your work
@@ -532,12 +559,14 @@ Your response might also include:
 <div style="outline-style: solid; height: 6rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### How will you continue to make a difference? <span style="color:red">*</span>
+### How will you continue to make a difference? <span style="color:red">\*</span>
+
 (Max 2000 characters)
 
 Tell us about your business model. By this we mean the products or services you are selling to become financially sustainable which in turn will allow you to create a social impact.
 
 Your response might include:
+
 - What you are selling and to who
 - How you know that they, and others will pay
 - Evidence of trading income, as well as grants
@@ -546,23 +575,21 @@ Your response might include:
 <div style="outline-style: solid; height: 6rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### How many unique individuals have directly benefited from the products, services, or interventions offered by your social venture in the last 12 months? <span style="color:red">*</span>
+### How many unique individuals have directly benefited from the products, services, or interventions offered by your social venture in the last 12 months? <span style="color:red">\*</span>
 
 Tell us how many unique individuals your venture has directly made a positive difference for – by unique individuals we mean that if a person has, for example, attended three workshops they should only count once. If your venture is new or early stage and has not yet benefitted people, please enter '0'.
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-
-### How many unique individuals do you expect to benefit from the products, services, or interventions offered by your social venture in the next 12 months? <span style="color:red">*</span>
+### How many unique individuals do you expect to benefit from the products, services, or interventions offered by your social venture in the next 12 months? <span style="color:red">\*</span>
 
 Tell us how many unique individuals your venture will benefit in the next 12 months, and as above, one individual should only count once in your total.
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-
-### Please describe the intended impact of your work on the individuals who benefit from it and how long you expect that impact might last: <span style="color:red">*</span>
+### Please describe the intended impact of your work on the individuals who benefit from it and how long you expect that impact might last: <span style="color:red">\*</span>
 
 We would like to understand how your work will make a positive difference to people, and whether you are working with them over a short period of time or through more regular interactions. Your response could include:
 
@@ -573,7 +600,7 @@ We would like to understand how your work will make a positive difference to peo
 <div style="outline-style: solid; height: 6rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Please add the total amount you would like to apply for from UnLtd: <span style="color:red">*</span>
+### Please add the total amount you would like to apply for from UnLtd: <span style="color:red">\*</span>
 
 We can consider requests from £500 to £8,000 for early-stage ventures.
 
@@ -581,7 +608,7 @@ We can consider requests from £500 to £8,000 for early-stage ventures.
 £
 </div>
 
-### Please add a breakdown of the total budget including the key items you would like the award to cover. <span style="color:red">*</span>
+### Please add a breakdown of the total budget including the key items you would like the award to cover. <span style="color:red">\*</span>
 
 We would like to understand what your venture costs are. When planning your budget please bear in mind that an UnLtd award can only be used to cover costs after the approval date. Any costs you incur before this date cannot count towards award expenditure. We may discuss your budget with you in more detail as your application progresses.
 
@@ -605,26 +632,25 @@ Please note that the following expenses will not be considered:
 - Funding to undertake formal qualifications (but can be used to provide short term training if critical to success of the venture)
 - Funding to employ others to undertake the bulk of the award activity
 
-Item <span style="color:red">*</span>
+Item <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-Cost <span style="color:red">*</span>
+Cost <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
-
-
 
 <span style="background-color: #f3f3f3; padding: 1rem; border-radius: 99rem;">Less than 1 year</span>
 
-### My venture is incorporated as a: <span style="color:red">*</span>
+### My venture is incorporated as a: <span style="color:red">\*</span>
 
 If your organisation is incorporated under more than one structure (e.g., if you have a charity foundation and a trading arm) then select the option for which the majority of your trading income comes through.
 
-
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem ; padding: 1rem 0;">
 
-- 
+-
 - Charitable Company Limited by Guarantee
 - Charitable Incorporated Organisation
 - Co-operative Society
@@ -643,13 +669,12 @@ If your organisation is incorporated under more than one structure (e.g., if you
 
 </div>
 
-### ...and was incorporated on: <span style="color:red">*</span>
+### ...and was incorporated on: <span style="color:red">\*</span>
 
 Enter the exact date of incorporation, found on your certificate of incorporation, or on Companies House/Charity Commission.
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
-
 
 ### Company or Charity Number:
 
@@ -658,14 +683,14 @@ Enter the company or charity number, found on your certificate of incorporation,
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-
-### How are you currently tackling the social/environmental problem that you've identified or how do you plan to tackle it in the future? <span style="color:red">*</span>
+### How are you currently tackling the social/environmental problem that you've identified or how do you plan to tackle it in the future? <span style="color:red">\*</span>
 
 (Max 2000 characters)
 
 Tell us how your work addresses the root cause of the problem you are tackling. Your response should include an overview of your work and how it enables you to tackle the social issue you have identified.
 
 Your response might also include:
+
 - Key achievements to date
 - Information or insights that lead you to believe your work is making a difference and how you collect this data
 - Contracts, funding, or key partnerships you have secured to deliver your work
@@ -676,12 +701,14 @@ Your response might also include:
 <div style="outline-style: solid; height: 6rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### How will you continue to make a difference? <span style="color:red">*</span>
+### How will you continue to make a difference? <span style="color:red">\*</span>
+
 (Max 2000 characters)
 
 Tell us about your business model. By this we mean the products or services you are selling to become financially sustainable which in turn will allow you to create a social impact.
 
 Your response might include:
+
 - What you are selling and to who
 - How you know that they, and others will pay
 - Evidence of trading income, as well as grants
@@ -690,23 +717,21 @@ Your response might include:
 <div style="outline-style: solid; height: 6rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### How many unique individuals have directly benefited from the products, services, or interventions offered by your social venture in the last 12 months? <span style="color:red">*</span>
+### How many unique individuals have directly benefited from the products, services, or interventions offered by your social venture in the last 12 months? <span style="color:red">\*</span>
 
 Tell us how many unique individuals your venture has directly made a positive difference for – by unique individuals we mean that if a person has, for example, attended three workshops they should only count once. If your venture is new or early stage and has not yet benefitted people, please enter '0'.
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-
-### How many unique individuals do you expect to benefit from the products, services, or interventions offered by your social venture in the next 12 months? <span style="color:red">*</span>
+### How many unique individuals do you expect to benefit from the products, services, or interventions offered by your social venture in the next 12 months? <span style="color:red">\*</span>
 
 Tell us how many unique individuals your venture will benefit in the next 12 months, and as above, one individual should only count once in your total.
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-
-### Please describe the intended impact of your work on the individuals who benefit from it and how long you expect that impact might last: <span style="color:red">*</span>
+### Please describe the intended impact of your work on the individuals who benefit from it and how long you expect that impact might last: <span style="color:red">\*</span>
 
 We would like to understand how your work will make a positive difference to people, and whether you are working with them over a short period of time or through more regular interactions. Your response could include:
 
@@ -717,7 +742,7 @@ We would like to understand how your work will make a positive difference to peo
 <div style="outline-style: solid; height: 6rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### Please add the total amount you would like to apply for from UnLtd: <span style="color:red">*</span>
+### Please add the total amount you would like to apply for from UnLtd: <span style="color:red">\*</span>
 
 We can consider requests from £500 to £8,000 for early-stage ventures.
 
@@ -725,7 +750,7 @@ We can consider requests from £500 to £8,000 for early-stage ventures.
 £
 </div>
 
-### Please add a breakdown of the total budget including the key items you would like the award to cover. <span style="color:red">*</span>
+### Please add a breakdown of the total budget including the key items you would like the award to cover. <span style="color:red">\*</span>
 
 We would like to understand what your venture costs are. When planning your budget please bear in mind that an UnLtd award can only be used to cover costs after the approval date. Any costs you incur before this date cannot count towards award expenditure. We may discuss your budget with you in more detail as your application progresses.
 
@@ -749,11 +774,13 @@ Please note that the following expenses will not be considered:
 - Funding to undertake formal qualifications (but can be used to provide short term training if critical to success of the venture)
 - Funding to employ others to undertake the bulk of the award activity
 
-Item <span style="color:red">*</span>
+Item <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-Cost <span style="color:red">*</span>
+Cost <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
@@ -763,11 +790,9 @@ Cost <span style="color:red">*</span>
 
 <span style="background-color: #f3f3f3; padding: 1rem; border-radius: 99rem;">More than 1 year</span>
 
-
-### My venture is incorporated as a: <span style="color:red">*</span>
+### My venture is incorporated as a: <span style="color:red">\*</span>
 
 If your organisation is incorporated under more than one structure (e.g., if you have a charity foundation and a trading arm) then select the option for which the majority of your trading income comes through.
-
 
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem ; padding: 1rem 0;">
 
@@ -790,11 +815,9 @@ If your organisation is incorporated under more than one structure (e.g., if you
 <li>Other</li>
 </ul>
 
-
 </div>
 
-
-### ...and was incorporated on: <span style="color:red">*</span>
+### ...and was incorporated on: <span style="color:red">\*</span>
 
 Enter the exact date of incorporation, found on your certificate of incorporation, or on Companies House/Charity Commission. If your venture has been legally incorporated for over four years at the time of application, you are not eligible to apply. You may wish to look at our investment offer. You can find information about this on our website.
 
@@ -810,7 +833,7 @@ Enter the company or charity number, found on your certificate of incorporation,
 
 **Tell us more about your financial performance**
 
-### Last 12 month's turnover: <span style="color:red">*</span>
+### Last 12 month's turnover: <span style="color:red">\*</span>
 
 Enter your last 12 months' turnover. This gives us an idea about the size of your venture and the potential for growth. If your venture had a turnover of over £250,000 in the last financial year, you are not eligible to apply for our awards. You may wish to look at our investment offer. You can find information about this on our website.
 
@@ -818,8 +841,7 @@ Enter your last 12 months' turnover. This gives us an idea about the size of you
 £
 </div>
 
-
-### Projected 12 month's turnover: <span style="color:red">*</span>
+### Projected 12 month's turnover: <span style="color:red">\*</span>
 
 Enter your projected 12 months’ turnover. This gives us an idea about the size of your venture and the potential for growth.
 
@@ -829,7 +851,7 @@ If you wish to, please use the Add files button at the bottom of this page to ad
 £
 </div>
 
-### Traded income percentage: <span style="color:red">*</span>
+### Traded income percentage: <span style="color:red">\*</span>
 
 Of your last 12 months turnover, what percentage is from traded income?
 
@@ -846,15 +868,9 @@ For the purposes of our support, you may consider Service Level Agreements or si
 <li>Over 80%</li>
 </ul>
 
-
 </div>
 
-
-
-
-
-
-### How are you currently tackling the social/environmental problem that you’ve identified or how do you plan to tackle it in the future? <span style="color:red">*</span>
+### How are you currently tackling the social/environmental problem that you’ve identified or how do you plan to tackle it in the future? <span style="color:red">\*</span>
 
 (Max 2000 characters)
 
@@ -875,20 +891,19 @@ We recommend where available that you provide both quantitative and qualitative 
 
 If you are pivoting your work to increase your impact, please describe the reason for the changes. You also have an option at the bottom of the page to upload supporting documents such as an impact report or theory of change. You do not need to upload any documents if you feel that your answer is enough to demonstrate your outputs and outcomes.
 
-
 <div style="outline-style: solid; height: 6rem; border-radius: 0.5rem; margin: 1rem 0;">
 
 </div>
 
-
 ### How will you continue to make a difference?
 
 (Max 2000 characters)
-2000 characters remaining. <span style="color:red">*</span>
+2000 characters remaining. <span style="color:red">\*</span>
 
 Tell us about your business model. By this we mean the products or services you are selling to become financially sustainable which in turn will allow you to create a social impact.
 
 Your response might include:
+
 - What you are selling and to who
 - How you know that they and others will pay
 - Evidence of trading income, as well as grants
@@ -898,9 +913,7 @@ Your response might include:
 
 </div>
 
-
-
-### What are your ambitions for growth? <span style="color:red">*</span>
+### What are your ambitions for growth? <span style="color:red">\*</span>
 
 (Max 2000 characters)
 2000 characters remaining.
@@ -910,6 +923,7 @@ If you wish to, please use Add files button at the bottom of this page to add su
 Tell us how you plan to grow your venture and social impact over the course of the award.
 
 Your response might include:
+
 - New geographies or beneficiary groups you plan to reach
 - The size of increased turnover you are hoping to achieve and how you anticipate achieving it
 - Key success measures you have identified to support your venture to grow
@@ -918,8 +932,7 @@ Your response might include:
 
 </div>
 
-
-### How many unique individuals have directly benefited from the products, services, or interventions offered by your social venture in the last 12 months? <span style="color:red">*</span>
+### How many unique individuals have directly benefited from the products, services, or interventions offered by your social venture in the last 12 months? <span style="color:red">\*</span>
 
 Tell us how many unique individuals your venture has directly made a positive difference for – by unique individuals we mean that if a person has, for example, attended three workshops they should only count once. If your venture is new or early stage and has not yet benefitted people, please enter '0'.
 
@@ -927,7 +940,7 @@ Tell us how many unique individuals your venture has directly made a positive di
 
 </div>
 
-### How many unique individuals do you expect to benefit from the products, services, or interventions offered by your social venture in the next 12 months? <span style="color:red">*</span>
+### How many unique individuals do you expect to benefit from the products, services, or interventions offered by your social venture in the next 12 months? <span style="color:red">\*</span>
 
 Tell us how many unique individuals your venture will benefit in the next 12 months, and as above, one individual should only count once in your total.
 
@@ -935,7 +948,7 @@ Tell us how many unique individuals your venture will benefit in the next 12 mon
 
 </div>
 
-### Please describe the intended impact of your work on the individuals who benefit from it and how long you expect that impact might last: <span style="color:red">*</span>
+### Please describe the intended impact of your work on the individuals who benefit from it and how long you expect that impact might last: <span style="color:red">\*</span>
 
 We would like to understand how your work will make a positive difference to people, and whether you are working with them over a short period of time or through more regular interactions. Your response could include:
 
@@ -946,7 +959,7 @@ We would like to understand how your work will make a positive difference to peo
 
 </div>
 
-### Please add the total amount you would like to apply for from UnLtd: <span style="color:red">*</span>
+### Please add the total amount you would like to apply for from UnLtd: <span style="color:red">\*</span>
 
 We can consider requests of up to £18,000 for established ventures.
 
@@ -954,7 +967,7 @@ We can consider requests of up to £18,000 for established ventures.
 £
 </div>
 
-### Please add a breakdown of the total budget including the key items you would like the award to cover. <span style="color:red">*</span>
+### Please add a breakdown of the total budget including the key items you would like the award to cover. <span style="color:red">\*</span>
 
 We would like to understand what your venture costs are. When planning your budget please bear in mind that an UnLtd award can only be used to cover costs after the approval date. Any costs you incur before this date cannot count towards award expenditure. We may discuss your budget with you in more detail as your application progresses.
 
@@ -973,20 +986,25 @@ We can consider all costs relating to establishing or growing a venture which co
 - As an established organisation you can also attribute some, or all of your budget to your living costs
 
 Please note that the following expenses will not be considered:
+
 - Funding activities outside the law, against public policy or anything that fosters ethnic, religious, or commercial disharmony
 - Funding to undertake formal qualifications (but can be used to provide short term training if critical to success of the venture)
 - Funding to employ others to undertake the bulk of the award activity
 
-Item <span style="color:red">*</span>
+Item <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-Cost <span style="color:red">*</span>
+Cost <span style="color:red">\*</span>
+
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-### File uploads (required): <span style="color:red">*</span>
+### File uploads (required): <span style="color:red">\*</span>
+
 As an established venture we require the following information to assess your application:
+
 - A financial record of the last 12 months
 - A 12 month financial forecast
 - A list of realistic, detailed explanatory notes that the forecast is based on
@@ -1006,15 +1024,15 @@ Add files
 
 <span style="background-color: #f3f3f3; color: black; padding: 1rem; border-radius: 99rem;">Equal opportunities</span>
 
-UnLtd is committed to supporting individuals from all backgrounds to reflect the diverse communities that we serve. Our ambition is for 50% of the awards that we make to go to people who are either: 
+UnLtd is committed to supporting individuals from all backgrounds to reflect the diverse communities that we serve. Our ambition is for 50% of the awards that we make to go to people who are either:
 
-- Black, Asian, or from a marginalised ethnic group 
-- Disabled 
+- Black, Asian, or from a marginalised ethnic group
+- Disabled
 - Over 50
 
-Having this data enables us to spot where we aren’t doing enough to ensure our support is truly inclusive for everyone. Through our commitment to continuous learning we proactively use this data to drive improvements in our support. We know that some of these questions are very personal.  Information provided on this form will be used to ensure that our processes are fair and transparent. We want to assure all applicants that no information will be published or used in any way which allows any individual to be identified.
+Having this data enables us to spot where we aren’t doing enough to ensure our support is truly inclusive for everyone. Through our commitment to continuous learning we proactively use this data to drive improvements in our support. We know that some of these questions are very personal. Information provided on this form will be used to ensure that our processes are fair and transparent. We want to assure all applicants that no information will be published or used in any way which allows any individual to be identified.
 
-### Do you consider yourself to have a disability (including neurodivergent)? <span style="color:red">*</span>
+### Do you consider yourself to have a disability (including neurodivergent)? <span style="color:red">\*</span>
 
 We use the definition of disability under the Equality Act 2010. We highly value lived experience and equality of opportunity and you should feel confident to share without fear of discrimination or bias. Our commitments to inclusion can be found on our website and are monitored.
 
@@ -1038,8 +1056,7 @@ Giving us as much information as you are comfortable with will allow our teams t
 <div style="outline-style: solid; height: 6rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-
-### Which best describes your gender? <span style="color:red">*</span>
+### Which best describes your gender? <span style="color:red">\*</span>
 
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem ; padding: 1rem 0;">
 
@@ -1053,8 +1070,7 @@ Giving us as much information as you are comfortable with will allow our teams t
 </ul>
 </div>
 
-
-### Is your gender identity the same as the sex you were assigned at birth? <span style="color:red">*</span>
+### Is your gender identity the same as the sex you were assigned at birth? <span style="color:red">\*</span>
 
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem 0;">
 <ul>
@@ -1065,7 +1081,7 @@ Giving us as much information as you are comfortable with will allow our teams t
 </ul>
 </div>
 
-### What is your ethnic group? <span style="color:red">*</span>
+### What is your ethnic group? <span style="color:red">\*</span>
 
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem 0;">
 <ul>
@@ -1093,7 +1109,7 @@ Giving us as much information as you are comfortable with will allow our teams t
 </ul>
 </div>
 
-### What is your current marital status? <span style="color:red">*</span>
+### What is your current marital status? <span style="color:red">\*</span>
 
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem 0;">
 <ul>
@@ -1107,7 +1123,7 @@ Giving us as much information as you are comfortable with will allow our teams t
 </ul>
 </div>
 
-### What is your religion/faith? <span style="color:red">*</span>
+### What is your religion/faith? <span style="color:red">\*</span>
 
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem 0;">
 <ul>
@@ -1124,7 +1140,7 @@ Giving us as much information as you are comfortable with will allow our teams t
 </ul>
 </div>
 
-### What is your sexual orientation? <span style="color:red">*</span>
+### What is your sexual orientation? <span style="color:red">\*</span>
 
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem 0;">
 <ul>
@@ -1138,7 +1154,7 @@ Giving us as much information as you are comfortable with will allow our teams t
 </ul>
 </div>
 
-### What is your current employment status? <span style="color:red">*</span>
+### What is your current employment status? <span style="color:red">\*</span>
 
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem 0;">
 <ul>
@@ -1157,8 +1173,7 @@ Giving us as much information as you are comfortable with will allow our teams t
 </ul>
 </div>
 
-
-### What is your highest level of qualification? <span style="color:red">*</span>
+### What is your highest level of qualification? <span style="color:red">\*</span>
 
 <div style="outline-style: solid; border-radius: 0.5rem; margin: 1rem 0;">
 <ul>
@@ -1185,51 +1200,49 @@ Giving us as much information as you are comfortable with will allow our teams t
 
 Please provide details of two people who we can contact to provide a reference for you. They should have known you for a minimum of six months and should be aware of your plans for your venture. At least one of these two individuals should know you in a professional capacity (such as an employer, teacher, colleague) the second can be a character/personal referee. To avoid processing delays, please ensure that you enter the email addresses correctly.
 
+### References one
+
+First Name <span style="color:red">\*</span>
+
+<div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
+</div>
+
+Last Name <span style="color:red">\*</span>
+
+<div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
+</div>
+
+Email <span style="color:red">\*</span>
+
+<div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
+</div>
+
+Relationship <span style="color:red">\*</span>
+
+<div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
+</div>
 
 ### References one
 
-First Name <span style="color:red">*</span>
+First Name <span style="color:red">\*</span>
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-Last Name <span style="color:red">*</span>
+Last Name <span style="color:red">\*</span>
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-Email <span style="color:red">*</span>
+Email <span style="color:red">\*</span>
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
 
-Relationship <span style="color:red">*</span>
+Relationship <span style="color:red">\*</span>
 
 <div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
 </div>
-
-### References one
-
-First Name <span style="color:red">*</span>
-
-<div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
-</div>
-
-Last Name <span style="color:red">*</span>
-
-<div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
-</div>
-
-Email <span style="color:red">*</span>
-
-<div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
-</div>
-
-Relationship <span style="color:red">*</span>
-
-<div style="outline-style: solid; height: 2rem; border-radius: 0.5rem; margin: 1rem 0;">
-</div>
-
 
 <span style="background-color: #f3f3f3; color: black; padding: 1rem; border-radius: 99rem;">Completed</span>
 

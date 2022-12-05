@@ -1,108 +1,141 @@
 ---
-
-import nav from '../data/nav.json';
-import Logo from '../components/Logo.astro';
-
+import nav from "../data/nav.json";
+import Logo from "../components/Logo.astro";
 ---
 
-
 <style>
+  .navbar a {
+    text-decoration: none;
+  }
 
-.navbar a {
-  text-decoration: none;
-}
+  .dropdown {
+    float: left;
+    overflow: hidden;
+  }
 
-.dropdown {
-  float: left;
-  overflow: hidden;
-}
+  .dropdown .dropbtn {
+  }
 
-.dropdown .dropbtn {
+  .navbar a:hover,
+  .dropdown:hover .dropbtn {
+    background-color: red;
+  }
 
-}
+  .dropdown-content {
+    display: none;
+  }
 
-.navbar a:hover, .dropdown:hover .dropbtn {
-  background-color: red;
-}
+  .dropdown-content a {
+    display: block;
+  }
 
-.dropdown-content {
-  display: none;
-}
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
 
-.dropdown-content a {
-  display: block;
-}
-
-.dropdown-content a:hover {
-  background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
 </style>
 
-
 <header class="bg-violet-900">
-    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
-        <div class="w-full py-6 flex items-center justify-between lg:border-none">
-            <div class="flex items-center justify-between">
-                <a href="/">
-                    <span class="sr-only">UnLtd</span>
-                    <Logo></Logo>
-                </a>
-            </div>
-            <div class="ml-10 space-x-4 flex gap-5 flex-col flex-end flex-wrap">
-                <div class="hidden lg:flex lg:ml-auto lg:flex-end">
-                    <a href="/" class="py-1 px-8 rounded-full text-base font-medium border-solid border-2 border-white text-white hover:text-amber-500">My award account</a>
-                </div>
-                <div class="navbar hidden ml-10 space-x-8 lg:flex">
-                    { nav.header.map((navItem) => (
-                        <div>{ navItem.children.length >= 1 ? 
-                            <div class="relative dropdown">
-                                <a class="dropbtn text-white group rounded-md inline-flex items-center text-base font-medium hover:text-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" aria-expanded="false">
-                                    <span>{ navItem.name }</span>
-                                    <i class="fa-solid fa-chevron-down"></i>
-                                </a>
-                                <div class="dropdown-content absolute z-10 transform -translate-x-2/3 mt-3 px-2 w-screen max-w-xs sm:px-0">
-                                    <div class="dropdown-content rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                                        <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 rounded">
-											{navItem.children.map((navItemChild) => (
-                                                <a href={ navItemChild.link } class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
-                                                    <div class="ml-4">
-                                                        <p class="text-base font-medium text-gray-900">{ navItemChild.name }</p>
-                                                    </div>
-                                                </a>
-											))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-						    :
-                            <div>
-                                { navItem.slug ?
-                            <a href={ navItem.slug } class="text-base font-medium text-white hover:text-amber-500">
-                                { navItem.name }
-                            </a>
-                            :
-                            <a href={ navItem.link } target="_blank" class="text-base font-medium text-white hover:text-amber-500">
-                                { navItem.name } <i class="fa-solid fa-arrow-trend-up"></i>
-                            </a>
-                            }
-                            </div>
-                        }</div>
-                    ))}
-                </div>
-                <div class="-mr-2 -my-2 lg:hidden">
-                <input class="side-menu cursor-pointer" type="checkbox" id="side-menu"/>
-
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
-                </div>
-            </div>
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
+    <div class="w-full py-6 flex items-center justify-between lg:border-none">
+      <div class="flex items-center justify-between">
+        <a href="/">
+          <span class="sr-only">UnLtd</span>
+          <Logo />
+        </a>
+      </div>
+      <div class="ml-10 space-x-4 flex gap-5 flex-col flex-end flex-wrap">
+        <div class="hidden lg:flex lg:ml-auto lg:flex-end">
+          <a
+            href="/"
+            class="py-1 px-8 rounded-full text-base font-medium border-solid border-2 border-white text-white hover:text-amber-500"
+            >My award account</a
+          >
         </div>
-    </nav>
+        <div class="navbar hidden ml-10 space-x-8 lg:flex">
+          {
+            nav.header.map((navItem) => (
+              <div>
+                {navItem.children.length >= 1 ? (
+                  <div class="relative dropdown">
+                    <a
+                      class="dropbtn text-white group rounded-md inline-flex items-center text-base font-medium hover:text-amber-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      aria-expanded="false"
+                    >
+                      <span>{navItem.name}</span>
+                      <i class="fa-solid fa-chevron-down" />
+                    </a>
+                    <div class="dropdown-content absolute z-10 transform -translate-x-2/3 mt-3 px-2 w-screen max-w-xs sm:px-0">
+                      <div class="dropdown-content rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                        <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8 rounded">
+                          {navItem.children.map((navItemChild) => (
+                            <a
+                              href={navItemChild.link}
+                              class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                            >
+                              <div class="ml-4">
+                                <p class="text-base font-medium text-gray-900">
+                                  {navItemChild.name}
+                                </p>
+                              </div>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    {navItem.slug ? (
+                      <a
+                        href={navItem.slug}
+                        class="text-base font-medium text-white hover:text-amber-500"
+                      >
+                        {navItem.name}
+                      </a>
+                    ) : (
+                      <a
+                        href={navItem.link}
+                        target="_blank"
+                        class="text-base font-medium text-white hover:text-amber-500"
+                      >
+                        {navItem.name} <i class="fa-solid fa-arrow-trend-up" />
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))
+          }
+        </div>
+        <div class="-mr-2 -my-2 lg:hidden">
+          <input
+            class="side-menu cursor-pointer"
+            type="checkbox"
+            id="side-menu"
+          />
+
+          <svg
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </nav>
 </header>
 
 <!--
@@ -115,70 +148,127 @@ import Logo from '../components/Logo.astro';
       From: "opacity-100 scale-100"
       To: "opacity-0 scale-95"
   -->
-<div id="mobilemenu" class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right hidden lg:hidden z-50">
-    <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
-        <div class="pt-5 pb-6 px-5">
-            <div class="flex items-center justify-between">
-                <div>
-                    <Logo></Logo>
-                </div>
-                <div class="-mr-2">
-                    <button id="mobilemenuclosebutton" onclick="myFunction(this)" type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                        <span class="sr-only">Close menu</span>
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
+<div
+  id="mobilemenu"
+  class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right hidden lg:hidden z-50"
+>
+  <div
+    class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50"
+  >
+    <div class="pt-5 pb-6 px-5">
+      <div class="flex items-center justify-between">
+        <div>
+          <Logo />
+        </div>
+        <div class="-mr-2">
+          <button
+            id="mobilemenuclosebutton"
+            onclick="myFunction(this)"
+            type="button"
+            class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+          >
+            <span class="sr-only">Close menu</span>
+            <svg
+              class="h-6 w-6"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="mt-6">
+        <nav class="grid gap-y-8">
+          {
+            nav.header.map((navItem) => (
+              <div>
+                {navItem.children.length >= 1 ? (
+                  <div class="relative">
+                    <button
+                      type="button"
+                      class="text-black group rounded-md inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 -m-3 p-3"
+                      aria-expanded="false"
+                    >
+                      <span class="">{navItem.name}</span>
+                      <svg
+                        class="ml-2 h-5 w-5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
                     </button>
-                </div>
-            </div>
-            <div class="mt-6">
-                <nav class="grid gap-y-8">
-                    { nav.header.map((navItem) => (
-                        <div>
-                            { navItem.children.length >= 1 ? 
-                                <div class="relative">
-                                    <button type="button" class="text-black group rounded-md inline-flex items-center text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 -m-3 p-3" aria-expanded="false">
-                                        <span class="">{ navItem.name }</span>
-                                        <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                                        </svg>
-                                    </button>
-                                    <div class="absolute z-10 transform -translate-x-2/3 mt-3 px-2 w-screen max-w-xs sm:px-0 hidden">
-                                        <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
-                                            <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
-                                                { navItem.children.map((navItemChild) => (
-                                                    <a href="{ navItemChild.slug }" class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
-                                                        <div class="ml-4">
-                                                            <p class="text-base font-medium text-gray-900">{ navItemChild.name }</p>
-                                                        </div>
-                                                    </a>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            :
-                                <div>
-                                    { navItem.slug ?
-                                        <a href={ navItem.slug } class="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                                            <span class="ml-3 text-base font-medium text-black">f{ navItem.name }</span>
-                                        </a>
-                                    :
-                                    <a href={ navItem.link } target="_blank" class="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                                            <span class="ml-3 text-base font-medium text-black">d{ navItem.name }</span>
-                                        </a>
-                                    }
-                                </div>
-                            }
+                    <div class="absolute z-10 transform -translate-x-2/3 mt-3 px-2 w-screen max-w-xs sm:px-0 hidden">
+                      <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
+                        <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
+                          {navItem.children.map((navItemChild) => (
+                            <a
+                              href="{ navItemChild.slug }"
+                              class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50"
+                            >
+                              <div class="ml-4">
+                                <p class="text-base font-medium text-gray-900">
+                                  {navItemChild.name}
+                                </p>
+                              </div>
+                            </a>
+                          ))}
                         </div>
-                        ))}
-                    </nav>
-            </div>
-        </div>
-        <div class="py-6 px-5 space-y-6">
-            <div>
-                <a href="/" class="py-1 px-8 rounded-full text-base font-medium border-solid border-2 border-black text-black hover:text-amber-500">My award account</a>
-            </div>
-        </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    {navItem.slug ? (
+                      <a
+                        href={navItem.slug}
+                        class="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
+                      >
+                        <span class="ml-3 text-base font-medium text-black">
+                          f{navItem.name}
+                        </span>
+                      </a>
+                    ) : (
+                      <a
+                        href={navItem.link}
+                        target="_blank"
+                        class="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50"
+                      >
+                        <span class="ml-3 text-base font-medium text-black">
+                          d{navItem.name}
+                        </span>
+                      </a>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))
+          }
+        </nav>
+      </div>
     </div>
+    <div class="py-6 px-5 space-y-6">
+      <div>
+        <a
+          href="/"
+          class="py-1 px-8 rounded-full text-base font-medium border-solid border-2 border-black text-black hover:text-amber-500"
+          >My award account</a
+        >
+      </div>
+    </div>
+  </div>
 </div>

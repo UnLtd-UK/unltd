@@ -19,12 +19,14 @@
     "@types/alpinejs": "^3.7.1",
     "alpinejs": "^3.10.5",
     "astro": "^1.2.5",
+    "pocketbase": "^0.8.1",
     "slugify": "^1.6.5",
     "svelte": "^3.50.1",
     "tailwindcss": "^3.1.8"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
-    "@tailwindcss/typography": "^0.5.8"
+    "@tailwindcss/typography": "^0.5.8",
+    "prettier-plugin-astro": "^0.7.0"
   }
 }

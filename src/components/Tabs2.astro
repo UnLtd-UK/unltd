@@ -107,54 +107,43 @@ const { parentItems, childrenItems, pathways, parentName, childName } =
   </div>
   <div class="flex flex-col gap-3">
     {
-      parentItems.map((parentItem, parentItemIndex) => (
+      parentItems.map((parentItem, parentItemIndex) =>
         parentItemIndex === 0 ? (
-        <div id={`content-${parentItem.slug}`} class="tabcontent">
-          {pathways.map((pathway) => {
-            if (parentItem.id === pathway[parentName].id)
-              return (
-                <Fragment>
-                  {childrenItems.map(
-                    (childrenItem) =>
-                      childrenItem.id === pathway[childName].id && (
-                          childrenItem.id === pathway.topic.id && (
-                            <p class="">
-                              {childrenItem.name}
-                            </p>
-                          )
-                      )
-                  )}
-                </Fragment>
-              );
-          })}
-        </div>
+          <div id={`content-${parentItem.slug}`} class="tabcontent">
+            {pathways.map((pathway) => {
+              if (parentItem.id === pathway[parentName].id)
+                return (
+                  <Fragment>
+                    {childrenItems.map(
+                      (childrenItem) =>
+                        childrenItem.id === pathway[childName].id &&
+                        childrenItem.id === pathway.topic.id && (
+                          <p class="">{childrenItem.name}</p>
+                        )
+                    )}
+                  </Fragment>
+                );
+            })}
+          </div>
+        ) : (
+          <div id={`content-${parentItem.slug}`} class="tabcontent hidden">
+            {pathways.map((pathway) => {
+              if (parentItem.id === pathway[parentName].id)
+                return (
+                  <Fragment>
+                    {childrenItems.map(
+                      (childrenItem) =>
+                        childrenItem.id === pathway[childName].id &&
+                        childrenItem.id === pathway.topic.id && (
+                          <p class="">{childrenItem.name}</p>
+                        )
+                    )}
+                  </Fragment>
+                );
+            })}
+          </div>
+        )
       )
-
-      :
-
-      (
-        <div id={`content-${parentItem.slug}`} class="tabcontent hidden">
-          {pathways.map((pathway) => {
-            if (parentItem.id === pathway[parentName].id)
-              return (
-                <Fragment>
-                  {childrenItems.map(
-                    (childrenItem) =>
-                      childrenItem.id === pathway[childName].id && (
-                          childrenItem.id === pathway.topic.id && (
-                            <p class="">
-                              {childrenItem.name}
-                            </p>
-                          )
-                      )
-                  )}
-                </Fragment>
-              );
-          })}
-        </div>
-      )
-      
-      ))
     }
   </div>
 </div>

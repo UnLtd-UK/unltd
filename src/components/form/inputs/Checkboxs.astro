@@ -1,5 +1,6 @@
 ---
-const { name, description, slug, type, placeholder, required, options } = Astro.props;
+const { name, description, slug, type, placeholder, required, options } =
+  Astro.props;
 ---
 
 <fieldset>
@@ -9,7 +10,10 @@ const { name, description, slug, type, placeholder, required, options } = Astro.
       >{required === "true" ? `Required` : `Optional`}</span
     >
   </div>
-  <p class="mt-2 text-sm text-gray-500 leading-relaxed" id={`${slug}-description}`}>
+  <p
+    class="mt-2 text-sm text-gray-500 leading-relaxed"
+    id={`${slug}-description}`}
+  >
     {description}
   </p>
   <div class="mt-4 divide-y divide-gray-200 border-t border-b border-gray-200">
@@ -33,5 +37,4 @@ const { name, description, slug, type, placeholder, required, options } = Astro.
       ))
     }
   </div>
-
 </fieldset>

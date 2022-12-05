@@ -1,17 +1,31 @@
 ---
 const { name, description, slug, required } = Astro.props;
 ---
+
 <div>
-    <div class="relative flex items-start">
-      <div class="flex h-5 items-center">
-        <input id={`${slug}`} aria-describedby={`${slug}-description`} name={`${slug}`} type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:violet-indigo-500">
-      </div>
-      <div class="ml-3 text-sm">
-        <div class="flex justify-between">
-            <label for={ slug } class="font-medium text-gray-700">{ name }</label>
-            <span class="text-sm text-gray-500" id="email-required">{ required === "true" && `Required`}</span>
-        </div>
-        <p id={`${slug}-description`} class="mt-2 text-sm text-gray-500 leading-relaxed">{ description  }</p>
-      </div>
+  <div class="relative flex items-start">
+    <div class="flex h-5 items-center">
+      <input
+        id={`${slug}`}
+        aria-describedby={`${slug}-description`}
+        name={`${slug}`}
+        type="checkbox"
+        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:violet-indigo-500"
+      />
     </div>
+    <div class="ml-3 text-sm">
+      <div class="flex justify-between">
+        <label for={slug} class="font-medium text-gray-700">{name}</label>
+        <span class="text-sm text-gray-500" id="email-required"
+          >{required === "true" && `Required`}</span
+        >
+      </div>
+      <p
+        id={`${slug}-description`}
+        class="mt-2 text-sm text-gray-500 leading-relaxed"
+      >
+        {description}
+      </p>
+    </div>
+  </div>
 </div>

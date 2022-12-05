@@ -74,7 +74,7 @@ import Dropdown from "./Dropdown.astro";
   }
 </script>
 
-<header class="bg-violet-900">
+<header class="">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
     <div class="w-full py-6 flex items-center justify-between lg:border-none">
       <div class="flex items-center justify-between">
@@ -84,12 +84,17 @@ import Dropdown from "./Dropdown.astro";
         </a>
       </div>
       <div class="ml-10 space-x-4 flex gap-5 flex-col flex-end flex-wrap">
-        <div class="hidden lg:flex lg:ml-auto lg:flex-end">
-          <a
-            href="/"
-            class="py-1 px-8 rounded-full text-base font-medium border-solid border-2 border-white text-white hover:text-amber-500"
-            >My award account</a
-          >
+        <div class="hidden lg:flex gap-3 lg:ml-auto lg:flex-end">
+          {
+            nav.actions.map((navItem) => (
+              <a
+                href={navItem.slug}
+                class="py-1 px-8 rounded-full text-base font-medium border-solid border-2 border-white text-white hover:text-amber-500"
+              >
+                {navItem.name}
+              </a>
+            ))
+          }
         </div>
         <ul class="navbar hidden ml-10 space-x-8 lg:flex list-none">
           {

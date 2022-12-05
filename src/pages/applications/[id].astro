@@ -1,0 +1,42 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import TextInput from "../../components/form/inputs/TextInput.astro";
+import FormBody from "../../components/form/FormBody.astro";
+import { pb } from "../../data/pocketbase.js";
+
+export async function getStaticPaths() {
+  const applications = await pb.collection("applications").getFullList(200, {
+    sort: "order",
+  });
+
+  const sections = await pb.collection("sections").getFullList(200, {
+    sort: "order",
+  });
+
+  const fields = await pb.collection("fields").getFullList(200, {
+    sort: "order",
+  });
+
+  return applications.map((application) => {
+    return {
+      params: { id: application.slug },
+      props: { applications, application, sections, fields },
+    };
+  });
+}
+
+const { id } = Astro.params;
+const { applications, application, sections, fields } = Astro.props;
+---
+
+<Layout name={`${application.name}`} description={`${application.description}`}>
+  <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-2">
+    <h1 class="text-4xl">{application.name}</h1>
+    <FormBody
+      applications={applications}
+      application={application}
+      sections={sections}
+      fields={fields}
+    />
+  </div>
+</Layout>

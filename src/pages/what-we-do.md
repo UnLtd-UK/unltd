@@ -1,7 +1,9 @@
 ---
 layout: ../layouts/Doc.astro
-title: What we do
+name: What we do
+description: UnLtd finds, funds and supports social entrepreneurs - enterprising people with solutions that change our society for the better. We were formed in 2002 by seven organisations who believed that social entrepreneurs had a much bigger contribution to make to our economy and society. We were among the first to back individuals with their own ideas to create social good.
 ---
+
 # What we do
 
 UnLtd finds, funds and supports social entrepreneurs - enterprising people with solutions that change our society for the better. We were formed in 2002 by seven organisations who believed that social entrepreneurs had a much bigger contribution to make to our economy and society. We were among the first to back individuals with their own ideas to create social good.
@@ -23,9 +25,11 @@ Social entrepreneurs have a big role to play in tackling some of the monumental 
 So that social entrepreneurs can achieve this potential, UnLtd campaigns to break down the barriers they face: such as finding customers, making a living, and getting access to finance. We set out to change the system so it works better for those who set out to change society. And we need to your help to do it.
 
 ## Our mission
+
 We find social entrepreneurs with bold solutions to today’s challenges. Through funding and support, we help them to realise their potential and create lasting change.
 
 ## Our vision
+
 A future where enterprising people are transforming our world for good.
 
 ## FAQ
@@ -71,4 +75,3 @@ The Board of UnLtd, in its capacity as Trustee of the Millennium Awards Trust, i
 We invest so as to meet the various different objectives of the Trust Deed. In practice, this involves investing across a number of different asset classes, balancing expected return, volatility, income and operational considerations.
 
 We review strategic asset allocation formally every five years, as part of an overall investment review. Our asset allocation aims to provide an optimum balance between stable income – necessary to meet UnLtd’s operational needs – and meeting objectives stipulated in the Trust Deed of seeking to maximise financial returns and whilst also seeking to maintain the real value of the endowment. More information on our investment approach can be found in our Annual Report and Accounts.
-
