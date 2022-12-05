@@ -11,87 +11,6 @@ import Checkbox from "../../components/form/inputs/Checkbox.astro";
 import RadioGroup from "../../components/form/inputs/RadioGroup.astro";
 import Textarea from "../../components/form/inputs/Textarea.astro";
 
-const options2 = [
-  "",
-  "Another organisation or individual",
-  "Another UnLtd Award Winner - Please specify",
-  "Enterprising Communities",
-  "Event",
-  "Leaflet or Poster",
-  "Marketing email/Mailshot",
-  "Not supplied",
-  "Partner organisation staff member",
-  "Precious Awards",
-  "Referred for Systems Award",
-  "Resilient Communities - Please specify",
-  "Social Media",
-  "UnLtd Event",
-  "UnLtd Staff Member - Please specify",
-  "UnLtd Website",
-  "Website",
-  "Other - Please specify",
-];
-const options3 = [
-  "Access to education",
-  "Access to employment",
-  "Access to legal services",
-  "Climate change & energy",
-  "Conservation",
-  "Digital",
-  "Equality & empowerment",
-  "Food, nutrition & agriculture",
-  "Homelessness/housing",
-  "Independence",
-  "Life satisfaction",
-  "Loneliness",
-  "Physical health",
-  "Poverty reduction & income generation",
-  "Quality of life",
-  "Resilient communities",
-  "Routes to market",
-  "Skills and training",
-  "Social isolation",
-  "Social purpose/purposely",
-  "Social value",
-  "Solutions for an ageing society",
-  "Sustainability",
-  "Urban environments/community",
-  "Volunteering",
-  "Water & sanitation",
-  "Wellbeing",
-  "Women",
-  "Youth",
-  "Other (please specify)",
-];
-const options4 = [
-  "Individuals who identify as Black, Asian or minority ethnic",
-  "Carers",
-  "Children & families",
-  "Children/young People (<18)",
-  "Disabled people (incl. people with a learning difficulty)",
-  "Ex-armed forces",
-  "Ex-offenders",
-  "Homeless people (incl. temp accommodation)",
-  "Informal health & social care providers - individuals (incl. friends & family)",
-  "Individuals who identify as LGBTQIA+",
-  "Long-term unemployed",
-  "NEET (Not in education, employment, or training)",
-  "People in later life (those over the age of 55)",
-  "People recovering from addiction",
-  "People with audio-visual impairment",
-  "People with autism-spectrum disorder",
-  "People with dementia/Alzheimer's",
-  "People with mental health problems",
-  "Refugees & migrants",
-  "Women",
-  "Young adults (18-34)",
-  "Other (please specify)",
-];
-const options5 = [
-  { name: "Awards (grants)" },
-  { name: "Investment" },
-  { name: "I'm not sure" },
-];
 const options6 = [
   {
     name: "Direct",
@@ -255,26 +174,6 @@ let sectionFilter = sections.filter((sec) => {
   });
   return dog;
 });
-
-console.log(sectionFilter);
-
-// let fieldFilter = fields.filter((field) => {
-//   let cat;
-//   if (field.section === application.id) {
-//     return (cat = sec);
-//   }
-//   return cat;
-// });
-
-// let test = sectionFilter.map((section) {
-//   fields.filter((field) => {
-//     field.section.map((fieldsection, index) => {
-//       fields.filter((field) => {
-//         return field.section[index] === section.id;
-//       });
-//     });
-//   });
-// });
 ---
 
 <div class="lg:grid lg:grid-cols-12 lg:gap-x-5">
@@ -398,55 +297,22 @@ console.log(sectionFilter);
     </aside>
 
     <div class="flex flex-col gap-2">
-      <!-- {
-        sections.map((section) => (
-          <FormSection
-            name={section.name}
-            slug={section.slug}
-            description={section.description}
-          >
-            {fields.map((field) => {
-              return field.sections
-                .filter((fieldsection) => fieldsection === section.id)
-                .map((field) => <p class="text-gray-700">"fedf"</p>);
-            })}
-          </FormSection>
-        ))
-      } -->
-      <!-- {
-        sections.map((section) => (
-          <FormSection
-            name={section.name}
-            slug={section.slug}
-            description={section.description}
-          >
-            {fields.map((field) => {
-              field.sections.map((fieldsection, index) => {
-                fields
-                  .filter((fields) => field.section[index] === section.id)
-                  .map((fieldsforthissection) => (
-                    <p class="text-gray-700">{field.name}</p>
-                  ));
-              });
-            })}
-          </FormSection>
-        ))
-      } -->
-
       {
-        sectionFilter.map((section) => (
-          <FormSection
-            name={section.name}
-            slug={section.slug}
-            description={section.description}
-          >
-            {fields.map((field) => {
-              field.sections.map((fieldsection) => (
-                <p class="text-gray-700">{field.name}</p>
-              ));
-            })}
-          </FormSection>
-        ))
+        sectionFilter.map((singlesectionfilter) => {
+          return (
+            <FormSection
+              name={singlesectionfilter.name}
+              slug={singlesectionfilter.slug}
+              description={singlesectionfilter.description}
+            >
+              {fields.map((field) => {
+                if (field.sections == singlesectionfilter.id) {
+                  return <p class="text-gray-700">{field.name}</p>;
+                }
+              })}
+            </FormSection>
+          );
+        })
       }
     </div>
 
