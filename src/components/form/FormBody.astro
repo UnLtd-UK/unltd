@@ -1,15 +1,12 @@
 ---
-import FormAside from "../../components/form/FormAside.astro";
-// import FormAside2 from "../../components/form/FormAside2.astro";
 import FormSection from "../../components/form/FormSection.astro";
-import TextInput from "../../components/form/inputs/TextInput.astro";
-import TextDropdown from "../../components/form/inputs/TextDropdown.astro";
-// import FormAsideItem from "../../components/form/FormAsideItem.astro";
-// import FormAsideItem2 from "../../components/form/FormAsideItem2.astro";
-import Checkboxs from "../../components/form/inputs/Checkboxs.astro";
-import Checkbox from "../../components/form/inputs/Checkbox.astro";
-import RadioGroup from "../../components/form/inputs/RadioGroup.astro";
-import Textarea from "../../components/form/inputs/Textarea.astro";
+
+import Input from "../../components/form/inputs/Input.astro";
+// import Select from "../../components/form/inputs/Select.astro";
+// import Datalist from "../../components/form/inputs/Datalist.astro";
+// import Textarea from "../../components/form/inputs/Textarea.astro";
+// import Checkboxes from "../../components/form/inputs/Checkboxes.astro";
+// import Radios from "../../components/form/inputs/Radios.astro";
 
 const { applications, application, sections, fields } = Astro.props;
 
@@ -31,27 +28,6 @@ let sectionFilter = sections.filter((sec) => {
       How long has your venture been selling goods or/and services?
     </h3>
     <div class="mt-3 sm:mt-4">
-      <!-- <div class="sm:hidden">
-        <label for="current-tab" class="sr-only">Select a tab</label>
-        <select
-          id="current-tab"
-          name="current-tab"
-          class="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-        >
-          {
-            applications.map((appi, index) => (
-              <option>
-                <a
-                  href={`/applications/${appi.slug}`}
-                  class={` ${index == 0 && "selected"}`}
-                >
-                  {appi.name}
-                </a>
-              </option>
-            ))
-          }
-        </select>
-      </div> -->
       <div class="">
         <nav class="-mb-px flex space-x-8">
           {
@@ -155,13 +131,15 @@ let sectionFilter = sections.filter((sec) => {
           <a
             href="#"
             class="rounded px-2.5 py-1.5 text-xs font-medium text-violet-900 hover:bg-violet-100 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition"
-            >Download DOCX (Micirosft 365 Word)</a
+            >Download DOCX (Microsoft 365 Word)</a
           >
         </div>
       </div>
     </aside>
 
-    <main class="col-span-12 md:col-span-8 lg:col-span-5 flex flex-col gap-4">
+    <main
+      class="col-span-12 md:col-span-8 lg:col-span-5 flex flex-col gap-4 md:top-10"
+    >
       {
         sectionFilter.map((singlesectionfilter) => {
           return (
@@ -175,12 +153,25 @@ let sectionFilter = sections.filter((sec) => {
                   field.sections.length == 1 &&
                   field.sections == singlesectionfilter.id
                 ) {
-                  console.log("Single", field.sections);
-                  return <p class="text-gray-700">{field.name}</p>;
+                  // return (
+                  //   <{`${field.input}`} slug={field.slug}
+                  //     name={field.input}
+                  //     description={field.description}
+                  //   />
+                  // );
+                  return <p class="text-green-700">{field.name}</p>;
                 } else if (field.sections.length > 1) {
-                  console.log("Multiple", field.sections);
-
-                  return <p class="text-gray-700">{field.sections} MORE</p>;
+                  return <p class="text-blue-700">{field.name}</p>;
+                  field.sections.map((fieldsection) => {
+                    if (fieldsection == singlesectionfilter.id) {
+                      console.log("NAME", `${field.name} | ${fieldsection}`);
+                      return (
+                        <div>
+                          <p class="text-blue-700">{field.name}</p>
+                        </div>
+                      );
+                    }
+                  });
                 }
               })}
             </FormSection>
