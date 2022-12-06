@@ -1,5 +1,5 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import Layout from "../../layouts/Standard.astro";
 import TextInput from "../../components/form/inputs/TextInput.astro";
 import FormBody from "../../components/form/FormBody.astro";
 import { pb } from "../../data/pocketbase.js";
@@ -31,7 +31,6 @@ const { applications, application, sections, fields } = Astro.props;
 
 <Layout name={`${application.name}`} description={`${application.description}`}>
   <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-2">
-    <h1 class="text-4xl">{application.name}</h1>
     <FormBody
       applications={applications}
       application={application}

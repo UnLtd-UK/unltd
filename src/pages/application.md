@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/Layout.astro
+layout: ../layouts/Standard.astro
 title: "Application Template"
 author: "Matthew Phillips"
 date: "09 Aug 2022"

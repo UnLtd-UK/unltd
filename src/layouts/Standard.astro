@@ -1,0 +1,24 @@
+---
+import Template from "../layouts/Layout.astro";
+const { name, description } = Astro.props;
+---
+
+<Template>
+  <div class="">
+    <div
+      class="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:flex lg:justify-between lg:px-8"
+    >
+      <div class="max-w-4xl">
+        <h2
+          class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
+        >
+          Awards application preview
+        </h2>
+        <p class="mt-5 text-xl text-gray-400">
+          Review our application questions without needing to sign-up
+        </p>
+      </div>
+    </div>
+  </div>
+  <slot />
+</Template>
