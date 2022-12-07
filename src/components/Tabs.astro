@@ -32,8 +32,6 @@ const { parentItems, childrenItems, relationships } = Astro.props;
       options[i].removeAttribute("selected");
     }
 
-    console.log(element.children);
-
     // get section. remove hidden and make data-tabs true
     let section = document.querySelector(`section[aria-labelledby="${elementId}"]`);
     section.classList.remove("hidden");
@@ -47,7 +45,6 @@ const { parentItems, childrenItems, relationships } = Astro.props;
     let elementOption = element.nodeName === 'SELECT' ? element : document.querySelector(`option#${elementId}`)
 
     // make button active
-    console.log(elementButton)
     elementButton.setAttribute("aria-selected", "true");
     elementButton.classList.add(elementButton.dataset.tabs);
 

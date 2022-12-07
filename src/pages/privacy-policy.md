@@ -1,0 +1,213 @@
+---
+layout: ../layouts/HeadingDocData.astro
+name: Privacy Policy
+description: blah balh balh
+created: 2022-03-22
+updated: 2022-03-15
+reviewed: 2022-11-29
+---
+
+**Registration no.**  
+[Charity Commission for England and Scotland | 1090393](https://apps.charitycommission.gov.uk/Showcharity/RegisterOfCharities/SearchResultHandler.aspx?RegisteredCharityNumber=1090393)  
+[Companies House | 04180639](https://find-and-update.company-information.service.gov.uk/company/04180639)
+
+**Head office address**  
+123 Whitecross Street, Islington, London, EC1Y 8JJ
+
+**Website**  
+[unltd.org.uk](https://www.unltd.org.uk)  
+_Owned and operated by UnLtd_
+
+**Defining _Personal data_**
+
+Under the [General Data Protection Regulation (Regulation (EU) 2016/679)](https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679&from=EN) ('GDPR') and [Data Protection Act 2018](https://www.legislation.gov.uk/ukpga), personal data is defined as 'any information relating to an identified or identifiable natural person ('data subject'), by reference to an identifier such as a name, an identification number, location data, an online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person'.
+
+**Defining _Data Controller_**
+
+A data controller is the individual or legal person who controls and is responsible to keep and use personal data in paper or electronic files. UnLtd is the data controller as defined by relevant data protection laws and regulations.
+
+The information we collect and how we use it
+--------------------------------------------
+
+### If you sign up to our newsletter
+
+we request your name and email address in order to deliver it to you. The information you provide is stored in a third-party software called Microsoft Dynamics 365. You can read [Microsoft's Privacy Statement](https://privacy.microsoft.com/en-gb/privacystatement), and the [ClickDimensions Privacy Shield Notice](https://clickdimensions.com/about/privacy-shield/) for ClickDimensions, the Microsoft tool which we use to create the newsletters and send the emails. Microsoft participates in and comply with the EU-U.S. Privacy Shield Framework. You can update your preferences or unsubscribe from our e-newsletter lists at any time by clicking on the links in the newsletter.
+
+### If you visit our website
+
+By using this website and agreeing to these terms and conditions, you consent to our UnLtd's use of cookies in accordance with the terms of [UnLtd's cookies policy](https://www.unltd.org.uk/cookies-policy/).
+
+### If you contribute content to a site that we host
+
+(such as commenting on a blog post) we publish this information on the website that you contributed to. We retain this information for at least as long as the content is available. These details will not be shared with third parties, except where necessary such as to provide a defence from defamation claims.
+
+### If you make an application for an UnLtd Award
+
+We'll ask for a detailed range of information about you for the purposes of administration. We'll need to know who you are, and we need to be able to get in touch with you, as well as having sufficient information to make the assessment. If you are given an award, we will also need financial information in order to fulfil contractual requirements. We store this data on our CRM system, Microsoft Dynamics 365.
+
+### If you are invited to pitch your venture
+
+Fairness and transparency in our funding process is important to us. All applications are assessed by a team of UnLtd staff and may also be assessed by external panel members. Decisions on the applications are made by a panel which is comprised of UnLtd Trustees, UnLtd’s Director of Awards and where applicable our Partners.
+
+### If you attend an UnLtd event
+
+We use Eventbrite, a third-party tool, to manage our event registration. We will ask for your name and email address and any additional access needs for these events. Eventbrite are registered to the United States and your information may then be transferred within the United States or back out of the United States to other countries outside of your country of residence. They participate in and comply with the EU-U.S. Privacy Shield Framework and you can read [Eventbrite's privacy policy](https://www.eventbrite.co.uk/support/articles/en_US/Troubleshooting/eventbrite-privacy-policy?lg=en_GB).
+
+We may also take photographs during the events for our social media channels. We will seek your consent to publish and store such photography.
+
+### If you register to volunteer your skills and expertise through our UnLtd Connect Community
+
+We request sufficient details to help us ensure our volunteer network is as representative and relevant to our social entrepreneurs as possible. Your data will be used for the purpose of administering our Connect programme and ensuring diversity and equality of opportunity among our volunteers. Your data will be shared with relevant award winners as part of our pro bono and mentoring matching processes.
+
+### If you are applying to work for UnLtd
+
+The following explains how we UnLtd (The Data Controller) intend to use the information you provide in your job application, our reasons for requesting it, who will have access to it and your rights.
+
+#### What information do we collect from you?
+
+We collect information that is specifically provided by you as part of an application process. We will collect the following (but not limited to):
+
+*   Name, address, email, telephone number
+*   CV and supporting statement
+*   Answers to application questions
+*   Diversity monitoring information (defined as special categories data) - this information is purely for statistical analysis and monitoring purposes and by default will be anonymised
+*   Contact details for referees
+*   If applicable, additional information to support any criminal reference checking
+
+We are using 'Contract' as our legal basis for processing, which means we can use your details and information so that we may assess your suitability for employment with us, as well as carry out our statistical analysis of recruitment.
+
+#### How will data be stored, processed, used, and disclosed?
+
+Details you provide in this application:
+
+*   Will be held on our computer systems and may be downloaded by us
+*   Will be used to provide our recruitment services to you and to facilitate the recruitment process; to enable you to submit your CV and supporting statement, apply online for jobs
+*   Will be made available to us and our processors
+*   Will be used for communication with you regarding the job vacancy
+*   Will be used to satisfy legal requirements
+*   Will be used on an anonymised basis to monitor compliance with our equal opportunities policy;
+*   Will be used to undertake statistical analysis of anonymised data (equality and diversity) and internal reporting through a candidate's recruitment journey
+*   Will be held and may be used to contact you about other vacancies
+*   To share with third parties where we have retained them to provide services that we or you have requested including criminal reference checking services (ukdbschecks),
+*   To carry out our obligations arising from any contracts entered between you and us.
+
+Unsuccessful candidates' data will be securely destroyed 6 months after the decision is made that your application has been unsuccessful adhering to the statutory requirement to retain information for a select period to allow candidates to challenge recruitment decisions. Successful candidates' information required for employment purposes will be retained throughout your employment, all other documentation not relevant will be securely destroyed 12 months after your start date has been confirmed, this includes any supporting documentation which you provide for criminal reference checking, proof of address etc.
+
+#### How can I access the information you hold about me? Your rights
+
+We provide reasonable access to individuals who wish to review the personal information retained when they apply for a job via our website and correct any inaccuracies it may contain. Individuals who choose to register may access their profile, correct, and update their details, or withdraw their details at any time. To do this, individuals can access their personal profile using their secure login. In all cases we will treat requests to access information or change information in accordance with applicable legal requirements.
+
+Where you exercise your right to object or withdraw your consent, we may process your personal data without your knowledge or consent where we are permitted or required by law or regulatory requirements to do so. In such a case, we will not process more personal data than is required under the circumstances.
+
+Just in case you need more information, visit [Jobtrain's FAQs Data and Security](https://jobtrain.co.uk/faqs/).
+
+If require further information, please don't hesitate to get in touch with us at [HR@UnLtd.org.uk](mailto:hr@unltd.org.uk)
+
+#### If you contact us by phone, email or in writing:
+
+If you exchange emails, telephone conversations or other electronic communications with our staff members, our systems will record details of those conversations, sometimes including their content.
+
+When you contact us, we sometimes need to keep a record of the communication we have with you to operate, manage and develop our organisation.
+
+#### Work-related partnerships
+
+If you are interested in becoming an UnLtd Partner, we’ll ask you to contact us with initial details such as your name, job title, the name of your organisation and your contact number.
+
+We keep this information in order to invite you to collaborate on and participate in relevant work-related activities.
+
+Finally, at times we may also collect criminal offences data and health data which some of our members choose to disclose, however, they are not encouraged to do so. We put extra measure in place for informing our members about the way we process, retain and protect their criminal offences and health data.
+
+### Lawful processing
+
+The lawful bases for processing are set out in Article 6 of the GDPR. At least one of these must apply whenever personal data is to be processed:
+
+NaN.  **Consent**
+    
+    You have given UnLtd your freely, specific, informed or unambiguous consent for your personal data to be processed for a specific purpose.
+    
+NaN.  **Contract performance**
+    
+    The processing is necessary for the performance of a contract you have with UnLtd consent for your personal data to be, which had asked you to take specific steps before entering into a contract.
+    
+NaN.  **Compliance with legal obligation**
+    
+    The processing is necessary for UnLtd to comply with the law for tax, social security obligation and employment purposes (not including contractual obligations).
+    
+NaN.  **Protection of vital interests**
+    
+    The processing is vital to an individual's survival.
+    
+NaN.  **Public interest**
+    
+    The processing is necessary for UnLtd to perform a task that is in the public interest or for its official functions, and the task or function has a clear basis in law.
+    
+NaN.  **Legitimate interests: the processing is necessary for UnLtd legitimate interests**
+    
+    The processing is necessary for UnLtd legitimate interests, or the legitimate interests of a third-party, unless there is a good reason to protect the individual’s personal data that overrides those legitimate interests.
+    
+
+#### Data rights
+
+Your data subject rights are listed below:
+
+*   The right of access.
+*   The right to rectification.
+*   The right to erasure or right to be forgotten.
+*   The right to restriction of processing.
+*   The right to be informed.
+*   The right to data portability.
+*   The right to object.
+*   The right not to be subject to a decision based solely on automated processing.
+
+Under the GDPR and the Act, you may ask for a copy of the information we hold about you and you may request rectifications be made to this information if it is inaccurate or not up to date. Please write to [DPO@UnLtd.org.uk](mailto:dpo@unltd.org.uk).
+
+As a fundraising organisation, we undertake in-house research to gather information about you from publicly available sources, for example, Companies House, the Electoral Register, company websites, ‘rich lists’, social networks such as LinkedIn, political and property registers and news archives. We may also carry out research using publicly available information to identify individuals who may have an affinity to our cause but with whom we are not already in touch. We also use publicly available sources to carry out due diligence on donors in line with the charity’s Gift Acceptance Policy and to meet money laundering regulations. This research helps us to understand more about you as an individual so we can focus our conversations about fundraising and volunteering in the most effective way, and ensure that we provide you with a donor experience that is appropriate for you. You will always have the right to opt out of this processing. If you would prefer us not to use your data in this way, please email us at [DPO@UnLtd.org.uk](mailto:dpo@unltd.org.uk).
+
+Sharing your personal data
+--------------------------
+
+We may disclose your personal information to third parties if we are under a duty to disclose or share your personal data in order to comply with any legal obligation, or in order to enforce or apply any agreements, or to protect the rights, property, or safety of the organisation, or other individuals. This includes exchanging information with other companies and organisations for the purposes of safeguarding or other statutory regulations we have to comply with as well as those organisations with whom you and we have reciprocal agreements for providing services for education or professional development.
+
+Protecting your personal data
+-----------------------------
+
+The data that we collect from you will be processed at our servers in the UK. It may also be processed by organisations operating in the EEA that UnLtd has instructed.
+
+If personal data is transferred outside the UK or EEA to a country without a designated adequacy rating, UnLtd will request the data subject's consent before processing the data. Consent will not be sought where the processor's Binding Corporate Rules, Standard Contractual Clauses or adhoc contractual clauses stipulate that the data will be processed in accordance with the GDPR.
+
+Third party websites
+--------------------
+
+Our site may, from time to time, contain links to and from the websites of our partner networks, advertisers and affiliates. If you follow a link to any of these websites, please note that these websites have their own privacy policies and that we do not accept any responsibility or liability for these policies. Please check these policies before you submit any personal data to these websites.
+
+Security of your information
+----------------------------
+
+To help protect the privacy of data and personally identifiable information you transmit through use of this our website, we maintain physical, technical and administrative safeguards. We update and test our security technology on an ongoing basis. We restrict access to your personal data to those employees who need to know that information to provide benefits or services to you. In addition, we train our employees about the importance of confidentiality and maintaining the privacy and security of your information. We commit to taking appropriate disciplinary measures to enforce our employees' privacy responsibilities.
+
+How long we store your personal data for
+----------------------------------------
+
+We store your personal data in accordance with our data retention policy. This policy is reviewed and updated internally to ensure we do not store your data for longer than is necessary. We also review how and where we store any data to ensure that we meet our obligation to store data securely.
+
+In addition, some of the data we hold may be subject to certain legal and regulatory obligations, which provide a minimum retention period for different types of data. The retention period varies depending on the data we hold.
+
+Changes to this privacy policy
+------------------------------
+
+This privacy policy was last updated on 3 February 2022. UnLtd reserves the right to vary this privacy policy from time to time. Such variations become effective on posting on this website. Your subsequent use of this website or submission of personal information to UnLtd. will be deemed to signify your acceptance to the variations.
+
+Complaints
+----------
+
+For further information on your rights and how to complain to the ICO, please refer to the [ICO concerns page on the website](https://ico.org.uk/concerns).
+
+**Address**  
+Information Commissioner's Office  
+Wycliffe House  
+Water Lane  
+Cheshire  
+SK9 5AF
+
+**Phone**  
+[0303-123-1113](tel:+44303-123-1113) _(local rate)_

@@ -4,7 +4,7 @@ const { slug, name } = Astro.props;
 
 <button
   id={`dropdownButton-${slug}`}
-  class="text-base font-medium text-white hover:text-amber-500"
+  class="text-base font-medium text-white hover:text-amber-500 flex flex-row items-center gap-2"
   onclick={`desktop("${slug}")`}
   aria-expanded="false"
   data-dropdown="dropdownButton"

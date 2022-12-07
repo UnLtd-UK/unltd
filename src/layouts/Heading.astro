@@ -1,12 +1,9 @@
 ---
-import Template from "../layouts/Layout.astro";
-
-const name = "Awards application preview";
-const description =
-  "Review our application questions without needing to sign-up";
+import Layout from "../layouts/Layout.astro";
+const { name, description } = Astro.props;
 ---
 
-<Template name={name} description={description}>
+<Layout name={name} description={description}>
   <div class="">
     <div
       class="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:flex lg:justify-between lg:px-8"
@@ -15,13 +12,13 @@ const description =
         <h2
           class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
         >
-          Awards application preview
+          {name}
         </h2>
         <p class="mt-5 text-xl text-violet-300">
-          Review our application questions without needing to sign-up
+          {description}
         </p>
       </div>
     </div>
   </div>
   <slot />
-</Template>
+</Layout>

@@ -1,5 +1,5 @@
 ---
-import Layout from "../../layouts/Standard.astro";
+import HeadingDoc from "../../layouts/Heading.astro";
 import FormBody from "../../components/form/FormBody.astro";
 import { pb } from "../../data/pocketbase.js";
 
@@ -28,7 +28,10 @@ const { id } = Astro.params;
 const { applications, application, sections, fields } = Astro.props;
 ---
 
-<Layout name={`${application.name}`} description={`${application.description}`}>
+<HeadingDoc
+  name={`Awards Application preview`}
+  description={`Review our application questions without needing to sign-up`}
+>
   <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-2">
     <FormBody
       applications={applications}
@@ -37,4 +40,4 @@ const { applications, application, sections, fields } = Astro.props;
       fields={fields}
     />
   </div>
-</Layout>
+</HeadingDoc>

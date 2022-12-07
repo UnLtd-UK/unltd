@@ -1,0 +1,156 @@
+---
+layout: ../layouts/HeadingDocData.astro
+name: Photography & Filming Policy
+description:
+created: 2022-03-22
+updated: 2022-03-15
+reviewed: 2022-11-29
+---
+
+## Related policies and procedures
+
+UnLtd takes its extended moral and legal duty of care very seriously in relation to children, young people and adults. We seek to ensure their safety and wellbeing, to protect them from harm or abuse when they engage in any activities conducted under the name of UnLtd.
+
+Our commitment to safeguarding and protecting children, young people, and those of all ages with whom we come into contact, is captured in our Child Protection and Safeguarding policy and in UnLtd’s Safeguarding Adults Policy.  
+
+We ensure that everyone in our organisation knows the procedures to follow for reporting concerns and has access to our Safeguarding Report Form. 
+
+## The purpose of this policy statement is to: 
+
+- protect children, young people and adults who take part in UnLtd’s services, events and activities, where photographs and videos may be taken  
+
+- set out the overarching principles that guide our approach to photographs/videos being taken of children, young people and adults during our events and activities  
+
+- ensure that we operate in line with our values and within the law when creating, using and sharing images of children, young people and adults.  
+
+This policy statement applies to all staff, volunteers and other adults associated or sponsored by UnLtd to carry out activities.
+
+## Legal framework
+
+This policy has been drawn up on the basis of legislation, policy and guidance that seeks to protect children, young people and adults in England/Northern Ireland/Scotland/Wales.
+
+**We recognise**
+
+- sharing photographs and films of our activities can help us celebrate the successes and achievements of our social entrepreneurs, provide a record of our activities and raise awareness of our organisation  
+
+- the welfare of the children, young people and adults taking part in our activities is paramount 
+
+- children, their parents and carers have a right to decide whether their images are taken and how these may be used, regardless of age, disability, gender reassignment, race, religion or belief, sex or sexual orientation  
+
+- consent to take images of children is only meaningful when children, their parents and carers understand how the images will be used and stored, and are fully aware of the potential risks associated with the use and distribution of these images  
+
+- there are potential risks associated with sharing images of children online. 
+
+- some of the social entrepreneurs with whom our staff and volunteers have contact may be additionally vulnerable or live and work within families and communities where there are increased levels of risk for children, young people and adults. For example, support groups for the elderly or those experiencing social deprivation and inequality.
+
+## UnLtd Photoshoot and Filming Procedures
+
+### Obtaining consent
+- We will work with the relevant social entrepreneur to ensure we have consent, wherever we do not have direct contact with those participating in the shoot. 
+
+- We will always obtain written consent from a child and their parents or carers before taking and using a child’s image. 
+
+- We will always obtain written consent from an adult before taking and using their image. If an adult lacks the capacity to consent, we will not use their image. 
+
+- Adults must be able to consent to their image being used.  Legally, the only person who can offer consent for the use of their image is the adult themselves. Family members such as adult children, parents, spouses or siblings and support workers / personal assistants should not be approached to sign consent forms for adults. The only circumstances where individual consent would not be needed is a large-scale public event and not a small community initiative. 
+
+- If we or the social entrepreneur has concerns that an adult does not have the capacity to give consent to photography or filming or understand the purpose for which photographs or films are being taken during an activity, they will discuss this with them, including if appropriate, any support person or personal assistant for the adult. If after this conversation we feel that the adult still cannot give consent, then we will not use their photo. 
+
+### Providing clear information
+
+- We will always explain what images will be used for, how they will be stored, for how long and what potential risks are associated with sharing their image. 
+
+- When the shoot involves children and young people we will explain what potential risks are associated with sharing images of children. 
+
+- We will make it clear to the social entrepreneur /adult/young person or a child or their family that if they withdraw consent for an image to be shared, it may not be possible to delete images that have already been shared or published. 
+ 
+- Information about how the images will be used should be provided to an adult through the social entrepreneur (either the subject or parent providing consent). The social entrepreneur will notify us if other accessible formats are needed. For example, easy read language, pictures or their first language if this is not English. 
+
+### During the shoot  
+
+- The photographer must always wear identification. 
+
+- We will not allow the photographer to have unsupervised access to children. An UnLtd staff member will be present at photoshoots for all social entrepreneurs aged 16 and 17 and for those social entrepreneurs identified as having additional support needs. 
+
+- UnLtd does not permit its staff to use personal equipment to take photos and recordings of children. Only cameras or devices belonging to UnLtd should be used by staff.
+
+
+### After the shoot
+
+- Photographs / films on cameras or devices belonging to UnLtd staff should be sent to the External Affairs Team for appropriate usage and storage and deleted off staff mobiles and devices within 10 days. 
+
+- Before our first use of any photographs or film footage for publicity purposes, we will show them to the social entrepreneur for approval. 
+
+- We will change the names of children whose images are being used in our published material whenever possible, and only using first names if we do need to identify them.
+
+- We will be reducing the risk of images being copied and used inappropriately by:
+  - only using images of children in appropriate clothing, including safety wear if necessary 
+  - avoiding full face and body shots of children taking part in activities such as swimming where there may be a heightened risk of images being misused 
+  - never publishing personal information about individual children and disguising any identifying information (for example the name of their school or a school uniform with a logo) 
+  - only using images of adults in appropriate clothing 
+  - using images that positively reflect young people’s and adults’ involvement in the activity
+- We will store photographs and videos of our social entrepreneurs securely, in accordance with our child protection and safeguarding policies and our data protection policy. We will keep hard copies of images in a locked container and electronic images in a protected folder with restricted access to External Affairs team members.
+- Images will be stored for a period of 8 years. We will never store images of children on unencrypted portable equipment such as laptops, memory sticks and mobile phones.   
+
+## Event Photography Policies
+
+### Photography and/or filming for UnLtd’s use
+
+Using photography and filming as part of our support activities should only be done with UnLtd’s permission and using our equipment or the equipment of the hired photographer/videographer.  
+
+We will share in the pre-event communications that photos/filming will be taking place on site and to contact [comms@unltd.org.uk](mailto:comms@unltd.org.uk) if they do not wish to be included in any footage. We will also place several clear signs at the event to remind guests of this, if they haven’t seen pre-event communications. 
+
+In the instance that we have children, young people and vulnerable adults attending our events, we will share our Consent Form in advance of the event so written consent can be given. Where circumstances do not allow written consent to be obtained in advance, verbal consent may be obtained but written consent should be contained as soon as possible within 7 days of the event by sharing the link to our Consent Form. 
+
+If we hire a photographer for one of our events, we will seek to keep children, young people and adults safe by:
+- providing the photographer with a clear brief about appropriate content and behaviour. 
+- providing the photographer with our Child Protection and Safeguarding policy and UnLtd’s Safeguarding Adults Policy which includes our Code of Conduct.  
+- always ensuring the photographer wears identification
+- asking our social entrepreneurs to inform their beneficiaries (children, young people and adults) that a photographer will be at the event and ensuring they obtain written consent from adults or parents, carers present to images which feature their child being taken and shared. We will do this by sharing our consent form with them for their use and directing them to guidance & support if required (NSPCC Learning)
+- not allowing the photographer to have unsupervised access to children
+- not allowing the photographer to carry out sessions outside the event or at the home of a social entrepreneur
+- ensuring that at arranged photography events with our social entrepreneurs that a staff member will be present for all social entrepreneurs aged 16 and 17 or those social entrepreneurs identified as having additional support needs. Identifying additional support needs will be carried out internally with the staff team and the social entrepreneur and support will be sought from a Designated Safeguarding Officer or Lead if appropriate.
+- reporting concerns regarding inappropriate or intrusive photography following our child protection and safeguarding procedures. 
+
+### Photography and/or filming for wider use
+
+If people such as local journalists, professional photographers (not hired by UnLtd) or students wish to record one of our events and share the images professionally or in the wider world, they will need to seek permission in advance. 
+
+They should provide:
+- the name and address of the person using the camera
+- the names of children, young people or adults they wish to take images of (if possible)
+- the reason for taking the images and/or what the images will be used for
+- a signed declaration that the information provided is valid and that the images will only be used for the reasons given.  
+
+UnLtd will verify these details and decide whether to grant permission for photographs/films to be taken. We will seek consent from the social entrepreneur who are the intended subjects of the images, who will seek consent from their beneficiaries and we will inform the photographer of anyone who does not give consent.  
+
+At the event we will inform social entrepreneurs and those present that an external photographer is present and ensure the photographer is easily identifiable, for example by issuing them with a coloured identification badge.  
+
+If UnLtd is concerned that someone unknown to us is using their sessions for photography or filming purposes, we will ask them to leave and (depending on the nature of the concerns) follow our child protection and safeguarding procedures. 
+
+### Photography and/or filming for personal use by participants
+
+When adults, young people or children themselves, parents, carers or spectators are taking photographs or filming at our events and the images are for personal use, we will publish guidance about image sharing in the event programmes and/or announce details of our photography policy before the start of the event.  
+
+This includes: 
+
+- reminding participants that they need to give consent for UnLtd to take and use their images  
+
+- asking for photos or videos taken during the event to not  be shared on social media without the prior verbal consent of those in the footage or their parents or carers if necessary. 
+
+- recommending that people check the privacy settings of their social media account to understand who else will be able to view any images they share 
+
+- reminding participants who they can talk to if they have any concerns about images being shared.  
+
+**If consent to take photographs is not given**
+
+If social entrepreneurs and their beneficiaries do not consent to photographs being taken, we will respect their wishes. We will agree in advance how they would like to be identified so the photographer knows not to take pictures of them, and ensure this is done in a way that does not single out any individual or make them feel isolated. We will never exclude any individual from an activity because we do not have consent to take their photograph.
+
+**Photos shared with us by social entrepreneurs**  
+
+Sometimes a social entrepreneur will send us photos they own which we have not commissioned. In these cases they are to be used solely for the specific purpose agreed with the social entrepreneur. For example, product photography for an Instagram post, or a headshot for an event programme. In these cases, the photos will be stored in a separate folder, identifying their purpose.
+
+## Contact details
+
+- Head of External Affairs: James Ingram [jamesingram@unltd.org.uk](mailto:jamesingram@unltd.org.uk)
+- Senior lead for safeguarding and child protection Name: [Hannah Kayi Mason](mailto:HannahKayiMason@unltd.org.uk )

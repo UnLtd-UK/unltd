@@ -1,0 +1,12 @@
+---
+import Template from "../layouts/Heading.astro";
+const name = "Awards";
+const description = "Grants description";
+---
+
+<Template name={name} description={description}>
+  <h1>{name}</h1>
+  <p>{description}</p>
+
+  <a href="/applications/not-started" class="underline">Application</a>
+</Template>

@@ -1,14 +1,13 @@
 ---
 const { name, slug, children } = Astro.props;
 import Button from "./Button.astro";
-import Anchor from "./Button.astro";
 ---
 
 <Button name={name} slug={slug} />
 
 <ul
   id={`dropdownContent-${slug}`}
-  class="flex flex-col gap-4 p-3 bg-white text-black rounded-md absolute z-10 hidden"
+  class="gap-4 p-3 bg-white text-black rounded-md absolute z-10 hidden"
   data-dropdown="dropdownContent"
 >
   {
@@ -21,12 +20,12 @@ import Anchor from "./Button.astro";
               : `${navItem.link}`
           }
           target={!navItem.slug && navItem.link && "_blank"}
-          class="block text-sm font-medium p-2 hover:bg-violet-100 rounded-md"
+          class="flex flex-row gap-2 items-center text-sm font-medium p-2 hover:bg-violet-100 rounded-md"
           data-dropdown="dropdownA"
         >
           <span>{navItem.name}</span>
           {!navItem.slug && navItem.link && (
-            <i class="text-xs fa-solid fa-arrow-trend-up" />
+            <i class="text-xs fa-solid fa-arrow-up-right-from-square" />
           )}
         </a>
       </li>

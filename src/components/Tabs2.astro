@@ -8,8 +8,6 @@ const { parentItems, childrenItems, pathways, parentName, childName } =
   function function1(name) {
     name = name || document.getElementById("tabs").value;
 
-    console.log(name);
-
     // make all tab content hidden
     let tabcontent = document.getElementsByClassName("tabcontent");
     for (let i = 0; i < tabcontent.length; i++) {
@@ -31,7 +29,6 @@ const { parentItems, childrenItems, pathways, parentName, childName } =
 
     let contentElem = document.getElementById(`content-${name}`);
 
-    console.log(optionElem);
     optionElem.setAttribute("selected", "");
     contentElem.classList.remove("hidden");
     aElem.setAttribute("aria-current", "page");

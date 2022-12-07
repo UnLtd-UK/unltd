@@ -1,6 +1,7 @@
 ---
-layout: ../layouts/Doc.astro
+layout: ../layouts/HeadingDoc.astro
 title: Donate
+description: blah balh balh
 ---
 
 We believe the best way to support social entrepreneurs is to invest directly in them, providing them with financial and non-financial support. But there is still so much more we can do.

@@ -88,7 +88,8 @@ import Dropdown from "./Dropdown.astro";
           {
             nav.actions.map((navItem) => (
               <a
-                href={navItem.slug}
+                href={navItem.link}
+                target="_blank"
                 class="py-1 px-8 rounded-full text-base font-medium border-solid border-2 border-white text-white hover:text-amber-500"
               >
                 {navItem.name}

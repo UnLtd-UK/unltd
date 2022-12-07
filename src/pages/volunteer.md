@@ -1,6 +1,7 @@
 ---
-layout: ../layouts/Doc.astro
+layout: ../layouts/HeadingDoc.astro
 title: Volunteer
+description: blah balh balh
 ---
 
 # Volunteer

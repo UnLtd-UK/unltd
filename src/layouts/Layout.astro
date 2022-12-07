@@ -10,25 +10,43 @@ import Footer from "../components/Footer.astro";
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" type="image/jpg" href="/favicon.svg" />
+    <link rel="shortcut icon" type="image/jpg" href="/favicon.ico" />
 
     <!-- Primary Meta Tags -->
     <title>{`${name} | UnLtd`}</title>
-    <meta name="title" content={`${name} | UnLtd`} />
-    <meta name="description" content={`${description}`} />
+    <meta
+      name="title"
+      content={name ? `${name} | UnLtd` : `No page description | UnLtd`}
+    />
+    <meta
+      name="description"
+      content={description ? description : "No page description"}
+    />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="" />
     <meta property="og:url" content="" />
-    <meta property="og:title" content={`${name} | UnLtd`} />
-    <meta property="og:description" content={`${description}`} />
+    <meta
+      property="og:title"
+      content={name ? `${name} | UnLtd` : `No page description | UnLtd`}
+    />
+    <meta
+      property="og:description"
+      content={description ? description : "No page description"}
+    />
     <meta property="og:image" content="" />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="" />
     <meta property="twitter:url" content="" />
-    <meta property="twitter:title" content={`${name} | UnLtd`} />
-    <meta property="twitter:description" content={`${description}`} />
+    <meta
+      property="twitter:title"
+      content={name ? `${name} | UnLtd` : `No page description | UnLtd`}
+    />
+    <meta
+      property="twitter:description"
+      content={description ? description : "No page description"}
+    />
     <meta property="twitter:image" content="" />
 
     <!-- Fontawesome Icons -->
@@ -39,7 +57,7 @@ import Footer from "../components/Footer.astro";
   </head>
   <body class="">
     <div
-      class="flex flex-col justify-between h-full bg-gradient-to-b from-violet-900 to-slate-900 text-slate-50"
+      class="flex flex-col justify-between h-full bg-gradient-to-b from-violet-900 to-slate-900"
     >
       <Header />
       <div class="mb-10">

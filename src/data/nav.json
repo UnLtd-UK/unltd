@@ -17,13 +17,13 @@
       "children": []
     },
     {
-      "name": "Support",
-      "slug": "support",
+      "name": "Blog",
+      "slug": "blog",
       "children": []
     },
     {
-      "name": "Blog",
-      "slug": "blog",
+      "name": "Events",
+      "link": "https://www.eventbrite.co.uk/o/unltd-foundation-for-social-entrepreneurs-4248932779",
       "children": []
     },
     {
@@ -34,28 +34,7 @@
     {
       "name": "Get Involved",
       "slug": "get-involved",
-      "children": [
-        {
-          "name": "Donate",
-          "slug": "donate"
-        },
-        {
-          "name": "Fundraise",
-          "slug": "fundraise"
-        },
-        {
-          "name": "Campaigns",
-          "slug": "campaigns"
-        },
-        {
-          "name": "Volunteer",
-          "slug": "volunteer"
-        },
-        {
-          "name": "Partner",
-          "slug": "partner"
-        }
-      ]
+      "children": []
     },
     {
       "name": "About us",
@@ -67,7 +46,7 @@
         },
         {
           "name": "Our strategy",
-          "slug": "our-strategy"
+          "link": "https://breakingdownbarriers.unltd.org.uk/"
         },
         {
           "name": "Meet the team",
@@ -92,78 +71,84 @@
         {
           "name": "Governance",
           "slug": "governance"
-        },
-        {
-          "name": "Our research",
-          "slug": "our-research"
         }
       ]
     }
   ],
-  "legal": [
+  "footer": [
     {
       "name": "Privacy Policy",
       "slug": "privacy-policy",
-      "link": ""
+      "children": []
     },
     {
       "name": "Complaints Policy",
       "slug": "complaints-policy",
-      "link": ""
+      "children": []
     },
     {
       "name": "Cookies Policy",
       "slug": "cookies-policy",
-      "link": ""
+      "children": []
     },
     {
-      "name": "Terms &amp; Conditions",
-      "slug": "terms-conditions",
-      "link": ""
+      "name": "Photography & Filming Policy",
+      "slug": "photography-&-filming-policy",
+      "children": []
+    },
+    {
+      "name": "Terms & Conditions",
+      "slug": "terms-&-conditions",
+      "children": []
     }
   ],
   "other": [
     {
       "name": "Contact us",
       "slug": "contact-us",
-      "link": ""
+      "children": []
+    },
+    {
+      "name": "Press office",
+      "slug": "press-office",
+      "children": []
     },
     {
       "name": "Careers",
       "slug": "careers",
-      "link": ""
-    },
-    {
-      "name": "Press Office",
-      "slug": "press-office",
-      "link": ""
+      "children": []
     }
   ],
   "socials": [
     {
       "name": "Twitter",
       "slug": "",
-      "link": "https://twitter.com/UnLtd"
+      "link": "https://twitter.com/UnLtd",
+      "icon": "twitter"
     },
     {
       "name": "Instagram",
       "slug": "",
-      "link": "https://www.instagram.com/unltduk/"
+      "link": "https://www.instagram.com/unltduk/",
+      "icon": "instagram"
     },
     {
       "name": "Facebook",
       "slug": "",
-      "link": "https://www.facebook.com/UnLtd/"
+      "link": "https://www.facebook.com/UnLtd/",
+      "icon": "facebook"
     },
     {
       "name": "YouTube",
       "slug": "",
-      "link": "https://www.youtube.com/user/UnLtdVideos/"
+      "link": "https://www.youtube.com/user/UnLtdVideos/",
+      "icon": "youtube"
     },
     {
       "name": "LinkedIn",
       "slug": "",
-      "link": "https://www.linkedin.com/company/unltd"
+      "link": "https://www.linkedin.com/company/unltd",
+      "icon": "linkedin"
     }
   ],
   "past work": [

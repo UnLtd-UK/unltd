@@ -1,6 +1,7 @@
 ---
-layout: ../layouts/Doc.astro
+layout: ../layouts/HeadingDoc.astro
 title: Partner
+description: blah balh balh
 ---
 
 # Partner

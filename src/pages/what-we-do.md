@@ -1,10 +1,8 @@
 ---
-layout: ../layouts/Doc.astro
+layout: ../layouts/HeadingDoc.astro
 name: What we do
 description: UnLtd finds, funds and supports social entrepreneurs - enterprising people with solutions that change our society for the better. We were formed in 2002 by seven organisations who believed that social entrepreneurs had a much bigger contribution to make to our economy and society. We were among the first to back individuals with their own ideas to create social good.
 ---
-
-# What we do
 
 UnLtd finds, funds and supports social entrepreneurs - enterprising people with solutions that change our society for the better. We were formed in 2002 by seven organisations who believed that social entrepreneurs had a much bigger contribution to make to our economy and society. We were among the first to back individuals with their own ideas to create social good.
 

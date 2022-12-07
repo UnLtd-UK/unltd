@@ -1,9 +1,9 @@
 ---
 import Template from "../layouts/Layout.astro";
-const { name, description } = Astro.props;
+const { frontmatter } = Astro.props;
 ---
 
-<Template>
+<Template name={frontmatter.name} description={frontmatter.description}>
   <div class="relative overflow-hidden bg-violet-900 py-16">
     <div
       class="hidden lg:absolute lg:inset-y-0 lg:block lg:h-full lg:w-full lg:[overflow-anchor:none]"
