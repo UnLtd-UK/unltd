@@ -1,5 +1,5 @@
 ---
-const { name, description, slug, required } = Astro.props;
+const { name, description, slug, required, disabled, max_length } = Astro.props;
 import { marked } from "marked";
 let markdown;
 if (description) {
@@ -26,7 +26,15 @@ if (description) {
       id="about"
       name="about"
       rows="3"
-      class="block w-full max-w-lg rounded-md text-black border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"
-    ></textarea>
+      class="mt-1 block w-full max-w-lg rounded-md text-black border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-500"
+      disabled={disabled}></textarea>
+    {
+      max_length && (
+        <div class="text-xs p-2 rounded-md inline-flex flex-col justify-center">
+          <span class="text-xs text-gray-500">Character count</span>
+          <span class="text-gray-500 text-xs">0 / {max_length}</span>
+        </div>
+      )
+    }
   </div>
 </div>

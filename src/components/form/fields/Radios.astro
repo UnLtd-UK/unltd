@@ -26,9 +26,10 @@ let markdown = marked.parse(description);
             type="radio"
             name={name}
             value={item.name}
-            class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer text-violet-600 border-gray-300 focus:ring-violet-500"
+            class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer text-violet-600 border-gray-300 focus:ring-violet-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-500"
             aria-labelledby={`${item.name}-${index++}-label`}
             aria-describedby={`${item.name}-${index++}-description`}
+            disabled={disabled}
           />
           <span class="ml-3 flex flex-col">
             <span
