@@ -1,5 +1,7 @@
 ---
-const { name, description, slug, required, options } = Astro.props;
+const { name, description, slug, required, disabled, options } = Astro.props;
+import { marked } from "marked";
+let markdown = marked.parse(description);
 ---
 
 <fieldset>
@@ -11,12 +13,11 @@ const { name, description, slug, required, options } = Astro.props;
       >{required === "true" && `Required`}</span
     >
   </div>
-  <p
-    class="mt-2 text-sm text-gray-500 leading-relaxed"
+  <div
+    class="mt-2 text-sm text-gray-500 leading-relaxed prose"
     id={`${slug}-description}`}
-  >
-    {description}
-  </p>
+    set:html={markdown}
+  />
   <div class="-space-y-px rounded-md bg-white">
     {
       options.map((item, index) => (

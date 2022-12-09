@@ -1,5 +1,10 @@
 ---
 const { name, description, slug, required } = Astro.props;
+import { marked } from "marked";
+let markdown;
+if (description) {
+  markdown = marked.parse(description);
+}
 ---
 
 <div>
@@ -11,13 +16,12 @@ const { name, description, slug, required } = Astro.props;
       >{required === "true" && `Required`}</span
     >
   </div>
+  <div
+    class="mt-2 text-sm text-gray-500 leading-relaxed prose"
+    id={`${slug}-description}`}
+    set:html={markdown}
+  />
   <div class="mt-1 sm:col-span-2 sm:mt-0">
-    <p
-      class="mt-2 text-sm text-gray-500 leading-relaxed"
-      id={`${slug}-description}`}
-    >
-      {description}
-    </p>
     <textarea
       id="about"
       name="about"

@@ -1,0 +1,91 @@
+---
+import Input from "../../components/form/fields/Input.astro";
+import Select from "../../components/form/fields/Select.astro";
+// import Datalist from "../../components/form/fields/Datalist.astro";
+import Textarea from "../../components/form/fields/Textarea.astro";
+import Checkboxes from "../../components/form/fields/Checkboxes.astro";
+import Radios from "../../components/form/fields/Radios.astro";
+const {
+  name,
+  description,
+  slug,
+  type,
+  input_type,
+  required = false,
+  disabled = false,
+  options = false,
+} = Astro.props;
+---
+
+<div>
+  {
+    () => {
+      switch (type) {
+        case "Input":
+          return (
+            <Input
+              name={name}
+              description={description}
+              slug={slug}
+              input_type={input_type}
+              required={required}
+              disabled={disabled}
+            />
+          );
+        case "Select":
+          return (
+            <Select
+              name={name}
+              description={description}
+              slug={slug}
+              required={required}
+              options={options}
+              disabled={disabled}
+            />
+          );
+        case "Checkboxes":
+          return (
+            <Checkboxes
+              name={name}
+              description={description}
+              slug={slug}
+              required={required}
+              options={options}
+              disabled={disabled}
+            />
+          );
+        case "Textarea":
+          <Textarea
+            name={name}
+            description={description}
+            slug={slug}
+            required={required}
+            disabled={disabled}
+          />;
+        case "Datalist":
+        //   return <Checkboxes name={name} description={description} slug={slug} required={required} disabled={disabled}/>;
+        case "Radios":
+          <Radios
+            name={name}
+            description={description}
+            slug={slug}
+            required={required}
+            options={options}
+            disabled={disabled}
+          />;
+        default:
+          return (
+            <div>
+              <p class="text-red-700 text-xs font-italic">type: {type}</p>
+              <p class="text-red-700 text-xs font-bold">name: {name}</p>
+              <p class="text-red-700 text-xs">description: {description}</p>
+              <p class="text-red-700 text-xs">slug: {slug} </p>
+              <p class="text-red-700 text-xs">required: {required}</p>
+              <p class="text-red-700 text-xs">options: {options}</p>
+              <p class="text-red-700 text-xs">disabled: {disabled}</p>
+            </div>
+          );
+      }
+    }
+  }
+</div>

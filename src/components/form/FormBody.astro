@@ -1,12 +1,6 @@
 ---
 import FormSection from "../../components/form/FormSection.astro";
-
-import Input from "../../components/form/inputs/Input.astro";
-// import Select from "../../components/form/inputs/Select.astro";
-// import Datalist from "../../components/form/inputs/Datalist.astro";
-// import Textarea from "../../components/form/inputs/Textarea.astro";
-// import Checkboxes from "../../components/form/inputs/Checkboxes.astro";
-// import Radios from "../../components/form/inputs/Radios.astro";
+import Fields from "../../components/form/Fields.astro";
 
 const { applications, application, sections, fields } = Astro.props;
 
@@ -49,37 +43,26 @@ let sectionFilter = sections.filter((sec) => {
     </div>
   </div>
 
-  <div class="grid grid-cols-12 gap-4">
+  <div class="grid gap-x-4 grid-cols-12">
     <aside
-      class="col-span-12 md:col-span-4 lg:col-span-4 py-6 px-2 sm:px-6 lg:py-10 lg:px-10 flex flex-col gap-8 bg-white rounded-md flex-none md:self-start md:sticky md:top-7"
+      class="col-span-12 md:col-span-3 lg:col-span-3 lg:auto-cols-fr flex flex-col gap-5 rounded-md md:self-start md:sticky md:top-7"
     >
-      <div>
+      <div class="">
         {
           applications.map(
             (appi) =>
               application.id === appi.id && (
-                <div class="flex flex-col gap-5">
-                  <div class="">
-                    <p class="text-xs text-black">
-                      How long has your venture been selling goods or/and
-                      services?
+                <div class="flex flex-col gap-2">
+                  <p class="text-xs text-white">Grant up to</p>
+                  <div class="flex flex-col">
+                    <p class=" text-xl text-white">
+                      {new Intl.NumberFormat("en-GB", {
+                        maximumSignificantDigits: 3,
+                        style: "currency",
+                        currency: "GBP",
+                      }).format(appi.amount)}
                     </p>
-                    <p class="text text-2xl text-black">{appi.name}</p>
-                  </div>
-                  <div class="flex flex-col gap-7">
-                    <div class="flex flex-col gap-2">
-                      <p class="text-xs text-black">Grant up to</p>
-                      <div class="flex flex-col">
-                        <p class=" text-xl text-black">
-                          {new Intl.NumberFormat("en-GB", {
-                            maximumSignificantDigits: 3,
-                            style: "currency",
-                            currency: "GBP",
-                          }).format(appi.amount)}
-                        </p>
-                        <p class="text-sm text-gray-500">{appi.use}</p>
-                      </div>
-                    </div>
+                    <p class="text-sm text-violet-300">{appi.use}</p>
                   </div>
                 </div>
               )
@@ -87,58 +70,23 @@ let sectionFilter = sections.filter((sec) => {
         }
       </div>
 
-      <div class="relative">
-        <div class="absolute inset-0 flex items-center" aria-hidden="true">
-          <div class="w-full border-t border-gray-300"></div>
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-1">
+      <div class="flex flex-col">
         {
-          sectionFilter.map((section) => (
+          sectionFilter.map((section, index) => (
             <a
               href={`#${section.slug}`}
-              class={`text-gray-700 hover:text-violet-900 hover:bg-violet-100 rounded-md flex items-center text-sm font-medium transition`}
+              class={`text-white hover:text-violet-200 hover:bg-violet-800 rounded-md flex items-center text-xs font-medium transition p-3 flex-row gap-2`}
             >
-              <span class="truncate p-3">{section.name}</span>
+              <span class="text-white">{index + 1}.</span>
+              <span class="truncate">{section.name}</span>
             </a>
           ))
         }
       </div>
-
-      <div class="relative">
-        <div class="absolute inset-0 flex items-center" aria-hidden="true">
-          <div class="w-full border-t border-gray-300"></div>
-        </div>
-      </div>
-
-      <div class="flex flex-col gap-2">
-        <div>
-          <a
-            href="#"
-            class="rounded px-2.5 py-1.5 text-xs font-medium text-violet-900 hover:bg-violet-100 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition"
-            >Download PDF</a
-          >
-        </div>
-        <div>
-          <a
-            href="#"
-            class="rounded px-2.5 py-1.5 text-xs font-medium text-violet-900 hover:bg-violet-100 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition"
-            >Download GDOC (Google Docs)</a
-          >
-        </div>
-        <div>
-          <a
-            href="#"
-            class="rounded px-2.5 py-1.5 text-xs font-medium text-violet-900 hover:bg-violet-100 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition"
-            >Download DOCX (Microsoft 365 Word)</a
-          >
-        </div>
-      </div>
     </aside>
 
     <main
-      class="col-span-12 md:col-span-8 lg:col-span-5 flex flex-col gap-4 md:top-10"
+      class="col-span-12 md:col-span-9 lg:col-span-5 lg:auto-cols-fr flex flex-col gap-4"
     >
       {
         sectionFilter.map((singlesectionfilter) => {
@@ -153,21 +101,36 @@ let sectionFilter = sections.filter((sec) => {
                   field.sections.length == 1 &&
                   field.sections == singlesectionfilter.id
                 ) {
-                  // return (
-                  //   <{`${field.input}`} slug={field.slug}
-                  //     name={field.input}
-                  //     description={field.description}
-                  //   />
-                  // );
-                  return <p class="text-green-700">{field.name}</p>;
+                  return (
+                    <>
+                      <Fields
+                        name={field.name}
+                        description={field.description}
+                        slug={field.slug}
+                        type={field.type}
+                        input_type={field.input_type}
+                        required={field.required}
+                        disabled={field.disabled}
+                        options={field.select_options}
+                      />
+                    </>
+                  );
                 } else if (field.sections.length > 1) {
-                  return <p class="text-blue-700">{field.name}</p>;
                   field.sections.map((fieldsection) => {
                     if (fieldsection == singlesectionfilter.id) {
                       return (
-                        <div>
-                          <p class="text-blue-700">{field.name}</p>
-                        </div>
+                        <>
+                          <Fields
+                            name={field.name}
+                            description={field.description}
+                            slug={field.slug}
+                            type={field.type}
+                            input_type={field.input_type}
+                            required={field.required}
+                            disabled={field.disabled}
+                            options={field.select_options}
+                          />
+                        </>
                       );
                     }
                   });
@@ -179,27 +142,117 @@ let sectionFilter = sections.filter((sec) => {
       }
     </main>
 
+    <div class="col-span-12 md:col-span-1 lg:col-span-1 lg:auto-cols-fr"></div>
+
     <div
-      class="col-span-12 lg:col-span-3 p-3 lg:self-start lg:sticky lg:top-10 flex-none"
+      class="col-span-12 lg:col-span-3 lg:auto-cols-fr lg:self-start lg:sticky lg:top-10 flex-none flex flex-col gap-10"
     >
-      <h3 class="text font-medium leading-6 text-white">
-        Ready to start your Awards application?
-      </h3>
-      <div
-        class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between"
-      >
-        <div class="max-w-xl text-sm text-violet-300">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae
-            voluptatibus corrupti atque repudiandae nam.
-          </p>
+      <div>
+        <h3 class="text font-medium leading-6 text-white">
+          Start your Awards application
+        </h3>
+        <div
+          class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between"
+        >
+          <div class="max-w-xl text-sm text-violet-300">
+            <p>
+              Once you are ready to start your application, sign-up to an Award
+              account and click 'Start a new application'. You will then have
+              access to the fillable version of this form.
+            </p>
+          </div>
+          <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
+            <a
+              href="https://unltdb2cprod.b2clogin.com/042ca636-5cc6-4423-87a1-9811e4643125/B2C_1_signin_signup/api/CombinedSigninAndSignup/unified?local=signup&csrf_token=WUJmN25sSjZvQnFHSFczRU1lV1dOeTIzS1U0b2h2Y3pHTlFHNy84RkJ2bGYyeVZ3dy9KaXNHQXF0SnRZczE0cVFhK0UzUlk3eUJPMG1IazJPOFMrYkE9PTsyMDIyLTEyLTA4VDEwOjI3OjQ0LjI0MzAwNThaOzF6SDZvWDE5TzczS0p0Q09CSGlVVHc9PTt7Ik9yY2hlc3RyYXRpb25TdGVwIjoxfQ%3D%3D&tx=StateProperties%3DeyJUSUQiOiI3NjQ2MWY1OS1jMGQwLTQwNDItYTUxMS00NTc3MWFkOWExZTgifQ&p=B2C_1_signin_signup"
+              class="inline-flex items-center rounded-md border border-transparent bg-white px-4 py-2 font-medium text-violet-900 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 sm:text-sm transition"
+              >Sign up for an Award account</a
+            >
+          </div>
         </div>
-        <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
-          <a
-            href="https://unltdb2cprod.b2clogin.com/042ca636-5cc6-4423-87a1-9811e4643125/B2C_1_signin_signup/api/CombinedSigninAndSignup/unified?local=signup&csrf_token=T1d3bjYwZGJYbkppbFlkTi9KcmRBRE9kRDVqWkFjbmZFbU1OcTljaHA3alhVMFhMWGRac091RU9LdXJEaXN3eSs1ZWlkelU4cWNMZ2tlR3dUQnhmZmc9PTsyMDIyLTEyLTAyVDExOjMxOjQ5LjQyODE3ODlaO1ZnM0NwbDJaUHVrWmw0VUtNa0Nyemc9PTt7Ik9yY2hlc3RyYXRpb25TdGVwIjoxfQ==&tx=StateProperties=eyJUSUQiOiIzMmYzMzI1Ny1mZWRkLTQ2ZGUtYTVlMy01OTk0YTYzNTVmNGYifQ&p=B2C_1_signin_signup"
-            class="inline-flex items-center rounded-md border border-transparent bg-white px-4 py-2 font-medium text-violet-900 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 sm:text-sm transition"
-            >Sign-up</a
-          >
+      </div>
+
+      <div>
+        <h3 class="text font-medium leading-6 text-white">
+          Download application template
+        </h3>
+        <div
+          class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between"
+        >
+          <div class="max-w-xl text-sm text-violet-300">
+            <p>
+              If you want to prepare your answers, you download this application
+              form as a template. The template cannot be submitted therefore you
+              will need to copy and paste your answers into your application
+              form on your Award account.
+            </p>
+          </div>
+          <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
+            <div class="flex-inline flex-col gap-1">
+              <a
+                href="#"
+                class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800"
+              >
+                <i class="fa-solid fa-file-arrow-down text-violet-300"></i><span
+                  class="font-medium text-white text-xs">Download PDF</span
+                >
+              </a>
+              <a
+                href="#"
+                class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800"
+                ><i class="fa-solid fa-file-arrow-down text-violet-300"></i>
+                <div class="flex flex-col">
+                  <span class="font-medium text-white text-xs"
+                    >Download GDOC</span
+                  ><span class="text-violet-300 text-xs"
+                    >Recommended for Google Docs</span
+                  >
+                </div>
+              </a>
+
+              <a
+                href="#"
+                class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800"
+                ><i class="fa-solid fa-file-arrow-down text-violet-300"></i>
+                <div class="flex flex-col">
+                  <span class="font-medium text-white text-xs"
+                    >Download GDOC</span
+                  >
+                  <span class="text-violet-300 text-xs"
+                    >Recommended for Microsoft 365 Word</span
+                  >
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative">
+        <div class="absolute inset-0 flex items-center" aria-hidden="true">
+          <div class="w-full border-t border-violet-300"></div>
+        </div>
+      </div>
+      <div>
+        <div class="flex flex-row gap-2 items-center">
+          <i class="fa-regular fa-circle-question text-violet-300"></i>
+          <h3 class="text font-medium leading-6 text-white">Get help</h3>
+        </div>
+        <div
+          class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between"
+        >
+          <div class="max-w-xl text-sm text-violet-300">
+            <p>
+              Having trouble making an application or just have a quetsion,
+              reach out to us.
+            </p>
+          </div>
+          <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
+            <a
+              href="https://unltdb2cprod.b2clogin.com/042ca636-5cc6-4423-87a1-9811e4643125/B2C_1_signin_signup/api/CombinedSigninAndSignup/unified?local=signup&csrf_token=WUJmN25sSjZvQnFHSFczRU1lV1dOeTIzS1U0b2h2Y3pHTlFHNy84RkJ2bGYyeVZ3dy9KaXNHQXF0SnRZczE0cVFhK0UzUlk3eUJPMG1IazJPOFMrYkE9PTsyMDIyLTEyLTA4VDEwOjI3OjQ0LjI0MzAwNThaOzF6SDZvWDE5TzczS0p0Q09CSGlVVHc9PTt7Ik9yY2hlc3RyYXRpb25TdGVwIjoxfQ%3D%3D&tx=StateProperties%3DeyJUSUQiOiI3NjQ2MWY1OS1jMGQwLTQwNDItYTUxMS00NTc3MWFkOWExZTgifQ&p=B2C_1_signin_signup"
+              class="inline-flex items-center rounded-md border border-violet-300 px-4 py-2 font-medium text-white shadow-sm hover:bg-violet-200 hover:text-violet-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 sm:text-sm transition"
+              >Contact us</a
+            >
+          </div>
         </div>
       </div>
     </div>
