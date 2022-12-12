@@ -30,8 +30,10 @@ if (description) {
       disabled={disabled}></textarea>
     {
       max_length && (
-        <div class="text-xs p-2 rounded-md inline-flex flex-col justify-center">
-          <span class="text-xs text-gray-500">Character count</span>
+        <div class="text-xs p-2 rounded-md flex flex-row justify-between">
+          <span class="text-xs text-gray-500 tracking-tight uppercase">
+            Character count
+          </span>
           <span class="text-gray-500 text-xs">0 / {max_length}</span>
         </div>
       )
