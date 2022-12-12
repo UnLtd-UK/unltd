@@ -14,11 +14,11 @@ let markdown = marked.parse(description);
 ---
 
 <div>
-  <div class="flex justify-between">
+  <div class="flex justify-between gap-5">
     <label for={slug} class="block text-sm font-medium text-gray-700"
       >{name}</label
     >
-    <span class="text-sm text-gray-400" id="email-required"
+    <span class="text-sm text-gray-400" id={`${slug}-required`}
       >{required == true && `Required`}</span
     >
   </div>
@@ -36,15 +36,42 @@ let markdown = marked.parse(description);
         </span>
       )
     }
-    <input
-      type={input_type}
-      name={slug}
-      id={slug}
-      aria-describedby={`${slug}-description}`}
-      class={`mt-1 block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-violet-500 focus:outline-none focus:ring-violet-500 sm:text-sm disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-500 ${
-        prefix ? "rounded-none rounded-r-md" : "rounded-md"
-      }`}
-      disabled={disabled}
-    />
+
+    {
+      input_type == "file" ? (
+        <div class="flex w-full justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+          <div class="space-y-1 text-center">
+            <i class="fa-solid fa-table text-gray-400 text-3xl" />
+            <div class="flex text-sm text-gray-600">
+              <label
+                for="file-upload"
+                class="relative cursor-pointer rounded-md bg-white font-medium text-violet-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-violet-500"
+              >
+                <span>Upload a file</span>
+                <input
+                  id="file-upload"
+                  name="file-upload"
+                  type="file"
+                  class="sr-only"
+                />
+              </label>
+              <p class="pl-1">or drag and drop</p>
+            </div>
+            <p class="text-xs text-gray-500">CSV, GSHEET, XLSX up to 2MB</p>
+          </div>
+        </div>
+      ) : (
+        <input
+          type={input_type}
+          name={slug}
+          id={slug}
+          aria-describedby={`${slug}-description}`}
+          class={`mt-1 block w-full border-gray-300 py-2 pl-3 pr-10 text-base focus:border-violet-500 focus:outline-none focus:ring-violet-500 sm:text-sm disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-500 ${
+            prefix ? "rounded-none rounded-r-md" : "rounded-md"
+          }`}
+          disabled={disabled}
+        />
+      )
+    }
   </div>
 </div>

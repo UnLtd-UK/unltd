@@ -121,27 +121,29 @@ let sectionFilter = sections.filter((sec) => {
                     </>
                   );
                 } else if (field.sections.length > 1) {
-                  field.sections.map((fieldsection) => {
-                    if (fieldsection == singlesectionfilter.id) {
-                      return (
-                        <>
-                          <Fields
-                            name={field.name}
-                            description={field.description}
-                            slug={field.slug}
-                            type={field.type}
-                            input_type={field.input_type}
-                            required={field.required}
-                            disabled={field.disabled}
-                            options={field.select_options}
-                            max_length={field.max_length}
-                            prefix={field.prefix}
-                            suffix={field.suffix}
-                          />
-                        </>
-                      );
-                    }
-                  });
+                  let fieldsforthissection = field.sections.filter(
+                    (fieldsection) => fieldsection == singlesectionfilter.id
+                  );
+
+                  if (fieldsforthissection.length == 1) {
+                    return (
+                      <>
+                        <Fields
+                          name={field.name}
+                          description={field.description}
+                          slug={field.slug}
+                          type={field.type}
+                          input_type={field.input_type}
+                          required={field.required}
+                          disabled={field.disabled}
+                          options={field.select_options}
+                          max_length={field.max_length}
+                          prefix={field.prefix}
+                          suffix={field.suffix}
+                        />
+                      </>
+                    );
+                  }
                 }
               })}
             </FormSection>
@@ -240,7 +242,7 @@ let sectionFilter = sections.filter((sec) => {
           <div class="w-full border-t border-violet-300"></div>
         </div>
       </div>
-      <div>
+      <div class="">
         <div class="flex flex-row gap-2 items-center">
           <i class="fa-regular fa-circle-question text-violet-300"></i>
           <h3 class="text font-medium leading-6 text-white">Get help</h3>
