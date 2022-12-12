@@ -16,6 +16,16 @@ let sectionFilter = sections.filter((sec) => {
 });
 ---
 
+<!-- <script is:inline>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      const intersecting = entry.isIntersecting;
+      entry.target.style.backgroundColor = intersecting ? "blue" : "orange";
+    });
+  });
+
+  observer.observe(document.getElementsByClassName("orange"));
+</script> -->
 <div class="flex flex-col gap-7 md:px-0">
   <div class="border-b border-violet-400 pb-5 sm:pb-0">
     <h3 class="text-lg font-medium leading-6 text-violet-100">
@@ -75,12 +85,14 @@ let sectionFilter = sections.filter((sec) => {
           sectionFilter.map((section, index) => (
             <a
               href={`#${section.slug}`}
-              class={`text-white hover:text-violet-200 hover:bg-violet-800 rounded-md flex items-center text-xs font-medium transition p-3 flex-row gap-2`}
+              class={`hover:text-violet-200 active:text-violet-800 active:bg-violet-800 hover:bg-violet-800 rounded-md flex items-center text-xs font-medium transition p-3 flex-row gap-2`}
             >
-              <span class="text-violet-300 border-full h-5 w-5 bg-violet-800 flex justify-center items-center rounded-full">
+              <span class="text-violet-300 border-full h-5 w-5 bg-violet-800 flex justify-center items-center rounded-full ">
                 {index + 1}
               </span>
-              <span class="truncate">{section.name}</span>
+              <span class="text-white truncate active:text-white">
+                {section.name}
+              </span>
             </a>
           ))
         }
@@ -198,70 +210,77 @@ let sectionFilter = sections.filter((sec) => {
           </div>
           <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
             <div class="flex-inline flex-col gap-1">
-              <a
-                href="#"
-                class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800"
-              >
-                <i class="fa-solid fa-file-arrow-down text-violet-300"></i><span
-                  class="font-medium text-white text-xs">Download PDF</span
-                >
-              </a>
-              <a
-                href="#"
-                class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800"
-                ><i class="fa-solid fa-file-arrow-down text-violet-300"></i>
-                <div class="flex flex-col">
-                  <span class="font-medium text-white text-xs"
-                    >Download GDOC</span
-                  ><span class="text-violet-300 text-xs"
-                    >Recommended for Google Docs</span
-                  >
-                </div>
-              </a>
-
-              <a
-                href="#"
-                class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800"
-                ><i class="fa-solid fa-file-arrow-down text-violet-300"></i>
-                <div class="flex flex-col">
-                  <span class="font-medium text-white text-xs"
-                    >Download DOCX</span
-                  >
-                  <span class="text-violet-300 text-xs"
-                    >Recommended for Microsoft 365 Word</span
-                  >
-                </div>
-              </a>
+              <div>
+                {
+                  application.pdf && (
+                    <a
+                      href={`http://127.0.0.1:8090/api/files/applications/${application.id}/${application.pdf}`}
+                      class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800"
+                    >
+                      <>
+                        <i class="fa-solid fa-file-arrow-down text-violet-300" />
+                        <span class="font-medium text-white text-xs">
+                          Download PDF
+                        </span>
+                      </>
+                    </a>
+                  )
+                }
+              </div>
+              <div>
+                {
+                  application.docx && (
+                    <a
+                      href={`http://127.0.0.1:8090/api/files/applications/${application.id}/${application.docx}`}
+                      class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800"
+                    >
+                      <>
+                        <i class="fa-solid fa-file-arrow-down text-violet-300" />
+                        <div class="flex flex-col">
+                          <span class="font-medium text-white text-xs">
+                            Download DOCX
+                          </span>
+                          <span class="text-violet-300 text-xs">
+                            Recommended for Microsoft 365 Word
+                          </span>
+                        </div>
+                      </>
+                    </a>
+                  )
+                }
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="relative">
-        <div class="absolute inset-0 flex items-center" aria-hidden="true">
-          <div class="w-full border-t border-violet-300"></div>
-        </div>
-      </div>
-      <div class="">
-        <div class="flex flex-row gap-2 items-center">
-          <i class="fa-regular fa-circle-question text-violet-300"></i>
-          <h3 class="text font-medium leading-6 text-white">Get help</h3>
-        </div>
-        <div
-          class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between"
-        >
-          <div class="max-w-xl text-sm text-violet-300">
-            <p>
-              We can assist with making an application, such as working through
-              the application with a colleague.
-            </p>
+          <div class="relative">
+            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+              <div class="w-full border-t border-violet-300"></div>
+            </div>
           </div>
-          <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
-            <a
-              href="/contact-us"
-              class="inline-flex items-center rounded-md border border-violet-300 px-4 py-2 font-medium text-white shadow-sm hover:bg-violet-200 hover:text-violet-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 sm:text-sm transition"
-              >Contact us</a
+          <div class="">
+            <div class="flex flex-row gap-2 items-center">
+              <i class="fa-regular fa-circle-question text-violet-300"></i>
+              <h3 class="text font-medium leading-6 text-white">Get help</h3>
+            </div>
+            <div
+              class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between"
             >
+              <div class="max-w-xl text-sm text-violet-300">
+                <p>
+                  We can assist with making an application, such as working
+                  through the application with a colleague.
+                </p>
+              </div>
+              <div
+                class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center"
+              >
+                <a
+                  href="/contact-us"
+                  class="inline-flex items-center rounded-md border border-violet-300 px-4 py-2 font-medium text-white shadow-sm hover:bg-violet-200 hover:text-violet-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 sm:text-sm transition"
+                  >Contact us</a
+                >
+              </div>
+            </div>
           </div>
         </div>
       </div>
