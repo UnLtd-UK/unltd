@@ -1,6 +1,9 @@
 ---
-import FormSection from "../../components/form/FormSection.astro";
-import Fields from "../../components/form/Fields.astro";
+import Aside from "../../components/form/Aside.astro";
+import Maino from "../../components/form/Maino.astro";
+import Right from "../../components/form/Right.astro";
+
+import { marked } from "marked";
 
 const { applications, application, sections, fields } = Astro.props;
 
@@ -54,236 +57,16 @@ let sectionFilter = sections.filter((sec) => {
   </div>
 
   <div class="grid gap-x-4 grid-cols-12">
-    <aside
-      class="col-span-12 md:col-span-3 lg:col-span-3 lg:auto-cols-fr flex flex-col gap-5 rounded-md md:self-start md:sticky md:top-20"
-    >
-      <div class="">
-        {
-          applications.map(
-            (appi) =>
-              application.id === appi.id && (
-                <div class="flex flex-col gap-2">
-                  <p class="text-xs text-white">Grant up to</p>
-                  <div class="flex flex-col">
-                    <p class=" text-xl text-white">
-                      {new Intl.NumberFormat("en-GB", {
-                        maximumSignificantDigits: 3,
-                        style: "currency",
-                        currency: "GBP",
-                      }).format(appi.amount)}
-                    </p>
-                    <p class="text-sm text-violet-300">{appi.use}</p>
-                  </div>
-                </div>
-              )
-          )
-        }
-      </div>
-
-      <div class="flex flex-col">
-        {
-          sectionFilter.map((section, index) => (
-            <a
-              href={`#${section.slug}`}
-              class={`hover:text-violet-200 active:text-violet-800 active:bg-violet-800 hover:bg-violet-800 rounded-md flex items-center text-xs font-medium transition p-3 flex-row gap-2`}
-            >
-              <span class="text-violet-300 border-full h-5 w-5 bg-violet-800 flex justify-center items-center rounded-full ">
-                {index + 1}
-              </span>
-              <span class="text-white truncate active:text-white">
-                {section.name}
-              </span>
-            </a>
-          ))
-        }
-      </div>
-    </aside>
-    <main
-      class="col-span-12 md:col-span-9 lg:col-span-5 lg:auto-cols-fr flex flex-col gap-4"
-    >
-      {
-        sectionFilter.map((singlesectionfilter, index) => {
-          return (
-            <FormSection
-              name={singlesectionfilter.name}
-              slug={singlesectionfilter.slug}
-              description={singlesectionfilter.description}
-              index={index}
-            >
-              {fields.map((field) => {
-                if (
-                  field.sections.length == 1 &&
-                  field.sections == singlesectionfilter.id
-                ) {
-                  return (
-                    <>
-                      <Fields
-                        name={field.name}
-                        description={field.description}
-                        slug={field.slug}
-                        type={field.type}
-                        input_type={field.input_type}
-                        required={field.required}
-                        disabled={field.disabled}
-                        options={field.select_options}
-                        max_length={field.max_length}
-                        prefix={field.prefix}
-                        suffix={field.suffix}
-                      />
-                    </>
-                  );
-                } else if (field.sections.length > 1) {
-                  let fieldsforthissection = field.sections.filter(
-                    (fieldsection) => fieldsection == singlesectionfilter.id
-                  );
-
-                  if (fieldsforthissection.length == 1) {
-                    return (
-                      <>
-                        <Fields
-                          name={field.name}
-                          description={field.description}
-                          slug={field.slug}
-                          type={field.type}
-                          input_type={field.input_type}
-                          required={field.required}
-                          disabled={field.disabled}
-                          options={field.select_options}
-                          max_length={field.max_length}
-                          prefix={field.prefix}
-                          suffix={field.suffix}
-                        />
-                      </>
-                    );
-                  }
-                }
-              })}
-            </FormSection>
-          );
-        })
-      }
-    </main>
+    <Aside
+      applications={applications}
+      application={application}
+      sections={sections}
+    />
 
     <div class="col-span-12 md:col-span-1 lg:col-span-1 lg:auto-cols-fr"></div>
 
-    <div
-      class="col-span-12 lg:col-span-3 lg:auto-cols-fr lg:self-start lg:sticky lg:top-20 flex-none flex flex-col gap-10"
-    >
-      <div>
-        <h3 class="text font-medium leading-6 text-white">
-          Start your Awards application
-        </h3>
-        <div
-          class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between"
-        >
-          <div class="max-w-xl text-sm text-violet-300">
-            <p>
-              Once you are ready to start your application, sign-up to an Award
-              account and click 'Start a new application'. You will then have
-              access to the fillable version of this form.
-            </p>
-          </div>
-          <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
-            <a
-              href="https://unltdb2cprod.b2clogin.com/042ca636-5cc6-4423-87a1-9811e4643125/B2C_1_signin_signup/api/CombinedSigninAndSignup/unified?local=signup&csrf_token=WUJmN25sSjZvQnFHSFczRU1lV1dOeTIzS1U0b2h2Y3pHTlFHNy84RkJ2bGYyeVZ3dy9KaXNHQXF0SnRZczE0cVFhK0UzUlk3eUJPMG1IazJPOFMrYkE9PTsyMDIyLTEyLTA4VDEwOjI3OjQ0LjI0MzAwNThaOzF6SDZvWDE5TzczS0p0Q09CSGlVVHc9PTt7Ik9yY2hlc3RyYXRpb25TdGVwIjoxfQ%3D%3D&tx=StateProperties%3DeyJUSUQiOiI3NjQ2MWY1OS1jMGQwLTQwNDItYTUxMS00NTc3MWFkOWExZTgifQ&p=B2C_1_signin_signup"
-              class="inline-flex items-center rounded-md border border-transparent bg-white px-4 py-2 font-medium text-violet-900 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 sm:text-sm transition"
-              >Sign up for an Award account</a
-            >
-          </div>
-        </div>
-      </div>
+    <Maino sections={sectionFilter} fields={fields} />
 
-      <div>
-        <h3 class="text font-medium leading-6 text-white">
-          Download application template
-        </h3>
-        <div
-          class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between"
-        >
-          <div class="max-w-xl text-sm text-violet-300">
-            <p>
-              If you want to prepare your answers, download this application
-              form as a template. The template cannot be submitted therefore you
-              will need to copy and paste your answers into your application
-              form on your Award account.
-            </p>
-          </div>
-          <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
-            <div class="flex-inline flex-col gap-1">
-              <div>
-                {
-                  application.pdf && (
-                    <a
-                      href={`http://127.0.0.1:8090/api/files/applications/${application.id}/${application.pdf}`}
-                      class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800"
-                    >
-                      <>
-                        <i class="fa-solid fa-file-arrow-down text-violet-300" />
-                        <span class="font-medium text-white text-xs">
-                          Download PDF
-                        </span>
-                      </>
-                    </a>
-                  )
-                }
-              </div>
-              <div>
-                {
-                  application.docx && (
-                    <a
-                      href={`http://127.0.0.1:8090/api/files/applications/${application.id}/${application.docx}`}
-                      class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800"
-                    >
-                      <>
-                        <i class="fa-solid fa-file-arrow-down text-violet-300" />
-                        <div class="flex flex-col">
-                          <span class="font-medium text-white text-xs">
-                            Download DOCX
-                          </span>
-                          <span class="text-violet-300 text-xs">
-                            Recommended for Microsoft 365 Word
-                          </span>
-                        </div>
-                      </>
-                    </a>
-                  )
-                }
-              </div>
-            </div>
-          </div>
-
-          <div class="relative">
-            <div class="absolute inset-0 flex items-center" aria-hidden="true">
-              <div class="w-full border-t border-violet-300"></div>
-            </div>
-          </div>
-          <div class="">
-            <div class="flex flex-row gap-2 items-center">
-              <i class="fa-regular fa-circle-question text-violet-300"></i>
-              <h3 class="text font-medium leading-6 text-white">Get help</h3>
-            </div>
-            <div
-              class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between"
-            >
-              <div class="max-w-xl text-sm text-violet-300">
-                <p>
-                  We can assist with making an application, such as working
-                  through the application with a colleague.
-                </p>
-              </div>
-              <div
-                class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center"
-              >
-                <a
-                  href="/contact-us"
-                  class="inline-flex items-center rounded-md border border-violet-300 px-4 py-2 font-medium text-white shadow-sm hover:bg-violet-200 hover:text-violet-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 sm:text-sm transition"
-                  >Contact us</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Right />
   </div>
 </div>

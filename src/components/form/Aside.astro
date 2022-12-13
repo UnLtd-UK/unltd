@@ -1,0 +1,133 @@
+---
+const { application, applications, sections } = Astro.props;
+---
+
+<aside
+  class="col-span-12 md:col-span-3 lg:col-span-3 lg:auto-cols-fr flex flex-col gap-10 rounded-md md:self-start md:sticky md:top-20"
+>
+  <div class="flex flex-col gap-5">
+    <div class="">
+      {
+        applications.map(
+          (appi) =>
+            application.id === appi.id && (
+              <div class="flex flex-col gap-2">
+                <p class="text-xs text-white">Grant up to</p>
+                <div class="flex flex-col">
+                  <p class=" text-xl text-white">
+                    {new Intl.NumberFormat("en-GB", {
+                      maximumSignificantDigits: 3,
+                      style: "currency",
+                      currency: "GBP",
+                    }).format(appi.amount)}
+                  </p>
+                  <p class="text-sm text-violet-300">{appi.use}</p>
+                </div>
+              </div>
+            )
+        )
+      }
+    </div>
+
+    <div class="flex flex-col">
+      {
+        sections.map((section, index) => (
+          <a
+            href={`#${section.slug}`}
+            class={`hover:text-violet-200 active:text-violet-800 active:bg-violet-800 hover:bg-violet-800 rounded-md flex items-center text-xs font-medium transition p-3 flex-row gap-2 group`}
+          >
+            <span class="text-violet-300 border-full h-5 w-5 bg-violet-800 flex justify-center items-center rounded-full group-hover:scale-125">
+              {index + 1}
+            </span>
+            <span class="text-white truncate active:text-white">
+              {section.name}
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+
+  <div>
+    <h3 class="text font-medium leading-6 text-white">Templates</h3>
+    <div class="relative">
+      <div class="absolute inset-0 flex items-center" aria-hidden="true">
+        <div class="w-full border-t border-violet-300"></div>
+      </div>
+    </div>
+    <div class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between">
+      <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 flex-col">
+        <p class="text-white">Questions form template</p>
+        <div class="flex-inline flex-col gap-1">
+          <div>
+            {
+              application.pdf && (
+                <a
+                  href={`http://127.0.0.1:8090/api/files/applications/${application.id}/${application.pdf}`}
+                  class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800 group"
+                >
+                  <>
+                    <i class="fa-solid fa-file-arrow-down text-violet-300 group-hover:scale-110" />
+                    <span class="font-medium text-white text-xs">
+                      Download PDF
+                    </span>
+                  </>
+                </a>
+              )
+            }
+          </div>
+          <div>
+            {
+              application.docx && (
+                <a
+                  href={`http://127.0.0.1:8090/api/files/applications/${application.id}/${application.docx}`}
+                  class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800 group"
+                >
+                  <>
+                    <i class="fa-solid fa-file-arrow-down text-violet-300 group-hover:scale-110" />
+                    <div class="flex flex-col">
+                      <span class="font-medium text-white text-xs">
+                        Download DOCX
+                      </span>
+                      <span class="text-violet-300 text-xs">
+                        Recommended for Microsoft 365 Word
+                      </span>
+                    </div>
+                  </>
+                </a>
+              )
+            }
+          </div>
+        </div>
+      </div>
+
+      {
+        application.xlsx && (
+          <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center flex-col">
+            <p class="text-white">Financial data spreadsheet template</p>
+            <div class="flex-inline flex-col gap-1">
+              <div>
+                <a
+                  href={`http://127.0.0.1:8090/api/files/applications/${application.id}/${application.xlsx}`}
+                  class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800"
+                >
+                  <>
+                    <i class="fa-solid fa-file-arrow-down text-violet-300" />
+                    <div class="flex flex-col">
+                      <span class="font-medium text-white text-xs">
+                        Download XLSX
+                      </span>
+                      <span class="text-violet-300 text-xs">
+                        Recommended for Microsoft 365 Excel
+                      </span>
+                    </div>
+                  </>
+                </a>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </div>
+</aside>
