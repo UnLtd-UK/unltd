@@ -1,5 +1,5 @@
 ---
-const { application, applications, sections } = Astro.props;
+const { application } = Astro.props;
 ---
 
 <aside
@@ -7,36 +7,31 @@ const { application, applications, sections } = Astro.props;
 >
   <div class="flex flex-col gap-5">
     <div class="">
-      {
-        applications.map(
-          (appi) =>
-            application.id === appi.id && (
-              <div class="flex flex-col gap-2">
-                <p class="text-xs text-white">Grant up to</p>
-                <div class="flex flex-col">
-                  <p class=" text-xl text-white">
-                    {new Intl.NumberFormat("en-GB", {
-                      maximumSignificantDigits: 3,
-                      style: "currency",
-                      currency: "GBP",
-                    }).format(appi.amount)}
-                  </p>
-                  <p class="text-sm text-violet-300">{appi.use}</p>
-                </div>
-              </div>
-            )
-        )
-      }
+      <div class="flex flex-col gap-2">
+        <p class="text-xs text-white">Grant up to</p>
+        <div class="flex flex-col gap-3">
+          <p class="text-5xl text-white">
+            {
+              new Intl.NumberFormat("en-GB", {
+                maximumSignificantDigits: 3,
+                style: "currency",
+                currency: "GBP",
+              }).format(application.amount)
+            }
+          </p>
+          <p class="text-sm text-violet-300">{application.description}</p>
+        </div>
+      </div>
     </div>
 
     <div class="flex flex-col">
       {
-        sections.map((section, index) => (
+        application.sections.map((section, index) => (
           <a
             href={`#${section.slug}`}
-            class={`hover:text-violet-200 active:text-violet-800 active:bg-violet-800 hover:bg-violet-800 rounded-md flex items-center text-xs font-medium transition p-3 flex-row gap-2 group`}
+            class={`hover:text-violet-200 active:text-violet-800 active:bg-violet-800 hover:bg-violet-800 rounded-md flex items-center text-xs font-medium transition py-3 flex-row gap-2 group`}
           >
-            <span class="text-violet-300 border-full h-5 w-5 bg-violet-800 flex justify-center items-center rounded-full group-hover:scale-125">
+            <span class="text-violet-300 border-full h-5 w-5 bg-violet-800 flex justify-center items-center rounded-full group-hover:scale-125 group-hover:bg-transparent">
               {index + 1}
             </span>
             <span class="text-white truncate active:text-white">
@@ -48,16 +43,18 @@ const { application, applications, sections } = Astro.props;
     </div>
   </div>
 
-  <div>
-    <h3 class="text font-medium leading-6 text-white">Templates</h3>
-    <div class="relative">
-      <div class="absolute inset-0 flex items-center" aria-hidden="true">
-        <div class="w-full border-t border-violet-300"></div>
+  <div class="flex flex-col gap-3">
+    <div>
+      <h3 class="text font-medium leading-6 text-white">Templates</h3>
+      <div class="relative">
+        <div class="absolute mt-1 inset-0 flex items-center" aria-hidden="true">
+          <div class="w-full border-t border-violet-300"></div>
+        </div>
       </div>
     </div>
     <div class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between">
-      <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 flex-col">
-        <p class="text-white">Questions form template</p>
+      <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 flex-col gap-2">
+        <p class="text-white">Awards applictaion template</p>
         <div class="flex-inline flex-col gap-1">
           <div>
             {

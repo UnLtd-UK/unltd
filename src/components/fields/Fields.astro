@@ -1,10 +1,10 @@
 ---
-import Input from "../../components/form/fields/Input.astro";
-import Select from "../../components/form/fields/Select.astro";
+import Input from "./Input.astro";
+import Select from "./Select.astro";
 // import Datalist from "../../components/form/fields/Datalist.astro";
-import Textarea from "../../components/form/fields/Textarea.astro";
-import Checkboxes from "../../components/form/fields/Checkboxes.astro";
-import Radios from "../../components/form/fields/Radios.astro";
+import Textarea from "./Textarea.astro";
+import Checkboxes from "./Checkboxes.astro";
+import Radios from "./Radios.astro";
 const {
   name,
   description,
@@ -17,6 +17,7 @@ const {
   max_length = false,
   prefix = false,
   suffix = false,
+  alias = false,
 } = Astro.props;
 ---
 
@@ -46,6 +47,7 @@ const {
               required={required}
               options={options}
               disabled={disabled}
+              applications={alias}
             />
           );
         case "Checkboxes":

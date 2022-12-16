@@ -1,0 +1,126 @@
+---
+import ApplicationsPreview from "../../../layouts/ApplicationsPreview.astro";
+import AsideLeft from "../../../components/applications-preview/AsideLeft.astro";
+import Main from "../../../components/applications-preview/Main.astro";
+import AsideRight from "../../../components/applications-preview/AsideRight.astro";
+import { pb_applications } from "../../../data/applications.js";
+import { pb_sections } from "../../../data/sections.js";
+import { pb_fields } from "../../../data/fields.js";
+
+const pageName = "Awards applications preview";
+const pageDescription = "Brief description on what application preview is...";
+
+Astro.props;
+
+export async function getStaticPaths() {
+  function sectionsMapper(parents, parentNames, childs, childNames) {
+    return parents.map((parent) => {
+      parent[childNames] = [];
+      childs.map((child) => {
+        if (child[parentNames].length == 1 && child[parentNames] == parent.id) {
+          parent[childNames].push(child);
+        } else if (child[parentNames].length > 1) {
+          childs.map((childw) => {
+            if (childw[parentNames] == parent.id) {
+              parent[childNames].push(child);
+            }
+          });
+        }
+      });
+      return parent;
+    });
+  }
+
+  function fieldsMapper(applications) {
+    return applications.map((application) => {
+      application.sections.map((section) => {
+        section.fields = [];
+        pb_fields.map((field) => {
+          if (
+            field["sections"].length == 1 &&
+            field["sections"] == section.id
+          ) {
+            section["fields"].push(field);
+          } else if (field["sections"].length > 1) {
+            field["sections"].map((fieldw) => {
+              if (fieldw == section.id) {
+                section["fields"].push(field);
+              }
+            });
+          }
+        });
+      });
+      return application;
+    });
+  }
+
+  let applicationWithSections = sectionsMapper(
+    pb_applications,
+    "applications",
+    pb_sections,
+    "sections"
+  );
+
+  let applicationWithFields = fieldsMapper(applicationWithSections);
+
+  const pages = [];
+
+  applicationWithFields.forEach((app) =>
+    pages.push({
+      params: { slug: app.slug },
+      props: {
+        name: app.name,
+        description: app.description,
+        application: app,
+        applications: applicationWithFields,
+      },
+    })
+  );
+
+  pages.push({
+    params: { slug: undefined },
+    props: {
+      name: "Awards applications preview",
+      description: "Brief description on what application preview is...",
+      application: [],
+      applications: applicationWithFields,
+    },
+  });
+
+  return pages;
+}
+
+const { slug } = Astro.params;
+const { name, description, application, applications } = Astro.props;
+---
+
+<ApplicationsPreview
+  name={name}
+  description={description}
+  application={application}
+  applications={applications}
+>
+  <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-2">
+    {
+      application.length != 0 ? (
+        <div class="grid gap-x-4 grid-cols-12">
+          <AsideLeft application={application} />
+          <div class="col-span-12 md:col-span-1 lg:col-span-1 lg:auto-cols-fr" />
+          <Main application={application} />
+          <AsideRight />
+        </div>
+      ) : (
+        <div class="flex flex-col gap-4">
+          {applications.map((app) => (
+            <a
+              href={`/awards/applications-preview/${app.slug}`}
+              class="text-white hover:underline"
+            >
+              {app.name}
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</ApplicationsPreview>
