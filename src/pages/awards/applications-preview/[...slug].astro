@@ -70,7 +70,7 @@ export async function getStaticPaths() {
       params: { slug: app.slug },
       props: {
         name: "Awards applications preview",
-        description: "Brief description on what application preview is...",
+        description: "Brief description on what applications preview is...",
         application: app,
         applications: applicationWithFields,
       },
@@ -81,7 +81,7 @@ export async function getStaticPaths() {
     params: { slug: undefined },
     props: {
       name: "Awards applications preview",
-      description: "Brief description on what application preview is...",
+      description: "Brief description on what applications preview is...",
       application: [],
       applications: applicationWithFields,
     },
@@ -103,8 +103,8 @@ const { name, description, application, applications } = Astro.props;
             How long has your venture been incorporated?
           </h2>
           <p class=" text-violet-300">
-            We provide 3 different applications depending on how long you have
-            been incorporated.
+            Depending on how long you have been incorporated decides which
+            application is right for you
           </p>
         </div>
 
@@ -112,7 +112,7 @@ const { name, description, application, applications } = Astro.props;
           {applications.map((appi) => (
             <a
               href={`/awards/applications-preview/${appi.slug}`}
-              class="flex-1 border shadow-sm bg-white focus:outline-none transition flex flex-col justify-between rounded-lg group"
+              class="flex-1 border shadow-sm bg-white hover:bg-violet-50 focus:outline-none transition flex flex-col justify-between rounded-lg group"
             >
               <div class="p-4 rounded-t-lg group-hover:bg-violet-50">
                 <span class="block text-sm font-medium text-gray-900">

@@ -3,44 +3,54 @@ const { application } = Astro.props;
 ---
 
 <aside
-  class="col-span-12 md:col-span-3 lg:col-span-3 lg:auto-cols-fr flex flex-col gap-10 rounded-md md:self-start md:sticky md:top-20"
+  class="col-span-12 md:col-span-3 lg:col-span-3 lg:auto-cols-fr flex flex-col gap-10 rounded-md md:self-start md:sticky md:top-10"
 >
-  <div class="flex flex-col gap-5">
-    <div class="">
-      <div class="flex flex-col gap-2">
-        <p class="text-xs text-white">Grant up to</p>
-        <div class="flex flex-col gap-3">
-          <p class="text-5xl text-white font-bold">
-            {
-              new Intl.NumberFormat("en-GB", {
-                maximumSignificantDigits: 3,
-                style: "currency",
-                currency: "GBP",
-              }).format(application.grant_amount)
-            }
-          </p>
-          <p class="text-sm text-violet-300">{application.grant_description}</p>
-        </div>
-      </div>
+  <div class="flex flex-col gap-3">
+    <div class="flex flex-row items-center gap-2">
+      <i class="fa-solid fa-shop text-violet-400"></i>
+      <p class="text-xs uppercase text-violet-400">Your venture</p>
     </div>
+    <div class="flex flex-col gap-1">
+      <p class="text-white">{application.incorporated}</p>
+      <p class="text-sm text-violet-300">{application.description}</p>
+    </div>
+  </div>
 
-    <div class="flex flex-col">
-      {
-        application.sections.map((section, index) => (
-          <a
-            href={`#${section.slug}`}
-            class={`hover:text-violet-200 active:text-violet-800 active:bg-violet-800 hover:bg-violet-800 rounded-md flex items-center text-xs font-medium transition py-3 flex-row gap-2 group`}
-          >
-            <span class="text-violet-300 border-full h-5 w-5 bg-violet-800 flex justify-center items-center rounded-full group-hover:scale-125 group-hover:bg-transparent">
-              {index + 1}
-            </span>
-            <span class="text-white truncate active:text-white">
-              {section.name}
-            </span>
-          </a>
-        ))
-      }
+  <div class="flex flex-col gap-3">
+    <div class="flex flex-row items-center gap-2">
+      <i class="fa-solid fa-sterling-sign text-violet-400"></i>
+      <p class="text-xs uppercase text-violet-400">Grant up to</p>
     </div>
+    <div class="flex flex-col gap-1">
+      <p class="text-white">
+        {
+          new Intl.NumberFormat("en-GB", {
+            maximumSignificantDigits: 3,
+            style: "currency",
+            currency: "GBP",
+          }).format(application.grant_amount)
+        }
+      </p>
+      <p class="text-sm text-violet-300">{application.grant_description}</p>
+    </div>
+  </div>
+
+  <div class="flex flex-col">
+    {
+      application.sections.map((section, index) => (
+        <a
+          href={`#${section.slug}`}
+          class={`hover:text-violet-200 active:text-violet-800 active:bg-violet-800 hover:bg-violet-800 rounded-md flex items-center text-xs font-medium transition py-3 flex-row gap-2 group`}
+        >
+          <span class="text-violet-300 border-full h-5 w-5 bg-violet-800 flex justify-center items-center rounded-full group-hover:scale-125 group-hover:bg-transparent">
+            {index + 1}
+          </span>
+          <span class="text-white truncate active:text-white">
+            {section.name}
+          </span>
+        </a>
+      ))
+    }
   </div>
 
   <div class="flex flex-col gap-3">
