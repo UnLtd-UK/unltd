@@ -10,16 +10,16 @@ const { application } = Astro.props;
       <div class="flex flex-col gap-2">
         <p class="text-xs text-white">Grant up to</p>
         <div class="flex flex-col gap-3">
-          <p class="text-5xl text-white">
+          <p class="text-5xl text-white font-bold">
             {
               new Intl.NumberFormat("en-GB", {
                 maximumSignificantDigits: 3,
                 style: "currency",
                 currency: "GBP",
-              }).format(application.amount)
+              }).format(application.grant_amount)
             }
           </p>
-          <p class="text-sm text-violet-300">{application.description}</p>
+          <p class="text-sm text-violet-300">{application.grant_description}</p>
         </div>
       </div>
     </div>
@@ -100,8 +100,8 @@ const { application } = Astro.props;
 
       {
         application.xlsx && (
-          <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center flex-col">
-            <p class="text-white">Financial data spreadsheet template</p>
+          <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 flex-col gap-2">
+            <p class="text-white">Financial data template</p>
             <div class="flex-inline flex-col gap-1">
               <div>
                 <a

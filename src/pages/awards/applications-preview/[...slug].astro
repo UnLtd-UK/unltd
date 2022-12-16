@@ -1,5 +1,5 @@
 ---
-import ApplicationsPreview from "../../../layouts/ApplicationsPreview.astro";
+import Heading from "../../../layouts/Heading.astro";
 import AsideLeft from "../../../components/applications-preview/AsideLeft.astro";
 import Main from "../../../components/applications-preview/Main.astro";
 import AsideRight from "../../../components/applications-preview/AsideRight.astro";
@@ -69,8 +69,8 @@ export async function getStaticPaths() {
     pages.push({
       params: { slug: app.slug },
       props: {
-        name: app.name,
-        description: app.description,
+        name: "Awards applications preview",
+        description: "Brief description on what application preview is...",
         application: app,
         applications: applicationWithFields,
       },
@@ -94,33 +94,61 @@ const { slug } = Astro.params;
 const { name, description, application, applications } = Astro.props;
 ---
 
-<ApplicationsPreview
-  name={name}
-  description={description}
-  application={application}
-  applications={applications}
->
-  <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-2">
-    {
-      application.length != 0 ? (
+<Heading name={name} description={description}>
+  {
+    application.length == 0 && (
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-5">
+        <div class="flex flex-col gap-1">
+          <h2 class="text-2xl font-medium text-white">
+            How long has your venture been incorporated?
+          </h2>
+          <p class=" text-violet-300">
+            We provide 3 different applications depending on how long you have
+            been incorporated.
+          </p>
+        </div>
+
+        <div class="flex flex-row gap-3">
+          {applications.map((appi) => (
+            <a
+              href={`/awards/applications-preview/${appi.slug}`}
+              class="flex-1 border shadow-sm bg-white focus:outline-none transition flex flex-col justify-between rounded-lg group"
+            >
+              <div class="p-4 rounded-t-lg group-hover:bg-violet-50">
+                <span class="block text-sm font-medium text-gray-900">
+                  {appi.name}
+                </span>
+                <span class="mt-1 flex items-center text-sm text-gray-500">
+                  {appi.description}
+                </span>
+              </div>
+              <div class="flex flex-col gap-1 bg-gray-100 px-4 py-2 border-t border-gray-200 rounded-b-lg group-hover:bg-gray-200">
+                <span class="text-xs text-gray-700">Grant up to</span>
+                <span class="text-sm font-medium text-gray-900">
+                  {new Intl.NumberFormat("en-GB", {
+                    maximumSignificantDigits: 3,
+                    style: "currency",
+                    currency: "GBP",
+                  }).format(appi.grant_amount)}
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  {
+    application.length != 0 && (
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-2">
         <div class="grid gap-x-4 grid-cols-12">
           <AsideLeft application={application} />
           <div class="col-span-12 md:col-span-1 lg:col-span-1 lg:auto-cols-fr" />
           <Main application={application} />
-          <AsideRight />
+          <AsideRight application={application} />
         </div>
-      ) : (
-        <div class="flex flex-col gap-4">
-          {applications.map((app) => (
-            <a
-              href={`/awards/applications-preview/${app.slug}`}
-              class="text-white hover:underline"
-            >
-              {app.name}
-            </a>
-          ))}
-        </div>
-      )
-    }
-  </div>
-</ApplicationsPreview>
+      </div>
+    )
+  }
+</Heading>

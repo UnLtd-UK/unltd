@@ -1,3 +1,7 @@
+---
+const { application } = Astro.props;
+---
+
 <div
   class="col-span-12 lg:col-span-3 lg:auto-cols-fr lg:self-start lg:sticky lg:top-20 flex-none flex flex-col gap-5"
 >
@@ -25,7 +29,32 @@
       </div>
     </div>
   </div>
-
+  {
+    application.xlsx && (
+      <div class="px-5">
+        <div class="flex flex-row gap-2 items-center">
+          <i class="fa-solid fa-table text-violet-300" />
+          <h3 class="text font-medium leading-6 text-white">Financial data</h3>
+        </div>
+        <div class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between">
+          <div class="max-w-xl text-sm text-violet-300">
+            <p>
+              We can assist with making an application, such as working through
+              the application with a colleague.
+            </p>
+          </div>
+          <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
+            <a
+              href="/contact-us"
+              class="inline-flex items-center rounded-md border border-violet-300 px-4 py-2 font-medium text-white shadow-sm hover:bg-violet-200 hover:text-violet-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 text-xs transition"
+            >
+              Finanicial data guide
+            </a>
+          </div>
+        </div>
+      </div>
+    )
+  }
   <div class="px-5">
     <div class="flex flex-row gap-2 items-center">
       <i class="fa-regular fa-circle-question text-violet-300"></i>
