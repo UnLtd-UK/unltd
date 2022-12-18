@@ -1,6 +1,6 @@
 ---
 // LAYOUT
-import Layout from "../layouts/Layout.astro";
+import HeaderAstro from "../layouts/HeaderAstro.astro";
 
 // COMPONENTS
 import Tabs from "../components/Tabs.astro";
@@ -23,9 +23,20 @@ import types from "../data/support/types.json";
 const name = "Support";
 const description =
   "We go beyond funding. Explore our support and tailor it to your needs";
+
+const breadcrumbs = [
+  {
+    name: "Support",
+    slug: "support",
+  },
+];
 ---
 
-<Layout name={`${name}`} description={`${description}`}>
+<HeaderAstro
+  name={`${name}`}
+  description={`${description}`}
+  breadcrumbs={breadcrumbs}
+>
   <div class="mx-auto max-w-7xl flex flex-col gap-20">
     <div class="flex flex-col gap-20 mx-4 lg:mx-0">
       <Hero
@@ -193,4 +204,4 @@ const description =
       </div>
     </div>
   </div>
-</Layout>
+</HeaderAstro>

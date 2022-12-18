@@ -1,12 +1,18 @@
 ---
-import Template from "../layouts/Heading.astro";
+import HeaderAstro from "../layouts/HeaderAstro.astro";
 const name = "Press Office";
 const description = "fjkhdsjkfhkjsdh";
 const message =
   "For all journalists and media enquiries, please get in touch via email The number below is for media calls only, if you need to contact a different department, please call the UnLtd switchboard. If you'd like to be added to our press distribution list, please e-mail the press team stating your name and publication/channel.";
+const breadcrumbs = [
+  {
+    name: "Press Office",
+    slug: "press-office",
+  },
+];
 ---
 
-<Template name={name} description={description}>
+<HeaderAstro name={name} description={description} breadcrumbs={breadcrumbs}>
   <section class="relative" aria-labelledby="contact-heading">
     <div class="absolute h-1/2 w-full bg-warm-gray-50" aria-hidden="true"></div>
     <!-- Decorative dot pattern -->
@@ -245,4 +251,4 @@ const message =
       </div>
     </div>
   </section>
-</Template>
+</HeaderAstro>

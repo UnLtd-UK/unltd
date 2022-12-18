@@ -1,33 +1,22 @@
 ---
-import Template from "../layouts/Heading.astro";
+import HeaderAstro from "../layouts/HeaderAstro.astro";
+import { pb_roles } from "../data/roles.js";
+import { pb_people } from "../data/people.js";
+import { pb_teams } from "../data/teams.js";
+
 const name = "Meet the Team";
 const description = "Meet the Team description";
-
-import { pb } from "../data/pocketbase.js";
-
-// you can also fetch all records at once via getFullList
-const teams = await pb.collection("teams").getFullList(200 /* batch size */, {
-  sort: "name",
-});
-
-const roles = await pb.collection("roles").getFullList(200 /* batch size */, {
-  sort: "name",
-});
-
-const people = await pb.collection("people").getFullList(200 /* batch size */, {
-  sort: "name",
-});
-
-const applications = await pb
-  .collection("applications")
-  .getFullList(200 /* batch size */, {
-    sort: "order",
-  });
+const breadcrumbs = [
+  {
+    name: "Meet the Team",
+    slug: "meet-the-team",
+  },
+];
 ---
 
-<Template name={name} description={description}>
-  {
-    teams.map((team) => (
+<HeaderAstro name={name} description={description} breadcrumbs={breadcrumbs}>
+  <!-- {
+    pb_teams.map((team) => (
       <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:px-8 lg:py-24">
         <div class="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:gap-8">
           <div class="space-y-5 sm:space-y-4">
@@ -41,13 +30,13 @@ const applications = await pb
               role="list"
               class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-12 sm:space-y-0 lg:gap-x-8"
             >
-              {teams.map((team) => {
+              {pb_teams.map((team) => {
                 return (
                   <Fragment>
-                    {people.map((person) => {
+                    {pb_people.map((person) => {
                       return (
                         <Fragment>
-                          {roles.map((role) => {
+                          {pb_roles.map((role) => {
                             if (role.team === team.id) {
                               <li>
                                 <div class="flex items-center space-x-4 lg:space-x-6">
@@ -112,7 +101,7 @@ const applications = await pb
         </div>
       </div>
     ))
-  }
+  } -->
   <!-- <div>
   {
     teams.map((team) => {
@@ -131,15 +120,15 @@ const applications = await pb
   }
 </div> -->
 
-  <div>
+  <!-- <div>
     {
-      teams.map((team) => {
+      pb_teams.map((team) => {
         return (
           <Fragment>
-            {people.map((person) => {
+            {pb_people.map((person) => {
               return (
                 <Fragment>
-                  {roles.map((role) => {
+                  {pb_roles.map((role) => {
                     person.role === role.id && role.team === team.id && (
                       <p>
                         {team.name} - {person.name} - {role.name}
@@ -153,5 +142,5 @@ const applications = await pb
         );
       })
     }
-  </div>
-</Template>
+  </div> -->
+</HeaderAstro>

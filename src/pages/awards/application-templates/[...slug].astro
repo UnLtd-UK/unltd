@@ -1,0 +1,176 @@
+---
+import HeaderAstro from "../../../layouts/HeaderAstro.astro";
+import AsideLeft from "../../../components/application-templates/AsideLeft.astro";
+import Main from "../../../components/application-templates/Main.astro";
+import AsideRight from "../../../components/application-templates/AsideRight.astro";
+import { pb_applications } from "../../../data/applications.js";
+import { pb_sections } from "../../../data/sections.js";
+import { pb_fields } from "../../../data/fields.js";
+
+Astro.props;
+
+export async function getStaticPaths() {
+  function sectionsMapper(parents, parentNames, childs, childNames) {
+    return parents.map((parent) => {
+      parent[childNames] = [];
+      childs.map((child) => {
+        if (child[parentNames].length == 1 && child[parentNames] == parent.id) {
+          parent[childNames].push(child);
+        } else if (child[parentNames].length > 1) {
+          childs.map((childw) => {
+            if (childw[parentNames] == parent.id) {
+              parent[childNames].push(child);
+            }
+          });
+        }
+      });
+      return parent;
+    });
+  }
+
+  function fieldsMapper(applications) {
+    return applications.map((application) => {
+      application.sections.map((section) => {
+        section.fields = [];
+        pb_fields.map((field) => {
+          if (
+            field["sections"].length == 1 &&
+            field["sections"] == section.id
+          ) {
+            section["fields"].push(field);
+          } else if (field["sections"].length > 1) {
+            field["sections"].map((fieldw) => {
+              if (fieldw == section.id) {
+                section["fields"].push(field);
+              }
+            });
+          }
+        });
+      });
+      return application;
+    });
+  }
+
+  let applicationWithSections = sectionsMapper(
+    pb_applications,
+    "applications",
+    pb_sections,
+    "sections"
+  );
+
+  let applicationWithFields = fieldsMapper(applicationWithSections);
+
+  const pages = [];
+
+  applicationWithFields.forEach((app) =>
+    pages.push({
+      params: { slug: app.slug },
+      props: {
+        name: app.name,
+        description: app.description,
+        application: app,
+        applications: applicationWithFields,
+        breadcrumbs: [
+          {
+            name: "Awards",
+            slug: "/awards",
+          },
+          {
+            name: "Awards application templates",
+            slug: "/awards/application-templates",
+          },
+          {
+            name: app.name,
+            slug: app.slug,
+          },
+        ],
+      },
+    })
+  );
+
+  pages.push({
+    params: { slug: undefined },
+    props: {
+      name: "Awards application templates",
+      description: "Brief description on what application templates is...",
+      application: [],
+      applications: applicationWithFields,
+      breadcrumbs: [
+        {
+          name: "Awards",
+          slug: "/awards",
+        },
+        {
+          name: "Awards application templates",
+          slug: "/awards/application-templates",
+        },
+      ],
+    },
+  });
+
+  return pages;
+}
+
+const { slug } = Astro.params;
+const { name, description, application, applications, breadcrumbs } =
+  Astro.props;
+---
+
+<HeaderAstro name={name} description={description} breadcrumbs={breadcrumbs}>
+  {
+    application.length == 0 && (
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-5">
+        <div class="flex flex-col gap-1">
+          <h2 class="text-2xl font-medium text-white">
+            How long has your venture been incorporated?
+          </h2>
+          <p class=" text-violet-300">
+            Depending on how long you have been incorporated decides which
+            application is right for you
+          </p>
+        </div>
+
+        <div class="flex flex-row gap-3">
+          {applications.map((appi) => (
+            <a
+              href={`/awards/application-templates/${appi.slug}`}
+              class="flex-1 border shadow-sm bg-white hover:bg-violet-50 focus:outline-none transition flex flex-col justify-between rounded-lg group"
+            >
+              <div class="p-4 rounded-t-lg group-hover:bg-violet-50">
+                <span class="block text-sm font-medium text-gray-900">
+                  {appi.name}
+                </span>
+                <span class="mt-1 flex items-center text-sm text-gray-500">
+                  {appi.description}
+                </span>
+              </div>
+              <div class="flex flex-col gap-1 bg-gray-100 px-4 py-2 border-t border-gray-200 rounded-b-lg group-hover:bg-gray-200">
+                <span class="text-xs text-gray-700">Grant up to</span>
+                <span class="text-sm font-medium text-gray-900">
+                  {new Intl.NumberFormat("en-GB", {
+                    maximumSignificantDigits: 3,
+                    style: "currency",
+                    currency: "GBP",
+                  }).format(appi.grant_amount)}
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  {
+    application.length != 0 && (
+      <div class="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col gap-2">
+        <div class="grid gap-x-4 grid-cols-12">
+          <AsideLeft application={application} />
+          <div class="hidden lg:block lg:col-span-1 lg:auto-cols-fr" />
+          <Main application={application} />
+          <AsideRight application={application} />
+        </div>
+      </div>
+    )
+  }
+</HeaderAstro>

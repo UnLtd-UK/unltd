@@ -39,13 +39,20 @@ let markdown = marked.parse(description);
 
     {
       input_type == "file" ? (
-        <div class="flex w-full justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+        <div
+          class={`flex w-full justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 ${
+            disabled && "disabled:cursor-not-allowed"
+          }`}
+        >
           <div class="space-y-1 text-center">
             <i class="fa-solid fa-table text-gray-400 text-3xl" />
             <div class="flex text-sm text-gray-600">
               <label
                 for="file-upload"
-                class="relative cursor-pointer rounded-md bg-white font-medium text-violet-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-violet-500"
+                class={`relative cursor-pointer rounded-md font-medium text-violet-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-violet-500 focus-within:ring-offset-2 ${
+                  disabled &&
+                  "hover:text-violet-500 disabled:bg-gray-100 disabled:text-gray-700 disabled-focus-within:ring-violet-500 disabled-hover:text-violet-500"
+                }`}
               >
                 <span>Upload a file</span>
                 <input
@@ -53,6 +60,7 @@ let markdown = marked.parse(description);
                   name="file-upload"
                   type="file"
                   class="sr-only"
+                  disabled={disabled}
                 />
               </label>
               <p class="pl-1">or drag and drop</p>

@@ -1,0 +1,64 @@
+---
+import Fields from "../../components/fields/Fields.astro";
+import { marked } from "marked";
+
+const { application } = Astro.props;
+---
+
+<main
+  class="col-span-12 md:col-span-6 lg:col-span-5 lg:auto-cols-fr flex flex-col gap-4"
+>
+  {
+    application.sections.map((section, index) => {
+      return (
+        <>
+          <form
+            action="#"
+            id={section.slug}
+            method="POST"
+            class="shadow-xl sm:overflow-hidden rounded-md flex flex-col gap-10 bg-white"
+          >
+            <div class="bg-gray-100 p-10 sticky top-0 rounded-t-md rounded-x-md border-b border-gray-200 shadow-sm">
+              <div class="flex flex-row gap-3 items-center">
+                <span class="text-gray-600 border-full h-8 w-8 bg-white flex justify-center items-center rounded-full border border-gray-200">
+                  {index + 1}
+                </span>
+                <h3 class="text-lg font-medium leading-6 text-gray-700">
+                  {section.name}
+                </h3>
+              </div>
+
+              {section.description && (
+                <div
+                  class="mt-2 text-sm text-gray-500 leading-relaxed prose"
+                  id={`${section.slug}-description}`}
+                  set:html={marked.parse(section.description)}
+                />
+              )}
+            </div>
+            <div class="flex flex-col gap-10 pb-10 px-7 md:px-10">
+              {section.fields.map((field) => {
+                return (
+                  <Fields
+                    name={field.name}
+                    description={field.description}
+                    slug={field.slug}
+                    type={field.type}
+                    input_type={field.input_type}
+                    required={field.required}
+                    disabled={field.disabled}
+                    options={field.select_options}
+                    max_length={field.max_length}
+                    prefix={field.prefix}
+                    suffix={field.suffix}
+                    alias={application.alias}
+                  />
+                );
+              })}
+            </div>
+          </form>
+        </>
+      );
+    })
+  }
+</main>

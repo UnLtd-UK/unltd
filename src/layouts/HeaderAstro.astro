@@ -1,0 +1,59 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Container from "../layouts/Container.astro";
+const { name, description, breadcrumbs } = Astro.props;
+---
+
+<Layout name={name} description={description}>
+  <div class="">
+    <div class="bg-gradient-to-br from-gray-900 via-violet-900 to-amber-700">
+      <Container>
+        <div class="py-16 sm:py-20 sm:mb-10 flex flex-col gap-12">
+          <nav class="flex" aria-label="Breadcrumb">
+            <ol role="list" class="flex items-center space-x-4">
+              <li>
+                <div>
+                  <a
+                    href="/"
+                    class="hover:text-violet-200 text-violet-300 transition"
+                  >
+                    <i class="fa-solid fa-house"></i>
+                    <span class="sr-only">UnLtd</span>
+                  </a>
+                </div>
+              </li>
+
+              {
+                breadcrumbs.map((crumb) => (
+                  <li>
+                    <div class="flex items-center">
+                      <i class="fa-solid fa-chevron-right text-violet-300" />
+                      <a
+                        href={crumb.slug}
+                        class="ml-4 text-sm font-medium hover:text-violet-200 text-violet-300 transition"
+                      >
+                        {crumb.name}
+                      </a>
+                    </div>
+                  </li>
+                ))
+              }
+            </ol>
+          </nav>
+
+          <div class="max-w-4xl">
+            <h2
+              class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
+            >
+              {name}
+            </h2>
+            <p class="mt-5 text-xl text-violet-300">
+              {description}
+            </p>
+          </div>
+        </div>
+      </Container>
+    </div>
+    <slot />
+  </div>
+</Layout>

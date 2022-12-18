@@ -1,5 +1,5 @@
 ---
-import Template from "../layouts/Heading.astro";
+import HeaderAstro from "../layouts/HeaderAstro.astro";
 const name = "Get Involved";
 const description =
   "Collaboration is crucial to how we create impact. Whether you are a social entrepreneur, peer, partner, policy-maker; a corporation organisation, a trust or foundation - we would love you to work alongside. us to break down the barriers to a just world. Find out more about how you can get involved.";
@@ -15,9 +15,16 @@ const joinus = [
   { name: "partners", description: "For organisations" },
   { name: "careers", description: "For individuals" },
 ];
+
+const breadcrumbs = [
+  {
+    name: "Meet the Team",
+    slug: "meet-the-team",
+  },
+];
 ---
 
-<Template name={name} description={description}>
+<HeaderAstro name={name} description={description} breadcrumbs={breadcrumbs}>
   <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
     <div
       class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-gray-200 shadow sm:grid sm:grid-cols-2 sm:gap-px sm:divide-y-0"
@@ -352,4 +359,4 @@ const joinus = [
       </div>
     </div>
   </div>
-</Template>
+</HeaderAstro>

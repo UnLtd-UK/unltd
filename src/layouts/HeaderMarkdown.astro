@@ -1,0 +1,102 @@
+---
+import Layout from "./Layout.astro";
+import Container from "./Container.astro";
+const { frontmatter } = Astro.props;
+---
+
+<Layout name={frontmatter.name} description={frontmatter.description}>
+  <div class="">
+    <div class="bg-gradient-to-br from-gray-900 via-violet-900 to-amber-700">
+      <Container>
+        <div class="py-16 mb-10 flex flex-col gap-12">
+          <div class="flex flex-row gap-5 justify-between">
+            <nav class="flex" aria-label="Breadcrumb">
+              <ol role="list" class="flex items-center space-x-4">
+                <li>
+                  <div>
+                    <a
+                      href="/"
+                      class="hover:text-violet-200 text-violet-300 transition"
+                    >
+                      <i class="fa-solid fa-house text-xs"></i>
+                      <span class="sr-only">UnLtd</span>
+                    </a>
+                  </div>
+                </li>
+
+                {
+                  frontmatter.breadcrumbs.map((crumb) => (
+                    <li>
+                      <div class="flex items-center">
+                        <i class="fa-solid fa-chevron-right text-violet-300 text-xs" />
+                        <a
+                          href={crumb.slug}
+                          class="ml-4 text-xs font-medium hover:text-violet-200 text-violet-300 transition"
+                        >
+                          {crumb.name}
+                        </a>
+                      </div>
+                    </li>
+                  ))
+                }
+              </ol>
+            </nav>
+
+            <div class="flex flex-row gap-10">
+              {
+                frontmatter.created && (
+                  <div>
+                    <p class="text-violet-300 text-xs">Created</p>
+                    <p class="text-violet-300 text-sm">
+                      {new Date(frontmatter.created).toLocaleDateString()}
+                    </p>
+                  </div>
+                )
+              }
+
+              {
+                frontmatter.updated && (
+                  <div>
+                    <p class="text-violet-300 text-xs">Updated</p>
+                    <p class="text-violet-300 text-sm">
+                      {new Date(frontmatter.updated).toLocaleDateString()}
+                    </p>
+                  </div>
+                )
+              }
+
+              {
+                frontmatter.reviewed && (
+                  <div>
+                    <p class="text-violet-300 text-xs">Reviewed</p>
+                    <p class="text-violet-300 text-sm">
+                      {new Date(frontmatter.reviewed).toLocaleDateString()}
+                    </p>
+                  </div>
+                )
+              }
+            </div>
+          </div>
+
+          <div class="max-w-4xl">
+            <h2
+              class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
+            >
+              {frontmatter.name}
+            </h2>
+            <p class="mt-5 text-2xl text-violet-300">
+              {frontmatter.description}
+            </p>
+          </div>
+        </div>
+      </Container>
+    </div>
+    <Container>
+      <div
+        class="prose prose-lg prose-black prose-invert prose-img:rounded-md prose-img:shadow-md prose-img:w-full hover:prose-a:text-white prose-a:text-violet-300"
+      >
+        <slot />
+      </div>
+    </Container>
+  </div>
+</Layout>

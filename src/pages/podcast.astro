@@ -1,0 +1,16 @@
+---
+import Heading from "../layouts/HeaderAstro.astro";
+const name = "Podcast";
+const description = "Podcast description";
+const breadcrumbs = [
+  {
+    name: "Podcast",
+    slug: "podcast",
+  },
+];
+---
+
+<Heading name={name} description={description} breadcrumbs={breadcrumbs}>
+  <h1>{name}</h1>
+  <p>{description}</p>
+</Heading>
