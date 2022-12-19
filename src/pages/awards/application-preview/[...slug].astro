@@ -1,8 +1,8 @@
 ---
 import HeaderAstro from "../../../layouts/HeaderAstro.astro";
-import AsideLeft from "../../../components/application-templates/AsideLeft.astro";
-import Main from "../../../components/application-templates/Main.astro";
-import AsideRight from "../../../components/application-templates/AsideRight.astro";
+import AsideLeft from "../../../components/application-preview/AsideLeft.astro";
+import Main from "../../../components/application-preview/Main.astro";
+import AsideRight from "../../../components/application-preview/AsideRight.astro";
 import { pb_applications } from "../../../data/applications.js";
 import { pb_sections } from "../../../data/sections.js";
 import { pb_fields } from "../../../data/fields.js";
@@ -76,8 +76,8 @@ export async function getStaticPaths() {
             slug: "/awards",
           },
           {
-            name: "Awards application templates",
-            slug: "/awards/application-templates",
+            name: "Awards application preview",
+            slug: "/awards/application-preview",
           },
           {
             name: app.name,
@@ -91,8 +91,8 @@ export async function getStaticPaths() {
   pages.push({
     params: { slug: undefined },
     props: {
-      name: "Awards application templates",
-      description: "Brief description on what application templates is...",
+      name: "Awards application preview",
+      description: "Brief description on what application preview is...",
       application: [],
       applications: applicationWithFields,
       breadcrumbs: [
@@ -101,8 +101,8 @@ export async function getStaticPaths() {
           slug: "/awards",
         },
         {
-          name: "Awards application templates",
-          slug: "/awards/application-templates",
+          name: "Awards application preview",
+          slug: "/awards/application-preview",
         },
       ],
     },
@@ -133,7 +133,7 @@ const { name, description, application, applications, breadcrumbs } =
         <div class="flex flex-row gap-3">
           {applications.map((appi) => (
             <a
-              href={`/awards/application-templates/${appi.slug}`}
+              href={`/awards/application-preview/${appi.slug}`}
               class="flex-1 border shadow-sm bg-white hover:bg-violet-50 focus:outline-none transition flex flex-col justify-between rounded-lg group"
             >
               <div class="p-4 rounded-t-lg group-hover:bg-violet-50">
