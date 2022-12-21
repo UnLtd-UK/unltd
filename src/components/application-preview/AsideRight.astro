@@ -5,55 +5,53 @@ const { application } = Astro.props;
 <div
   class="col-span-12 lg:col-span-3 lg:auto-cols-fr lg:self-start lg:sticky lg:top-10 flex-none flex flex-col gap-10"
 >
-  <div class="bg-amber-100 px-8 py-5 rounded-md shadow-md">
-    <div class="flex flex-col gap-3">
-      <i class="fa-solid fa-circle-exclamation text-amber-600 text-2xl"></i>
-      <h3 class="text-xl font-medium leading-6 text-amber-800">
-        You cannot fill out this application
-      </h3>
-    </div>
-    <div class="mt-2 sm:flex flex-col gap-6 sm:items-start sm:justify-between">
-      <div class="max-w-xl text-sm text-amber-700">
-        <p>
-          Once you are ready to start your application, sign-up to an Award
-          account and click 'Start a new application'.
-        </p>
-      </div>
-      <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
-        <a
-          href="https://unltdb2cprod.b2clogin.com/042ca636-5cc6-4423-87a1-9811e4643125/B2C_1_signin_signup/api/CombinedSigninAndSignup/unified?local=signup&csrf_token=WUJmN25sSjZvQnFHSFczRU1lV1dOeTIzS1U0b2h2Y3pHTlFHNy84RkJ2bGYyeVZ3dy9KaXNHQXF0SnRZczE0cVFhK0UzUlk3eUJPMG1IazJPOFMrYkE9PTsyMDIyLTEyLTA4VDEwOjI3OjQ0LjI0MzAwNThaOzF6SDZvWDE5TzczS0p0Q09CSGlVVHc9PTt7Ik9yY2hlc3RyYXRpb25TdGVwIjoxfQ%3D%3D&tx=StateProperties%3DeyJUSUQiOiI3NjQ2MWY1OS1jMGQwLTQwNDItYTUxMS00NTc3MWFkOWExZTgifQ&p=B2C_1_signin_signup"
-          class="inline-flex items-center rounded-md border border-transparent text-amber-50 bg-amber-600 text-xs px-4 py-2 font-medium shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 hover:scale-105 transition"
-          >Sign-up for an Award account</a
-        >
-      </div>
-    </div>
-  </div>
   {
     application.xlsx && (
       <div class="px-5">
         <div class="flex flex-row gap-2 items-center">
           <i class="fa-solid fa-table text-violet-300" />
-          <h3 class="text font-medium leading-6 text-white">Financial data</h3>
+          <h3 class="text font-medium leading-6 text-white">
+            Financial data (file uploads)
+          </h3>
         </div>
         <div class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between">
           <div class="max-w-xl text-sm text-violet-300">
-            <p>
-              We can assist with making an application, such as working through
-              the application with a colleague.
-            </p>
+            <ul class="list-disc flex flex-col gap-2">
+              <li>
+                We need you to show us how you are currently earning income.
+              </li>
+              <li>
+                We need to know how your social venture is, or has the potential
+                to become, financially sustainable.
+              </li>
+              <li>
+                We need to see that you have financial growth plans that will
+                enable you to scale your social impact.
+              </li>
+              <li>
+                We need you to show us how you will be able to meet your costs
+                as your social venture develops.
+              </li>
+              <li>
+                if you are not yet profitable, or rely on grant or charitable
+                funding for a large part of your income, we need to see how
+                you'll develop your business model to become reliant on traded
+                income.
+              </li>
+            </ul>
           </div>
-          <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
-            <a
-              href="/awards/application-preview/established-between-1-to-4-years/financial-data-guide"
-              class="inline-flex items-center rounded-md border border-violet-300 px-4 py-2 font-medium text-white shadow-sm hover:bg-violet-200 hover:text-violet-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 text-xs transition"
-            >
-              Go to guide
-            </a>
+          <div class="flex flex-col gap-1">
             <a
               href="/awards/application-preview/established-between-1-to-4-years/financial-data-guide"
               class="inline-flex items-center rounded-md border border-violet-300 px-4 py-2 font-medium text-white shadow-sm hover:bg-violet-200 hover:text-violet-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 text-xs transition"
             >
               Download template
+            </a>
+            <a
+              href="/awards/application-preview/established-between-1-to-4-years/financial-data-guide"
+              class="inline-flex items-center rounded-md border border-violet-300 px-4 py-2 font-medium text-white shadow-sm hover:bg-violet-200 hover:text-violet-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 text-xs transition"
+            >
+              Go to template guide
             </a>
           </div>
         </div>

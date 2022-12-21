@@ -1,5 +1,5 @@
 ---
-const { name, description, slug, required, disabled, options, alias } =
+const { name, description, slug, required, disabled, options, alias, number } =
   Astro.props;
 import { marked } from "marked";
 let markdown;
@@ -11,7 +11,7 @@ if (description) {
 <div>
   <div class="flex justify-between">
     <label for={slug} class="block text-sm font-medium text-gray-700"
-      >{name}</label
+      ><span class="text-gray-400 text-sm mr-1">{number}.</span> {name}</label
     >
     <span class="text-sm text-gray-400" id="email-required"
       >{required == true && `Required`}</span

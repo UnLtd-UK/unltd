@@ -1,12 +1,15 @@
 ---
-const { name, description, slug, required, options, disabled } = Astro.props;
+const { name, description, slug, required, options, disabled, number } =
+  Astro.props;
 import { marked } from "marked";
 let markdown = marked.parse(description);
 ---
 
 <fieldset>
   <div class="flex justify-between">
-    <legend class="block text-sm font-medium text-gray-700">{name}</legend>
+    <legend class="block text-sm font-medium text-gray-700"
+      ><span class="text-gray-400 text-sm mr-1">{number}.</span> {name}</legend
+    >
     <span class="text-sm text-gray-400" id="email-required"
       >{required == true && `Required`}</span
     >

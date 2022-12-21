@@ -1,5 +1,5 @@
 ---
-const { name, description, slug, required } = Astro.props;
+const { name, description, slug, required, number } = Astro.props;
 ---
 
 <div>
@@ -15,7 +15,10 @@ const { name, description, slug, required } = Astro.props;
     </div>
     <div class="ml-3 text-sm">
       <div class="flex justify-between">
-        <label for={slug} class="font-medium text-gray-700">{name}</label>
+        <label for={slug} class="font-medium text-gray-700"
+          ><span class="text-gray-400 text-sm mr-1">{number}.</span>
+          {name}</label
+        >
         <span class="text-sm text-gray-500" id="email-required"
           >{required === "true" && `Required`}</span
         >

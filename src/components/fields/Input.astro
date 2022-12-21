@@ -8,6 +8,7 @@ const {
   disabled,
   prefix,
   suffix,
+  number,
 } = Astro.props;
 import { marked } from "marked";
 let markdown = marked.parse(description);
@@ -16,7 +17,7 @@ let markdown = marked.parse(description);
 <div>
   <div class="flex justify-between gap-5">
     <label for={slug} class="block text-sm font-medium text-gray-700"
-      >{name}</label
+      ><span class="text-gray-400 text-sm mr-1">{number}.</span> {name}</label
     >
     <span class="text-sm text-gray-400" id={`${slug}-required`}
       >{required == true && `Required`}</span
