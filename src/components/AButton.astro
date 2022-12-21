@@ -1,0 +1,39 @@
+---
+const { name, url, icon, description, before = false } = Astro.props;
+---
+
+<div>
+  <a
+    href={url}
+    class="inline-flex flex-col gap-1 rounded-md border border-white border-opacity-30 px-4 py-2 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition group"
+  >
+    <div class="flex flex-row gap-2 items-center">
+      {
+        before && (
+          <i
+            class={`text-violet-300 text-xs group-hover:text-violet-500 fa-solid fa-${icon}`}
+          />
+        )
+      }
+      <span
+        class="text-violet-50 font-medium text-xs group-hover:text-violet-800"
+        >{name}</span
+      >
+      {
+        !before && (
+          <i
+            class={`text-violet-300 text-xs group-hover:text-violet-500 fa-solid fa-${icon}`}
+          />
+        )
+      }
+    </div>
+
+    {
+      description && (
+        <span class="text-violet-300 group-hover:text-violet-600 text-xs">
+          {description}
+        </span>
+      )
+    }
+  </a>
+</div>

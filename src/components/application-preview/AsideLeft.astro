@@ -1,6 +1,7 @@
 ---
 import Grant from "../../components/Grant.astro";
 const { application } = Astro.props;
+import AButton from "../AButton.astro";
 ---
 
 <aside
@@ -26,85 +27,41 @@ const { application } = Astro.props;
     }
   </div>
 
-  <div class="flex flex-col gap-3 p-5 rounded-md">
-    <div class="flex flex-row gap-3 items-center">
-      <i
-        class="fa-solid fa-file-arrow-down text-violet-300 group-hover:scale-110"
-      ></i>
-      <h3 class="text font-medium leading-6 text-white">
-        Application templates
-      </h3>
+  <div class="flex flex-col gap-1 p-5 rounded-md">
+    <div class="flex flex-row gap-2 items-center">
+      <h3 class="text font-medium leading-6 text-white">Downloads</h3>
     </div>
     <div class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between">
       <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 flex-col gap-2">
-        <div class="flex-inline flex-col gap-1">
+        <div class="flex flex-col gap-2">
           <div>
             {
               application.pdf && (
-                <a
-                  href={`http://127.0.0.1:8090/api/files/applications/${application.id}/${application.pdf}`}
-                  class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800 group"
-                >
-                  <>
-                    <span class="font-medium text-white text-xs">
-                      Download PDF
-                    </span>
-                  </>
-                </a>
+                <AButton
+                  name="Download PDF"
+                  url={`/api/files/applications/${application.id}/${application.pdf}`}
+                  icon="file-arrow-down"
+                  before="true"
+                  description=""
+                />
               )
             }
           </div>
           <div>
             {
               application.docx && (
-                <a
-                  href={`http://127.0.0.1:8090/api/files/applications/${application.id}/${application.docx}`}
-                  class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800 group"
-                >
-                  <>
-                    <div class="flex flex-col">
-                      <span class="font-medium text-white text-xs">
-                        Download DOCX
-                      </span>
-                      <span class="text-violet-300 text-xs">
-                        Recommended for Microsoft 365 Word
-                      </span>
-                    </div>
-                  </>
-                </a>
+                <AButton
+                  name="Download DOCX"
+                  url={`/api/files/applications/${application.id}/${application.docx}`}
+                  icon="file-arrow-down"
+                  before="true"
+                  description="Recommended for Microsoft Word"
+                />
               )
             }
           </div>
         </div>
       </div>
-
-      {
-        application.xlsx && (
-          <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 flex-col gap-2">
-            <p class="text-white">Financial data template</p>
-            <div class="flex-inline flex-col gap-1">
-              <div>
-                <a
-                  href={`http://127.0.0.1:8090/api/files/applications/${application.id}/${application.xlsx}`}
-                  class="flex flex-row items-center gap-3 rounded focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition py-2 px-4 hover:bg-violet-800"
-                >
-                  <>
-                    <i class="fa-solid fa-file-arrow-down text-violet-300" />
-                    <div class="flex flex-col">
-                      <span class="font-medium text-white text-xs">
-                        Download XLSX
-                      </span>
-                      <span class="text-violet-300 text-xs">
-                        Recommended for Microsoft 365 Excel
-                      </span>
-                    </div>
-                  </>
-                </a>
-              </div>
-            </div>
-          </div>
-        )
-      }
     </div>
   </div>
 </aside>

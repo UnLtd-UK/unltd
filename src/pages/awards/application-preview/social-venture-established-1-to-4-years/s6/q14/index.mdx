@@ -1,7 +1,7 @@
 ---
-layout: ../../../../layouts/Prose.astro
-name: Financial data template guide
-description: This guide is to help you fill out our financial data template
+layout: ../../../../../../layouts/Prose.astro
+name: File uploads
+description: Section 6. Question 14
 breadcrumbs: [
           {
             name: "Awards",
@@ -22,15 +22,26 @@ breadcrumbs: [
         ]
 ---
 
-import Note from '../../../../components/Note.astro';
+import Note from '../../../../../../components/Note.astro';
+import AButton from '../../../../../../components/AButton.astro';
 
 # {frontmatter.title}
 
-You can use this template to submit all your financial data, which includes:
+You can use this template:
 
-historical financial data (last 12 months)
-a financial forecast (next 12 months), and
-financial assumptions.
+<AButton
+     name="Download template"
+              url=""
+              icon="file-arrow-down"
+              before="true"
+              description="Recommended for Microsoft Excel"
+            />
+
+Submit all your financial data, which includes:
+
+- historical financial data (last 12 months)
+- a financial forecast (next 12 months), and
+- financial assumptions.
 
 ## Historical financial data
 
