@@ -1,5 +1,6 @@
 ---
-import HeaderAstro from "../../../layouts/HeaderAstro.astro";
+import Blank from "../../../layouts/Blank.astro";
+import Container from "../../../layouts/Container.astro";
 import AsideLeft from "../../../components/application-preview/AsideLeft.astro";
 import Main from "../../../components/application-preview/Main.astro";
 import AsideRight from "../../../components/application-preview/AsideRight.astro";
@@ -10,6 +11,21 @@ import { pb_fields } from "../../../data/fields.js";
 Astro.props;
 
 export async function getStaticPaths() {
+  const namee = "Awards application preview";
+  const slugg = "application-preview";
+  const descriptionn =
+    "Preview your application form or download the questions so that you can prepare your application before you sign up for an Award account";
+
+  const breadcrumbs = [
+    {
+      name: "Awards",
+      slug: "/awards",
+    },
+    {
+      name: namee,
+      slug: `/awards/${slugg}`,
+    },
+  ];
   function sectionsMapper(parents, parentNames, childs, childNames) {
     return parents.map((parent) => {
       parent[childNames] = [];
@@ -62,7 +78,16 @@ export async function getStaticPaths() {
 
   const pages = [];
 
-  applicationWithFields.forEach((app) =>
+  applicationWithFields.forEach((app) => {
+    let varuss = breadcrumbs.map((x) => x);
+
+    // let nameLowerCase = app.name.toLowerCase();
+
+    varuss.push({
+      name: app.social_venture,
+      slug: app.slug,
+    });
+
     pages.push({
       params: { slug: app.slug },
       props: {
@@ -70,94 +95,80 @@ export async function getStaticPaths() {
         description: app.description,
         application: app,
         applications: applicationWithFields,
-        breadcrumbs: [
-          {
-            name: "Awards",
-            slug: "/awards",
-          },
-          {
-            name: "Awards application preview",
-            slug: "/awards/application-preview",
-          },
-          {
-            name: app.name,
-            slug: app.slug,
-          },
-        ],
+        breadcrumbs: varuss,
       },
-    })
-  );
+    });
+  });
 
   pages.push({
     params: { slug: undefined },
     props: {
-      name: "Awards application preview",
-      description: "Brief description on what application preview is...",
+      name: namee,
+      description: descriptionn,
       application: [],
       applications: applicationWithFields,
-      breadcrumbs: [
-        {
-          name: "Awards",
-          slug: "/awards",
-        },
-        {
-          name: "Awards application preview",
-          slug: "/awards/application-preview",
-        },
-      ],
+      breadcrumbs: breadcrumbs,
     },
   });
 
   return pages;
 }
 
-const { slug } = Astro.params;
+const { slugg } = Astro.params;
 const { name, description, application, applications, breadcrumbs } =
   Astro.props;
 ---
 
-<HeaderAstro name={name} description={description} breadcrumbs={breadcrumbs}>
+<Blank name={name} description={description} breadcrumbs={breadcrumbs}>
   {
     application.length == 0 && (
-      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-5">
-        <div class="flex flex-col gap-1">
-          <h2 class="text-2xl font-medium text-white">
-            How long has your venture been incorporated?
-          </h2>
-          <p class=" text-violet-300">
-            Depending on how long you have been incorporated decides which
-            application is right for you
-          </p>
-        </div>
-
-        <div class="flex flex-row gap-3">
-          {applications.map((appi) => (
-            <a
-              href={`/awards/application-preview/${appi.slug}`}
-              class="flex-1 border shadow-sm bg-white hover:bg-violet-50 focus:outline-none transition flex flex-col justify-between rounded-lg group"
-            >
-              <div class="p-4 rounded-t-lg group-hover:bg-violet-50">
-                <span class="block text-sm font-medium text-gray-900">
-                  {appi.name}
-                </span>
-                <span class="mt-1 flex items-center text-sm text-gray-500">
-                  {appi.description}
-                </span>
+      <Container>
+        <div class="grid xs:grid-rows-3 xs:git-flow-row lg:grid-cols-12 lg:grid-flow-col gap-4 items-center">
+          <div class="col-span-3 flex flex-col gap-3">
+            <h2 class="text-white text-3xl font-bold">
+              How long has your social venture been established?
+            </h2>
+          </div>
+          {pb_applications.map((application) => (
+            <div class="col-span-3 flex flex-col gap-4">
+              <div class="flex flex-col gap-3 px-5">
+                <div class="flex flex-row gap-2 items-center">
+                  <p class="text-violet-300 uppercase text-xs tracking-wide ">
+                    Your social venture
+                  </p>
+                </div>
+                <p class="text-violet-50 text-sm">
+                  <span class="bg-amber-600 bg-opacity-30  rounded-full px-3 py-1 -ml-3 shadow-md">
+                    {application.social_venture}
+                  </span>
+                </p>
               </div>
-              <div class="flex flex-col gap-1 bg-gray-100 px-4 py-2 border-t border-gray-200 rounded-b-lg group-hover:bg-gray-200">
-                <span class="text-xs text-gray-700">Grant up to</span>
-                <span class="text-sm font-medium text-gray-900">
-                  {new Intl.NumberFormat("en-GB", {
-                    maximumSignificantDigits: 3,
-                    style: "currency",
-                    currency: "GBP",
-                  }).format(appi.grant_amount)}
-                </span>
-              </div>
-            </a>
+              <a
+                href={`/awards/application-preview/${application.slug}`}
+                class="border-white border border-opacity-20 flex flex-col gap-1 justify-between rounded-md transition p-5 shadow-md hover:shadow-xl hover:scale-105 hover:bg-white hover:border-opacity-50 hover:bg-opacity-5"
+              >
+                <div class="flex flex-row items-center gap-2">
+                  <p class="text-xs uppercase text-violet-300 tracking-wide">
+                    Up to
+                  </p>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <p class="text-violet-100 text-3xl font-bold">
+                    {new Intl.NumberFormat("en-GB", {
+                      maximumSignificantDigits: 3,
+                      style: "currency",
+                      currency: "GBP",
+                    }).format(application.grant_amount)}
+                  </p>
+                  <p class="text-sm text-violet-300">
+                    {application.grant_description}
+                  </p>
+                </div>
+              </a>
+            </div>
           ))}
         </div>
-      </div>
+      </Container>
     )
   }
 
@@ -173,4 +184,4 @@ const { name, description, application, applications, breadcrumbs } =
       </div>
     )
   }
-</HeaderAstro>
+</Blank>

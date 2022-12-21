@@ -1,5 +1,5 @@
 ---
-import HeaderAstro from "../layouts/HeaderAstro.astro";
+import Blank from "../layouts/Blank.astro";
 import { pb_roles } from "../data/roles.js";
 import { pb_people } from "../data/people.js";
 import { pb_teams } from "../data/teams.js";
@@ -14,7 +14,7 @@ const breadcrumbs = [
 ];
 ---
 
-<HeaderAstro name={name} description={description} breadcrumbs={breadcrumbs}>
+<Blank name={name} description={description} breadcrumbs={breadcrumbs}>
   <!-- {
     pb_teams.map((team) => (
       <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:px-8 lg:py-24">
@@ -143,4 +143,4 @@ const breadcrumbs = [
       })
     }
   </div> -->
-</HeaderAstro>
+</Blank>

@@ -41,7 +41,7 @@ let markdown = marked.parse(description);
       input_type == "file" ? (
         <div
           class={`flex w-full justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6 ${
-            disabled && "disabled:cursor-not-allowed"
+            disabled && "cursor-not-allowed bg-gray-100"
           }`}
         >
           <div class="space-y-1 text-center">
@@ -49,12 +49,15 @@ let markdown = marked.parse(description);
             <div class="flex text-sm text-gray-600">
               <label
                 for="file-upload"
-                class={`relative cursor-pointer rounded-md font-medium text-violet-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-violet-500 focus-within:ring-offset-2 ${
-                  disabled &&
-                  "hover:text-violet-500 disabled:bg-gray-100 disabled:text-gray-700 disabled-focus-within:ring-violet-500 disabled-hover:text-violet-500"
+                class={`relative cursor-pointer rounded-md font-medium  focus-within:outline-none focus-within:ring-2  focus-within:ring-offset-2 ${
+                  disabled
+                    ? "text-gray-500"
+                    : "text-violet-600 focus-within:ring-violet-500"
                 }`}
               >
-                <span>Upload a file</span>
+                <span class={disabled && "cursor-not-allowed"}>
+                  Upload a file
+                </span>
                 <input
                   id="file-upload"
                   name="file-upload"

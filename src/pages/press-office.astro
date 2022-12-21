@@ -1,5 +1,5 @@
 ---
-import HeaderAstro from "../layouts/HeaderAstro.astro";
+import Blank from "../layouts/Blank.astro";
 const name = "Press Office";
 const description = "fjkhdsjkfhkjsdh";
 const message =
@@ -12,7 +12,7 @@ const breadcrumbs = [
 ];
 ---
 
-<HeaderAstro name={name} description={description} breadcrumbs={breadcrumbs}>
+<Blank name={name} description={description} breadcrumbs={breadcrumbs}>
   <section class="relative" aria-labelledby="contact-heading">
     <div class="absolute h-1/2 w-full bg-warm-gray-50" aria-hidden="true"></div>
     <!-- Decorative dot pattern -->
@@ -251,4 +251,4 @@ const breadcrumbs = [
       </div>
     </div>
   </section>
-</HeaderAstro>
+</Blank>

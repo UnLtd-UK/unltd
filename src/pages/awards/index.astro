@@ -1,5 +1,8 @@
 ---
-import HeaderAstro from "../../layouts/HeaderAstro.astro";
+import Blank from "../../layouts/Blank.astro";
+import Container from "../../layouts/Container.astro";
+import { pb_applications } from "../../data/applications.js";
+import Divider from "../../components/Divider.astro";
 const name = "Awards";
 const description = "We combine funding and support to grow your impact";
 const primaryButton = {
@@ -7,7 +10,7 @@ const primaryButton = {
   url: "https://unltd.microsoftcrmportals.com/applications/",
 };
 const secondaryButton = {
-  text: "View application preview",
+  text: "Preview the application",
   url: "/awards/application-preview",
 };
 const breadcrumbs = [
@@ -18,113 +21,94 @@ const breadcrumbs = [
 ];
 ---
 
-<HeaderAstro
+<Blank
   name={name}
   description={description}
   breadcrumbs={breadcrumbs}
   primaryButton={primaryButton}
   secondaryButton={secondaryButton}
 >
-  <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-2">
-    <!-- <div class="flex flex-col md:flex-row gap-3">
-      <div class="flex-1">
-        <div class="flex gap-3 items-center">
-          <i class="fa-solid fa-person text-white"></i>
-          <h2 class="text-white">Social entrepreneur</h2>
-        </div>
-        <p class="text-white">
-          A social entrepreneur is the name we give to people who have started,
-          or looking to start, a social venture, someone who is driven by their
-          passion to make a difference.
-        </p>
-      </div>
-      <div class="flex-1">
-        <div class="flex gap-3 items-center">
-          <i class="fa-solid fa-briefcase text-white"></i>
-          <h2 class="text-white">Social venture</h2>
-        </div>
-        <p class="text-white">
-          A social venture is an organisation whose purpose is to create impact
-          but has a financially sustainable business model to continue to make a
-          difference. It sits in between a commercial business and a charity,
-          often described as profit for purpose.
-        </p>
-      </div>
-    </div> -->
-
+  <Container>
     <div class="grid grid-cols-12 grid-flow-col gap-4">
-      <div class="col-span-4">
-        <h2 class="text-white">Funding</h2>
-        <p class="text-white">
+      <div class="col-span-3 flex flex-col gap-3">
+        <h2 class="text-white text-4xl font-bold">Funding</h2>
+        <p class="text-xl text-violet-200">
           Get started or progress your social venture to the next stage of your
           journey. With up to £18,000 available to fund organisational costs and
           help you grow your impact.
         </p>
       </div>
-      <div class="col-span-4 flex flex-col gap-5">
-        <div>
-          <i class="fa-solid fa-person text-white"></i>
-        </div>
-
-        <div>
-          <p class="text-white">Starting up</p>
-          <p class="text-white">
-            Social venture is not established or been incorporated under a year.
-          </p>
-        </div>
-
-        <div>
-          <p class="text-white">Up to</p>
-          <p class="text-white">£8,000</p>
-        </div>
-      </div>
-      <div class="col-span-4 flex flex-col gap-5">
-        <div>
-          <i class="fa-solid fa-person text-white"></i>
-        </div>
-
-        <div>
-          <p class="text-white">Starting up</p>
-          <p class="text-white">
-            Social venture is not established or been incorporated under a year.
-          </p>
-        </div>
-
-        <div>
-          <p class="text-white">Up to</p>
-          <p class="text-white">£8,000</p>
-        </div>
-      </div>
+      {
+        pb_applications.map((application) => (
+          <div class="col-span-3 flex flex-col gap-4">
+            <div class="flex flex-col gap-3 px-5">
+              <div class="flex flex-row gap-2 items-center">
+                <p class="text-violet-300 uppercase text-xs tracking-wide ">
+                  Your social venture
+                </p>
+              </div>
+              <p class="text-violet-50 text-sm">
+                <span class="bg-amber-600 bg-opacity-30  rounded-full px-3 py-1 -ml-3 shadow-md">
+                  {application.social_venture}
+                </span>
+              </p>
+            </div>
+            <a
+              href={`/awards/application-preview/${application.slug}`}
+              class="border-white border border-opacity-20 flex flex-col gap-1 justify-between rounded-md transition p-5 shadow-md hover:shadow-xl hover:scale-105 hover:bg-white hover:border-opacity-50 hover:bg-opacity-5"
+            >
+              <div class="flex flex-row items-center gap-2">
+                <p class="text-xs uppercase text-violet-300 tracking-wide">
+                  Up to
+                </p>
+              </div>
+              <div class="flex flex-col gap-1">
+                <p class="text-violet-100 text-3xl font-bold">
+                  {new Intl.NumberFormat("en-GB", {
+                    maximumSignificantDigits: 3,
+                    style: "currency",
+                    currency: "GBP",
+                  }).format(application.grant_amount)}
+                </p>
+                <p class="text-sm text-violet-300">
+                  {application.grant_description}
+                </p>
+              </div>
+            </a>
+          </div>
+        ))
+      }
     </div>
 
-    <div class="grid grid-cols-12 grid-flow-col gap-4">
-      <div class="col-span-4">
-        <h2 class="text-white">Support</h2>
-        <p class="text-white">
+    <div class="grid grid-cols-12 grid-flow-col gap-6">
+      <div class="col-span-3 flex flex-col gap-3">
+        <h2 class="text-white text-3xl font-bold">Support</h2>
+        <p class="text-violet-300 text-lg">
           Accessing our support to become a social leader. Get advice, guidance
           and the expertise needed to build on the foundations of your social
           venture and grow your impact.
         </p>
       </div>
-
-      <div class="col-span-8 flex flex-col gap-4">
-        <div class="flex flex-row gap-2">
+      <div class="col-span-12 grid grid-cols-3 grid-flow-col">
+        <div class="flex col-span-1 flex-col gap-4">
           <div>
-            <i class="fa-solid fa-person text-white"></i>
+            <i class="fa-solid fa-life-ring text-violet-400 text-2xl"></i>
           </div>
-          <div class="flex flex-col">
-            <p class="text-white">Dedicated support manager</p>
+          <div class="flex flex-col gap-3">
+            <p class="text-white font-bold">Dedicated support manager</p>
             <p class="text-white">
               Someone to coach, mentor and support you to achieve your goals.
             </p>
           </div>
         </div>
-        <div class="flex flex-row gap-2">
+        <div class="flex col-span-1 flex-col gap-4">
           <div>
-            <i class="fa-solid fa-person text-white"></i>
+            <i class="fa-solid fa-bolt text-violet-400 text-2xl"></i>
           </div>
-          <div class="flex flex-col">
-            <p class="text-white">Expert mentors and pro bono support</p>
+          <div class="flex flex-col gap-3">
+            <p class="text-white font-bold">
+              Expert mentors and pro bono support
+            </p>
             <p class="text-white">
               Expert advice and mentoring through our generous community of
               business professionals, corporate partners and social
@@ -132,12 +116,13 @@ const breadcrumbs = [
             </p>
           </div>
         </div>
-        <div class="flex flex-row gap-2">
+
+        <div class="flex col-span-1 flex-col gap-4">
           <div>
-            <i class="fa-solid fa-person text-white"></i>
+            <i class="fa-solid fa-person text-violet-400 text-2xl"></i>
           </div>
-          <div class="flex flex-col">
-            <p class="text-white">Workshops and learning</p>
+          <div class="flex flex-col gap-3">
+            <p class="text-white font-bold">Workshops and learning</p>
             <p class="text-white">
               Through our regular workshops and support you will be able to
               learn about different aspects of running a social venture.
@@ -148,9 +133,9 @@ const breadcrumbs = [
     </div>
 
     <div class="grid grid-cols-12 grid-flow-col gap-4">
-      <div class="col-span-4">
-        <h2 class="text-white">Our focus areas</h2>
-        <p class="text-white">
+      <div class="col-span-3">
+        <h2 class="text-white text-3xl font-bold">Our focus areas</h2>
+        <p class="text-lg text-violet-300">
           In addition to our Awards, we have two focus areas where we think
           social entrepreneurs can make a big difference. We have dedicated
           teams and specialist support available to social entrepreneurs with
@@ -164,7 +149,7 @@ const breadcrumbs = [
 
         <div>
           <p class="text-white">Healthy Ageing</p>
-          <p class="text-white">
+          <p class="text-violet-300 text-opacity-80">
             Over the next five years we want to improve the health and wellbeing
             of 135,000 marginalised older adults in the UK, and reduce health
             inequalities.
@@ -177,7 +162,7 @@ const breadcrumbs = [
         </div>
 
         <div>
-          <p class="text-white">Starting up</p>
+          <p class="text-white">Access to Empoyment</p>
           <p class="text-white">
             You have a business idea aimed at helping people into good jobs and
             meaningful employment, particularly those who are currently denied
@@ -187,67 +172,58 @@ const breadcrumbs = [
       </div>
     </div>
 
-    <div class="grid grid-cols-12 grid-flow-col gap-4">
-      <div class="col-span-7">
-        <h2 class="text-white">How to apply for Awards</h2>
-        <p class="text-white">
-          In addition to our Awards, we have two focus areas where we think
-          social entrepreneurs can make a big difference. We have dedicated
-          teams and specialist support available to social entrepreneurs with
-          ideas to help people in these areas.
-        </p>
+    <div class="grid grid-cols-12 grid-flow-col gap-8">
+      <div class="col-span-8">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-white text-4xl font-bold">How to apply for Awards</h2>
+          <p class="text-violet-200">
+            In addition to our Awards, we have two focus areas where we think
+            social entrepreneurs can make a big difference. We have dedicated
+            teams and specialist support available to social entrepreneurs with
+            ideas to help people in these areas.
+          </p>
+        </div>
       </div>
-      <div class="col-span-6 flex flex-col gap-5">
-        <h2 class="text-white">Eligibility</h2>
+      <div class="col-span-5 flex flex-col gap-3">
+        <h2 class="text-white text-4xl font-bold">Eligibility</h2>
 
-        <div>
-          <div class="flex-1">
-            <div class="flex gap-3 items-center">
-              <i class="fa-solid fa-person text-white"></i>
-              <h2 class="text-white">Social entrepreneur</h2>
-            </div>
-            <p class="text-white">
+        <div class="flex flex-col gap-4">
+          <div class="flex-1 flex flex-col gap-2">
+            <h2 class="text-violet-50 font-bold text-lg">
+              Social entrepreneur
+            </h2>
+            <p class="text-violet-100">
               A person who has started, or looking to start, a social venture,
               someone who is driven by their passion to make a difference.
             </p>
           </div>
 
           <div>
-            <p class="text-white">ELIGIBLE</p>
-            <ul>
-              <li class="text-white">Are 16+ years old</li>
-              <li class="text-white">Are 16+ years old</li>
-              <li class="text-white">The founder of the social venture</li>
-            </ul>
-          </div>
-
-          <div>
-            <p class="text-white">NOT ELIGIBLE</p>
-            <ul>
-              <li class="text-white">
-                Looking for funding for a one-off or short-term project where
-                there is limited potential for a sustained and longer-term
-                impact.
+            <ul class="list-disc flex flex-col gap-3 text-sm text-violet-200">
+              <li class="">16+ years old</li>
+              <li class="">Living in the UK</li>
+              <li class="">The founder of the social venture</li>
+              <li class="">
+                Not looking for funding for a one-off or short-term project
+                where there is limited potential for a sustained and longer-term
+                impact
               </li>
-              <li class="text-white">
+              <li class="">
                 Requests for support which are predominately for the individual
                 to undertake academic qualifications or overseas travel
               </li>
-              <li class="text-white">
-                Individuals who plan to employ others to undertake most of the
-                work on their behalf
+              <li class="">
+                Not planning to employ others to undertake most of the work on
+                their behalf
               </li>
             </ul>
           </div>
         </div>
 
-        <div>
-          <div class="flex-1">
-            <div class="flex gap-3 items-center">
-              <i class="fa-solid fa-person text-white"></i>
-              <h2 class="text-white">Social venture</h2>
-            </div>
-            <p class="text-white">
+        <div class="flex flex-col gap-4">
+          <div class="flex-1 flex flex-col gap-2">
+            <h2 class="text-violet-50 text-lg font-bold">Social venture</h2>
+            <p class="text-violet-100">
               An organisation whose purpose is to create impact but has a
               financially sustainable business model to continue to make a
               difference. It sits in between a commercial business and a
@@ -256,54 +232,39 @@ const breadcrumbs = [
           </div>
 
           <div>
-            <p class="text-white">ELIGIBLE</p>
-            <ul>
-              <li class="text-white">
+            <ul class="list-disc flex flex-col gap-3 text-sm text-violet-200">
+              <li class="">
                 Has the potential to be a financially sustainable business or
-                real prospects to grow with our support
+                real prospects to grow with our funding and support
               </li>
-              <li class="text-white">
-                Can demonstrate a clear need for your idea or social venture
+              <li class="">
+                Can demonstrate a clear need for your social venture
               </li>
-              <li class="text-white">
-                Is clearly driven by its social purpose
+              <li class="">Is clearly driven by its social purpose</li>
+              <li class="">Needs our funding and support to make it happen</li>
+              <li class="">
+                Is predominantly focused on having an impact on people in the UK
               </li>
-              <li class="text-white">
-                Needs our financial and non-financial support to make it happen
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <p class="text-white">NOT ELIGIBLE</p>
-            <ul>
-              <li class="text-white">
-                Is predominantly focused on having an impact on people or places
-                outside the UK
-              </li>
-              <li class="text-white">
-                Legally established for over four years at the time of
+              <li class="">
+                Is not legally established for over four years at the time of
                 application (Companies House or Charity Commission registration)
               </li>
-              <li class="text-white">
+              <li class="">
                 Had a turnover of over £250,000 in their last financial year
               </li>
-              <li class="text-white">
-                Political or involves religious campaigning.
+              <li class="">
+                Is not political or involves religious campaigning
               </li>
-              <li class="text-white">
-                Involves activities outside of the law, against public policy or
-                anything which encourages ethnic, religious or commercial
-                disharmony
+              <li class="">
+                Does not involve activities outside of the law, against public
+                policy or anything which encourages ethnic, religious or
+                commercial disharmony
               </li>
-              <li class="text-white">
-                Social ventures whose focus is raising awareness of social
-                issues
-              </li>
+              <li class="">Is not raising awareness of social issues</li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</HeaderAstro>
+  </Container>
+</Blank>

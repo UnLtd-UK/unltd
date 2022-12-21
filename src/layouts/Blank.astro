@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../layouts/Header.astro";
+const {
+  name,
+  description,
+  breadcrumbs,
+  primaryButton,
+  secondaryButton,
+  updated,
+  reviewed,
+} = Astro.props;
+---
+
+<Layout name={name} description={description}>
+  <Header
+    name={name}
+    description={description}
+    breadcrumbs={breadcrumbs}
+    primaryButton={primaryButton}
+    secondaryButton={secondaryButton}
+    updated={updated}
+    reviewed={reviewed}
+  />
+  <slot />
+</Layout>

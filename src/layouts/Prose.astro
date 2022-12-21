@@ -1,0 +1,25 @@
+---
+import Layout from "./Layout.astro";
+import Container from "./Container.astro";
+import Header from "./Header.astro";
+const { frontmatter } = Astro.props;
+---
+
+<Layout name={frontmatter.name} description={frontmatter.description}>
+  <Header
+    name={frontmatter.name}
+    description={frontmatter.description}
+    breadcrumbs={frontmatter.breadcrumbs}
+    primaryButton={frontmatter.primaryButton}
+    secondaryButton={frontmatter.secondaryButton}
+    updated={frontmatter.updated}
+    reviewed={frontmatter.reviewed}
+  />
+  <Container>
+    <div
+      class="prose prose-lg prose-black prose-invert prose-img:rounded-md prose-img:shadow-md prose-img:w-full hover:prose-a:text-white prose-a:text-violet-300"
+    >
+      <slot />
+    </div>
+  </Container>
+</Layout>
