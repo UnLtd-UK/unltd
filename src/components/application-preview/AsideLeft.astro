@@ -2,6 +2,8 @@
 import Grant from "../../components/Grant.astro";
 const { application } = Astro.props;
 import AButton from "../AButton.astro";
+
+const url = "http://127.0.0.1:8090";
 ---
 
 <aside
@@ -39,7 +41,7 @@ import AButton from "../AButton.astro";
               application.pdf && (
                 <AButton
                   name="Download PDF"
-                  url={`/api/files/applications/${application.id}/${application.pdf}`}
+                  url={`${url}/api/files/applications/${application.id}/${application.pdf}`}
                   icon="file-arrow-down"
                   before="true"
                   description=""
@@ -52,7 +54,7 @@ import AButton from "../AButton.astro";
               application.docx && (
                 <AButton
                   name="Download DOCX"
-                  url={`/api/files/applications/${application.id}/${application.docx}`}
+                  url={`${url}/api/files/applications/${application.id}/${application.docx}`}
                   icon="file-arrow-down"
                   before="true"
                   description="Recommended for Microsoft Word"
