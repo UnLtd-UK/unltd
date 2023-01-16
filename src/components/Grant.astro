@@ -8,21 +8,7 @@ if (url) {
 }
 ---
 
-<div class="col-span-3 flex flex-col gap-4">
-  <div class="flex flex-col gap-3 px-5">
-    <div class="flex flex-row gap-2 items-center">
-      <p class="text-violet-300 uppercase text-xs tracking-tight">
-        Your social venture
-      </p>
-    </div>
-    <p class="text-violet-50 text-sm">
-      <span
-        class="bg-amber-600 bg-opacity-30 rounded-full px-3 py-1 -ml-3 shadow-md"
-      >
-        {application.social_venture}
-      </span>
-    </p>
-  </div>
+<div class="col-span-12 flex flex-row gap-4">
   <Element
     href={Element == "a" && `/awards/application-preview/${application.slug}`}
     class={`flex flex-col gap-1 justify-between rounded-md p-5 ${
@@ -30,39 +16,111 @@ if (url) {
       "transition border-white border border-opacity-20 shadow-md hover:shadow-xl hover:scale-105 hover:bg-white hover:border-opacity-50 hover:bg-opacity-5"
     }`}
   >
-    <div class="flex flex-row items-center gap-2">
-      <p class="text-xs uppercase text-violet-300 tracking-tight">
-        Grant up to
-      </p>
-    </div>
-    <div class="flex flex-col gap-2">
-      <p class="text-violet-100 text-3xl font-bold">
-        {
-          new Intl.NumberFormat("en-GB", {
-            maximumSignificantDigits: 3,
-            style: "currency",
-            currency: "GBP",
-          }).format(application.grant_amount)
-        }
-      </p>
+    <div class="flex flex-col gap-7">
       <div>
-        <div class="flex flex-row gap-2 items-center">
-          <i
-            class={`text-violet-300 opacity-50 h-5 w-5 ${
-              application.social_venture_costs
-                ? "fa-solid fa-check"
-                : "fa-solid fa-xmark"
-            }`}></i>
-          <p class="text-sm text-violet-300">For social venture costs</p>
+        <div class="flex flex-row items-center gap-2">
+          <p class="text-xs uppercase text-violet-400 tracking-tight">
+            Grant up to
+          </p>
         </div>
-        <div class="flex flex-row gap-2 items-center">
-          <i
-            class={`text-violet-300 opacity-50 h-5 w-5 ${
-              application.social_entrepreneur_salary
-                ? "fa-solid fa-check  text-violet-300 opacity-50 w-5"
-                : "fa-solid fa-xmark  text-violet-300 opacity-50 w-5"
-            }`}></i>
-          <p class="text-sm text-violet-300">For social entrepreneur salary</p>
+        <div class="flex flex-col gap-2">
+          <p class="text-violet-100 text-3xl font-bold">
+            {
+              new Intl.NumberFormat("en-GB", {
+                maximumSignificantDigits: 3,
+                style: "currency",
+                currency: "GBP",
+              }).format(application.grant_amount)
+            }
+          </p>
+          <div class="flex flex-col gap-1">
+            <div class="flex flex-row gap-2 items-center">
+              <p class="text-sm text-violet-200">For social venture costs</p>
+              <i
+                class={`text-xs opacity-50 h-4 w-4 flex justify-center rounded-full items-center ${
+                  application.social_venture_costs
+                    ? "bg-violet-200 fa-solid fa-check"
+                    : "text-violet-200 fa-solid fa-xmark outline"
+                }`}></i>
+            </div>
+            <div class="flex flex-row gap-2 items-center">
+              <p class="text-sm text-violet-200">
+                For social entrepreneur salary
+              </p>
+              <i
+                class={` text-xs opacity-50 h-4 w-4 flex justify-center rounded-full items-center ${
+                  application.social_entrepreneur_salary
+                    ? "bg-violet-200 fa-solid fa-check"
+                    : "text-violet-200 fa-solid fa-xmark outline"
+                }`}></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-7">
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-row gap-2 items-center">
+            <p class="text-violet-400 uppercase text-xs tracking-tight">
+              Your social venture must be...
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-5">
+            <div>
+              <span class="bg-opacity-30 rounded-full py-1 flex flex-row gap-2">
+                <i
+                  class="text-violet-200 text-xs fa-solid fa-tag bg-violet-100 bg-opacity-20 h-5 w-5 flex justify-center items-center rounded-md"
+                ></i>
+                <div>
+                  <p
+                    class="text-violet-200 text-opacity-80 text-xs uppercase tracking-wide"
+                  >
+                    Selling goods and services
+                  </p>
+                  <p class="text-violet-200 text-sm">
+                    {application.selling_goods_and_services}
+                  </p>
+                </div>
+              </span>
+            </div>
+
+            <div>
+              <span class="bg-opacity-30 rounded-full py-1 flex flex-row gap-2">
+                <i
+                  class="text-violet-200 text-xs fa-solid fa-heart bg-violet-100 bg-opacity-20 h-5 w-5 flex justify-center items-center rounded-md"
+                ></i>
+                <div>
+                  <p
+                    class="text-violet-200 text-opacity-80 text-xs uppercase tracking-wide"
+                  >
+                    Making a positive impact
+                  </p>
+                  <p class="text-violet-200 text-sm">
+                    {application.positive_impact}
+                  </p>
+                </div>
+              </span>
+            </div>
+
+            <div>
+              <span class="bg-opacity-30 rounded-full py-1 flex gap-2">
+                <i
+                  class="text-violet-200 text-xs fa-solid fa-certificate bg-violet-100 bg-opacity-20 h-5 w-5 flex justify-center items-center rounded-md"
+                ></i>
+                <div>
+                  <p
+                    class="text-violet-200 text-opacity-80 text-xs uppercase tracking-wide"
+                  >
+                    Incorporated
+                  </p>
+                  <p class="text-violet-200 text-sm">
+                    {application.incorporated}
+                  </p>
+                </div>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>

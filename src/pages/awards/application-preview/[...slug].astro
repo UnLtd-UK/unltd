@@ -124,15 +124,17 @@ const { name, description, application, applications, breadcrumbs } =
   {
     application.length == 0 && (
       <Container>
+        <div class="col-span-12 flex flex-row gap-3 mb-5">
+          <h2 class="text-white text-3xl font-bold">
+            What is your stage of development?
+          </h2>
+        </div>
         <div class="grid xs:grid-rows-3 xs:git-flow-row lg:grid-cols-12 lg:grid-flow-col gap-4 items-center">
-          <div class="col-span-3 flex flex-col gap-3">
-            <h2 class="text-white text-3xl font-bold">
-              How long has your social venture been established?
-            </h2>
+          <div class="col-span-12 flex flex-row gap-3">
+            {pb_applications.map((application) => (
+              <Grant application={application} url={application.slug} />
+            ))}
           </div>
-          {pb_applications.map((application) => (
-            <Grant application={application} url={application.slug} />
-          ))}
         </div>
       </Container>
     )
@@ -143,7 +145,6 @@ const { name, description, application, applications, breadcrumbs } =
       <div class="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col gap-2">
         <div class="grid gap-x-4 grid-cols-12">
           <AsideLeft application={application} />
-          <div class="hidden lg:block lg:col-span-1 lg:auto-cols-fr" />
           <Main application={application} />
           <AsideRight application={application} />
         </div>

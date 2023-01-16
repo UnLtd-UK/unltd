@@ -2,8 +2,11 @@
 import Blank from "../../layouts/Blank.astro";
 import Container from "../../layouts/Container.astro";
 import Grant from "../../components/Grant.astro";
+
 import { pb_applications } from "../../data/applications.js";
-import Divider from "../../components/Divider.astro";
+import { pb_funds } from "../../data/funds.js";
+import { pb_grants } from "../../data/grants.js";
+
 const name = "Awards";
 const description = "We combine funding and support to grow your impact";
 const primaryButton = {
@@ -20,6 +23,7 @@ const breadcrumbs = [
     slug: Astro.url.pathname,
   },
 ];
+
 ---
 
 <Blank
@@ -30,21 +34,71 @@ const breadcrumbs = [
   secondaryButton={secondaryButton}
 >
   <Container>
-    <div class="grid grid-cols-12 grid-flow-col gap-4">
-      <div class="col-span-3 flex flex-col gap-3">
-        <h2 class="text-white text-4xl font-bold">Funding</h2>
-        <p class="text-xl text-violet-200">
-          Get started or progress your social venture to the next stage of your
-          journey. With up to £18,000 available to fund organisational costs and
-          help you grow your impact.
-        </p>
-      </div>
-      {
-        pb_applications.map((application) => (
-          <Grant application={application} url={application.slug} />
-        ))
-      }
-    </div>
+    {
+      pb_funds.map((fund) => (
+        <div class="grid grid-cols-12 grid-flow-col gap-4 mb-20">
+          <div class="col-span-3 flex flex-col gap-3">
+            <a
+              href={`funds/${fund.slug}`}
+              class="hover:text-white text-4xl font-bold hover:underline text-violet-200"
+            >
+              {fund.name}
+            </a>
+            <p class="text-xl text-violet-200">
+              Get started or progress your social venture to the next stage of
+              your journey. With up to £18,000 available to fund organisational
+              costs and help you grow your impact.
+            </p>
+            <div>
+              { fund.funders.length >= 1 &&
+              <p class="text-xs uppercase text-violet-300">Funded by</p>
+              <ul class="text-white">
+                { fund.expand.funders > 1 ? fund.expand.funders.map((funder) => <p>{funder.name}</p>) : <p>{fund.expand.funders[0].name}</p> }
+              </ul>
+            }
+            </div>
+          </div>
+          {pb_grants.map(
+            (grant) =>
+              grant.fund == fund.id && (
+                <a
+                  href={`/funds/${fund.slug}/grants/${grant.slug}`}
+                  class="col-span-3 flex flex-col rounded-md p-5 transition border-white border border-opacity-20 shadow-md hover:shadow-xl hover:scale-105 hover:bg-white hover:border-opacity-50 hover:bg-opacity-5"
+                >
+                  <div class="flex flex-row items-center gap-2">
+                    <p class="text-xs uppercase text-violet-300 tracking-tight">
+                      Grant up to
+                    </p>
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <p class="text-violet-100 text-3xl font-bold">
+                      {new Intl.NumberFormat("en-GB", {
+                        maximumSignificantDigits: 3,
+                        style: "currency",
+                        currency: "GBP",
+                      }).format(grant.max)}
+                    </p>
+                    <div>
+                      <div class="flex flex-row gap-2 items-center">
+                        <i class="text-violet-300 opacity-50 h-5 w-5 fa-solid fa-check" />
+                        <p class="text-sm text-violet-300">
+                          For social venture costs
+                        </p>
+                      </div>
+                      <div class="flex flex-row gap-2 items-center">
+                        <i class="text-violet-300 opacity-50 h-5 w-5 fa-solid fa-xmark" />
+                        <p class="text-sm text-violet-300">
+                          For social entrepreneur salary
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              )
+          )}
+        </div>
+      ))
+    }
 
     <div class="grid grid-cols-12 grid-flow-col gap-6">
       <div class="col-span-3 flex flex-col gap-3">

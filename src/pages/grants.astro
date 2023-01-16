@@ -1,0 +1,290 @@
+---
+import Blank from "../layouts/Blank.astro";
+import Container from "../layouts/Container.astro";
+import Grant from "../components/Grant.astro";
+
+import { pb_applications } from "../data/applications.js";
+import { pb_funds } from "../data/funds.js";
+import { pb_grants } from "../data/grants.js";
+
+const name = "Grants";
+const description = "For Social Entrepreneurs";
+const primaryButton = {
+  text: "Sign-up for an Award account",
+  url: "https://unltd.microsoftcrmportals.com/applications/",
+};
+const secondaryButton = {
+  text: "Preview the application",
+  url: "/awards/application-preview",
+};
+const breadcrumbs = [
+  {
+    name: name,
+    slug: Astro.url.pathname,
+  },
+];
+
+---
+
+<Blank
+  name={name}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  primaryButton={primaryButton}
+  secondaryButton={secondaryButton}
+>
+  <Container>
+    {
+      pb_funds.map((fund) => (
+        <div class="grid grid-cols-12 grid-flow-col gap-4 mb-20">
+          <div class="col-span-3 flex flex-col gap-3">
+            <a
+              href={`funds/${fund.slug}`}
+              class="hover:text-white text-4xl font-bold hover:underline text-violet-200"
+            >
+              {fund.name}
+            </a>
+            <p class="text-xl text-violet-200">
+              Get started or progress your social venture to the next stage of
+              your journey. With up to £18,000 available to fund organisational
+              costs and help you grow your impact.
+            </p>
+            <div>
+              { fund.funders.length >= 1 &&
+              <p class="text-xs uppercase text-violet-300">Funded by</p>
+              <ul class="text-white">
+                { fund.expand.funders > 1 ? fund.expand.funders.map((funder) => <p>{funder.name}</p>) : <p>{fund.expand.funders[0].name}</p> }
+              </ul>
+            }
+            </div>
+          </div>
+          {pb_grants.map(
+            (grant) =>
+              grant.fund == fund.id && (
+                <a
+                  href={`/funds/${fund.slug}/grants/${grant.slug}`}
+                  class="col-span-3 flex flex-col rounded-md p-5 transition border-white border border-opacity-20 shadow-md hover:shadow-xl hover:scale-105 hover:bg-white hover:border-opacity-50 hover:bg-opacity-5"
+                >
+                  <div class="flex flex-row items-center gap-2">
+                    <p class="text-xs uppercase text-violet-300 tracking-tight">
+                      Grant up to
+                    </p>
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <p class="text-violet-100 text-3xl font-bold">
+                      {new Intl.NumberFormat("en-GB", {
+                        maximumSignificantDigits: 3,
+                        style: "currency",
+                        currency: "GBP",
+                      }).format(grant.max)}
+                    </p>
+                    <div>
+                      <div class="flex flex-row gap-2 items-center">
+                        <i class="text-violet-300 opacity-50 h-5 w-5 fa-solid fa-check" />
+                        <p class="text-sm text-violet-300">
+                          For social venture costs
+                        </p>
+                      </div>
+                      <div class="flex flex-row gap-2 items-center">
+                        <i class="text-violet-300 opacity-50 h-5 w-5 fa-solid fa-xmark" />
+                        <p class="text-sm text-violet-300">
+                          For social entrepreneur salary
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              )
+          )}
+        </div>
+      ))
+    }
+
+    <div class="grid grid-cols-12 grid-flow-col gap-6">
+      <div class="col-span-3 flex flex-col gap-3">
+        <h2 class="text-white text-3xl font-bold">Support</h2>
+        <p class="text-violet-300 text-lg">
+          Accessing our support to become a social leader. Get advice, guidance
+          and the expertise needed to build on the foundations of your social
+          venture and grow your impact.
+        </p>
+      </div>
+      <div class="col-span-12 grid grid-cols-3 grid-flow-col">
+        <div class="flex col-span-1 flex-col gap-4">
+          <div>
+            <i class="fa-solid fa-life-ring text-violet-400 text-2xl"></i>
+          </div>
+          <div class="flex flex-col gap-3">
+            <p class="text-white font-bold">Dedicated support manager</p>
+            <p class="text-white">
+              Someone to coach, mentor and support you to achieve your goals.
+            </p>
+          </div>
+        </div>
+        <div class="flex col-span-1 flex-col gap-4">
+          <div>
+            <i class="fa-solid fa-bolt text-violet-400 text-2xl"></i>
+          </div>
+          <div class="flex flex-col gap-3">
+            <p class="text-white font-bold">
+              Expert mentors and pro bono support
+            </p>
+            <p class="text-white">
+              Expert advice and mentoring through our generous community of
+              business professionals, corporate partners and social
+              entrepreneurs who volunteer their skills and expertise.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex col-span-1 flex-col gap-4">
+          <div>
+            <i class="fa-solid fa-person text-violet-400 text-2xl"></i>
+          </div>
+          <div class="flex flex-col gap-3">
+            <p class="text-white font-bold">Workshops and learning</p>
+            <p class="text-white">
+              Through our regular workshops and support you will be able to
+              learn about different aspects of running a social venture.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 grid-flow-col gap-4">
+      <div class="col-span-3">
+        <h2 class="text-white text-3xl font-bold">Our focus areas</h2>
+        <p class="text-lg text-violet-300">
+          In addition to our Awards, we have two focus areas where we think
+          social entrepreneurs can make a big difference. We have dedicated
+          teams and specialist support available to social entrepreneurs with
+          ideas to help people in these areas.
+        </p>
+      </div>
+      <div class="col-span-4 flex flex-col gap-5">
+        <div>
+          <i class="fa-solid fa-person text-white"></i>
+        </div>
+
+        <div>
+          <p class="text-white">Healthy Ageing</p>
+          <p class="text-violet-300 text-opacity-80">
+            Over the next five years we want to improve the health and wellbeing
+            of 135,000 marginalised older adults in the UK, and reduce health
+            inequalities.
+          </p>
+        </div>
+      </div>
+      <div class="col-span-4 flex flex-col gap-5">
+        <div>
+          <i class="fa-solid fa-person text-white"></i>
+        </div>
+
+        <div>
+          <p class="text-white">Access to Empoyment</p>
+          <p class="text-white">
+            You have a business idea aimed at helping people into good jobs and
+            meaningful employment, particularly those who are currently denied
+            those opportunities.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 grid-flow-col gap-8">
+      <div class="col-span-8">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-white text-4xl font-bold">How to apply for Awards</h2>
+          <p class="text-violet-200">
+            In addition to our Awards, we have two focus areas where we think
+            social entrepreneurs can make a big difference. We have dedicated
+            teams and specialist support available to social entrepreneurs with
+            ideas to help people in these areas.
+          </p>
+        </div>
+      </div>
+      <div class="col-span-5 flex flex-col gap-3">
+        <h2 class="text-white text-4xl font-bold">Eligibility</h2>
+
+        <div class="flex flex-col gap-4">
+          <div class="flex-1 flex flex-col gap-2">
+            <h2 class="text-violet-50 font-bold text-lg">
+              Social entrepreneur
+            </h2>
+            <p class="text-violet-100">
+              A person who has started, or looking to start, a social venture,
+              someone who is driven by their passion to make a difference.
+            </p>
+          </div>
+
+          <div>
+            <ul class="list-disc flex flex-col gap-3 text-sm text-violet-200">
+              <li class="">16+ years old</li>
+              <li class="">Living in the UK</li>
+              <li class="">The founder of the social venture</li>
+              <li class="">
+                Not looking for funding for a one-off or short-term project
+                where there is limited potential for a sustained and longer-term
+                impact
+              </li>
+              <li class="">
+                Requests for support which are predominately for the individual
+                to undertake academic qualifications or overseas travel
+              </li>
+              <li class="">
+                Not planning to employ others to undertake most of the work on
+                their behalf
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <div class="flex-1 flex flex-col gap-2">
+            <h2 class="text-violet-50 text-lg font-bold">Social venture</h2>
+            <p class="text-violet-100">
+              An organisation whose purpose is to create impact but has a
+              financially sustainable business model to continue to make a
+              difference. It sits in between a commercial business and a
+              charity, often described as profit for purpose.
+            </p>
+          </div>
+
+          <div>
+            <ul class="list-disc flex flex-col gap-3 text-sm text-violet-200">
+              <li class="">
+                Has the potential to be a financially sustainable business or
+                real prospects to grow with our funding and support
+              </li>
+              <li class="">
+                Can demonstrate a clear need for your social venture
+              </li>
+              <li class="">Is clearly driven by its social purpose</li>
+              <li class="">Needs our funding and support to make it happen</li>
+              <li class="">
+                Is predominantly focused on having an impact on people in the UK
+              </li>
+              <li class="">
+                Is not legally established for over four years at the time of
+                application (Companies House or Charity Commission registration)
+              </li>
+              <li class="">
+                Had a turnover of over £250,000 in their last financial year
+              </li>
+              <li class="">
+                Is not political or involves religious campaigning
+              </li>
+              <li class="">
+                Does not involve activities outside of the law, against public
+                policy or anything which encourages ethnic, religious or
+                commercial disharmony
+              </li>
+              <li class="">Is not raising awareness of social issues</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</Blank>
