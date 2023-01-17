@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Simpleheader from "../layouts/Simpleheader.astro";
+const { name, description, breadcrumbs } = Astro.props;
+---
+
+<Layout name={name} description={description}>
+  <Simpleheader
+    name={name}
+    description={description}
+    breadcrumbs={breadcrumbs}
+  />
+  <slot />
+</Layout>
