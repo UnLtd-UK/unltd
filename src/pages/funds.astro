@@ -1,0 +1,87 @@
+---
+import { funds } from "../data/funds.js";
+import Layout from "../layouts/Layout.astro";
+import Container from "../layouts/Container.astro";
+
+export async function getStaticPaths() {
+  let pages = [];
+
+  funds.map((fund) => {
+    // base
+    let item = {
+      params: {
+        fund: fund.slug,
+      },
+      props: {
+        slug: fund.slug,
+        name: fund.name,
+        description: fund.description,
+        funders: fund.funders,
+        partners: fund.partners,
+        rounds: [],
+      },
+    };
+
+    if (fund.rounds) {
+      fund.rounds.map((round) => {
+        item.props.rounds.push(round);
+      });
+    }
+
+    pages.push(item);
+  });
+
+  return pages;
+}
+
+console.log(funds);
+
+const { slug, name, description, funders, partners, rounds } = Astro.props;
+---
+
+<Layout>
+  <Container>
+    <div class="flex flex-col gap-10">
+      <div>
+        <h1 class="font-bold text-white text-3xl">Active funds</h1>
+        <ul class="list-disc text-white flex flex-col gap-2">
+          {
+            funds.map(
+              (fund) =>
+                fund.rounds !== undefined && (
+                  <li>
+                    <a
+                      href={`/funds/${fund.slug}`}
+                      class="text-white underline hover:text-violet-300"
+                    >
+                      {fund.name}
+                    </a>
+                  </li>
+                )
+            )
+          }
+        </ul>
+      </div>
+      <div>
+        <h1 class="font-bold text-white text-3xl">Archive funds</h1>
+        <ul class="list-disc text-white flex flex-col gap-2">
+          {
+            funds.map(
+              (fund) =>
+                fund.rounds === undefined && (
+                  <li>
+                    <a
+                      href={`/funds/${fund.slug}`}
+                      class="text-white underline hover:text-violet-300"
+                    >
+                      {fund.name}
+                    </a>
+                  </li>
+                )
+            )
+          }
+        </ul>
+      </div>
+    </div>
+  </Container>
+</Layout>

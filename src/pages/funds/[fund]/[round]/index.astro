@@ -1,0 +1,85 @@
+---
+import { rounds } from "../../../../data/rounds.js";
+import Layout from "../../../../layouts/Layout.astro";
+import Container from "../../../../layouts/Container.astro";
+
+export async function getStaticPaths() {
+  let pages = rounds.map((round) => {
+    // base
+    let item = {
+      params: {
+        fund: round.fund.slug,
+        round: round.slug,
+      },
+      props: {
+        slug: round.slug,
+        name: round.name,
+        fund: round.fund,
+        grants: round.grants,
+        investments: round.investments,
+      },
+    };
+
+    return item;
+  });
+
+  return pages;
+}
+
+const { slug, name, fund, grants, investments } = Astro.props;
+---
+
+<Layout>
+  <Container>
+    <a
+      href={`/funds/${fund.slug}`}
+      class="underline hover:text-violet-300 text-white"
+    >
+      <i class="fa-solid fa-arrow-left-long"></i> Back to {fund.name}
+    </a>
+    <h1 class="text-white">{fund.name}</h1>
+    <h2 class="text-white">Round: {name}</h2>
+    <div class="relative">
+      <div class="absolute inset-0 flex items-center" aria-hidden="true">
+        <div class="w-full border-t border-gray-300"></div>
+      </div>
+    </div>
+
+    <h2 class="text-4xl text-white font-bold">Grants</h2>
+    <ul class="list-disc list-inside text-white">
+      {
+        grants ? (
+          grants.map((grant) => (
+            <li>
+              <a
+                class="underline hover:text-violet-300"
+                href={`/funds/${fund.slug}/${slug}/${grant.slug}`}
+              >
+                {grant.name} {grant.amount}
+              </a>
+            </li>
+          ))
+        ) : (
+          <p class="text-white">No grants</p>
+        )
+      }
+    </ul>
+
+    <h2 class="text-4xl text-white font-bold">Investments</h2>
+    <ul>
+      {
+        investments ? (
+          investments.map((investment) => (
+            <li>
+              <a href={`/funds/${fund.slug}/${slug}/${investment.slug}`}>
+                {investment.name} {investment.amount}
+              </a>
+            </li>
+          ))
+        ) : (
+          <p class="text-white">No investments</p>
+        )
+      }
+    </ul>
+  </Container>
+</Layout>

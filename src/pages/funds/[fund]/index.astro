@@ -1,0 +1,124 @@
+---
+import { funds } from "../../../data/funds.js";
+import Layout from "../../../layouts/Layout.astro";
+import Container from "../../../layouts/Container.astro";
+import Divider from "../../../components/Divider.astro";
+
+export async function getStaticPaths() {
+  let pages = funds.map((fund) => {
+    let item = {
+      params: {
+        fund: fund.slug,
+      },
+      props: {
+        slug: fund.slug,
+        name: fund.name,
+        email: fund.email,
+        website: fund.website,
+        description: fund.description,
+        funders: fund.funders,
+        partners: fund.partners,
+        rounds: [],
+      },
+    };
+
+    if (fund.rounds) {
+      fund.rounds.map((round) => {
+        item.props.rounds.push(round);
+      });
+    }
+
+    return item;
+  });
+
+  return pages;
+}
+
+const { slug, name, description, funders, partners, rounds, email, website } =
+  Astro.props;
+---
+
+<Layout>
+  <Container>
+    {
+      (
+        <>
+          <a href="/funds" class="underline hover:text-violet-300 text-white">
+            <i class="fa-solid fa-arrow-left-long" /> Back to funds
+          </a>
+          <h1 class="text-white text-3xl">{name}</h1>
+          {email && (
+            <a
+              class="inline-flex items-center rounded-full border border-transparent bg-white px-3 py-1.5 text-xs font-medium text-violet-900 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+              href={`mailto:${email}`}
+            >
+              Email
+            </a>
+          )}
+
+          {website && (
+            <a
+              class="inline-flex items-center rounded-full border border-transparent bg-white px-3 py-1.5 text-xs font-medium text-violet-900 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+              href={website}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Website
+            </a>
+          )}
+
+          <div>
+            <p class="font-bold text-white">Funders</p>
+            {funders !== undefined && (
+              <ul class="list-disc list-inside text-white">
+                {funders.map((funder) => (
+                  <li>{funder.name}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <div>
+            <p class="font-bold text-white">Partners</p>
+            {partners !== undefined && (
+              <ul class="list-disc list-inside text-white">
+                {partners.map((partner) => (
+                  <li>{partner.name}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <p class="text-white">{description}</p>
+          <ul class="text-white list-disc">
+            {rounds !== undefined &&
+              rounds.map((round) => (
+                <>
+                  <li>
+                    <a
+                      class="underline hover:text-violet-300"
+                      href={`/funds/${slug}/${round.slug}`}
+                    >
+                      {round.name}
+                    </a>
+                  </li>
+                  {round.grants !== undefined && (
+                    <ul class="list-disc list-inside">
+                      {round.grants.map((grant) => (
+                        <li>
+                          <a
+                            class="underline hover:text-violet-300"
+                            href={`/funds/${slug}/${round.slug}/${grant.slug}`}
+                          >
+                            {grant.name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              ))}
+          </ul>
+        </>
+      )
+    }
+  </Container>
+</Layout>
