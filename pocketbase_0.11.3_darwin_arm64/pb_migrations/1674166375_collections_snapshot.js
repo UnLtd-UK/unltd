@@ -3,7 +3,7 @@ migrate((db) => {
     {
       "id": "_pb_users_auth_",
       "created": "2022-11-28 10:39:30.408Z",
-      "updated": "2023-01-09 10:32:54.627Z",
+      "updated": "2023-01-10 12:38:54.142Z",
       "name": "users",
       "type": "auth",
       "system": false,
@@ -61,7 +61,7 @@ migrate((db) => {
     {
       "id": "cvt4g4zjpn3vkzf",
       "created": "2022-11-28 11:32:49.366Z",
-      "updated": "2023-01-09 10:32:54.628Z",
+      "updated": "2023-01-10 12:38:54.144Z",
       "name": "groups",
       "type": "base",
       "system": false,
@@ -210,7 +210,7 @@ migrate((db) => {
     {
       "id": "0hm8jcor8o0vnc3",
       "created": "2022-11-28 11:34:01.059Z",
-      "updated": "2023-01-09 10:32:54.628Z",
+      "updated": "2023-01-10 12:38:54.144Z",
       "name": "sections",
       "type": "base",
       "system": false,
@@ -290,7 +290,7 @@ migrate((db) => {
     {
       "id": "vzy3j3ok3iak6uy",
       "created": "2022-11-28 11:34:51.820Z",
-      "updated": "2023-01-09 10:32:54.628Z",
+      "updated": "2023-01-13 18:05:17.938Z",
       "name": "applications",
       "type": "base",
       "system": false,
@@ -337,19 +337,6 @@ migrate((db) => {
           "system": false,
           "id": "z5maj5ju",
           "name": "awards",
-          "type": "text",
-          "required": false,
-          "unique": false,
-          "options": {
-            "min": null,
-            "max": null,
-            "pattern": ""
-          }
-        },
-        {
-          "system": false,
-          "id": "ilnskwx3",
-          "name": "social_venture",
           "type": "text",
           "required": false,
           "unique": false,
@@ -461,6 +448,45 @@ migrate((db) => {
           "required": false,
           "unique": false,
           "options": {}
+        },
+        {
+          "system": false,
+          "id": "ilnskwx3",
+          "name": "selling_goods_and_services",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "ffjdjbjj",
+          "name": "positive_impact",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "ojyetwcp",
+          "name": "incorporated",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
         }
       ],
       "listRule": null,
@@ -473,7 +499,7 @@ migrate((db) => {
     {
       "id": "7fn3fjl77wmfqph",
       "created": "2022-11-28 12:07:02.180Z",
-      "updated": "2023-01-09 10:32:54.628Z",
+      "updated": "2023-01-10 12:38:54.144Z",
       "name": "fields",
       "type": "base",
       "system": false,
@@ -739,7 +765,7 @@ migrate((db) => {
     {
       "id": "794o0senj0u5e3c",
       "created": "2022-11-30 13:07:46.024Z",
-      "updated": "2023-01-09 10:32:54.628Z",
+      "updated": "2023-01-10 12:38:54.144Z",
       "name": "people",
       "type": "base",
       "system": false,
@@ -859,7 +885,7 @@ migrate((db) => {
     {
       "id": "bt4dtwpe5921i5x",
       "created": "2022-11-30 13:08:16.671Z",
-      "updated": "2023-01-09 10:32:54.628Z",
+      "updated": "2023-01-10 12:38:54.144Z",
       "name": "roles",
       "type": "base",
       "system": false,
@@ -948,7 +974,7 @@ migrate((db) => {
     {
       "id": "dsapvm6xytb8t0r",
       "created": "2022-11-30 13:08:58.251Z",
-      "updated": "2023-01-09 10:32:54.628Z",
+      "updated": "2023-01-10 12:38:54.144Z",
       "name": "teams",
       "type": "base",
       "system": false,
@@ -990,11 +1016,24 @@ migrate((db) => {
     {
       "id": "rtias8h0ed3nkp6",
       "created": "2022-12-18 21:15:21.990Z",
-      "updated": "2023-01-09 10:32:54.628Z",
+      "updated": "2023-01-16 13:39:17.421Z",
       "name": "funds",
       "type": "base",
       "system": false,
       "schema": [
+        {
+          "system": false,
+          "id": "auvynoyn",
+          "name": "slug",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
         {
           "system": false,
           "id": "qbuau1rt",
@@ -1006,6 +1045,559 @@ migrate((db) => {
             "min": null,
             "max": null,
             "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "7umb7mq5",
+          "name": "start",
+          "type": "date",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": "",
+            "max": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "3mkohurt",
+          "name": "end",
+          "type": "date",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": "",
+            "max": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "0vqjymvg",
+          "name": "email",
+          "type": "email",
+          "required": false,
+          "unique": false,
+          "options": {
+            "exceptDomains": null,
+            "onlyDomains": [
+              "unltd.org.uk"
+            ]
+          }
+        },
+        {
+          "system": false,
+          "id": "vk6liw9i",
+          "name": "description",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "f0orlkgz",
+          "name": "funders",
+          "type": "relation",
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": null,
+            "collectionId": "zwufv0tg1ap3mm9",
+            "cascadeDelete": false
+          }
+        },
+        {
+          "system": false,
+          "id": "cpm1ep3p",
+          "name": "partners",
+          "type": "relation",
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": null,
+            "collectionId": "zwufv0tg1ap3mm9",
+            "cascadeDelete": false
+          }
+        },
+        {
+          "system": false,
+          "id": "briy72x3",
+          "name": "website",
+          "type": "url",
+          "required": false,
+          "unique": false,
+          "options": {
+            "exceptDomains": null,
+            "onlyDomains": null
+          }
+        },
+        {
+          "system": false,
+          "id": "hdljnkfi",
+          "name": "grants",
+          "type": "bool",
+          "required": false,
+          "unique": false,
+          "options": {}
+        },
+        {
+          "system": false,
+          "id": "i8dgkwoy",
+          "name": "investments",
+          "type": "bool",
+          "required": false,
+          "unique": false,
+          "options": {}
+        }
+      ],
+      "listRule": null,
+      "viewRule": null,
+      "createRule": null,
+      "updateRule": null,
+      "deleteRule": null,
+      "options": {}
+    },
+    {
+      "id": "p0n56c7zdikauc0",
+      "created": "2023-01-12 11:45:19.277Z",
+      "updated": "2023-01-19 21:11:06.554Z",
+      "name": "grants",
+      "type": "base",
+      "system": false,
+      "schema": [
+        {
+          "system": false,
+          "id": "igi2ybpl",
+          "name": "slug",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "5fntsyll",
+          "name": "name",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "h2fobwtl",
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null
+          }
+        },
+        {
+          "system": false,
+          "id": "b08pxmxy",
+          "name": "max",
+          "type": "number",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null
+          }
+        },
+        {
+          "system": false,
+          "id": "wcbzqswf",
+          "name": "fixed",
+          "type": "number",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null
+          }
+        },
+        {
+          "system": false,
+          "id": "4vqonckp",
+          "name": "type1",
+          "type": "select",
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "values": [
+              "grant",
+              "investment"
+            ]
+          }
+        },
+        {
+          "system": false,
+          "id": "fzflevuj",
+          "name": "type2",
+          "type": "select",
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "values": [
+              "Repayable",
+              "Non-repayable"
+            ]
+          }
+        },
+        {
+          "system": false,
+          "id": "srq1diz5",
+          "name": "round",
+          "type": "relation",
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "collectionId": "j2qukoaajq34yik",
+            "cascadeDelete": false
+          }
+        }
+      ],
+      "listRule": null,
+      "viewRule": null,
+      "createRule": null,
+      "updateRule": null,
+      "deleteRule": null,
+      "options": {}
+    },
+    {
+      "id": "vyexlbgz7aonpji",
+      "created": "2023-01-12 11:49:25.256Z",
+      "updated": "2023-01-18 12:16:21.674Z",
+      "name": "eligibility",
+      "type": "base",
+      "system": false,
+      "schema": [
+        {
+          "system": false,
+          "id": "puojssdf",
+          "name": "social_entrepreneur",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "spt9jpvt",
+          "name": "social_venture",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "ckfgywgt",
+          "name": "grant",
+          "type": "relation",
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "collectionId": "p0n56c7zdikauc0",
+            "cascadeDelete": false
+          }
+        },
+        {
+          "system": false,
+          "id": "fskmcwax",
+          "name": "investment",
+          "type": "relation",
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "collectionId": "il4dnnh4q9xoenu",
+            "cascadeDelete": false
+          }
+        }
+      ],
+      "listRule": null,
+      "viewRule": null,
+      "createRule": null,
+      "updateRule": null,
+      "deleteRule": null,
+      "options": {}
+    },
+    {
+      "id": "zwufv0tg1ap3mm9",
+      "created": "2023-01-12 14:15:30.031Z",
+      "updated": "2023-01-12 14:15:30.031Z",
+      "name": "organisations",
+      "type": "base",
+      "system": false,
+      "schema": [
+        {
+          "system": false,
+          "id": "j4ivc61a",
+          "name": "name",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        }
+      ],
+      "listRule": null,
+      "viewRule": null,
+      "createRule": null,
+      "updateRule": null,
+      "deleteRule": null,
+      "options": {}
+    },
+    {
+      "id": "il4dnnh4q9xoenu",
+      "created": "2023-01-13 11:05:00.543Z",
+      "updated": "2023-01-19 17:49:34.910Z",
+      "name": "investments",
+      "type": "base",
+      "system": false,
+      "schema": [
+        {
+          "system": false,
+          "id": "4lknkbd2",
+          "name": "slug",
+          "type": "text",
+          "required": true,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "0ej6dsgm",
+          "name": "name",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "f7dx0lb4",
+          "name": "min",
+          "type": "number",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null
+          }
+        },
+        {
+          "system": false,
+          "id": "kt5oxerp",
+          "name": "max",
+          "type": "number",
+          "required": true,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null
+          }
+        },
+        {
+          "system": false,
+          "id": "t5cuhnat",
+          "name": "fixed",
+          "type": "number",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null
+          }
+        },
+        {
+          "system": false,
+          "id": "hdkuml42",
+          "name": "type",
+          "type": "select",
+          "required": true,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "values": [
+              "Equity",
+              "Revenue Share",
+              "Patient Debt"
+            ]
+          }
+        },
+        {
+          "system": false,
+          "id": "j357t3m1",
+          "name": "round",
+          "type": "relation",
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "collectionId": "j2qukoaajq34yik",
+            "cascadeDelete": false
+          }
+        }
+      ],
+      "listRule": null,
+      "viewRule": null,
+      "createRule": null,
+      "updateRule": null,
+      "deleteRule": null,
+      "options": {}
+    },
+    {
+      "id": "47id2hc4agpaiw7",
+      "created": "2023-01-13 17:58:45.477Z",
+      "updated": "2023-01-13 17:58:45.477Z",
+      "name": "applications_grants",
+      "type": "base",
+      "system": false,
+      "schema": [
+        {
+          "system": false,
+          "id": "qhbfd6gk",
+          "name": "grants",
+          "type": "relation",
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": null,
+            "collectionId": "p0n56c7zdikauc0",
+            "cascadeDelete": false
+          }
+        },
+        {
+          "system": false,
+          "id": "bkpz20tx",
+          "name": "applications",
+          "type": "relation",
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": null,
+            "collectionId": "vzy3j3ok3iak6uy",
+            "cascadeDelete": false
+          }
+        }
+      ],
+      "listRule": null,
+      "viewRule": null,
+      "createRule": null,
+      "updateRule": null,
+      "deleteRule": null,
+      "options": {}
+    },
+    {
+      "id": "j2qukoaajq34yik",
+      "created": "2023-01-17 13:09:23.461Z",
+      "updated": "2023-01-18 12:02:18.288Z",
+      "name": "rounds",
+      "type": "base",
+      "system": false,
+      "schema": [
+        {
+          "system": false,
+          "id": "4i4hnizy",
+          "name": "slug",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "us45w92y",
+          "name": "name",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "chasfvay",
+          "name": "open",
+          "type": "date",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": "",
+            "max": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "qjrot3ah",
+          "name": "closed",
+          "type": "date",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": "",
+            "max": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "lurbvpd9",
+          "name": "fund",
+          "type": "relation",
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "collectionId": "rtias8h0ed3nkp6",
+            "cascadeDelete": false
           }
         }
       ],
