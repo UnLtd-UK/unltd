@@ -46,7 +46,7 @@ const { slug, name, description, funders, partners, rounds } = Astro.props;
           {
             funds.map(
               (fund) =>
-                fund.rounds !== undefined && (
+                fund.rounds.length > 0 && (
                   <li>
                     <a
                       href={`/funds/${fund.slug}`}
@@ -66,7 +66,7 @@ const { slug, name, description, funders, partners, rounds } = Astro.props;
           {
             funds.map(
               (fund) =>
-                fund.rounds === undefined && (
+                fund.rounds.length == 0 && (
                   <li>
                     <a
                       href={`/funds/${fund.slug}`}

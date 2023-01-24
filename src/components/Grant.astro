@@ -35,24 +35,28 @@ if (url) {
           </p>
           <div class="flex flex-col gap-1">
             <div class="flex flex-row gap-2 items-center">
-              <p class="text-sm text-violet-200">For social venture costs</p>
-              <i
-                class={`text-xs opacity-50 h-4 w-4 flex justify-center rounded-full items-center ${
-                  application.social_venture_costs
-                    ? "bg-violet-200 fa-solid fa-check"
-                    : "text-violet-200 fa-solid fa-xmark outline"
-                }`}></i>
+              {
+                application.social_venture_costs && (
+                  <>
+                    <i class="text-xs opacity-50 h-4 w-4 flex justify-center rounded-full items-center bg-violet-200 fa-solid fa-check" />
+                    <p class="text-sm text-violet-200">
+                      For social venture costs
+                    </p>
+                  </>
+                )
+              }
             </div>
             <div class="flex flex-row gap-2 items-center">
-              <p class="text-sm text-violet-200">
-                For social entrepreneur salary
-              </p>
-              <i
-                class={` text-xs opacity-50 h-4 w-4 flex justify-center rounded-full items-center ${
-                  application.social_entrepreneur_salary
-                    ? "bg-violet-200 fa-solid fa-check"
-                    : "text-violet-200 fa-solid fa-xmark outline"
-                }`}></i>
+              {
+                application.social_entrepreneur_salary && (
+                  <>
+                    <i class="text-xs opacity-50 h-4 w-4 flex justify-center rounded-full items-center bg-violet-200 fa-solid fa-check" />
+                    <p class="text-sm text-violet-200">
+                      For social entrepreneur salary
+                    </p>
+                  </>
+                )
+              }
             </div>
           </div>
         </div>

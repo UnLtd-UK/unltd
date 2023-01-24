@@ -30,35 +30,51 @@ try {
         })
         fund.partners = partners;
 
+        if (!fund.hasOwnProperty("rounds")) {
+            pb_rounds.map(round => {
 
-        pb_rounds.map(round => {
-            if (fund.id == round.fund) {
+                function dateCleaner(date) {
+                    return new Date(date).toISOString().substring(0, 10);
+                };
+
+                if (round.open) {
+                    round.open = dateCleaner(round.open);
+                }
+
+                if (round.closed) {
+                    round.closed = dateCleaner(round.closed);
+                }
+
                 if (!fund.hasOwnProperty("rounds")) {
                     fund.rounds = [];
                 }
-                let indexRound = fund.rounds.push(round) - 1;
 
-                pb_grants.map(grant => {
-                    if (round.id == grant.round) {
-                        if (!fund.rounds[indexRound].hasOwnProperty("grants")) {
-                            fund.rounds[indexRound].grants = [];
+                if (fund.id == round.fund) {
+
+                    let indexRound = fund.rounds.push(round) - 1;
+
+                    pb_grants.map(grant => {
+                        if (round.id == grant.round) {
+                            if (!fund.rounds[indexRound].hasOwnProperty("grants")) {
+                                fund.rounds[indexRound].grants = [];
+                            }
+
+                            fund.rounds[indexRound].grants.push(grant);
                         }
+                    });
 
-                        fund.rounds[indexRound].grants.push(grant);
-                    }
-                });
+                    pb_investments.map(investment => {
+                        if (round.id == investment.round) {
+                            if (!fund.rounds[indexRound].hasOwnProperty("investments")) {
+                                fund.rounds[indexRound].investments = [];
+                            }
 
-                pb_investments.map(investment => {
-                    if (round.id == investment.round) {
-                        if (!fund.rounds[indexRound].hasOwnProperty("investments")) {
-                            fund.rounds[indexRound].investments = [];
+                            fund.rounds[indexRound].investments.push(investment);
                         }
-
-                        fund.rounds[indexRound].investments.push(investment);
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
 
         return fund;
     });

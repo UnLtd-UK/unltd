@@ -1,6 +1,5 @@
 ---
 const { application } = Astro.props;
-import AButton from "../AButton.astro";
 import Pop from "../Pop.astro";
 ---
 
@@ -8,50 +7,74 @@ import Pop from "../Pop.astro";
   class="col-span-12 lg:col-span-3 lg:auto-cols-fr lg:self-start lg:sticky lg:top-10 flex-none flex flex-col gap-10"
 >
   {
+    application.pdf && (
+      <Pop
+        name="Downloads"
+        icon="fa-solid fa-download"
+        description=""
+        buttons={[
+          {
+            name: "Download PDF",
+            url: `http://127.0.0.1:8090/api/files/applications/${application.id}/${application.pdf}`,
+            path: "",
+            description: "",
+            icon: {
+              position: 0,
+              name: "fa-regular fa-arrow-down",
+            },
+          },
+          {
+            name: "Download DOCX",
+            url: `http://127.0.0.1:8090/api/files/applications/${application.id}/${application.docx}`,
+            path: "",
+            description: "Recommended for Microsoft Word",
+            icon: {
+              position: 0,
+              name: "fa-regular fa-arrow-down",
+            },
+          },
+        ]}
+      />
+    )
+  }
+
+  {
     application.xlsx && (
       <Pop
-        section="Question guidance"
-        name="File uploads"
-        description="Section 6. Question 14"
+        name="Guidance"
         icon="fa-solid fa-list"
-        buttonName="Go to question guidance"
-        buttonIcon="arrow-right"
-        buttonLink="/awards/application-preview/social-venture-established-between-1-to-4-years/s6/q14"
-      >
-        <ul class="list-disc flex flex-col gap-2 text-sm text-violet-300">
-          <li>We need you to show us how you are currently earning income.</li>
-          <li>
-            We need to know how your social venture is, or has the potential to
-            become, financially sustainable.
-          </li>
-          <li>
-            We need to see that you have financial growth plans that will enable
-            you to scale your social impact.
-          </li>
-          <li>
-            We need you to show us how you will be able to meet your costs as
-            your social venture develops.
-          </li>
-          <li>
-            if you are not yet profitable, or rely on grant or charitable
-            funding for a large part of your income, we need to see how you'll
-            develop your business model to become reliant on traded income.
-          </li>
-        </ul>
-      </Pop>
+        description=""
+        buttons={[
+          {
+            name: "File uploads",
+            description: "Section 6. Question 14",
+            url: "",
+            path: "/awards/application-preview/social-venture-established-between-1-to-4-years/s6/q14",
+            icon: {
+              position: 1,
+              name: "arrow-right",
+            },
+          },
+        ]}
+      />
     )
   }
 
   <Pop
-    section="Help"
+    name="Help"
     icon="fa-regular fa-circle-question"
-    buttonName="Contact Us"
-    buttonIcon="fa-regular fa-arrow-right"
-    buttonLink="/contact-us"
-  >
-    <p>
-      We can assist with making an application, such as working through the
-      application with a colleague.
-    </p>
-  </Pop>
+    description="We can assist with making an application, such as working through the application with a colleague."
+    buttons={[
+      {
+        name: "Contact us",
+        url: "",
+        path: "/contact-us",
+        description: "",
+        icon: {
+          position: 1,
+          name: "fa-regular fa-arrow-right",
+        },
+      },
+    ]}
+  />
 </div>

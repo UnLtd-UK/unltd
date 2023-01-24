@@ -28,42 +28,4 @@ const url = "http://127.0.0.1:8090";
       ))
     }
   </div>
-
-  <div class="flex flex-col gap-1 rounded-md">
-    <div class="flex flex-row gap-2 items-center">
-      <h3 class="text font-medium leading-6 text-white">Downloads</h3>
-    </div>
-    <div class="mt-2 sm:flex flex-col gap-3 sm:items-start sm:justify-between">
-      <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 flex-col gap-2">
-        <div class="flex flex-col gap-2">
-          <div>
-            {
-              application.pdf && (
-                <AButton
-                  name="Download PDF"
-                  url={`${url}/api/files/applications/${application.id}/${application.pdf}`}
-                  icon="file-arrow-down"
-                  before="true"
-                  description=""
-                />
-              )
-            }
-          </div>
-          <div>
-            {
-              application.docx && (
-                <AButton
-                  name="Download DOCX"
-                  url={`${url}/api/files/applications/${application.id}/${application.docx}`}
-                  icon="file-arrow-down"
-                  before="true"
-                  description="Recommended for Microsoft Word"
-                />
-              )
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </aside>

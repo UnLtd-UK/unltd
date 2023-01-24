@@ -1,39 +1,41 @@
 ---
-const { name, url, icon, description, before = false } = Astro.props;
+const { name, href, icon, description } = Astro.props;
 ---
 
 <div>
   <a
-    href={url}
+    href={href}
     class="inline-flex flex-col gap-1 rounded-md border border-white border-opacity-30 px-4 py-2 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition group"
   >
-    <div class="flex flex-row gap-2 items-center">
+    <div class="flex flex-row gap-3 items-center">
       {
-        before && (
+        icon.position == 0 && (
           <i
-            class={`text-violet-300 text-xs group-hover:text-violet-500 fa-solid fa-${icon}`}
+            class={`text-violet-300 text-xs group-hover:text-violet-500 fa-solid fa-${icon.name}`}
           />
         )
       }
-      <span
-        class="text-violet-50 font-medium text-xs group-hover:text-violet-800"
-        >{name}</span
-      >
+      <div class="flex flex-col">
+        <span
+          class="text-violet-50 font-medium text-xs group-hover:text-violet-800"
+          >{name}</span
+        >
+
+        {
+          description && (
+            <span class="text-violet-300 group-hover:text-violet-600 text-xs">
+              {description}
+            </span>
+          )
+        }
+      </div>
       {
-        !before && (
+        icon.position == 1 && (
           <i
-            class={`text-violet-300 text-xs group-hover:text-violet-500 fa-solid fa-${icon}`}
+            class={`text-violet-300 text-xs group-hover:text-violet-500 fa-solid fa-${icon.name}`}
           />
         )
       }
     </div>
-
-    {
-      description && (
-        <span class="text-violet-300 group-hover:text-violet-600 text-xs">
-          {description}
-        </span>
-      )
-    }
   </a>
 </div>

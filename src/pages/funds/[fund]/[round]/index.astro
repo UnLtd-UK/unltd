@@ -5,18 +5,13 @@ import Container from "../../../../layouts/Container.astro";
 
 export async function getStaticPaths() {
   let pages = rounds.map((round) => {
-    // base
     let item = {
       params: {
         fund: round.fund.slug,
-        round: round.slug,
+        round: `${round.open}-${round.closed}`,
       },
       props: {
-        slug: round.slug,
-        name: round.name,
-        fund: round.fund,
-        grants: round.grants,
-        investments: round.investments,
+        data: round,
       },
     };
 
@@ -26,19 +21,19 @@ export async function getStaticPaths() {
   return pages;
 }
 
-const { slug, name, fund, grants, investments } = Astro.props;
+const { data } = Astro.props;
 ---
 
 <Layout>
   <Container>
     <a
-      href={`/funds/${fund.slug}`}
+      href={`/funds/${data.fund.slug}`}
       class="underline hover:text-violet-300 text-white"
     >
-      <i class="fa-solid fa-arrow-left-long"></i> Back to {fund.name}
+      <i class="fa-solid fa-arrow-left-long"></i> Back to {data.fund.name}
     </a>
-    <h1 class="text-white">{fund.name}</h1>
-    <h2 class="text-white">Round: {name}</h2>
+    <h1 class="text-white">{data.fund.name}</h1>
+    <h2 class="text-white">Round: {data.open} - {data.closed}</h2>
     <div class="relative">
       <div class="absolute inset-0 flex items-center" aria-hidden="true">
         <div class="w-full border-t border-gray-300"></div>
@@ -48,12 +43,12 @@ const { slug, name, fund, grants, investments } = Astro.props;
     <h2 class="text-4xl text-white font-bold">Grants</h2>
     <ul class="list-disc list-inside text-white">
       {
-        grants ? (
-          grants.map((grant) => (
+        data.grants ? (
+          data.grants.map((grant) => (
             <li>
               <a
                 class="underline hover:text-violet-300"
-                href={`/funds/${fund.slug}/${slug}/${grant.slug}`}
+                href={`/funds/${data.fund.slug}/${data.open}-${data.closed}/${grant.slug}`}
               >
                 {grant.name} {grant.amount}
               </a>
@@ -68,10 +63,12 @@ const { slug, name, fund, grants, investments } = Astro.props;
     <h2 class="text-4xl text-white font-bold">Investments</h2>
     <ul>
       {
-        investments ? (
-          investments.map((investment) => (
+        data.investments ? (
+          data.investments.map((investment) => (
             <li>
-              <a href={`/funds/${fund.slug}/${slug}/${investment.slug}`}>
+              <a
+                href={`/funds/${data.fund.slug}/${data.open}-${data.closed}/${investment.slug}`}
+              >
                 {investment.name} {investment.amount}
               </a>
             </li>

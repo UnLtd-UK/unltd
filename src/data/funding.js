@@ -11,6 +11,19 @@ try {
     funding = pb_grants.map((grant) => {
 
         pb_rounds.map((round) => {
+
+            function dateCleaner(date) {
+                return new Date(date).toISOString().substring(0, 10);
+            };
+
+            if (round.open) {
+                round.open = dateCleaner(round.open);
+            }
+
+            if (round.closed) {
+                round.closed = dateCleaner(round.closed);
+            }
+
             if (grant.round == round.id) {
                 grant.round = round
             }

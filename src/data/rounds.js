@@ -15,6 +15,18 @@ try {
             }
         });
 
+        function dateCleaner(date) {
+            return new Date(date).toISOString().substring(0, 10);
+        };
+
+        if (round.open) {
+            round.open = dateCleaner(round.open);
+        }
+
+        if (round.closed) {
+            round.closed = dateCleaner(round.closed);
+        }
+
         pb_grants.map((grant) => {
             if (grant.round == round.id) {
                 if (!round.hasOwnProperty("grants")) {

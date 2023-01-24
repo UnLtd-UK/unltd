@@ -8,16 +8,11 @@ export async function getStaticPaths() {
     let item = {
       params: {
         fund: funding.round.fund.slug,
-        round: funding.round.slug,
+        round: `${funding.round.open}-${funding.round.closed}`,
         funding: funding.slug,
       },
       props: {
-        slug: funding.slug,
-        name: funding.name,
-        min: funding.min,
-        max: funding.max,
-        fund: funding.round.fund,
-        round: funding.round,
+        data: funding,
       },
     };
 
@@ -27,21 +22,20 @@ export async function getStaticPaths() {
   return pages;
 }
 
-const { slug, name, min, max, fund, round } = Astro.props;
+const { data } = Astro.props;
 ---
 
 <Layout>
   <Container>
     <a
-      href={`/funds/${fund.slug}/${round.slug}`}
+      href={`/funds/${data.round.fund.slug}/${data.round.open}-${data.round.closed}`}
       class="underline hover:text-violet-300 text-white"
     >
-      <i class="fa-solid fa-arrow-left-long"></i> Back to {fund.name} fund, {
-        round.name
-      } round
+      <i class="fa-solid fa-arrow-left-long"></i> Back to {data.round.name} round,
+      {data.round.fund.name} fund
     </a>
-    <p class="text-white text-xl">{fund.name} | {round.name}</p>
-    <h1 class="text-white text-4xl">{name}</h1>
-    <p class="text-white">£{min} - £{max}</p>
+    <p class="text-white text-xl">{data.round.fund.name} | {data.round.name}</p>
+    <h1 class="text-white text-4xl">{data.name}</h1>
+    <p class="text-white">£{data.min} - £{data.max}</p>
   </Container>
 </Layout>

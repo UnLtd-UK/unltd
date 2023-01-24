@@ -1,31 +1,38 @@
 ---
-const { section, icon, name, description, buttonName, buttonIcon, buttonLink } =
-  Astro.props;
+const {
+  name,
+  icon,
+  description = "",
+  sections = [],
+  buttons = [],
+} = Astro.props;
 import AButton from "./AButton.astro";
+import Divider from "./Divider.astro";
 ---
 
 <div class="px-5 flex flex-col gap-2">
   <div class="flex flex-row gap-2 items-center">
     <i class={`${icon} text-violet-300`}></i>
-    <h3 class="text font-medium leading-6 text-white">{section}</h3>
+    <h3 class="text font-medium leading-6 text-white">{name}</h3>
   </div>
-  <div class="mt-2 gap-3 sm:flex flex-col sm:items-start sm:justify-between">
-    <div class="flex flex-col">
-      <p class="text-sm font-medium leading-6 text-violet-50">
-        {name}
-      </p>
-
-      <p class="text-xs font-medium leading-6 text-violet-200 uppercase">
-        {description}
-      </p>
-    </div>
-
-    <div class="max-w-xl text-sm text-violet-300">
-      <slot />
-    </div>
+  <div class="gap-3 sm:flex flex-col sm:items-start sm:justify-between">
+    <p class="text-xs font-medium leading-6 text-violet-200">
+      {description}
+    </p>
 
     <div class="mt-5 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center">
-      <AButton name={buttonName} url={buttonLink} icon={buttonIcon} />
+      <div class="flex flex-col gap-1">
+        {
+          buttons.map((button) => (
+            <AButton
+              name={button.name}
+              href={button.path.length == 0 ? button.url : button.path}
+              icon={button.icon}
+              description={button.description}
+            />
+          ))
+        }
+      </div>
     </div>
   </div>
 </div>
