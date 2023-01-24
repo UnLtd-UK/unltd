@@ -1,6 +1,6 @@
 ---
 const { name, description } = Astro.props.frontmatter || Astro.props;
-import Header from "../components/Header.astro";
+import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 ---
 
@@ -65,7 +65,7 @@ import Footer from "../components/Footer.astro";
     <div
       class="flex flex-col justify-between h-full bg-gradient-to-b from-violet-800 to-slate-900"
     >
-      <Header />
+      <Nav />
       <div class="mb-10">
         <slot />
       </div>

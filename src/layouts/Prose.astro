@@ -1,7 +1,6 @@
 ---
 import Layout from "./Layout.astro";
-import Container from "./Container.astro";
-import Header from "./Header.astro";
+import Header from "../components/Header.astro";
 const { frontmatter } = Astro.props;
 ---
 
@@ -15,11 +14,11 @@ const { frontmatter } = Astro.props;
     updated={frontmatter.updated}
     reviewed={frontmatter.reviewed}
   />
-  <Container>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div
       class="prose prose-lg prose-black prose-invert prose-img:rounded-md prose-img:shadow-md prose-img:w-full hover:prose-a:text-white prose-a:text-violet-300"
     >
       <slot />
     </div>
-  </Container>
+  </div>
 </Layout>

@@ -29,7 +29,7 @@
 
     <!-- Fontawesome Icons -->
     <script src="https://kit.fontawesome.com/0ff725f684.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="/assets/404.f5f2dd70.css" /><script type="module" src="/page.56e71220.js"></script></head>
+  <link rel="stylesheet" href="/assets/404.685cc787.css" /><script type="module" src="/page.56e71220.js"></script></head>
   <body class="">
     <div class="flex flex-col justify-between h-full bg-gradient-to-b from-violet-800 to-slate-900">
       <nav class="print:hidden">
@@ -240,7 +240,156 @@
     }
   </ul>
 </nav> -->
-  <!-- <NavMobile></NavMobile> -->
+  <script>
+  let mobileDropdownButtons = document.getElementsByClassName(
+    "mobileDropdownButton"
+  );
+  let mobileDropdownContents = document.getElementsByClassName(
+    "mobileDropdownContent"
+  );
+
+  function hideButton(mobileDropdownButton) {
+    if (mobileDropdownButton.getAttribute("aria-expanded") === "true") {
+      mobileDropdownButton.setAttribute("aria-expanded", false);
+    }
+  }
+
+  function hideContent(mobileDropdownContent) {
+    if (!mobileDropdownContent.classList.contains("hidden")) {
+      mobileDropdownContent.classList.add("hidden");
+    }
+  }
+
+  function hamburgerMenu() {
+    let hamburgerButton = document.getElementById("hamburgerButton");
+    let hamburgerMenu = document.getElementById("hamburgerMenu");
+    hamburgerMenu.classList.toggle("hidden");
+
+    if (hamburgerButton.getAttribute("aria-expanded") === "true") {
+      hamburgerButton.setAttribute("aria-expanded", "false");
+    } else {
+      hamburgerButton.setAttribute("aria-expanded", "true");
+    }
+
+    // change hamburgerButton class so icon changes
+  }
+
+  // window.onclick = function (event) {
+
+  //   if (
+  //     event.target.classList.contains("mobileDropdownButtons") ||
+  //     event.target.classList.contains("mobileDropdownContents") ||
+  //     event.target.classList.contains("mobileDropdownItems") ||
+  //     event.target.classList.contains("mobileDropdownAs") ||
+  //     event.target.id != "hamburgerButton" ||
+  //     event.target.id != "hamburgerMenu"
+  //   ) {
+  //     for (let i = 0; i < mobileDropdownContents.length; i++) {
+  //       hideContent(mobileDropdownContents[i]);
+  //     }
+
+  //     for (let i = 0; i < mobileDropdownButtons.length; i++) {
+  //       hideButton(mobileDropdownButtons[i]);
+  //     }
+
+  //     hamburgerMenu();
+  //   }
+  // };
+
+  function mobile(item) {
+    let mobileDropdownContentId = "mobileDropdownContent-" + item;
+    let mobileDropdownButtonId = "mobileDropdownButton-" + item;
+    let mobileDropdownContent = document.getElementById(
+      mobileDropdownContentId
+    );
+    let mobileDropdownButton = document.getElementById(mobileDropdownButtonId);
+
+    for (let i = 0; i < mobileDropdownButtons.length; i++) {
+      if (!(mobileDropdownButtons[i].id === mobileDropdownButtonId)) {
+        hideButton(mobileDropdownButtons[i]);
+      }
+    }
+
+    for (let i = 0; i < mobileDropdownContents.length; i++) {
+      if (!(mobileDropdownContents[i].id === mobileDropdownContentId)) {
+        hideContent(mobileDropdownContents[i]);
+      }
+    }
+
+    mobileDropdownContent.classList.toggle("hidden");
+
+    if (mobileDropdownButton.getAttribute("aria-expanded") === "true") {
+      mobileDropdownButton.setAttribute("aria-expanded", "false");
+    } else {
+      mobileDropdownButton.setAttribute("aria-expanded", "true");
+    }
+  }
+</script>
+
+<nav class="flex flex-col lg:hidden gap-2">
+  <div class="bar flex justify-around bg-gray-300 p-3">
+    <div class="logo">
+      <p>/funds/awards/2023-07-01-2023-09-30/starting-up/</p>
+    </div>
+    <div>
+      <button id="hamburgerButton" onclick="hamburgerMenu()" aria-expanded="false">&#9776;</button>
+    </div>
+  </div>
+
+  <ul id="hamburgerMenu" class="flex flex-col gap-5 bg-gray-300 hidden">
+    <li>
+            <a href="/awards" class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900">
+              Awards
+            </a>
+          </li><li>
+            <a href="https://growthimpactfund.org.uk" target="_blank" class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900">
+              Investment &#10532;
+            </a>
+          </li><li>
+            <a href="/blog" class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900">
+              Blog
+            </a>
+          </li><li>
+            <a href="https://www.eventbrite.co.uk/o/unltd-foundation-for-social-entrepreneurs-4248932779" target="_blank" class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900">
+              Events &#10532;
+            </a>
+          </li><li>
+            <a href="/podcast" class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900">
+              Podcast
+            </a>
+          </li><li>
+            <a href="/get-involved" class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900">
+              Get Involved
+            </a>
+          </li><li class="mobileDropdown">
+            <button id="mobileDropdownButton-about-us" class="mobileDropdownButtons p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 focus:font-bold focus:bg-gray-300 focus:text-gray-900" onclick="mobile(&#34;about-us&#34;)" aria-expanded="false">
+              About us &#5167;
+            </button>
+
+            <ul id="mobileDropdownContent-about-us" class="mobileDropdownContent hidden p-3 bg-gray-300 border border-sky-500 absolute">
+              <li class="flex flex-col gap-1 p-1 bg-gray-200 border border-red-500 mobileDropdownItem">
+                <a href="/what-we-do" class="text-sm font-medium p-2 bg-gray-100 border border-green-500 block">
+                    What we do
+                  </a><a href="/undefined" class="text-sm font-medium p-2 bg-gray-100 border border-green-500 block">
+                    Our strategy
+                  </a><a href="/meet-the-team" class="text-sm font-medium p-2 bg-gray-100 border border-green-500 block">
+                    Meet the team
+                  </a><a href="/our-brand" class="text-sm font-medium p-2 bg-gray-100 border border-green-500 block">
+                    Our brand
+                  </a><a href="/safeguarding" class="text-sm font-medium p-2 bg-gray-100 border border-green-500 block">
+                    Safeguarding
+                  </a><a href="/equity-commitments" class="text-sm font-medium p-2 bg-gray-100 border border-green-500 block">
+                    Equity Commitments
+                  </a><a href="/impact-reports" class="text-sm font-medium p-2 bg-gray-100 border border-green-500 block">
+                    Impact Reports
+                  </a><a href="/governance" class="text-sm font-medium p-2 bg-gray-100 border border-green-500 block">
+                    Governance
+                  </a>
+              </li>
+            </ul>
+          </li>
+  </ul>
+</nav>
 </nav>
       <div class="mb-10">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
