@@ -4,12 +4,33 @@ import Pop from "../Pop.astro";
 ---
 
 <div
-  class="col-span-12 lg:col-span-3 lg:auto-cols-fr lg:self-start lg:sticky lg:top-10 flex-none flex flex-col gap-10"
+  class="col-span-12 lg:col-span-3 lg:auto-cols-fr lg:self-start lg:sticky lg:top-10 flex-none flex flex-col gap-12"
 >
+  <Pop
+    name="Start your application"
+    icon="fa-solid fa-arrow-pointer"
+    description=""
+    buttons={[
+      {
+        name: "Sign-up to an Awards account",
+        description: "",
+        url: {
+          link: "https://unltd.microsoftcrmportals.com/applications/",
+          target: "_blank",
+        },
+        path: "",
+        icon: {
+          position: 1,
+          name: "arrow-right",
+        },
+      },
+    ]}
+  />
+
   {
     application.pdf && (
       <Pop
-        name="Downloads"
+        name="Download application"
         icon="fa-solid fa-download"
         description=""
         buttons={[
@@ -41,7 +62,7 @@ import Pop from "../Pop.astro";
   {
     application.xlsx && (
       <Pop
-        name="Guidance"
+        name="Application guidance"
         icon="fa-solid fa-list"
         description=""
         buttons={[
