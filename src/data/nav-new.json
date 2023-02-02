@@ -16,12 +16,20 @@
       "children": [
         {
           "name": "Grants",
+          "description": "For social entrepreneurs",
           "slug": "grants",
           "children": []
         },
         {
           "name": "Investments",
+          "description": "For social ventures",
           "slug": "investments",
+          "children": []
+        },
+        {
+          "name": "Funds",
+          "description": "Grant and Investment funds",
+          "slug": "funds",
           "children": []
         }
       ]

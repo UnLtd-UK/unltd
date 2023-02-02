@@ -2,6 +2,7 @@
 import { funds } from "../../../data/funds.js";
 import Layout from "../../../layouts/Layout.astro";
 import Container from "../../../layouts/Container.astro";
+import Funding from "../../../components/Funding.astro"
 
 export async function getStaticPaths() {
   let pages = funds.map((fund) => {
@@ -28,23 +29,44 @@ const { fund } = Astro.props;
 
 <Layout>
   <Container>
-    {
-      (
-        <>
-          <a href="/funds" class="underline hover:text-violet-300 text-white">
+
+              <a href="/funds" class="underline hover:text-violet-300 text-white">
             <i class="fa-solid fa-arrow-left-long" /> Back to funds
           </a>
-          <h1 class="text-white text-3xl">{fund.name}</h1>
-          {fund.email && (
+
+
+          <div class="flex flex-row gap-10">
+            <div class="basis-2/6">
+            
+                      <div class="border-gray-200 bg-white px-9 py-9 rounded-md flex flex-col gap-5">
+          <div class="flex flex-row gap-3 items-center">
+            <div>
+              <img
+              class="h-12 w-12 rounded-md"
+              src={`http://127.0.0.1:8090/api/files/funds/${fund.id}/${fund.logo}`}
+              alt=""/>
+            </div>
+            <div class="">
+              <a href={`/funds/${fund.slug}`}>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">
+                  {fund.name}
+                </h3>
+              </a>
+              <p class="text-xs text-gray-500">Funded by {fund.funders.map((funder) => funder.name)}</p>
+            </div>
+          </div>
+            <div>
+              {fund.email && (
             <a
               class="inline-flex items-center rounded-full border border-transparent bg-white px-3 py-1.5 text-xs font-medium text-violet-900 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
               href={`mailto:${fund.email}`}
             >
-              Email
+              {fund.email}
             </a>
           )}
-
-          {fund.website && (
+            </div>
+            <div>
+                        {fund.website && (
             <a
               class="inline-flex items-center rounded-full border border-transparent bg-white px-3 py-1.5 text-xs font-medium text-violet-900 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
               href={fund.website}
@@ -54,30 +76,14 @@ const { fund } = Astro.props;
               Website
             </a>
           )}
-
-          <div>
-            <p class="font-bold text-white">Funders</p>
-            {fund.funders !== undefined && (
-              <ul class="list-disc list-inside text-white">
-                {fund.funders.map((funder) => (
-                  <li>{funder.name}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <div>
-            <p class="font-bold text-white">Partners</p>
-            {fund.partners !== undefined && (
-              <ul class="list-disc list-inside text-white">
-                {fund.partners.map((partner) => (
-                  <li>{partner.name}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <p class="text-white">{fund.description}</p>
-          <p>There are {fund.rounds.length} rounds for {fund.name}</p>
-          <ul class="text-white list-disc">
+            </div>
+            <div>
+          <p class="text-gray-500 text-sm">{fund.description}</p>
+            </div>
+        </div>
+            </div>
+            <div class="basis-4/6">
+                      <ul class="text-white list-disc">
             {fund.rounds !== undefined &&
               fund.rounds.map((round) => (
                 <>
@@ -122,8 +128,7 @@ const { fund } = Astro.props;
                 </>
               ))}
           </ul>
-        </>
-      )
-    }
+            </div>
+          </div>
   </Container>
 </Layout>

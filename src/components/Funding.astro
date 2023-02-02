@@ -1,0 +1,65 @@
+---
+const { fundi } = Astro.props;
+---
+
+<div class="bg-white rounded-md">
+  <div>
+    <div class="flex flex-row gap-3 items-center p-5 rounded-t-md">
+      <div>
+        <img
+          class="h-12 w-12 rounded-md"
+          src={`https://unltd.directus.app/assets/${fundi.round.fund.logo}`}
+          alt=""
+        />
+      </div>
+      <div class="">
+        <a href={`/funds/${fundi.round.fund.slug}`}>
+          <h3 class="text-lg font-medium leading-6 text-gray-900">
+            {fundi.round.fund.name}
+          </h3>
+        </a>
+        <p class="text-xs text-gray-500">Funded by</p>
+      </div>
+    </div>
+    <div class="px-5 py-1 bg-gray-300 border-t border-b border-gray-400">
+      <p class="text-xs text-gray-700">
+        Round: {fundi.round.open} - {fundi.round.close}
+      </p>
+    </div>
+    <div class="p-5 flex flex-row">
+      <div>
+        <p class="text-xs">From</p>
+        <p class="">
+          {
+            new Intl.NumberFormat("en-GB", {
+              maximumSignificantDigits: 3,
+              style: "currency",
+              currency: "GBP",
+            }).format(fundi.amount_min)
+          }
+        </p>
+        <p class="text-xs">to</p>
+        <p class="text-3xl">
+          {
+            new Intl.NumberFormat("en-GB", {
+              maximumSignificantDigits: 3,
+              style: "currency",
+              currency: "GBP",
+            }).format(fundi.amount_max)
+          }
+        </p>
+      </div>
+      <div>
+        <p class="text-sm">Grant</p>
+        <p class="text-sm">Non-repayable</p>
+      </div>
+    </div>
+    <div class="p-5">
+      <button
+        type="button"
+        class="inline-flex items-center rounded-full border border-transparent bg-amber-600 px-5 py-2 text-base font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >Apply now</button
+      >
+    </div>
+  </div>
+</div>

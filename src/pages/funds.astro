@@ -1,67 +1,53 @@
 ---
-import { funds } from "../data/funds.js";
+import { funds } from "../data/directus/funds.js";
 import Layout from "../layouts/Layout.astro";
 import Container from "../layouts/Container.astro";
 
-export async function getStaticPaths() {
-  let pages = [];
-
-  funds.map((fund) => {
-    // base
-    let item = {
-      params: {
-        fund: fund.slug,
-      },
-      props: {
-        slug: fund.slug,
-        name: fund.name,
-        description: fund.description,
-        funders: fund.funders,
-        partners: fund.partners,
-        rounds: [],
-      },
-    };
-
-    if (fund.rounds) {
-      fund.rounds.map((round) => {
-        item.props.rounds.push(round);
-      });
-    }
-
-    pages.push(item);
-  });
-
-  return pages;
-}
-
-const { slug, name, description, funders, partners, rounds } = Astro.props;
+let now = Date.now();
 ---
 
 <Layout>
   <Container>
     <div class="flex flex-col gap-10">
       <div>
-        <h1 class="font-bold text-white text-3xl">Active funds</h1>
+        <h1 class="font-bold text-white text-3xl">Funds</h1>
         <ul class="list-disc text-white flex flex-col gap-2">
           {
-            funds.map(
-              (fund) =>
-                fund.rounds.length > 0 && (
-                  <li>
-                    <a
-                      href={`/funds/${fund.slug}`}
-                      class="text-white underline hover:text-violet-300"
-                    >
-                      {fund.name}
-                    </a>
-                  </li>
-                )
-            )
+            funds.map((fund) => {
+              let clos = new Date(fund.close);
+              clos >= Date.now() && (
+                <>
+                  <div class="border-gray-200 bg-white px-4 py-5 rounded-md sm:px-6">
+                    <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
+                      <div class="ml-4 mt-4">
+                        <div class="flex items-center">
+                          <div class="flex-shrink-0">
+                            <img
+                              class="h-12 w-12 rounded-md"
+                              src={`https://unltd.directus.app/assets/${fund.logo}`}
+                              alt=""
+                            />
+                          </div>
+                          <div class="ml-4">
+                            <a href={`/funds/${fund.slug}`}>
+                              <h3 class="text-lg font-medium leading-6 text-gray-900">
+                                {fund.name}
+                              </h3>
+                            </a>
+                            <p class="text-sm text-gray-500">Funded by ...</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              );
+            })
           }
         </ul>
       </div>
       <div>
-        <h1 class="font-bold text-white text-3xl">Archive funds</h1>
+        <h1 class="font-bold text-white text-3xl">Archived funds</h1>
         <ul class="list-disc text-white flex flex-col gap-2">
           {
             funds.map(
