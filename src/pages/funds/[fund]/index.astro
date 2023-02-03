@@ -1,13 +1,13 @@
 ---
-import { funds } from "../../../data/funds.js";
 import Layout from "../../../layouts/Layout.astro";
 import Container from "../../../layouts/Container.astro";
-import Funding from "../../../components/Funding.astro"
+import Funding from "../../../components/Funding.astro";
+
+import { funds } from "../../../data/directus/funds.js";
 
 export async function getStaticPaths() {
-  let pages = funds.map((fund) => {
-
-    let item = {
+  return funds.map((fund) => {
+    let oogle = {
       params: {
         fund: fund.slug,
       },
@@ -16,15 +16,11 @@ export async function getStaticPaths() {
       },
     };
 
-    return item;
+    return oogle;
   });
-
-  return pages;
 }
 
-
 const { fund } = Astro.props;
-
 ---
 
 <Layout>
@@ -41,10 +37,10 @@ const { fund } = Astro.props;
                       <div class="border-gray-200 bg-white px-9 py-9 rounded-md flex flex-col gap-5">
           <div class="flex flex-row gap-3 items-center">
             <div>
-              <img
+              { fund.logo != null && <img
               class="h-12 w-12 rounded-md"
-              src={`http://127.0.0.1:8090/api/files/funds/${fund.id}/${fund.logo}`}
-              alt=""/>
+              src={`https://unltd.directus.app/assets/${fund.logo.id}`}
+              alt=""/> }
             </div>
             <div class="">
               <a href={`/funds/${fund.slug}`}>
@@ -52,7 +48,7 @@ const { fund } = Astro.props;
                   {fund.name}
                 </h3>
               </a>
-              <p class="text-xs text-gray-500">Funded by {fund.funders.map((funder) => funder.name)}</p>
+              { fund.organisations && <p class="text-xs text-gray-500">Funded by {fund.organisations.map((organisation) => organisation.name)}</p> }
             </div>
           </div>
             <div>
@@ -84,42 +80,27 @@ const { fund } = Astro.props;
             </div>
             <div class="basis-4/6">
                       <ul class="text-white list-disc">
-            {fund.rounds !== undefined &&
+            {fund.rounds.length > 0 &&
               fund.rounds.map((round) => (
                 <>
                   <li>
                     <a
                       class="underline hover:text-violet-300"
-                      href={`/funds/${fund.slug}/${round.open}-${round.closed}`}
+                      href={`/funds/${fund.slug}/${round.open}-${round.close}`}
                     >
-                      {round.open} - {round.closed}
+                      {round.open} - {round.close}
                     </a>
                   </li>
-                  {round.grants !== undefined && (
-                    <p class="uppercase text-white">Grants</p>
+                  {round.funding > 0 && (
+                    <p class="uppercase text-white">Funding</p>
                     <ul class="list-disc list-inside">
-                      {round.grants.map((grant) => (
+                      {round.funding.map((grant) => (
                         <li>
                           <a
                             class="underline hover:text-violet-300"
-                            href={`/funds/${fund.slug}/${round.open}-${round.closed}/${grant.slug}`}
+                            href={`/funds/${fund.slug}/${round.open}-${round.close}/${grant.slug}`}
                           >
                             {grant.name}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {round.investmets !== undefined && (
-                    <ul class="list-disc list-inside">
-                      <p class="uppercase text-white">Investments</p>
-                      {round.investments.map((investment) => (
-                        <li>
-                          <a
-                            class="underline hover:text-violet-300"
-                            href={`/funds/${fund.slug}/${round.open}-${round.closed}/${investment.slug}`}
-                          >
-                            {investment.name}
                           </a>
                         </li>
                       ))}

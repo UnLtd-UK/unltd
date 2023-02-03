@@ -1,15 +1,8 @@
-let headersList = {
-    "Accept": "*/*",
-    "User-Agent": "Thunder Client (https://www.thunderclient.com)",
-    "Authorization": "Bearer "
-}
-
-let response = await fetch("https://unltd.directus.app/items/funds?fields=*.*.*", {
-    method: "GET",
-    headers: headersList
+let response = await fetch("https://unltd.directus.app/items/funds/?fields[]=*.*.*", {
+    method: "GET"
 });
 
-let funds = await response.json();
-funds = funds.data;
+let json = await response.json();
+let funds = json.data;
 
 export { funds }
