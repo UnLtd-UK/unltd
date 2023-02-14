@@ -28,7 +28,7 @@
     },
     {
       "name": "Podcast",
-      "slug": "podcast",
+      "slug": "podcasts/1",
       "children": []
     },
     {
@@ -50,7 +50,7 @@
         },
         {
           "name": "Meet the team",
-          "slug": "about-us/meet-the-team"
+          "slug": "about-us/our-team"
         },
         {
           "name": "Our brand",
@@ -66,11 +66,15 @@
         },
         {
           "name": "Impact Reports",
-          "slug": "about-us/impact-reports"
+          "slug": "about-us/impact-reports-1"
         },
         {
           "name": "Governance",
-          "slug": "about-us/governance"
+          "slug": "about-us/financial-reports"
+        },
+        {
+          "name": "Our research",
+          "slug": "about-us/research"
         }
       ]
     }
