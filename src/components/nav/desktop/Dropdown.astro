@@ -20,7 +20,7 @@ import Button from "./Button.astro";
               : `${navItem.link}`
           }
           target={!navItem.slug && navItem.link && "_blank"}
-          class="flex flex-col p-3 py-3 hover:bg-violet-100 rounded-md"
+          class="flex flex-row gap-3 items-center p-3 py-3 hover:bg-violet-100 rounded-md"
           data-dropdown="dropdownA"
         >
           <span class="text-sm font-medium">{navItem.name}</span>

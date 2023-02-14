@@ -1,0 +1,10 @@
+---
+const { question, answer } = Astro.props;
+---
+
+<tr class="border-t border-gray-200 flex flex-col p-5 gap-2">
+  <th class="text-left text-sm font-normal text-gray-500" scope="row">
+    <span>{question}</span>
+  </th>
+  <td class="block text-sm text-gray-700" set:html={answer} />
+</tr>

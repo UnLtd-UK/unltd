@@ -42,7 +42,7 @@
       "children": [
         {
           "name": "What we do",
-          "slug": "what-we-do"
+          "slug": "about-us/what-we-do"
         },
         {
           "name": "Our strategy",
@@ -50,27 +50,27 @@
         },
         {
           "name": "Meet the team",
-          "slug": "meet-the-team"
+          "slug": "about-us/meet-the-team"
         },
         {
           "name": "Our brand",
-          "slug": "our-brand"
+          "slug": "about-us/our-brand"
         },
         {
           "name": "Safeguarding",
-          "slug": "safeguarding"
+          "slug": "about-us/safeguarding"
         },
         {
           "name": "Equity Commitments",
-          "slug": "equity-commitments"
+          "slug": "about-us/equity-commitments"
         },
         {
           "name": "Impact Reports",
-          "slug": "impact-reports"
+          "slug": "about-us/impact-reports"
         },
         {
           "name": "Governance",
-          "slug": "governance"
+          "slug": "about-us/governance"
         }
       ]
     }

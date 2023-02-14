@@ -1,0 +1,50 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Intro from "../components/fund/Intro.astro";
+import Aside from "../components/fund/Aside.astro";
+import AwardsDesktop from "../components/fund/AwardsDesktop.astro";
+import AwardsMobile1 from "../components/fund/AwardsMobile1.astro";
+import AwardsMobile2 from "../components/fund/AwardsMobile2.astro";
+import PartnersAndFunders from "../components/fund/PartnersAndFunders.astro";
+import Testamonial from "../components/fund/Testamonial.astro";
+
+const name = "Movement for change";
+const description =
+  "The Movement for Change programme will support 120 social entrepreneurs over two years to help get people moving as often as possible, while also making the sporting social enterprise sector more sustainable. Movement for Change offers needs-based support to social entrepreneurs helping marginalised communities access the experiences and benefits of sport and physical activity, while helping social entrepreneurs reach growth and sustainability too. Social entrepreneurs can apply for grants of up to £18,000. All grants will be backed up with a year's package of non-financial support. This includes help developing key business and leadership skills from UnLtd's expert Social Entrepreneur Support Managers, network of business mentors, and Sport England.";
+---
+
+<Layout name={name} description={description}>
+  <div class="bg-white pt-10">
+    <div class="grid grid-cols-4 gap-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <div class="col-span-4 flex flex-col gap-20 lg:flex-row">
+        <Intro />
+        <Testamonial />
+      </div>
+
+      <!-- Partners and Funders -->
+      <PartnersAndFunders />
+
+      <!-- Awards -->
+      <div class="col-span-4 flex flex-col gap-10 lg:col-span-4">
+        <h4 class="text-5xl font-semibold text-gray-600">Awards</h4>
+        <div class="flex flex-col gap-10 lg:flex-row">
+          <div class="flex flex-col basis-3/4">
+            <div class="flex flex-col gap-10">
+              <!-- xs to lg -->
+              <AwardsMobile1 />
+              <AwardsMobile2 />
+            </div>
+
+            <!-- lg+ -->
+            <AwardsDesktop />
+          </div>
+
+          <div class="flex flex-col basis-1/4 gap-10">
+            <Aside />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -37,10 +37,10 @@ const { fund } = Astro.props;
                       <div class="border-gray-200 bg-white px-9 py-9 rounded-md flex flex-col gap-5">
           <div class="flex flex-row gap-3 items-center">
             <div>
-              { fund.logo != null && <img
+              { /* fund.logo != null && <img
               class="h-12 w-12 rounded-md"
               src={`https://unltd.directus.app/assets/${fund.logo.id}`}
-              alt=""/> }
+              alt=""/> */ }
             </div>
             <div class="">
               <a href={`/funds/${fund.slug}`}>
@@ -48,7 +48,17 @@ const { fund } = Astro.props;
                   {fund.name}
                 </h3>
               </a>
-              { fund.organisations && <p class="text-xs text-gray-500">Funded by {fund.organisations.map((organisation) => organisation.name)}</p> }
+              <div>
+{ fund.organisations && <p class="text-xs text-gray-500">Partners</p>
+
+<div>
+  {fund.organisations.map((organisation) => {
+    <img class="h-12 w-12 rounded-md" src={`https://unltd.directus.app/assets/${organisation.organisations_id.logo}`} alt=""/>
+    <p>{organisation.organisations_id.name}</p>
+  })
+  }
+</div> }
+              </div>
             </div>
           </div>
             <div>
