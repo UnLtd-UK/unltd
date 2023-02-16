@@ -1,0 +1,115 @@
+---
+import { grants } from "../data/directus/funding/grants.js";
+import Layout from "../layouts/Layout.astro";
+import Container from "../layouts/Container.astro";
+
+grants.map((grant) => {
+  const slugify = (text) =>
+    text
+      .toString()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "")
+      .replace(/--+/g, "-");
+
+  grant.slug = slugify(grant.name);
+});
+
+let activeGrants = grants.filter((activeGrant) => {
+  let date = new Date();
+  let roundopen = new Date(activeGrant.round.open);
+  let roundclose = new Date(activeGrant.round.close);
+  let fundopen = new Date(activeGrant.round.open);
+  let fundclose = new Date(activeGrant.round.close);
+
+  if (
+    roundopen < date &&
+    roundclose > date &&
+    fundopen < date &&
+    fundclose > date
+  ) {
+    return activeGrant;
+  }
+});
+---
+
+<Layout>
+  <Container>
+    <ul
+      role="list"
+      class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+    >
+      {
+        activeGrants.map((grant) => (
+          <li class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
+            <div class="flex flex-1 flex-col p-8">
+              <img
+                class="mx-auto h-32 w-32 flex-shrink-0 rounded-full"
+                src={`https://unltd.directus.app/assets/${grant.round.fund.logo}`}
+                alt=""
+              />
+              <h3 class="mt-6 text-sm font-medium text-gray-900">
+                {grant.name}
+              </h3>
+              <dl class="mt-1 flex flex-grow flex-col justify-between">
+                <dt class="sr-only">Fund name</dt>
+                <dd class="text-sm text-gray-500">{grant.round.fund.name}</dd>
+                <dt class="sr-only">Grant type</dt>
+                <dd class="mt-3">
+                  <span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
+                    Grant - {grant.type}
+                  </span>
+                </dd>
+                <dt class="sr-only">Grant amount</dt>
+                <dd class="mt-3">
+                  <span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
+                    {new Intl.NumberFormat("en-GB", {
+                      maximumSignificantDigits: 3,
+                      style: "currency",
+                      currency: "GBP",
+                    }).format(grant.min)}{" "}
+                    -{" "}
+                    {new Intl.NumberFormat("en-GB", {
+                      maximumSignificantDigits: 3,
+                      style: "currency",
+                      currency: "GBP",
+                    }).format(grant.max)}
+                  </span>
+                </dd>
+              </dl>
+            </div>
+            <div>
+              <div class="-mt-px flex divide-x divide-gray-200">
+                <div class="flex w-0 flex-1">
+                  <a
+                    href={`/funds/${grant.round.fund.slug}/${new Date(
+                      grant.round.open
+                    )
+                      .toISOString()
+                      .substring(0, 10)}-${new Date(grant.round.close)
+                      .toISOString()
+                      .substring(0, 10)}/${grant.slug}`}
+                    class="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
+                  >
+                    <span class="text-xs">Visit grant</span>
+                  </a>
+                </div>
+                <div class="-ml-px flex w-0 flex-1">
+                  <a
+                    href={`/funds/${grant.round.fund.slug}`}
+                    class="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
+                  >
+                    <span class="text-xs">Visit fund</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Layout>

@@ -1,0 +1,21 @@
+---
+const { name, description, more } = Astro.props;
+---
+
+<tr class="border-t border-gray-200 bg-gray-100">
+  <th
+    class="py-5 px-6 text-left text-sm font-normal text-gray-500 sm:px-4 flex flex-col md:flex-row gap-2 md:gap-24 md:items-center"
+    scope="row"
+  >
+    <div class="">
+      <span class="font-medium text-gray-900">{name}</span>
+      {
+        description && (
+          <span class="font-normal text-gray-500 block">{description}</span>
+        )
+      }
+
+      {more && <span class="font-normal text-gray-500 block" set:html={more} />}
+    </div>
+  </th>
+</tr>

@@ -1,0 +1,68 @@
+---
+import Blank from "../../../layouts/Blank.astro";
+import Layout from "../../../layouts/Layout.astro";
+
+import Header from "../../../components/Header.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+
+import Container from "../../../layouts/Container.astro";
+import Grant from "../../../components/Grant.astro";
+
+import Main from "../../../components/application/Main.astro";
+import AsideRight from "../../../components/application/AsideRight.astro";
+
+import { applications } from "../../../data/directus/applications.js";
+
+export async function getStaticPaths() {
+  let results = applications.map((application) => {
+    return {
+      params: { application: application.slug },
+      props: { application: application },
+    };
+  });
+
+  return results;
+}
+
+const { application } = Astro.props;
+---
+
+<Layout name={application.name} description={application.name}>
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col gap-2">
+    <div class="grid gap-x-4 grid-cols-12">
+      <aside
+        class="col-span-12 md:col-span-7 lg:col-span-4 lg:auto-cols-fr flex flex-col gap-10 rounded-md md:self-start md:sticky md:top-10 md:bottom-60"
+      >
+        <div class="hidden md:flex flex-col rounded-md">
+          {
+            application.sections.map((section) => {
+              <p>Hello</p>;
+              section = section.sections_id;
+              <a
+                href={`#${section.slug}`}
+                class={`hover:text-violet-200 active:text-violet-800 active:bg-violet-800 hover:bg-violet-800 rounded-md flex items-center text-xs font-medium transition py-3 flex-row gap-2 group`}
+              >
+                <span class="text-violet-300 border-full h-5 w-5 bg-white bg-opacity-10 flex justify-center items-center rounded-full group-hover:scale-125 group-hover:bg-transparent">
+                  {section.sort}
+                </span>
+                <span class="text-white truncate active:text-white">
+                  {section.name}
+                </span>
+              </a>;
+            })
+          }
+        </div>
+      </aside>
+
+      {
+        application.sections.map((section) => {
+          <span class="text-white truncate active:text-white">
+            {section.sections_id.name}
+          </span>;
+        })
+      }
+      <Main application={application} />
+      <AsideRight application={application} />
+    </div>
+  </div>
+</Layout>

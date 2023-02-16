@@ -3,7 +3,7 @@ const { name, description, slug, required, disabled, max_length, number } =
   Astro.props;
 import { marked } from "marked";
 let markdown;
-if (description) {
+if (description != null) {
   markdown = marked.parse(description);
 }
 ---
