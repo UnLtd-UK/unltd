@@ -3,7 +3,7 @@ migrate((db) => {
     {
       "id": "_pb_users_auth_",
       "created": "2022-11-28 10:39:30.408Z",
-      "updated": "2023-01-10 12:38:54.142Z",
+      "updated": "2023-01-19 22:19:38.634Z",
       "name": "users",
       "type": "auth",
       "system": false,
@@ -61,7 +61,7 @@ migrate((db) => {
     {
       "id": "cvt4g4zjpn3vkzf",
       "created": "2022-11-28 11:32:49.366Z",
-      "updated": "2023-01-10 12:38:54.144Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "groups",
       "type": "base",
       "system": false,
@@ -194,9 +194,10 @@ migrate((db) => {
           "required": true,
           "unique": false,
           "options": {
-            "maxSelect": 1,
             "collectionId": "0hm8jcor8o0vnc3",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": 1,
+            "displayFields": null
           }
         }
       ],
@@ -210,7 +211,7 @@ migrate((db) => {
     {
       "id": "0hm8jcor8o0vnc3",
       "created": "2022-11-28 11:34:01.059Z",
-      "updated": "2023-01-10 12:38:54.144Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "sections",
       "type": "base",
       "system": false,
@@ -262,9 +263,10 @@ migrate((db) => {
           "required": true,
           "unique": false,
           "options": {
-            "maxSelect": 3,
             "collectionId": "vzy3j3ok3iak6uy",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": 3,
+            "displayFields": null
           }
         },
         {
@@ -290,7 +292,7 @@ migrate((db) => {
     {
       "id": "vzy3j3ok3iak6uy",
       "created": "2022-11-28 11:34:51.820Z",
-      "updated": "2023-01-13 18:05:17.938Z",
+      "updated": "2023-02-16 12:37:00.429Z",
       "name": "applications",
       "type": "base",
       "system": false,
@@ -364,6 +366,19 @@ migrate((db) => {
           "name": "grant_description",
           "type": "text",
           "required": true,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "z22j04yj",
+          "name": "body",
+          "type": "text",
+          "required": false,
           "unique": false,
           "options": {
             "min": null,
@@ -499,7 +514,7 @@ migrate((db) => {
     {
       "id": "7fn3fjl77wmfqph",
       "created": "2022-11-28 12:07:02.180Z",
-      "updated": "2023-01-10 12:38:54.144Z",
+      "updated": "2023-01-25 10:48:44.990Z",
       "name": "fields",
       "type": "base",
       "system": false,
@@ -524,9 +539,10 @@ migrate((db) => {
           "required": true,
           "unique": false,
           "options": {
-            "maxSelect": null,
             "collectionId": "0hm8jcor8o0vnc3",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": null,
+            "displayFields": null
           }
         },
         {
@@ -753,6 +769,19 @@ migrate((db) => {
             "max": null,
             "pattern": ""
           }
+        },
+        {
+          "system": false,
+          "id": "jeu774yk",
+          "name": "guidance",
+          "type": "text",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": null,
+            "max": null,
+            "pattern": ""
+          }
         }
       ],
       "listRule": null,
@@ -765,7 +794,7 @@ migrate((db) => {
     {
       "id": "794o0senj0u5e3c",
       "created": "2022-11-30 13:07:46.024Z",
-      "updated": "2023-01-10 12:38:54.144Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "people",
       "type": "base",
       "system": false,
@@ -869,9 +898,10 @@ migrate((db) => {
           "required": true,
           "unique": false,
           "options": {
-            "maxSelect": 1,
             "collectionId": "bt4dtwpe5921i5x",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": 1,
+            "displayFields": null
           }
         }
       ],
@@ -885,7 +915,7 @@ migrate((db) => {
     {
       "id": "bt4dtwpe5921i5x",
       "created": "2022-11-30 13:08:16.671Z",
-      "updated": "2023-01-10 12:38:54.144Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "roles",
       "type": "base",
       "system": false,
@@ -911,9 +941,10 @@ migrate((db) => {
           "required": true,
           "unique": false,
           "options": {
-            "maxSelect": 1,
             "collectionId": "dsapvm6xytb8t0r",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": 1,
+            "displayFields": null
           }
         },
         {
@@ -974,7 +1005,7 @@ migrate((db) => {
     {
       "id": "dsapvm6xytb8t0r",
       "created": "2022-11-30 13:08:58.251Z",
-      "updated": "2023-01-10 12:38:54.144Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "teams",
       "type": "base",
       "system": false,
@@ -1016,7 +1047,7 @@ migrate((db) => {
     {
       "id": "rtias8h0ed3nkp6",
       "created": "2022-12-18 21:15:21.990Z",
-      "updated": "2023-01-16 13:39:17.421Z",
+      "updated": "2023-01-24 17:46:41.254Z",
       "name": "funds",
       "type": "base",
       "system": false,
@@ -1032,6 +1063,27 @@ migrate((db) => {
             "min": null,
             "max": null,
             "pattern": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "eoud7lw9",
+          "name": "logo",
+          "type": "file",
+          "required": false,
+          "unique": false,
+          "options": {
+            "maxSelect": 1,
+            "maxSize": 5242880,
+            "mimeTypes": [
+              "image/jpg",
+              "image/jpeg",
+              "image/png",
+              "image/svg+xml",
+              "image/gif",
+              "image/webp"
+            ],
+            "thumbs": []
           }
         },
         {
@@ -1106,9 +1158,10 @@ migrate((db) => {
           "required": false,
           "unique": false,
           "options": {
-            "maxSelect": null,
             "collectionId": "zwufv0tg1ap3mm9",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": null,
+            "displayFields": null
           }
         },
         {
@@ -1119,9 +1172,10 @@ migrate((db) => {
           "required": false,
           "unique": false,
           "options": {
-            "maxSelect": null,
             "collectionId": "zwufv0tg1ap3mm9",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": null,
+            "displayFields": null
           }
         },
         {
@@ -1165,7 +1219,7 @@ migrate((db) => {
     {
       "id": "p0n56c7zdikauc0",
       "created": "2023-01-12 11:45:19.277Z",
-      "updated": "2023-01-19 21:11:06.554Z",
+      "updated": "2023-01-23 16:08:18.415Z",
       "name": "grants",
       "type": "base",
       "system": false,
@@ -1270,10 +1324,20 @@ migrate((db) => {
           "required": false,
           "unique": false,
           "options": {
-            "maxSelect": 1,
             "collectionId": "j2qukoaajq34yik",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": 1,
+            "displayFields": null
           }
+        },
+        {
+          "system": false,
+          "id": "qr6p5ykl",
+          "name": "top_up",
+          "type": "bool",
+          "required": false,
+          "unique": false,
+          "options": {}
         }
       ],
       "listRule": null,
@@ -1286,7 +1350,7 @@ migrate((db) => {
     {
       "id": "vyexlbgz7aonpji",
       "created": "2023-01-12 11:49:25.256Z",
-      "updated": "2023-01-18 12:16:21.674Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "eligibility",
       "type": "base",
       "system": false,
@@ -1325,9 +1389,10 @@ migrate((db) => {
           "required": false,
           "unique": false,
           "options": {
-            "maxSelect": 1,
             "collectionId": "p0n56c7zdikauc0",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": 1,
+            "displayFields": null
           }
         },
         {
@@ -1338,9 +1403,10 @@ migrate((db) => {
           "required": false,
           "unique": false,
           "options": {
-            "maxSelect": 1,
             "collectionId": "il4dnnh4q9xoenu",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": 1,
+            "displayFields": null
           }
         }
       ],
@@ -1354,7 +1420,7 @@ migrate((db) => {
     {
       "id": "zwufv0tg1ap3mm9",
       "created": "2023-01-12 14:15:30.031Z",
-      "updated": "2023-01-12 14:15:30.031Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "organisations",
       "type": "base",
       "system": false,
@@ -1383,7 +1449,7 @@ migrate((db) => {
     {
       "id": "il4dnnh4q9xoenu",
       "created": "2023-01-13 11:05:00.543Z",
-      "updated": "2023-01-19 17:49:34.910Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "investments",
       "type": "base",
       "system": false,
@@ -1474,9 +1540,10 @@ migrate((db) => {
           "required": false,
           "unique": false,
           "options": {
-            "maxSelect": 1,
             "collectionId": "j2qukoaajq34yik",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": 1,
+            "displayFields": null
           }
         }
       ],
@@ -1490,7 +1557,7 @@ migrate((db) => {
     {
       "id": "47id2hc4agpaiw7",
       "created": "2023-01-13 17:58:45.477Z",
-      "updated": "2023-01-13 17:58:45.477Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "applications_grants",
       "type": "base",
       "system": false,
@@ -1503,9 +1570,10 @@ migrate((db) => {
           "required": false,
           "unique": false,
           "options": {
-            "maxSelect": null,
             "collectionId": "p0n56c7zdikauc0",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": null,
+            "displayFields": null
           }
         },
         {
@@ -1516,9 +1584,10 @@ migrate((db) => {
           "required": false,
           "unique": false,
           "options": {
-            "maxSelect": null,
             "collectionId": "vzy3j3ok3iak6uy",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": null,
+            "displayFields": null
           }
         }
       ],
@@ -1532,7 +1601,7 @@ migrate((db) => {
     {
       "id": "j2qukoaajq34yik",
       "created": "2023-01-17 13:09:23.461Z",
-      "updated": "2023-01-18 12:02:18.288Z",
+      "updated": "2023-01-19 22:36:32.010Z",
       "name": "rounds",
       "type": "base",
       "system": false,
@@ -1589,15 +1658,40 @@ migrate((db) => {
         },
         {
           "system": false,
+          "id": "gtith2vr",
+          "name": "accessed_from",
+          "type": "date",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": "",
+            "max": ""
+          }
+        },
+        {
+          "system": false,
+          "id": "lz3x1unb",
+          "name": "accessed_to",
+          "type": "date",
+          "required": false,
+          "unique": false,
+          "options": {
+            "min": "",
+            "max": ""
+          }
+        },
+        {
+          "system": false,
           "id": "lurbvpd9",
           "name": "fund",
           "type": "relation",
           "required": false,
           "unique": false,
           "options": {
-            "maxSelect": 1,
             "collectionId": "rtias8h0ed3nkp6",
-            "cascadeDelete": false
+            "cascadeDelete": false,
+            "maxSelect": 1,
+            "displayFields": null
           }
         }
       ],
