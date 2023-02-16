@@ -1,12 +1,13 @@
 ---
-import { funds } from "../../../data/funds.js";
 import Layout from "../../../layouts/Layout.astro";
 import Container from "../../../layouts/Container.astro";
+import Funding from "../../../components/Funding.astro";
+
+import { funds } from "../../../data/directus/funds.js";
 
 export async function getStaticPaths() {
-  let pages = funds.map((fund) => {
-
-    let item = {
+  return funds.map((fund) => {
+    let oogle = {
       params: {
         fund: fund.slug,
       },
@@ -15,36 +16,63 @@ export async function getStaticPaths() {
       },
     };
 
-    return item;
+    return oogle;
   });
-
-  return pages;
 }
 
-
 const { fund } = Astro.props;
-
 ---
 
 <Layout>
   <Container>
-    {
-      (
-        <>
-          <a href="/funds" class="underline hover:text-violet-300 text-white">
+
+              <a href="/funds" class="underline hover:text-violet-300 text-white">
             <i class="fa-solid fa-arrow-left-long" /> Back to funds
           </a>
-          <h1 class="text-white text-3xl">{fund.name}</h1>
-          {fund.email && (
+
+
+          <div class="flex flex-row gap-10">
+            <div class="basis-2/6">
+            
+                      <div class="border-gray-200 bg-white px-9 py-9 rounded-md flex flex-col gap-5">
+          <div class="flex flex-row gap-3 items-center">
+            <div>
+              { /* fund.logo != null && <img
+              class="h-12 w-12 rounded-md"
+              src={`https://unltd.directus.app/assets/${fund.logo.id}`}
+              alt=""/> */ }
+            </div>
+            <div class="">
+              <a href={`/funds/${fund.slug}`}>
+                <h3 class="text-lg font-medium leading-6 text-gray-900">
+                  {fund.name}
+                </h3>
+              </a>
+              <div>
+{ fund.organisations && <p class="text-xs text-gray-500">Partners</p>
+
+<div>
+  {fund.organisations.map((organisation) => {
+    <img class="h-12 w-12 rounded-md" src={`https://unltd.directus.app/assets/${organisation.organisations_id.logo}`} alt=""/>
+    <p>{organisation.organisations_id.name}</p>
+  })
+  }
+</div> }
+              </div>
+            </div>
+          </div>
+            <div>
+              {fund.email && (
             <a
               class="inline-flex items-center rounded-full border border-transparent bg-white px-3 py-1.5 text-xs font-medium text-violet-900 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
               href={`mailto:${fund.email}`}
             >
-              Email
+              {fund.email}
             </a>
           )}
-
-          {fund.website && (
+            </div>
+            <div>
+                        {fund.website && (
             <a
               class="inline-flex items-center rounded-full border border-transparent bg-white px-3 py-1.5 text-xs font-medium text-violet-900 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
               href={fund.website}
@@ -54,66 +82,35 @@ const { fund } = Astro.props;
               Website
             </a>
           )}
-
-          <div>
-            <p class="font-bold text-white">Funders</p>
-            {fund.funders !== undefined && (
-              <ul class="list-disc list-inside text-white">
-                {fund.funders.map((funder) => (
-                  <li>{funder.name}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <div>
-            <p class="font-bold text-white">Partners</p>
-            {fund.partners !== undefined && (
-              <ul class="list-disc list-inside text-white">
-                {fund.partners.map((partner) => (
-                  <li>{partner.name}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-          <p class="text-white">{fund.description}</p>
-          <p>There are {fund.rounds.length} rounds for {fund.name}</p>
-          <ul class="text-white list-disc">
-            {fund.rounds !== undefined &&
+            </div>
+            <div>
+          <p class="text-gray-500 text-sm">{fund.description}</p>
+            </div>
+        </div>
+            </div>
+            <div class="basis-4/6">
+                      <ul class="text-white list-disc">
+            {fund.rounds.length > 0 &&
               fund.rounds.map((round) => (
                 <>
                   <li>
                     <a
                       class="underline hover:text-violet-300"
-                      href={`/funds/${fund.slug}/${round.open}-${round.closed}`}
+                      href={`/funds/${fund.slug}/${round.open}-${round.close}`}
                     >
-                      {round.open} - {round.closed}
+                      {round.open} - {round.close}
                     </a>
                   </li>
-                  {round.grants !== undefined && (
-                    <p class="uppercase text-white">Grants</p>
+                  {round.funding > 0 && (
+                    <p class="uppercase text-white">Funding</p>
                     <ul class="list-disc list-inside">
-                      {round.grants.map((grant) => (
+                      {round.funding.map((grant) => (
                         <li>
                           <a
                             class="underline hover:text-violet-300"
-                            href={`/funds/${fund.slug}/${round.open}-${round.closed}/${grant.slug}`}
+                            href={`/funds/${fund.slug}/${round.open}-${round.close}/${grant.slug}`}
                           >
                             {grant.name}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {round.investmets !== undefined && (
-                    <ul class="list-disc list-inside">
-                      <p class="uppercase text-white">Investments</p>
-                      {round.investments.map((investment) => (
-                        <li>
-                          <a
-                            class="underline hover:text-violet-300"
-                            href={`/funds/${fund.slug}/${round.open}-${round.closed}/${investment.slug}`}
-                          >
-                            {investment.name}
                           </a>
                         </li>
                       ))}
@@ -122,8 +119,7 @@ const { fund } = Astro.props;
                 </>
               ))}
           </ul>
-        </>
-      )
-    }
+            </div>
+          </div>
   </Container>
 </Layout>

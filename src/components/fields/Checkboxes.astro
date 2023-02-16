@@ -2,7 +2,10 @@
 const { name, description, slug, required, options, disabled, number } =
   Astro.props;
 import { marked } from "marked";
-let markdown = marked.parse(description);
+let markdown;
+if (description != null) {
+  markdown = marked.parse(description);
+}
 ---
 
 <fieldset>

@@ -1,5 +1,5 @@
 ---
-import nav from "../../../data/nav.json";
+import nav from "../../../data/json/nav.json";
 import Item from "./Item.astro";
 import Dropdown from "./DropdownItem.astro";
 import DropdownItem from "./DropdownItem.astro";
@@ -92,13 +92,17 @@ import Logo from "../../OrangeLogo.astro";
   }
 </script>
 
-<nav class="flex flex-col lg:hidden gap-2">
-  <div class="bar flex justify-around bg-gray-300 p-3">
+<nav class="flex flex-col lg:hidden gap-2 shadow-2xl">
+  <div class="bar flex justify-between p-5">
     <div class="logo">
-      <p>{Astro.url.pathname}</p>
+      <a href="/">
+        <span class="sr-only">UnLtd</span>
+        <Logo colour="amber-600" />
+      </a>
     </div>
     <div>
       <button
+        class="text-white"
         id="hamburgerButton"
         onclick="hamburgerMenu()"
         aria-expanded="false">&#9776;</button
@@ -106,29 +110,29 @@ import Logo from "../../OrangeLogo.astro";
     </div>
   </div>
 
-  <ul id="hamburgerMenu" class="flex flex-col gap-5 bg-gray-300 hidden">
+  <ul id="hamburgerMenu" class="flex flex-col gap-5 hidden mx-5">
     {
       nav.header.map((navItem) =>
         navItem.children.length >= 1 ? (
           <li class="mobileDropdown">
             <button
               id={`mobileDropdownButton-${navItem.slug}`}
-              class="mobileDropdownButtons p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 focus:font-bold focus:bg-gray-300 focus:text-gray-900"
+              class="p-2 rounded-md mobileDropdownButtons text-sm font-medium text-white hover:bg-violet-800 hover:text-violet-200 focus:font-bold focus:bg-violet-800 focus:text-violet-200"
               onclick={`mobile("${navItem.slug}")`}
               aria-expanded="false"
             >
-              {navItem.name} &#5167;
+              <span>{navItem.name}</span> <i class="fa-solid fa-caret-down" />
             </button>
 
             <ul
               id={`mobileDropdownContent-${navItem.slug}`}
-              class="mobileDropdownContent hidden p-3 bg-gray-300 border border-sky-500 absolute"
+              class="mobileDropdownContent hidden p-3 bg-violet-800 absolute shadow-2xl rounded-md"
             >
-              <li class="flex flex-col gap-1 p-1 bg-gray-200 border border-red-500 mobileDropdownItem">
+              <li class="flex flex-col gap-1 p-1 mobileDropdownItem">
                 {navItem.children.map((navItemChild) => (
                   <a
                     href={`/${navItemChild.slug}`}
-                    class="text-sm font-medium p-2 bg-gray-100 border border-green-500 block"
+                    class="hover:text-violet-200 text-sm font-medium p-2 text-violet-100 block"
                   >
                     {navItemChild.name}
                   </a>
@@ -140,7 +144,7 @@ import Logo from "../../OrangeLogo.astro";
           <li>
             <a
               href={`/${navItem.slug}`}
-              class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900"
+              class="text-sm font-medium text-white hover:text-violet-200 active:font-bold active:text-amber-600"
             >
               {navItem.name}
             </a>
@@ -150,9 +154,10 @@ import Logo from "../../OrangeLogo.astro";
             <a
               href={navItem.link}
               target="_blank"
-              class="p-3 text-sm font-medium bg-gray-200 text-gray-800 hover:bg-gray-300 hover:text-gray-900 active:font-bold active:bg-gray-300 active:text-gray-900"
+              class="text-sm font-medium text-white hover:text-violet-200 active:font-bold active:text-amber-600 flex flex-row gap-2 items-center"
             >
-              {navItem.name} &#10532;
+              <span>{navItem.name}</span>
+              <i class="text-xs fa-solid fa-arrow-up-right-from-square" />
             </a>
           </li>
         )
