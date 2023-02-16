@@ -3,7 +3,7 @@ migrate((db) => {
     {
       "id": "_pb_users_auth_",
       "created": "2022-11-28 10:39:30.408Z",
-      "updated": "2023-02-16 17:39:43.219Z",
+      "updated": "2023-01-19 22:19:38.634Z",
       "name": "users",
       "type": "auth",
       "system": false,
@@ -61,7 +61,7 @@ migrate((db) => {
     {
       "id": "cvt4g4zjpn3vkzf",
       "created": "2022-11-28 11:32:49.366Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "groups",
       "type": "base",
       "system": false,
@@ -211,7 +211,7 @@ migrate((db) => {
     {
       "id": "0hm8jcor8o0vnc3",
       "created": "2022-11-28 11:34:01.059Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "sections",
       "type": "base",
       "system": false,
@@ -292,7 +292,7 @@ migrate((db) => {
     {
       "id": "vzy3j3ok3iak6uy",
       "created": "2022-11-28 11:34:51.820Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-02-16 12:37:00.429Z",
       "name": "applications",
       "type": "base",
       "system": false,
@@ -514,7 +514,7 @@ migrate((db) => {
     {
       "id": "7fn3fjl77wmfqph",
       "created": "2022-11-28 12:07:02.180Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-25 10:48:44.990Z",
       "name": "fields",
       "type": "base",
       "system": false,
@@ -794,7 +794,7 @@ migrate((db) => {
     {
       "id": "794o0senj0u5e3c",
       "created": "2022-11-30 13:07:46.024Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "people",
       "type": "base",
       "system": false,
@@ -915,7 +915,7 @@ migrate((db) => {
     {
       "id": "bt4dtwpe5921i5x",
       "created": "2022-11-30 13:08:16.671Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "roles",
       "type": "base",
       "system": false,
@@ -1005,7 +1005,7 @@ migrate((db) => {
     {
       "id": "dsapvm6xytb8t0r",
       "created": "2022-11-30 13:08:58.251Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "teams",
       "type": "base",
       "system": false,
@@ -1047,7 +1047,7 @@ migrate((db) => {
     {
       "id": "rtias8h0ed3nkp6",
       "created": "2022-12-18 21:15:21.990Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-24 17:46:41.254Z",
       "name": "funds",
       "type": "base",
       "system": false,
@@ -1219,7 +1219,7 @@ migrate((db) => {
     {
       "id": "p0n56c7zdikauc0",
       "created": "2023-01-12 11:45:19.277Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-23 16:08:18.415Z",
       "name": "grants",
       "type": "base",
       "system": false,
@@ -1350,7 +1350,7 @@ migrate((db) => {
     {
       "id": "vyexlbgz7aonpji",
       "created": "2023-01-12 11:49:25.256Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "eligibility",
       "type": "base",
       "system": false,
@@ -1420,7 +1420,7 @@ migrate((db) => {
     {
       "id": "zwufv0tg1ap3mm9",
       "created": "2023-01-12 14:15:30.031Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "organisations",
       "type": "base",
       "system": false,
@@ -1449,7 +1449,7 @@ migrate((db) => {
     {
       "id": "il4dnnh4q9xoenu",
       "created": "2023-01-13 11:05:00.543Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "investments",
       "type": "base",
       "system": false,
@@ -1557,7 +1557,7 @@ migrate((db) => {
     {
       "id": "47id2hc4agpaiw7",
       "created": "2023-01-13 17:58:45.477Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-19 22:19:38.636Z",
       "name": "applications_grants",
       "type": "base",
       "system": false,
@@ -1601,7 +1601,7 @@ migrate((db) => {
     {
       "id": "j2qukoaajq34yik",
       "created": "2023-01-17 13:09:23.461Z",
-      "updated": "2023-02-16 17:39:43.220Z",
+      "updated": "2023-01-19 22:36:32.010Z",
       "name": "rounds",
       "type": "base",
       "system": false,
