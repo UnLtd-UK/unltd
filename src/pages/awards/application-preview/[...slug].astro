@@ -1,0 +1,183 @@
+---
+import Blank from "../../../layouts/Blank.astro";
+import Layout from "../../../layouts/Layout.astro";
+
+import Header from "../../../components/Header.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+
+import Container from "../../../layouts/Container.astro";
+import Grant from "../../../components/GrantOld.astro";
+import AsideLeft from "../../../components/application-preview/AsideLeft.astro";
+import Main from "../../../components/application-preview/Main.astro";
+import AsideRight from "../../../components/application-preview/AsideRight.astro";
+import { pb_applications } from "../../../data/pocketbase/applications.js";
+import { pb_sections } from "../../../data/pocketbase/sections.js";
+import { pb_fields } from "../../../data/pocketbase/fields.js";
+
+Astro.props;
+
+export async function getStaticPaths() {
+  const namee = "Awards application preview";
+  const slugg = "application-preview";
+  const descriptionn =
+    "Preview our application form or download the questions so that you can prepare your application before you sign up for an Award account";
+
+  const breadcrumbs = [
+    {
+      name: "Awards",
+      slug: "/awards",
+    },
+    {
+      name: namee,
+      slug: `/awards/${slugg}`,
+    },
+  ];
+  function sectionsMapper(parents, parentNames, childs, childNames) {
+    return parents.map((parent) => {
+      parent[childNames] = [];
+      childs.map((child) => {
+        if (child[parentNames].length == 1 && child[parentNames] == parent.id) {
+          parent[childNames].push(child);
+        } else if (child[parentNames].length > 1) {
+          childs.map((childw) => {
+            if (childw[parentNames] == parent.id) {
+              parent[childNames].push(child);
+            }
+          });
+        }
+      });
+      return parent;
+    });
+  }
+
+  function fieldsMapper(applications) {
+    return applications.map((application) => {
+      application.sections.map((section) => {
+        section.fields = [];
+        pb_fields.map((field) => {
+          if (
+            field["sections"].length == 1 &&
+            field["sections"] == section.id
+          ) {
+            section["fields"].push(field);
+          } else if (field["sections"].length > 1) {
+            field["sections"].map((fieldw) => {
+              if (fieldw == section.id) {
+                section["fields"].push(field);
+              }
+            });
+          }
+        });
+      });
+      return application;
+    });
+  }
+
+  let applicationWithSections = sectionsMapper(
+    pb_applications,
+    "applications",
+    pb_sections,
+    "sections"
+  );
+
+  let applicationWithFields = fieldsMapper(applicationWithSections);
+
+  const pages = [];
+
+  applicationWithFields.forEach((app) => {
+    let varuss = breadcrumbs.map((x) => x);
+
+    // let nameLowerCase = app.name.toLowerCase();
+
+    varuss.push({
+      name: app.name,
+      slug: `/awards/${slugg}/${app.slug}`,
+    });
+
+    pages.push({
+      params: { slug: app.slug },
+      props: {
+        name: app.name,
+        description: app.description,
+        application: app,
+        applications: applicationWithFields,
+        breadcrumbs: varuss,
+      },
+    });
+  });
+
+  pages.push({
+    params: { slug: undefined },
+    props: {
+      name: namee,
+      description: descriptionn,
+      application: [],
+      applications: applicationWithFields,
+      breadcrumbs: breadcrumbs,
+    },
+  });
+
+  return pages;
+}
+
+const { slugg } = Astro.params;
+const { name, description, application, applications, breadcrumbs } =
+  Astro.props;
+---
+
+<Layout name={name} description={description}>
+  {
+    application.length == 0 && (
+      <>
+        <Header
+          name={name}
+          description={description}
+          breadcrumbs={breadcrumbs}
+        />
+        <Container>
+          <div class="col-span-12 flex flex-row gap-3 mb-5">
+            <div class="flex flex-col gap-1">
+              <h2 class="text-white text-3xl font-bold">
+                What is your stage of development?
+              </h2>
+              <p class="text-violet-200">
+                Select the option that best matches the stage of your venture
+              </p>
+            </div>
+          </div>
+          <div class="grid xs:grid-rows-3 xs:git-flow-row lg:grid-cols-3 lg:grid-flow-col gap-4 col-span-12 flex-row">
+            {pb_applications.map((application) => (
+              <Grant application={application} url={application.slug} />
+            ))}
+          </div>
+        </Container>
+      </>
+    )
+  }
+
+  {
+    application.length != 0 && (
+      <>
+        <Breadcrumbs name={name} breadcrumbs={breadcrumbs} />
+        <div class="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col gap-2">
+          <div class="flex flex-col sm:flex-row gap-10">
+            <div class="basis-full lg:basis-1/4 sm:auto-cols-fr sm:self-start sm:sticky sm:top-10">
+              <AsideLeft application={application} />
+            </div>
+            <div class="flex flex-col gap-5 lg:flex-row basis-full lg:basis-3/4 lg:auto-cols-fr">
+              <div class="block lg:hidden lg:basis-4/12">
+                <AsideRight application={application} />
+              </div>
+              <div class="lg:basis-7/12">
+                <Main application={application} />
+              </div>
+              <div class="hidden lg:block lg:basis-5/12">
+                <AsideRight application={application} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  }
+</Layout>

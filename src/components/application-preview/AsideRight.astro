@@ -1,0 +1,99 @@
+---
+const { application } = Astro.props;
+import Pop from "../Pop.astro";
+---
+
+<aside class="flex flex-col gap-12">
+  <Pop
+    name="Start your application"
+    icon="fa-solid fa-arrow-pointer"
+    description=""
+    buttons={[
+      {
+        name: "Sign up for an Award account",
+        description: "",
+        url: {
+          link: "https://unltd.microsoftcrmportals.com/applications/",
+          target: "_blank",
+        },
+        path: "",
+        icon: {
+          position: 1,
+          name: "arrow-right",
+        },
+      },
+    ]}
+  />
+
+  {
+    application.pdf && (
+      <Pop
+        name="Download application"
+        icon="fa-solid fa-download"
+        description=""
+        buttons={[
+          {
+            name: "Download PDF",
+            url: `http://127.0.0.1:8090/api/files/applications/${application.id}/${application.pdf}`,
+            path: "",
+            description: "",
+            icon: {
+              position: 0,
+              name: "fa-regular fa-arrow-down",
+            },
+          },
+          {
+            name: "Download DOCX",
+            url: `http://127.0.0.1:8090/api/files/applications/${application.id}/${application.docx}`,
+            path: "",
+            description: "Recommended for Microsoft Word",
+            icon: {
+              position: 0,
+              name: "fa-regular fa-arrow-down",
+            },
+          },
+        ]}
+      />
+    )
+  }
+
+  {
+    application.xlsx && (
+      <Pop
+        name="Application guidance"
+        icon="fa-solid fa-list"
+        description=""
+        buttons={[
+          {
+            name: "File uploads",
+            description: "Section 6. Question 14",
+            url: "",
+            path: `/awards/application-preview/${application.slug}/s6/q14`,
+            icon: {
+              position: 1,
+              name: "arrow-right",
+            },
+          },
+        ]}
+      />
+    )
+  }
+
+  <Pop
+    name="Help"
+    icon="fa-regular fa-circle-question"
+    description="Help with the application process is available for those with additional support needs."
+    buttons={[
+      {
+        name: "Contact us",
+        url: "",
+        path: "/contact-us",
+        description: "",
+        icon: {
+          position: 1,
+          name: "fa-regular fa-arrow-right",
+        },
+      },
+    ]}
+  />
+</aside>
