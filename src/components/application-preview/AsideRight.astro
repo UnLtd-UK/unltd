@@ -3,16 +3,14 @@ const { application } = Astro.props;
 import Pop from "../Pop.astro";
 ---
 
-<div
-  class="col-span-12 lg:col-span-3 lg:auto-cols-fr lg:self-start lg:sticky lg:top-10 flex-none flex flex-col gap-12"
->
+<aside class="flex flex-col gap-12">
   <Pop
     name="Start your application"
     icon="fa-solid fa-arrow-pointer"
     description=""
     buttons={[
       {
-        name: "Sign-up to an Award account",
+        name: "Sign up for an Award account",
         description: "",
         url: {
           link: "https://unltd.microsoftcrmportals.com/applications/",
@@ -70,7 +68,7 @@ import Pop from "../Pop.astro";
             name: "File uploads",
             description: "Section 6. Question 14",
             url: "",
-            path: "/awards/application-preview/social-venture-established-between-1-to-4-years/s6/q14",
+            path: `/awards/application-preview/${application.slug}/s6/q14`,
             icon: {
               position: 1,
               name: "arrow-right",
@@ -84,7 +82,7 @@ import Pop from "../Pop.astro";
   <Pop
     name="Help"
     icon="fa-regular fa-circle-question"
-    description="We can assist with making an application, such as working through the application with a colleague."
+    description="Help with the application process is available for those with additional support needs."
     buttons={[
       {
         name: "Contact us",
@@ -98,4 +96,4 @@ import Pop from "../Pop.astro";
       },
     ]}
   />
-</div>
+</aside>
