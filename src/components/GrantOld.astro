@@ -1,8 +1,8 @@
 ---
 const { application, url = false } = Astro.props;
 import { marked } from "marked";
-application.body = marked.parse(application.body);
-application.grant_description = marked.parse(application.grant_description);
+// application.body = marked.parse(application.body);
+// application.description = marked.parse(application.grant_description);
 
 let Element = "div";
 
@@ -18,136 +18,51 @@ if (url) {
     "flex flex-col gap-1 transition border-white border border-opacity-20 shadow-md hover:shadow-xl hover:scale-105 hover:bg-white hover:border-opacity-50 hover:bg-opacity-5 py-7 px-7 col-span-1"
   }`}
 >
-  <div class="flex flex-col gap-7">
-    <!-- <div class="text-white flex flex-row items-center gap-3">
-        <img
-          class="inline-block h-10 w-10 rounded-md"
-          src="/awards.webp"
-          alt="Awards"
-        />
-        <div class="flex flex-col">
-          <p class="text-xs text-violet-300">Awards</p>
-          <p class="text-sm">{application.awards}</p>
-        </div>
-      </div> -->
-    <div class="flex gap-2 f flex-col">
-      <div
-        class="text-sm text-white flex flex-col gap-3 mt-2"
-        set:html={application.body}
-      />
-      <p class="text-sm text-white tracking-tight">
-        {application.awards} Award
-      </p>
-      <div class="flex flex-row items-center gap-2">
-        <p class="text-xs uppercase text-violet-400 tracking-tight">Up to</p>
-      </div>
-      <div class="flex flex-col gap-2">
-        <p class="text-violet-100 text-3xl font-bold">
-          {
-            new Intl.NumberFormat("en-GB", {
-              maximumSignificantDigits: 3,
-              style: "currency",
-              currency: "GBP",
-            }).format(application.grant_amount)
-          }
+  <div class="flex flex-col gap-7 justify-between">
+    <div class="flex gap-5 flex-col justify-between">
+      <div class="h-26">
+        <h2 class="text-lg text-white flex flex-col gap-3 mt-2">
+          {application.name}
+        </h2>
+        <p class="text-sm text-violet-200 flex flex-col gap-3 mt-2">
+          {application.description}
         </p>
-        <div
-          class="text-sm text-white flex flex-col gap-3 mt-2"
-          set:html={application.grant_description}
-        />
-        <!-- <div class="flex flex-col gap-1">
-            <div class="flex flex-row gap-2 items-center">
-              {
-                application.social_venture_costs && (
-                  <>
-                    <i class="text-xs opacity-50 h-4 w-4 flex justify-center rounded-full items-center bg-violet-200 fa-solid fa-check" />
-                    <p class="text-sm text-violet-200">
-                      For social venture costs
-                    </p>
-                  </>
-                )
-              }
-            </div>
-            <div class="flex flex-row gap-2 items-center">
-              {
-                application.social_entrepreneur_salary && (
-                  <>
-                    <i class="text-xs opacity-50 h-4 w-4 flex justify-center rounded-full items-center bg-violet-200 fa-solid fa-check" />
-                    <p class="text-sm text-violet-200">
-                      For social entrepreneur salary
-                    </p>
-                  </>
-                )
-              }
-            </div>
-          </div> -->
       </div>
-    </div>
 
-    <!-- <div class="flex flex-col gap-7">
-        <div class="flex flex-col gap-3">
-          <div class="flex flex-row gap-2 items-center">
-            <p class="text-violet-400 uppercase text-xs tracking-tight">
-              Your social venture must be...
-            </p>
-          </div>
-
-          <div class="flex flex-col gap-5">
-            <div>
-              <span class="bg-opacity-30 rounded-full py-1 flex flex-row gap-2">
-                <i
-                  class="text-violet-200 text-xs fa-solid fa-tag bg-violet-100 bg-opacity-20 h-5 w-5 flex justify-center items-center rounded-md"
-                ></i>
-                <div>
-                  <p
-                    class="text-violet-200 text-opacity-80 text-xs uppercase tracking-wide"
-                  >
-                    Selling goods and services
-                  </p>
-                  <p class="text-violet-200 text-sm">
-                    {application.selling_goods_and_services}
-                  </p>
-                </div>
-              </span>
-            </div>
-
-            <div>
-              <span class="bg-opacity-30 rounded-full py-1 flex flex-row gap-2">
-                <i
-                  class="text-violet-200 text-xs fa-solid fa-heart bg-violet-100 bg-opacity-20 h-5 w-5 flex justify-center items-center rounded-md"
-                ></i>
-                <div>
-                  <p
-                    class="text-violet-200 text-opacity-80 text-xs uppercase tracking-wide"
-                  >
-                    Making a positive difference
-                  </p>
-                  <p class="text-violet-200 text-sm">
-                    {application.positive_impact}
-                  </p>
-                </div>
-              </span>
-            </div>
-
-            <div>
-              <span class="bg-opacity-30 rounded-full py-1 flex gap-2">
-                <i
-                  class="text-violet-200 text-xs fa-solid fa-certificate bg-violet-100 bg-opacity-20 h-5 w-5 flex justify-center items-center rounded-md"
-                ></i>
-                <div>
-                  <p
-                    class="text-violet-200 text-opacity-80 text-xs uppercase tracking-wide"
-                  >
-                    Incorporated
-                  </p>
-                  <p class="text-violet-200 text-sm">
-                    {application.incorporated}
-                  </p>
-                </div>
-              </span>
-            </div>
-          </div>
+      <div class="flex flex-col gap-2">
+        <p class="text-sm text-white tracking-tight font-bold">
+          {application.grant_title} Award
+        </p>
+        <div class="flex flex-col gap-1">
+          <p class="text-xs uppercase text-violet-400 tracking-tight">Up to</p>
+          <p class="text-violet-100 text-3xl font-bold">
+            {
+              new Intl.NumberFormat("en-GB", {
+                maximumSignificantDigits: 3,
+                style: "currency",
+                currency: "GBP",
+              }).format(application.grant_amount)
+            }
+          </p>
+          <p class="text-sm text-violet-300 tracking-tight">
+            {application.grant_description}
+          </p>
         </div>
-      </div> -->
+      </div>
+      {
+        application.disclaimer && (
+          <div class="rounded-md border bg-violet-100 p-4">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <i class="fa-solid fa-triangle-exclamation text-violet-700" />
+              </div>
+              <div class="ml-3 flex-1 md:flex md:justify-between">
+                <p class="text-sm text-violet-700">{application.disclaimer}</p>
+              </div>
+            </div>
+          </div>
+        )
+      }
+    </div>
   </div>
 </Element>
