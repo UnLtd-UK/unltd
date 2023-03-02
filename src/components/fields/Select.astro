@@ -17,6 +17,11 @@ if (description != null) {
       >{required == true && `Required`}</span
     >
   </div>
+  <div
+    class="mt-2 text-sm text-gray-500 leading-relaxed prose"
+    id={`${slug}-description}`}
+    set:html={markdown}
+  />
   {
     () => {
       description && (
