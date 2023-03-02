@@ -1,11 +1,13 @@
 ---
 import Fields from "../../components/fields/Fields.astro";
+import Grant from "../../components/GrantOld.astro";
 import { marked } from "marked";
 
 const { application } = Astro.props;
 ---
 
-<main class="flex flex-col gap-4">
+<main class="flex flex-col gap-10">
+  <Grant application={application} />
   <div class="bg-amber-100 px-5 py-5 rounded-md shadow-md">
     <div class="flex flex-col gap-3">
       <i class="fa-solid fa-circle-exclamation text-amber-600 text-xl"></i>
