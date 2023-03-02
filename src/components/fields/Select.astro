@@ -1,5 +1,5 @@
 ---
-const { name, description, slug, required, disabled, options, number } =
+const { name, description, slug, required, disabled, options, number, alias } =
   Astro.props;
 import { marked } from "marked";
 let markdown;
@@ -36,11 +36,15 @@ if (description != null) {
   <select
     id={slug}
     name={slug}
-    class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-violet-500 focus:outline-none focus:ring-violet-500 sm:text-sm"
+    disabled={disabled}
+    class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-violet-500 focus:outline-none focus:ring-violet-500 sm:text-sm disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-500"
   >
     {
       options.map((option) => (
-        <option value={option.code ? option.code : option.slug}>
+        <option
+          value={option.code ? option.code : option.slug}
+          selected={option.slug == alias && "selected"}
+        >
           {option.name}
         </option>
       ))
