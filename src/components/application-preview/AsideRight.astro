@@ -3,28 +3,7 @@ const { application } = Astro.props;
 import Pop from "../Pop.astro";
 ---
 
-<aside class="flex flex-col gap-12">
-  <Pop
-    name="Start your application"
-    icon="fa-solid fa-arrow-pointer"
-    description=""
-    buttons={[
-      {
-        name: "Sign up for an Award account",
-        description: "",
-        url: {
-          link: "https://unltd.microsoftcrmportals.com/applications/",
-          target: "_blank",
-        },
-        path: "",
-        icon: {
-          position: 1,
-          name: "arrow-right",
-        },
-      },
-    ]}
-  />
-
+<aside class="flex flex-col gap-7">
   {
     application.pdf && (
       <Pop
