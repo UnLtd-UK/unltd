@@ -6,7 +6,7 @@ import { marked } from "marked";
 const { application } = Astro.props;
 ---
 
-<main class="flex flex-col gap-10">
+<main class="flex flex-col gap-5">
   <Grant application={application} />
   <div class="bg-amber-100 px-5 py-5 rounded-md shadow-md">
     <div class="flex flex-col gap-3">
@@ -15,13 +15,23 @@ const { application } = Astro.props;
         This is a preview of our application form
       </h3>
     </div>
-    <div class="mt-2 flex flex-col gap-6 sm:items-start sm:justify-between">
+    <div class="mt-2 flex flex-col gap-1 sm:items-start sm:justify-between">
       <div class="text-sm text-amber-700">
         <p>
           This is a preview of the application form. Once you are ready to start
           your application, sign-up to an Award account and click 'Start a new
           application'.
         </p>
+      </div>
+      <div class="mt-4">
+        <div class="flex">
+          <a
+            href="https://unltd.microsoftcrmportals.com/applications/"
+            target="_blank"
+            class="rounded-md bg-amber-50 px-4 py-2 text-sm font-medium text-amber-800 transition hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:ring-offset-2 focus:ring-offset-amber-50"
+            >Sign-up for an Award account</a
+          >
+        </div>
       </div>
     </div>
   </div>
