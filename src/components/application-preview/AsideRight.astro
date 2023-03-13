@@ -13,7 +13,7 @@ import Pop from "../Pop.astro";
         buttons={[
           {
             name: "Download PDF",
-            url: `http://127.0.0.1:8090/api/files/applications/${application.id}/${application.pdf}`,
+            url: application.pdf_href,
             path: "",
             description: "",
             icon: {
@@ -23,7 +23,7 @@ import Pop from "../Pop.astro";
           },
           {
             name: "Download DOCX",
-            url: `http://127.0.0.1:8090/api/files/applications/${application.id}/${application.docx}`,
+            url: application.docx_href,
             path: "",
             description: "Recommended for Microsoft Word",
             icon: {
