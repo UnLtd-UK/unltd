@@ -11,19 +11,19 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/alpinejs": "^0.2.0",
-    "@astrojs/mdx": "^0.18.0",
+    "@astrojs/alpinejs": "^0.2.1",
+    "@astrojs/mdx": "^0.18.2",
     "@astrojs/svelte": "^2.1.0",
-    "@astrojs/tailwind": "^3.1.0",
-    "@directus/sdk": "^10.3.1",
+    "@astrojs/tailwind": "^3.1.1",
+    "@directus/sdk": "^10.3.3",
     "@types/alpinejs": "^3.7.1",
     "alpinejs": "^3.12.0",
-    "astro": "^2.1.2",
-    "marked": "^4.2.12",
-    "pocketbase": "^0.12.1",
-    "slugify": "^1.6.5",
-    "svelte": "^3.56.0",
-    "tailwindcss": "^3.2.7"
+    "astro": "^2.2.0",
+    "marked": "^4.3.0",
+    "pocketbase": "^0.13.1",
+    "slugify": "^1.6.6",
+    "svelte": "^3.58.0",
+    "tailwindcss": "^3.3.1"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
