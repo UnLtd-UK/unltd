@@ -7,28 +7,13 @@
   ],
   "header": [
     {
-      "name": "Awards",
-      "slug": "awards",
+      "name": "Grants",
+      "slug": "grants",
       "children": []
     },
     {
       "name": "Investment",
       "link": "https://growthimpactfund.org.uk",
-      "children": []
-    },
-    {
-      "name": "Blog",
-      "slug": "blog",
-      "children": []
-    },
-    {
-      "name": "Events",
-      "link": "https://www.eventbrite.co.uk/o/unltd-foundation-for-social-entrepreneurs-4248932779",
-      "children": []
-    },
-    {
-      "name": "Podcast",
-      "slug": "podcasts/1",
       "children": []
     },
     {
@@ -42,7 +27,7 @@
       "children": [
         {
           "name": "What we do",
-          "slug": "about-us/what-we-do"
+          "slug": "what-we-do"
         },
         {
           "name": "Our strategy",
@@ -50,31 +35,27 @@
         },
         {
           "name": "Meet the team",
-          "slug": "about-us/our-team"
+          "slug": "meet-the-team"
         },
         {
           "name": "Our brand",
-          "slug": "about-us/our-brand"
+          "slug": "our-brand"
         },
         {
           "name": "Safeguarding",
-          "slug": "about-us/safeguarding"
+          "slug": "safeguarding"
         },
         {
           "name": "Equity Commitments",
-          "slug": "about-us/equity-commitments"
+          "slug": "equity-commitments"
         },
         {
           "name": "Impact Reports",
-          "slug": "about-us/impact-reports-1"
+          "slug": "impact-reports"
         },
         {
           "name": "Governance",
-          "slug": "about-us/financial-reports"
-        },
-        {
-          "name": "Our research",
-          "slug": "about-us/research"
+          "slug": "governance"
         }
       ]
     }

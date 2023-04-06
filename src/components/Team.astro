@@ -1,0 +1,26 @@
+---
+const { parent_team, teams } = Astro.props;
+---
+
+<ul class="text-white list-inside list-decimal">
+  {
+    teams
+      .filter((child_team) => child_team.parent_team === parent_team.id)
+      .map((child_team) => (
+        <>
+          <li>{child_team.name}</li>
+          <ul class="text-white list-inside list-decimal">
+            {teams
+              .filter(
+                (child_team1) => child_team1.parent_team === child_team.id
+              )
+              .map((child_team1) => (
+                <>
+                  <li>{child_team.name}</li>
+                </>
+              ))}
+          </ul>
+        </>
+      ))
+  }
+</ul>
