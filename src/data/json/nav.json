@@ -19,7 +19,28 @@
     {
       "name": "Get Involved",
       "slug": "get-involved",
-      "children": []
+      "children": [
+        {
+          "name": "Donate",
+          "slug": "donate"
+        },
+        {
+          "name": "Fundraise",
+          "slug": "fundraise"
+        },
+        {
+          "name": "Campaign",
+          "slug": "campaign"
+        },
+        {
+          "name": "Partner",
+          "slug": "partner"
+        },
+        {
+          "name": "Volunteer",
+          "slug": "volunteer"
+        }
+      ]
     },
     {
       "name": "About us",
@@ -50,12 +71,8 @@
           "slug": "equity-commitments"
         },
         {
-          "name": "Impact Reports",
-          "slug": "impact-reports"
-        },
-        {
-          "name": "Governance",
-          "slug": "governance"
+          "name": "Reports",
+          "slug": "reports"
         }
       ]
     }
