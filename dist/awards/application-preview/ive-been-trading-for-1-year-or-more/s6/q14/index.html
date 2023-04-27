@@ -29,10 +29,10 @@
 
     <!-- Fontawesome Icons -->
     <script src="https://kit.fontawesome.com/0ff725f684.js" crossorigin="anonymous"></script>
-  </head>
+  <link rel="stylesheet" href="/_astro/404.362a2568.css" /><script type="module" src="/_astro/page.0fc6666a.js"></script></head>
   <body class="">
-    <div class="flex flex-col justify-between h-full bg-gradient-to-b from-[#491A86] to-slate-900">
-      <nav class="print:hidden">
+    <div class="flex flex-col justify-between h-full bg-white">
+      <nav class="print:hidden bg-violet-900">
   <script>
   function hideButton(dropdownButton) {
     if (dropdownButton.getAttribute("aria-expanded") === "true") {
@@ -129,22 +129,63 @@
               </a>
         </div>
         <ul class="navbar hidden ml-10 space-x-8 lg:flex list-none">
-          <li>
+          
+                <li>
                   <a href="/grants" class="text-base font-medium text-white hover:text-amber-500" data-dropdown="dropdownA">
   <span data-dropdown="dropdownA">Grants</span>
   <!-- {(!slug && link) &&  <i data-dropdown="dropdownA" class="text-xs fa-solid fa-arrow-trend-up"></i> } -->
 </a> 
-                </li><li>
+                </li>
+              
+                <li>
                   <a href="https://growthimpactfund.org.uk" target="_blank" class="text-base font-medium text-white hover:text-amber-500" data-dropdown="dropdownA">
   <span data-dropdown="dropdownA">Investment</span>
   <!-- {(!slug && link) &&  <i data-dropdown="dropdownA" class="text-xs fa-solid fa-arrow-trend-up"></i> } -->
 </a> 
-                </li><li>
-                  <a href="/get-involved" class="text-base font-medium text-white hover:text-amber-500" data-dropdown="dropdownA">
-  <span data-dropdown="dropdownA">Get Involved</span>
-  <!-- {(!slug && link) &&  <i data-dropdown="dropdownA" class="text-xs fa-solid fa-arrow-trend-up"></i> } -->
-</a> 
-                </li><li>
+                </li>
+              
+                <li>
+                  <button id="dropdownButton-get-involved" class="text-base font-medium text-white hover:text-amber-500 flex flex-row items-center gap-2" onclick="desktop(&#34;get-involved&#34;)" aria-expanded="false" data-dropdown="dropdownButton">
+  <span data-dropdown="dropdownButton">Get Involved</span>
+  <i data-dropdown="dropdownButton" class="text-xs fa-solid fa-chevron-down"></i>
+</button>
+
+<ul id="dropdownContent-get-involved" class="gap-4 p-3 bg-white text-black rounded-md absolute z-10 hidden border-violet-200 border shadow-lg" data-dropdown="dropdownContent">
+  <li>
+        <a href="/donate" class="flex flex-row gap-3 items-center p-3 py-3 hover:bg-violet-100 rounded-md" data-dropdown="dropdownA">
+          <span class="text-sm font-medium">Donate</span>
+          
+          
+        </a>
+      </li><li>
+        <a href="/fundraise" class="flex flex-row gap-3 items-center p-3 py-3 hover:bg-violet-100 rounded-md" data-dropdown="dropdownA">
+          <span class="text-sm font-medium">Fundraise</span>
+          
+          
+        </a>
+      </li><li>
+        <a href="/campaign" class="flex flex-row gap-3 items-center p-3 py-3 hover:bg-violet-100 rounded-md" data-dropdown="dropdownA">
+          <span class="text-sm font-medium">Campaign</span>
+          
+          
+        </a>
+      </li><li>
+        <a href="/partner" class="flex flex-row gap-3 items-center p-3 py-3 hover:bg-violet-100 rounded-md" data-dropdown="dropdownA">
+          <span class="text-sm font-medium">Partner</span>
+          
+          
+        </a>
+      </li><li>
+        <a href="/volunteer" class="flex flex-row gap-3 items-center p-3 py-3 hover:bg-violet-100 rounded-md" data-dropdown="dropdownA">
+          <span class="text-sm font-medium">Volunteer</span>
+          
+          
+        </a>
+      </li>
+</ul> 
+                </li>
+              
+                <li>
                   <button id="dropdownButton-about-us" class="text-base font-medium text-white hover:text-amber-500 flex flex-row items-center gap-2" onclick="desktop(&#34;about-us&#34;)" aria-expanded="false" data-dropdown="dropdownButton">
   <span data-dropdown="dropdownButton">About us</span>
   <i data-dropdown="dropdownButton" class="text-xs fa-solid fa-chevron-down"></i>
@@ -188,20 +229,15 @@
           
         </a>
       </li><li>
-        <a href="/impact-reports" class="flex flex-row gap-3 items-center p-3 py-3 hover:bg-violet-100 rounded-md" data-dropdown="dropdownA">
-          <span class="text-sm font-medium">Impact Reports</span>
-          
-          
-        </a>
-      </li><li>
-        <a href="/governance" class="flex flex-row gap-3 items-center p-3 py-3 hover:bg-violet-100 rounded-md" data-dropdown="dropdownA">
-          <span class="text-sm font-medium">Governance</span>
+        <a href="/reports" class="flex flex-row gap-3 items-center p-3 py-3 hover:bg-violet-100 rounded-md" data-dropdown="dropdownA">
+          <span class="text-sm font-medium">Reports</span>
           
           
         </a>
       </li>
 </ul> 
                 </li>
+              
         </ul>
       </div>
     </div>
@@ -353,10 +389,26 @@
               <span>Investment</span>
               <i class="text-xs fa-solid fa-arrow-up-right-from-square"></i>
             </a>
-          </li><li>
-            <a href="/get-involved" class="text-sm font-medium text-white hover:text-violet-200 active:font-bold active:text-amber-600">
-              Get Involved
-            </a>
+          </li><li class="mobileDropdown">
+            <button id="mobileDropdownButton-get-involved" class="p-2 rounded-md mobileDropdownButtons text-sm font-medium text-white hover:bg-violet-800 hover:text-violet-200 focus:font-bold focus:bg-violet-800 focus:text-violet-200" onclick="mobile(&#34;get-involved&#34;)" aria-expanded="false">
+              <span>Get Involved</span> <i class="fa-solid fa-caret-down"></i>
+            </button>
+
+            <ul id="mobileDropdownContent-get-involved" class="mobileDropdownContent hidden p-3 bg-[#491A86] absolute shadow-2xl rounded-md">
+              <li class="flex flex-col gap-1 p-1 mobileDropdownItem">
+                <a href="/donate" class="hover:text-violet-200 text-sm font-medium p-2 text-violet-100 block">
+                    Donate
+                  </a><a href="/fundraise" class="hover:text-violet-200 text-sm font-medium p-2 text-violet-100 block">
+                    Fundraise
+                  </a><a href="/campaign" class="hover:text-violet-200 text-sm font-medium p-2 text-violet-100 block">
+                    Campaign
+                  </a><a href="/partner" class="hover:text-violet-200 text-sm font-medium p-2 text-violet-100 block">
+                    Partner
+                  </a><a href="/volunteer" class="hover:text-violet-200 text-sm font-medium p-2 text-violet-100 block">
+                    Volunteer
+                  </a>
+              </li>
+            </ul>
           </li><li class="mobileDropdown">
             <button id="mobileDropdownButton-about-us" class="p-2 rounded-md mobileDropdownButtons text-sm font-medium text-white hover:bg-violet-800 hover:text-violet-200 focus:font-bold focus:bg-violet-800 focus:text-violet-200" onclick="mobile(&#34;about-us&#34;)" aria-expanded="false">
               <span>About us</span> <i class="fa-solid fa-caret-down"></i>
@@ -376,10 +428,8 @@
                     Safeguarding
                   </a><a href="/equity-commitments" class="hover:text-violet-200 text-sm font-medium p-2 text-violet-100 block">
                     Equity Commitments
-                  </a><a href="/impact-reports" class="hover:text-violet-200 text-sm font-medium p-2 text-violet-100 block">
-                    Impact Reports
-                  </a><a href="/governance" class="hover:text-violet-200 text-sm font-medium p-2 text-violet-100 block">
-                    Governance
+                  </a><a href="/reports" class="hover:text-violet-200 text-sm font-medium p-2 text-violet-100 block">
+                    Reports
                   </a>
               </li>
             </ul>
@@ -388,15 +438,17 @@
 </nav>
 </nav>
       <div class="mb-10">
-        <div class="bg-gradient-to-br from-gray-900 via-[#491A86] to-amber-700 mb-10">
+        
+  <div class="">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-  <div class="py-14 flex flex-col gap-12">
+  
+    <div class="py-14 flex flex-col gap-12">
       <div class="flex flex-row gap-5 justify-between">
         <nav class="flex" aria-label="Breadcrumb">
           <ol role="list" class="flex items-center space-x-4">
             <li>
               <div>
-                <a href="/" class="hover:text-violet-200 text-violet-300 transition">
+                <a href="/" class="hover:text-gray-700 text-gray-900 transition">
                   <i class="fa-solid fa-house text-xs"></i>
                   <span class="sr-only">UnLtd</span>
                 </a>
@@ -405,29 +457,29 @@
 
             <li>
                   <div class="flex items-center">
-                    <i class="fa-solid fa-chevron-right text-violet-300 text-xs"></i>
-                    <a href="/awards" class="ml-4 text-xs font-medium hover:text-violet-200 text-violet-300 transition">
+                    <i class="fa-solid fa-chevron-right text-gray-900 hover:text-gray-700 text-xs"></i>
+                    <a href="/awards" class="ml-4 text-xs font-medium text-gray-900 hover:text-gray-700 transition">
                       Awards
                     </a>
                   </div>
                 </li><li>
                   <div class="flex items-center">
-                    <i class="fa-solid fa-chevron-right text-violet-300 text-xs"></i>
-                    <a href="/awards/application-preview" class="ml-4 text-xs font-medium hover:text-violet-200 text-violet-300 transition">
+                    <i class="fa-solid fa-chevron-right text-gray-900 hover:text-gray-700 text-xs"></i>
+                    <a href="/awards/application-preview" class="ml-4 text-xs font-medium text-gray-900 hover:text-gray-700 transition">
                       Awards application preview
                     </a>
                   </div>
                 </li><li>
                   <div class="flex items-center">
-                    <i class="fa-solid fa-chevron-right text-violet-300 text-xs"></i>
-                    <a href="/awards/application-preview/ive-been-trading-for-1-year-or-more" class="ml-4 text-xs font-medium hover:text-violet-200 text-violet-300 transition">
+                    <i class="fa-solid fa-chevron-right text-gray-900 hover:text-gray-700 text-xs"></i>
+                    <a href="/awards/application-preview/ive-been-trading-for-1-year-or-more" class="ml-4 text-xs font-medium text-gray-900 hover:text-gray-700 transition">
                       I&#39;ve been trading for 1 year or more
                     </a>
                   </div>
                 </li><li>
                   <div class="flex items-center">
-                    <i class="fa-solid fa-chevron-right text-violet-300 text-xs"></i>
-                    <a href="/awards/application-preview/ive-been-trading-for-1-year-or-more/s6/q14" class="ml-4 text-xs font-medium hover:text-violet-200 text-violet-300 transition">
+                    <i class="fa-solid fa-chevron-right text-gray-900 hover:text-gray-700 text-xs"></i>
+                    <a href="/awards/application-preview/ive-been-trading-for-1-year-or-more/s6/q14" class="ml-4 text-xs font-medium text-gray-900 hover:text-gray-700 transition">
                       File uploads
                     </a>
                   </div>
@@ -439,11 +491,11 @@
       </div>
 
       <div class="max-w-4xl flex flex-col gap-3">
-        <div class="flex flex-col gap-1">
-          <h2 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+        <div class="flex flex-col gap-3">
+          <h2 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
             File uploads
           </h2>
-          <p class="text-2xl text-violet-300">
+          <p class="text-2xl text-gray-600">
             Section 6. Question 14
           </p>
         </div>
@@ -451,12 +503,14 @@
 
       
     </div>
+  
 </div>
-</div><div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="prose prose-lg prose-black prose-invert prose-img:rounded-md prose-img:shadow-md prose-img:w-full hover:prose-a:text-white prose-a:text-violet-300">
+</div>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="prose prose-lg prose-black prose-img:rounded-md prose-img:shadow-md prose-img:w-full">
       <h1 id="frontmattertitle"></h1>
 <p>You can use this template:</p>
-<link rel="stylesheet" href="/_astro/404.389a05a9.css" /><script type="module" src="/_astro/page.0fc6666a.js"></script><div>
+<div>
   <a href="https://www.unltd.org.uk/uploads/general_uploads/financial-data-template.xlsx" class="inline-flex flex-col gap-1 rounded-md border border-white border-opacity-30 px-4 py-2 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition group">
     <div class="flex flex-row gap-3 items-center">
       
@@ -585,6 +639,7 @@ X Price you will charge for each item
 <p><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=nQvF9rRFVUC3Dr2FwdENvC4blereoXNEhQ4gceQNmmxUQkRLNDE4QzFHNkVOV1hHNk1UNU43UDM2Qi4u">Complete a short (less than one minute) survey that will help us improve it</a>.</p>
     </div>
   </div>
+
       </div>
       <footer class="bg-gray-600 print:hidden flex items-center" aria-labelledby="footer-heading">
   <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 flex flex-col lg:flex-row lg:justify-between gap-10">

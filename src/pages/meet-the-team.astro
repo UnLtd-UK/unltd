@@ -5,7 +5,8 @@ import { positions } from "../data/directus/positions.js";
 
 const name = "Meet the Team";
 const description =
-  "Our people believe in social entrepreneurs and know how best to support them on their journeys";
+  "Our people are passionate about breaking down the barriers faced by social entrepreneurs and delivering market leading support to grow their impact";
+
 const breadcrumbs = [
   {
     name: "Meet the Team",
@@ -20,10 +21,10 @@ const breadcrumbs = [
       class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3"
     >
       <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-600 sm:text-4xl">
           Leadership
         </h2>
-        <p class="mt-6 text-lg leading-8 text-violet-300">
+        <p class="mt-6 text-lg leading-8 text-gray-400">
           Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae
           elementum enim vitae ullamcorper suspendisse.
         </p>
@@ -35,25 +36,29 @@ const breadcrumbs = [
       >
         {
           positions
-            .filter((position) => position.team.name === "Leadership")
+            .filter((position) => position.role.team === "Leadership")
             .map((position) => (
               <li>
                 <div class="flex items-center gap-x-6">
                   <img
                     class="h-16 w-16 rounded-full"
-                    src={position.person.image ? "" : "/img/profile.webp"}
+                    src={
+                      position.person.image
+                        ? `https://unltd.directus.app/assets/${position.person.image}`
+                        : "/img/profile.webp"
+                    }
                     alt=""
                   />
                   <div>
                     <div class="flex gap-2 items-center">
-                      <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-200">
+                      <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-600">
                         {position.person.name}
                       </h3>
-                      <span class="text-xs text-violet-200">
+                      <span class="text-xs text-gray-600">
                         {position.person.pronouns}
                       </span>
                     </div>
-                    <p class="text-sm font-semibold leading-6 text-violet-300">
+                    <p class="text-sm leading-6 text-gray-400">
                       {position.role.name}
                     </p>
                   </div>
@@ -70,10 +75,10 @@ const breadcrumbs = [
       class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3"
     >
       <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-600 sm:text-4xl">
           Trustees
         </h2>
-        <p class="mt-6 text-lg leading-8 text-violet-300">
+        <p class="mt-6 text-lg leading-8 text-gray-400">
           Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae
           elementum enim vitae ullamcorper suspendisse.
         </p>
@@ -85,25 +90,29 @@ const breadcrumbs = [
       >
         {
           positions
-            .filter((position) => position.team.name === "Trustees")
+            .filter((position) => position.role.team === "Trustees")
             .map((position) => (
               <li>
                 <div class="flex items-center gap-x-6">
                   <img
                     class="h-16 w-16 rounded-full"
-                    src={position.person.image ? "" : "/img/profile.webp"}
+                    src={
+                      position.person.image
+                        ? `https://unltd.directus.app/assets/${position.person.image}`
+                        : "/img/profile.webp"
+                    }
                     alt=""
                   />
                   <div>
                     <div class="flex gap-2 items-center">
-                      <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-200">
+                      <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-600">
                         {position.person.name}
                       </h3>
-                      <span class="text-xs text-violet-200">
+                      <span class="text-xs text-gray-600">
                         {position.person.pronouns}
                       </span>
                     </div>
-                    <p class="text-sm font-semibold leading-6 text-violet-300">
+                    <p class="text-sm leading-6 text-gray-400">
                       {position.role.name}
                     </p>
                   </div>
@@ -120,12 +129,14 @@ const breadcrumbs = [
       class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3"
     >
       <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-600 sm:text-4xl">
           Social Entrepreneur Support
         </h2>
-        <p class="mt-6 text-lg leading-8 text-violet-300">
-          Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae
-          elementum enim vitae ullamcorper suspendisse.
+        <p class="mt-6 text-lg leading-8 text-gray-400">
+          Our Social Entrepreneur Support team are the people supporting
+          applicants applying for awards and delivering market leading support
+          through one-to-one coaching and peer to peer connections to the award
+          winners we support and our alumni network.
         </p>
       </div>
 
@@ -136,26 +147,30 @@ const breadcrumbs = [
         {
           positions
             .filter(
-              (position) => position.team.name === "Social Entrepreneur Support"
+              (position) => position.role.team === "Social Entrepreneur Support"
             )
             .map((position) => (
               <li>
                 <div class="flex items-center gap-x-6">
                   <img
                     class="h-16 w-16 rounded-full"
-                    src={position.person.image ? "" : "/img/profile.webp"}
+                    src={
+                      position.person.image
+                        ? `https://unltd.directus.app/assets/${position.person.image}`
+                        : "/img/profile.webp"
+                    }
                     alt=""
                   />
                   <div>
                     <div class="flex gap-2 items-center">
-                      <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-200">
+                      <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-600">
                         {position.person.name}
                       </h3>
-                      <span class="text-xs text-violet-200">
+                      <span class="text-xs text-gray-600">
                         {position.person.pronouns}
                       </span>
                     </div>
-                    <p class="text-sm font-semibold leading-6 text-violet-300">
+                    <p class="text-sm leading-6 text-gray-400">
                       {position.role.name}
                     </p>
                   </div>
@@ -172,12 +187,15 @@ const breadcrumbs = [
       class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3"
     >
       <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-600 sm:text-4xl">
           Delivery and Investment
         </h2>
-        <p class="mt-6 text-lg leading-8 text-violet-300">
-          Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae
-          elementum enim vitae ullamcorper suspendisse.
+        <p class="mt-6 text-lg leading-8 text-gray-400">
+          Designing and delivering market-leading support with and alongside our
+          partners, supporters and colleagues. We are focussed on breaking down
+          the barriers faced by social entrepreneurs. This includes accessing
+          specialist expertise through our partnership work, and accessing the
+          right investment through the Growth Impact Fund.
         </p>
       </div>
 
@@ -188,26 +206,30 @@ const breadcrumbs = [
         {
           positions
             .filter(
-              (position) => position.team.name === "Delivery and Investment"
+              (position) => position.role.team === "Delivery and Investment"
             )
             .map((position) => (
               <li>
                 <div class="flex items-center gap-x-6">
                   <img
                     class="h-16 w-16 rounded-full"
-                    src={position.person.image ? "" : "/img/profile.webp"}
+                    src={
+                      position.person.image
+                        ? `https://unltd.directus.app/assets/${position.person.image}`
+                        : "/img/profile.webp"
+                    }
                     alt=""
                   />
                   <div>
                     <div class="flex gap-2 items-center">
-                      <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-200">
+                      <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-600">
                         {position.person.name}
                       </h3>
-                      <span class="text-xs text-violet-200">
+                      <span class="text-xs text-gray-600">
                         {position.person.pronouns}
                       </span>
                     </div>
-                    <p class="text-sm font-semibold leading-6 text-violet-300">
+                    <p class="text-sm leading-6 text-gray-400">
                       {position.role.name}
                     </p>
                   </div>
@@ -224,10 +246,10 @@ const breadcrumbs = [
       class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3"
     >
       <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-600 sm:text-4xl">
           Impact and Influence
         </h2>
-        <p class="mt-6 text-lg leading-8 text-violet-200">
+        <p class="mt-6 text-lg leading-8 text-gray-400">
           Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae
           elementum enim vitae ullamcorper suspendisse.
         </p>
@@ -239,25 +261,29 @@ const breadcrumbs = [
       >
         {
           positions
-            .filter((position) => position.team.name === "Impact and Influence")
+            .filter((position) => position.role.team === "Impact and Influence")
             .map((position) => (
               <li>
                 <div class="flex items-center gap-x-6">
                   <img
                     class="h-16 w-16 rounded-full"
-                    src={position.person.image ? "" : "/img/profile.webp"}
+                    src={
+                      position.person.image
+                        ? `https://unltd.directus.app/assets/${position.person.image}`
+                        : "/img/profile.webp"
+                    }
                     alt=""
                   />
                   <div>
                     <div class="flex gap-2 items-center">
-                      <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-200">
+                      <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-600">
                         {position.person.name}
                       </h3>
-                      <span class="text-xs text-violet-200">
+                      <span class="text-xs text-gray-600">
                         {position.person.pronouns}
                       </span>
                     </div>
-                    <p class="text-sm font-semibold leading-6 text-violet-300">
+                    <p class="text-sm leading-6 text-gray-400">
                       {position.role.name}
                     </p>
                   </div>
@@ -274,12 +300,15 @@ const breadcrumbs = [
       class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3"
     >
       <div class="max-w-2xl">
-        <h2 class="text-3xl font-bold tracking-tight text-gray-200 sm:text-4xl">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-600 sm:text-4xl">
           Corporate Services
         </h2>
-        <p class="mt-6 text-lg leading-8 text-violet-200">
-          Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae
-          elementum enim vitae ullamcorper suspendisse.
+        <p class="mt-6 text-lg leading-8 text-gray-400">
+          Look after our people, systems and finances to ensure a well governed
+          organisation to always deliver value for money support to social
+          entrepreneurs by maximising the impact of available financial
+          resources and fostering a culture of inclusion and belonging for our
+          colleagues.
         </p>
       </div>
 
@@ -289,25 +318,29 @@ const breadcrumbs = [
       >
         {
           positions
-            .filter((position) => position.team.name === "Corporate Services")
+            .filter((position) => position.role.team === "Corporate Services")
             .map((position) => (
               <li>
                 <div class="flex items-center gap-x-6">
                   <img
                     class="h-16 w-16 rounded-full"
-                    src={position.person.image ? "" : "/img/profile.webp"}
+                    src={
+                      position.person.image
+                        ? `https://unltd.directus.app/assets/${position.person.image}`
+                        : "/img/profile.webp"
+                    }
                     alt=""
                   />
                   <div>
                     <div class="flex gap-2 items-center">
-                      <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-200">
+                      <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-600">
                         {position.person.name}
                       </h3>
-                      <span class="text-xs text-violet-200">
+                      <span class="text-xs text-gray-600">
                         {position.person.pronouns}
                       </span>
                     </div>
-                    <p class="text-sm font-semibold leading-6 text-violet-300">
+                    <p class="text-sm leading-6 text-gray-400">
                       {position.role.name}
                     </p>
                   </div>
