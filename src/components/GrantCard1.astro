@@ -21,21 +21,21 @@ if (url) {
   <div class="flex flex-col gap-7 justify-between">
     <div class="flex gap-5 flex-col justify-between">
       <div class="h-24">
-        <h2 class="text-lg text-white flex flex-col gap-3 mt-2">
+        <h2 class="text-lg flex flex-col gap-3 mt-2">
           {application.name}
         </h2>
-        <p class="text-sm text-violet-200 flex flex-col gap-3 mt-2">
+        <p class="text-sm flex flex-col gap-3 mt-2">
           {application.description}
         </p>
       </div>
 
       <div class="flex flex-col gap-2">
-        <p class="text-sm text-white tracking-tight font-bold">
+        <p class="text-sm tracking-tight font-bold">
           {application.grant_title} Award
         </p>
         <div class="flex flex-col gap-1">
-          <p class="text-xs uppercase text-violet-400 tracking-tight">Up to</p>
-          <p class="text-violet-100 text-3xl font-bold">
+          <p class="text-xs uppercase tracking-tight">Up to</p>
+          <p class="text-3xl font-bold">
             {
               new Intl.NumberFormat("en-GB", {
                 maximumSignificantDigits: 3,
@@ -44,7 +44,7 @@ if (url) {
               }).format(application.grant_amount)
             }
           </p>
-          <p class="text-sm text-violet-300 tracking-tight">
+          <p class="text-sm tracking-tight">
             {application.grant_description}
           </p>
         </div>
