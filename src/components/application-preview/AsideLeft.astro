@@ -1,8 +1,6 @@
 ---
-import Grant from "../../components/GrantOld.astro";
 const { application } = Astro.props;
 import AButton from "../AButton.astro";
-
 const url = "http://127.0.0.1:8090";
 ---
 
@@ -12,12 +10,12 @@ const url = "http://127.0.0.1:8090";
       application.sections.map((section, index) => (
         <a
           href={`#${section.slug}`}
-          class={`hover:text-violet-200 active:text-violet-800 active:bg-violet-800 hover:bg-violet-800 rounded-md flex items-center text-xs font-medium transition py-3 flex-row gap-2 group`}
+          class={`hover:text-gray-200 active:text-gray-800 active:bg-gray-800 hover:bg-violet-100 rounded-md flex items-center text-xs font-medium transition py-3 flex-row gap-2 group`}
         >
-          <span class="text-violet-300 border-full h-5 w-5 bg-white bg-opacity-10 flex justify-center items-center rounded-full group-hover:scale-125 group-hover:bg-transparent">
+          <span class="text-gray-500 border-full h-5 w-5 bg-white bg-opacity-10 flex justify-center items-center rounded-full group-hover:scale-125 group-hover:bg-transparent">
             {index + 1}
           </span>
-          <span class="text-white truncate active:text-white">
+          <span class="text-gray-600 truncate active:text-white">
             {section.name}
           </span>
         </a>

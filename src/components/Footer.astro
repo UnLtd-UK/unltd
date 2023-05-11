@@ -1,5 +1,6 @@
 ---
 import nav from "../data/json/nav.json";
+import Anchor from "./nav/desktop/AnchorFooter.astro";
 import Logo from "./WhiteLogo.astro";
 ---
 
@@ -11,13 +12,13 @@ import Logo from "./WhiteLogo.astro";
     class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 flex flex-col lg:flex-row lg:justify-between gap-10"
   >
     <div class="flex flex-col gap-10 items-start">
-      <div class="flex flex-col lg:flex-row gap-5 lg:gap-20 items-center">
+      <div class="flex flex-col lg:flex-col gap-5 lg:gap-10">
         <div class="flex flex-col items-start">
           <Logo color="white" />
 
           <ul role="list" class="mt-4 flex flex-row gap-5">
             {
-              nav.socials.map((navItem) => (
+              nav.footer.socials.map((navItem) => (
                 <li>
                   {navItem.link && navItem.icon && (
                     <a
@@ -33,66 +34,41 @@ import Logo from "./WhiteLogo.astro";
             }
           </ul>
         </div>
-        <div class="">
+        <div class="flex">
           <div class="flex flex-col sm:flex-row gap-3 items">
             <div>
-              <p class="text-gray-400 text-xs">London Office</p>
               <div class="flex flex-col gap-3">
+                <address class="text-sm text-white">
+                  {nav.footer.address.address1}<br />{
+                    nav.footer.address.address2
+                  }<br />{nav.footer.address.address3}
+                </address>
                 <a
                   class="text-sm text-white hover:underline"
-                  href="tel:02075661100"
-                  >020 7566 1100
+                  href=`tel:${nav.footer.address.phone}`
+                  >{nav.footer.address.phone}
                 </a>
-                <address class="text-sm text-white">
-                  123 Whitecross Street,<br />Islington, London<br />EC1Y 8JJ
-                </address>
               </div>
-            </div>
-
-            <div>
-              <p class="text-gray-400 text-xs">Birmingham Office</p>
-              <a
-                class="text-sm text-white hover:underline"
-                href="tel:01217664570"
-                >0121 766 4570
-              </a>
             </div>
           </div>
         </div>
       </div>
 
       <div class="flex flex-col gap-4 lg:flex-row lg:gap-20">
-        <div>
-          <p class="text-gray-400 text-xs">
-            Charity Commission for England and Wales
-          </p>
-          <a
-            class="text-sm text-white hover:underline"
-            href="https://apps.charitycommission.gov.uk/Showcharity/RegisterOfCharities/SearchResultHandler.aspx?RegisteredCharityNumber=1090393"
-            target="_blank"
-            >1090393
-          </a>
-        </div>
-
-        <div>
-          <p class="text-gray-400 text-xs">Scottish Charity Regulator</p>
-          <a
-            class="text-sm text-white hover:underline"
-            href="https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC032445"
-            target="_blank"
-            >SC032445
-          </a>
-        </div>
-
-        <div>
-          <p class="text-gray-400 text-xs">Companies House</p>
-          <a
-            class="text-sm text-white hover:underline"
-            href="https://apps.charitycommission.gov.uk/Showcharity/RegisterOfCharities/SearchResultHandler.aspx?RegisteredCharityNumber=1090393"
-            target="_blank"
-            >1090393
-          </a>
-        </div>
+        {
+          nav.footer.numbers.map((navItem) => (
+            <div>
+              <p class="text-gray-400 text-xs">{navItem.name}</p>
+              <a
+                class="text-sm text-white hover:underline"
+                href={navItem.link}
+                target="_blank"
+              >
+                {navItem.number}
+              </a>
+            </div>
+          ))
+        }
       </div>
     </div>
 
@@ -103,15 +79,23 @@ import Logo from "./WhiteLogo.astro";
         >
           Legal
         </h3>
-        <ul role="list" class="mt-2 flex flex-col gap-2">
+        <ul role="list" class="mt-2 flex flex-col gap-3">
           {
-            nav.footer.map((navItem) => (
+            nav.footer.legal.map((navItem) => (
               <li>
                 <a
-                  href={`/${navItem.slug}`}
-                  class="text-sm hover:underline text-white"
+                  href={
+                    navItem.slug && !navItem.link
+                      ? `/${navItem.slug}`
+                      : `${navItem.link}`
+                  }
+                  target={!navItem.slug && navItem.link && "_blank"}
+                  class="flex flex-row items-center gap-2 text-sm text-white hover:text-gray-300"
                 >
-                  {navItem.name}
+                  <span>{navItem.name}</span>
+                  {!navItem.slug && navItem.link && (
+                    <i class="text-xs fa-solid fa-arrow-up-right-from-square" />
+                  )}
                 </a>
               </li>
             ))
@@ -124,18 +108,24 @@ import Logo from "./WhiteLogo.astro";
         >
           Other
         </h3>
-        <ul role="list" class="mt-2 flex flex-col gap-2">
+        <ul role="list" class="mt-2 flex flex-col gap-3">
           {
-            nav.other.map((navItem) => (
+            nav.footer.other.map((navItem) => (
               <li>
-                {navItem.slug && (
-                  <a
-                    href={`/${navItem.slug}`}
-                    class="text-sm hover:underline text-white"
-                  >
-                    {navItem.name}
-                  </a>
-                )}
+                <a
+                  href={
+                    navItem.slug && !navItem.link
+                      ? `/${navItem.slug}`
+                      : `${navItem.link}`
+                  }
+                  target={!navItem.slug && navItem.link && "_blank"}
+                  class="flex flex-row items-center gap-2 text-sm text-white hover:text-grey-300"
+                >
+                  <span>{navItem.name}</span>
+                  {!navItem.slug && navItem.link && (
+                    <i class="text-xs fa-solid fa-arrow-up-right-from-square" />
+                  )}
+                </a>
               </li>
             ))
           }

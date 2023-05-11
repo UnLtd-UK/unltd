@@ -1,26 +1,80 @@
 ---
-const { parent_team, teams } = Astro.props;
+const { name, description, positions } = Astro.props;
 ---
 
-<ul class="text-white list-inside list-decimal">
-  {
-    teams
-      .filter((child_team) => child_team.parent_team === parent_team.id)
-      .map((child_team) => (
-        <>
-          <li>{child_team.name}</li>
-          <ul class="text-white list-inside list-decimal">
-            {teams
-              .filter(
-                (child_team1) => child_team1.parent_team === child_team.id
-              )
-              .map((child_team1) => (
-                <>
-                  <li>{child_team.name}</li>
-                </>
-              ))}
-          </ul>
-        </>
-      ))
-  }
-</ul>
+<div class="py-5 sm:py-10">
+  <div
+    class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 bg-orange-50 p-28 rounded-3xl"
+  >
+    <div class="max-w-2xl">
+      <h2 class="text-3xl font-bold tracking-tight text-gray-600 sm:text-4xl">
+        {name}
+      </h2>
+      <p class="mt-6 text-lg leading-8 text-gray-500">
+        {description}
+      </p>
+    </div>
+
+    <ul
+      role="list"
+      class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
+    >
+      {
+        positions
+          .filter((position) => position.role.team === name)
+          .map((position) => (
+            <li>
+              <div class="flex items-center gap-x-6">
+                <img
+                  class="h-16 w-16 rounded-full"
+                  src={
+                    position.person.image
+                      ? `https://unltd.directus.app/assets/${position.person.image}`
+                      : "/img/profile.webp"
+                  }
+                  alt=""
+                />
+                <div>
+                  <div class="flex gap-2 items-center">
+                    <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-600">
+                      {position.person.name}
+                    </h3>
+                    <!-- <span class="text-xs text-gray-600">
+                      {position.person.pronouns}
+                    </span> -->
+                    {position.person.lgbtqia_plus && (
+                      <!-- <div>
+                        <span
+                          role="img"
+                          class="text-xl"
+                          aria-label="rainbow flag"
+                        >
+                          🏳️‍🌈
+                        </span>
+                        <span class="sr-only">
+                          Member of the LGBTQ+ community
+                        </span>
+                      </div> -->
+                    )}
+                  </div>
+                  <p class="text-sm leading-6 text-gray-500">
+                    {position.role.name}
+                  </p>
+                  {position.person.linkedin && (
+                    <!-- <a
+                      href={position.person.linkedin}
+                      target="_blank"
+                      class="text-gray-600"
+                    >
+                      <span class="sr-only">LinkedIn</span>
+                      <i class="text-sm fa-brands fa-linkedin" />
+                    </a> -->
+                  )}
+                </div>
+              </div>
+            </li>
+          ))
+      }
+    </ul>
+  </div>
+</div>
