@@ -26,8 +26,8 @@
         ]
       },
       {
-        "name": "Getting started",
-        "slug": "getting-started",
+        "name": "Learn",
+        "slug": "learn",
         "children": [
           {
             "name": "Choosing the right legal structure",
@@ -44,9 +44,16 @@
             "description": "For organisation. Through the Growth Impact Fund"
           },
           {
-            "name": "Secureing start up funding",
+            "name": "Securing start up funding",
             "link": "",
-            "slug": "secureing-start-up-funding",
+            "slug": "securing-start-up-funding",
+            "icon": "",
+            "description": "For organisation. Through the Growth Impact Fund"
+          },
+          {
+            "name": "Stakeholder engagement and building networks",
+            "link": "",
+            "slug": "stakeholder-engagement-and-building-networks",
             "icon": "",
             "description": "For organisation. Through the Growth Impact Fund"
           }
@@ -183,6 +190,11 @@
     },
     "numbers": [
       {
+        "name": "Companies House",
+        "number": "04180639",
+        "link": "https://find-and-update.company-information.service.gov.uk/company/04180639"
+      },
+      {
         "name": "Charity Commission for England and Wales",
         "number": "1090393",
         "link": "https://apps.charitycommission.gov.uk/Showcharity/RegisterOfCharities/SearchResultHandler.aspx?RegisteredCharityNumber=1090393"
@@ -207,9 +219,9 @@
         "icon": ""
       },
       {
-        "name": "Cookies Policy",
+        "name": "Browser Storage Policy",
         "link": "",
-        "slug": "cookies-policy",
+        "slug": "browser-storage-policy",
         "icon": ""
       },
       {
@@ -239,21 +251,15 @@
         "icon": ""
       },
       {
-        "name": "Press",
-        "link": "",
-        "slug": "press",
-        "icon": ""
-      },
-      {
         "name": "Safefuarding",
         "link": "",
-        "slug": "terms-&-conditions",
+        "slug": "safeguarding",
         "icon": ""
       },
       {
         "name": "Equity Commitments",
         "link": "",
-        "slug": "equity-commitment",
+        "slug": "equity-commitments",
         "icon": ""
       },
       {

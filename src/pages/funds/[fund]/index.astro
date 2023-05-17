@@ -1,8 +1,12 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import Container from "../../../layouts/Container.astro";
-import Funding from "../../../components/Funding.astro";
-
+import Intro from "../../../components/fund/Intro.astro";
+import PartnersAndFunders from "../../../components/fund/PartnersAndFunders.astro";
+import Aside from "../../../components/fund/Aside.astro";
+import AwardsDesktop from "../../../components/fund/AwardsDesktop.astro";
+import AwardsMobile1 from "../../../components/fund/AwardsMobile1.astro";
+import AwardsMobile2 from "../../../components/fund/AwardsMobile2.astro";
+import Testamonial from "../../../components/fund/Testamonial.astro";
 import { funds } from "../../../data/directus/funds.js";
 
 export async function getStaticPaths() {
@@ -23,103 +27,608 @@ export async function getStaticPaths() {
 const { fund } = Astro.props;
 ---
 
-<Layout>
-  <Container>
+<Layout name={fund.name} description={fund.description}>
+  <div class="bg-white">
+    <div class="relative isolate overflow-hidden bg-gray-900 py-20 mb-10">
+      <img
+        src="/img/movement_for_change.jpg"
+        alt=""
+        class="absolute inset-0 -z-10 h-full w-full object-cover hidden lg:block"
+      />
 
-              <a href="/funds" class="underline hover:text-violet-300 text-white">
-            <i class="fa-solid fa-arrow-left-long" /> Back to funds
-          </a>
-
-
-          <div class="flex flex-row gap-10">
-            <div class="basis-2/6">
-            
-                      <div class="border-gray-200 bg-white px-9 py-9 rounded-md flex flex-col gap-5">
-          <div class="flex flex-row gap-3 items-center">
-            <div>
-              { /* fund.logo != null && <img
-              class="h-12 w-12 rounded-md"
-              src={`https://unltd.directus.app/assets/${fund.logo.id}`}
-              alt=""/> */ }
-            </div>
-            <div class="">
-              <a href={`/funds/${fund.slug}`}>
-                <h3 class="text-lg font-medium leading-6 text-gray-900">
-                  {fund.name}
-                </h3>
-              </a>
+      <img
+        src="/img/movement_for_change_2.jpg"
+        alt=""
+        class="absolute inset-0 -z-10 h-full w-full object-cover block lg:hidden"
+      />
+      <div
+        class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
+      >
+      </div>
+      <div class="px-6 lg:px-8">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div class="col-span-4 flex flex-col gap-20 lg:flex-row">
+            <div class="lg:basis-1/2 flex flex-col gap-8">
               <div>
-{ fund.organisations && <p class="text-xs text-gray-500">Partners</p>
+                <div>
+                  <span
+                    class="inline-flex items-center rounded-md text-sm font-medium text-gray-200"
+                    >Fund</span
+                  >
+                </div>
+                <h1 class="text-5xl font-bold text-gray-200">
+                  {fund.name}
+                </h1>
+              </div>
 
-<div>
-  {fund.organisations.map((organisation) => {
-    <img class="h-12 w-12 rounded-md" src={`https://unltd.directus.app/assets/${organisation.organisations_id.logo}`} alt=""/>
-    <p>{organisation.organisations_id.name}</p>
-  })
-  }
-</div> }
+              <div class="flex flex-col gap-2">
+                <div>
+                  <span
+                    class="inline-flex items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800"
+                  >
+                    <svg
+                      class="-ml-1 mr-1.5 h-2 w-2 text-green-400"
+                      fill="currentColor"
+                      viewBox="0 0 8 8"
+                    >
+                      <circle cx="4" cy="4" r="3"></circle>
+                    </svg>
+                    Open
+                  </span>
+                </div>
+
+                <p class="text-xs text-gray-300">
+                  From {fund.open} till {fund.close}
+                </p>
+              </div>
+
+              <div>
+                <p class="text-lg text-gray-200 leading-relaxed">
+                  {fund.description}
+                </p>
+              </div>
+
+              <div>
+                <a
+                  href="/grants-&-support"
+                  target="_blank"
+                  class="inline-flex items-center rounded-full border border-transparent text-amber-100 bg-amber-600 px-6 py-3 text-base font-medium shadow-sm hover:bg-amber-7 00 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                  >Go to grants & support to apply</a
+                >
+              </div>
+            </div>
+
+            <Testamonial />
+          </div>
+        </div>
+      </div>
+      <div
+        class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+      >
+        <svg
+          class="relative left-[calc(50%+3rem)] h-[21.1875rem] max-w-none -translate-x-1/2 sm:left-[calc(50%+36rem)] sm:h-[42.375rem]"
+          viewBox="0 0 1155 678"
+        >
+          <path
+            fill="url(#ecb5b0c9-546c-4772-8c71-4d3f06d544bc)"
+            fill-opacity=".2"
+            d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"
+          ></path>
+          <defs>
+            <linearGradient
+              id="ecb5b0c9-546c-4772-8c71-4d3f06d544bc"
+              x1="1155.49"
+              x2="-78.208"
+              y1=".177"
+              y2="474.645"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#9089FC"></stop>
+              <stop offset="1" stop-color="#FF80B5"></stop>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-4 gap-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <!-- Partners and Funders -->
+
+      <div class="col-span-4 flex flex-col gap-10">
+        <h4 class="text-5xl font-semibold text-gray-600">
+          Partners and Funders
+        </h4>
+        <div class="flex flex-col lg:flex-row">
+          {
+            fund.partners.map((partner) => (
+              <div class="lg:basis-1/2 flex flex-col gap-4 p-10 border-l-2">
+                <div class="flex flex-row gap-4 items-center">
+                  <img
+                    class="inline-block h-14 w-14 lg:h-20 lg:w-20 rounded-md"
+                    src="/uploads/partner_images/millennium_awards_trust.webp"
+                    alt=""
+                  />
+                  <p class="text-xl text-gray-600">
+                    {partner.organisations_id.name}
+                  </p>
+                </div>
+                <p class="text-gray-500 leading-relaxed">
+                  {partner.organisations_id.description}
+                </p>
+              </div>
+            ))
+          }
+          <!-- <div class="lg:basis-1/2 flex flex-col gap-4 p-10 border-l-2">
+            <div class="flex flex-row gap-4 items-center">
+              <img
+                class="inline-block h-14 w-14 lg:h-20 lg:w-20 rounded-md"
+                src="/uploads/partner_images/sport_england.webp"
+                alt=""
+              />
+              <p class="text-xl text-gray-600">Sport England</p>
+            </div>
+            <p class="text-gray-500 leading-relaxed">
+              Sport England invests in sport and physical activity to make it a
+              normal part of life for everyone in England and remove barriers to
+              help tackle society's biggest challenges.
+            </p>
+          </div> -->
+        </div>
+      </div>
+
+      <!-- Awards -->
+      <div class="col-span-4 flex flex-col gap-10 lg:col-span-4">
+        <h4 class="text-5xl font-semibold text-gray-600">Grants</h4>
+        <div class="flex flex-col gap-10 lg:flex-row">
+          <div class="flex flex-col basis-3/4">
+            <div class="flex flex-col gap-10">
+              <!-- xs to lg -->
+              <AwardsMobile1 />
+              <AwardsMobile2 />
+            </div>
+
+            <!-- lg+ -->
+            <AwardsDesktop />
+          </div>
+          <div class="flex flex-col basis-1/4 gap-10">
+            <div class="flex flex-col gap-10">
+              <div class="flex flex-col gap-3">
+                <h3 class="font-bold text-gray-500">Inclusion</h3>
+                <div class="flex flex-col gap-3">
+                  <p class="text-sm text-gray-500 leading-relaxed">
+                    At least 50% of those supported by Movement for Change will
+                    be from Black, Asian, marginalised ethnic groups or disabled
+                    backgrounds
+                  </p>
+                  <p class="text-sm text-gray-500 leading-relaxed">
+                    Movement for Change is dedicated to pushing inclusion in the
+                    wider sector and beyond, seeking to address systemic
+                    inequalities by highlighting the experiences of
+                    underrepresented social entrepreneurs and sharing our
+                    learning in devising solutions
+                  </p>
+                  <p class="text-sm text-gray-500 leading-relaxed">
+                    We want to make it clear that at UnLtd that when we support
+                    LGBTQIA+ organisations, we welcome and support trans people,
+                    non-binary, gender diverse, genderqueer and gender
+                    questioning people. When we support organisations focusing
+                    on women's issues and rights, we include trans women. When
+                    we support organisations focusing on men's issues, we
+                    include trans men. We are committed to using an
+                    intersectional lens on social issues, and our own learning.
+                  </p>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <a
+                    class="text-xs text-violet-700 hover:underline hover:text-violet-800"
+                    href="https://www.unltd.org.uk/blog/news/our-commitment-to-lgbtq-inclusion-and-support"
+                    >Learn more about LQBTQIA+ equity commitments</a
+                  >
+                  <a
+                    class="text-xs text-violet-700 hover:underline hover:text-violet-800"
+                    href="https://www.unltd.org.uk/about-us/equity-commitments/"
+                    >Learn more about equity commitments</a
+                  >
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3">
+                <h3 class="font-bold text-gray-500">Help</h3>
+                <div class="flex flex-col gap-3">
+                  <p class="text-sm text-gray-500 leading-relaxed">
+                    For social entrepreneurs with questions about Movement for
+                    Change, please reach out via our Contact Us page.
+                  </p>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <a
+                    class="text-xs text-violet-700 hover:underline hover:text-violet-800"
+                    href="/contact-us">Contact us</a
+                  >
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-4 lg:flex">
+                <h3 class="font-bold text-gray-500">More funds</h3>
+                <div class="flex flex-col gap-3">
+                  {
+                    funds.map((fund) => (
+                      <a
+                        href="/awards"
+                        class="border border-gray-100 p-6 rounded-2xl flex flex-col gap-5 hover:border-violet-300 transition"
+                      >
+                        <div>
+                          <h3 class="text-lg font-bold">{fund.name}</h3>
+                          <p class="text-xs leading-relaxed">
+                            {fund.description}
+                          </p>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                          <h4 class="text-sm">Partners and Funders</h4>
+                          <div class="flex flex-row gap-2">
+                            {fund.partners.map((partner) => (
+                              <div class="flex flex-col gap-2">
+                                <div class="flex gap-2 items-center rounded-md">
+                                  <img
+                                    class="inline-block h-8 w-8 rounded-md"
+                                    src={`/uploads/partner_images/{partner.organisations_id.logo}.webp`}
+                                    alt=""
+                                  />
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </a>
+                    ))
+                  }
+                </div>
               </div>
             </div>
           </div>
-            <div>
-              {fund.email && (
-            <a
-              class="inline-flex items-center rounded-full border border-transparent bg-white px-3 py-1.5 text-xs font-medium text-violet-900 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
-              href={`mailto:${fund.email}`}
-            >
-              {fund.email}
-            </a>
-          )}
-            </div>
-            <div>
-                        {fund.website && (
-            <a
-              class="inline-flex items-center rounded-full border border-transparent bg-white px-3 py-1.5 text-xs font-medium text-violet-900 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
-              href={fund.website}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Website
-            </a>
-          )}
-            </div>
-            <div>
-          <p class="text-gray-500 text-sm">{fund.description}</p>
-            </div>
         </div>
-            </div>
-            <div class="basis-4/6">
-                      <ul class="text-white list-disc">
-            {fund.rounds.length > 0 &&
-              fund.rounds.map((round) => (
-                <>
-                  <li>
-                    <a
-                      class="underline hover:text-violet-300"
-                      href={`/funds/${fund.slug}/${round.open}-${round.close}`}
+      </div>
+
+      <!-- <div class="col-span-4 flex flex-col gap-10 lg:col-span-4 mb-10">
+        <h4 class="text-5xl font-semibold text-gray-600">
+          How to apply for Grants
+        </h4>
+        <div class="flex flex-col gap-10 lg:flex-row">
+          <div class="flex flex-col basis-3/4">
+            <div class="lg:basis-3/4 flex flex-col gap-5">
+              <div class="bg-gray-50 p-10 rounded-2xl flex flex-col gap-1">
+                <div class="flex flex-row gap-6">
+                  <div>
+                    <span
+                      class="bg-white rounded-full h-10 w-10 flex items-center justify-center"
+                      >1</span
                     >
-                      {round.open} - {round.close}
-                    </a>
-                  </li>
-                  {round.funding > 0 && (
-                    <p class="uppercase text-white">Funding</p>
-                    <ul class="list-disc list-inside">
-                      {round.funding.map((grant) => (
-                        <li>
-                          <a
-                            class="underline hover:text-violet-300"
-                            href={`/funds/${fund.slug}/${round.open}-${round.close}/${grant.slug}`}
-                          >
-                            {grant.name}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </>
-              ))}
-          </ul>
+                  </div>
+
+                  <div>
+                    <h3 class="text-2xl">Submit your application</h3>
+                  </div>
+                </div>
+                <div class="ml-16 flex flex-col gap-4">
+                  <p class="text-lg text-gray-500">
+                    We recommend getting your application in early so that we
+                    have time to ensure we have everything we need to assess it.
+                  </p>
+                  <table class="min-w-full divide-y divide-gray-300">
+                    <thead>
+                      <tr>
+                        <th
+                          scope="col"
+                          class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                          >Applications accepted</th
+                        >
+                        <th
+                          scope="col"
+                          class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                          >Applications assessed</th
+                        >
+                        <th
+                          scope="col"
+                          class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                          >Decision</th
+                        >
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200 bg-white">
+                      <tr>
+                        <td class="whitespace-nowrap px-3 py-4 text-sm">
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">From</span> 1 Oct 2022
+                          </div>
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">till</span> 31 Dec 2022
+                          </div>
+                        </td>
+                        <td
+                          class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                        >
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">From</span> Jan 2023
+                          </div>
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">till</span> Mar 2023
+                          </div>
+                        </td>
+                        <td
+                          class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                        >
+                          <div class="text-gray-900 flex flex-col">
+                            <span class="text-gray-500">Week commencing</span
+                            ><span>27 Mar 2023</span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="whitespace-nowrap px-3 py-4 text-sm">
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">From</span> 1 Jan 2023
+                          </div>
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">till</span> 31 Mar 2023
+                          </div>
+                        </td>
+                        <td
+                          class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                        >
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">From</span> Apr 2023
+                          </div>
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">till</span> Jun 2023
+                          </div>
+                        </td>
+                        <td
+                          class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                        >
+                          <div class="text-gray-900 flex flex-col">
+                            <span class="text-gray-500">Week commencing</span
+                            ><span>26 Jun 2023</span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="whitespace-nowrap px-3 py-4 text-sm">
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">From</span> 1 Apr 2023
+                          </div>
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">till</span> 30 Jun 2023
+                          </div>
+                        </td>
+                        <td
+                          class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                        >
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">From</span> Jul 2023
+                          </div>
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">till</span> Sep 2023
+                          </div>
+                        </td>
+                        <td
+                          class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                        >
+                          <div class="text-gray-900 flex flex-col">
+                            <span class="text-gray-500">Week commencing</span
+                            ><span>25 Sep 2023</span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="whitespace-nowrap px-3 py-4 text-sm">
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">From</span> 1 Jul 2023
+                          </div>
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">till</span> 30 Sep 2023
+                          </div>
+                        </td>
+                        <td
+                          class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                        >
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">From</span> Oct 2023
+                          </div>
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">till</span> Dec 2023
+                          </div>
+                        </td>
+                        <td
+                          class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                        >
+                          <div class="text-gray-900 flex flex-col">
+                            <span class="text-gray-500">Week commencing</span
+                            ><span>11 Dec 2023</span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="whitespace-nowrap px-3 py-4 text-sm">
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">From</span> 1 Oct 2023
+                          </div>
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">till</span> 31 Dec 2023
+                          </div>
+                        </td>
+                        <td
+                          class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                        >
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">From</span> Jan 2024
+                          </div>
+                          <div class="text-gray-900">
+                            <span class="text-gray-500">till</span> Mar 2024
+                          </div>
+                        </td>
+                        <td
+                          class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                        >
+                          <div class="text-gray-900 flex flex-col">
+                            <span class="text-gray-500">Week commencing</span
+                            ><span>TBC</span>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="flex flex-col gap-5">
+                    <div class="flex flex-row gap-5 items-center">
+                      <a
+                        href="https://unltd.microsoftcrmportals.com/applications/"
+                        class="inline-flex items-center rounded-full border border-transparent bg-amber-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        >Apply now</a
+                      >
+                      <a
+                        href="https://www.unltd.org.uk/awards/preview"
+                        class="text-violet-800 hover:underline"
+                        >Application preview</a
+                      >
+                    </div>
+                    <div>
+                      <p class="">
+                        We need some financial data from you if you have been
+                        trading for over a year. If this applies to you, visit <a
+                          href="https://www.unltd.org.uk/awards/do-you-need-to-submit-financial-data"
+                          class="text-violet-800 hover:underline"
+                          >Do you need to submit financial data?</a
+                        >
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 p-10 rounded-2xl flex flex-col gap-1">
+                <div class="flex flex-row gap-6">
+                  <div>
+                    <span
+                      class="bg-white rounded-full h-10 w-10 flex items-center justify-center"
+                      >2</span
+                    >
+                  </div>
+
+                  <div>
+                    <h3 class="text-2xl">Initial checks</h3>
+                  </div>
+                </div>
+                <div class="ml-16 text-lg text-gray-500">
+                  <p class="">
+                    Once received we will check your application meets our
+                    eligibility criteria.
+                  </p>
+                  <p>
+                    All applications are also subject to our robust <a
+                      class="text-violet-800 hover:underline"
+                      href="https://www.unltd.org.uk/about-us/safeguarding"
+                      >safeguarding policies</a
+                    >
+                  </p>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 p-10 rounded-2xl flex flex-col gap-1">
+                <div class="flex flex-row gap-6">
+                  <div>
+                    <span
+                      class="bg-white rounded-full h-10 w-10 flex items-center justify-center"
+                      >3</span
+                    >
+                  </div>
+
+                  <div>
+                    <h3 class="text-2xl">Support manager assessment</h3>
+                  </div>
+                </div>
+                <div class="ml-16">
+                  <p class="text-lg text-gray-500">
+                    If the application meets our eligibility criteria, our team
+                    will then review the application based on impact, inclusion
+                    and sustainability.
+                  </p>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 p-10 rounded-2xl flex flex-col gap-1">
+                <div class="flex flex-row gap-6">
+                  <div>
+                    <span
+                      class="bg-white rounded-full h-10 w-10 flex items-center justify-center"
+                      >4</span
+                    >
+                  </div>
+
+                  <div>
+                    <h3 class="text-2xl">Peer review</h3>
+                  </div>
+                </div>
+                <div class="ml-16">
+                  <p class="text-lg text-gray-500">
+                    Applications which show potential will be discussed
+                    alongside others at peer review to progress those with the
+                    most potential to meet our panel.
+                  </p>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 p-10 rounded-2xl flex flex-col gap-1">
+                <div class="flex flex-row gap-6">
+                  <div>
+                    <span
+                      class="bg-white rounded-full h-10 w-10 flex items-center justify-center"
+                      >5</span
+                    >
+                  </div>
+
+                  <div>
+                    <h3 class="text-2xl">Panel stage</h3>
+                  </div>
+                </div>
+                <div class="ml-16">
+                  <p class="text-lg text-gray-500">
+                    Here you will have the opportunity to discuss your
+                    application with a panel made up of staff and other social
+                    entrepreneurs.
+                  </p>
+                </div>
+              </div>
+
+              <div class="bg-gray-50 p-10 rounded-2xl flex flex-col gap-1">
+                <div class="flex flex-row gap-6">
+                  <div>
+                    <span
+                      class="bg-white rounded-full h-10 w-10 flex items-center justify-center"
+                      >6</span
+                    >
+                  </div>
+
+                  <div>
+                    <h3 class="text-2xl">Result</h3>
+                  </div>
+                </div>
+                <div class="ml-16">
+                  <p class="text-lg text-gray-500">
+                    A recommendation is made to our Awards Committee (a group of
+                    our trustees which also includes social entrepreneurs) who
+                    make the final decision on your application. You will be
+                    informed of the outcome of your application.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-  </Container>
+        </div>
+      </div> -->
+    </div>
+  </div>
 </Layout>
