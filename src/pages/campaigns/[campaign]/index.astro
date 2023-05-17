@@ -1,0 +1,13 @@
+---
+export function getStaticPaths() {
+  return [
+    {
+      params: { campaign: "Secure millions in funding for social businesses" },
+    },
+  ];
+}
+
+const { campaign } = Astro.params;
+---
+
+<div>{campaign}!</div>
