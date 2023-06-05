@@ -39,11 +39,11 @@ const { name, description, positions } = Astro.props;
                     <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-600">
                       {position.person.name}
                     </h3>
-                    <!-- <span class="text-xs text-gray-600">
+                    <span class="text-xs text-gray-600">
                       {position.person.pronouns}
-                    </span> -->
+                    </span>
                     {position.person.lgbtqia_plus && (
-                      <!-- <div>
+                      <div>
                         <span
                           role="img"
                           class="text-xl"
@@ -54,21 +54,21 @@ const { name, description, positions } = Astro.props;
                         <span class="sr-only">
                           Member of the LGBTQ+ community
                         </span>
-                      </div> -->
+                      </div>
                     )}
                   </div>
                   <p class="text-sm leading-6 text-gray-500">
                     {position.role.name}
                   </p>
                   {position.person.linkedin && (
-                    <!-- <a
+                    <a
                       href={position.person.linkedin}
                       target="_blank"
                       class="text-gray-600"
                     >
                       <span class="sr-only">LinkedIn</span>
                       <i class="text-sm fa-brands fa-linkedin" />
-                    </a> -->
+                    </a>
                   )}
                 </div>
               </div>
