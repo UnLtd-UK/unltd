@@ -28,8 +28,8 @@ import Divider from "./Divider.astro";
             <AButton
               name={button.name}
               href={button.path.length == 0 ? button.url : button.path}
-              target={button.url.target && button.url.target}
-              icon={button.icon}
+              target={button.target && button.target}
+              icon={button}
               description={button.description}
             />
           ))

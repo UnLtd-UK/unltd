@@ -1,5 +1,13 @@
 ---
-const { application, url = false } = Astro.props;
+const {
+  slug,
+  name,
+  description,
+  grant_title,
+  grant_amount,
+  grant_description,
+  url = false,
+} = Astro.props;
 import { marked } from "marked";
 // application.body = marked.parse(application.body);
 // application.description = marked.parse(application.grant_description);
@@ -12,8 +20,7 @@ if (url) {
 ---
 
 <Element
-  href={Element == "a" &&
-    `/grants-&-support/application-preview/${application.slug}`}
+  href={Element == "a" && `/grants-&-support/application-preview/${slug}`}
   class={`flex flex-col gap-1 justify-between rounded-md  transition border-white border border-opacity-20 shadow-md py-7 px-7 col-span-1 ${
     Element == "a" &&
     "hover:shadow-xl hover:scale-105 hover:bg-white hover:border-opacity-50 hover:bg-opacity-5"
@@ -23,16 +30,16 @@ if (url) {
     <div class="flex gap-5 flex-col justify-between">
       <div class="h-26">
         <h2 class="text-lg flex flex-col gap-3 mt-2">
-          {application.name}
+          {name}
         </h2>
         <p class="text-sm flex flex-col gap-3 mt-2">
-          {application.description}
+          {description}
         </p>
       </div>
 
       <div class="flex flex-col gap-2">
         <p class="text-sm tracking-tight font-bold">
-          {application.grant_title} Award
+          {grant_title} Award
         </p>
         <div class="flex flex-col gap-1">
           <p class="text-xs uppercase tracking-tight">Up to</p>
@@ -42,11 +49,11 @@ if (url) {
                 maximumSignificantDigits: 3,
                 style: "currency",
                 currency: "GBP",
-              }).format(application.grant_amount)
+              }).format(grant_amount)
             }
           </p>
           <p class="text-sm tracking-tight">
-            {application.grant_description}
+            {grant_description}
           </p>
         </div>
       </div>

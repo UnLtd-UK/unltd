@@ -3,11 +3,26 @@ import Fields from "../../components/fields/Fields.astro";
 import Grant from "../../components/GrantCard2.astro";
 import { marked } from "marked";
 
-const { application } = Astro.props;
+const {
+  slug,
+  name,
+  description,
+  grant_title,
+  grant_amount,
+  grant_description,
+  sections,
+} = Astro.props;
 ---
 
 <main class="flex flex-col gap-5">
-  <Grant application={application} />
+  <Grant
+    slug={slug}
+    name={name}
+    description={description}
+    grant_title={grant_title}
+    grant_amount={grant_amount}
+    grant_description={grant_description}
+  />
   <div class="bg-amber-100 px-5 py-5 rounded-md shadow-md">
     <div class="flex flex-col gap-3">
       <i class="fa-solid fa-circle-exclamation text-amber-600 text-xl"></i>
@@ -36,12 +51,12 @@ const { application } = Astro.props;
     </div>
   </div>
   {
-    application.sections.map((section, index) => {
+    sections.map((section, index) => {
       return (
         <>
           <form
             action="#"
-            id={section.slug}
+            id={section.sections_id.slug}
             method="POST"
             class="shadow-xl sm:overflow-hidden rounded-md flex flex-col gap-10 bg-white"
           >
@@ -51,20 +66,20 @@ const { application } = Astro.props;
                   {index + 1}
                 </span>
                 <h3 class="text-lg font-medium leading-6 text-gray-700">
-                  {section.name}
+                  {section.sections_id.name}
                 </h3>
               </div>
 
-              {section.description && (
+              {section.sections_id.description && (
                 <div
                   class="bg-gray-100 px-10 pt-5 pb-10 border-b border-gray-200 shadow-sm text-sm text-gray-500 leading-relaxed prose"
-                  id={`${section.slug}-description}`}
-                  set:html={marked.parse(section.description)}
+                  id={`${section.sections_id.slug}-description}`}
+                  set:html={marked.parse(section.sections_id.description)}
                 />
               )}
             </div>
             <div class="flex flex-col gap-10 pb-10 px-7 md:px-10">
-              {section.fields.map((field, index) => {
+              {section.sections_id.fields.map((field, index) => {
                 return (
                   <Fields
                     name={field.name}
@@ -78,7 +93,7 @@ const { application } = Astro.props;
                     max_length={field.max_length}
                     prefix={field.prefix}
                     suffix={field.suffix}
-                    alias={application.slug}
+                    alias={slug}
                     number={index + 1}
                   />
                 );
