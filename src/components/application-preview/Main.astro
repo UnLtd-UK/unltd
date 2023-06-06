@@ -82,17 +82,17 @@ const {
               {section.sections_id.fields.map((field, index) => {
                 return (
                   <Fields
-                    name={field.name}
-                    description={field.description}
-                    slug={field.slug}
-                    type={field.type}
-                    input_type={field.input_type}
-                    required={field.required}
-                    disabled={field.disabled}
-                    options={field.select_options}
-                    max_length={field.max_length}
-                    prefix={field.prefix}
-                    suffix={field.suffix}
+                    name={field.fields_id.name}
+                    description={field.fields_id.description}
+                    slug={field.fields_id.slug}
+                    type={field.fields_id.type}
+                    input_type={field.fields_id.input_type}
+                    required={field.fields_id.required}
+                    disabled={field.fields_id.disabled}
+                    options={field.fields_id.select_options}
+                    max_length={field.fields_id.max_length}
+                    prefix={field.fields_id.prefix}
+                    suffix={field.fields_id.suffix}
                     alias={slug}
                     number={index + 1}
                   />
