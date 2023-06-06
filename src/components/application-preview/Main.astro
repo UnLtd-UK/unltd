@@ -2,6 +2,7 @@
 import Fields from "../../components/fields/Fields.astro";
 import Grant from "../../components/GrantCard2.astro";
 import { marked } from "marked";
+marked.use({ mangle: false, headerIds: false });
 
 const {
   slug,

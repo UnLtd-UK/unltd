@@ -1,8 +1,7 @@
 ---
 const { application, url = false } = Astro.props;
 import { marked } from "marked";
-// application.body = marked.parse(application.body);
-// application.description = marked.parse(application.grant_description);
+marked.use({ mangle: false, headerIds: false });
 
 let Element = "div";
 

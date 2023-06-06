@@ -2,6 +2,7 @@
 const { name, description, slug, required, disabled, options, number, alias } =
   Astro.props;
 import { marked } from "marked";
+marked.use({ mangle: false, headerIds: false });
 let markdown;
 if (description != null) {
   markdown = marked.parse(description);
