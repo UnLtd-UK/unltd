@@ -23,9 +23,9 @@ import Logo from "./WhiteLogo.astro";
                     <a
                       href={`${navItem.link}`}
                       target="_blank"
-                      id={navItem.name}
                       class="text-base hover:text-slate-300 text-white"
                     >
+                      <span class="sr-only">{navItem.name}</span>
                       <i class={`fa-brands fa-${navItem.icon}`} />
                     </a>
                   )}
