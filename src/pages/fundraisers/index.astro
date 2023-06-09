@@ -1,5 +1,6 @@
 ---
 import Blank from "../../layouts/Blank.astro";
+import { fundraisers } from "../../data/directus/fundraisers.js";
 const name = "Fundraisers";
 const description = "Blah blah blah";
 const breadcrumbs = [
@@ -8,6 +9,8 @@ const breadcrumbs = [
     slug: "fundraisers",
   },
 ];
+let todayDate = moment();
+import moment from "moment";
 ---
 
 <Blank name={name} description={description} breadcrumbs={breadcrumbs}>
@@ -23,20 +26,31 @@ const breadcrumbs = [
 
     <div class="overflow-hidden bg-white shadow sm:rounded-md">
       <ul role="list" class="divide-y divide-gray-200">
+                  {
+            fundraisers.map((fundraiser) => (
+              
         <li>
-          <a href="#" class="block hover:bg-gray-50">
+          <a href={`/fundraisers/${fundraiser.slug}`} class="block hover:bg-gray-50">
             <div class="flex items-center px-4 py-4 sm:px-6">
               <div
                 class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between"
               >
                 <div class="truncate">
-                  <div class="flex text-sm">
+                  <div class="flex text-sm gap-2 items-center">
                     <p class="truncate font-medium text-indigo-600">
-                      Back End Developer
+                      {fundraiser.name}
                     </p>
-                    <p class="ml-1 flex-shrink-0 font-normal text-gray-500">
-                      in Engineering
-                    </p>
+        {
+          !todayDate.isAfter(fundraiser.finish) ? (
+            <span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+              Active
+            </span>
+          ) : (
+            <span class="inline-flex items-center rounded-full bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+              Completed
+            </span>
+          )
+        }
                   </div>
                   <div class="mt-2 flex">
                     <div class="flex items-center text-sm text-gray-500">
@@ -55,7 +69,7 @@ const breadcrumbs = [
                       </svg>
                       <p>
                         Closing on
-                        <time datetime="2020-01-07">January 7, 2020</time>
+                        <time datetime="2020-01-07">{moment(fundraiser.finish).format("dddd hh:mma, MMMM Do YYYY")}</time>
                       </p>
                     </div>
                   </div>
@@ -106,6 +120,7 @@ const breadcrumbs = [
             </div>
           </a>
         </li>
+        ) )}
       </ul>
     </div>
   </div>
