@@ -1,30 +1,29 @@
 ---
-const { name, href, icon, target, description } = Astro.props;
+const { name, href, target, icon, description } = Astro.props;
 ---
 
 <div>
   <a
     href={href}
     target={target}
-    class="inline-flex flex-col gap-1 rounded-md border border-white border-opacity-30 px-4 py-2 shadow-sm hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 transition group"
+    class="inline-flex flex-col gap-1 rounded-md border border-white border-opacity-30 px-4 py-2 shadow-sm hover:bg-violet-50 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition group"
   >
     <div class="flex flex-row gap-3 items-center">
       {
         icon.position == 0 && (
           <i
-            class={`text-violet-300 text-xs group-hover:text-violet-500 fa-solid fa-${icon.name}`}
+            class={`text-gray-500 text-xs group-hover:text-gray-500 fa-solid fa-${icon.name}`}
           />
         )
       }
       <div class="flex flex-col">
-        <span
-          class="text-violet-50 font-medium text-xs group-hover:text-violet-800"
+        <span class="text-gray-60 font-medium text-xs group-hover:text-gray-800"
           >{name}</span
         >
 
         {
           description && (
-            <span class="text-violet-300 group-hover:text-violet-600 text-xs">
+            <span class="text-gray-500 group-hover:text-gray-600 text-xs">
               {description}
             </span>
           )
@@ -33,7 +32,7 @@ const { name, href, icon, target, description } = Astro.props;
       {
         icon.position == 1 && (
           <i
-            class={`text-violet-300 text-xs group-hover:text-violet-500 fa-solid fa-${icon.name}`}
+            class={`text-xs group-hover:text-gray-500 fa-solid fa-${icon.name}`}
           />
         )
       }

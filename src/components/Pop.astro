@@ -12,12 +12,12 @@ import Divider from "./Divider.astro";
 
 <div class="px-5 flex flex-col gap-2">
   <div class="flex flex-row gap-2 items-center">
-    <i class={`${icon} text-violet-300`}></i>
-    <h3 class="text font-medium leading-6 text-violet-100">{name}</h3>
+    <i class={`${icon}`}></i>
+    <h3 class="text font-medium leading-6">{name}</h3>
   </div>
 
   <div class="gap-3 sm:flex flex-col sm:items-start sm:justify-between">
-    <p class="text-xs font-medium leading-6 text-violet-200">
+    <p class="text-xs font-medium leading-6">
       {description}
     </p>
 
@@ -28,8 +28,8 @@ import Divider from "./Divider.astro";
             <AButton
               name={button.name}
               href={button.path.length == 0 ? button.url : button.path}
-              target={button.url.target && button.url.target}
-              icon={button.icon}
+              target={button.target && button.target}
+              icon={button}
               description={button.description}
             />
           ))

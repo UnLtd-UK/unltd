@@ -1,0 +1,214 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { fundraisers } from "../../../data/directus/fundraisers.js";
+import Container from "../../../layouts/Container.astro";
+import moment from "moment";
+
+const breadcrumbs = [
+  {
+    name: "Fundraisers",
+    slug: "fundraisers",
+  },
+];
+
+export async function getStaticPaths() {
+  return fundraisers.map((fundraiser) => {
+    let results = {
+      params: {
+        fundraiser: fundraiser.slug,
+      },
+      props: {
+        fundraiser: fundraiser,
+      },
+    };
+
+    return results;
+  });
+}
+
+let todayDate = moment();
+
+const { fundraiser } = Astro.props;
+---
+
+<Layout
+  name={fundraiser.name}
+  description={fundraiser.description}
+  breadcrumbs={breadcrumbs}
+>
+  <Container>
+    <div class="flex flex-col gap-7 lg:w-1/2 pt-10">
+      <div class="flex gap-5 justify-between">
+        <div class="">
+          <h1 class="text-3xl">{fundraiser.name}</h1>
+        </div>
+        <div>
+          {
+            !todayDate.isAfter(fundraiser.finish) ? (
+              <span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                Active
+              </span>
+            ) : (
+              <span class="inline-flex items-center rounded-full bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                Completed
+              </span>
+            )
+          }
+          <div>
+            <p class="text-xs">
+              {moment(fundraiser.finish).format("dddd hh:mma, MMMM Do YYYY")}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <img
+        src={`https://unltd.directus.app/assets/${fundraiser.image}`}
+        class="h-auto max-w-full rounded-md"
+        alt="..."
+      />
+
+      <div>
+        <p>{fundraiser.description}</p>
+      </div>
+
+      <div
+        class="flex justify-between bg-slate-100 rounded-xl items-center border border-gray-200"
+      >
+        <div class="flex flex-col pl-5">
+          <span class="text-xs text-gray-500">Goal</span>
+          <span class="text-lg">
+            {
+              new Intl.NumberFormat("en-GB", {
+                maximumSignificantDigits: 3,
+                style: "currency",
+                currency: "GBP",
+              }).format(fundraiser.amount)
+            }
+          </span>
+        </div>
+        <a
+          href={fundraiser.link}
+          target="_blank"
+          class="p-5 rounded-r-xl bg-violet-600 text-sm font-semibold text-white shadow-sm hover:bg-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
+          >Donate now</a
+        >
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xl">Raising funds for</p>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {
+            fundraiser.funds.map((fund) => (
+              <div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-violet-500 focus-within:ring-offset-2 hover:border-gray-400">
+                <div class="flex-shrink-0">
+                  <img
+                    class="h-10 w-10 rounded-md drop-shadow-md"
+                    src={`https://unltd.directus.app/assets/${fund.funds_id.logo}`}
+                    alt=""
+                  />
+                </div>
+                <div class="min-w-0 flex-1">
+                  <a href="#" class="focus:outline-none">
+                    <span class="absolute inset-0" aria-hidden="true" />
+                    <p class="text-sm font-medium text-gray-900">
+                      {fund.funds_id.name}
+                    </p>
+                  </a>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xl">Sponsors</p>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {
+            fundraiser.sponsors.map((supporter) => (
+              <div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-violet-500 focus-within:ring-offset-2 hover:border-gray-400">
+                <div class="flex-shrink-0">
+                  <img
+                    class="h-10 w-10 rounded-md drop-shadow-md"
+                    src={`https://unltd.directus.app/assets/${supporter.organisations_id.logo}`}
+                    alt=""
+                  />
+                </div>
+                <div class="min-w-0 flex-1">
+                  <a href="#" class="focus:outline-none">
+                    <span class="absolute inset-0" aria-hidden="true" />
+                    <p class="text-sm font-medium text-gray-900">
+                      {supporter.organisations_id.name}
+                    </p>
+                  </a>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3">
+        <p class="text-xl">Supporters</p>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {
+            fundraiser.supporters.map((supporter) => (
+              <div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-violet-500 focus-within:ring-offset-2 hover:border-gray-400">
+                <div class="flex-shrink-0">
+                  <img
+                    class="h-10 w-10 rounded-md drop-shadow-md"
+                    src={`https://unltd.directus.app/assets/${supporter.organisations_id.logo}`}
+                    alt=""
+                  />
+                </div>
+                <div class="min-w-0 flex-1">
+                  <a href="" target="_blank" class="focus:outline-none">
+                    <span class="absolute inset-0" aria-hidden="true" />
+                    <p class="text-sm font-medium text-gray-900">
+                      {supporter.organisations_id.name}
+                    </p>
+                  </a>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <span class="text-gray-500 text-xs"> Started</span>
+        <span class="text-sm"
+          >{
+            moment(fundraiser.start).format("dddd hh:mma, MMMM Do YYYY hh:mma")
+          }</span
+        >
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <span class="text-gray-500 text-xs"> Managed by</span>
+        <div class="flex items-center">
+          <div>
+            <img
+              class="inline-block h-9 w-9 rounded-full"
+              src={`https://unltd.directus.app/assets/${fundraiser.manager.person.image}`}
+              alt=""
+            />
+          </div>
+          <div class="ml-3">
+            <p
+              class="text-sm font-medium text-gray-700 group-hover:text-gray-900"
+            >
+              {fundraiser.manager.person.name}
+            </p>
+            <p
+              class="text-xs font-medium text-gray-500 group-hover:text-gray-700"
+            >
+              {fundraiser.manager.role.name}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</Layout>
