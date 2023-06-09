@@ -1,0 +1,296 @@
+---
+// LAYOUT
+import Blank from "../../layouts/Blank.astro";
+
+// COMPONENTS
+import Tabs from "../../components/Tabs.astro";
+import Mention from "../../components/Mention.astro";
+import TypeCard from "../../components/TypeCard.astro";
+import Block from "../../components/Block.astro";
+import Divider from "../../components/Divider.astro";
+import SupportCardGroup from "../../components/SupportCardGroup.astro";
+import Hero from "../../components/Hero.astro";
+
+// DATA
+import { funds } from "../../data/directus/funds.js";
+import { grants } from "../../data/directus/grants.js";
+import { rounds } from "../../data/directus/rounds.js";
+
+import users from "../../data/json/users.json";
+import supportGroups from "../../data/json/support-groups.json";
+import categories from "../../data/json/categories.json";
+import topics from "../../data/json/topics.json";
+import categoriesTopics from "../../data/json/categoriesTopics.json";
+import types from "../../data/json/types.json";
+
+const name = "Grants & Support";
+const description =
+  "We go beyond funding. Explore our support and tailor it to your needs";
+
+const breadcrumbs = [
+  {
+    name: "Grants & Support",
+    slug: "grants-&-support",
+  },
+];
+
+grants.map((grant) => {
+  const slugify = (text) =>
+    text
+      .toString()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "")
+      .replace(/--+/g, "-");
+
+  grant.slug = slugify(grant.name);
+});
+
+// let activeGrants = rounds.filter((round) => {
+//   let date = new Date();
+//   let roundopen = new Date(round.open);
+//   let roundclose = new Date(round.close);
+//   let fundopen = new Date(round.open);
+//   let fundclose = new Date(round.close);
+
+//   if (
+//     roundopen < date &&
+//     roundclose > date &&
+//     fundopen < date &&
+//     fundclose > date
+//   ) {
+//     return activeGrant;
+//   }
+// });
+---
+
+<Blank
+  name={`${name}`}
+  description={`${description}`}
+  breadcrumbs={breadcrumbs}
+>
+  <div class="mx-auto max-w-7xl flex flex-col gap-20">
+    <div class="flex flex-col gap-20 mx-4 lg:mx-0">
+      <!-- <Hero
+        name={name}
+        description={description}
+        features={[
+          { icon: "user", name: "Availble to Grantees for 12 months" },
+          { icon: "user", name: "Availble for Investees indefinitely" },
+          { icon: "earth-europe", name: "Across the United Kingdom" },
+          { icon: "certificate", name: "Free forever" },
+        ]}
+      /> -->
+
+      <ul
+        role="list"
+        class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      >
+        {
+          grants.map((grant) => (
+            <li class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
+              <div class="flex flex-1 flex-col p-8">
+                <img
+                  class="mx-auto h-32 w-32 flex-shrink-0 rounded-full"
+                  src={`https://unltd.directus.app/assets/${grant.fund.logo}`}
+                  alt=""
+                />
+                <h3 class="mt-6 text-sm font-medium text-gray-900">
+                  {grant.fund.name}
+                </h3>
+                <dl class="mt-1 flex flex-grow flex-col justify-between">
+                  <dt class="sr-only">Fund name</dt>
+                  <dd class="text-sm text-gray-500">{grant.name}</dd>
+                  <dt class="sr-only">Grant amount</dt>
+                  <dd class="mt-3">
+                    <span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
+                      {new Intl.NumberFormat("en-GB", {
+                        maximumSignificantDigits: 3,
+                        style: "currency",
+                        currency: "GBP",
+                      }).format(grant.minimum_amount)}{" "}
+                      -{" "}
+                      {new Intl.NumberFormat("en-GB", {
+                        maximumSignificantDigits: 3,
+                        style: "currency",
+                        currency: "GBP",
+                      }).format(grant.maximum_amount)}
+                    </span>
+                  </dd>
+                </dl>
+              </div>
+              <div>
+                <div class="-mt-px flex divide-x divide-gray-200">
+                  <div class="-ml-px flex w-0 flex-1">
+                    <a
+                      href={`/funds/${grant.fund.slug}`}
+                      class="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
+                    >
+                      <span class="text-xs">Visit fund</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+
+      <Block
+        name="Your induction"
+        description="Learn about what support is available to you on your funding. Your induction will be with your peers so you're on this journey alone."
+      >
+        <div class="flex">
+          <div>
+            <p>Grant funds</p>
+            <div class="flex gap-1">
+              {
+                funds.map(
+                  (fund) =>
+                    fund.grants && (
+                      <span class="inline-flex items-center rounded-full bg-pink-100 px-3 py-0.5 text-sm font-medium text-pink-800">
+                        {fund.name}
+                      </span>
+                    )
+                )
+              }
+            </div>
+          </div>
+
+          <div>
+            <p>Investment funds</p>
+            <div>
+              {
+                funds.map(
+                  (fund) =>
+                    fund.investments && (
+                      <span class="inline-flex items-center rounded-full bg-pink-100 px-3 py-0.5 text-sm font-medium text-pink-800">
+                        {fund.name}
+                      </span>
+                    )
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </Block>
+
+      <Divider />
+
+      <Block
+        name="Your manager"
+        description="Your direct contact to UnLtd, here to help you navigate your support and funding and make the most of what we have to offer."
+      >
+        <Mention
+          name="Portfolio Manager"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+          items={users}
+          icon="headset"
+          tag="For as long as you are an Investee"
+        />
+        <Mention
+          name="Suppoort Manager"
+          description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud."
+          items={users}
+          icon="headset"
+          tag="12 months acccess"
+        />
+      </Block>
+
+      <Divider />
+
+      <Block
+        name="Your sector"
+        description="We run regular support for fundee's working in specific sectors."
+      >
+        <div class="flex flex-col gap-3">
+          {
+            supportGroups.map((supportGroup) => {
+              return (
+                <Fragment>
+                  {types.map(
+                    (type) =>
+                      type.id === supportGroup.type.id && (
+                        <SupportCardGroup support={supportGroup} type={type} />
+                      )
+                  )}
+                </Fragment>
+              );
+            })
+          }
+        </div>
+      </Block>
+
+      <Divider />
+
+      <div class="flex flex-col gap-10">
+        <Block
+          name="Your library"
+          description="Exploring our library of topics and the numerous ways to deliver them. Find the topic and delivery method which works best for your growth. We have partnered with experts in the industry to ensure the knowledge you get is first-class."
+        >
+          <div
+            class="mt-8 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-0 lg:grid-cols-2"
+          >
+            <div class="col-span-1 flex justify-center py-8 px-8">
+              <img
+                class="max-h-12"
+                src="https://tailwindui.com/img/logos/transistor-logo-gray-400.svg"
+                alt="Workcation"
+              />
+            </div>
+            <div class="col-span-1 flex justify-center py-8 px-8">
+              <img
+                class="max-h-12"
+                src="https://tailwindui.com/img/logos/mirage-logo-gray-400.svg"
+                alt="Mirage"
+              />
+            </div>
+            <div class="col-span-1 flex justify-center py-8 px-8">
+              <img
+                class="max-h-12"
+                src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg"
+                alt="Tuple"
+              />
+            </div>
+            <div class="col-span-1 flex justify-center py-8 px-8">
+              <img
+                class="max-h-12"
+                src="https://tailwindui.com/img/logos/laravel-logo-gray-400.svg"
+                alt="Laravel"
+              />
+            </div>
+            <div class="col-span-1 flex justify-center py-8 px-8">
+              <img
+                class="max-h-12"
+                src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg"
+                alt="StaticKit"
+              />
+            </div>
+            <div class="col-span-1 flex justify-center py-8 px-8">
+              <img
+                class="max-h-12"
+                src="https://tailwindui.com/img/logos/statamic-logo-gray-400.svg"
+                alt="Statamic"
+              />
+            </div>
+          </div>
+        </Block>
+
+        <Tabs
+          parentItems={categories}
+          childrenItems={topics}
+          relationships={categoriesTopics}
+        />
+
+        <div
+          class="flex flex-col text-gray-700 rounded-b-xl lg:px-20 lg:py-12 gap-24"
+        >
+          {types.map((type) => <TypeCard type={type} />)}
+        </div>
+      </div>
+    </div>
+  </div>
+</Blank>

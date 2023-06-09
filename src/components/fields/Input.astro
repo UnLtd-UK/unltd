@@ -11,6 +11,7 @@ const {
   number,
 } = Astro.props;
 import { marked } from "marked";
+marked.use({ mangle: false, headerIds: false });
 let markdown;
 if (description != null) {
   markdown = marked.parse(description);

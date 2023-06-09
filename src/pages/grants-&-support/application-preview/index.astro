@@ -1,0 +1,46 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Header from "../../../components/Header.astro";
+import Container from "../../../layouts/Container.astro";
+import Grant from "../../../components/GrantCard1.astro";
+import { applications } from "../../../data/directus/applications.js";
+
+const {
+  name = "Application preview",
+  slug = "application-preview",
+  description = "Preview our application form or download the questions so that you can prepare your application before you sign up for an Award account",
+  breadcrumbs = [
+    {
+      name: "Grants & Support",
+      slug: "/grants-&-support",
+    },
+    {
+      name: name,
+      slug: `/grants-&-support/${slug}`,
+    },
+  ],
+} = Astro.props;
+---
+
+<Layout name={name} description={description}>
+  <Header name={name} description={description} breadcrumbs={breadcrumbs} />
+  <Container>
+    <div class="col-span-12 flex flex-row gap-3 mb-5">
+      <div class="flex flex-col gap-1">
+        <h2 class="text-3xl font-bold">What is your stage of development?</h2>
+        <p class="">
+          Select the option that best matches the stage of your venture
+        </p>
+      </div>
+    </div>
+    <div
+      class="grid xs:grid-rows-3 xs:git-flow-row lg:grid-cols-3 lg:grid-flow-col gap-4 col-span-12 flex-row"
+    >
+      {
+        applications.map((application) => (
+          <Grant application={application} url={application.slug} />
+        ))
+      }
+    </div>
+  </Container>
+</Layout>

@@ -12,7 +12,7 @@ const {
 } = Astro.props;
 ---
 
-<div class="bg-gradient-to-br from-gray-900 via-[#491A86] to-amber-700 mb-10">
+<div class="">
   <Container>
     <div class="py-14 flex flex-col gap-12">
       <div class="flex flex-row gap-5 justify-between">
@@ -22,7 +22,7 @@ const {
               <div>
                 <a
                   href="/"
-                  class="hover:text-violet-200 text-violet-300 transition"
+                  class="hover:text-gray-700 text-gray-900 transition"
                 >
                   <i class="fa-solid fa-house text-xs"></i>
                   <span class="sr-only">UnLtd</span>
@@ -34,10 +34,10 @@ const {
               breadcrumbs.map((crumb) => (
                 <li>
                   <div class="flex items-center">
-                    <i class="fa-solid fa-chevron-right text-violet-300 text-xs" />
+                    <i class="fa-solid fa-chevron-right text-gray-900 hover:text-gray-700 text-xs" />
                     <a
                       href={`${crumb.slug}`}
-                      class="ml-4 text-xs font-medium hover:text-violet-200 text-violet-300 transition"
+                      class="ml-4 text-xs font-medium text-gray-900 hover:text-gray-700 transition"
                     >
                       {crumb.name}
                     </a>
@@ -53,8 +53,8 @@ const {
             <div class="flex flex-row gap-10">
               {updated && (
                 <div>
-                  <p class="text-violet-300 text-xs">Updated</p>
-                  <p class="text-violet-300 text-sm">
+                  <p class="text-gray-900 text-xs">Updated</p>
+                  <p class="text-gray-900 text-sm">
                     {new Date(updated).toLocaleDateString()}
                   </p>
                 </div>
@@ -62,8 +62,8 @@ const {
 
               {updated && (
                 <div>
-                  <p class="text-violet-300 text-xs">Reviewed</p>
-                  <p class="text-violet-300 text-sm">
+                  <p class="text-gray-900 text-xs">Reviewed</p>
+                  <p class="text-gray-900 text-sm">
                     {new Date(reviewed).toLocaleDateString()}
                   </p>
                 </div>
@@ -74,13 +74,13 @@ const {
       </div>
 
       <div class="max-w-4xl flex flex-col gap-3">
-        <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-3">
           <h2
-            class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
+            class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
           >
             {name}
           </h2>
-          <p class="text-2xl text-violet-300">
+          <p class="text-2xl text-gray-600">
             {description}
           </p>
         </div>
@@ -94,7 +94,7 @@ const {
                 <a
                   target={primaryButton.url.startsWith("https://") && "_blank"}
                   href={primaryButton.url}
-                  class="inline-flex items-center justify-center rounded-full border border-transparent bg-violet-600 px-5 py-3 text-base font-medium text-white hover:bg-violet-700"
+                  class="inline-flex items-center justify-center rounded-full border border-transparent bg-gray-100 px-5 py-3 text-base font-medium text-gray hover:bg-violet-700"
                 >
                   {primaryButton.text}
                 </a>
@@ -104,7 +104,7 @@ const {
               {secondaryButton && (
                 <a
                   href={secondaryButton.url}
-                  class="inline-flex items-center justify-center rounded-full border border-transparent bg-violet-100 px-5 py-3 text-base font-medium text-violet-700 hover:bg-violet-200"
+                  class="inline-flex items-center justify-center rounded-full border border-transparent bg-gray-100 px-5 py-3 text-base font-medium text-gray-700 hover:bg-violet-200"
                 >
                   {secondaryButton.text}
                 </a>

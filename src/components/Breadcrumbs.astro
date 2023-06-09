@@ -16,7 +16,7 @@ const { breadcrumbs } = Astro.props;
               <div>
                 <a
                   href="/"
-                  class="hover:text-violet-200 text-violet-300 transition"
+                  class="hover:text-gray-700 text-gray-600 transition"
                 >
                   <i class="fa-solid fa-house text-xs"></i>
                   <span class="sr-only">UnLtd</span>
@@ -28,10 +28,10 @@ const { breadcrumbs } = Astro.props;
               breadcrumbs.map((crumb) => (
                 <li>
                   <div class="flex items-center">
-                    <i class="fa-solid fa-chevron-right text-violet-300 text-xs" />
+                    <i class="fa-solid fa-chevron-right text-gray-500 text-xs" />
                     <a
                       href={`${crumb.slug}`}
-                      class="ml-4 text-xs font-medium hover:text-violet-200 text-violet-300 transition"
+                      class="ml-4 text-xs font-medium hover:text-gray-700 text-gray-600 transition"
                     >
                       {crumb.name}
                     </a>
