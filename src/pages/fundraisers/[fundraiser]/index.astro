@@ -1,19 +1,26 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
 import { fundraisers } from "../../../data/directus/fundraisers.js";
-import Container from "../../../layouts/Container.astro";
-import Blank from "../../../layouts/Blank.astro";
+import Template from "../../../layouts/Template.astro";
+import Hero from "../../../components/Hero.astro";
+import Container from "../../../components/Container.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import moment from "moment";
-
-const breadcrumbs = [
-  {
-    name: "Fundraisers",
-    slug: "fundraisers",
-  },
-];
 
 export async function getStaticPaths() {
   return fundraisers.map((fundraiser) => {
+    let breadcrumbs = [
+      {
+        name: "Fundraisers",
+        slug: "/fundraisers",
+      },
+      {
+        name: fundraiser.name,
+        slug: `/fundraisers/${fundraiser.slug}`,
+      },
+    ];
+
+    fundraiser.breadcrumbs = breadcrumbs;
+
     let results = {
       params: {
         fundraiser: fundraiser.slug,
@@ -32,12 +39,9 @@ let todayDate = moment();
 const { fundraiser } = Astro.props;
 ---
 
-<Layout
-  name={fundraiser.name}
-  description={fundraiser.description}
-  breadcrumbs={breadcrumbs}
->
+<Template name={fundraiser.name} description={fundraiser.description}>
   <Container>
+    <Breadcrumbs breadcrumbs={fundraiser.breadcrumbs} />
     <div
       class="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32 rounded-lg"
     >
@@ -276,4 +280,4 @@ const { fundraiser } = Astro.props;
       </div>
     </div>
   </Container>
-</Layout>
+</Template>

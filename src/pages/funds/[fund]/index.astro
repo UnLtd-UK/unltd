@@ -1,5 +1,8 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
+import Template from "../../../layouts/Template.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import Container from "../../../components/Container.astro";
+
 import AwardsDesktop from "../../../components/fund/AwardsDesktop.astro";
 import AwardsMobile1 from "../../../components/fund/AwardsMobile1.astro";
 import AwardsMobile2 from "../../../components/fund/AwardsMobile2.astro";
@@ -8,6 +11,19 @@ import { funds } from "../../../data/directus/funds.js";
 
 export async function getStaticPaths() {
   return funds.map((fund) => {
+    let breadcrumbs = [
+      {
+        name: "Funds",
+        slug: "/funds",
+      },
+      {
+        name: fund.name,
+        slug: `/funds/${fund.slug}`,
+      },
+    ];
+
+    fund.breadcrumbs = breadcrumbs;
+
     let oogle = {
       params: {
         fund: fund.slug,
@@ -24,7 +40,10 @@ export async function getStaticPaths() {
 const { fund } = Astro.props;
 ---
 
-<Layout name={fund.name} description={fund.description}>
+<Template name={fund.name} description={fund.description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={fund.breadcrumbs} />
+  </Container>
   <div class="bg-white">
     <div class="relative isolate overflow-hidden bg-gray-900 py-20 mb-10">
       <img
@@ -628,4 +647,4 @@ const { fund } = Astro.props;
       </div> -->
     </div>
   </div>
-</Layout>
+</Template>
