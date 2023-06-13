@@ -1,20 +1,28 @@
 ---
-import Blank from "../../layouts/Blank.astro";
+import Template from "../../layouts/Template.astro";
+import Hero from "../../components/Hero.astro";
+import Container from "../../components/Container.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+
 import { fundraisers } from "../../data/directus/fundraisers.js";
+
 const name = "Fundraisers";
+const slug = "fundraisers";
 const description = "Supporting Causes, Making an Impact.";
 const breadcrumbs = [
   {
-    name: "Fundraisers",
-    slug: "fundraisers",
+    name: name,
+    slug: slug,
   },
 ];
 let todayDate = moment();
 import moment from "moment";
 ---
 
-<Blank name={name} description={description} breadcrumbs={breadcrumbs}>
-  <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-5">
+<Template name={name} description={description}>
+    <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+    <Hero name={name} description={description}/>
 
     <div class="overflow-hidden bg-white shadow sm:rounded-md">
       <ul role="list" class="divide-y divide-gray-200">
@@ -114,5 +122,5 @@ import moment from "moment";
         ) )}
       </ul>
     </div>
-  </div>
-</Blank>
+  </Container>
+</Template>

@@ -1,24 +1,51 @@
 ---
-import Layout from "./Layout.astro";
-import Header from "../components/Header.astro";
+import Template from "./Template.astro";
+import Container from "../components/Container.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Hero from "../components/Hero.astro";
 const { frontmatter } = Astro.props;
 ---
 
-<Layout name={frontmatter.name} description={frontmatter.description}>
-  <Header
-    name={frontmatter.name}
-    description={frontmatter.description}
-    breadcrumbs={frontmatter.breadcrumbs}
-    primaryButton={frontmatter.primaryButton}
-    secondaryButton={frontmatter.secondaryButton}
-    updated={frontmatter.updated}
-    reviewed={frontmatter.reviewed}
-  />
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+<Template name={frontmatter.name} description={frontmatter.description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={frontmatter.breadcrumbs} />
+    <Hero name={frontmatter.name} description={frontmatter.description} />
+    <!-- <div class="py-14 flex flex-col gap-12">
+      {
+        frontmatter.primaryButton && (
+          <div class="flex flex-row">
+            <div class="inline-flex rounded-md shadow">
+              {frontmatter.primaryButton && (
+                <a
+                  target={
+                    frontmatter.primaryButton.url.startsWith("https://") &&
+                    "_blank"
+                  }
+                  href={frontmatter.primaryButton.url}
+                  class="inline-flex items-center justify-center rounded-full border border-transparent bg-gray-100 px-5 py-3 text-base font-medium text-gray hover:bg-violet-700"
+                >
+                  {frontmatter.primaryButton.text}
+                </a>
+              )}
+            </div>
+            <div class="ml-3 inline-flex">
+              {frontmatter.secondaryButton && (
+                <a
+                  href={frontmatter.secondaryButton.url}
+                  class="inline-flex items-center justify-center rounded-full border border-transparent bg-gray-100 px-5 py-3 text-base font-medium text-gray-700 hover:bg-violet-200"
+                >
+                  {frontmatter.secondaryButton.text}
+                </a>
+              )}
+            </div>
+          </div>
+        )
+      }
+    </div> -->
     <div
       class="prose prose-lg prose-black prose-img:rounded-md prose-img:shadow-md prose-img:w-full"
     >
       <slot />
     </div>
-  </div>
-</Layout>
+  </Container>
+</Template>

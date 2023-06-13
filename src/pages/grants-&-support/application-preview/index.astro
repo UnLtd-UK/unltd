@@ -1,7 +1,8 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
-import Header from "../../../components/Header.astro";
-import Container from "../../../layouts/Container.astro";
+import Template from "../../../layouts/Template.astro";
+import Hero from "../../../components/Hero.astro";
+import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+import Container from "../../../components/Container.astro";
 import Grant from "../../../components/GrantCard1.astro";
 import { applications } from "../../../data/directus/applications.js";
 
@@ -22,9 +23,10 @@ const {
 } = Astro.props;
 ---
 
-<Layout name={name} description={description}>
-  <Header name={name} description={description} breadcrumbs={breadcrumbs} />
+<Template name={name} description={description}>
   <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+    <Hero name={name} description={description} />
     <div class="col-span-12 flex flex-row gap-3 mb-5">
       <div class="flex flex-col gap-1">
         <h2 class="text-3xl font-bold">What is your stage of development?</h2>
@@ -43,4 +45,4 @@ const {
       }
     </div>
   </Container>
-</Layout>
+</Template>

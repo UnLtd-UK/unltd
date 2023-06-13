@@ -1,5 +1,7 @@
 ---
-import Blank from "../layouts/Blank.astro";
+import Layout from "../layouts/Template.astro";
+import Container from "../components/Container.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 const name = "Contact form";
 const description = "djhjdkfkjdhjk";
 const breadcrumbs = [
@@ -10,21 +12,10 @@ const breadcrumbs = [
 ];
 ---
 
-<Blank name={name} description={description} breadcrumbs={breadcrumbs}>
-  <!--
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
+<Layout name={name} description={description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+  </Container>
   <div class="relative isolate bg-white">
     <div class="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
       <div
@@ -269,4 +260,4 @@ const breadcrumbs = [
       </form>
     </div>
   </div>
-</Blank>
+</Layout>
