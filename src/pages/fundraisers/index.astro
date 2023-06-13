@@ -2,7 +2,7 @@
 import Blank from "../../layouts/Blank.astro";
 import { fundraisers } from "../../data/directus/fundraisers.js";
 const name = "Fundraisers";
-const description = "Blah blah blah";
+const description = "Supporting Causes, Making an Impact.";
 const breadcrumbs = [
   {
     name: "Fundraisers",
@@ -15,14 +15,6 @@ import moment from "moment";
 
 <Blank name={name} description={description} breadcrumbs={breadcrumbs}>
   <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 flex flex-col gap-5">
-    <div class="">
-      <h1
-        class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
-      >
-        {name}
-      </h1>
-      <p class="mt-6 max-w-3xl text-xl text-indigo-100">{description}</p>
-    </div>
 
     <div class="overflow-hidden bg-white shadow sm:rounded-md">
       <ul role="list" class="divide-y divide-gray-200">
@@ -54,7 +46,6 @@ import moment from "moment";
                   </div>
                   <div class="mt-2 flex">
                     <div class="flex items-center text-sm text-gray-500">
-                      <!-- Heroicon name: mini/calendar -->
                       <svg
                         class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
                         xmlns="http://www.w3.org/2000/svg"

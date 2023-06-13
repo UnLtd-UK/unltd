@@ -1,13 +1,38 @@
 ---
-export function getStaticPaths() {
-  return [
-    {
-      params: { campaign: "Secure millions in funding for social businesses" },
-    },
-  ];
+import Layout from "../../../layouts/Layout.astro";
+import { campaigns } from "../../../data/directus/campaigns.js";
+import Container from "../../../layouts/Container.astro";
+import moment from "moment";
+
+const breadcrumbs = [
+  {
+    name: "Campaigns",
+    slug: "campaigns",
+  },
+];
+
+export async function getStaticPaths() {
+  return campaigns.map((campaign) => {
+    let results = {
+      params: {
+        campaign: campaign.slug,
+      },
+      props: {
+        campaign: campaign,
+      },
+    };
+
+    return results;
+  });
 }
 
-const { campaign } = Astro.params;
+let todayDate = moment();
+
+const { campaign } = Astro.props;
 ---
 
-<div>{campaign}!</div>
+<Layout
+  name={`${campaign.name} | Campaigns`}
+  description={campaign.description}
+  breadcrumbs={breadcrumbs}
+/>
