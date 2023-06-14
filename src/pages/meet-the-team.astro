@@ -1,5 +1,8 @@
 ---
-import Blank from "../layouts/Blank.astro";
+import Template from "../layouts/Template.astro";
+import Container from "../components/Container.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Hero from "../components/Hero.astro";
 import Team from "../components/Team.astro";
 import { positions } from "../data/directus/positions.js";
 
@@ -15,40 +18,44 @@ const breadcrumbs = [
 ];
 ---
 
-<Blank name={name} description={description} breadcrumbs={breadcrumbs}>
-  <Team
-    name="Leadership"
-    description="Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae elementum enim vitae ullamcorper suspendisse."
-    positions={positions}
-  />
+<Template name={name} description={description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+    <Hero name={name} description={description} />
+    <Team
+      name="Leadership"
+      description="Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae elementum enim vitae ullamcorper suspendisse."
+      positions={positions}
+    />
 
-  <Team
-    name="Trustees"
-    description="We're committed to curating a diverse Board of Trustees, ensuring our leadership has a rich breadth of expertise, including direct experience of social entrepreneurship and being an UnLtd award winner."
-    positions={positions}
-  />
+    <Team
+      name="Trustees"
+      description="We're committed to curating a diverse Board of Trustees, ensuring our leadership has a rich breadth of expertise, including direct experience of social entrepreneurship and being an UnLtd award winner."
+      positions={positions}
+    />
 
-  <Team
-    name="Social Entrepreneur Support"
-    description="Our team are based across the UK in England, Scotland, Wales and Northern Ireland and we work directly with social entrepreneurs delivering support through one to one coaching and enabling peer to peer connections. We aim to find, fund and support those from start up to scale up with the most potential for impact tackling todays biggest challenges including our impact areas of healthy ageing and access to employment. We are committed to equity, diversity, inclusion and belonging."
-    positions={positions}
-  />
+    <Team
+      name="Social Entrepreneur Support"
+      description="Our team are based across the UK in England, Scotland, Wales and Northern Ireland and we work directly with social entrepreneurs delivering support through one to one coaching and enabling peer to peer connections. We aim to find, fund and support those from start up to scale up with the most potential for impact tackling todays biggest challenges including our impact areas of healthy ageing and access to employment. We are committed to equity, diversity, inclusion and belonging."
+      positions={positions}
+    />
 
-  <Team
-    name="Delivery and Investment"
-    description="Designing and delivering market-leading support with and alongside our partners, supporters and colleagues. We are focussed on breaking down the barriers faced by social entrepreneurs. This includes accessing specialist expertise through our partnership work, and accessing the right investment through the Growth Impact Fund."
-    positions={positions}
-  />
+    <Team
+      name="Delivery and Investment"
+      description="Designing and delivering market-leading support with and alongside our partners, supporters and colleagues. We are focussed on breaking down the barriers faced by social entrepreneurs. This includes accessing specialist expertise through our partnership work, and accessing the right investment through the Growth Impact Fund."
+      positions={positions}
+    />
 
-  <Team
-    name="Impact and Influence"
-    description="We exist to understand and champion the changes social entrepreneurs need to flourish and positively impact their communities and wider society. We conduct rigorous research and tell powerful stories, giving us the knowledge to evolve and improve our support, whilst amplifying the voices of social entrepreneurs. We're driven by a commitment to create a more just and equitable society, with social entrepreneurs driving positive social impact."
-    positions={positions}
-  />
+    <Team
+      name="Impact and Influence"
+      description="We exist to understand and champion the changes social entrepreneurs need to flourish and positively impact their communities and wider society. We conduct rigorous research and tell powerful stories, giving us the knowledge to evolve and improve our support, whilst amplifying the voices of social entrepreneurs. We're driven by a commitment to create a more just and equitable society, with social entrepreneurs driving positive social impact."
+      positions={positions}
+    />
 
-  <Team
-    name="Corporate Services"
-    description="Look after our people, systems and finances to ensure a well governed organisation to always deliver value for money support to social entrepreneurs by maximising the impact of available financial resources and fostering a culture of inclusion and belonging for our colleagues."
-    positions={positions}
-  />
-</Blank>
+    <Team
+      name="Corporate Services"
+      description="Look after our people, systems and finances to ensure a well governed organisation to always deliver value for money support to social entrepreneurs by maximising the impact of available financial resources and fostering a culture of inclusion and belonging for our colleagues."
+      positions={positions}
+    />
+  </Container>
+</Template>

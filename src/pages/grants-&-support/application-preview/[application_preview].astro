@@ -1,5 +1,6 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
+import Template from "../../../layouts/Template.astro";
+import Container from "../../../components/Container.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import Main from "../../../components/application-preview/Main.astro";
 import AsideRight from "../../../components/application-preview/AsideRight.astro";
@@ -68,56 +69,59 @@ const {
 } = Astro.props;
 ---
 
-<Layout name={name} description={description}>
-  <Breadcrumbs name={name} breadcrumbs={breadcrumbs} />
-  <div class="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col gap-2">
-    <div class="flex flex-col sm:flex-row gap-10">
-      <div
-        class="basis-full lg:basis-1/4 sm:auto-cols-fr sm:self-start sm:sticky sm:top-10"
-      >
-        <aside class="flex flex-col gap-5">
-          <div>
-            {
-              sections.map((section, index) => (
-                <a
-                  href={`#${section.sections_id.slug}`}
-                  class={`hover:text-gray-200 active:text-gray-800 active:bg-gray-800 hover:bg-violet-100 rounded-md flex items-center text-xs font-medium transition py-3 flex-row gap-2 group`}
-                >
-                  <span class="text-gray-500 border-full h-5 w-5 bg-white bg-opacity-10 flex justify-center items-center rounded-full group-hover:scale-125 group-hover:bg-transparent">
-                    {index + 1}
-                  </span>
-                  <span class="text-gray-600 truncate active:text-white">
-                    {section.sections_id.name}
-                  </span>
-                </a>
-              ))
-            }
-          </div>
-        </aside>
-      </div>
-      <div
-        class="flex flex-col gap-5 lg:flex-row basis-full lg:basis-3/4 lg:auto-cols-fr"
-      >
-        <div class="block lg:hidden lg:basis-4/12">
-          <AsideRight pdf={pdf} docx={docx} xlsx={xlsx} slug={slug} />
-        </div>
-        <div class="lg:basis-7/12">
-          <Main
-            slug={slug}
-            name={name}
-            description={description}
-            grant_title={grant_title}
-            grant_amount={grant_amount}
-            grant_description={grant_description}
-            sections={sections}
-          />
+<Template name={name} description={description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+
+    <div class="flex flex-col gap-2">
+      <div class="flex flex-col sm:flex-row gap-10">
+        <div
+          class="basis-full lg:basis-1/4 sm:auto-cols-fr sm:self-start sm:sticky sm:top-10"
+        >
+          <aside class="flex flex-col gap-5">
+            <div>
+              {
+                sections.map((section, index) => (
+                  <a
+                    href={`#${section.sections_id.slug}`}
+                    class={`hover:text-gray-200 active:text-gray-800 active:bg-gray-800 hover:bg-violet-100 rounded-md flex items-center text-xs font-medium transition py-3 flex-row gap-2 group`}
+                  >
+                    <span class="text-gray-500 border-full h-5 w-5 bg-white bg-opacity-10 flex justify-center items-center rounded-full group-hover:scale-125 group-hover:bg-transparent">
+                      {index + 1}
+                    </span>
+                    <span class="text-gray-600 truncate active:text-white">
+                      {section.sections_id.name}
+                    </span>
+                  </a>
+                ))
+              }
+            </div>
+          </aside>
         </div>
         <div
-          class="hidden lg:block lg:basis-5/12 sm:self-start sm:sticky sm:top-10"
+          class="flex flex-col gap-5 lg:flex-row basis-full lg:basis-3/4 lg:auto-cols-fr"
         >
-          <AsideRight pdf={pdf} docx={docx} xlsx={xlsx} slug={slug} />
+          <div class="block lg:hidden lg:basis-4/12">
+            <AsideRight pdf={pdf} docx={docx} xlsx={xlsx} slug={slug} />
+          </div>
+          <div class="lg:basis-7/12">
+            <Main
+              slug={slug}
+              name={name}
+              description={description}
+              grant_title={grant_title}
+              grant_amount={grant_amount}
+              grant_description={grant_description}
+              sections={sections}
+            />
+          </div>
+          <div
+            class="hidden lg:block lg:basis-5/12 sm:self-start sm:sticky sm:top-10"
+          >
+            <AsideRight pdf={pdf} docx={docx} xlsx={xlsx} slug={slug} />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</Layout>
+  </Container>
+</Template>

@@ -1,22 +1,75 @@
 ---
-const { name, description, features } = Astro.props;
+const { name, description, primaryButton, secondaryButton, updated, reviewed } =
+  Astro.props;
 ---
 
-<div
-  class="flex flex-col gap-10 bg-gradient-to-b from-violet-900 to-zinc-900 px-12 py-12 lg:px-20 lg:py-16 rounded-3xl border-2 border-violet-700"
->
-  <div class="flex flex-col gap-5">
-    <h1 class="text-7xl font-bold">{name}</h1>
-    <p class="text-3xl">{description}</p>
+<div class="pb-14 flex flex-col gap-12">
+  {
+    updated && updated && (
+      <div class="flex flex-row gap-5 justify-between">
+        {reviewed && (
+          <div class="flex flex-row gap-10">
+            {updated && (
+              <div>
+                <p class="text-gray-900 text-xs">Updated</p>
+                <p class="text-gray-900 text-sm">
+                  {new Date(updated).toLocaleDateString()}
+                </p>
+              </div>
+            )}
+
+            {updated && (
+              <div>
+                <p class="text-gray-900 text-xs">Reviewed</p>
+                <p class="text-gray-900 text-sm">
+                  {new Date(reviewed).toLocaleDateString()}
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  <div class="max-w-4xl flex flex-col gap-3">
+    <div class="flex flex-col gap-3">
+      <h2
+        class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
+      >
+        {name}
+      </h2>
+      <p class="text-2xl text-gray-600">
+        {description}
+      </p>
+    </div>
   </div>
-  <div class="flex flex-col lg:flex-row gap-10 lg:items-center">
-    {
-      features.map((feature) => (
-        <div class="flex items-center gap-3">
-          <i class={`text-2xl fa-solid fa-${feature.icon}`} />
-          <p class="font-bold text-sm">{feature.name}</p>
+
+  {
+    primaryButton && (
+      <div class="flex flex-row">
+        <div class="inline-flex rounded-md shadow">
+          {primaryButton && (
+            <a
+              target={primaryButton.url.startsWith("https://") && "_blank"}
+              href={primaryButton.url}
+              class="inline-flex items-center justify-center rounded-full border border-transparent bg-gray-100 px-5 py-3 text-base font-medium text-gray hover:bg-violet-700"
+            >
+              {primaryButton.text}
+            </a>
+          )}
         </div>
-      ))
-    }
-  </div>
+        <div class="ml-3 inline-flex">
+          {secondaryButton && (
+            <a
+              href={secondaryButton.url}
+              class="inline-flex items-center justify-center rounded-full border border-transparent bg-gray-100 px-5 py-3 text-base font-medium text-gray-700 hover:bg-violet-200"
+            >
+              {secondaryButton.text}
+            </a>
+          )}
+        </div>
+      </div>
+    )
+  }
 </div>

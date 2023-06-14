@@ -1,6 +1,6 @@
 ---
 const { name, description } = Astro.props.frontmatter || Astro.props;
-import Nav from "../components/Nav.astro";
+import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 ---
 
@@ -15,8 +15,7 @@ import Footer from "../components/Footer.astro";
     <script
       defer
       data-domain="unltd.org.uk"
-      src="https://plausible.io/js/script.js"
-    ></script>
+      src="https://plausible.io/js/script.js"></script>
 
     <!-- Primary Meta Tags -->
     <title>{`${name} | UnLtd`}</title>
@@ -58,12 +57,11 @@ import Footer from "../components/Footer.astro";
     <!-- Fontawesome Icons -->
     <script
       src="https://kit.fontawesome.com/0ff725f684.js"
-      crossorigin="anonymous"
-    ></script>
+      crossorigin="anonymous"></script>
   </head>
   <body class="">
     <div class="flex flex-col justify-between h-full bg-white">
-      <Nav />
+      <Header />
       <div class="mb-10">
         <slot />
       </div>
