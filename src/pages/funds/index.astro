@@ -1,10 +1,13 @@
 ---
 import { funds } from "../../data/directus/funds.js";
-import Layout from "../../layouts/Layout.astro";
-import Container from "../../layouts/Container.astro";
+import Template from "../../layouts/Template.astro";
+import Container from "../../components/Container.astro";
+
+const name = "Funds";
+const description = "djhjdkfkjdhjk";
 ---
 
-<Layout>
+<Template name={name} description={description}>
   <Container>
     <div class="flex flex-col gap-10">
       <div>
@@ -53,4 +56,4 @@ import Container from "../../layouts/Container.astro";
       </div>
     </div>
   </Container>
-</Layout>
+</Template>

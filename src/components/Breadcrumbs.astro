@@ -1,47 +1,37 @@
 ---
-import Container from "../layouts/Container.astro";
+import Container from "../components/Container.astro";
 const { breadcrumbs } = Astro.props;
 ---
 
-<div class="">
-  <Container>
-    <div class="py-10 flex flex-col gap-12">
-      <div class="flex flex-row gap-5 justify-between">
-        <nav class="flex" aria-label="Breadcrumb">
-          <ol
-            role="list"
-            class="flex flex-col gap-4 md:flex-row md:items-center"
-          >
+<div class="py-10 flex flex-col gap-12">
+  <div class="flex flex-row gap-5 justify-between">
+    <nav class="flex" aria-label="Breadcrumb">
+      <ol role="list" class="flex flex-col gap-4 md:flex-row md:items-center">
+        <li>
+          <div>
+            <a href="/" class="hover:text-gray-700 text-gray-600 transition">
+              <i class="fa-solid fa-house text-xs"></i>
+              <span class="sr-only">UnLtd</span>
+            </a>
+          </div>
+        </li>
+
+        {
+          breadcrumbs.map((crumb) => (
             <li>
-              <div>
+              <div class="flex items-center">
+                <i class="fa-solid fa-chevron-right text-gray-500 text-xs" />
                 <a
-                  href="/"
-                  class="hover:text-gray-700 text-gray-600 transition"
+                  href={`${crumb.slug}`}
+                  class="ml-4 text-xs font-medium hover:text-gray-700 text-gray-600 transition"
                 >
-                  <i class="fa-solid fa-house text-xs"></i>
-                  <span class="sr-only">UnLtd</span>
+                  {crumb.name}
                 </a>
               </div>
             </li>
-
-            {
-              breadcrumbs.map((crumb) => (
-                <li>
-                  <div class="flex items-center">
-                    <i class="fa-solid fa-chevron-right text-gray-500 text-xs" />
-                    <a
-                      href={`${crumb.slug}`}
-                      class="ml-4 text-xs font-medium hover:text-gray-700 text-gray-600 transition"
-                    >
-                      {crumb.name}
-                    </a>
-                  </div>
-                </li>
-              ))
-            }
-          </ol>
-        </nav>
-      </div>
-    </div>
-  </Container>
+          ))
+        }
+      </ol>
+    </nav>
+  </div>
 </div>
