@@ -18,7 +18,7 @@
     "@directus/sdk": "^10.3.3",
     "@types/alpinejs": "^3.7.1",
     "alpinejs": "^3.12.2",
-    "astro": "^2.6.3",
+    "astro": "^2.6.4",
     "marked": "^5.1.0",
     "marked-gfm-heading-id": "^3.0.4",
     "marked-mangle": "^1.0.1",
