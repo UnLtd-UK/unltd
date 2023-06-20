@@ -1,0 +1,145 @@
+---
+const { name, slug, link, icon, children } = Astro.props;
+---
+
+<!-- <li class="flex justify-center">
+    <div
+        x-data="{
+            open: false,
+            toggle() {
+                if (this.open) {
+                    return this.close()
+                }
+
+                this.$refs.button.focus()
+
+                this.open = true
+            },
+            close(focusAfter) {
+                if (! this.open) return
+
+                this.open = false
+
+                focusAfter && focusAfter.focus()
+            }
+        }"
+        x-on:keydown.escape.prevent.stop="close($refs.button)"
+        x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+        x-id="['dropdown-button']"
+        class="relative"
+    >
+        {children.length >= 1 ? (
+        <button
+            x-ref="button"
+            x-on:click="toggle()"
+            :aria-expanded="open"
+            :aria-controls="$id('dropdown-button')"
+            type="button"
+            class="flex items-center gap-2 px-5 py-2.5 rounded-md text-white hover:text-violet-200 transition"
+        >
+            {name}
+
+            <i class="fa-solid fa-chevron-down text-violet-400"></i>
+        </button>
+        <div
+            x-ref="panel"
+            x-show="open"
+            x-transition.origin.top.left
+            x-on:click.outside="close($refs.button)"
+            :id="$id('dropdown-button')"
+            style="display: none;"
+            class="absolute left-0 mt-2 w-40 rounded-md bg-white shadow-md"
+        >
+            {
+                children.map((child) => (
+                    <a
+                        href={child.slug}
+                        class="flex items-center gap-2 w-full first-of-type:rounded-t-md last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-violet-50 disabled:text-gray-500"
+                    >
+                        {child.name}
+                    </a>
+                ))
+            }
+        </div>) : (<a href={slug && !link ? `/${slug}` : `${link}`} target={!slug && link && "_blank"} class="flex items-center gap-2 px-5 py-2.5 rounded-md text-white hover:text-violet-200 transition">
+                      {name}
+                      {!slug && link && (
+                        <i class="text-xs fa-solid fa-arrow-up-right-from-square" />
+                      )}
+                    </a>)
+    </div>
+</li> -->
+
+
+
+
+<li 
+x-data="{   open: false,
+            toggle() {
+                if (this.open) {
+                    return this.close()
+                }
+
+                this.$refs.button.focus()
+
+                this.open = true
+            },
+            close(focusAfter) {
+                if (! this.open) return
+
+                this.open = false
+
+                focusAfter && focusAfter.focus()
+            }
+        }"
+        x-on:keydown.escape.prevent.stop="close($refs.button)"
+        x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+        x-id="['dropdown-button']"
+        class="relative">
+        {children.length >= 1 ? (
+  <button type="button"
+              x-ref="button"
+            x-on:click="toggle()"
+            :aria-expanded="open"
+            :aria-controls="$id('dropdown-button')"
+  class="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-violet-100" aria-expanded="false">
+    <span>{name}</span>
+<i class="text-xs fa-solid fa-chevron-down text-violet-300"></i>
+  </button>
+  <div class="absolute left-1/2 z-50 mt-5 flex w-screen max-w-max -translate-x-1/2 px-4"
+              x-ref="panel"
+            x-show="open"
+            x-transition.origin.top.left
+            x-on:click.outside="close($refs.button)"
+            :id="$id('dropdown-button')"
+            style="display: none;"
+  >
+    <div class="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+        <div class="p-4">
+{
+                children.map((child) => (
+        <div class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-violet-50 transition">
+          <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+            <i class=`fa-solid ${child.icon} text-gray-600 group-hover:text-violet-600` aria-hidden="true"></i>
+          </div>
+          <div class="flex flex-row justify-between items-center gap-5">
+            <div class="">
+              <a href={child.slug ? `/${child.slug}`:`${child.link}` } target={child.link && 'target'} class="font-semibold text-gray-900">
+              {child.name}
+              <span class="absolute inset-0"></span>
+            </a>
+            <p class="mt-1 text-gray-600">{child.description}</p>
+            </div>
+            { child.link && <i class="text-xs fa-solid fa-arrow-up-right-from-square text-gray-700 group-hover:text-violet-600"></i> }
+          </div>
+        </div>
+)) }
+      </div>
+
+    </div>
+  </div>) : (<a href={slug && !link ? `/${slug}` : `${link}`} target={!slug && link && "_blank"} class="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-violet-100" aria-expanded="false">
+<span>{name}</span>
+                      {!slug && link && (
+                        <i class="text-xs fa-solid fa-arrow-up-right-from-square text-violet-300"></i>
+                      )}
+                    </a>)
+</li>
