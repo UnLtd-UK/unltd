@@ -6,26 +6,6 @@
     },
     "main": [
       {
-        "name": "Get funding",
-        "slug": "get-funding",
-        "children": [
-          {
-            "name": "Grant & Support",
-            "link": "",
-            "slug": "grants-&-support",
-            "icon": "",
-            "description": "For entrepreneurs"
-          },
-          {
-            "name": "Investment & Support",
-            "link": "https://growthimpactfund.org.uk",
-            "slug": "",
-            "icon": "",
-            "description": "For organisation. Through the Growth Impact Fund"
-          }
-        ]
-      },
-      {
         "name": "Learn",
         "slug": "learn",
         "children": [
@@ -60,6 +40,26 @@
         ]
       },
       {
+        "name": "Get funding",
+        "slug": "get-funding",
+        "children": [
+          {
+            "name": "Grant & Support",
+            "link": "",
+            "slug": "grants-&-support",
+            "icon": "fa-lira-sign",
+            "description": "For entrepreneurs"
+          },
+          {
+            "name": "Investment & Support",
+            "link": "https://growthimpactfund.org.uk",
+            "slug": "",
+            "icon": "fa-chart-line",
+            "description": "For organisation. Through the Growth Impact Fund"
+          }
+        ]
+      },
+      {
         "name": "Be involved",
         "slug": "be-involved",
         "children": [
@@ -67,14 +67,14 @@
             "name": "Fundraisers",
             "link": "",
             "slug": "fundraisers",
-            "icon": "",
+            "icon": "fa-piggy-bank",
             "description": "Give money"
           },
           {
             "name": "Campaigns",
             "link": "",
             "slug": "campaigns",
-            "icon": "",
+            "icon": "fa-bullhorn",
             "description": "Take action"
           }
         ]
@@ -87,21 +87,21 @@
             "name": "Partnering",
             "link": "",
             "slug": "partnering",
-            "icon": "",
-            "description": "Organisations"
+            "icon": "fa-handshake",
+            "description": "Organisations wanting to fund and support us"
           },
           {
-            "name": "Pro bono",
+            "name": "Volunteering",
             "link": "",
             "slug": "pro-bono",
-            "icon": "",
-            "description": "Individuals looking to volunteer their expertise"
+            "icon": "fa-street-view",
+            "description": "Individuals looking to do pro bono  "
           },
           {
             "name": "Careers",
             "link": "https://www.jobtrain.co.uk/unltd-careers",
             "slug": "",
-            "icon": "",
+            "icon": "fa-briefcase",
             "description": "Work at UnLtd"
           }
         ]
@@ -118,32 +118,32 @@
         "slug": "about-us",
         "children": [
           {
-            "name": "What we do",
+            "name": "Our purpose",
             "link": "",
-            "slug": "what-we-do",
-            "icon": "",
-            "description": ""
+            "slug": "our-purpose",
+            "icon": "fa-building-user",
+            "description": "Vision and mission"
           },
           {
-            "name": "Meet the team",
+            "name": "Our team",
             "link": "",
-            "slug": "meet-the-team",
-            "icon": "",
-            "description": ""
+            "slug": "our-team",
+            "icon": "fa-people-group",
+            "description": "Made up of four direcorates"
           },
           {
-            "name": "Our Strategy",
+            "name": "Our strategy",
             "link": "https://breakingdownbarriers.unltd.org.uk/",
             "slug": "",
-            "icon": "",
-            "description": "2022 - 2025"
+            "icon": "fa-chess-pawn",
+            "description": "How we make impact"
           },
           {
-            "name": "Our Impact",
+            "name": "Our impact",
             "link": "https://www.unltd.org.uk/uploads/general_uploads/UnLtd_Impact_Summary_Data_2021_Calendar_Year_Final.pdf",
             "slug": "",
-            "icon": "",
-            "description": "2022"
+            "icon": "fa-explosion",
+            "description": "The change we are having"
           }
         ]
       }

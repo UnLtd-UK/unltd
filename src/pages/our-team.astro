@@ -1,24 +1,24 @@
 ---
-import Template from "../layouts/Template.astro";
+import Blank from "../layouts/Blank.astro";
 import Container from "../components/Container.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Hero from "../components/Hero.astro";
 import Team from "../components/Team.astro";
 import { positions } from "../data/directus/positions.js";
 
-const name = "Meet the Team";
+const name = "Our team";
 const description =
   "Our people are passionate about breaking down the barriers faced by social entrepreneurs and delivering market leading support to grow their impact";
 
 const breadcrumbs = [
   {
-    name: "Meet the Team",
-    slug: "meet-the-team",
+    name: "Our team",
+    slug: "our-team",
   },
 ];
 ---
 
-<Template name={name} description={description}>
+<Blank name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Hero name={name} description={description} />
@@ -58,4 +58,4 @@ const breadcrumbs = [
       positions={positions}
     />
   </Container>
-</Template>
+</Blank>

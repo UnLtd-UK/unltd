@@ -1,77 +1,8 @@
 ---
 import nav from "../../data/json/nav-new.json";
 import Logo from "../OrangeLogo.astro";
+import Dropwdown from "./Dropdown.astro";
 ---
-
-<script is:inline>
-  function hideButton(dropdownButton) {
-    if (dropdownButton.getAttribute("aria-expanded") === "true") {
-      dropdownButton.setAttribute("aria-expanded", false);
-    }
-  }
-
-  function hideContent(dropdownContent) {
-    if (!dropdownContent.classList.contains("hidden")) {
-      dropdownContent.classList.add("hidden");
-    }
-  }
-
-  window.onclick = function (event) {
-    if (!event.target.dataset.dropdown) {
-      let dropdownContents = document.querySelectorAll(
-        "[data-dropdown=dropdownContent]"
-      );
-
-      let dropdownButtons = document.querySelectorAll(
-        "[data-dropdown=dropdownButton]"
-      );
-
-      for (let i = 0; i < dropdownContents.length; i++) {
-        hideContent(dropdownContents[i]);
-      }
-
-      for (let i = 0; i < dropdownButtons.length; i++) {
-        hideButton(dropdownButtons[i]);
-      }
-    }
-  };
-
-  function desktop(item) {
-    let dropdownContentId = "dropdownContent-" + item;
-    let dropdownButtonId = "dropdownButton-" + item;
-    let dropdownContent = document.getElementById(dropdownContentId);
-    let dropdownButton = document.getElementById(dropdownButtonId);
-
-    let dropdownButtons = document.querySelectorAll(
-      "[data-dropdown=dropdownButton]"
-    );
-
-    let dropdownContents = document.querySelectorAll(
-      "[data-dropdown=dropdownContent]"
-    );
-
-    for (let i = 0; i < dropdownButtons.length; i++) {
-      if (!(dropdownButtons[i].id === dropdownButtonId)) {
-        hideButton(dropdownButtons[i]);
-      }
-    }
-
-    for (let i = 0; i < dropdownContents.length; i++) {
-      if (!(dropdownContents[i].id === dropdownContentId)) {
-        hideContent(dropdownContents[i]);
-      }
-    }
-
-    dropdownContent.classList.toggle("hidden");
-
-    if (dropdownButton.getAttribute("aria-expanded") === "true") {
-      dropdownButton.setAttribute("aria-expanded", "false");
-    } else {
-      dropdownButton.setAttribute("aria-expanded", "true");
-    }
-  }
-</script>
-
 
 <header class="hidden lg:block">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
@@ -85,73 +16,22 @@ import Logo from "../OrangeLogo.astro";
       <div
         class="ml-10 space-x-4 flex gap-5 flex-row flex-end flex-wrap items-center"
       >
-        <ul class="navbar hidden ml-10 space-x-8 lg:flex list-none">
+        <ul class="navbar hidden ml-10 space-x-5 lg:flex list-none">
           {
             nav.header.main.map((navItem) => (
               <>
-                <li>
-                  {navItem.children.length >= 1 ? (
-                    <button
-                      id={`dropdownButton-${navItem.slug}`}
-                      class="text-base font-medium text-white hover:text-amber-500 flex flex-row items-center gap-2"
-                      onclick={`desktop("${navItem.slug}")`}
-                      aria-expanded="false"
-                      data-dropdown="dropdownButton"
-                    >
-                      <span data-dropdown="dropdownButton">{navItem.name}</span>
-                      <i data-dropdown="dropdownButton" class="text-xs fa-solid fa-chevron-down"
-                      ></i>
-                    </button>
-
-                      <ul
-                        id={`dropdownContent-${navItem.slug}`}
-                        class="gap-4 p-3 bg-white text-black rounded-md absolute z-10 hidden border-violet-200 border shadow-lg"
-                        data-dropdown="dropdownContent"
-                      >
-                        {
-                          navItem.children.map((navItem) => (
-                            <a
-                              href={navItem.slug && !navItem.link ? `/${navItem.slug}` : `${navItem.link}`}
-                              target={!navItem.slug && navItem.link && "_blank"}
-                              class="flex flex-row gap-2 items-center p-3 py-3 hover:bg-violet-100 rounded-md"
-                              data-dropdown="dropdownA"
-                            >
-                              <div class="flex flex-col gap-1">
-                                <span class="text-sm font-medium">{navItem.name}</span>
-                                {navItem.description && (
-                                  <span class="text-xs text-gray-600">{navItem.description}</span>
-                                )}
-                              </div>
-                              {!navItem.slug && navItem.link && (
-                                <i class="text-xs fa-solid fa-arrow-up-right-from-square" />
-                              )}
-                            </a>
-                          ))
-                        }
-                      </ul>
-
-                  ) : (
-                    <a
-                      href={
-                        navItem.slug && !navItem.link
-                          ? `/${navItem.slug}`
-                          : `${navItem.link}`
-                      }
-                      target={!navItem.slug && navItem.link && "_blank"}
-                      class="flex flex-row items-center gap-2 text-base font-medium text-white hover:text-amber-500"
-                    >
-                      <span>{navItem.name}</span>
-                      {!navItem.slug && navItem.link && (
-                        <i class="text-xs fa-solid fa-arrow-up-right-from-square" />
-                      )}
-                    </a>
-                  )}{" "}
-                </li>
+                <Dropwdown
+                  name={navItem.name}
+                  slug={navItem.slug}
+                  link={navItem.link}
+                  icon={navItem.icon}
+                  children={navItem.children}
+                />
               </>
             ))
           }
         </ul>
-        <div class="hidden lg:flex gap-3 lg:ml-auto lg:flex-end">
+        <div class="hidden lg:flex gap-3 lg:ml-auto lg:flex-end z-auto">
           <a
             href={nav.header.action.link}
             class="rounded-full bg-indigo-50 px-3.5 py-2.5 text-sm font-semibold text-violet-600 shadow-sm hover:bg-violet-100"
