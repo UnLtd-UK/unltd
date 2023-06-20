@@ -1,5 +1,5 @@
 ---
-import Template from "../layouts/Template.astro";
+import Blank from "../layouts/Blank.astro";
 import Container from "../components/Container.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Hero from "../components/Hero.astro";
@@ -18,7 +18,7 @@ const breadcrumbs = [
 ];
 ---
 
-<Template name={name} description={description}>
+<Blank name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Hero name={name} description={description} />
@@ -58,4 +58,4 @@ const breadcrumbs = [
       positions={positions}
     />
   </Container>
-</Template>
+</Blank>
