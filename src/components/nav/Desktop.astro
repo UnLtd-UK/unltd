@@ -16,7 +16,7 @@ import Dropwdown from "./Dropdown.astro";
       <div
         class="ml-10 space-x-4 flex gap-5 flex-row flex-end flex-wrap items-center"
       >
-        <ul class="navbar hidden ml-10 space-x-5 lg:flex list-none">
+        <ul class="navbar hidden ml-10 space-x-8 lg:flex list-none">
           {
             nav.header.main.map((navItem) => (
               <>
@@ -24,7 +24,6 @@ import Dropwdown from "./Dropdown.astro";
                   name={navItem.name}
                   slug={navItem.slug}
                   link={navItem.link}
-                  icon={navItem.icon}
                   children={navItem.children}
                 />
               </>
@@ -34,7 +33,7 @@ import Dropwdown from "./Dropdown.astro";
         <div class="hidden lg:flex gap-3 lg:ml-auto lg:flex-end z-auto">
           <a
             href={nav.header.action.link}
-            class="rounded-full bg-indigo-50 px-3.5 py-2.5 text-sm font-semibold text-violet-600 shadow-sm hover:bg-violet-100"
+            class="rounded-full bg-indigo-50 px-3.5 py-2.5 text-sm font-medium text-violet-600 shadow-sm hover:bg-violet-100"
             >{nav.header.action.name}</a
           >
         </div>

@@ -1,11 +1,13 @@
 /** @type {import('tailwindcss').Config} */
+
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
-  colors: {
-    current: '#491A86'
-  },
   theme: {
-    extend: {},
+    extend: {
+      sans: ["Lexend", ...defaultTheme.fontFamily.sans],
+    },
   },
   plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
 };
