@@ -12,29 +12,29 @@
           {
             "name": "Choosing the right legal structure",
             "link": "",
-            "slug": "choosing-the-right-legal-structure",
-            "icon": "",
+            "slug": "learn/choosing-the-right-legal-structure",
+            "icon": "fa-1",
             "description": "..."
           },
           {
             "name": "Defining social impact indicators, setting targets and refining your social model",
             "link": "",
-            "slug": "defining-social-impact-indictators-setting-targets-and-refining-your-social model",
-            "icon": "",
-            "description": "..."
-          },
-          {
-            "name": "Securing start up funding",
-            "link": "",
-            "slug": "securing-start-up-funding",
-            "icon": "",
+            "slug": "learn/defining-social-impact-indictators-setting-targets-and-refining-your-social model",
+            "icon": "fa-2",
             "description": "..."
           },
           {
             "name": "Stakeholder engagement and building networks",
             "link": "",
-            "slug": "stakeholder-engagement-and-building-networks",
-            "icon": "",
+            "slug": "learn/stakeholder-engagement-and-building-networks",
+            "icon": "fa-3",
+            "description": "..."
+          },
+          {
+            "name": "Securing start up funding",
+            "link": "",
+            "slug": "learn/securing-start-up-funding",
+            "icon": "fa-4",
             "description": "..."
           }
         ]
@@ -44,7 +44,7 @@
         "slug": "get-funding",
         "children": [
           {
-            "name": "Grant & Support",
+            "name": "Grants",
             "link": "",
             "slug": "grants-&-support",
             "icon": "fa-lira-sign",
@@ -56,6 +56,18 @@
             "slug": "",
             "icon": "fa-chart-line",
             "description": "For organisation. Through the Growth Impact Fund"
+          }
+        ],
+        "actions": [
+          {
+            "name": "Get help",
+            "link": "",
+            "slug": "grants-&-support"
+          },
+          {
+            "name": "Grant & Support",
+            "link": "",
+            "slug": "grants-&-support"
           }
         ]
       },
@@ -93,9 +105,9 @@
           {
             "name": "Volunteering",
             "link": "",
-            "slug": "pro-bono",
+            "slug": "volunteering",
             "icon": "fa-street-view",
-            "description": "Individuals looking to do pro bono  "
+            "description": "Individuals looking to do pro bono"
           },
           {
             "name": "Careers",
@@ -136,6 +148,7 @@
             "link": "https://breakingdownbarriers.unltd.org.uk/",
             "slug": "",
             "icon": "fa-chess-pawn",
+            "tag": "2022 - 2025",
             "description": "How we make impact"
           },
           {
@@ -143,6 +156,7 @@
             "link": "https://www.unltd.org.uk/uploads/general_uploads/UnLtd_Impact_Summary_Data_2021_Calendar_Year_Final.pdf",
             "slug": "",
             "icon": "fa-explosion",
+            "tag": "2021 - 2022",
             "description": "The change we are having"
           }
         ]
