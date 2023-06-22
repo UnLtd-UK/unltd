@@ -1,5 +1,5 @@
 ---
-import Layout from "../layouts/Template.astro";
+import Template from "../layouts/Template.astro";
 import Container from "../components/Container.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 const name = "Contact form";
@@ -12,7 +12,7 @@ const breadcrumbs = [
 ];
 ---
 
-<Layout name={name} description={description}>
+<Template name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
   </Container>
@@ -260,4 +260,4 @@ const breadcrumbs = [
       </form>
     </div>
   </div>
-</Layout>
+</Template>
