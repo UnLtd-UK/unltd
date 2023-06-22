@@ -1,6 +1,6 @@
 ---
 import { marked } from "marked";
-const { question, answer } = Astro.props;
+const { question } = Astro.props;
 ---
 
 <div class="pt-6" x-data="{ open: false }">
@@ -15,8 +15,9 @@ const { question, answer } = Astro.props;
     >
       <span class="text-base font-semibold leading-7">{question}</span>
       <span class="ml-6 flex h-7 items-center">
-        <i class="fa-solid fa-minus" x-show="!open" aria-hidden="true"></i>
-        <i class="fa-solid fa-plus" x-show="open" aria-hidden="true"></i>
+        <i class="fa-solid fa-chevron-down" x-show="!open" aria-hidden="true"
+        ></i>
+        <i class="fa-solid fa-chevron-up" x-show="open" aria-hidden="true"></i>
       </span>
     </button>
   </dt>
@@ -25,6 +26,7 @@ const { question, answer } = Astro.props;
     id="faq-0"
     x-show="open"
     x-transition
-    set:html={marked.parse(answer)}
-  />
+  >
+    <slot />
+  </dd>
 </div>
