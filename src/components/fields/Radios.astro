@@ -11,15 +11,15 @@ if (description != null) {
 
 <fieldset>
   <div class="flex justify-between">
-    <label for={slug} class="block text-sm font-medium text-gray-700"
-      ><span class="text-gray-400 text-sm mr-1">{number}.</span> {name}</label
+    <label for={slug} class="block text-sm font-medium text-slate-700"
+      ><span class="text-slate-400 text-sm mr-1">{number}.</span> {name}</label
     >
-    <span class="text-sm text-gray-500" id={`${slug}-required`}
+    <span class="text-sm text-slate-500" id={`${slug}-required`}
       >{required === "true" && `Required`}</span
     >
   </div>
   <div
-    class="mt-2 text-sm text-gray-500 leading-relaxed prose"
+    class="mt-2 text-sm text-slate-500 leading-relaxed prose"
     id={`${slug}-description}`}
     set:html={markdown}
   />
@@ -37,7 +37,7 @@ if (description != null) {
             type="radio"
             name={name}
             value={item.name}
-            class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer text-violet-600 border-gray-300 focus:ring-violet-500 disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-500"
+            class="mt-0.5 h-4 w-4 shrink-0 cursor-pointer text-amber-600 border-slate-300 focus:ring-amber-500 disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-500"
             aria-labelledby={`${item.name}-${index++}-label`}
             aria-describedby={`${item.name}-${index++}-description`}
             disabled={disabled}
@@ -45,13 +45,13 @@ if (description != null) {
           <span class="ml-3 flex flex-col">
             <span
               id={`${item.name}-${index++}-label`}
-              class="block text-sm font-medium text-gray-700"
+              class="block text-sm font-medium text-slate-700"
             >
               {item.name}
             </span>
             <span
               id={`${item.name}-${index++}-description`}
-              class="block text-sm text-gray-700"
+              class="block text-sm text-slate-700"
             >
               {item.description}
             </span>

@@ -22,7 +22,7 @@ const { frontmatter } = Astro.props;
                     "_blank"
                   }
                   href={frontmatter.primaryButton.url}
-                  class="inline-flex items-center justify-center rounded-full border border-transparent bg-gray-100 px-5 py-3 text-base font-medium text-gray hover:bg-violet-700"
+                  class="inline-flex items-center justify-center rounded-full border border-transparent bg-slate-100 px-5 py-3 text-base font-medium text-slate hover:bg-amber-700"
                 >
                   {frontmatter.primaryButton.text}
                 </a>
@@ -32,7 +32,7 @@ const { frontmatter } = Astro.props;
               {frontmatter.secondaryButton && (
                 <a
                   href={frontmatter.secondaryButton.url}
-                  class="inline-flex items-center justify-center rounded-full border border-transparent bg-gray-100 px-5 py-3 text-base font-medium text-gray-700 hover:bg-violet-200"
+                  class="inline-flex items-center justify-center rounded-full border border-transparent bg-slate-100 px-5 py-3 text-base font-medium text-slate-700 hover:bg-amber-200"
                 >
                   {frontmatter.secondaryButton.text}
                 </a>
@@ -43,7 +43,7 @@ const { frontmatter } = Astro.props;
       }
     </div> -->
     <div
-      class="prose prose-lg prose-img:rounded-md prose-img:shadow-md prose-img:w-full prose-a:text-violet-900"
+      class="prose prose-lg prose-img:rounded-md prose-img:shadow-md prose-img:w-full prose-a:text-amber-900"
     >
       <slot />
     </div>

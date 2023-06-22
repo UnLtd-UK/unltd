@@ -4,13 +4,13 @@ const { name, description, positions } = Astro.props;
 
 <div class="py-5 sm:py-10">
   <div
-    class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 bg-violet-50 p-28 rounded-3xl"
+    class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 bg-amber-50 p-28 rounded-3xl"
   >
     <div class="max-w-2xl">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-600 sm:text-4xl">
+      <h2 class="text-3xl font-bold tracking-tight text-slate-600 sm:text-4xl">
         {name}
       </h2>
-      <p class="mt-6 text-lg leading-8 text-gray-500">
+      <p class="mt-6 text-lg leading-8 text-slate-500">
         {description}
       </p>
     </div>
@@ -36,10 +36,10 @@ const { name, description, positions } = Astro.props;
                 />
                 <div>
                   <div class="flex gap-2 items-center">
-                    <h3 class="text-base font-semibold leading-7 tracking-tight text-gray-600">
+                    <h3 class="text-base font-semibold leading-7 tracking-tight text-slate-600">
                       {position.person.name}
                     </h3>
-                    <span class="text-xs text-gray-600">
+                    <span class="text-xs text-slate-600">
                       {position.person.pronouns}
                     </span>
                     {position.person.lgbtqia_plus && (
@@ -57,14 +57,14 @@ const { name, description, positions } = Astro.props;
                       </div>
                     )}
                   </div>
-                  <p class="text-sm leading-6 text-gray-500">
+                  <p class="text-sm leading-6 text-slate-500">
                     {position.role.name}
                   </p>
                   {position.person.linkedin && (
                     <a
                       href={position.person.linkedin}
                       target="_blank"
-                      class="text-gray-600"
+                      class="text-slate-600"
                     >
                       <span class="sr-only">LinkedIn</span>
                       <i class="text-sm fa-brands fa-linkedin" />
