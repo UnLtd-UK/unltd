@@ -9,7 +9,7 @@ const { breadcrumbs } = Astro.props;
       <ol role="list" class="flex flex-col gap-4 md:flex-row md:items-center">
         <li>
           <div>
-            <a href="/" class="hover:text-gray-700 text-gray-600 transition">
+            <a href="/" class="hover:text-slate-700 text-slate-600 transition">
               <i class="fa-solid fa-house text-xs"></i>
               <span class="sr-only">UnLtd</span>
             </a>
@@ -20,10 +20,10 @@ const { breadcrumbs } = Astro.props;
           breadcrumbs.map((crumb) => (
             <li>
               <div class="flex items-center">
-                <i class="fa-solid fa-chevron-right text-gray-500 text-xs" />
+                <i class="fa-solid fa-chevron-right text-slate-500 text-xs" />
                 <a
                   href={`${crumb.slug}`}
-                  class="ml-4 text-xs font-medium hover:text-gray-700 text-gray-600 transition"
+                  class="ml-4 text-xs font-medium hover:text-slate-700 text-slate-600 transition"
                 >
                   {crumb.name}
                 </a>

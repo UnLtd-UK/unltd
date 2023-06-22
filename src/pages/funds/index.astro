@@ -16,17 +16,17 @@ const description = "djhjdkfkjdhjk";
           {
             funds.map((fund) => (
               <>
-                <div class="border-gray-200 bg-white px-4 py-5 rounded-md sm:px-6">
+                <div class="border-slate-200 bg-white px-4 py-5 rounded-md sm:px-6">
                   <div class="-ml-4 -mt-4 flex flex-wrap items-center justify-between sm:flex-nowrap">
                     <div class="ml-4 mt-4">
                       <div class="flex items-center">
                         <div class="ml-4">
                           <a href={`/funds/${fund.slug}`}>
-                            <h3 class="text-lg font-medium leading-6 text-gray-900">
+                            <h3 class="text-lg font-medium leading-6 text-slate-900">
                               {fund.name}
                             </h3>
                           </a>
-                          <p class="text-sm text-gray-500">Funded by ...</p>
+                          <p class="text-sm text-slate-500">Funded by ...</p>
                         </div>
                       </div>
                     </div>
@@ -45,7 +45,7 @@ const description = "djhjdkfkjdhjk";
               <li>
                 <a
                   href={`/funds/${fund.slug}`}
-                  class="text-white underline hover:text-violet-300"
+                  class="text-white underline hover:text-amber-300"
                 >
                   {fund.name}
                 </a>

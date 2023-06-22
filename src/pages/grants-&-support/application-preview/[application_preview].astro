@@ -84,12 +84,12 @@ const {
                 sections.map((section, index) => (
                   <a
                     href={`#${section.sections_id.slug}`}
-                    class={`hover:text-gray-200 active:text-gray-800 active:bg-gray-800 hover:bg-violet-100 rounded-md flex items-center text-xs font-medium transition py-3 flex-row gap-2 group`}
+                    class={`hover:text-slate-200 active:text-slate-800 active:bg-slate-800 hover:bg-amber-100 rounded-md flex items-center text-xs font-medium transition py-3 flex-row gap-2 group`}
                   >
-                    <span class="text-gray-500 border-full h-5 w-5 bg-white bg-opacity-10 flex justify-center items-center rounded-full group-hover:scale-125 group-hover:bg-transparent">
+                    <span class="text-slate-500 border-full h-5 w-5 bg-white bg-opacity-10 flex justify-center items-center rounded-full group-hover:scale-125 group-hover:bg-transparent">
                       {index + 1}
                     </span>
-                    <span class="text-gray-600 truncate active:text-white">
+                    <span class="text-slate-600 truncate active:text-white">
                       {section.sections_id.name}
                     </span>
                   </a>

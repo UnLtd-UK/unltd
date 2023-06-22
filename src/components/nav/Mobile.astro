@@ -4,65 +4,65 @@ import Logo from "../OrangeLogo.astro";
 ---
 
 <script is:inline>
-let mobileDropdownButtons = document.getElementsByClassName(
-  "mobileDropdownButton"
-);
-let mobileDropdownContents = document.getElementsByClassName(
-  "mobileDropdownContent"
-);
-
-function hideButton(mobileDropdownButton) {
-  if (mobileDropdownButton.getAttribute("aria-expanded") === "true") {
-    mobileDropdownButton.setAttribute("aria-expanded", false);
-  }
-}
-
-function hideContent(mobileDropdownContent) {
-  if (!mobileDropdownContent.classList.contains("hidden")) {
-    mobileDropdownContent.classList.add("hidden");
-  }
-}
-
-function hamburgerMenu() {
-  let hamburgerButton = document.getElementById("hamburgerButton");
-  let hamburgerMenu = document.getElementById("hamburgerMenu");
-  hamburgerMenu.classList.toggle("hidden");
-
-  if (hamburgerButton.getAttribute("aria-expanded") === "true") {
-    hamburgerButton.setAttribute("aria-expanded", "false");
-  } else {
-    hamburgerButton.setAttribute("aria-expanded", "true");
-  }
-}
-
-function mobile(item) {
-  let mobileDropdownContentId = "mobileDropdownContent-" + item;
-  let mobileDropdownButtonId = "mobileDropdownButton-" + item;
-  let mobileDropdownContent = document.getElementById(
-    mobileDropdownContentId
+  let mobileDropdownButtons = document.getElementsByClassName(
+    "mobileDropdownButton"
   );
-  let mobileDropdownButton = document.getElementById(mobileDropdownButtonId);
+  let mobileDropdownContents = document.getElementsByClassName(
+    "mobileDropdownContent"
+  );
 
-  for (let i = 0; i < mobileDropdownButtons.length; i++) {
-    if (!(mobileDropdownButtons[i].id === mobileDropdownButtonId)) {
-      hideButton(mobileDropdownButtons[i]);
+  function hideButton(mobileDropdownButton) {
+    if (mobileDropdownButton.getAttribute("aria-expanded") === "true") {
+      mobileDropdownButton.setAttribute("aria-expanded", false);
     }
   }
 
-  for (let i = 0; i < mobileDropdownContents.length; i++) {
-    if (!(mobileDropdownContents[i].id === mobileDropdownContentId)) {
-      hideContent(mobileDropdownContents[i]);
+  function hideContent(mobileDropdownContent) {
+    if (!mobileDropdownContent.classList.contains("hidden")) {
+      mobileDropdownContent.classList.add("hidden");
     }
   }
 
-  mobileDropdownContent.classList.toggle("hidden");
+  function hamburgerMenu() {
+    let hamburgerButton = document.getElementById("hamburgerButton");
+    let hamburgerMenu = document.getElementById("hamburgerMenu");
+    hamburgerMenu.classList.toggle("hidden");
 
-  if (mobileDropdownButton.getAttribute("aria-expanded") === "true") {
-    mobileDropdownButton.setAttribute("aria-expanded", "false");
-  } else {
-    mobileDropdownButton.setAttribute("aria-expanded", "true");
+    if (hamburgerButton.getAttribute("aria-expanded") === "true") {
+      hamburgerButton.setAttribute("aria-expanded", "false");
+    } else {
+      hamburgerButton.setAttribute("aria-expanded", "true");
+    }
   }
-}
+
+  function mobile(item) {
+    let mobileDropdownContentId = "mobileDropdownContent-" + item;
+    let mobileDropdownButtonId = "mobileDropdownButton-" + item;
+    let mobileDropdownContent = document.getElementById(
+      mobileDropdownContentId
+    );
+    let mobileDropdownButton = document.getElementById(mobileDropdownButtonId);
+
+    for (let i = 0; i < mobileDropdownButtons.length; i++) {
+      if (!(mobileDropdownButtons[i].id === mobileDropdownButtonId)) {
+        hideButton(mobileDropdownButtons[i]);
+      }
+    }
+
+    for (let i = 0; i < mobileDropdownContents.length; i++) {
+      if (!(mobileDropdownContents[i].id === mobileDropdownContentId)) {
+        hideContent(mobileDropdownContents[i]);
+      }
+    }
+
+    mobileDropdownContent.classList.toggle("hidden");
+
+    if (mobileDropdownButton.getAttribute("aria-expanded") === "true") {
+      mobileDropdownButton.setAttribute("aria-expanded", "false");
+    } else {
+      mobileDropdownButton.setAttribute("aria-expanded", "true");
+    }
+  }
 </script>
 
 <nav class="flex flex-col lg:hidden gap-2 shadow-2xl">
@@ -90,7 +90,7 @@ function mobile(item) {
           <li class="mobileDropdown">
             <button
               id={`mobileDropdownButton-${navItem.slug}`}
-              class="p-2 rounded-md mobileDropdownButtons text-sm font-medium text-white hover:bg-violet-800 hover:text-violet-200 focus:font-bold focus:bg-violet-800 focus:text-violet-200"
+              class="p-2 rounded-md mobileDropdownButtons text-sm font-medium text-white hover:bg-amber-800 hover:text-amber-200 focus:font-bold focus:bg-amber-800 focus:text-amber-200"
               onclick={`mobile("${navItem.slug}")`}
               aria-expanded="false"
             >
@@ -105,7 +105,7 @@ function mobile(item) {
                 {navItem.children.map((navItemChild) => (
                   <a
                     href={`/${navItemChild.slug}`}
-                    class="hover:text-violet-200 text-sm font-medium p-2 text-violet-100 block"
+                    class="hover:text-amber-200 text-sm font-medium p-2 text-amber-100 block"
                   >
                     {navItemChild.name}
                   </a>
@@ -117,7 +117,7 @@ function mobile(item) {
           <li>
             <a
               href={`/${navItem.slug}`}
-              class="text-sm font-medium text-white hover:text-violet-200 active:font-bold active:text-amber-600"
+              class="text-sm font-medium text-white hover:text-amber-200 active:font-bold active:text-amber-600"
             >
               {navItem.name}
             </a>
@@ -127,7 +127,7 @@ function mobile(item) {
             <a
               href={navItem.slug}
               target="_blank"
-              class="text-sm font-medium text-white hover:text-violet-200 active:font-bold active:text-amber-600 flex flex-row gap-2 items-center"
+              class="text-sm font-medium text-white hover:text-amber-200 active:font-bold active:text-amber-600 flex flex-row gap-2 items-center"
             >
               <span>{navItem.name}</span>
               <i class="text-xs fa-solid fa-arrow-up-right-from-square" />

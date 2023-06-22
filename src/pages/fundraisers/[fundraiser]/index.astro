@@ -44,7 +44,7 @@ const { fundraiser } = Astro.props;
     <Breadcrumbs breadcrumbs={fundraiser.breadcrumbs} />
 
     <div
-      class="relative isolate overflow-hidden bg-gray-900 py-24 sm:py-32 rounded-lg"
+      class="relative isolate overflow-hidden bg-slate-900 py-24 sm:py-32 rounded-lg"
     >
       <img
         src=`https://unltd.directus.app/assets/${fundraiser.image}`
@@ -56,7 +56,7 @@ const { fundraiser } = Astro.props;
         aria-hidden="true"
       >
         <div
-          class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-black-600 to-violet-600 opacity-20"
+          class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-slate-950-600 to-amber-600 opacity-20"
           style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
         >
         </div>
@@ -76,7 +76,7 @@ const { fundraiser } = Astro.props;
           <h2 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">
             {fundraiser.name}
           </h2>
-          <p class="mt-6 text-lg leading-8 text-gray-100">
+          <p class="mt-6 text-lg leading-8 text-slate-100">
             {fundraiser.subheading}
           </p>
         </div>
@@ -94,13 +94,13 @@ const { fundraiser } = Astro.props;
                 Active
               </span>
             ) : (
-              <span class="inline-flex items-center rounded-full bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+              <span class="inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
                 Completed
               </span>
             )
           }
           <div>
-            <p class="text-xs text-gray-400">
+            <p class="text-xs text-slate-400">
               {
                 !todayDate.isAfter(fundraiser.finish) ? (
                   <span>Closes</span>
@@ -114,10 +114,10 @@ const { fundraiser } = Astro.props;
         </div>
 
         <div
-          class="flex justify-between bg-slate-100 rounded-xl items-center border border-gray-200"
+          class="flex justify-between bg-slate-100 rounded-xl items-center border border-slate-200"
         >
           <div class="flex flex-col pl-5 p-2">
-            <span class="text-xs text-gray-500">Goal</span>
+            <span class="text-xs text-slate-500">Goal</span>
             <span class="text-lg">
               {
                 new Intl.NumberFormat("en-GB", {
@@ -133,7 +133,7 @@ const { fundraiser } = Astro.props;
               <a
                 href={fundraiser.link}
                 target="_blank"
-                class="p-5 rounded-r-xl bg-violet-600 text-sm font-semibold text-white shadow-sm hover:bg-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
+                class="p-5 rounded-r-xl bg-amber-600 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
               >
                 Donate now
               </a>
@@ -142,7 +142,7 @@ const { fundraiser } = Astro.props;
         </div>
 
         <div>
-          <p class="text-lg text-gray-800">{fundraiser.description}</p>
+          <p class="text-lg text-slate-800">{fundraiser.description}</p>
         </div>
 
         <div class="flex flex-col gap-3">
@@ -151,7 +151,7 @@ const { fundraiser } = Astro.props;
             fundraiser.funds.length > 0 ? (
               <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {fundraiser.funds.map((fund) => (
-                  <div class="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-violet-500 focus-within:ring-offset-2 hover:border-gray-400">
+                  <div class="relative flex items-center space-x-3 rounded-lg border border-slate-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-amber-500 focus-within:ring-offset-2 hover:border-slate-400">
                     <div class="flex-shrink-0">
                       <img
                         class="h-10 w-10 rounded-md drop-shadow-md"
@@ -165,7 +165,7 @@ const { fundraiser } = Astro.props;
                         class="focus:outline-none"
                       >
                         <span class="absolute inset-0" aria-hidden="true" />
-                        <p class="text-sm font-medium text-gray-900">
+                        <p class="text-sm font-medium text-slate-900">
                           {fund.funds_id.name}
                         </p>
                       </a>
@@ -174,7 +174,7 @@ const { fundraiser } = Astro.props;
                 ))}
               </div>
             ) : (
-              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-gray-600 bg-gray-100 rounded-md">
+              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-slate-600 bg-slate-100 rounded-md">
                 <i class="fa-regular fa-hourglass text-lg" />
                 <p>No funds</p>
               </div>
@@ -183,7 +183,7 @@ const { fundraiser } = Astro.props;
         </div>
 
         <div class="flex flex-col">
-          <span class="text-gray-500 text-xs"> Started</span>
+          <span class="text-slate-500 text-xs"> Started</span>
           <span class="text-sm"
             >{
               moment(fundraiser.start).format("dddd hh:mma, MMMM Do YYYY")
@@ -194,11 +194,11 @@ const { fundraiser } = Astro.props;
         {
           fundraiser.website && (
             <div class="flex flex-col">
-              <span class="text-gray-500 text-xs"> Website</span>
+              <span class="text-slate-500 text-xs"> Website</span>
               <a
                 href={`https://${fundraiser.website}`}
                 target="_blank"
-                class="text-sm text-violet-800 hover:underline"
+                class="text-sm text-amber-800 hover:underline"
               >
                 {fundraiser.website}
               </a>
@@ -207,7 +207,7 @@ const { fundraiser } = Astro.props;
         }
 
         <div class="flex flex-col gap-2">
-          <span class="text-gray-500 text-xs"> Managed by</span>
+          <span class="text-slate-500 text-xs"> Managed by</span>
           <div class="flex items-center">
             <div>
               <img
@@ -218,12 +218,12 @@ const { fundraiser } = Astro.props;
             </div>
             <div class="ml-3">
               <p
-                class="text-sm font-medium text-gray-700 group-hover:text-gray-900"
+                class="text-sm font-medium text-slate-700 group-hover:text-slate-900"
               >
                 {fundraiser.manager.person.name}
               </p>
               <p
-                class="text-xs font-medium text-gray-500 group-hover:text-gray-700"
+                class="text-xs font-medium text-slate-500 group-hover:text-slate-700"
               >
                 {fundraiser.manager.role.name}
               </p>
@@ -238,7 +238,7 @@ const { fundraiser } = Astro.props;
             fundraiser.funds.length > 0 ? (
               <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {fundraiser.sponsors.map((supporter) => (
-                  <div class="relative flex items-center space-x-3 rounded-lg border-gray-300 bg-white px-4 py-4">
+                  <div class="relative flex items-center space-x-3 rounded-lg border-slate-300 bg-white px-4 py-4">
                     <div class="flex-shrink-0">
                       <img
                         class="h-10 w-10 rounded-md drop-shadow-md"
@@ -248,7 +248,7 @@ const { fundraiser } = Astro.props;
                     </div>
                     <div class="min-w-0 flex-1">
                       <span class="absolute inset-0" aria-hidden="true" />
-                      <p class="text-sm font-medium text-gray-900">
+                      <p class="text-sm font-medium text-slate-900">
                         {supporter.organisations_id.name}
                       </p>
                     </div>
@@ -256,7 +256,7 @@ const { fundraiser } = Astro.props;
                 ))}
               </div>
             ) : (
-              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-gray-600 bg-gray-100 rounded-md">
+              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-slate-600 bg-slate-100 rounded-md">
                 <i class="fa-regular fa-hourglass text-lg" />
                 <p>No Sponsors</p>
               </div>
@@ -270,7 +270,7 @@ const { fundraiser } = Astro.props;
             fundraiser.funds.length > 0 ? (
               <div class="grid grid-cols-1 sm:grid-cols-2">
                 {fundraiser.supporters.map((supporter) => (
-                  <div class="relative flex items-center space-x-3 rounded-lg border-gray-300 bg-white px-4 py-4">
+                  <div class="relative flex items-center space-x-3 rounded-lg border-slate-300 bg-white px-4 py-4">
                     <div class="flex-shrink-0">
                       <img
                         class="h-10 w-10 rounded-md drop-shadow-md"
@@ -280,7 +280,7 @@ const { fundraiser } = Astro.props;
                     </div>
                     <div class="min-w-0 flex-1">
                       <span class="absolute inset-0" aria-hidden="true" />
-                      <p class="text-xs font-medium text-gray-900">
+                      <p class="text-xs font-medium text-slate-900">
                         {supporter.organisations_id.name}
                       </p>
                     </div>
@@ -288,7 +288,7 @@ const { fundraiser } = Astro.props;
                 ))}
               </div>
             ) : (
-              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-gray-600 bg-gray-100 rounded-md">
+              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-slate-600 bg-slate-100 rounded-md">
                 <i class="fa-regular fa-hourglass text-lg" />
                 <p>No Supporters</p>
               </div>
