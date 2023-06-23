@@ -18,13 +18,14 @@ import Dropwdown from "./Dropdown.astro";
       >
         <ul class="navbar hidden ml-10 space-x-8 lg:flex list-none">
           {
-            nav.header.main.map((navItem) => (
+            nav.header.main.map((navItem, i, navItems) => (
               <>
                 <Dropwdown
                   name={navItem.name}
                   slug={navItem.slug}
                   link={navItem.link}
                   children={navItem.children}
+                  last={i + 1 === navItems.length}
                 />
               </>
             ))
