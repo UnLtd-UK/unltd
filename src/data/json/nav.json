@@ -2,7 +2,7 @@
   "header": {
     "action": {
       "name": "Log in",
-      "link": "https://unltd.microsoftcrmportals.com/applications/"
+      "link": "https://unltd.microsoftcrmportals.com/applications"
     },
     "main": [
       {
@@ -122,7 +122,7 @@
       },
       {
         "name": "Blog",
-        "link": "https://unltd.ghost.io/",
+        "link": "https://unltd.ghost.io",
         "slug": "",
         "icon": "",
         "children": []
@@ -147,7 +147,7 @@
           },
           {
             "name": "Our strategy",
-            "link": "https://breakingdownbarriers.unltd.org.uk/",
+            "link": "https://breakingdownbarriers.unltd.org.uk",
             "slug": "",
             "icon": "fa-chess-pawn",
             "tag": "2022 - 2025",
@@ -155,7 +155,7 @@
           },
           {
             "name": "Our impact",
-            "link": "https://www.unltd.org.uk/uploads/general_uploads/UnLtd_Impact_Summary_Data_2021_Calendar_Year_Final.pdf",
+            "link": "https://unltd.org.uk/uploads/general_uploads/UnLtd_Impact_Summary_Data_2021_Calendar_Year_Final.pdf",
             "slug": "",
             "icon": "fa-explosion",
             "tag": "2021 - 2022",
@@ -175,19 +175,19 @@
       },
       {
         "name": "Instagram",
-        "link": "https://www.instagram.com/unltduk/",
+        "link": "https://www.instagram.com/unltduk",
         "slug": "",
         "icon": "instagram"
       },
       {
         "name": "Facebook",
-        "link": "https://www.facebook.com/UnLtd/",
+        "link": "https://www.facebook.com/UnLtd",
         "slug": "",
         "icon": "facebook"
       },
       {
         "name": "YouTube",
-        "link": "https://www.youtube.com/user/UnLtdVideos/",
+        "link": "https://www.youtube.com/user/UnLtdVideos",
         "slug": "",
         "icon": "youtube"
       },
