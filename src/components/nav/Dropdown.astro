@@ -1,5 +1,5 @@
 ---
-const { name, slug, link, children } = Astro.props;
+const { name, slug, link, children, last } = Astro.props;
 ---
 
 <li     x-data="{ open: false }"
@@ -17,7 +17,7 @@ const { name, slug, link, children } = Astro.props;
     <span>{name}</span>
 <i class="text-xs fa-solid fa-chevron-down text-slate-600 group-hover:text-amber-500"></i>
   </button>
-  <div class="absolute -left-52 z-50 pt-5 flex w-screen max-w-max px-4"
+  <div class={`absolute ${last ? '-left-72' : '-left-52'} z-50 pt-5 flex w-screen max-w-max px-4`}
             x-ref="panel"
             x-cloak
             x-show="open"
