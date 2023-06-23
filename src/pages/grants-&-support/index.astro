@@ -90,19 +90,19 @@ grants.map((grant) => {
       >
         {
           grants.map((grant) => (
-            <li class="col-span-1 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
+            <li class="col-span-1 flex flex-col divide-y divide-slate-200 rounded-lg bg-white text-center shadow">
               <div class="flex flex-1 flex-col p-8">
                 <img
                   class="mx-auto h-32 w-32 flex-shrink-0 rounded-full"
                   src={`https://unltd.directus.app/assets/${grant.fund.logo}`}
                   alt=""
                 />
-                <h3 class="mt-6 text-sm font-medium text-gray-900">
+                <h3 class="mt-6 text-sm font-medium text-slate-900">
                   {grant.fund.name}
                 </h3>
                 <dl class="mt-1 flex flex-grow flex-col justify-between">
                   <dt class="sr-only">Fund name</dt>
-                  <dd class="text-sm text-gray-500">{grant.name}</dd>
+                  <dd class="text-sm text-slate-500">{grant.name}</dd>
                   <dt class="sr-only">Grant amount</dt>
                   <dd class="mt-3">
                     <span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
@@ -122,11 +122,11 @@ grants.map((grant) => {
                 </dl>
               </div>
               <div>
-                <div class="-mt-px flex divide-x divide-gray-200">
+                <div class="-mt-px flex divide-x divide-slate-200">
                   <div class="-ml-px flex w-0 flex-1">
                     <a
                       href={`/funds/${grant.fund.slug}`}
-                      class="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
+                      class="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-slate-700 hover:text-slate-500"
                     >
                       <span class="text-xs">Visit fund</span>
                     </a>
@@ -236,42 +236,42 @@ grants.map((grant) => {
             <div class="col-span-1 flex justify-center py-8 px-8">
               <img
                 class="max-h-12"
-                src="https://tailwindui.com/img/logos/transistor-logo-gray-400.svg"
+                src="https://tailwindui.com/img/logos/transistor-logo-slate-400.svg"
                 alt="Workcation"
               />
             </div>
             <div class="col-span-1 flex justify-center py-8 px-8">
               <img
                 class="max-h-12"
-                src="https://tailwindui.com/img/logos/mirage-logo-gray-400.svg"
+                src="https://tailwindui.com/img/logos/mirage-logo-slate-400.svg"
                 alt="Mirage"
               />
             </div>
             <div class="col-span-1 flex justify-center py-8 px-8">
               <img
                 class="max-h-12"
-                src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg"
+                src="https://tailwindui.com/img/logos/tuple-logo-slate-400.svg"
                 alt="Tuple"
               />
             </div>
             <div class="col-span-1 flex justify-center py-8 px-8">
               <img
                 class="max-h-12"
-                src="https://tailwindui.com/img/logos/laravel-logo-gray-400.svg"
+                src="https://tailwindui.com/img/logos/laravel-logo-slate-400.svg"
                 alt="Laravel"
               />
             </div>
             <div class="col-span-1 flex justify-center py-8 px-8">
               <img
                 class="max-h-12"
-                src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg"
+                src="https://tailwindui.com/img/logos/statickit-logo-slate-400.svg"
                 alt="StaticKit"
               />
             </div>
             <div class="col-span-1 flex justify-center py-8 px-8">
               <img
                 class="max-h-12"
-                src="https://tailwindui.com/img/logos/statamic-logo-gray-400.svg"
+                src="https://tailwindui.com/img/logos/statamic-logo-slate-400.svg"
                 alt="Statamic"
               />
             </div>
@@ -285,7 +285,7 @@ grants.map((grant) => {
         />
 
         <div
-          class="flex flex-col text-gray-700 rounded-b-xl lg:px-20 lg:py-12 gap-24"
+          class="flex flex-col text-slate-700 rounded-b-xl lg:px-20 lg:py-12 gap-24"
         >
           {types.map((type) => <TypeCard type={type} />)}
         </div>

@@ -112,7 +112,7 @@ function desktop(item) {
 
                       <ul
                         id={`dropdownContent-${navItem.slug}`}
-                        class="gap-4 p-3 bg-white text-black rounded-md absolute z-10 hidden border-violet-200 border shadow-lg"
+                        class="gap-4 p-3 bg-white text-slate-950 rounded-md absolute z-10 hidden border-amber-200 border shadow-lg"
                         data-dropdown="dropdownContent"
                       >
                         {
@@ -120,13 +120,13 @@ function desktop(item) {
                             <a
                               href={navItem.slug && !navItem.link ? `/${navItem.slug}` : `${navItem.link}`}
                               target={!navItem.slug && navItem.link && "_blank"}
-                              class="flex flex-row gap-2 items-center p-3 py-3 hover:bg-violet-100 rounded-md"
+                              class="flex flex-row gap-2 items-center p-3 py-3 hover:bg-amber-100 rounded-md"
                               data-dropdown="dropdownA"
                             >
                               <div class="flex flex-col gap-1">
                                 <span class="text-sm font-medium">{navItem.name}</span>
                                 {navItem.description && (
-                                  <span class="text-xs text-gray-600">{navItem.description}</span>
+                                  <span class="text-xs text-slate-600">{navItem.description}</span>
                                 )}
                               </div>
                               {!navItem.slug && navItem.link && (

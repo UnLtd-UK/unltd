@@ -28,7 +28,7 @@ if (url) {
           alt="Awards"
         />
         <div class="flex flex-col">
-          <p class="text-xs text-violet-300">Awards</p>
+          <p class="text-xs text-amber-300">Awards</p>
           <p class="text-sm">{application.awards}</p>
         </div>
       </div> -->
@@ -41,10 +41,10 @@ if (url) {
         {application.awards} Award
       </p>
       <div class="flex flex-row items-center gap-2">
-        <p class="text-xs uppercase text-violet-400 tracking-tight">Up to</p>
+        <p class="text-xs uppercase text-amber-400 tracking-tight">Up to</p>
       </div>
       <div class="flex flex-col gap-2">
-        <p class="text-violet-100 text-3xl font-bold">
+        <p class="text-amber-100 text-3xl font-bold">
           {
             new Intl.NumberFormat("en-GB", {
               maximumSignificantDigits: 3,
@@ -62,8 +62,8 @@ if (url) {
               {
                 application.social_venture_costs && (
                   <>
-                    <i class="text-xs opacity-50 h-4 w-4 flex justify-center rounded-full items-center bg-violet-200 fa-solid fa-check" />
-                    <p class="text-sm text-violet-200">
+                    <i class="text-xs opacity-50 h-4 w-4 flex justify-center rounded-full items-center bg-amber-200 fa-solid fa-check" />
+                    <p class="text-sm text-amber-200">
                       For social venture costs
                     </p>
                   </>
@@ -74,8 +74,8 @@ if (url) {
               {
                 application.social_entrepreneur_salary && (
                   <>
-                    <i class="text-xs opacity-50 h-4 w-4 flex justify-center rounded-full items-center bg-violet-200 fa-solid fa-check" />
-                    <p class="text-sm text-violet-200">
+                    <i class="text-xs opacity-50 h-4 w-4 flex justify-center rounded-full items-center bg-amber-200 fa-solid fa-check" />
+                    <p class="text-sm text-amber-200">
                       For social entrepreneur salary
                     </p>
                   </>
@@ -89,7 +89,7 @@ if (url) {
     <!-- <div class="flex flex-col gap-7">
         <div class="flex flex-col gap-3">
           <div class="flex flex-row gap-2 items-center">
-            <p class="text-violet-400 uppercase text-xs tracking-tight">
+            <p class="text-amber-400 uppercase text-xs tracking-tight">
               Your social venture must be...
             </p>
           </div>
@@ -98,15 +98,15 @@ if (url) {
             <div>
               <span class="bg-opacity-30 rounded-full py-1 flex flex-row gap-2">
                 <i
-                  class="text-violet-200 text-xs fa-solid fa-tag bg-violet-100 bg-opacity-20 h-5 w-5 flex justify-center items-center rounded-md"
+                  class="text-amber-200 text-xs fa-solid fa-tag bg-amber-100 bg-opacity-20 h-5 w-5 flex justify-center items-center rounded-md"
                 ></i>
                 <div>
                   <p
-                    class="text-violet-200 text-opacity-80 text-xs uppercase tracking-wide"
+                    class="text-amber-200 text-opacity-80 text-xs uppercase tracking-wide"
                   >
                     Selling goods and services
                   </p>
-                  <p class="text-violet-200 text-sm">
+                  <p class="text-amber-200 text-sm">
                     {application.selling_goods_and_services}
                   </p>
                 </div>
@@ -116,15 +116,15 @@ if (url) {
             <div>
               <span class="bg-opacity-30 rounded-full py-1 flex flex-row gap-2">
                 <i
-                  class="text-violet-200 text-xs fa-solid fa-heart bg-violet-100 bg-opacity-20 h-5 w-5 flex justify-center items-center rounded-md"
+                  class="text-amber-200 text-xs fa-solid fa-heart bg-amber-100 bg-opacity-20 h-5 w-5 flex justify-center items-center rounded-md"
                 ></i>
                 <div>
                   <p
-                    class="text-violet-200 text-opacity-80 text-xs uppercase tracking-wide"
+                    class="text-amber-200 text-opacity-80 text-xs uppercase tracking-wide"
                   >
                     Making a positive difference
                   </p>
-                  <p class="text-violet-200 text-sm">
+                  <p class="text-amber-200 text-sm">
                     {application.positive_impact}
                   </p>
                 </div>
@@ -134,15 +134,15 @@ if (url) {
             <div>
               <span class="bg-opacity-30 rounded-full py-1 flex gap-2">
                 <i
-                  class="text-violet-200 text-xs fa-solid fa-certificate bg-violet-100 bg-opacity-20 h-5 w-5 flex justify-center items-center rounded-md"
+                  class="text-amber-200 text-xs fa-solid fa-certificate bg-amber-100 bg-opacity-20 h-5 w-5 flex justify-center items-center rounded-md"
                 ></i>
                 <div>
                   <p
-                    class="text-violet-200 text-opacity-80 text-xs uppercase tracking-wide"
+                    class="text-amber-200 text-opacity-80 text-xs uppercase tracking-wide"
                   >
                     Incorporated
                   </p>
-                  <p class="text-violet-200 text-sm">
+                  <p class="text-amber-200 text-sm">
                     {application.incorporated}
                   </p>
                 </div>
