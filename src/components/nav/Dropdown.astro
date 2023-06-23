@@ -60,9 +60,9 @@ const { name, slug, link, children } = Astro.props;
 
     </div>
   </div>) : (<a href={slug && !link ? `/${slug}` : `${link}`} target={!slug && link && "_blank"} class="font-medium inline-flex items-center gap-x-1 leading-6 text-slate-700" aria-expanded="false">
-<span>{name}</span>
+<span class="group-hover:text-amber-600">{name}</span>
                       {!slug && link && (
-                        <i class="text-xs fa-solid fa-arrow-up-right-from-square text-slate-600"></i>
+                        <i class="text-xs fa-solid fa-arrow-up-right-from-square text-slate-600 group-hover:text-amber-500"></i>
                       )}
                     </a>)
 </li>

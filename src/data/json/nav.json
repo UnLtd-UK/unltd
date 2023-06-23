@@ -12,44 +12,37 @@
           {
             "name": "Choosing the right legal structure",
             "link": "",
-            "slug": "learn/choosing-the-right-legal-structure",
+            "slug": "choosing-the-right-legal-structure",
             "icon": "fa-1",
             "description": "..."
           },
           {
             "name": "Defining social impact indicators, setting targets and refining your social model",
             "link": "",
-            "slug": "learn/defining-social-impact-indictators-setting-targets-and-refining-your-social model",
+            "slug": "defining-social-impact-indictators-setting-targets-and-refining-your-social model",
             "icon": "fa-2",
             "description": "..."
           },
           {
             "name": "Stakeholder engagement and building networks",
             "link": "",
-            "slug": "learn/stakeholder-engagement-and-building-networks",
+            "slug": "stakeholder-engagement-and-building-networks",
             "icon": "fa-3",
             "description": "..."
           },
           {
             "name": "Securing start up funding",
             "link": "",
-            "slug": "learn/securing-start-up-funding",
+            "slug": "securing-start-up-funding",
             "icon": "fa-4",
             "description": "..."
           },
           {
-            "name": "Resources",
+            "name": "Other funding and support available for social entrepreneurs",
             "link": "",
-            "slug": "learn/resources",
+            "slug": "other-funding-and-support-available-for-social-entrepreneurs",
             "icon": "fa-link",
-            "description": "The sectors funding and support"
-          }
-        ],
-        "other": [
-          {
-            "name": "Resources",
-            "link": "",
-            "slug": "learn/resources"
+            "description": ""
           }
         ]
       },
