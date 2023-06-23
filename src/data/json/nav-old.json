@@ -2,7 +2,7 @@
   "header": {
     "action": {
       "name": "My Award Account",
-      "link": "https://unltd.microsoftcrmportals.com/applications/",
+      "link": "https://unltd.microsoftcrmportals.com/applications",
       "children": []
     },
     "main": [
@@ -63,7 +63,7 @@
           },
           {
             "name": "Our strategy",
-            "link": "https://breakingdownbarriers.unltd.org.uk/",
+            "link": "https://breakingdownbarriers.unltd.org.uk",
             "slug": "",
             "icon": "fa-arrow-up-right-from-square",
             "children": []
@@ -131,19 +131,19 @@
       },
       {
         "name": "Instagram",
-        "link": "https://www.instagram.com/unltduk/",
+        "link": "https://www.instagram.com/unltduk",
         "slug": "",
         "icon": "instagram"
       },
       {
         "name": "Facebook",
-        "link": "https://www.facebook.com/UnLtd/",
+        "link": "https://www.facebook.com/UnLtd",
         "slug": "",
         "icon": "facebook"
       },
       {
         "name": "YouTube",
-        "link": "https://www.youtube.com/user/UnLtdVideos/",
+        "link": "https://www.youtube.com/user/UnLtdVideos",
         "slug": "",
         "icon": "youtube"
       },

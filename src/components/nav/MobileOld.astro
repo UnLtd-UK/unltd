@@ -1,68 +1,68 @@
 ---
-import nav from "../../data/json/nav.json";
+import nav from "../../data/json/nav-old.json";
 import Logo from "../OrangeLogo.astro";
 ---
 
 <script is:inline>
-  let mobileDropdownButtons = document.getElementsByClassName(
-    "mobileDropdownButton"
+let mobileDropdownButtons = document.getElementsByClassName(
+  "mobileDropdownButton"
+);
+let mobileDropdownContents = document.getElementsByClassName(
+  "mobileDropdownContent"
+);
+
+function hideButton(mobileDropdownButton) {
+  if (mobileDropdownButton.getAttribute("aria-expanded") === "true") {
+    mobileDropdownButton.setAttribute("aria-expanded", false);
+  }
+}
+
+function hideContent(mobileDropdownContent) {
+  if (!mobileDropdownContent.classList.contains("hidden")) {
+    mobileDropdownContent.classList.add("hidden");
+  }
+}
+
+function hamburgerMenu() {
+  let hamburgerButton = document.getElementById("hamburgerButton");
+  let hamburgerMenu = document.getElementById("hamburgerMenu");
+  hamburgerMenu.classList.toggle("hidden");
+
+  if (hamburgerButton.getAttribute("aria-expanded") === "true") {
+    hamburgerButton.setAttribute("aria-expanded", "false");
+  } else {
+    hamburgerButton.setAttribute("aria-expanded", "true");
+  }
+}
+
+function mobile(item) {
+  let mobileDropdownContentId = "mobileDropdownContent-" + item;
+  let mobileDropdownButtonId = "mobileDropdownButton-" + item;
+  let mobileDropdownContent = document.getElementById(
+    mobileDropdownContentId
   );
-  let mobileDropdownContents = document.getElementsByClassName(
-    "mobileDropdownContent"
-  );
+  let mobileDropdownButton = document.getElementById(mobileDropdownButtonId);
 
-  function hideButton(mobileDropdownButton) {
-    if (mobileDropdownButton.getAttribute("aria-expanded") === "true") {
-      mobileDropdownButton.setAttribute("aria-expanded", false);
+  for (let i = 0; i < mobileDropdownButtons.length; i++) {
+    if (!(mobileDropdownButtons[i].id === mobileDropdownButtonId)) {
+      hideButton(mobileDropdownButtons[i]);
     }
   }
 
-  function hideContent(mobileDropdownContent) {
-    if (!mobileDropdownContent.classList.contains("hidden")) {
-      mobileDropdownContent.classList.add("hidden");
+  for (let i = 0; i < mobileDropdownContents.length; i++) {
+    if (!(mobileDropdownContents[i].id === mobileDropdownContentId)) {
+      hideContent(mobileDropdownContents[i]);
     }
   }
 
-  function hamburgerMenu() {
-    let hamburgerButton = document.getElementById("hamburgerButton");
-    let hamburgerMenu = document.getElementById("hamburgerMenu");
-    hamburgerMenu.classList.toggle("hidden");
+  mobileDropdownContent.classList.toggle("hidden");
 
-    if (hamburgerButton.getAttribute("aria-expanded") === "true") {
-      hamburgerButton.setAttribute("aria-expanded", "false");
-    } else {
-      hamburgerButton.setAttribute("aria-expanded", "true");
-    }
+  if (mobileDropdownButton.getAttribute("aria-expanded") === "true") {
+    mobileDropdownButton.setAttribute("aria-expanded", "false");
+  } else {
+    mobileDropdownButton.setAttribute("aria-expanded", "true");
   }
-
-  function mobile(item) {
-    let mobileDropdownContentId = "mobileDropdownContent-" + item;
-    let mobileDropdownButtonId = "mobileDropdownButton-" + item;
-    let mobileDropdownContent = document.getElementById(
-      mobileDropdownContentId
-    );
-    let mobileDropdownButton = document.getElementById(mobileDropdownButtonId);
-
-    for (let i = 0; i < mobileDropdownButtons.length; i++) {
-      if (!(mobileDropdownButtons[i].id === mobileDropdownButtonId)) {
-        hideButton(mobileDropdownButtons[i]);
-      }
-    }
-
-    for (let i = 0; i < mobileDropdownContents.length; i++) {
-      if (!(mobileDropdownContents[i].id === mobileDropdownContentId)) {
-        hideContent(mobileDropdownContents[i]);
-      }
-    }
-
-    mobileDropdownContent.classList.toggle("hidden");
-
-    if (mobileDropdownButton.getAttribute("aria-expanded") === "true") {
-      mobileDropdownButton.setAttribute("aria-expanded", "false");
-    } else {
-      mobileDropdownButton.setAttribute("aria-expanded", "true");
-    }
-  }
+}
 </script>
 
 <nav class="flex flex-col lg:hidden gap-2 shadow-2xl">
@@ -83,7 +83,7 @@ import Logo from "../OrangeLogo.astro";
     </div>
   </div>
 
-  <ul id="hamburgerMenu" class="flex flex-col gap-5 hidden mx-5">
+  <!-- <ul id="hamburgerMenu" class="flex flex-col gap-5 md:hidden mx-5">
     {
       nav.header.main.map((navItem) =>
         navItem.children.length >= 1 ? (
@@ -136,5 +136,5 @@ import Logo from "../OrangeLogo.astro";
         )
       )
     }
-  </ul>
+  </ul> -->
 </nav>
