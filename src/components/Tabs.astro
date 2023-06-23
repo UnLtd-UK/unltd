@@ -4,65 +4,65 @@ const { parentItems, childrenItems, relationships } = Astro.props;
 
 <script is:inline>
 
-  function openTab(element) {
+function openTab(element) {
 
-    // get id if button
-    let elementId = element.nodeName === 'BUTTON' ? element.id : element.value;
+  // get id if button
+  let elementId = element.nodeName === 'BUTTON' ? element.id : element.value;
 
-    let sections = document.querySelectorAll("section[data-tabs]");
-    let buttons = document.querySelectorAll("button[data-tabs]");
-    let options = document.querySelectorAll("option[data-tabs]");
+  let sections = document.querySelectorAll("section[data-tabs]");
+  let buttons = document.querySelectorAll("button[data-tabs]");
+  let options = document.querySelectorAll("option[data-tabs]");
 
-    // make all sections hidden and data-tabs false
-    for (let i = 0; i < sections.length; i++) {
-      sections[i].className = "hidden";
-      sections[i].setAttribute("data-tabs", "false");
-    }
-
-    // make all buttons unstyled and aria-selected false
-    for (let i = 0; i < buttons.length; i++) {
-      let activeStyle = buttons[i].dataset.tabs;
-      buttons[i].classList.remove(activeStyle);
-      buttons[i].setAttribute("aria-selected", "false");
-    }
-
-    // 
-    for (let i = 0; i < options.length; i++) {
-      options[i].setAttribute("data-tabs", "false");
-      options[i].removeAttribute("selected");
-    }
-
-    // get section. remove hidden and make data-tabs true
-    let section = document.querySelector(`section[aria-labelledby="${elementId}"]`);
-    section.classList.remove("hidden");
-    section.setAttribute("data-tabs", "true");
-
-    // get Button element
-
-    let elementButton = element.nodeName === 'BUTTON' ? element : document.querySelector(`button#${elementId}`)
-
-    // get Option element
-    let elementOption = element.nodeName === 'SELECT' ? element : document.querySelector(`option#${elementId}`)
-
-    // make button active
-    elementButton.setAttribute("aria-selected", "true");
-    elementButton.classList.add(elementButton.dataset.tabs);
-
-    // make select option active
-    elementOption.setAttribute("data-tabs", "true"); 
-    elementOption.setAttribute("selected", "");
-
+  // make all sections hidden and data-tabs false
+  for (let i = 0; i < sections.length; i++) {
+    sections[i].className = "hidden";
+    sections[i].setAttribute("data-tabs", "false");
   }
+
+  // make all buttons unstyled and aria-selected false
+  for (let i = 0; i < buttons.length; i++) {
+    let activeStyle = buttons[i].dataset.tabs;
+    buttons[i].classList.remove(activeStyle);
+    buttons[i].setAttribute("aria-selected", "false");
+  }
+
+  // 
+  for (let i = 0; i < options.length; i++) {
+    options[i].setAttribute("data-tabs", "false");
+    options[i].removeAttribute("selected");
+  }
+
+  // get section. remove hidden and make data-tabs true
+  let section = document.querySelector(`section[aria-labelledby="${elementId}"]`);
+  section.classList.remove("hidden");
+  section.setAttribute("data-tabs", "true");
+
+  // get Button element
+
+  let elementButton = element.nodeName === 'BUTTON' ? element : document.querySelector(`button#${elementId}`)
+
+  // get Option element
+  let elementOption = element.nodeName === 'SELECT' ? element : document.querySelector(`option#${elementId}`)
+
+  // make button active
+  elementButton.setAttribute("aria-selected", "true");
+  elementButton.classList.add(elementButton.dataset.tabs);
+
+  // make select option active
+  elementOption.setAttribute("data-tabs", "true");
+  elementOption.setAttribute("selected", "");
+
+}
 </script>
 
-<div class="bg-violet-50 flex flex-col text-gray-700 rounded-xl px-10 py-10 lg:px-20 lg:py-10 gap-6">
+<div class="bg-amber-50 flex flex-col text-slate-700 rounded-xl px-10 py-10 lg:px-20 lg:py-10 gap-6">
 
 <div class="mt-3 sm:mt-4">
   <!-- Mobile -->
   <div class="lg:hidden">
         <label for="current-tab" class="sr-only">Select a tab</label>
         <select id="current-tab" name="current-tab" onchange="openTab(this)"
-            class="block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-violet-500 focus:outline-none focus:ring-violet-500 sm:text-sm">
+            class="block w-full rounded-md border-slate-300 py-2 pl-3 pr-10 text-base focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm">
             { parentItems.map((parentItem, parentItemIndex) => (
             <option data-tabs={parentItemIndex === 0 ? `true` : `false`} id={`${parentItem.slug}`} value={parentItem.slug} {parentItemIndex === 0 && `selected`}>{ parentItem.name }</option>
             ))}
@@ -77,10 +77,10 @@ const { parentItems, childrenItems, relationships } = Astro.props;
           <button
             id={`${parentItem.slug}`}
             type="button"
-            data-tabs="text-violet-600"
+            data-tabs="text-amber-600"
             onclick={`openTab(this)`}
-            class={`whitespace-nowrap pb-4 px-1 font-medium text-sm transition ease-in-out delay-50 duration-300 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 ${
-              parentItemIndex === 0 && `text-violet-600`
+            class={`whitespace-nowrap pb-4 px-1 font-medium text-sm transition ease-in-out delay-50 duration-300 border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300 ${
+              parentItemIndex === 0 && `text-amber-600`
             }`}
             aria-selected={parentItemIndex === 0 ? `true` : `false`}
           >
@@ -109,9 +109,9 @@ const { parentItems, childrenItems, relationships } = Astro.props;
                   {childrenItems.map(
                     (topic) =>
                       topic.id === relationship.topic.id && (
-                        <div class="p-4 text-sm border-2 border-violet-50 hover:border-violet-200 rounded-xl basis-1/4 transition ease-in-out delay-50 duration-300 bg-violet-50 hover:bg-violet-100 hover:-translate-y-1 hover:scale-100 flex flex-col gap-1">
-                          <p class="font-bold text-black">{topic.name}</p>
-                          <p class="text-gray-600">{topic.description}</p>
+                        <div class="p-4 text-sm border-2 border-amber-50 hover:border-amber-200 rounded-xl basis-1/4 transition ease-in-out delay-50 duration-300 bg-amber-50 hover:bg-amber-100 hover:-translate-y-1 hover:scale-100 flex flex-col gap-1">
+                          <p class="font-bold text-slate-950">{topic.name}</p>
+                          <p class="text-slate-600">{topic.description}</p>
                         </div>
                       )
                   )}

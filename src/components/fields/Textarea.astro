@@ -12,15 +12,15 @@ if (description != null) {
 
 <div>
   <div class="flex justify-between">
-    <label for={slug} class="block text-sm font-medium text-gray-700"
-      ><span class="text-gray-400 text-sm mr-1">{number}.</span> {name}</label
+    <label for={slug} class="block text-sm font-medium text-slate-700"
+      ><span class="text-slate-400 text-sm mr-1">{number}.</span> {name}</label
     >
-    <span class="text-sm text-gray-500" id="email-required"
+    <span class="text-sm text-slate-500" id="email-required"
       >{required === "true" && `Required`}</span
     >
   </div>
   <div
-    class="mt-2 text-sm text-gray-500 leading-relaxed prose"
+    class="mt-2 text-sm text-slate-500 leading-relaxed prose"
     id={`${slug}-description}`}
     set:html={markdown}
   />
@@ -29,15 +29,15 @@ if (description != null) {
       id="about"
       name="about"
       rows="3"
-      class="mt-1 block w-full max-w-lg rounded-md text-black border-gray-300 shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm disabled:cursor-not-allowed disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-500"
+      class="mt-1 block w-full max-w-lg rounded-md text-slate-950 border-slate-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-500"
       disabled={disabled}></textarea>
     {
       max_length && (
         <div class="text-xs p-2 rounded-md flex flex-row justify-between">
-          <span class="text-xs text-gray-500 tracking-tight uppercase">
+          <span class="text-xs text-slate-500 tracking-tight uppercase">
             Character count
           </span>
-          <span class="text-gray-500 text-xs">0 / {max_length}</span>
+          <span class="text-slate-500 text-xs">0 / {max_length}</span>
         </div>
       )
     }

@@ -9,11 +9,11 @@ const { question } = Astro.props;
     <button
       x-on:click="open = ! open"
       type="button"
-      class="flex w-full items-start justify-between text-left text-gray-900"
+      class="flex w-full items-start justify-between text-left text-slate-900"
       aria-controls="faq-0"
       aria-expanded="false"
     >
-      <span class="text-base font-semibold leading-7">{question}</span>
+      <span class="text-xl font-semibold leading-7">{question}</span>
       <span class="ml-6 flex h-7 items-center">
         <i class="fa-solid fa-chevron-down" x-show="!open" aria-hidden="true"
         ></i>
@@ -22,7 +22,7 @@ const { question } = Astro.props;
     </button>
   </dt>
   <dd
-    class="mt-2 pr-12 text-base leading-7 text-gray-600"
+    class="mt-2 pr-12 text-base leading-7 text-slate-600"
     id="faq-0"
     x-show="open"
     x-transition

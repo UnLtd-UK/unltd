@@ -11,8 +11,8 @@ const { name, description, primaryButton, secondaryButton, updated, reviewed } =
           <div class="flex flex-row gap-10">
             {updated && (
               <div>
-                <p class="text-gray-900 text-xs">Updated</p>
-                <p class="text-gray-900 text-sm">
+                <p class="text-slate-900 text-xs">Updated</p>
+                <p class="text-slate-900 text-sm">
                   {new Date(updated).toLocaleDateString()}
                 </p>
               </div>
@@ -20,8 +20,8 @@ const { name, description, primaryButton, secondaryButton, updated, reviewed } =
 
             {updated && (
               <div>
-                <p class="text-gray-900 text-xs">Reviewed</p>
-                <p class="text-gray-900 text-sm">
+                <p class="text-slate-900 text-xs">Reviewed</p>
+                <p class="text-slate-900 text-sm">
                   {new Date(reviewed).toLocaleDateString()}
                 </p>
               </div>
@@ -35,11 +35,11 @@ const { name, description, primaryButton, secondaryButton, updated, reviewed } =
   <div class="max-w-4xl flex flex-col gap-3">
     <div class="flex flex-col gap-3">
       <h2
-        class="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl"
+        class="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl"
       >
         {name}
       </h2>
-      <p class="text-2xl text-gray-600">
+      <p class="text-2xl text-slate-600">
         {description}
       </p>
     </div>
@@ -53,7 +53,7 @@ const { name, description, primaryButton, secondaryButton, updated, reviewed } =
             <a
               target={primaryButton.url.startsWith("https://") && "_blank"}
               href={primaryButton.url}
-              class="inline-flex items-center justify-center rounded-full border border-transparent bg-gray-100 px-5 py-3 text-base font-medium text-gray hover:bg-violet-700"
+              class="inline-flex items-center justify-center rounded-full border border-transparent bg-slate-100 px-5 py-3 text-base font-medium text-slate hover:bg-amber-700"
             >
               {primaryButton.text}
             </a>
@@ -63,7 +63,7 @@ const { name, description, primaryButton, secondaryButton, updated, reviewed } =
           {secondaryButton && (
             <a
               href={secondaryButton.url}
-              class="inline-flex items-center justify-center rounded-full border border-transparent bg-gray-100 px-5 py-3 text-base font-medium text-gray-700 hover:bg-violet-200"
+              class="inline-flex items-center justify-center rounded-full border border-transparent bg-slate-100 px-5 py-3 text-base font-medium text-slate-700 hover:bg-amber-200"
             >
               {secondaryButton.text}
             </a>

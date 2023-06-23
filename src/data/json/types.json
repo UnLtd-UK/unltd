@@ -9,7 +9,7 @@
     },
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
     "icon": "pen-ruler",
-    "colour": "indigo"
+    "colour": "amber"
   },
   {
     "id": 2,
@@ -21,7 +21,7 @@
     },
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt nihil culpa a temporibus aliquam mollitia? Tenetur quod illum numquam, reiciendis fuga qui reprehenderit temporibus amet consequatur vel adipisci eveniet laboriosam.",
     "icon": "truck-medical",
-    "colour": "violet"
+    "colour": "amber"
   },
   {
     "id": 3,

@@ -12,7 +12,7 @@ for (let index = 0; index < topics.length; index++) {
 ---
 
 <div
-  class={`text-black rounded-xl flex flex-col transition ease-in-out delay-50 duration-300 hover:-translate-y-1 hover:scale-100 lg:w-96`}
+  class={`text-slate-950 rounded-xl flex flex-col transition ease-in-out delay-50 duration-300 hover:-translate-y-1 hover:scale-100 lg:w-96`}
 >
   <div class="bg-white p-6 rounded-t-xl flex flex-col gap-2">
     <div>
@@ -35,31 +35,31 @@ for (let index = 0; index < topics.length; index++) {
 
     <div class="flex flex-row gap-10">
       <div class="flex flex-col">
-        <p class="text-xs text-gray-500 uppercase">Attendees</p>
+        <p class="text-xs text-slate-500 uppercase">Attendees</p>
         <p class="text-xs font-bold capitalize">{support.fundee}</p>
       </div>
 
       <div class="flex flex-col">
-        <p class="text-xs text-gray-500 uppercase">Fund</p>
+        <p class="text-xs text-slate-500 uppercase">Fund</p>
         <p class="text-xs font-bold capitalize">{support.fund}</p>
       </div>
 
       <div class="flex flex-col">
-        <p class="text-xs text-gray-500 uppercase">Countries</p>
+        <p class="text-xs text-slate-500 uppercase">Countries</p>
         <p class="text-xs font-bold capitalize">{support.countries}</p>
       </div>
     </div>
   </div>
   {
     support && (
-      <div class={`bg-gray-50 p-6 rounded-b-xl flex flex-col gap-3`}>
-        <i class="fa-solid fa-quote-left text-gray-700" />
+      <div class={`bg-slate-50 p-6 rounded-b-xl flex flex-col gap-3`}>
+        <i class="fa-solid fa-quote-left text-slate-700" />
         <p class="text-sm">{support.review.description}</p>
         <div class="flex gap-2 items-center">
           <img src={support.review.img} alt="" class="w-10 h-10 rounded-full" />
           <div class="flex flex-col">
             <p class="text-sm font-bold">{support.review.name}</p>
-            <p class="text-sm text-gray-600">{support.review.organisation}</p>
+            <p class="text-sm text-slate-600">{support.review.organisation}</p>
           </div>
         </div>
       </div>
