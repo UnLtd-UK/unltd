@@ -1,6 +1,27 @@
 ---
-const { name, description, positions } = Astro.props;
+const { name, description, positions, slug } = Astro.props;
 ---
+
+<script is:inline>
+function playsound(name) {
+  const slugify = (text) =>
+    text
+      .toString()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "")
+      .replace(/--+/g, "-");
+
+  let slug = slugify(name);
+  console.log(audio);
+  var audio = document.getElementById(`audio-${slug}`);
+  console.log(audio);
+  audio.play();
+}
+</script>
 
 <div class="py-5 sm:py-10">
   <div
@@ -36,9 +57,26 @@ const { name, description, positions } = Astro.props;
                 />
                 <div>
                   <div class="flex gap-2 items-center">
-                    <h3 class="text-base font-semibold leading-7 tracking-tight text-slate-600">
+                    <h3 class="text-base font-semibold leading-7 tracking-tight text-slate-600 items-center">
                       {position.person.name}
                     </h3>
+                    <button onclick={`playsound("${position.person.name}")`}>
+                      <i class="fa-solid fa-volume-high text-slate-500 text-xs" />
+                    </button>
+                    <audio
+                      id={`audio-${position.person.name
+                        .toString()
+                        .normalize("NFD")
+                        .replace(/[\u0300-\u036f]/g, "")
+                        .toLowerCase()
+                        .trim()
+                        .replace(/\s+/g, "-")
+                        .replace(/[^\w-]+/g, "")
+                        .replace(/--+/g, "-")}`}
+                      src="/name.m4a"
+                    />
+                  </div>
+                  <div class="flex gap-2 items-center">
                     <span class="text-xs text-slate-600">
                       {position.person.pronouns}
                     </span>

@@ -2,10 +2,15 @@
 import nav from "../../data/json/nav.json";
 import Logo from "../OrangeLogo.astro";
 import Dropwdown from "./Dropdown.astro";
+import DropwdownMov from "./DropdownMov.astro";
 ---
 
-<header class="hidden lg:block">
-  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Top">
+<header class="">
+  <nav
+    x-data="{ open: false }"
+    class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+    aria-label="Top"
+  >
     <div class="w-full py-6 flex items-center justify-between lg:border-none">
       <div class="flex items-center justify-between">
         <a href="/">
@@ -14,7 +19,7 @@ import Dropwdown from "./Dropdown.astro";
         </a>
       </div>
       <div
-        class="ml-10 space-x-4 flex gap-5 flex-row flex-end flex-wrap items-center"
+        class="ml-10 space-x-4 gap-5 flex-row flex-end flex-wrap items-center hidden lg:flex"
       >
         <ul class="navbar hidden ml-10 space-x-8 lg:flex list-none">
           {
@@ -37,6 +42,47 @@ import Dropwdown from "./Dropdown.astro";
             class="rounded-full bg-amber-50 px-3.5 py-2.5 text-sm font-medium text-amber-600 shadow-sm hover:bg-amber-100 transition"
             >{nav.header.action.name}</a
           >
+        </div>
+      </div>
+      <button
+        x-on:click="open = ! open"
+        class="block lg:hidden -m-2.5 rounded-md p-2.5 text-gray-700"
+      >
+        <span class="sr-only">Close menu</span>
+        <i class="fa-solid fa-bars h-6 w-6"></i>
+      </button>
+
+      <div
+        x-show="open"
+        @click.outside="open = false"
+        x-transition
+        class="block lg:hidden fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+      >
+        <button
+          x-on:click="open = ! open"
+          class="-m-2.5 rounded-md p-2.5 text-gray-700"
+        >
+          <span class="sr-only">Close menu</span>
+          <i class="fa-solid fa-xmark h-6 w-6"></i>
+        </button>
+        <div class="mt-6 flow-root">
+          <div class="divide-y divide-gray-500/10">
+            <ul class="navbar gap-6 flex flex-col list-none">
+              {
+                nav.header.main.map((navItem, i, navItems) => (
+                  <>
+                    <DropwdownMov
+                      name={navItem.name}
+                      slug={navItem.slug}
+                      link={navItem.link}
+                      children={navItem.children}
+                      last={i + 1 === navItems.length}
+                    />
+                  </>
+                ))
+              }
+            </ul>
+          </div>
         </div>
       </div>
     </div>
