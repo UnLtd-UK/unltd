@@ -17,7 +17,7 @@ const { name, slug, link, children, last } = Astro.props;
     <span>{name}</span>
 <i class="text-xs fa-solid fa-chevron-down text-slate-600 group-hover:text-amber-500"></i>
   </button>
-  <div class={`absolute z-50 pt-5 flex w-screen max-w-max px-4`}
+  <div class={`absolute z-50 pt-5 flex w-screen max-w-max`}
             x-ref="panel"
             x-cloak
             x-show="open"
@@ -27,7 +27,7 @@ const { name, slug, link, children, last } = Astro.props;
             :id=`$id('dropdown-button')`
             style="display: none;"
   >
-    <div class="w-screen max-w-md flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-slate-900/5">
+    <div class="w-screen max-w-sm flex-auto overflow-hidden rounded-3xl bg-white text-sm leading-6 shadow-lg ring-1 ring-slate-900/5">
         <div class="p-4">
 {
                 children.map((child) => (
