@@ -16,9 +16,7 @@ function playsound(name) {
       .replace(/--+/g, "-");
 
   let slug = slugify(name);
-  console.log(audio);
   var audio = document.getElementById(`audio-${slug}`);
-  console.log(audio);
   audio.play();
 }
 </script>
