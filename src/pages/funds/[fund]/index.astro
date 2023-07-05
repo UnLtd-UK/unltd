@@ -50,17 +50,16 @@ const { fund } = Astro.props;
 
     <div class="col-span-4 flex flex-col gap-20 lg:flex-row">
       <div class="lg:basis-1/2 flex flex-col gap-8">
-        <div>
           <span class="relative inline-block">
-  <img class="h-28 w-28 rounded-md" src={`https://unltd.directus.app/assets/${fund.logo.id}`} alt="">
+  <!-- <img class="h-28 w-28 rounded-md" src={`https://unltd.directus.app/assets/${fund.logo.id}`} alt=""> -->
 </span>
-          <h1 class="text-5xl font-bold">
+
+
+        <div class="flex flex-col gap-3">
+                    <h1 class="text-5xl font-bold">
             {fund.name}
           </h1>
-        </div>
-
-        <div>
-          <p class="text-lg leading-relaxed">
+          <p class="text-lg leading-relaxed text-slate-600">
             {fund.description}
           </p>
         </div>
@@ -82,9 +81,9 @@ const { fund } = Astro.props;
           </p>
         </div>
 
-        <p>Partners</p>
         {
-          fund.partners.length > 0 ? (
+          fund.partners.length > 0 && (
+            <p>Partners</p>
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {fund.partners.map((partner) => (
                 <div class="relative flex items-center space-x-3 rounded-lg border-slate-300 bg-white px-4 py-4">
@@ -104,12 +103,7 @@ const { fund } = Astro.props;
                 </div>
               ))}
             </div>
-          ) : (
-            <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-slate-600 bg-slate-100 rounded-md">
-              <i class="fa-regular fa-hourglass text-lg" />
-              <p>No Sponsors</p>
-            </div>
-          )
+          ) 
         }
       </div>
 
@@ -131,6 +125,7 @@ const { fund } = Astro.props;
       </Testamonial>
     </div>
 
+    <div class="flex flex-col gap-20">
     <dl
       class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4"
     >
@@ -179,16 +174,15 @@ const { fund } = Astro.props;
     <div class="grid grid-cols-4 gap-20 mx-auto max-w-7xl">
       <!-- Awards -->
       <div class="col-span-4 flex flex-col gap-10 lg:col-span-4">
-        <h4 class="text-5xl font-semibold text-slate-600">Grants</h4>
         <div class="flex flex-col gap-10 lg:flex-row">
           <div class="flex flex-col basis-3/4">
             <div class="flex flex-col gap-10">
               <!-- xs to lg -->
-              <GrantsSMLG grants={fund.grants} />
+              <GrantsSMLG grants={fund.grants} name={fund.name}/>
             </div>
 
             <!-- lg+ -->
-            <GrantsXL grants={fund.grants} />
+            <GrantsXL grants={fund.grants} name={fund.name} />
           </div>
           <div class="flex flex-col basis-1/4 gap-10">
             <div class="flex flex-col gap-10">
@@ -292,6 +286,7 @@ const { fund } = Astro.props;
           </div>
         </div>
       </div>
+    </div>
     </div>
   </Container>
 </Template>
