@@ -1,0 +1,143 @@
+---
+import TableRecordIcon from "./TableRecordIcon.astro";
+import TableRecordText from "./TableRecordText.astro";
+import TableRecordDes from "./TableRecordDes.astro";
+
+const { grants } = Astro.props;
+---
+
+        {
+          grants.map((grant) => (
+      <div class="lg:hidden">
+        <section>
+          <div class="mb-8">
+            <h2 class="text-lg font-medium leading-6 text-slate-900">{grant.name}</h2>
+            <p class="mt-4 flex flex-col">
+              <span class="text-base font-medium text-slate-500">From</span>
+              <span class="text-4xl font-bold tracking-tight text-slate-900"
+                >{new Intl.NumberFormat("en-GB", {
+                      maximumSignificantDigits: 3,
+                      style: "currency",
+                      currency: "GBP",
+                    }).format(grant.minimum_amount)}</span>
+                            <span class="text-base font-medium text-slate-500">To</span>
+                                          <span class="text-4xl font-bold tracking-tight text-slate-900"
+                >{new Intl.NumberFormat("en-GB", {
+                      maximumSignificantDigits: 3,
+                      style: "currency",
+                      currency: "GBP",
+                    }).format(grant.maximum_amount)}</span>
+            </p>
+          </div>
+
+          <table class="w-full">
+            <tbody class="divide-y divide-slate-200">
+              <TableRecordIcon
+                question="Can grant be used for social entrepreneur salary?"
+                answer="No"
+              />
+
+              <TableRecordIcon
+                question="Can grant be used for social venture costs?"
+                answer="Yes"
+              />
+            </tbody>
+          </table>
+
+          <table class="w-full">
+            <caption
+              class="border-t border-slate-200 bg-slate-50 py-3 px-6 text-left text-sm font-medium text-slate-900 sm:px-4"
+            >
+              Support
+            </caption>
+            <tbody class="divide-y divide-slate-200">
+              <TableRecordIcon
+                question="Dedictaed support manager"
+                description="Someone to coach, mentor and support you to achieve your goals."
+                answer="Yes"
+              />
+
+              <TableRecordIcon
+                question="Expert mentors and pro bono support"
+                description="Expert advice and mentoring through our generous community of business professionals, corporate partners and social entrepreneurs who volunteer their skills and expertise."
+                answer="Yes"
+              />
+
+              <TableRecordIcon
+                question="Workshops and learning"
+                description="Through our regular workshops and support you will be able to learn about different aspects of running a social venture."
+                answer="Yes"
+              />
+            </tbody>
+          </table>
+
+          <table class="w-full">
+            <caption
+              class="border-t border-slate-200 bg-slate-50 py-3 px-6 text-left text-sm font-medium text-slate-900 sm:px-4"
+            >
+              Eligibility
+            </caption>
+            <tbody class="divide-y divide-slate-200">
+              <TableRecordDes
+                name="Social entrepreneur"
+                description="A social entrepreneur is the name we give to people who have started, or looking to start, a social venture, someone who is driven by their passion to make a difference. They are looking to make a sustained and long-term impact and need our funding and support to make it happen."
+              />
+
+              <TableRecordText
+                question="How old are you?"
+                answer={`<span>${grant.How_old_are_you}<span>`}
+              />
+
+              <TableRecordText question="Where are you resided?" answer={grant.Where_are_you_resided} />
+
+              <TableRecordDes
+                name="Social venture"
+                description="A social entrepreneur is the name we give to people who have started, or looking to start, a social venture, someone who is driven by their passion to make a difference. They are looking to make a sustained and long-term impact and need our funding and support to make it happen."
+                more='<ul class="list-disc text-sm leading-loose font-normal text-slate-500"><li>Must not employ others to undertake most of the work.</li><li>Must not involve political or religious campaigning.</li><li>Must not predominantly focus on raising awareness of social issues.</li></ul>'
+              />
+
+              <TableRecordText
+                question="How long has your social venture been selling goods and services?"
+                answer={grant.How_long_has_your_social_venture_been_selling_goods_and_services}
+              />
+
+              <TableRecordText
+                question="How long has your social venture been incorporated?"
+                answer={grant.How_long_has_your_social_venture_been_incorporated}
+              />
+
+              <TableRecordText
+                question="Where is your social venture located?"
+                answer={grant.Where_is_your_social_venture_located}
+              />
+
+              <TableRecordText
+                question="Is your social venture already having an impact?"
+                answer={grant.Is_your_social_venture_already_having_an_impact}
+              />
+
+              <TableRecordText
+                question="What is your social ventures impact areas?"
+                answer='<ul class="list-disc">(1 or more)<li>Physical wellbeing</li><li>Mental wellbeing</li><li>Personal development</li><li>Economic development</li><li>Social and community development</li></ul>'
+              />
+
+              <TableRecordText
+                question="Where is your social venture having the majority of its impact?"
+                answer={grant.Where_is_your_social_venture_having_the_majority_of_its_impact}
+              />
+
+              <TableRecordText
+                question="How much did you earn last financial year?"
+                answer={grant.How_much_did_you_earn_last_financial_year}
+              />
+
+              <TableRecordText
+                question="Which opportunities is your social venture working withmarginalised people in?"
+                answer={grant.Which_opportunities_is_your}
+              />
+            </tbody>
+          </table>
+        </section>
+      </div>
+      ))
+}
