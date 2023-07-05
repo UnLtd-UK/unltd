@@ -3,9 +3,8 @@ import Template from "../../../layouts/Template.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import Container from "../../../components/Container.astro";
 
-import AwardsDesktop from "../../../components/fund/AwardsDesktop.astro";
-import AwardsMobile1 from "../../../components/fund/AwardsMobile1.astro";
-import AwardsMobile2 from "../../../components/fund/AwardsMobile2.astro";
+import GrantsXL from "../../../components/fund/GrantsXL.astro";
+import GrantsSMLG from "../../../components/fund/GrantsSMLG.astro";
 import Testamonial from "../../../components/fund/Testamonial.astro";
 import { funds } from "../../../data/directus/funds.js";
 
@@ -152,7 +151,7 @@ const { fund } = Astro.props;
 
       <div class="col-span-4 flex flex-col gap-10">
         <h4 class="text-5xl font-semibold text-slate-600">
-          Partners and Funders
+          Partners and Fundraisers
         </h4>
         <div class="flex flex-col lg:flex-row">
           {
@@ -199,12 +198,11 @@ const { fund } = Astro.props;
           <div class="flex flex-col basis-3/4">
             <div class="flex flex-col gap-10">
               <!-- xs to lg -->
-              <AwardsMobile1 />
-              <AwardsMobile2 />
+              <GrantsSMLG grants={fund.grants} />
             </div>
 
             <!-- lg+ -->
-            <AwardsDesktop grants={fund.grants} />
+            <GrantsXL grants={fund.grants} />
           </div>
           <div class="flex flex-col basis-1/4 gap-10">
             <div class="flex flex-col gap-10">
@@ -212,16 +210,8 @@ const { fund } = Astro.props;
                 <h3 class="font-bold text-slate-500">Inclusion</h3>
                 <div class="flex flex-col gap-3">
                   <p class="text-sm text-slate-500 leading-relaxed">
-                    At least 50% of those supported by Movement for Change will
-                    be from Black, Asian, marginalised ethnic groups or disabled
-                    backgrounds
-                  </p>
-                  <p class="text-sm text-slate-500 leading-relaxed">
-                    Movement for Change is dedicated to pushing inclusion in the
-                    wider sector and beyond, seeking to address systemic
-                    inequalities by highlighting the experiences of
-                    underrepresented social entrepreneurs and sharing our
-                    learning in devising solutions
+                    At least 50% of grants will go to Black, Asian, marginalised
+                    ethnic groups or disabled backgrounds
                   </p>
                   <p class="text-sm text-slate-500 leading-relaxed">
                     We want to make it clear that at UnLtd that when we support
@@ -247,11 +237,15 @@ const { fund } = Astro.props;
                 <h3 class="font-bold text-slate-500">Help</h3>
                 <div class="flex flex-col gap-3">
                   <p class="text-sm text-slate-500 leading-relaxed">
-                    For social entrepreneurs with questions about Movement for
-                    Change, please reach out via our Contact Us page.
+                    For social entrepreneurs with questions about grants and
+                    support
                   </p>
                 </div>
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-row gap-5">
+                  <a
+                    class="text-xs text-amber-700 hover:underline hover:text-amber-800"
+                    href="/grants-&-support/faq">Frequently Asked Questions</a
+                  >
                   <a
                     class="text-xs text-amber-700 hover:underline hover:text-amber-800"
                     href="/contact-us">Contact us</a
@@ -276,14 +270,14 @@ const { fund } = Astro.props;
                         </div>
 
                         <div class="flex flex-col gap-2">
-                          <h4 class="text-sm">Partners and Funders</h4>
+                          <h4 class="text-sm">Partners</h4>
                           <div class="flex flex-row gap-2">
                             {fund.partners.map((partner) => (
                               <div class="flex flex-col gap-2">
                                 <div class="flex gap-2 items-center rounded-md">
                                   <img
                                     class="inline-block h-8 w-8 rounded-md"
-                                    src={`/uploads/partner_images/{partner.organisations_id.logo}.webp`}
+                                    src={`https://unltd.directus.app/assets/${partner.organisations_id.logo}.webp`}
                                     alt=""
                                   />
                                 </div>
