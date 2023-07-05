@@ -3,10 +3,15 @@ import Template from "../../../layouts/Template.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
 import Container from "../../../components/Container.astro";
 
+import truncate from "truncate";
+import moment from "moment";
+
 import GrantsXL from "../../../components/fund/GrantsXL.astro";
 import GrantsSMLG from "../../../components/fund/GrantsSMLG.astro";
 import Testamonial from "../../../components/fund/Testamonial.astro";
 import { funds } from "../../../data/directus/funds.js";
+
+let todayDate = moment();
 
 export async function getStaticPaths() {
   return funds.map((fund) => {
@@ -42,155 +47,136 @@ const { fund } = Astro.props;
 <Template name={fund.name} description={fund.description}>
   <Container>
     <Breadcrumbs breadcrumbs={fund.breadcrumbs} />
-  </Container>
-  <div class="bg-white">
-    <div class="relative isolate overflow-hidden bg-slate-900 py-20 mb-10">
-      <img
-        src="/img/movement_for_change.jpg"
-        alt=""
-        class="absolute inset-0 -z-10 h-full w-full object-cover hidden lg:block"
-      />
 
-      <img
-        src="/img/movement_for_change_2.jpg"
-        alt=""
-        class="absolute inset-0 -z-10 h-full w-full object-cover block lg:hidden"
-      />
-      <div
-        class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
-      >
-      </div>
-      <div class="px-6 lg:px-8">
-        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div class="col-span-4 flex flex-col gap-20 lg:flex-row">
-            <div class="lg:basis-1/2 flex flex-col gap-8">
-              <div>
-                <div>
-                  <span
-                    class="inline-flex items-center rounded-md text-sm font-medium text-slate-200"
-                    >Fund</span
-                  >
-                </div>
-                <h1 class="text-5xl font-bold text-slate-200">
-                  {fund.name}
-                </h1>
-              </div>
-
-              <div class="flex flex-col gap-2">
-                <div>
-                  <span
-                    class="inline-flex items-center rounded-full bg-green-100 px-3 py-0.5 text-sm font-medium text-green-800"
-                  >
-                    <svg
-                      class="-ml-1 mr-1.5 h-2 w-2 text-green-400"
-                      fill="currentColor"
-                      viewBox="0 0 8 8"
-                    >
-                      <circle cx="4" cy="4" r="3"></circle>
-                    </svg>
-                    Open
-                  </span>
-                </div>
-
-                <p class="text-xs text-slate-300">
-                  From {fund.open} till {fund.close}
-                </p>
-              </div>
-
-              <div>
-                <p class="text-lg text-slate-200 leading-relaxed">
-                  {fund.description}
-                </p>
-              </div>
-
-              <div>
-                <a
-                  href="/grants-&-support"
-                  target="_blank"
-                  class="inline-flex items-center rounded-full border border-transparent text-amber-100 bg-amber-600 px-6 py-3 text-base font-medium shadow-sm hover:bg-amber-7 00 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
-                  >Go to grants & support to apply</a
-                >
-              </div>
-            </div>
-
-            <Testamonial />
-          </div>
+    <div class="col-span-4 flex flex-col gap-20 lg:flex-row">
+      <div class="lg:basis-1/2 flex flex-col gap-8">
+        <div>
+          <span class="relative inline-block">
+  <img class="h-28 w-28 rounded-md" src={`https://unltd.directus.app/assets/${fund.logo.id}`} alt="">
+</span>
+          <h1 class="text-5xl font-bold">
+            {fund.name}
+          </h1>
         </div>
-      </div>
-      <div
-        class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-      >
-        <svg
-          class="relative left-[calc(50%+3rem)] h-[21.1875rem] max-w-none -translate-x-1/2 sm:left-[calc(50%+36rem)] sm:h-[42.375rem]"
-          viewBox="0 0 1155 678"
-        >
-          <path
-            fill="url(#ecb5b0c9-546c-4772-8c71-4d3f06d544bc)"
-            fill-opacity=".2"
-            d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"
-          ></path>
-          <defs>
-            <linearGradient
-              id="ecb5b0c9-546c-4772-8c71-4d3f06d544bc"
-              x1="1155.49"
-              x2="-78.208"
-              y1=".177"
-              y2="474.645"
-              gradientUnits="userSpaceOnUse"
+
+        <div>
+          <p class="text-lg leading-relaxed">
+            {fund.description}
+          </p>
+        </div>
+
+                <div class="flex flex-col gap-2">
+          <div>
+            <span
+              class="inline-flex items-center rounded-full gap-1 bg-green-100 px-3 py-0.5 text-sm font-medium text-green-700"
             >
-              <stop stop-color="#9089FC"></stop>
-              <stop offset="1" stop-color="#FF80B5"></stop>
-            </linearGradient>
-          </defs>
-        </svg>
+              <i class="fa-solid fa-circle text-green-700 text-xs"></i>
+              Open
+            </span>
+          </div>
+
+          <p class="text-xs text-slate-500">
+            From {moment(fund.open).format("dddd hh:mma, MMMM Do YYYY")}<br
+            />till
+            {moment(fund.close).format("dddd hh:mma, MMMM Do YYYY")}
+          </p>
+        </div>
+
+        <p>Partners</p>
+        {
+          fund.partners.length > 0 ? (
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              {fund.partners.map((partner) => (
+                <div class="relative flex items-center space-x-3 rounded-lg border-slate-300 bg-white px-4 py-4">
+                  <div class="flex-shrink-0">
+                    <img
+                      class="h-10 w-10 rounded-md drop-shadow-md"
+                      src={`https://unltd.directus.app/assets/${partner.organisations_id.logo}`}
+                      alt=""
+                    />
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <span class="absolute inset-0" aria-hidden="true" />
+                    <p class="text-sm font-medium text-slate-900">
+                      {partner.organisations_id.name}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-slate-600 bg-slate-100 rounded-md">
+              <i class="fa-regular fa-hourglass text-lg" />
+              <p>No Sponsors</p>
+            </div>
+          )
+        }
       </div>
+
+      <Testamonial
+        person="Shaun Fox"
+        role="CEO"
+        organisation="Legacy Active Communities"
+        fund="Movement for Change"
+      >
+        The Movement for Change programme gave Legacy Active Communities a space
+        to focus on building for the future as we support schools and
+        communities to encourage health and physical activity in young people's
+        everyday lives. With likeminded social entrepreneurs, we could address
+        challenges and opportunities for our social enterprise, while discussing
+        our business models and opportunities for growth. We experienced
+        considered, strategic, expert feedback on diversification opportunities
+        - including risk and reward - to bolster our operations and greaten our
+        social impact.
+      </Testamonial>
     </div>
 
-    <div class="grid grid-cols-4 gap-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <!-- Partners and Funders -->
-
-      <div class="col-span-4 flex flex-col gap-10">
-        <h4 class="text-5xl font-semibold text-slate-600">
-          Partners and Fundraisers
-        </h4>
-        <div class="flex flex-col lg:flex-row">
-          {
-            fund.partners.map((partner) => (
-              <div class="lg:basis-1/2 flex flex-col gap-4 p-10 border-l-2">
-                <div class="flex flex-row gap-4 items-center">
-                  <img
-                    class="inline-block h-14 w-14 lg:h-20 lg:w-20 rounded-md"
-                    src={`https://unltd.directus.app/assets/${partner.organisations_id.logo}`}
-                    alt=""
-                  />
-                  <p class="text-xl text-slate-600">
-                    {partner.organisations_id.name}
-                  </p>
-                </div>
-                <p class="text-slate-500 leading-relaxed">
-                  {partner.organisations_id.description}
-                </p>
-              </div>
-            ))
-          }
-          <!-- <div class="lg:basis-1/2 flex flex-col gap-4 p-10 border-l-2">
-            <div class="flex flex-row gap-4 items-center">
-              <img
-                class="inline-block h-14 w-14 lg:h-20 lg:w-20 rounded-md"
-                src="/uploads/partner_images/sport_england.webp"
-                alt=""
-              />
-              <p class="text-xl text-slate-600">Sport England</p>
-            </div>
-            <p class="text-slate-500 leading-relaxed">
-              Sport England invests in sport and physical activity to make it a
-              normal part of life for everyone in England and remove barriers to
-              help tackle society's biggest challenges.
-            </p>
-          </div> -->
-        </div>
+    <dl
+      class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4"
+    >
+      <div class="flex flex-col p-8">
+        <dt class="text-sm font-semibold leading-6 text-slate-400">
+          Grantees in 2022
+        </dt>
+        <dd
+          class="order-first text-3xl font-semibold tracking-tight text-gray-900"
+        >
+          162
+        </dd>
       </div>
+      <div class="flex flex-col p-8">
+        <dt class="text-sm font-semibold leading-6 text-slate-400">
+          Died of unknown causes
+        </dt>
+        <dd
+          class="order-first text-3xl font-semibold tracking-tight text-gray-900"
+        >
+          3%
+        </dd>
+      </div>
+      <div class="flex flex-col p-8">
+        <dt class="text-sm font-semibold leading-6 text-slate-400">
+          Rated their support highly
+        </dt>
+        <dd
+          class="order-first text-3xl font-semibold tracking-tight text-gray-900"
+        >
+          78.9%
+        </dd>
+      </div>
+      <div class="flex flex-col p-8">
+        <dt class="text-sm font-semibold leading-6 text-slate-400">
+          Paid out to creators
+        </dt>
+        <dd
+          class="order-first text-3xl font-semibold tracking-tight text-gray-900"
+        >
+          $70M
+        </dd>
+      </div>
+    </dl>
 
+    <div class="grid grid-cols-4 gap-20 mx-auto max-w-7xl">
       <!-- Awards -->
       <div class="col-span-4 flex flex-col gap-10 lg:col-span-4">
         <h4 class="text-5xl font-semibold text-slate-600">Grants</h4>
@@ -254,39 +240,51 @@ const { fund } = Astro.props;
               </div>
 
               <div class="flex flex-col gap-4 lg:flex">
-                <h3 class="font-bold text-slate-500">More funds</h3>
+                <h3 class="font-bold text-slate-500">Other funds</h3>
                 <div class="flex flex-col gap-3">
                   {
-                    funds.map((fund) => (
-                      <a
-                        href={`/funds/${fund.slug}`}
-                        class="border border-slate-100 p-6 rounded-2xl flex flex-col gap-5 hover:border-amber-300 transition"
-                      >
-                        <div>
-                          <h3 class="text-lg font-bold">{fund.name}</h3>
-                          <p class="text-xs leading-relaxed">
-                            {fund.description}
-                          </p>
-                        </div>
-
-                        <div class="flex flex-col gap-2">
-                          <h4 class="text-sm">Partners</h4>
-                          <div class="flex flex-row gap-2">
-                            {fund.partners.map((partner) => (
-                              <div class="flex flex-col gap-2">
-                                <div class="flex gap-2 items-center rounded-md">
-                                  <img
-                                    class="inline-block h-8 w-8 rounded-md"
-                                    src={`https://unltd.directus.app/assets/${partner.organisations_id.logo}.webp`}
-                                    alt=""
-                                  />
-                                </div>
-                              </div>
-                            ))}
+                    funds
+                      .filter(
+                        (fundi) =>
+                          !(fundi.name === fund.name) &&
+                          todayDate.isBefore(fundi.close) &&
+                          todayDate.isAfter(fundi.open) &&
+                          fundi.public
+                      )
+                      .map((fundi) => (
+                        <a
+                          href={`/funds/${fundi.slug}`}
+                          class="border border-slate-100 p-6 rounded-2xl flex flex-col gap-5 hover:border-amber-300 transition"
+                        >
+                          <div class="flex flex-col gap-2">
+                            <img class="inline-block h-14 w-14 rounded-md" src={`https://unltd.directus.app/assets/${fundi.logo.id}`} alt="">
+                            <div>
+                                                        <h3 class="text-lg font-bold">{fundi.name}</h3>
+                            <p class="text-xs leading-relaxed">
+                              {truncate(fundi.description, 100)}
+                            </p>
+                            </div>
                           </div>
-                        </div>
-                      </a>
-                    ))
+
+                          <div class="flex flex-col gap-2">
+                            { fundi.partners.length > 0 && (
+                            <h4 class="text-sm">Partners</h4>
+                            <div class="flex flex-row gap-2">
+                              {fundi.partners.map((partner) => (
+                                <div class="flex flex-col gap-2">
+                                  <div class="flex gap-2 items-center rounded-md">
+                                    <img
+                                      class="inline-block h-8 w-8 rounded-md"
+                                      src={`https://unltd.directus.app/assets/${partner.organisations_id.logo}.webp`}
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                              ))}
+                            </div>)}
+                          </div>
+                        </a>
+                      ))
                   }
                 </div>
               </div>
@@ -295,5 +293,5 @@ const { fund } = Astro.props;
         </div>
       </div>
     </div>
-  </div>
+  </Container>
 </Template>
