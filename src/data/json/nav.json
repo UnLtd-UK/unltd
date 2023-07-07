@@ -54,7 +54,7 @@
             "name": "Grants & Support",
             "link": "",
             "slug": "grants-&-support",
-            "icon": "fa-lira-sign",
+            "icon": "fa-kit fa-solid-sterling-sign-shield",
             "description": "For entrepreneurs"
           },
           {
@@ -112,11 +112,18 @@
             "description": "Individuals looking to do pro bono"
           },
           {
-            "name": "Careers",
+            "name": "Become a employee",
             "link": "https://www.jobtrain.co.uk/unltd-careers",
             "slug": "",
             "icon": "fa-briefcase",
-            "description": "Work at UnLtd"
+            "description": "Apply at JobTrain"
+          },
+          {
+            "name": "Become a trustee",
+            "link": "https://unltd-trustees.co.uk",
+            "slug": "",
+            "icon": "fa-user-shield",
+            "description": "Join our board"
           }
         ]
       },
