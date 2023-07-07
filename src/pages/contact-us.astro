@@ -2,6 +2,7 @@
 import Template from "../layouts/Template.astro";
 import Container from "../components/Container.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Faq from "../components/Faq.astro";
 const name = "Contact form";
 const description = "djhjdkfkjdhjk";
 const breadcrumbs = [
@@ -25,36 +26,9 @@ const breadcrumbs = [
           <div
             class="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-slate-100 ring-1 ring-slate-900/10 lg:w-1/2"
           >
-            <!-- <svg
-              class="absolute inset-0 h-full w-full stroke-slate-200 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
-              aria-hidden="true"
-            >
-              <defs>
-                <pattern
-                  id="83fd4e5a-9d52-42fc-97b6-718e5d7ee527"
-                  width="200"
-                  height="200"
-                  x="100%"
-                  y="-1"
-                  patternUnits="userSpaceOnUse"
-                >
-                  <path d="M130 200V.5M.5 .5H200" fill="none"></path>
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" stroke-width="0" fill="white"
-              ></rect>
-              <svg x="100%" y="-1" class="overflow-visible fill-slate-50">
-                <path d="M-470.5 0h201v201h-201Z" stroke-width="0"></path>
-              </svg>
-              <rect
-                width="100%"
-                height="100%"
-                stroke-width="0"
-                fill="url(#83fd4e5a-9d52-42fc-97b6-718e5d7ee527)"></rect>
-            </svg> -->
           </div>
           <h2 class="text-3xl font-bold tracking-tight text-slate-900">
-            Get in touch
+            Get in touch about Grants + Support
           </h2>
           <p class="mt-6 text-lg leading-8 text-slate-600">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa fugit
@@ -62,104 +36,76 @@ const breadcrumbs = [
             doloribus! Praesentium ducimus aliquid iure odit cupiditate
             necessitatibus molestiae dolorum repellendus!
           </p>
-          <dl class="mt-10 space-y-4 text-base leading-7 text-slate-600">
-            <div class="flex gap-x-4">
-              <dt class="flex-none">
-                <span class="sr-only">Address</span>
-                <svg
-                  class="h-7 w-6 text-slate-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"
-                  ></path>
-                </svg>
-              </dt>
-              <dd>
-                123 Whitecross Street,<br />Islington, London<br />EC1Y 8JJ
-              </dd>
-            </div>
-            <div class="flex gap-x-4">
-              <dt class="flex-none">
-                <span class="sr-only">Telephone</span>
-                <svg
-                  class="h-7 w-6 text-slate-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                  ></path>
-                </svg>
-              </dt>
-              <dd>
-                London:
-                <a class="hover:text-slate-900" href="tel:020 7566 1100"
-                  >020 7566 1100</a
-                >
-              </dd>
-            </div>
-            <div class="flex gap-x-4">
-              <dt class="flex-none">
-                <span class="sr-only">Telephone</span>
-                <svg
-                  class="h-7 w-6 text-slate-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                  ></path>
-                </svg>
-              </dt>
-              <dd>
-                Birmingham:
-                <a class="hover:text-slate-900" href="tel:0121 766 4570"
-                  >0121 766 4570</a
-                >
-              </dd>
-            </div>
-            <div class="flex gap-x-4">
-              <dt class="flex-none">
-                <span class="sr-only">Email</span>
-                <svg
-                  class="h-7 w-6 text-slate-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-                  ></path>
-                </svg>
-              </dt>
-              <dd>
-                <a class="hover:text-slate-900" href="mailto:hello@example.com"
-                  >hello@example.com</a
-                >
-              </dd>
-            </div>
-          </dl>
+
+          <Faq
+            question="Am I eligible to apply for an award?"
+            answer="Our eligibility criteria are listed on the awards page. You must meet all the eligibility criteria to make an application as we are unable to make exceptions."
+          />
+
+          <Faq
+            question="I registered my venture more than four years ago but started trading less than four years ago. Can I apply?"
+            answer="We check the date of registration on Companies House/Charity Commission during our assessment. If your venture has been registered for longer than four years at the time of your application, you are ineligible to apply for our awards."
+          />
+
+          <Faq
+            question="Does the legal structure of my venture matter?"
+            answer="No. You can apply to us even before identifying the right legal structure and may wish to seek support from us on the right one for your venture."
+          />
+
+          <Faq
+            question="Does my idea/venture sound like the type of application UnLtd could support?"
+            answer="We aim to support people who are creating or developing ventures which have the most potential to create positive social change. By social venture, we mean an organisation which creates social impact but has a business model that is financially sustainable so that it can continue to make a difference. You can read more about this in our 2025 strategy, Breaking Down Barriers."
+          />
+
+          <Faq
+            question="Can I speak to a member of staff about my idea/venture?"
+            answer="We aim for our award making to be as equitable as possible, so we are unable to advise you on your idea or your venture and we cannot tell you if your application would be successful or give specific advice before you apply. Our focus is on assisting those with additional support needs to access our application process."
+          />
+
+          <Faq
+            question="Do you accept business plans/proposal documents in place of an application?"
+            answer="Currently we can only accept applications via our online application form. This is to ensure that we provide an equitable experience for all applicants. If you are facing barriers to applying, please get in touch with us and we will do our best to assist you."
+          />
+
+          <Faq
+            question="What support can you offer if I have additional needs, or I am facing barriers in applying?"
+            answer="To accommodate different accessibility needs we can be asked to make changes to our process to give people the best chance of communicating their idea and plans with us. This could be arranging a conversation with a member of the team to provide clarity on the questions and process, providing information in accessible formats or working with you to make available a BSL interpreter, for example. We are happy to consider any requests for accessibility that might reduce barriers to applying."
+          />
+
+          <Faq
+            question="Can I access application guidance?"
+            answer="You can preview our full application form along with guidance for each question here. The same guidance is also available in the online form."
+          />
+
+          <Faq
+            question="Can I work on my application offline?"
+            answer="We have Word and PDF versions of our application available here. Once you are ready, you will need to create or log into your award account to complete the application online. Please ensure that you take note of the character counts for each question so that you can copy and paste your answers into the online form."
+          />
+
+          <Faq
+            question="Can I save my application and return to it later?"
+            answer="Use the save and close button to save your progress so far. You can then return to the application to complete it when you are ready. Take note of the date you will need to submit your application if you want it to be reviewed during the next round of assessments."
+          />
+
+          <Faq
+            question="Why can't I paste my answers into the online form?"
+            answer="Please check that you are using the latest version of your web browser. Please also carefully check that you haven’t gone over the character count for each answer (this is the number of characters used rather than the number of words). Spaces are included in these character counts."
+          />
+
+          <Faq
+            question="When will I receive the outcome of my application?"
+            answer="We make awards quarterly to provide the best support to our award winners, so we understand that it can feel like you have been waiting a while for the outcome of your application. You can find the application and assessment dates on the awards page of our website. During the assessment period you will receive updates from us via email, or you can log back into your award account to see the status of your application."
+          />
+
+          <Faq
+            question="Can you give me more information about why my application was unsuccessful?"
+            answer="Due to the volume of applications we receive, we cannot provide any more detail on why your application was not successful beyond the information received within our decision email."
+          />
+
+          <Faq
+            question="Can I reapply if I have been unsuccessful?"
+            answer="You may reapply however we would encourage you to carefully consider any feedback we gave you on your previous application. If you have been unsuccessful multiple times, please get in touch with us before starting a new application."
+          />
         </div>
       </div>
       <form

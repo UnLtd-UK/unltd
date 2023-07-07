@@ -1,4 +1,6 @@
 ---
+import { marked } from "marked";
+marked.use({ mangle: false, headerIds: false });
 const { grants, name } = Astro.props;
 ---
 
@@ -235,10 +237,10 @@ const { grants, name } = Astro.props;
         >
           <span class="font-medium text-slate-900">Social entrepreneur</span
           ><span class="font-normal text-slate-500 block w-60"
-            >A person who have started, or looking to start, a social venture,
-            someone who is driven by their passion to make a difference. They
-            are looking to make a sustained and long-term impact and need our
-            funding and support to make it happen.</span
+            >A individual who has started, or looking to start, a social
+            venture, someone who is driven by their passion to make a
+            difference. They are looking to make a sustained and long-term
+            impact and need our funding and support to make it happen.</span
           >
         </th>
       </tr>
@@ -251,9 +253,10 @@ const { grants, name } = Astro.props;
         {
           grants.map((grant) => (
             <td class="py-5 px-6">
-              <span class="block text-sm text-slate-700">
-                {grant.How_old_are_you}
-              </span>
+              <span
+                class="block text-sm text-slate-700 prose"
+                set:html={marked.parse(`${grant.How_old_are_you}`)}
+              />
             </td>
           ))
         }
@@ -262,15 +265,16 @@ const { grants, name } = Astro.props;
       <tr class="hover:bg-slate-50 transition">
         <th
           class="py-5 px-6 text-left text-sm font-normal text-slate-500"
-          scope="row">Where are you resided?</th
+          scope="row">Where are you located?</th
         >
 
         {
           grants.map((grant) => (
             <td class="py-5 px-6">
-              <span class="block text-sm text-slate-700">
-                {grant.Where_are_you_resided}
-              </span>
+              <span
+                class="block text-sm text-slate-700 prose"
+                set:html={marked.parse(`${grant.Where_are_you_located}`)}
+              />
             </td>
           ))
         }
@@ -306,21 +310,43 @@ const { grants, name } = Astro.props;
         </th>
       </tr>
 
+      <!-- Basic info -->
+
       <tr class="hover:bg-slate-50 transition">
         <th
           class="py-5 px-6 text-left text-sm font-normal text-slate-500"
-          scope="row"
-          >How long has your social venture been selling goods and services?</th
+          scope="row">Where is your social venture located?</th
         >
 
         {
           grants.map((grant) => (
             <td class="py-5 px-6">
-              <span class="block text-sm text-slate-700">
-                {
-                  grant.How_long_has_your_social_venture_been_selling_goods_and_service
-                }
-              </span>
+              <span
+                class="block text-sm text-slate-700 prose"
+                set:html={marked.parse(
+                  `${grant.Where_is_your_social_venture_located}`
+                )}
+              />
+            </td>
+          ))
+        }
+      </tr>
+
+      <tr class="hover:bg-slate-50 transition">
+        <th
+          class="py-5 px-6 text-left text-sm font-normal text-slate-500"
+          scope="row"
+          >How much did your social venture earn last financial year?</th
+        >
+        {
+          grants.map((grant) => (
+            <td class="py-5 px-6">
+              <span
+                class="block text-sm text-slate-700 prose"
+                set:html={marked.parse(
+                  `${grant.How_much_did_your_social_venture_earn_last_financial_year}`
+                )}
+              />
             </td>
           ))
         }
@@ -334,58 +360,12 @@ const { grants, name } = Astro.props;
         {
           grants.map((grant) => (
             <td class="py-5 px-6">
-              <span class="block text-sm text-slate-700">
-                {grant.How_long_has_your_social_venture_been_incorporated}
-              </span>
-            </td>
-          ))
-        }
-      </tr>
-
-      <tr class="hover:bg-slate-50 transition">
-        <th
-          class="py-5 px-6 text-left text-sm font-normal text-slate-500"
-          scope="row">Where is your social venture located?</th
-        >
-
-        {
-          grants.map((grant) => (
-            <td class="py-5 px-6">
-              <span class="block text-sm text-slate-700">
-                {grant.Where_is_your_social_venture_located}
-              </span>
-            </td>
-          ))
-        }
-      </tr>
-
-      <tr class="hover:bg-slate-50 transition">
-        <th
-          class="py-5 px-6 text-left text-sm font-normal text-slate-500"
-          scope="row">Is your social venture already having an impact?</th
-        >
-        {
-          grants.map((grant) => (
-            <td class="py-5 px-6">
-              <span class="block text-sm text-slate-700">
-                {grant.Is_your_social_venture_already_having_an_impact}
-              </span>
-            </td>
-          ))
-        }
-      </tr>
-
-      <tr class="hover:bg-slate-50 transition">
-        <th
-          class="py-5 px-6 text-left text-sm font-normal text-slate-500"
-          scope="row">What is your social ventures impact areas?</th
-        >
-        {
-          grants.map((grant) => (
-            <td class="py-5 px-6">
-              <span class="block text-sm text-slate-700">
-                {grant.What_is_your_social_ventures_impact_areas}
-              </span>
+              <span
+                class="block text-sm text-slate-700 prose"
+                set:html={marked.parse(
+                  `${grant.How_long_has_your_social_venture_been_incorporated}`
+                )}
+              />
             </td>
           ))
         }
@@ -395,32 +375,40 @@ const { grants, name } = Astro.props;
         <th
           class="py-5 px-6 text-left text-sm font-normal text-slate-500"
           scope="row"
-          >Where is your social venture having the majority of its impact?</th
+          >How long has your social venture been selling goods and services?</th
         >
+
         {
           grants.map((grant) => (
             <td class="py-5 px-6">
-              <span class="block text-sm text-slate-700">
-                {
-                  grant.Where_is_your_social_venture_having_the_majority_of_its_impact
-                }
-              </span>
+              <span
+                class="block text-sm text-slate-700 prose"
+                set:html={marked.parse(
+                  `${grant.How_long_has_your_social_venture_been_selling_goods_and}`
+                )}
+              />
             </td>
           ))
         }
       </tr>
 
+      <!-- Working with marginalised people -->
+
       <tr class="hover:bg-slate-50 transition">
         <th
           class="py-5 px-6 text-left text-sm font-normal text-slate-500"
-          scope="row">How much did you earn last financial year?</th
+          scope="row"
+          >Is your social venture working with marginalised people?</th
         >
         {
           grants.map((grant) => (
             <td class="py-5 px-6">
-              <span class="block text-sm text-slate-700">
-                {grant.How_much_did_you_earn_last_financial_year}
-              </span>
+              <span
+                class="block text-sm text-slate-700 prose"
+                set:html={marked.parse(
+                  `${grant.Is_your_social_venture_working_with_marginalised_people}`
+                )}
+              />
             </td>
           ))
         }
@@ -430,16 +418,79 @@ const { grants, name } = Astro.props;
         <th
           class="py-5 px-6 text-left text-sm font-normal text-slate-500"
           scope="row"
-          >Which opportunities is your social venture working with marginalised
-          people in?</th
+          >What areas is your social venture working with marginalised people?</th
         >
 
         {
           grants.map((grant) => (
             <td class="py-5 px-6">
-              <span class="block text-sm text-slate-700">
-                {grant.Which_opportunities_is_your}
-              </span>
+              <span
+                class="block text-sm text-slate-700 prose"
+                set:html={marked.parse(
+                  `${grant.What_areas_is_your_social_venture_working_with_marginalised}`
+                )}
+              />
+            </td>
+          ))
+        }
+      </tr>
+
+      <!-- Impact on marginalised people -->
+
+      <tr class="hover:bg-slate-50 transition">
+        <th
+          class="py-5 px-6 text-left text-sm font-normal text-slate-500"
+          scope="row"
+          >Is your social venture having an impact on marginalised people?</th
+        >
+        {
+          grants.map((grant) => (
+            <td class="py-5 px-6">
+              <span
+                class="block text-sm text-slate-700 prose"
+                set:html={marked.parse(
+                  `${grant.Is_your_social_venture_having_an_impact_on_marginalised}`
+                )}
+              />
+            </td>
+          ))
+        }
+      </tr>
+
+      <tr class="hover:bg-slate-50 transition">
+        <th
+          class="py-5 px-6 text-left text-sm font-normal text-slate-500"
+          scope="row"
+          >Where is the majority of your social ventures impact located?</th
+        >
+        {
+          grants.map((grant) => (
+            <td class="py-5 px-6">
+              <span
+                class="block text-sm text-slate-700 prose"
+                set:html={marked.parse(
+                  `${grant.Where_is_the_majority_of_your_social_ventures_impact_located}`
+                )}
+              />
+            </td>
+          ))
+        }
+      </tr>
+
+      <tr class="hover:bg-slate-50 transition">
+        <th
+          class="py-5 px-6 text-left text-sm font-normal text-slate-500"
+          scope="row">What areas is your social venture having impact?</th
+        >
+        {
+          grants.map((grant) => (
+            <td class="py-5 px-6">
+              <span
+                class="block text-sm text-slate-700 prose"
+                set:html={marked.parse(
+                  `${grant.What_areas_is_your_social_venture_having_impact}`
+                )}
+              />
             </td>
           ))
         }
