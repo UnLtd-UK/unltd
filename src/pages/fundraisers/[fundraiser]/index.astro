@@ -124,7 +124,7 @@ const { fundraiser } = Astro.props;
                 <span class="text-sm text-slate-500">Raised</span>
                 <span class="text-4xl text-slate-700">
                   {new Intl.NumberFormat("en-GB", {
-                    maximumSignificantDigits: 3,
+                    maximumSignificantDigits: 6,
                     style: "currency",
                     currency: "GBP",
                   }).format(fundraiser.raised)}
@@ -136,7 +136,7 @@ const { fundraiser } = Astro.props;
                   <span class="text-sm text-slate-500">Goal</span>
                   <span class="text-4xl text-slate-700">
                     {new Intl.NumberFormat("en-GB", {
-                      maximumSignificantDigits: 3,
+                      maximumSignificantDigits: 6,
                       style: "currency",
                       currency: "GBP",
                     }).format(fundraiser.amount)}
