@@ -121,29 +121,20 @@ const { fundraiser } = Astro.props;
           {
             todayDate.isAfter(fundraiser.finish) ? (
               <div class="flex flex-col">
-                <span class="text-xs text-slate-500">Raised</span>
-                <span class="text-4xl font-bold">
+                <span class="text-sm text-slate-500">Raised</span>
+                <span class="text-4xl text-slate-700">
                   {new Intl.NumberFormat("en-GB", {
                     maximumSignificantDigits: 3,
                     style: "currency",
                     currency: "GBP",
                   }).format(fundraiser.raised)}
                 </span>
-                {fundraiser.link && (
-                  <a
-                    href={fundraiser.link}
-                    target="_blank"
-                    class="text-sm text-amber-800 hover:underline"
-                  >
-                    Go to fundraiser page
-                  </a>
-                )}
               </div>
             ) : (
               <div class="flex justify-between bg-slate-100 rounded-xl items-center border border-slate-200">
                 <div class="flex flex-col pl-5 p-2">
-                  <span class="text-xs text-slate-500">Goal</span>
-                  <span class="text-4xl">
+                  <span class="text-sm text-slate-500">Goal</span>
+                  <span class="text-4xl text-slate-700">
                     {new Intl.NumberFormat("en-GB", {
                       maximumSignificantDigits: 3,
                       style: "currency",
@@ -222,13 +213,28 @@ const { fundraiser } = Astro.props;
         {
           fundraiser.website && (
             <div class="flex flex-col">
-              <span class="text-slate-500 text-xs"> Website</span>
+              <span class="text-slate-500 text-xs">Marketing website</span>
               <a
                 href={`https://${fundraiser.website}`}
                 target="_blank"
                 class="text-sm text-amber-800 hover:underline"
               >
                 {fundraiser.website}
+              </a>
+            </div>
+          )
+        }
+
+                {
+          fundraiser.link && (
+            <div class="flex flex-col">
+              <span class="text-slate-500 text-xs">Donations website</span>
+              <a
+                href={`https://${fundraiser.link}`}
+                target="_blank"
+                class="text-sm text-amber-800 hover:underline"
+              >
+                {fundraiser.link}
               </a>
             </div>
           )
