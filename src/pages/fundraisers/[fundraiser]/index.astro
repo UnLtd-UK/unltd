@@ -88,17 +88,21 @@ const { fundraiser } = Astro.props;
         <div
           class="flex flex-col lg:flex-row items-start lg:items-center lg:justify-between gap-2"
         >
-          {
-            !todayDate.isAfter(fundraiser.finish) ? (
-              <span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+          { () => {
+            if(!todayDate.isAfter(fundraiser.start) && !todayDate.isAfter(fundraiser.finish)) {
+              return(<span class="inline-flex items-center rounded-full bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">
+                Coming soon
+              </span>)
+            } else if(!todayDate.isAfter(fundraiser.finish)) {
+              return(<span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/10">
                 Active
-              </span>
-            ) : (
-              <span class="inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
+              </span>)
+            } else {
+              return(<span class="inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
                 Completed
-              </span>
-            )
-          }
+              </span>)
+            }
+          }}
           <div>
             <p class="text-xs text-slate-400">
               {
@@ -127,7 +131,7 @@ const { fundraiser } = Astro.props;
                 </span>
                 {fundraiser.link && (
                   <a
-                    href={`https://${fundraiser.link}`}
+                    href={fundraiser.link}
                     target="_blank"
                     class="text-sm text-amber-800 hover:underline"
                   >
@@ -171,22 +175,22 @@ const { fundraiser } = Astro.props;
                 {fundraiser.funds.map((fund) => (
                   <div class="relative flex items-center space-x-3 rounded-lg border border-slate-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-amber-500 focus-within:ring-offset-2 hover:border-slate-400">
                     <div class="flex-shrink-0">
-                      <img
+                      <!-- <img
                         class="h-10 w-10 rounded-md drop-shadow-md"
                         src={`https://unltd.directus.app/assets/${fund.funds_id.logo}`}
                         alt=""
-                      />
+                      /> -->
                     </div>
                     <div class="min-w-0 flex-1">
-                      <a
+                     <!-- <a
                         href={`/funds/${fund.funds_id.slug}`}
                         class="focus:outline-none"
-                      >
+                      > -->
                         <span class="absolute inset-0" aria-hidden="true" />
                         <p class="text-sm font-medium text-slate-900">
                           {fund.funds_id.name}
                         </p>
-                      </a>
+                      <!-- </a> -->
                     </div>
                   </div>
                 ))}
