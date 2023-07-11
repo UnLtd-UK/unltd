@@ -4,6 +4,10 @@ import Template from "../../../layouts/Template.astro";
 import Hero from "../../../components/Hero.astro";
 import Container from "../../../components/Container.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+
+import { marked } from "marked";
+marked.use({ mangle: false, headerIds: false });
+
 import moment from "moment";
 
 export async function getStaticPaths() {
@@ -143,7 +147,7 @@ const { fundraiser } = Astro.props;
                   </span>
                 </div>
                 <a
-                  href={fundraiser.link}
+                  href={`https://${fundraiser.link}`}
                   target="_blank"
                   class="p-7 flex gap-2 items-center rounded-r-xl bg-amber-600 text-sm font-semibold text-white shadow-sm 0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
                 >
@@ -154,9 +158,7 @@ const { fundraiser } = Astro.props;
           }
         </div>
 
-        <div>
-          <p class="text-lg text-slate-800">{fundraiser.description}</p>
-        </div>
+        <div class="text-slate-600" set:html={marked.parse(`${fundraiser.description}`)}/>
 
         <div class="flex flex-col gap-3">
           <p class="text-xl">Raising funds for</p>
@@ -216,7 +218,7 @@ const { fundraiser } = Astro.props;
         {
           fundraiser.website && (
             <div class="flex flex-col">
-              <span class="text-slate-500 text-xs">Marketing website</span>
+              <span class="text-slate-500 text-xs">Fundraiser website</span>
               <a
                 href={`https://${fundraiser.website}`}
                 target="_blank"
