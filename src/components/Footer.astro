@@ -13,6 +13,13 @@ import Logo from "./SlateLogo.astro";
           Making the world a better place through constructing elegant
           hierarchies.
         </p>
+        <a href="https://goo.gl/maps/AL5FhXFppVMmZsob6" target="_blank"
+          ><address class="text-sm text-slate-600 flex flex-col">
+            <span>{nav.footer.address.address1}</span>
+            <span>{nav.footer.address.address2}</span>
+            <span>{nav.footer.address.address3}</span>
+          </address>
+        </a>
         <div class="flex space-x-6">
           {
             nav.footer.socials.map((social) => (

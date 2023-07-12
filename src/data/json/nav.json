@@ -205,14 +205,13 @@
         "icon": "linkedin"
       }
     ],
-    "address": [
-      {
-        "address1": "123 Whitecross Street",
-        "address2": "Islington, London",
-        "address3": "EC1Y 8JJ",
-        "phone": "02075661100"
-      }
-    ],
+    "address": {
+      "address1": "123 Whitecross Street",
+      "address2": "Islington, London",
+      "address3": "EC1Y 8JJ",
+      "phone": "02075661100"
+    },
+    "phone": "02075661100",
     "links": [
       {
         "name": "Governance",
