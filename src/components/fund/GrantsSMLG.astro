@@ -1,4 +1,7 @@
 ---
+import { marked } from "marked";
+marked.use({ mangle: false, headerIds: false });
+
 import TableRecordIcon from "./TableRecordIcon.astro";
 import TableRecordText from "./TableRecordText.astro";
 import TableRecordDes from "./TableRecordDes.astro";
@@ -85,10 +88,10 @@ const { grants } = Astro.props;
 
               <TableRecordText
                 question="How old are you?"
-                answer={`<span>${grant.How_old_are_you}<span>`}
+                answer={grant.How_old_are_you}
               />
 
-              <TableRecordText question="Where are you resided?" answer={grant.Where_are_you_resided} />
+              <TableRecordText question="Where are you located?" answer={grant.Where_are_you_located} />
 
               <TableRecordDes
                 name="Social venture"
@@ -97,8 +100,15 @@ const { grants } = Astro.props;
               />
 
               <TableRecordText
-                question="How long has your social venture been selling goods and services?"
-                answer={grant.How_long_has_your_social_venture_been_selling_goods_and_services}
+                question="Where is your social venture located?"
+                answer={grant.Where_is_your_social_venture_located}
+                )}
+              />
+
+              <TableRecordText
+                question="How much did your social venture earn last financial year?"
+                answer={grant.How_much_did_your_social_venture_earn_last_financial_year}
+                )}
               />
 
               <TableRecordText
@@ -107,33 +117,29 @@ const { grants } = Astro.props;
               />
 
               <TableRecordText
-                question="Where is your social venture located?"
-                answer={grant.Where_is_your_social_venture_located}
+                question="How long has your social venture been selling goods and services?"
+                answer={grant.How_long_has_your_social_venture_been_selling_goods_and}
               />
 
               <TableRecordText
-                question="Is your social venture already having an impact?"
-                answer={grant.Is_your_social_venture_already_having_an_impact}
+                question="Is your social venture working with marginalised people?"
+                answer={grant.Is_your_social_venture_working_with_marginalised_people}
+                )}
               />
 
               <TableRecordText
-                question="What is your social ventures impact areas?"
-                answer='<ul class="list-disc">(1 or more)<li>Physical wellbeing</li><li>Mental wellbeing</li><li>Personal development</li><li>Economic development</li><li>Social and community development</li></ul>'
+                question="Is your social venture having an impact on marginalised people?"
+                answer={grant.Is_your_social_venture_having_an_impact_on_marginalised}
               />
 
               <TableRecordText
-                question="Where is your social venture having the majority of its impact?"
-                answer={grant.Where_is_your_social_venture_having_the_majority_of_its_impact}
+                question="Where is the majority of your social ventures impact located?"
+                answer={grant.Where_is_the_majority_of_your_social_ventures_impact_located}
               />
 
               <TableRecordText
-                question="How much did you earn last financial year?"
-                answer={grant.How_much_did_you_earn_last_financial_year}
-              />
-
-              <TableRecordText
-                question="Which opportunities is your social venture working withmarginalised people in?"
-                answer={grant.Which_opportunities_is_your}
+                question="What areas is your social venture having impact?"
+                answer={grant.What_areas_is_your_social_venture_having_impact}
               />
             </tbody>
           </table>

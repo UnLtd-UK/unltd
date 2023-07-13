@@ -116,7 +116,7 @@
             "link": "https://www.jobtrain.co.uk/unltd-careers",
             "slug": "",
             "icon": "fa-briefcase",
-            "description": "Apply at JobTrain"
+            "description": "Join one of our teams"
           },
           {
             "name": "Become a trustee",
@@ -299,24 +299,6 @@
             "name": "Gift Aid",
             "link": "",
             "slug": "gift-aid",
-            "icon": ""
-          },
-          {
-            "name": "Impact Reports",
-            "link": "",
-            "slug": "impact-reports",
-            "icon": ""
-          },
-          {
-            "name": "Equity Reports",
-            "link": "",
-            "slug": "equity-reports",
-            "icon": ""
-          },
-          {
-            "name": "Trustee website",
-            "link": "https://unltd-trustees.co.uk/index.php/about-us",
-            "slug": "",
             "icon": ""
           }
         ]
