@@ -310,6 +310,28 @@ const { grants, name } = Astro.props;
         </th>
       </tr>
 
+            <!-- Basic info -->
+
+      <tr class="hover:bg-slate-50 transition">
+        <th
+          class="py-5 px-6 text-left text-sm font-normal text-slate-500"
+          scope="row">What legal structure are you?</th
+        >
+
+        {
+          grants.map((grant) => (
+            <td class="py-5 px-6">
+              <span
+                class="block text-sm text-slate-700 prose"
+                set:html={marked.parse(
+                  `Any`
+                )}
+              />
+            </td>
+          ))
+        }
+      </tr>
+
       <!-- Basic info -->
 
       <tr class="hover:bg-slate-50 transition">

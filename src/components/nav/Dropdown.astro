@@ -35,7 +35,7 @@ const { name, slug, link, children, last } = Astro.props;
           <div class="flex gap-x-6">
             { child.icon &&
                     <div class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-slate-50 group-hover:bg-white">
-            <i class=`fa-solid ${child.icon} text-slate-600 group-hover:text-amber-600` aria-hidden="true"></i>
+            <i class=`${child.icon} text-slate-600 group-hover:text-amber-600` aria-hidden="true"></i>
           </div>
         }
           <div class="flex flex-row gap-5">
