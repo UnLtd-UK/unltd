@@ -13,35 +13,35 @@
             "name": "Choosing the right legal structure",
             "link": "",
             "slug": "choosing-the-right-legal-structure",
-            "icon": "fa-1",
+            "icon": "fa-solid fa-1",
             "description": "..."
           },
           {
             "name": "Defining social impact indicators, setting targets and refining your social model",
             "link": "",
             "slug": "defining-social-impact-indictators-setting-targets-and-refining-your-social model",
-            "icon": "fa-2",
+            "icon": "fa-solid fa-2",
             "description": "..."
           },
           {
             "name": "Stakeholder engagement and building networks",
             "link": "",
             "slug": "stakeholder-engagement-and-building-networks",
-            "icon": "fa-3",
+            "icon": "fa-solid fa-3",
             "description": "..."
           },
           {
             "name": "Securing start up funding",
             "link": "",
             "slug": "securing-start-up-funding",
-            "icon": "fa-4",
+            "icon": "fa-solid fa-4",
             "description": "..."
           },
           {
             "name": "Other funding and support available for social entrepreneurs",
             "link": "",
             "slug": "other-funding-and-support-available-for-social-entrepreneurs",
-            "icon": "fa-link",
+            "icon": "fa-solid fa-link",
             "description": ""
           }
         ]
@@ -55,14 +55,14 @@
             "link": "",
             "slug": "grants-&-support",
             "icon": "fa-kit fa-solid-sterling-sign-shield",
-            "description": "For entrepreneurs"
+            "description": "From £2,000 to £18,000"
           },
           {
             "name": "Investment & Support",
             "link": "https://growthimpactfund.org.uk",
             "slug": "",
-            "icon": "fa-chart-line",
-            "description": "For organisation. Through the Growth Impact Fund"
+            "icon": "fa-kit fa-solid-chart-line-shield",
+            "description": "From £50,000 to £1,500,000"
           }
         ],
         "other": [
@@ -81,15 +81,8 @@
             "name": "Fundraisers",
             "link": "",
             "slug": "fundraisers",
-            "icon": "fa-piggy-bank",
+            "icon": "fa-solid fa-piggy-bank",
             "description": "Give money"
-          },
-          {
-            "name": "Campaigns",
-            "link": "",
-            "slug": "campaigns",
-            "icon": "fa-bullhorn",
-            "description": "Take action"
           }
         ]
       },
@@ -101,28 +94,28 @@
             "name": "Partnering",
             "link": "",
             "slug": "partnering",
-            "icon": "fa-handshake",
+            "icon": "fa-solid fa-handshake",
             "description": "Organisations wanting to fund and support us"
           },
           {
             "name": "Volunteering",
             "link": "",
             "slug": "volunteering",
-            "icon": "fa-street-view",
+            "icon": "fa-solid fa-street-view",
             "description": "Individuals looking to do pro bono"
           },
           {
             "name": "Become a employee",
             "link": "https://www.jobtrain.co.uk/unltd-careers",
             "slug": "",
-            "icon": "fa-briefcase",
+            "icon": "fa-solid fa-briefcase",
             "description": "Join one of our teams"
           },
           {
             "name": "Become a trustee",
             "link": "https://unltd-trustees.co.uk",
             "slug": "",
-            "icon": "fa-user-shield",
+            "icon": "fa-solid fa-user-shield",
             "description": "Join our board"
           }
         ]
@@ -142,21 +135,21 @@
             "name": "Our purpose",
             "link": "",
             "slug": "our-purpose",
-            "icon": "fa-building-user",
+            "icon": "fa-solid fa-building-user",
             "description": "Vision and mission"
           },
           {
             "name": "Our team",
             "link": "",
             "slug": "our-team",
-            "icon": "fa-people-group",
+            "icon": "fa-solid fa-people-group",
             "description": "Made up of four direcorates"
           },
           {
             "name": "Our strategy",
             "link": "",
             "slug": "our-strategy",
-            "icon": "fa-chess-pawn",
+            "icon": "fa-solid fa-chess-pawn",
             "tag": "",
             "description": "How we make impact"
           },
@@ -164,7 +157,7 @@
             "name": "Our impact",
             "link": "UnLtd_Impact_Report_2022.pdf",
             "slug": "",
-            "icon": "fa-explosion",
+            "icon": "fa-solid fa-explosion",
             "tag": "2021 - 2022",
             "description": "The change we are having"
           }

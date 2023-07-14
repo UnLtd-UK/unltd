@@ -1,14 +1,18 @@
 ---
-import Template from "../layouts/Template.astro";
-import Container from "../components/Container.astro";
-import Breadcrumbs from "../components/Breadcrumbs.astro";
-import Faq from "../components/Faq.astro";
+import Template from "../../layouts/Template.astro";
+import Container from "../../components/Container.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Faq from "../../components/Faq.astro";
 const name = "Contact form";
 const description = "djhjdkfkjdhjk";
 const breadcrumbs = [
+    {
+    name: "Grants & Support",
+    slug: "/grants-&-support",
+  },
   {
     name: "Contact us",
-    slug: "contact-us",
+    slug: "/grants-&-support/contact-us",
   },
 ];
 ---
@@ -37,20 +41,20 @@ const breadcrumbs = [
             necessitatibus molestiae dolorum repellendus!
           </p>
 
-          <!-- <Faq
+          <Faq
             question="Am I eligible to apply for an award?"
             answer="Our eligibility criteria are listed on the awards page. You must meet all the eligibility criteria to make an application as we are unable to make exceptions."
-          /> -->
+          />
 
-          <!-- <Faq
+          <Faq
             question="I registered my venture more than four years ago but started trading less than four years ago. Can I apply?"
             answer="We check the date of registration on Companies House/Charity Commission during our assessment. If your venture has been registered for longer than four years at the time of your application, you are ineligible to apply for our awards."
-          /> -->
+          />
 
-          <!-- <Faq
+          <Faq
             question="Does the legal structure of my venture matter?"
             answer="No. You can apply to us even before identifying the right legal structure and may wish to seek support from us on the right one for your venture."
-          /> -->
+          />
 
           <Faq
             question="Does my idea/venture sound like the type of application UnLtd could support?"
@@ -72,25 +76,25 @@ const breadcrumbs = [
             answer="To accommodate different accessibility needs we can be asked to make changes to our process to give people the best chance of communicating their idea and plans with us. This could be arranging a conversation with a member of the team to provide clarity on the questions and process, providing information in accessible formats or working with you to make available a BSL interpreter, for example. We are happy to consider any requests for accessibility that might reduce barriers to applying."
           />
 
-          <!-- <Faq
+          <Faq
             question="Can I access application guidance?"
             answer="You can preview our full application form along with guidance for each question here. The same guidance is also available in the online form."
-          /> -->
+          />
 
-          <!-- <Faq
+          <Faq
             question="Can I work on my application offline?"
             answer="We have Word and PDF versions of our application available here. Once you are ready, you will need to create or log into your award account to complete the application online. Please ensure that you take note of the character counts for each question so that you can copy and paste your answers into the online form."
-          /> -->
+          />
 
-          <!-- <Faq
+          <Faq
             question="Can I save my application and return to it later?"
             answer="Use the save and close button to save your progress so far. You can then return to the application to complete it when you are ready. Take note of the date you will need to submit your application if you want it to be reviewed during the next round of assessments."
-          /> -->
+          />
 
-          <!-- <Faq
+          <Faq
             question="Why can't I paste my answers into the online form?"
             answer="Please check that you are using the latest version of your web browser. Please also carefully check that you haven’t gone over the character count for each answer (this is the number of characters used rather than the number of words). Spaces are included in these character counts."
-          /> -->
+          />
 
           <Faq
             question="When will I receive the outcome of my application?"
@@ -109,9 +113,10 @@ const breadcrumbs = [
         </div>
       </div>
       <form
-        action="#"
+        name="Grants & Support"
         method="POST"
         class="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48"
+        data-netlify="true"
       >
         <div class="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
           <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">

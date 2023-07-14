@@ -8,8 +8,6 @@ const { name, slug, link, children, last } = Astro.props;
         {children.length >= 1 ? (
   <button type="button"
               x-ref="button"
-            @mouseover="open = true"
-            @mouseleave="open = false"
             @click="open = !open"
             :aria-expanded="open"
             :aria-controls=`$id('dropdown-button')`
@@ -22,8 +20,6 @@ const { name, slug, link, children, last } = Astro.props;
             x-cloak
             x-show="open"
             x-transition.origin.top.left
-            @mouseover="open = true"
-            @mouseleave="open = false"
             :id=`$id('dropdown-button')`
             style="display: none;"
   >
