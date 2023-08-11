@@ -51,18 +51,18 @@
         "slug": "get-funding",
         "children": [
           {
-            "name": "Grants & Support",
+            "name": "Award",
             "link": "",
-            "slug": "grants-&-support",
+            "slug": "award",
             "icon": "fa-kit fa-solid-sterling-sign-shield",
-            "description": "From £2,000 to £18,000"
+            "description": "For individuals"
           },
           {
-            "name": "Investment & Support",
+            "name": "Investment",
             "link": "https://growthimpactfund.org.uk",
             "slug": "",
             "icon": "fa-kit fa-solid-chart-line-shield",
-            "description": "From £50,000 to £1,500,000"
+            "description": "For businesses"
           }
         ],
         "other": [
@@ -271,9 +271,15 @@
         "name": "Other",
         "items": [
           {
-            "name": "Contact us",
+            "name": "General enquiries",
             "link": "",
-            "slug": "contact-us",
+            "slug": "general-enquiries",
+            "icon": ""
+          },
+          {
+            "name": "Press and media enquiries",
+            "link": "",
+            "slug": "press-and-media-enquiries",
             "icon": ""
           },
           {
