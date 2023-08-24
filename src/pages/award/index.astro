@@ -67,43 +67,83 @@ grants.map((grant) => {
         </div>
       </div>
     </div>
+    <div class="bg-violet-100 p-20 rounded-xl flex flex-col gap-6">
+      <div class="flex gap-3 flex-col sm:flex-row">
+        <div class="basis-1/4">
+          <h3 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Grant</h3>
+          <p class="text-violet-950">We offer two distinct grant amounts tailored to suit your needs, whether you're at the startup stage or looking to scale up.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4 basis-3/4">
+          <div class="bg-white rounded-xl">
+            <p>Up to £8,000</p>
+          </div>
+          <div class="bg-white rounded-xl">
+            <p>Up to £18,000</p>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-3 flex-col sm:flex-row">
+        <div class="basis-1/4">
+          <h3 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Support</h3>
+          <p class="text-violet-950">Every grant comes with 1 year of support.</p>
+        </div>
+        <div class="flex flex-col gap-3 basis-3/4">
+          <div>
+            <h4>Services</h4>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white rounded-tl-xl p-10 border-dashed border-2 border-sky-500">
+                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">Support Manager</span>
+                <h5 class="text-lg">Dedicated support manager</h5>
+                <p class="text-gray-600">Someone to coach, mentor and support you to achieve your goals. We have dedicated teams and specialist support available to entrepreneurs with ideas to help people in these areas.</p>
+              </div>
+              <div class="bg-white rounded-tr-xl p-10 border-dashed border-2 border-sky-500">
+                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">Mentors</span>
+                <h5 class="text-lg">Expert mentors and legal advisors</h5>
+                <p class="text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Award Winners who volunteer their skills and expertise.</p>
+              </div>
+              <div class="bg-white rounded-bl-xl p-10 border-dashed border-2 border-sky-500">
+                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">Legal Advisors</span>
+                <h5 class="text-lg">Workshops and peer learning</h5>
+                <p class="text-gray-600">Through our regular workshops and support you will be able to learn about different aspects of running a business and learn from other entrepreneurs.</p>
+              </div>
+              <div class="bg-white rounded-br-xl p-10 border-dashed border-2 border-sky-500">
+                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">Workshop</span>
+                <h5 class="text-lg">Workshops and peer learning</h5>
+                <p class="text-gray-600">Through our regular workshops and support you will be able to learn about different aspects of running a business and learn from other entrepreneurs.</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4>Programmes</h4>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white rounded-xl p-10 w-96">
+                <a href="/award/healthy-ageing">
+                  <h5>Healthy Ageing</h5>
+                  <p class="text-gray-600">Someone to coach, mentor and support you to achieve your goals. We have dedicated teams and specialist support available to entrepreneurs with ideas to help people in these areas.</p>
+                </a>
+              </div>
 
-    <div>
-      <div>
-        <div>
-          <h3>Grant</h3>
-          <p>We offer two distinct grant amounts tailored to suit your needs, whether you're at the startup stage or looking to scale up.</p>
-        </div>
-        <div>
-          <p>Up to £8,000</p>
-        </div>
-        <div>
-          <p>Up to £18,000</p>
-        </div>
-      </div>
-      <div>
-        <div>
-          <h3>Support</h3>
-          <p>Every grant comes with 1 year of support.</p>
-        </div>
-        <div>
-          <h4>Dedicated support manager</h4>
-          <p>Someone to coach, mentor and support you to achieve your goals. We have dedicated teams and specialist support available to entrepreneurs with ideas to help people in these areas.</p>
-        </div>
-        <div>
-          <h4>Expert mentors and legal advisors</h4>
-          <p>Expert advice and mentoring through our generous community of business professionals, corporate partners and Award Winners who volunteer their skills and expertise.</p>
-        </div>
-        <div>
-          <h4>Workshops and peer learning</h4>
-          <p>Through our regular workshops and support you will be able to learn about different aspects of running a business and learn from other entrepreneurs.</p>
+              <div class="bg-white rounded-xl p-10 w-96">
+                <a href="/award/healthy-ageing">
+                <h5>Access to employment</h5>
+                <p class="text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Award Winners who volunteer their skills and expertise.</p>
+                </a>
+              </div>
+
+              <div class="bg-white rounded-xl p-10 w-96">
+                <a href="/award/healthy-ageing">
+                <h4>Movement for Change</h5>
+                <p class="text-gray-600">Through our regular workshops and support you will be able to learn about different aspects of running a business and learn from other entrepreneurs.</p>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div>
-        <div>
-          <h3>Focus</h3>
-          <p>Every grant has a focus which dictates the support you can get. Some focuses are commitments made by us and others are created through partnerships.</p>
-        </div>
+    </div>
+
+
+      <!-- <div>
         {
                       funds
                         .filter(
@@ -119,121 +159,118 @@ grants.map((grant) => {
           </div>
           ))
         }
-      </div>
-    </div>
+      </div> -->
 
-    <div class="bg-white py-24 sm:py-32">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto max-w-2xl sm:text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Simple no-tricks pricing</h2>
-      <p class="mt-6 text-lg leading-8 text-gray-600">Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas in. Explicabo id ut laborum.</p>
-    </div>
-    <div class="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
-      <div class="p-8 sm:p-10 lg:flex-auto">
-        <h3 class="text-2xl font-bold tracking-tight text-gray-900">Lifetime membership</h3>
-        <p class="mt-6 text-base leading-7 text-gray-600">Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis blanditiis repellendus etur quidem assumenda.</p>
-        <div class="mt-10 flex items-center gap-x-4">
-          <h4 class="flex-none text-sm font-semibold leading-6 text-indigo-600">What’s included</h4>
-          <div class="h-px flex-auto bg-gray-100"></div>
+    <!-- <div class="bg-white py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl sm:text-center">
+          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Simple no-tricks pricing</h2>
+          <p class="mt-6 text-lg leading-8 text-gray-600">Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas in. Explicabo id ut laborum.</p>
         </div>
-        <ul role="list" class="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6">
-          <li class="flex gap-x-3">
-            <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-            </svg>
-            Private forum access
-          </li>
-          <li class="flex gap-x-3">
-            <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-            </svg>
-            Member resources
-          </li>
-          <li class="flex gap-x-3">
-            <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-            </svg>
-            Entry to annual conference
-          </li>
-          <li class="flex gap-x-3">
-            <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-            </svg>
-            Official member t-shirt
-          </li>
-        </ul>
-      </div>
-      <div class="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-        <div class="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
-          <div class="mx-auto max-w-xs px-8">
-            <p class="text-base font-semibold text-gray-600">Pay once, own it forever</p>
-            <p class="mt-6 flex items-baseline justify-center gap-x-2">
-              <span class="text-5xl font-bold tracking-tight text-gray-900">£18,000</span>
-            </p>          </div>
+        <div class="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
+          <div class="p-8 sm:p-10 lg:flex-auto">
+            <h3 class="text-2xl font-bold tracking-tight text-gray-900">Lifetime membership</h3>
+            <p class="mt-6 text-base leading-7 text-gray-600">Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis blanditiis repellendus etur quidem assumenda.</p>
+            <div class="mt-10 flex items-center gap-x-4">
+              <h4 class="flex-none text-sm font-semibold leading-6 text-indigo-600">What’s included</h4>
+              <div class="h-px flex-auto bg-gray-100"></div>
+            </div>
+            <ul role="list" class="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6">
+              <li class="flex gap-x-3">
+                <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                </svg>
+                Private forum access
+              </li>
+              <li class="flex gap-x-3">
+                <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                </svg>
+                Member resources
+              </li>
+              <li class="flex gap-x-3">
+                <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                </svg>
+                Entry to annual conference
+              </li>
+              <li class="flex gap-x-3">
+                <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                </svg>
+                Official member t-shirt
+              </li>
+            </ul>
+          </div>
+          <div class="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
+            <div class="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
+              <div class="mx-auto max-w-xs px-8">
+                <p class="text-base font-semibold text-gray-600">Pay once, own it forever</p>
+                <p class="mt-6 flex items-baseline justify-center gap-x-2">
+                  <span class="text-5xl font-bold tracking-tight text-gray-900">£18,000</span>
+                </p>          </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+    </div> -->
 
 
 
     <!-- support -->
-    <div class="bg-white py-24 sm:py-32">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto max-w-2xl lg:text-center">
-      <h2 class="text-base font-semibold leading-7 text-indigo-600">Support</h2>
-      <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">1 year of access to bespoke support</p>
-      <p class="mt-6 text-lg leading-8 text-gray-600">Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum pulvinar et feugiat blandit at. In mi viverra elit nunc.</p>
-    </div>
-    <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-      <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-        <div class="relative pl-16">
-          <dt class="text-base font-semibold leading-7 text-gray-900">
-            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-              <i class="fa-regular fa-user-headset h-6 w-6 text-white"></i>
-            </div>
-            Dedicated support manager
-          </dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">Someone to coach, mentor and support you to achieve your goals. We have dedicated teams and specialist support available to entrepreneurs with ideas to help people in these areas.</dd>
+    <!-- <div class="bg-white py-24 sm:py-32">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:text-center">
+          <h2 class="text-base font-semibold leading-7 text-indigo-600">Support</h2>
+          <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">1 year of access to bespoke support</p>
+          <p class="mt-6 text-lg leading-8 text-gray-600">Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum pulvinar et feugiat blandit at. In mi viverra elit nunc.</p>
         </div>
-        <div class="relative pl-16">
-          <dt class="text-base font-semibold leading-7 text-gray-900">
-            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-              <i class="fa-regular fa-star h-6 w-6 text-white"></i>
+        <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+          <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+            <div class="relative pl-16">
+              <dt class="text-base font-semibold leading-7 text-gray-900">
+                <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                  <i class="fa-regular fa-user-headset h-6 w-6 text-white"></i>
+                </div>
+                Dedicated support manager
+              </dt>
+              <dd class="mt-2 text-base leading-7 text-gray-600">Someone to coach, mentor and support you to achieve your goals. We have dedicated teams and specialist support available to entrepreneurs with ideas to help people in these areas.</dd>
             </div>
-            Expert mentors
-          </dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Award Winners who volunteer their skills and expertise.</dd>
-        </div>
-        <div class="relative pl-16">
-          <dt class="text-base font-semibold leading-7 text-gray-900">
-            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-<i class="fa-regular fa-chalkboard-user h-6 w-6 text-white"></i>
+            <div class="relative pl-16">
+              <dt class="text-base font-semibold leading-7 text-gray-900">
+                <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                  <i class="fa-regular fa-star h-6 w-6 text-white"></i>
+                </div>
+                Expert mentors
+              </dt>
+              <dd class="mt-2 text-base leading-7 text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Award Winners who volunteer their skills and expertise.</dd>
             </div>
-            Workshops and peer learning
-          </dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">Through our regular workshops and support you will be able to learn about different aspects of running a business and learn from other entrepreneurs.</dd>
-        </div>
-        <div class="relative pl-16">
-          <dt class="text-base font-semibold leading-7 text-gray-900">
-            <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-              <i class="fa-regular fa-scale-balanced h-6 w-6 text-white"></i>
+            <div class="relative pl-16">
+              <dt class="text-base font-semibold leading-7 text-gray-900">
+                <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                  <i class="fa-regular fa-chalkboard-user h-6 w-6 text-white"></i>
+                </div>
+                Workshops and peer learning
+              </dt>
+              <dd class="mt-2 text-base leading-7 text-gray-600">Through our regular workshops and support you will be able to learn about different aspects of running a business and learn from other entrepreneurs.</dd>
             </div>
-            Legal advisors
-          </dt>
-          <dd class="mt-2 text-base leading-7 text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Award Winners who volunteer their skills and expertise.</dd>
+            <div class="relative pl-16">
+              <dt class="text-base font-semibold leading-7 text-gray-900">
+                <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                  <i class="fa-regular fa-scale-balanced h-6 w-6 text-white"></i>
+                </div>
+                Legal advisors
+              </dt>
+              <dd class="mt-2 text-base leading-7 text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Award Winners who volunteer their skills and expertise.</dd>
+            </div>
+          </dl>
         </div>
-      </dl>
-    </div>
-  </div>
-</div>
+      </div>
+    </div> -->
 
 
 
-
-    <div class="flex flex-col gap-20 mx-4 lg:mx-0">
-      <a href="/funds" class="text-amber-700 underline">Funds</a>
+      <!-- <a href="/funds" class="text-amber-700 underline">Funds</a>
       <a href="/grants-&-support/faq" class="text-amber-700 underline">FAQ</a>
       <a
         href="/grants-&-support/application-preview"
@@ -242,7 +279,7 @@ grants.map((grant) => {
             <a
         href="/grants-&-support/contact-us"
         class="text-amber-700 underline">Contact us</a
-      >
+      > -->
       <!-- <Hero2
         name={name}
         description={description}
@@ -254,7 +291,7 @@ grants.map((grant) => {
         ]}
       /> -->
 
-      <ul
+      <!-- <ul
         role="list"
         class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       >
@@ -306,7 +343,7 @@ grants.map((grant) => {
             </li>
           ))
         }
-      </ul>
+      </ul> -->
 
   </Container>
 </Template>
