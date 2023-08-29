@@ -15,12 +15,12 @@
     "@astrojs/mdx": "^0.19.7",
     "@astrojs/svelte": "^3.1.1",
     "@astrojs/tailwind": "^4.0.0",
-    "@directus/sdk": "^11.0.2",
+    "@directus/sdk": "^11.0.3",
     "@fontsource-variable/lexend": "^5.0.8",
     "@types/alpinejs": "^3.7.2",
-    "alpinejs": "^3.12.3",
-    "astro": "^2.10.13",
-    "marked": "^7.0.4",
+    "alpinejs": "^3.13.0",
+    "astro": "^2.10.14",
+    "marked": "^7.0.5",
     "marked-gfm-heading-id": "^3.0.6",
     "moment": "^2.29.4",
     "slugify": "^1.6.6",
@@ -28,7 +28,7 @@
     "truncate": "^3.0.0"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.5",
+    "@tailwindcss/forms": "^0.5.6",
     "@tailwindcss/typography": "^0.5.9",
     "prettier-plugin-astro": "^0.12.0"
   }
