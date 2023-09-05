@@ -62,7 +62,11 @@ grants.map((grant) => {
     <div class="bg-white py-24 sm:py-32">
       <div class="mx-auto max-w-7xl">
         <div class="mx-auto max-w-2xl lg:mx-0">
-          <h2 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">{name}</h2>
+          <h2
+            class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
+          >
+            {name}
+          </h2>
           <p class="mt-6 text-lg leading-8 text-gray-600">{description}</p>
         </div>
       </div>
@@ -70,30 +74,61 @@ grants.map((grant) => {
     <div class="bg-violet-100 p-20 rounded-xl flex flex-col gap-6">
       <div class="flex gap-3 flex-col sm:flex-row">
         <div class="basis-1/4">
-          <h3 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Grant</h3>
-          <p class="text-violet-950">We offer two distinct grant amounts tailored to suit your needs, whether you're at the startup stage or looking to scale up.</p>
+          <h3
+            class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+          >
+            Grant
+          </h3>
+          <p class="text-violet-950">
+            We offer two distinct grant amounts tailored to suit your needs,
+            whether you're at the startup stage or looking to scale up.
+          </p>
         </div>
         <div class="grid grid-cols-2 gap-4 basis-3/4">
-          <div class="bg-white rounded-xl p-8">
-            <p class="uppercase text-xs text-gray-600">Up to</p>
-            <p class="text-xl">£8,000</p>
-            <div>
-              <p class="uppercase text-xs text-gray-600">Criteria</p>
-              <ul class="list-disc">
-                <li>Your business is not yet or has been incorporated for less 4 years</li>
-                <li>Your business is not yet or has been incorporated for less 4 years</li>
-                <li>Your business is not yet or is already working with marginalised people</li>
-                <li>Your business is not yet or already having impact on marginalised people</li>
+          <div class="bg-white rounded-xl p-8 flex flex-col gap-8">
+            <div class="flex flex-col gap-4">
+              <p class="uppercase text-xs text-gray-600">Up to</p>
+              <p class="text-4xl text-gray-700">£8,000</p>
+            </div>
+            <div class="flex flex-col gap-4">
+              <p class="uppercase text-sm text-gray-600">Criteria</p>
+              <ul
+                class="list-disc text-gray-700 text-sm list-inside flex flex-col gap-3"
+              >
+                <li>
+                  Your business is not yet or has been incorporated for less 4
+                  years
+                </li>
+                <li>
+                  Your business is not yet or has been incorporated for less 4
+                  years
+                </li>
+                <li>
+                  Your business is not yet or is already working with
+                  marginalised people
+                </li>
+                <li>
+                  Your business is not yet or already having impact on
+                  marginalised people
+                </li>
               </ul>
             </div>
           </div>
-          <div class="bg-white rounded-xl p-8">
-            <p class="text-xl">Up to £18,000</p>
-            <div>
-              <p class="uppercase">Criteria</p>
-              <ul class="list-disc">
+          <div class="bg-white rounded-xl p-8 flex flex-col gap-8">
+            <div class="flex flex-col gap-4">
+              <p class="uppercase text-xs text-gray-600">Up to</p>
+              <p class="text-4xl text-gray-700">£18,000</p>
+            </div>
+            <div class="flex flex-col gap-4">
+              <p class="uppercase text-sm text-gray-600">Criteria</p>
+              <ul
+                class="list-disc text-gray-700 text-sm list-inside flex flex-col gap-3"
+              >
                 <li>Your business been incorporated for less than 4 years</li>
-                <li>Your business has been selling goods and services for 1 to 4 years</li>
+                <li>
+                  Your business has been selling goods and services for 1 to 4
+                  years
+                </li>
                 <li>Your business is working with marginalised people</li>
                 <li>Your business is having impact on marginalised people</li>
               </ul>
@@ -103,32 +138,79 @@ grants.map((grant) => {
       </div>
       <div class="flex gap-3 flex-col sm:flex-row">
         <div class="basis-1/4">
-          <h3 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Support</h3>
-          <p class="text-violet-950">Every grant comes with 1 year of support.</p>
+          <h3
+            class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+          >
+            Support
+          </h3>
+          <p class="text-violet-950">
+            Every grant comes with 1 year of support.
+          </p>
         </div>
         <div class="flex flex-col gap-3 basis-3/4">
           <div>
             <h4>Services</h4>
             <div class="grid grid-cols-2 gap-4">
-              <div class="bg-white rounded-tl-xl p-10 border-dashed border-2 border-sky-500">
-                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">Support Manager</span>
-                <h5 class="text-lg">Dedicated support manager</h5>
-                <p class="text-gray-600">Someone to coach, mentor and support you to achieve your goals. We have dedicated teams and specialist support available to entrepreneurs with ideas to help people in these areas.</p>
+              <div
+                class="bg-white flex flex-col gap-2 rounded-tl-xl p-10 border-dashed border-2 border-sky-500"
+              >
+                <div>
+                  <span
+                    class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+                    ><i class="fa-brands fa-tiktok"></i>Support Manager</span
+                  >
+                </div>
+                <div>
+                  <h5 class="text-lg">Dedicated support manager</h5>
+                  <p class="text-gray-600">
+                    Someone to coach, mentor and support you to achieve your
+                    goals. We have dedicated teams and specialist support
+                    available to entrepreneurs with ideas to help people in
+                    these areas.
+                  </p>
+                </div>
               </div>
-              <div class="bg-white rounded-tr-xl p-10 border-dashed border-2 border-sky-500">
-                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">Mentors</span>
+              <div
+                class="bg-white rounded-tr-xl p-10 border-dashed border-2 border-sky-500"
+              >
+                <span
+                  class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+                  >Mentors</span
+                >
                 <h5 class="text-lg">Expert mentors and legal advisors</h5>
-                <p class="text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Award Winners who volunteer their skills and expertise.</p>
+                <p class="text-gray-600">
+                  Expert advice and mentoring through our generous community of
+                  business professionals, corporate partners and Award Winners
+                  who volunteer their skills and expertise.
+                </p>
               </div>
-              <div class="bg-white rounded-bl-xl p-10 border-dashed border-2 border-sky-500">
-                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">Legal Advisors</span>
+              <div
+                class="bg-white rounded-bl-xl p-10 border-dashed border-2 border-sky-500"
+              >
+                <span
+                  class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+                  >Legal Advisors</span
+                >
                 <h5 class="text-lg">Workshops and peer learning</h5>
-                <p class="text-gray-600">Through our regular workshops and support you will be able to learn about different aspects of running a business and learn from other entrepreneurs.</p>
+                <p class="text-gray-600">
+                  Through our regular workshops and support you will be able to
+                  learn about different aspects of running a business and learn
+                  from other entrepreneurs.
+                </p>
               </div>
-              <div class="bg-white rounded-br-xl p-10 border-dashed border-2 border-sky-500">
-                <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10">Workshop</span>
+              <div
+                class="bg-white rounded-br-xl p-10 border-dashed border-2 border-sky-500"
+              >
+                <span
+                  class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+                  >Workshop</span
+                >
                 <h5 class="text-lg">Workshops and peer learning</h5>
-                <p class="text-gray-600">Through our regular workshops and support you will be able to learn about different aspects of running a business and learn from other entrepreneurs.</p>
+                <p class="text-gray-600">
+                  Through our regular workshops and support you will be able to
+                  learn about different aspects of running a business and learn
+                  from other entrepreneurs.
+                </p>
               </div>
             </div>
           </div>
@@ -138,21 +220,34 @@ grants.map((grant) => {
               <div class="bg-white rounded-xl p-10 w-96">
                 <a href="/award/healthy-ageing">
                   <h5>Healthy Ageing</h5>
-                  <p class="text-gray-600">Someone to coach, mentor and support you to achieve your goals. We have dedicated teams and specialist support available to entrepreneurs with ideas to help people in these areas.</p>
+                  <p class="text-gray-600">
+                    Someone to coach, mentor and support you to achieve your
+                    goals. We have dedicated teams and specialist support
+                    available to entrepreneurs with ideas to help people in
+                    these areas.
+                  </p>
                 </a>
               </div>
 
               <div class="bg-white rounded-xl p-10 w-96">
                 <a href="/award/healthy-ageing">
-                <h5>Access to employment</h5>
-                <p class="text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Award Winners who volunteer their skills and expertise.</p>
+                  <h5>Access to employment</h5>
+                  <p class="text-gray-600">
+                    Expert advice and mentoring through our generous community
+                    of business professionals, corporate partners and Award
+                    Winners who volunteer their skills and expertise.
+                  </p>
                 </a>
               </div>
 
               <div class="bg-white rounded-xl p-10 w-96">
                 <a href="/award/healthy-ageing">
-                <h4>Movement for Change</h5>
-                <p class="text-gray-600">Through our regular workshops and support you will be able to learn about different aspects of running a business and learn from other entrepreneurs.</p>
+                  <h4>Movement for Change</h4>
+                  <p class="text-gray-600">
+                    Through our regular workshops and support you will be able
+                    to learn about different aspects of running a business and
+                    learn from other entrepreneurs.
+                  </p>
                 </a>
               </div>
             </div>
@@ -161,8 +256,7 @@ grants.map((grant) => {
       </div>
     </div>
 
-
-      <!-- <div>
+    <!-- <div>
         {
                       funds
                         .filter(
@@ -234,8 +328,6 @@ grants.map((grant) => {
       </div>
     </div> -->
 
-
-
     <!-- support -->
     <!-- <div class="bg-white py-24 sm:py-32">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -287,9 +379,7 @@ grants.map((grant) => {
       </div>
     </div> -->
 
-
-
-      <!-- <a href="/funds" class="text-amber-700 underline">Funds</a>
+    <!-- <a href="/funds" class="text-amber-700 underline">Funds</a>
       <a href="/grants-&-support/faq" class="text-amber-700 underline">FAQ</a>
       <a
         href="/grants-&-support/application-preview"
@@ -299,7 +389,7 @@ grants.map((grant) => {
         href="/grants-&-support/contact-us"
         class="text-amber-700 underline">Contact us</a
       > -->
-      <!-- <Hero2
+    <!-- <Hero2
         name={name}
         description={description}
         features={[
@@ -310,7 +400,7 @@ grants.map((grant) => {
         ]}
       /> -->
 
-      <!-- <ul
+    <!-- <ul
         role="list"
         class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       >
@@ -363,6 +453,5 @@ grants.map((grant) => {
           ))
         }
       </ul> -->
-
   </Container>
 </Template>
