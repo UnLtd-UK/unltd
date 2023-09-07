@@ -54,14 +54,14 @@
             "name": "Award",
             "link": "",
             "slug": "award",
-            "icon": "fa-kit fa-solid-sterling-sign-shield",
+            "icon": "fa-solid fa-star",
             "description": "For individuals"
           },
           {
             "name": "Investment",
             "link": "https://growthimpactfund.org.uk",
             "slug": "",
-            "icon": "fa-kit fa-solid-chart-line-shield",
+            "icon": "fa-solid fa-chart-mixed",
             "description": "For businesses"
           }
         ],
