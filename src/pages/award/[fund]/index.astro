@@ -77,7 +77,7 @@ const { fund } = Astro.props;
               class="inline-flex items-center rounded-full gap-1 bg-green-100 px-3 py-0.5 text-sm font-medium text-green-700"
             >
               <i class="fa-solid fa-circle text-green-700 text-xs"></i>
-              Open
+               Open
             </span>
           </div>
 
@@ -135,56 +135,13 @@ const { fund } = Astro.props;
     </div>
 
     <div class="flex flex-col gap-20">
-      <dl
-        class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4"
-      >
-        <div class="flex flex-col p-8">
-          <dt class="text-sm font-semibold leading-6 text-slate-400">
-            Grantees in 2022
-          </dt>
-          <dd
-            class="order-first text-3xl font-semibold tracking-tight text-gray-900"
-          >
-            162
-          </dd>
-        </div>
-        <div class="flex flex-col p-8">
-          <dt class="text-sm font-semibold leading-6 text-slate-400">
-            Died of unknown causes
-          </dt>
-          <dd
-            class="order-first text-3xl font-semibold tracking-tight text-gray-900"
-          >
-            3%
-          </dd>
-        </div>
-        <div class="flex flex-col p-8">
-          <dt class="text-sm font-semibold leading-6 text-slate-400">
-            Rated their support highly
-          </dt>
-          <dd
-            class="order-first text-3xl font-semibold tracking-tight text-gray-900"
-          >
-            78.9%
-          </dd>
-        </div>
-        <div class="flex flex-col p-8">
-          <dt class="text-sm font-semibold leading-6 text-slate-400">
-            Paid out to creators
-          </dt>
-          <dd
-            class="order-first text-3xl font-semibold tracking-tight text-gray-900"
-          >
-            $70M
-          </dd>
-        </div>
-      </dl>
-
       <div class="grid grid-cols-4 gap-20 mx-auto max-w-7xl">
-        <!-- Awards -->
+        <!-- What we are looking for -->
         <div class="col-span-4 flex flex-col gap-10 lg:col-span-4">
           <div class="flex flex-col gap-10 lg:flex-row">
             <div class="flex flex-col basis-3/4">
+              <h2>What this programme can offer</h2>
+              <h2>What we are looking for</h2>
               <div class="flex flex-col gap-10">
                 <!-- xs to lg -->
                 <GrantsSMLG grants={fund.grants} name={fund.name} />
@@ -195,7 +152,6 @@ const { fund } = Astro.props;
             </div>
             <div class="flex flex-col basis-1/4 gap-10">
               <div class="flex flex-col gap-10">
-
                 <div class="flex flex-col gap-4 lg:flex">
                   <h3 class="font-bold text-slate-500">Other funds</h3>
                   <div class="flex flex-col gap-3">
@@ -206,7 +162,7 @@ const { fund } = Astro.props;
                             !(fundi.name === fund.name) &&
                             todayDate.isBefore(fundi.close) &&
                             todayDate.isAfter(fundi.open) &&
-                            fundi.public
+                            fundi.public,
                         )
                         .map((fundi) => (
                           <a
@@ -232,7 +188,7 @@ const { fund } = Astro.props;
                   </div>
                 </div>
 
-                                <div class="flex flex-col gap-3">
+                <div class="flex flex-col gap-3">
                   <h3 class="font-bold text-slate-500">Inclusion</h3>
                   <div class="flex flex-col gap-3">
                     <p class="text-sm text-slate-500 leading-relaxed">
