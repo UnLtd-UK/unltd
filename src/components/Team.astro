@@ -53,7 +53,7 @@ function playsound(name) {
                   }
                   alt=""
                 />
-                <div>
+                <div class="flex flex-col gap-1">
                   <div class="flex gap-2 items-center">
                     <h3 class="text-base font-semibold leading-7 tracking-tight text-slate-600 items-center">
                       {position.person.name}
@@ -74,10 +74,16 @@ function playsound(name) {
                       src="/name.m4a"
                     />
                   </div>
-                  <div class="flex gap-2 items-center">
-                    <span class="text-xs text-slate-600">
-                      {position.person.pronouns}
-                    </span>
+                  <div class="flex items-center gap-1">
+                    { position.person.gender_pronouns && position.person.gender_pronouns.length > 0 &&
+                    <div class="flex gap-1">
+                      { position.person.gender_pronouns?.map((item) => (
+                        <span class="text-xs text-slate-600">
+                          {item}
+                        </span>
+                      )) } 
+                    </div>  }
+                    <div>
                     {position.person.lgbtqia_plus && (
                       <div>
                         <span
@@ -92,8 +98,10 @@ function playsound(name) {
                         </span>
                       </div>
                     )}
+                    </div>
                   </div>
-                  <p class="text-sm leading-6 text-slate-500">
+                  <div>
+                    <p class="text-sm leading-2 text-slate-500">
                     {position.role.name}
                   </p>
                   {position.person.linkedin && (
@@ -106,6 +114,7 @@ function playsound(name) {
                       <i class="text-sm fa-brands fa-linkedin" />
                     </a>
                   )}
+                    </div>
                 </div>
               </div>
             </li>
