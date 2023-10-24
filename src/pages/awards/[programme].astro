@@ -1,0 +1,137 @@
+---
+import Template from "../../layouts/Template.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Container from "../../components/Container.astro";
+
+import truncate from "truncate";
+import moment from "moment";
+
+import GrantsXL from "../../components/fund/GrantsXL.astro";
+import GrantsSMLG from "../../components/fund/GrantsSMLG.astro";
+import Testamonial from "../../components/fund/Testamonial.astro";
+import { programmes } from "../../data/directus/programmes.js";
+
+let todayDate = moment();
+
+export async function getStaticPaths() {
+  return programmes.map((programme) => {
+    let breadcrumbs = [
+      {
+        name: "Awards",
+        slug: "/awards",
+      },
+      {
+        name: programme.name,
+        slug: `/awards/${programme.slug}`,
+      },
+    ];
+
+    programme.breadcrumbs = breadcrumbs;
+
+    let oogle = {
+      params: {
+        programme: programme.slug,
+      },
+      props: {
+        programme: programme,
+      },
+    };
+
+    return oogle;
+  });
+}
+
+const { programme } = Astro.props;
+---
+
+<Template name={programme.name} description={programme.description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={programme.breadcrumbs} />
+
+    <div class="col-span-4 flex flex-col gap-20 lg:flex-row">
+      <div class="lg:basis-1/2 flex flex-col gap-8">
+        <span class="relative inline-block">
+          {
+            programme.logo && (
+              <img
+                class="h-28 w-28 rounded-md"
+                src={`https://unltd.directus.app/assets/${programme.logo.id}`}
+                alt=""
+              />
+            )
+          }
+        </span>
+
+        <div class="flex flex-col gap-3">
+          <h1 class="text-5xl font-bold">
+            {programme.name}
+          </h1>
+          <p class="text-lg leading-relaxed text-slate-600">
+            {programme.description}
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <div>
+            <span
+              class="inline-flex items-center rounded-full gap-1 bg-green-100 px-3 py-0.5 text-sm font-medium text-green-700"
+            >
+              <i class="fa-solid fa-circle text-green-700 text-xs"></i>
+               Open
+            </span>
+          </div>
+
+          <p class="text-xs text-slate-500">
+            From {moment(programme.form).format("dddd hh:mma, MMMM Do YYYY")}<br
+            />till
+            {moment(programme.till).format("dddd hh:mma, MMMM Do YYYY")}
+          </p>
+        </div>
+
+        {
+          programme.partners.length > 0 && (
+            <>
+              <p>Partners</p>
+              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {programme.partners.map((partner) => (
+                  <div class="relative flex items-center space-x-3 rounded-lg border-slate-300 bg-white px-4 py-4">
+                    <div class="flex-shrink-0">
+                      <img
+                        class="h-10 w-10 rounded-md drop-shadow-md"
+                        src={`https://unltd.directus.app/assets/${partner.organisations_id.logo}`}
+                        alt=""
+                      />
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <span class="absolute inset-0" aria-hidden="true" />
+                      <p class="text-sm font-medium text-slate-900">
+                        {partner.organisations_id.name}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          )
+        }
+      </div>
+
+      <Testamonial
+        person="Shaun Fox"
+        role="CEO"
+        organisation="Legacy Active Communities"
+        programme={programme.name}
+      >
+        The Movement for Change programme gave Legacy Active Communities a space
+        to focus on building for the future as we support schools and
+        communities to encourage health and physical activity in young people's
+        everyday lives. With likeminded social entrepreneurs, we could address
+        challenges and opportunities for our social enterprise, while discussing
+        our business models and opportunities for growth. We experienced
+        considered, strategic, expert feedback on diversification opportunities
+        - including risk and reward - to bolster our operations and greaten our
+        social impact.
+      </Testamonial>
+    </div>
+  </Container>
+</Template>
