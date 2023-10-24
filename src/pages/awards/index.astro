@@ -5,14 +5,14 @@ import Container from "../../components/Container.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 // DATA
-import { funds } from "../../data/directus/funds.js";
+import { funds } from "../../data/directus/programmes.js";
 import { grants } from "../../data/directus/grants.js";
 import { rounds } from "../../data/directus/rounds.js";
 
 import moment from "moment";
 let todayDate = moment();
 
-const name = "Award";
+const name = "Awards";
 const description =
   "Grant and Support for entrepreneurs who have an idea or already have a business making a positive difference in the UK";
 
@@ -181,7 +181,7 @@ grants.map((grant) => {
                   <h5 class="text-lg">Expert mentors and legal advisors</h5>
                   <p class="text-gray-600">
                     Expert advice and mentoring through our generous community
-                    of business professionals, corporate partners and Award
+                    of business professionals, corporate partners and Awards
                     Winners who volunteer their skills and expertise.
                   </p>
                 </div>
@@ -219,7 +219,7 @@ grants.map((grant) => {
               <h4>Programmes</h4>
               <div class="grid grid-cols-2 gap-4">
                 <div class="bg-white rounded-xl p-10 w-96">
-                  <a href="/award/healthy-ageing">
+                  <a href="/awards/healthy-ageing">
                     <h5>Healthy Ageing</h5>
                     <p class="text-gray-600">
                       Someone to coach, mentor and support you to achieve your
@@ -231,7 +231,7 @@ grants.map((grant) => {
                 </div>
 
                 <div class="bg-white rounded-xl p-10 w-96">
-                  <a href="/award/healthy-ageing">
+                  <a href="/awards/access-to-employment">
                     <h5>Access to employment</h5>
                     <p class="text-gray-600">
                       Expert advice and mentoring through our generous community
@@ -242,7 +242,7 @@ grants.map((grant) => {
                 </div>
 
                 <div class="bg-white rounded-xl p-10 w-96">
-                  <a href="/award/healthy-ageing">
+                  <a href="/awards/movement-for-change">
                     <h4>Movement for Change</h4>
                     <p class="text-gray-600">
                       Through our regular workshops and support you will be able
@@ -380,7 +380,7 @@ grants.map((grant) => {
                 </div>
                 Expert mentors
               </dt>
-              <dd class="mt-2 text-base leading-7 text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Award Winners who volunteer their skills and expertise.</dd>
+              <dd class="mt-2 text-base leading-7 text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Awards Winners who volunteer their skills and expertise.</dd>
             </div>
             <div class="relative pl-16">
               <dt class="text-base font-semibold leading-7 text-gray-900">
@@ -398,7 +398,7 @@ grants.map((grant) => {
                 </div>
                 Legal advisors
               </dt>
-              <dd class="mt-2 text-base leading-7 text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Award Winners who volunteer their skills and expertise.</dd>
+              <dd class="mt-2 text-base leading-7 text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Awards Winners who volunteer their skills and expertise.</dd>
             </div>
           </dl>
         </div>
@@ -481,3 +481,4 @@ grants.map((grant) => {
       </ul> -->
   </Container>
 </Template>
+ ../../data/directus/programmes.js

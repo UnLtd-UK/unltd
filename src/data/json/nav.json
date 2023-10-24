@@ -51,9 +51,9 @@
         "slug": "get-funding",
         "children": [
           {
-            "name": "Award",
+            "name": "Awards",
             "link": "",
-            "slug": "award",
+            "slug": "awards",
             "icon": "fa-solid fa-star",
             "description": "For individuals"
           },
@@ -62,7 +62,7 @@
             "link": "https://growthimpactfund.org.uk",
             "slug": "",
             "icon": "fa-solid fa-chart-mixed",
-            "description": "For businesses"
+            "description": "For organisations"
           }
         ],
         "other": [
@@ -74,8 +74,8 @@
         ]
       },
       {
-        "name": "Be involved",
-        "slug": "be-involved",
+        "name": "Join us",
+        "slug": "join-us",
         "children": [
           {
             "name": "Fundraisers",
@@ -83,13 +83,7 @@
             "slug": "fundraisers",
             "icon": "fa-solid fa-piggy-bank",
             "description": "Give money"
-          }
-        ]
-      },
-      {
-        "name": "Join us",
-        "slug": "join-us",
-        "children": [
+          },
           {
             "name": "Partnering",
             "link": "",

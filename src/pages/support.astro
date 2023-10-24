@@ -14,7 +14,7 @@ import SupportCardGroup from "../components/SupportCardGroup.astro";
 import Hero2 from "../components/Hero2.astro";
 
 // DATA
-import { funds } from "../data/directus/funds.js";
+import { funds } from "../data/directus/programmes.js";
 import { grants } from "../data/directus/grants.js";
 import { rounds } from "../data/directus/rounds.js";
 
@@ -79,9 +79,8 @@ grants.map((grant) => {
         href="/grants-&-support/application-preview"
         class="text-amber-700 underline">Application preview</a
       >
-            <a
-        href="/grants-&-support/contact-us"
-        class="text-amber-700 underline">Contact us</a
+      <a href="/grants-&-support/contact-us" class="text-amber-700 underline"
+        >Contact us</a
       >
       <!-- <Hero2
         name={name}
@@ -163,7 +162,7 @@ grants.map((grant) => {
                       <span class="inline-flex items-center rounded-full bg-pink-100 px-3 py-0.5 text-sm font-medium text-pink-800">
                         {fund.name}
                       </span>
-                    )
+                    ),
                 )
               }
             </div>
@@ -179,7 +178,7 @@ grants.map((grant) => {
                       <span class="inline-flex items-center rounded-full bg-pink-100 px-3 py-0.5 text-sm font-medium text-pink-800">
                         {fund.name}
                       </span>
-                    )
+                    ),
                 )
               }
             </div>
@@ -224,7 +223,7 @@ grants.map((grant) => {
                     (type) =>
                       type.id === supportGroup.type.id && (
                         <SupportCardGroup support={supportGroup} type={type} />
-                      )
+                      ),
                   )}
                 </Fragment>
               );
@@ -303,3 +302,4 @@ grants.map((grant) => {
     </div>
   </Container>
 </Template>
+ ../data/directus/programmes.js
