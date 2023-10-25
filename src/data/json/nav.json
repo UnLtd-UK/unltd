@@ -13,35 +13,35 @@
             "name": "Choosing the right legal structure",
             "link": "",
             "slug": "choosing-the-right-legal-structure",
-            "icon": "fa-1",
+            "icon": "fa-solid fa-1",
             "description": "..."
           },
           {
             "name": "Defining social impact indicators, setting targets and refining your social model",
             "link": "",
             "slug": "defining-social-impact-indictators-setting-targets-and-refining-your-social model",
-            "icon": "fa-2",
+            "icon": "fa-solid fa-2",
             "description": "..."
           },
           {
             "name": "Stakeholder engagement and building networks",
             "link": "",
             "slug": "stakeholder-engagement-and-building-networks",
-            "icon": "fa-3",
+            "icon": "fa-solid fa-3",
             "description": "..."
           },
           {
             "name": "Securing start up funding",
             "link": "",
             "slug": "securing-start-up-funding",
-            "icon": "fa-4",
+            "icon": "fa-solid fa-4",
             "description": "..."
           },
           {
             "name": "Other funding and support available for social entrepreneurs",
             "link": "",
             "slug": "other-funding-and-support-available-for-social-entrepreneurs",
-            "icon": "fa-link",
+            "icon": "fa-solid fa-link",
             "description": ""
           }
         ]
@@ -51,18 +51,18 @@
         "slug": "get-funding",
         "children": [
           {
-            "name": "Grants & Support",
+            "name": "Awards",
             "link": "",
-            "slug": "grants-&-support",
-            "icon": "fa-lira-sign",
-            "description": "For entrepreneurs"
+            "slug": "awards",
+            "icon": "fa-solid fa-star",
+            "description": "For individuals"
           },
           {
-            "name": "Investment & Support",
+            "name": "Investment",
             "link": "https://growthimpactfund.org.uk",
             "slug": "",
-            "icon": "fa-chart-line",
-            "description": "For organisation. Through the Growth Impact Fund"
+            "icon": "fa-solid fa-chart-mixed",
+            "description": "For organisations"
           }
         ],
         "other": [
@@ -74,49 +74,43 @@
         ]
       },
       {
-        "name": "Be involved",
-        "slug": "be-involved",
+        "name": "Join us",
+        "slug": "join-us",
         "children": [
           {
             "name": "Fundraisers",
             "link": "",
             "slug": "fundraisers",
-            "icon": "fa-piggy-bank",
+            "icon": "fa-solid fa-piggy-bank",
             "description": "Give money"
           },
-          {
-            "name": "Campaigns",
-            "link": "",
-            "slug": "campaigns",
-            "icon": "fa-bullhorn",
-            "description": "Take action"
-          }
-        ]
-      },
-      {
-        "name": "Join us",
-        "slug": "join-us",
-        "children": [
           {
             "name": "Partnering",
             "link": "",
             "slug": "partnering",
-            "icon": "fa-handshake",
+            "icon": "fa-solid fa-handshake",
             "description": "Organisations wanting to fund and support us"
           },
           {
             "name": "Volunteering",
             "link": "",
             "slug": "volunteering",
-            "icon": "fa-street-view",
+            "icon": "fa-solid fa-street-view",
             "description": "Individuals looking to do pro bono"
           },
           {
-            "name": "Careers",
+            "name": "Become a employee",
             "link": "https://www.jobtrain.co.uk/unltd-careers",
             "slug": "",
-            "icon": "fa-briefcase",
-            "description": "Work at UnLtd"
+            "icon": "fa-solid fa-briefcase",
+            "description": "Join one of our teams"
+          },
+          {
+            "name": "Become a trustee",
+            "link": "https://unltd-trustees.co.uk",
+            "slug": "",
+            "icon": "fa-solid fa-user-shield",
+            "description": "Join our board"
           }
         ]
       },
@@ -135,29 +129,29 @@
             "name": "Our purpose",
             "link": "",
             "slug": "our-purpose",
-            "icon": "fa-building-user",
+            "icon": "fa-solid fa-building-user",
             "description": "Vision and mission"
           },
           {
             "name": "Our team",
             "link": "",
             "slug": "our-team",
-            "icon": "fa-people-group",
+            "icon": "fa-solid fa-people-group",
             "description": "Made up of four direcorates"
           },
           {
             "name": "Our strategy",
-            "link": "https://breakingdownbarriers.unltd.org.uk",
-            "slug": "",
-            "icon": "fa-chess-pawn",
-            "tag": "2022 - 2025",
+            "link": "",
+            "slug": "our-strategy",
+            "icon": "fa-solid fa-chess-pawn",
+            "tag": "",
             "description": "How we make impact"
           },
           {
             "name": "Our impact",
             "link": "UnLtd_Impact_Report_2022.pdf",
             "slug": "",
-            "icon": "fa-explosion",
+            "icon": "fa-solid fa-explosion",
             "tag": "2021 - 2022",
             "description": "The change we are having"
           }
@@ -204,103 +198,126 @@
       "address3": "EC1Y 8JJ",
       "phone": "02075661100"
     },
-    "numbers": [
+    "phone": "02075661100",
+    "links": [
       {
-        "name": "Companies House",
-        "number": "04180639",
-        "link": "https://find-and-update.company-information.service.gov.uk/company/04180639"
+        "name": "Governance",
+        "items": [
+          {
+            "name": "Companies House",
+            "description": "04180639",
+            "link": "https://find-and-update.company-information.service.gov.uk/company/04180639",
+            "slug": "",
+            "icon": ""
+          },
+          {
+            "name": "Charity Commission for England and Wales",
+            "description": "1090393",
+            "link": "https://apps.charitycommission.gov.uk/Showcharity/RegisterOfCharities/SearchResultHandler.aspx?RegisteredCharityNumber=1090393",
+            "slug": "",
+            "icon": ""
+          },
+          {
+            "name": "Scottish Charity Regulator",
+            "description": "SC032445",
+            "link": "https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC032445",
+            "slug": "",
+            "icon": ""
+          }
+        ]
       },
       {
-        "name": "Charity Commission for England and Wales",
-        "number": "1090393",
-        "link": "https://apps.charitycommission.gov.uk/Showcharity/RegisterOfCharities/SearchResultHandler.aspx?RegisteredCharityNumber=1090393"
+        "name": "Legal",
+        "items": [
+          {
+            "name": "Privacy Policy",
+            "link": "",
+            "slug": "privacy-policy",
+            "icon": ""
+          },
+          {
+            "name": "Complaints Policy",
+            "link": "",
+            "slug": "complaints-policy",
+            "icon": ""
+          },
+          {
+            "name": "Browser Storage Policy",
+            "link": "",
+            "slug": "browser-storage-policy",
+            "icon": ""
+          },
+          {
+            "name": "Photography & Filming Policy",
+            "link": "",
+            "slug": "photography-&-filming-policy",
+            "icon": ""
+          },
+          {
+            "name": "Terms & Conditions",
+            "link": "",
+            "slug": "terms-&-conditions",
+            "icon": ""
+          }
+        ]
       },
       {
-        "name": "Scottish Charity Regulator",
-        "number": "SC032445",
-        "link": "https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC032445"
-      }
-    ],
-    "legal": [
-      {
-        "name": "Privacy Policy",
-        "link": "",
-        "slug": "privacy-policy",
-        "icon": ""
+        "name": "Other",
+        "items": [
+          {
+            "name": "General enquiries",
+            "link": "",
+            "slug": "general-enquiries",
+            "icon": ""
+          },
+          {
+            "name": "Press and media enquiries",
+            "link": "",
+            "slug": "press-and-media-enquiries",
+            "icon": ""
+          },
+          {
+            "name": "Safefuarding",
+            "link": "",
+            "slug": "safeguarding",
+            "icon": ""
+          },
+          {
+            "name": "Equity Commitments",
+            "link": "",
+            "slug": "equity-commitments",
+            "icon": ""
+          },
+          {
+            "name": "Gift Aid",
+            "link": "",
+            "slug": "gift-aid",
+            "icon": ""
+          }
+        ]
       },
       {
-        "name": "Complaints Policy",
-        "link": "",
-        "slug": "complaints-policy",
-        "icon": ""
-      },
-      {
-        "name": "Browser Storage Policy",
-        "link": "",
-        "slug": "browser-storage-policy",
-        "icon": ""
-      },
-      {
-        "name": "Photography & Filming Policy",
-        "link": "",
-        "slug": "photography-&-filming-policy",
-        "icon": ""
-      },
-      {
-        "name": "Terms & Conditions",
-        "link": "",
-        "slug": "terms-&-conditions",
-        "icon": ""
-      },
-      {
-        "name": "Financial Reports",
-        "link": "",
-        "slug": "financial-reports",
-        "icon": ""
-      }
-    ],
-    "other": [
-      {
-        "name": "Contact us",
-        "link": "",
-        "slug": "contact-us",
-        "icon": ""
-      },
-      {
-        "name": "Safefuarding",
-        "link": "",
-        "slug": "safeguarding",
-        "icon": ""
-      },
-      {
-        "name": "Equity Commitments",
-        "link": "",
-        "slug": "equity-commitments",
-        "icon": ""
-      },
-      {
-        "name": "Gift Aid",
-        "link": "",
-        "slug": "gift-aid",
-        "icon": ""
-      },
-      {
-        "name": "Impact Reports",
-        "link": "",
-        "slug": "impact-reports",
-        "icon": ""
-      },
-      {
-        "name": "Equity Reports",
-        "link": "",
-        "slug": "equity-reports",
-        "icon": ""
-      },
-      {
-        "name": "Trustee website",
-        "link": "https://unltd-trustees.co.uk/index.php/about-us",
-        "slug": "",
-        "icon": ""
+        "name": "Reports",
+        "items": [
+          {
+            "name": "Financial Reports",
+            "link": "",
+            "slug": "financial-reports",
+            "icon": ""
+          },
+          {
+            "name": "Impact Reports",
+            "link": "",
+            "slug": "impact-reports",
+            "icon": ""
+          },
+          {
+            "name": "Equity Reports",
+            "link": "",
+            "slug": "equity-reports",
+            "icon": ""
+          }
+        ]
       }
     ]
   }

@@ -11,25 +11,25 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/alpinejs": "^0.2.2",
-    "@astrojs/mdx": "^0.19.7",
-    "@astrojs/svelte": "^3.0.0",
-    "@astrojs/tailwind": "^4.0.0",
-    "@directus/sdk": "^10.3.3",
-    "@fontsource-variable/lexend": "^5.0.3",
-    "@types/alpinejs": "^3.7.2",
-    "alpinejs": "^3.12.2",
-    "astro": "^2.7.0",
-    "marked": "^5.1.0",
-    "marked-gfm-heading-id": "^3.0.4",
-    "marked-mangle": "^1.0.1",
+    "@astrojs/alpinejs": "^0.3.1",
+    "@astrojs/mdx": "^1.1.3",
+    "@astrojs/svelte": "^4.0.3",
+    "@astrojs/tailwind": "^5.0.2",
+    "@directus/sdk": "^13.0.0",
+    "@fontsource-variable/lexend": "^5.0.17",
+    "@types/alpinejs": "^3.13.3",
+    "alpinejs": "^3.13.2",
+    "astro": "^3.3.4",
+    "marked": "^9.1.2",
+    "marked-gfm-heading-id": "^3.1.0",
     "moment": "^2.29.4",
     "slugify": "^1.6.6",
-    "tailwindcss": "^3.3.2"
+    "tailwindcss": "^3.3.4",
+    "truncate": "^3.0.0"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.3",
-    "@tailwindcss/typography": "^0.5.9",
-    "prettier-plugin-astro": "^0.10.0"
+    "@tailwindcss/forms": "^0.5.6",
+    "@tailwindcss/typography": "^0.5.10",
+    "prettier-plugin-astro": "^0.12.0"
   }
 }

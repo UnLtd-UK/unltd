@@ -1,6 +1,25 @@
 ---
-const { name, description, positions } = Astro.props;
+const { name, description, positions, slug } = Astro.props;
 ---
+
+<script is:inline>
+function playsound(name) {
+  const slugify = (text) =>
+    text
+      .toString()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^\w-]+/g, "")
+      .replace(/--+/g, "-");
+
+  let slug = slugify(name);
+  var audio = document.getElementById(`audio-${slug}`);
+  audio.play();
+}
+</script>
 
 <div class="py-5 sm:py-10">
   <div
@@ -34,14 +53,37 @@ const { name, description, positions } = Astro.props;
                   }
                   alt=""
                 />
-                <div>
+                <div class="flex flex-col gap-1">
                   <div class="flex gap-2 items-center">
-                    <h3 class="text-base font-semibold leading-7 tracking-tight text-slate-600">
+                    <h3 class="text-base font-semibold leading-7 tracking-tight text-slate-600 items-center">
                       {position.person.name}
                     </h3>
-                    <span class="text-xs text-slate-600">
-                      {position.person.pronouns}
-                    </span>
+                    <!-- <button onclick={`playsound("${position.person.name}")`}>
+                      <i class="fa-solid fa-volume-high text-slate-500 text-xs" />
+                    </button> -->
+                    <audio
+                      id={`audio-${position.person.name
+                        .toString()
+                        .normalize("NFD")
+                        .replace(/[\u0300-\u036f]/g, "")
+                        .toLowerCase()
+                        .trim()
+                        .replace(/\s+/g, "-")
+                        .replace(/[^\w-]+/g, "")
+                        .replace(/--+/g, "-")}`}
+                      src="/name.m4a"
+                    />
+                  </div>
+                  <div class="flex items-center gap-1">
+                    { position.person.gender_pronouns && position.person.gender_pronouns.length > 0 &&
+                    <div class="flex gap-1">
+                      { position.person.gender_pronouns?.map((item) => (
+                        <span class="text-xs text-slate-600">
+                          {item}
+                        </span>
+                      )) } 
+                    </div>  }
+                    <div>
                     {position.person.lgbtqia_plus && (
                       <div>
                         <span
@@ -49,15 +91,17 @@ const { name, description, positions } = Astro.props;
                           class="text-xl"
                           aria-label="rainbow flag"
                         >
-                          🏳️‍🌈
+                          &#x1F3F3;&#xFE0F;&#x200D;&#x1F308;
                         </span>
                         <span class="sr-only">
                           Member of the LGBTQ+ community
                         </span>
                       </div>
                     )}
+                    </div>
                   </div>
-                  <p class="text-sm leading-6 text-slate-500">
+                  <div>
+                    <p class="text-sm leading-2 text-slate-500">
                     {position.role.name}
                   </p>
                   {position.person.linkedin && (
@@ -70,6 +114,7 @@ const { name, description, positions } = Astro.props;
                       <i class="text-sm fa-brands fa-linkedin" />
                     </a>
                   )}
+                    </div>
                 </div>
               </div>
             </li>
