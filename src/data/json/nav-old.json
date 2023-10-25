@@ -104,13 +104,6 @@
             "children": []
           },
           {
-            "name": "Impact Reports",
-            "link": "",
-            "slug": "about-us/financial-reports",
-            "icon": "",
-            "children": []
-          },
-          {
             "name": "Finanacial Reports",
             "link": "",
             "slug": "about-us/financial-reports",
@@ -172,7 +165,7 @@
         "link": "https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC032445"
       }
     ],
-    "legal": [
+    "other": [
       {
         "name": "Privacy Policy",
         "link": "",
@@ -192,19 +185,11 @@
         "icon": ""
       },
       {
-        "name": "Photography & Filming Policy",
-        "link": "",
-        "slug": "photography-&-filming-policy",
-        "icon": ""
-      },
-      {
         "name": "Terms & Conditions",
         "link": "",
         "slug": "terms-&-conditions",
         "icon": ""
-      }
-    ],
-    "other": [
+      },
       {
         "name": "Contact us",
         "link": "",
@@ -212,16 +197,16 @@
         "icon": ""
       },
       {
-        "name": "Press office",
-        "link": "",
-        "slug": "press-office",
-        "icon": ""
-      },
-      {
         "name": "Careers",
         "link": "https://www.jobtrain.co.uk/unltd-careers",
         "slug": "",
         "icon": "new-tab"
+      },
+      {
+        "name": "Photography & Filming Policy",
+        "link": "",
+        "slug": "photography-&-filming-policy",
+        "icon": ""
       }
     ]
   }

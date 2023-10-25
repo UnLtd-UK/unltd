@@ -4,6 +4,10 @@ import Template from "../../../layouts/Template.astro";
 import Hero from "../../../components/Hero.astro";
 import Container from "../../../components/Container.astro";
 import Breadcrumbs from "../../../components/Breadcrumbs.astro";
+
+import { marked } from "marked";
+marked.use({ mangle: false, headerIds: false });
+
 import moment from "moment";
 
 export async function getStaticPaths() {
@@ -88,17 +92,21 @@ const { fundraiser } = Astro.props;
         <div
           class="flex flex-col lg:flex-row items-start lg:items-center lg:justify-between gap-2"
         >
-          {
-            !todayDate.isAfter(fundraiser.finish) ? (
-              <span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+          { () => {
+            if(!todayDate.isAfter(fundraiser.start) && !todayDate.isAfter(fundraiser.finish)) {
+              return(<span class="inline-flex items-center rounded-full bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">
+                Coming soon
+              </span>)
+            } else if(!todayDate.isAfter(fundraiser.finish)) {
+              return(<span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/10">
                 Active
-              </span>
-            ) : (
-              <span class="inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
+              </span>)
+            } else {
+              return(<span class="inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
                 Completed
-              </span>
-            )
-          }
+              </span>)
+            }
+          }}
           <div>
             <p class="text-xs text-slate-400">
               {
@@ -113,37 +121,44 @@ const { fundraiser } = Astro.props;
           </div>
         </div>
 
-        <div
-          class="flex justify-between bg-slate-100 rounded-xl items-center border border-slate-200"
-        >
-          <div class="flex flex-col pl-5 p-2">
-            <span class="text-xs text-slate-500">Goal</span>
-            <span class="text-lg">
-              {
-                new Intl.NumberFormat("en-GB", {
-                  maximumSignificantDigits: 3,
-                  style: "currency",
-                  currency: "GBP",
-                }).format(fundraiser.amount)
-              }
-            </span>
-          </div>
+        <div>
           {
-            !todayDate.isAfter(fundraiser.finish) && (
-              <a
-                href={fundraiser.link}
-                target="_blank"
-                class="p-5 rounded-r-xl bg-amber-600 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
-              >
-                Donate now
-              </a>
+            todayDate.isAfter(fundraiser.finish) ? (
+              <div class="flex flex-col">
+                <span class="text-sm text-slate-500">Raised</span>
+                <span class="text-4xl text-slate-700">
+                  {new Intl.NumberFormat("en-GB", {
+                    maximumSignificantDigits: 6,
+                    style: "currency",
+                    currency: "GBP",
+                  }).format(fundraiser.raised)}
+                </span>
+              </div>
+            ) : (
+              <div class="flex justify-between bg-slate-100 rounded-xl items-center border border-slate-200">
+                <div class="flex flex-col pl-5 p-2">
+                  <span class="text-sm text-slate-500">Goal</span>
+                  <span class="text-4xl text-slate-700">
+                    {new Intl.NumberFormat("en-GB", {
+                      maximumSignificantDigits: 6,
+                      style: "currency",
+                      currency: "GBP",
+                    }).format(fundraiser.amount)}
+                  </span>
+                </div>
+                <a
+                  href={`https://${fundraiser.link}`}
+                  target="_blank"
+                  class="p-7 flex gap-2 items-center rounded-r-xl bg-amber-600 text-sm font-semibold text-white shadow-sm 0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+                >
+                  <span>Donate now</span><i class="fa-solid fa-arrow-right"></i>
+                </a>
+              </div>
             )
           }
         </div>
 
-        <div>
-          <p class="text-lg text-slate-800">{fundraiser.description}</p>
-        </div>
+        <div class="text-slate-600" set:html={marked.parse(`${fundraiser.description}`)}/>
 
         <div class="flex flex-col gap-3">
           <p class="text-xl">Raising funds for</p>
@@ -153,22 +168,25 @@ const { fundraiser } = Astro.props;
                 {fundraiser.funds.map((fund) => (
                   <div class="relative flex items-center space-x-3 rounded-lg border border-slate-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-amber-500 focus-within:ring-offset-2 hover:border-slate-400">
                     <div class="flex-shrink-0">
-                      <img
+                      <!-- <img
                         class="h-10 w-10 rounded-md drop-shadow-md"
                         src={`https://unltd.directus.app/assets/${fund.funds_id.logo}`}
                         alt=""
-                      />
+                      /> -->
                     </div>
                     <div class="min-w-0 flex-1">
-                      <a
+                     <!-- <a
                         href={`/funds/${fund.funds_id.slug}`}
                         class="focus:outline-none"
-                      >
+                      > -->
                         <span class="absolute inset-0" aria-hidden="true" />
                         <p class="text-sm font-medium text-slate-900">
                           {fund.funds_id.name}
                         </p>
-                      </a>
+                                                <p class="text-xs text-slate-900">
+                          {fund.funds_id.description}
+                        </p>
+                      <!-- </a> -->
                     </div>
                   </div>
                 ))}
@@ -183,7 +201,13 @@ const { fundraiser } = Astro.props;
         </div>
 
         <div class="flex flex-col">
-          <span class="text-slate-500 text-xs"> Started</span>
+          {
+            todayDate.isAfter(fundraiser.start) ? (
+              <span class="text-slate-500 text-xs">Started</span>
+            ) : (
+              <span class="text-slate-500 text-xs">Starting</span>
+            )
+          }
           <span class="text-sm"
             >{
               moment(fundraiser.start).format("dddd hh:mma, MMMM Do YYYY")
@@ -194,13 +218,28 @@ const { fundraiser } = Astro.props;
         {
           fundraiser.website && (
             <div class="flex flex-col">
-              <span class="text-slate-500 text-xs"> Website</span>
+              <span class="text-slate-500 text-xs">Fundraiser website</span>
               <a
                 href={`https://${fundraiser.website}`}
                 target="_blank"
                 class="text-sm text-amber-800 hover:underline"
               >
                 {fundraiser.website}
+              </a>
+            </div>
+          )
+        }
+
+                {
+          fundraiser.link && (
+            <div class="flex flex-col">
+              <span class="text-slate-500 text-xs">Donations website</span>
+              <a
+                href={`https://${fundraiser.link}`}
+                target="_blank"
+                class="text-sm text-amber-800 hover:underline"
+              >
+                {fundraiser.link}
               </a>
             </div>
           )
@@ -235,7 +274,7 @@ const { fundraiser } = Astro.props;
         <div class="flex flex-col gap-3">
           <p class="text-xl">Sponsors</p>
           {
-            fundraiser.funds.length > 0 ? (
+            fundraiser.sponsors.length > 0 ? (
               <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {fundraiser.sponsors.map((supporter) => (
                   <div class="relative flex items-center space-x-3 rounded-lg border-slate-300 bg-white px-4 py-4">
@@ -256,9 +295,9 @@ const { fundraiser } = Astro.props;
                 ))}
               </div>
             ) : (
-              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-slate-600 bg-slate-100 rounded-md">
-                <i class="fa-regular fa-hourglass text-lg" />
-                <p>No Sponsors</p>
+              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-slate-400 bg-slate-50 rounded-md">
+                <i class="fa-solid fa-buildings text-lg" />
+                <p class="text-slate-500">No Sponsors</p>
               </div>
             )
           }
@@ -267,7 +306,7 @@ const { fundraiser } = Astro.props;
         <div class="flex flex-col gap-3">
           <p class="text-xl">Supporters</p>
           {
-            fundraiser.funds.length > 0 ? (
+            fundraiser.supporters.length > 0 ? (
               <div class="grid grid-cols-1 sm:grid-cols-2">
                 {fundraiser.supporters.map((supporter) => (
                   <div class="relative flex items-center space-x-3 rounded-lg border-slate-300 bg-white px-4 py-4">
@@ -288,9 +327,9 @@ const { fundraiser } = Astro.props;
                 ))}
               </div>
             ) : (
-              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-slate-600 bg-slate-100 rounded-md">
-                <i class="fa-regular fa-hourglass text-lg" />
-                <p>No Supporters</p>
+              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-slate-400 bg-slate-50 rounded-md">
+                <i class="fa-solid fa-buildings text-lg" />
+                <p class="text-slate-500">No Supporters</p>
               </div>
             )
           }
