@@ -3,44 +3,61 @@ let response = await fetch("https://unltd.directus.app/items/programmes/?fields=
 });
 
 let json = await response.json();
-let programmes = json.data;
+let oldProgrammes = json.data;
+
+import { JSDOM } from 'jsdom';
+
+// let newProgrammes;  // Declare 'programmes' at the top level
 
 async function fetchMetadata(url) {
+    if (!url || typeof url !== 'string') {
+        console.error('Invalid URL:', url);
+        return null;
+    }
+
     try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
         const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.text();
 
-        const parser = new DOMParser();
-        const dom = parser.parseFromString(data, 'text/html');
+        const dom = new JSDOM(data);
+        const doc = dom.window.document;
 
-        const title = dom.querySelector('meta[property="og:title"]')?.content || '';
-        const image = dom.querySelector('meta[property="og:image"]')?.content || '';
-        const author = dom.querySelector('#author').textContent;
+        const title = doc.querySelector('meta[property="og:title"]')?.content || 'Default Title';
+        const image = doc.querySelector('meta[property="og:image"]')?.content || 'Default Image';
+        const author = doc.querySelector('#author')?.textContent || 'Default Author';
+        const date = doc.querySelector('#date').getAttribute('value') || 'Default Author';
         const link = url;
 
-        return { title, image, author, link };
+        return { title, image, author, link, date };
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error fetching metadata:', error);
+        return null;
     }
 }
 
-async function updateProgrammes(programmes) {
-    return Promise.all(programmes.map(async (programme) => {
-        const metadata = await fetchMetadata(programme.post);
-        return { ...programme, post: metadata };
+async function updateProgrammes(oldProgrammes) {
+    return Promise.all(oldProgrammes.map(async (oldProgramme) => {
+        console.log('Fetching metadata for:', oldProgramme.post);
+        const metadata = await fetchMetadata(oldProgramme.post);
+        console.log('Metadata received:', metadata);
+
+        if (metadata) {
+            return { ...oldProgramme, post: metadata };
+        }
+        return oldProgramme;
     }));
 }
 
-// Usage
-async function main() {
-    try {
-        const updatedProgrammes = await updateProgrammes(programmes);
-        console.log("UPDATED", updatedProgrammes);
-    } catch (error) {
-        console.error('Error updating programmes:', error);
-    }
-}
+let programmes;
 
-main();
+try {
+    programmes = await updateProgrammes(oldProgrammes);
+} catch (error) {
+    console.error('Error updating programmes:', error);
+}
 
 export { programmes }
