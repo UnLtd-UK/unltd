@@ -284,45 +284,6 @@ const { programme } = Astro.props;
             </div>
             <div class="flex flex-col basis-1/4 gap-10">
               <div class="flex flex-col gap-10">
-                <!-- Help -->
-                <div class="flex flex-col gap-3">
-                  <h3 class="font-bold text-slate-500">Help</h3>
-                  <div class="flex flex-col gap-3">
-                    <p class="text-sm text-slate-500 leading-relaxed">
-                      For social entrepreneurs with questions about grants and
-                      support
-                    </p>
-                  </div>
-                  <div class="flex flex-row gap-5">
-                    <a
-                      class="text-xs text-amber-700 hover:underline hover:text-amber-800"
-                      href="/grants-&-support/faq">Frequently Asked Questions</a
-                    >
-                    <a
-                      class="text-xs text-amber-700 hover:underline hover:text-amber-800"
-                      href="/contact-us">Contact us</a
-                    >
-                  </div>
-                </div>
-
-                <!-- Inclusion -->
-                <div class="flex flex-col gap-3">
-                  <h3 class="font-bold text-slate-500">Inclusion</h3>
-                  <div class="flex flex-col gap-3">
-                    <p class="text-sm text-slate-500 leading-relaxed">
-                      At least 50% of grants will go to Black, Asian,
-                      marginalised ethnic groups or disabled backgrounds
-                    </p>
-                  </div>
-                  <div class="flex flex-col gap-5">
-                    <a
-                      class="text-xs text-amber-700 hover:underline hover:text-amber-800"
-                      href="/equity-commitments"
-                      >Learn more about equity commitments</a
-                    >
-                  </div>
-                </div>
-
                 <!-- Article -->
                 <div class="flex flex-col gap-3">
                   <h3 class="font-bold text-slate-500">Related posts</h3>
@@ -346,9 +307,9 @@ const { programme } = Astro.props;
                     <div
                       class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300"
                     >
-                      <time datetime="2020-03-16" class="mr-8"
-                        >Mar 16, 2020</time
-                      >
+                      <!-- <time datetime="2020-03-16" class="mr-8"
+                        >{programme.post.date}</time
+                      > -->
                       <div class="-ml-4 flex items-center gap-x-4">
                         <svg
                           viewBox="0 0 2 2"
@@ -405,6 +366,45 @@ const { programme } = Astro.props;
                           </a>
                         ))
                     }
+                  </div>
+                </div>
+
+                <!-- Help -->
+                <div class="flex flex-col gap-3">
+                  <h3 class="font-bold text-slate-500">Help</h3>
+                  <div class="flex flex-col gap-3">
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                      For social entrepreneurs with questions about grants and
+                      support
+                    </p>
+                  </div>
+                  <div class="flex flex-row gap-5">
+                    <a
+                      class="text-xs text-amber-700 hover:underline hover:text-amber-800"
+                      href="/grants-&-support/faq">Frequently Asked Questions</a
+                    >
+                    <a
+                      class="text-xs text-amber-700 hover:underline hover:text-amber-800"
+                      href="/contact-us">Contact us</a
+                    >
+                  </div>
+                </div>
+
+                <!-- Inclusion -->
+                <div class="flex flex-col gap-3">
+                  <h3 class="font-bold text-slate-500">Inclusion</h3>
+                  <div class="flex flex-col gap-3">
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                      At least 50% of grants will go to Black, Asian,
+                      marginalised ethnic groups or disabled backgrounds
+                    </p>
+                  </div>
+                  <div class="flex flex-col gap-5">
+                    <a
+                      class="text-xs text-amber-700 hover:underline hover:text-amber-800"
+                      href="/equity-commitments"
+                      >Learn more about equity commitments</a
+                    >
                   </div>
                 </div>
               </div>
