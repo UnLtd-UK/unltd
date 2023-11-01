@@ -1,4 +1,4 @@
-let response = await fetch("https://unltd.directus.app/items/programmes/?fields=*.*.*", {
+let response = await fetch("https://unltd.directus.app/items/programmes/?fields=*.*.*.*", {
     method: "GET"
 });
 
