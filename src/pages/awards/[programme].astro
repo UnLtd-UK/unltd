@@ -202,7 +202,7 @@ const { programme } = Astro.props;
           >
             <blockquote class="">
               <div class="mx-auto text-xl font-medium leading-9 text-slate-900">
-                <span class="text-slate-300">{programme.quote}</span>
+                <span class="text-slate-300">"{programme.quote}"</span>
                 <footer class="mt-8">
                   <div class="md:flex gap-4">
                     <!-- <img
@@ -446,17 +446,16 @@ const { programme } = Astro.props;
                 <h3 class="font-bold text-slate-500">Help</h3>
                 <div class="flex flex-col gap-3">
                   <p class="text-sm text-slate-500 leading-relaxed">
-                    For social entrepreneurs with questions about Awards
+                    For social entrepreneurs with questions about Award s or {
+                      programme.name
+                    }
                   </p>
                 </div>
                 <div class="flex flex-row gap-5">
                   <a
                     class="text-xs text-amber-700 hover:underline hover:text-amber-800"
-                    href="/awards/faq">Frequently Asked Questions</a
-                  >
-                  <a
-                    class="text-xs text-amber-700 hover:underline hover:text-amber-800"
-                    href="/contact-us">Contact us</a
+                    href="mailto:AwardApplications@UnLtd.org.uk"
+                    >AwardApplications@UnLtd.org.uk</a
                   >
                 </div>
               </div>
