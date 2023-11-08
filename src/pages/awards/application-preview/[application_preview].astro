@@ -12,12 +12,12 @@ Astro.props;
 export function getStaticPaths() {
   const breadcrumbs = [
     {
-      name: "Grants & Support",
-      slug: "/grants-&-support",
+      name: "Awards",
+      slug: "/awards",
     },
     {
       name: "Application preview",
-      slug: `/grants-&-support/application-preview`,
+      slug: `/awards/application-preview`,
     },
   ];
   const pages = [];
@@ -28,7 +28,7 @@ export function getStaticPaths() {
 
     copyBreadcrumb.push({
       name: app.name,
-      slug: `/grants-&-support/application-preview/${app.slug}`,
+      slug: `/awards/application-preview/${app.slug}`,
     });
 
     pages.push({
