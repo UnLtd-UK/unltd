@@ -8,10 +8,12 @@ import { programmes } from "../../data/directus/programmes.js";
 import truncate from "truncate";
 import moment from "moment";
 import { marked } from "marked";
+import slugify from "slugify";
 
 let todayDate = moment();
 
 export async function getStaticPaths() {
+
   return programmes.map((programme) => {
     let breadcrumbs = [
       {
@@ -20,22 +22,32 @@ export async function getStaticPaths() {
       },
       {
         name: programme.name,
-        slug: `/awards/${programme.slug}`,
+        slug: `/awards/${slugify(programme.name, {
+          lower: true,
+          strict: true,
+          locale: "en",
+          trim: true,
+        })}`,
       },
     ];
 
     programme.breadcrumbs = breadcrumbs;
 
-    let oogle = {
+    let item = {
       params: {
-        programme: programme.slug,
+        programme: slugify(programme.name, {
+          lower: true,
+          strict: true,
+          locale: "en",
+          trim: true,
+        }),
       },
       props: {
         programme: programme,
       },
     };
 
-    return oogle;
+    return item;
   });
 }
 

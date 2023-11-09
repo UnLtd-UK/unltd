@@ -1,0 +1,60 @@
+---
+import Template from "../layouts/Template.astro";
+import Container from "../components/Container.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Hero from "../components/Hero.astro";
+import { marked } from "marked";
+import slugify from "slugify";
+
+import Faqtemplate from "../components/Faqtemplate.astro";
+import Faq from "../components/Faq.astro";
+
+import { pages } from "../data/directus/pages.js";
+
+export async function getStaticPaths() {
+  return pages.map((page) => {
+    let breadcrumbs = [
+      {
+        name: page.name,
+        slug: `/${slugify(page.name, {
+          lower: true,
+          strict: true,
+          locale: "en",
+          trim: true,
+        })}`,
+      },
+    ];
+
+    page.breadcrumbs = breadcrumbs;
+
+    let item = {
+      params: {
+        page: slugify(page.name, {
+          lower: true,
+          strict: true,
+          locale: "en",
+          trim: true,
+        }),
+      },
+      props: {
+        page: page,
+      },
+    };
+
+    return item;
+  });
+}
+
+const { page } = Astro.props;
+---
+
+<Template name={page.name} description={page.description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={page.breadcrumbs} />
+    <Hero name={page.name} description={page.description} />
+    <div
+      set:html={marked.parse(page.body)}
+      class="prose prose-lg prose-img:rounded-md prose-img:shadow-md prose-img:w-full prose-a:text-blue-500 prose-a:hover:text-blue-600"
+    />
+  </Container>
+</Template>
