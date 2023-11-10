@@ -1,4 +1,4 @@
-let response = await fetch("https://unltd.directus.app/items/programmes/?fields=*.*.*.*", {
+let response = await fetch("https://unltd.directus.app/items/programmes/?fields=*.*.*.*.*", {
     method: "GET"
 });
 
@@ -41,9 +41,7 @@ async function fetchMetadata(url) {
 
 async function updateProgrammes(oldProgrammes) {
     return Promise.all(oldProgrammes.map(async (oldProgramme) => {
-        console.log('Fetching metadata for:', oldProgramme.post);
         const metadata = await fetchMetadata(oldProgramme.post);
-        console.log('Metadata received:', metadata);
 
         if (metadata) {
             return { ...oldProgramme, post: metadata };
