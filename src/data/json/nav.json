@@ -12,35 +12,35 @@
           {
             "name": "Choosing the right legal structure",
             "link": "",
-            "slug": "choosing-the-right-legal-structure",
+            "slug": "learn/choosing-the-right-legal-structure",
             "icon": "fa-solid fa-1",
             "description": "..."
           },
           {
             "name": "Defining social impact indicators, setting targets and refining your social model",
             "link": "",
-            "slug": "defining-social-impact-indictators-setting-targets-and-refining-your-social model",
+            "slug": "learn/defining-social-impact-indictators-setting-targets-and-refining-your-social model",
             "icon": "fa-solid fa-2",
             "description": "..."
           },
           {
             "name": "Stakeholder engagement and building networks",
             "link": "",
-            "slug": "stakeholder-engagement-and-building-networks",
+            "slug": "learn/stakeholder-engagement-and-building-networks",
             "icon": "fa-solid fa-3",
             "description": "..."
           },
           {
             "name": "Securing start up funding",
             "link": "",
-            "slug": "securing-start-up-funding",
+            "slug": "learn/securing-start-up-funding",
             "icon": "fa-solid fa-4",
             "description": "..."
           },
           {
             "name": "Other funding and support available for social entrepreneurs",
             "link": "",
-            "slug": "other-funding-and-support-available-for-social-entrepreneurs",
+            "slug": "learn/other-funding-and-support-available-for-social-entrepreneurs",
             "icon": "fa-solid fa-link",
             "description": ""
           }
@@ -69,7 +69,7 @@
           {
             "name": "Get help",
             "link": "",
-            "slug": "grants-&-support"
+            "slug": "awards"
           }
         ]
       },
@@ -250,13 +250,13 @@
           {
             "name": "Photography & Filming Policy",
             "link": "",
-            "slug": "photography-&-filming-policy",
+            "slug": "photography-and-filming-policy",
             "icon": ""
           },
           {
             "name": "Terms & Conditions",
             "link": "",
-            "slug": "terms-&-conditions",
+            "slug": "terms-and-conditions",
             "icon": ""
           }
         ]

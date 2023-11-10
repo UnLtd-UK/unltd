@@ -5,25 +5,25 @@ import Container from "../../components/Container.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 // DATA
-import { funds } from "../../data/directus/programmes.js";
-import { grants } from "../../data/directus/grants.js";
-import { rounds } from "../../data/directus/rounds.js";
+import { programmes } from "../../data/directus/programmes.js";
+// import { grants } from "../../data/directus/grants.js";
+// import { rounds } from "../../data/directus/rounds.js";
 
 import moment from "moment";
 let todayDate = moment();
 
 const name = "Awards";
 const description =
-  "Grant and Support for entrepreneurs who have an idea or already have a business making a positive difference in the UK";
+  "We offer packages of funding and support to social entrepreneurs who have an idea, or are the founder of a social venture which is making a positive difference in the UK";
 
 const breadcrumbs = [
   {
     name: name,
-    slug: "grants-&-support",
+    slug: "awards",
   },
 ];
 
-grants.map((grant) => {
+programmes.map((programme) => {
   const slugify = (text) =>
     text
       .toString()
@@ -35,7 +35,7 @@ grants.map((grant) => {
       .replace(/[^\w-]+/g, "")
       .replace(/--+/g, "-");
 
-  grant.slug = slugify(grant.name);
+  programme.slug = slugify(programme.name);
 });
 
 // let activeGrants = rounds.filter((round) => {
@@ -406,13 +406,13 @@ grants.map((grant) => {
     </div> -->
 
     <!-- <a href="/funds" class="text-amber-700 underline">Funds</a>
-      <a href="/grants-&-support/faq" class="text-amber-700 underline">FAQ</a>
+      <a href="/awards/faq" class="text-amber-700 underline">FAQ</a>
       <a
-        href="/grants-&-support/application-preview"
+        href="/awards/application-preview"
         class="text-amber-700 underline">Application preview</a
       >
             <a
-        href="/grants-&-support/contact-us"
+        href="/awards/contact-us"
         class="text-amber-700 underline">Contact us</a
       > -->
     <!-- <Hero2
