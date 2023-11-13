@@ -162,34 +162,34 @@
   "footer": {
     "socials": [
       {
-        "name": "Twitter",
+        "name": "X",
         "link": "https://twitter.com/UnLtd",
         "slug": "",
-        "icon": "twitter"
+        "icon": "fa-brands fa-x-twitter"
       },
       {
         "name": "Instagram",
         "link": "https://www.instagram.com/unltduk",
         "slug": "",
-        "icon": "instagram"
+        "icon": "fa-brands fa-instagram"
       },
       {
         "name": "Facebook",
         "link": "https://www.facebook.com/UnLtd",
         "slug": "",
-        "icon": "facebook"
+        "icon": "fa-brands fa-facebook"
       },
       {
         "name": "YouTube",
         "link": "https://www.youtube.com/user/UnLtdVideos",
         "slug": "",
-        "icon": "youtube"
+        "icon": "fa-brands fa-youtube"
       },
       {
         "name": "LinkedIn",
         "link": "https://www.linkedin.com/company/unltd",
         "slug": "",
-        "icon": "linkedin"
+        "icon": "fa-brands fa-linkedin"
       }
     ],
     "address": {
