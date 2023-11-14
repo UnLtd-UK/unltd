@@ -47,8 +47,8 @@
         ]
       },
       {
-        "name": "our funding",
-        "slug": "our-funding",
+        "name": "Get funding",
+        "slug": "get-funding",
         "children": [
           {
             "name": "Awards",
@@ -74,8 +74,8 @@
         ]
       },
       {
-        "name": "Join us",
-        "slug": "join-us",
+        "name": "Get involved",
+        "slug": "get-involved",
         "children": [
           {
             "name": "Fundraisers",
