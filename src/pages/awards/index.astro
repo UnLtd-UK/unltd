@@ -57,232 +57,1051 @@ programmes.map((programme) => {
 ---
 
 <Template name={name} description={description}>
-  <Container>
-    <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <div class="bg-white py-24 sm:py-32">
-      <div class="mx-auto max-w-7xl">
-        <div class="mx-auto max-w-2xl lg:mx-0">
-          <h2
-            class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
+  <div class="bg-white">
+    <main>
+      <!-- Grants section -->
+      <div class="mx-auto mt-16 max-w-7xl px-6 sm:mt-32 lg:px-8">
+        <div class="mx-auto max-w-4xl text-center">
+          <h1 class="text-base font-semibold leading-7 text-indigo-600">
+            Pricing
+          </h1>
+          <p
+            class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
           >
-            {name}
+            Funding
+          </p>
+        </div>
+        <p
+          class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600"
+        >
+          We combine funding and support to help you to get started or grow.
+          Depending on your stage of development we can offer up to £18,000. We
+          recommend you check the eligibility criteria closely to ensure you are
+          eligible as our awards are competitive.
+        </p>
+
+        <div
+          class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-2"
+        >
+          <div class="rounded-3xl p-8 ring-1 ring-gray-200">
+            <h2
+              id="tier-hobby"
+              class="text-lg font-semibold leading-8 text-gray-900"
+            >
+              Starting up
+            </h2>
+            <p class="mt-4 text-sm leading-6 text-gray-600">
+              You have an idea or have started to make a difference to people's
+              lives, your community, or have ambitions to create change at a
+              national level.
+            </p>
+            <p class="mt-6 flex items-baseline gap-x-1">
+              <!-- Price, update based on frequency toggle state -->
+              <span class="text-4xl font-bold tracking-tight text-gray-900"
+                >£8,000</span
+              >
+              <!-- Payment frequency, update based on frequency toggle state -->
+              <span class="text-sm font-semibold leading-6 text-gray-600"
+                >/month</span
+              >
+            </p>
+            <a
+              href="#"
+              aria-describedby="tier-hobby"
+              class="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300"
+              >Buy plan</a
+            >
+            <ul
+              role="list"
+              class="mt-8 space-y-3 text-sm leading-6 text-gray-600"
+            >
+              <li class="flex gap-x-3">
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                 5 products
+              </li>
+              <li class="flex gap-x-3">
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                 Up to 1,000 subscribers
+              </li>
+              <li class="flex gap-x-3">
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                 Basic analytics
+              </li>
+            </ul>
+          </div>
+          <div class="rounded-3xl p-8 ring-1 ring-gray-200">
+            <h2
+              id="tier-freelancer"
+              class="text-lg font-semibold leading-8 text-gray-900"
+            >
+              Scaling up
+            </h2>
+            <p class="mt-4 text-sm leading-6 text-gray-600">
+              You are already running a social venture that is making a positive
+              difference and you have compelling evidence of your impact.
+            </p>
+            <p class="mt-6 flex items-baseline gap-x-1">
+              <!-- Price, update based on frequency toggle state -->
+              <span class="text-4xl font-bold tracking-tight text-gray-900"
+                >£18,000</span
+              >
+              <!-- Payment frequency, update based on frequency toggle state -->
+              <span class="text-sm font-semibold leading-6 text-gray-600"
+                >/month</span
+              >
+            </p>
+            <a
+              href="#"
+              aria-describedby="tier-freelancer"
+              class="mt-6 block rounded-md py-2 px-3 text-center text-sm font-semibold leading-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300"
+              >Buy plan</a
+            >
+            <ul
+              role="list"
+              class="mt-8 space-y-3 text-sm leading-6 text-gray-600"
+            >
+              <li class="flex gap-x-3">
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                 5 products
+              </li>
+              <li class="flex gap-x-3">
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                 Up to 1,000 subscribers
+              </li>
+              <li class="flex gap-x-3">
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                 Basic analytics
+              </li>
+              <li class="flex gap-x-3">
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                 48-hour support response time
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Support section -->
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:text-center">
+          <h2 class="text-base font-semibold leading-7 text-indigo-600">
+            One to one support
           </h2>
-          <p class="mt-6 text-lg leading-8 text-gray-600">{description}</p>
+          <p
+            class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+          >
+            Support
+          </p>
+          <p class="mt-6 text-lg leading-8 text-gray-600">
+            Someone to coach, mentor and support you to achieve your goals. We
+            have dedicated teams and specialist support available to help you to
+            grow your venture and increase your impact.
+          </p>
+        </div>
+        <div class="flex flex-col gap-20">
+          <!-- support services -->
+          <div
+            class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+          >
+            <div class="flex flex-col gap-2">
+              <h2
+                class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+              >
+                Services
+              </h2>
+              <p class="text-slate-500">Your bespoke support could include</p>
+            </div>
+            <dl
+              class="col-span-2 grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2"
+            >
+              <div>
+                <dt class="text-base font-semibold leading-7 text-gray-900">
+                  <div
+                    class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+                  >
+                    <svg
+                      class="h-6 w-6 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                      ></path>
+                    </svg>
+                  </div>
+                   Spam report
+                </dt>
+                <dd class="mt-1 text-base leading-7 text-gray-600">
+                  Autem reprehenderit aut debitis ut. Officiis harum omnis
+                  placeat blanditiis delectus sint vel et voluptatum. Labore
+                  asperiores non corporis molestiae.
+                </dd>
+              </div>
+              <div>
+                <dt class="text-base font-semibold leading-7 text-gray-900">
+                  <div
+                    class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+                  >
+                    <svg
+                      class="h-6 w-6 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                      ></path>
+                    </svg>
+                  </div>
+                   Compose in markdown
+                </dt>
+                <dd class="mt-1 text-base leading-7 text-gray-600">
+                  Illum et aut inventore. Ut et dignissimos quasi. Omnis saepe
+                  dolorum. Hic autem fugiat. Voluptatem officiis necessitatibus
+                  est.
+                </dd>
+              </div>
+              <div>
+                <dt class="text-base font-semibold leading-7 text-gray-900">
+                  <div
+                    class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+                  >
+                    <svg
+                      class="h-6 w-6 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
+                      ></path>
+                    </svg>
+                  </div>
+                   Email commenting
+                </dt>
+                <dd class="mt-1 text-base leading-7 text-gray-600">
+                  Commodi quam quo. In quasi mollitia optio voluptate et est
+                  reiciendis. Ut et sunt id officiis vitae perspiciatis. Et
+                  accusantium sapiente.
+                </dd>
+              </div>
+              <div>
+                <dt class="text-base font-semibold leading-7 text-gray-900">
+                  <div
+                    class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+                  >
+                    <svg
+                      class="h-6 w-6 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                      ></path>
+                    </svg>
+                  </div>
+                   Customer connections
+                </dt>
+                <dd class="mt-1 text-base leading-7 text-gray-600">
+                  Deserunt corrupti praesentium quo vel cupiditate est occaecati
+                  ad. Aperiam libero modi similique iure praesentium facilis quo
+                  cumque quibusdam.
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- support impact areas -->
+          <div
+            class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+          >
+            <div class="flex flex-col gap-2">
+              <h2
+                class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+              >
+                Impact areas
+              </h2>
+              <p class="text-slate-500">
+                UnLtd supports social entrepreneurs who are tackling a range of
+                social or environmental issues. If your application fits either
+                of these areas, a dedicated team will handle your application
+                and support.
+              </p>
+            </div>
+
+            <dl
+              class="col-span-2 grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2"
+            >
+              <div>
+                <dt class="text-base font-semibold leading-7 text-gray-900">
+                  <div
+                    class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+                  >
+                    <svg
+                      class="h-6 w-6 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                      ></path>
+                    </svg>
+                  </div>
+                   Acces to Employment
+                </dt>
+                <dd class="mt-1 text-base leading-7 text-gray-600">
+                  Autem reprehenderit aut debitis ut. Officiis harum omnis
+                  placeat blanditiis delectus sint vel et voluptatum. Labore
+                  asperiores non corporis molestiae.
+                </dd>
+              </div>
+              <div>
+                <dt class="text-base font-semibold leading-7 text-gray-900">
+                  <div
+                    class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+                  >
+                    <svg
+                      class="h-6 w-6 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                      ></path>
+                    </svg>
+                  </div>
+                   Healthy Ageing
+                </dt>
+                <dd class="mt-1 text-base leading-7 text-gray-600">
+                  Illum et aut inventore. Ut et dignissimos quasi. Omnis saepe
+                  dolorum. Hic autem fugiat. Voluptatem officiis necessitatibus
+                  est.
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <!-- support programmes -->
+          <div
+            class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+          >
+            <div class="flex flex-col gap-2">
+              <h2
+                class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+              >
+                Programmes
+              </h2>
+              <p class="text-slate-500">
+                We are proud to be working alongside our partners to offer
+                additional opportunities to social entrepreneurs.
+              </p>
+            </div>
+
+            <div class="overflow-hidden rounded-xl border border-gray-200">
+              <div
+                class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6"
+              >
+                <img
+                  src="https://tailwindui.com/img/logos/48x48/savvycal.svg"
+                  alt="SavvyCal"
+                  class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10"
+                />
+                <div class="text-sm font-medium leading-6 text-gray-900">
+                  Movement for Change
+                </div>
+              </div>
+              <dl
+                class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6"
+              >
+                <div class="flex justify-between gap-x-4 py-3">
+                  <dt class="text-gray-500">Last invoice</dt>
+                  <dd class="text-gray-700">
+                    <time datetime="2023-01-22">January 22, 2023</time>
+                  </dd>
+                </div>
+                <div class="flex justify-between gap-x-4 py-3">
+                  <dt class="text-gray-500">Amount</dt>
+                  <dd class="flex items-start gap-x-2">
+                    <div class="font-medium text-gray-900">$14,000.00</div>
+                    <div
+                      class="rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset text-green-700 bg-green-50 ring-green-600/20"
+                    >
+                      Paid
+                    </div>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <div class="overflow-hidden rounded-xl border border-gray-200">
+              <div
+                class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6"
+              >
+                <img
+                  src="https://tailwindui.com/img/logos/48x48/reform.svg"
+                  alt="Reform"
+                  class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10"
+                />
+                <div class="text-sm font-medium leading-6 text-gray-900">
+                  Young People
+                </div>
+              </div>
+              <dl
+                class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6"
+              >
+                <div class="flex justify-between gap-x-4 py-3">
+                  <dt class="text-gray-500">Last invoice</dt>
+                  <dd class="text-gray-700">
+                    <time datetime="2023-01-23">January 23, 2023</time>
+                  </dd>
+                </div>
+                <div class="flex justify-between gap-x-4 py-3">
+                  <dt class="text-gray-500">Amount</dt>
+                  <dd class="flex items-start gap-x-2">
+                    <div class="font-medium text-gray-900">$7,600.00</div>
+                    <div
+                      class="rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset text-green-700 bg-green-50 ring-green-600/20"
+                    >
+                      Paid
+                    </div>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Logo cloud -->
+    <!-- <div class="mx-auto mt-24 max-w-7xl px-6 sm:mt-32 lg:px-8">
+        <div class="mt-16 flex justify-center">
+          <p
+            class="relative rounded-full bg-gray-50 px-4 py-1.5 text-sm leading-6 text-gray-600 ring-1 ring-inset ring-gray-900/5"
+          >
+            <span class="hidden md:inline"
+              >Transistor saves up to $40,000 per year, per employee by working
+              with us.</span
+            >
+            <a href="#" class="font-semibold text-indigo-600"
+              ><span class="absolute inset-0" aria-hidden="true"></span> See our
+              case study <span aria-hidden="true">&rarr;</span></a
+            >
+          </p>
+        </div>
+      </div> -->
+
+    <!-- Testimonial section -->
+    <div class="mx-auto mt-24 max-w-7xl sm:mt-56 sm:px-6 lg:px-8">
+      <div
+        class="relative overflow-hidden bg-gray-900 px-6 py-20 shadow-xl sm:rounded-3xl sm:px-10 sm:py-24 md:px-12 lg:px-20"
+      >
+        <img
+          class="absolute inset-0 h-full w-full object-cover brightness-150 saturate-0"
+          src="https://images.unsplash.com/photo-1601381718415-a05fb0a261f3?ixid=MXwxMjA3fDB8MHxwcm9maWxlLXBhZ2V8ODl8fHxlbnwwfHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1216&q=80"
+          alt=""
+        />
+        <div class="absolute inset-0 bg-gray-900/90 mix-blend-multiply"></div>
+        <div
+          class="absolute -left-80 -top-56 transform-gpu blur-3xl"
+          aria-hidden="true"
+        >
+          <div
+            class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-r from-[#ff4694] to-[#776fff] opacity-[0.45]"
+            style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+          >
+          </div>
+        </div>
+        <div
+          class="hidden md:absolute md:bottom-16 md:left-[50rem] md:block md:transform-gpu md:blur-3xl"
+          aria-hidden="true"
+        >
+          <div
+            class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-r from-[#ff4694] to-[#776fff] opacity-25"
+            style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+          >
+          </div>
+        </div>
+        <div class="relative mx-auto max-w-2xl lg:mx-0">
+          <img
+            class="h-12 w-auto"
+            src="https://tailwindui.com/img/logos/workcation-logo-white.svg"
+            alt=""
+          />
+          <figure>
+            <blockquote
+              class="mt-6 text-lg font-semibold text-white sm:text-xl sm:leading-8"
+            >
+              <p>
+                “Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
+                expedita voluptas culpa sapiente alias molestiae. Numquam
+                corrupti in laborum sed rerum et corporis.”
+              </p>
+            </blockquote>
+            <figcaption class="mt-6 text-base text-white">
+              <div class="font-semibold">Judith Black</div>
+              <div class="mt-1">CEO of Workcation</div>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </div>
-    <div class="flex flex-col gap-10">
-      <div class="bg-violet-100 p-20 rounded-xl flex flex-col gap-6">
-        <div class="flex gap-3 flex-col sm:flex-row">
-          <div class="basis-1/4">
-            <h3
-              class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-            >
-              Grant
-            </h3>
-            <p class="text-violet-950">
-              We offer two distinct grant amounts tailored to suit your needs,
-              whether you're at the startup stage or looking to scale up.
-            </p>
+
+    <!-- FAQ section -->
+    <div class="mx-auto my-24 max-w-7xl px-6 sm:my-56 lg:px-8">
+      <div class="mx-auto max-w-4xl divide-y divide-gray-900/10">
+        <h2 class="text-2xl font-bold leading-10 tracking-tight text-gray-900">
+          Frequently asked questions
+        </h2>
+        <dl class="mt-10 space-y-6 divide-y divide-gray-900/10">
+          <div class="pt-6">
+            <dt>
+              <!-- Expand/collapse question button -->
+              <button
+                type="button"
+                class="flex w-full items-start justify-between text-left text-gray-900"
+                aria-controls="faq-0"
+                aria-expanded="false"
+              >
+                <span class="text-base font-semibold leading-7"
+                  >What&#039;s the best thing about Switzerland?</span
+                >
+                <span class="ml-6 flex h-7 items-center">
+                  <!--
+                    Icon when question is collapsed.
+
+                    Item expanded: "hidden", Item collapsed: ""
+                  -->
+                  <svg
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 6v12m6-6H6"></path>
+                  </svg>
+                  <!--
+                    Icon when question is expanded.
+
+                    Item expanded: "", Item collapsed: "hidden"
+                  -->
+                  <svg
+                    class="hidden h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M18 12H6"></path>
+                  </svg>
+                </span>
+              </button>
+            </dt>
+            <dd class="mt-2 pr-12" id="faq-0">
+              <p class="text-base leading-7 text-gray-600">
+                I don&#039;t know, but the flag is a big plus. Lorem ipsum dolor
+                sit amet consectetur adipisicing elit. Quas cupiditate
+                laboriosam fugiat.
+              </p>
+            </dd>
           </div>
-          <div class="grid grid-cols-2 gap-4 basis-3/4">
-            <div class="bg-white rounded-xl p-8 flex flex-col gap-8">
-              <div class="flex flex-col gap-4">
-                <p class="uppercase text-xs text-gray-600">Up to</p>
-                <p class="text-4xl text-gray-700">£8,000</p>
-              </div>
-              <div class="flex flex-col gap-4">
-                <p class="uppercase text-sm text-gray-600">Criteria</p>
-                <ul
-                  class="list-disc text-gray-700 text-sm list-inside flex flex-col gap-3"
-                >
-                  <li>
-                    Your business is not yet or has been incorporated for less 4
-                    years
-                  </li>
-                  <li>
-                    Your business is not yet or has been incorporated for less 4
-                    years
-                  </li>
-                  <li>
-                    Your business is not yet or is already working with
-                    marginalised people
-                  </li>
-                  <li>
-                    Your business is not yet or already having impact on
-                    marginalised people
-                  </li>
-                </ul>
-              </div>
+
+          <!-- More questions... -->
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900" aria-labelledby="footer-heading">
+    <h2 id="footer-heading" class="sr-only">Footer</h2>
+    <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8 lg:py-32">
+      <div class="xl:grid xl:grid-cols-3 xl:gap-8">
+        <img
+          class="h-7"
+          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+          alt="Company name"
+        />
+        <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+          <div class="md:grid md:grid-cols-2 md:gap-8">
+            <div>
+              <h3 class="text-sm font-semibold leading-6 text-white">
+                Solutions
+              </h3>
+              <ul role="list" class="mt-6 space-y-4">
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Marketing</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Analytics</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Commerce</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Insights</a
+                  >
+                </li>
+              </ul>
             </div>
-            <div class="bg-white rounded-xl p-8 flex flex-col gap-8">
-              <div class="flex flex-col gap-4">
-                <p class="uppercase text-xs text-gray-600">Up to</p>
-                <p class="text-4xl text-gray-700">£18,000</p>
-              </div>
-              <div class="flex flex-col gap-4">
-                <p class="uppercase text-sm text-gray-600">Criteria</p>
-                <ul
-                  class="list-disc text-gray-700 text-sm list-inside flex flex-col gap-3"
-                >
-                  <li>Your business been incorporated for less than 4 years</li>
-                  <li>
-                    Your business has been selling goods and services for 1 to 4
-                    years
-                  </li>
-                  <li>Your business is working with marginalised people</li>
-                  <li>Your business is having impact on marginalised people</li>
-                </ul>
-              </div>
+            <div class="mt-10 md:mt-0">
+              <h3 class="text-sm font-semibold leading-6 text-white">
+                Support
+              </h3>
+              <ul role="list" class="mt-6 space-y-4">
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Pricing</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Documentation</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Guides</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >API Status</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="md:grid md:grid-cols-2 md:gap-8">
+            <div>
+              <h3 class="text-sm font-semibold leading-6 text-white">
+                Company
+              </h3>
+              <ul role="list" class="mt-6 space-y-4">
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >About</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Blog</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Jobs</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Press</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Partners</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="mt-10 md:mt-0">
+              <h3 class="text-sm font-semibold leading-6 text-white">Legal</h3>
+              <ul role="list" class="mt-6 space-y-4">
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Claim</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Privacy</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="text-sm leading-6 text-gray-300 hover:text-white"
+                    >Terms</a
+                  >
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="flex gap-3 flex-col sm:flex-row">
-          <div class="basis-1/4">
-            <h3
-              class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-            >
-              Support
-            </h3>
-            <p class="text-violet-950">
-              Every grant comes with 1 year of support.
-            </p>
+      </div>
+    </div>
+  </footer>
+</Template>
+
+<Container>
+  <Breadcrumbs breadcrumbs={breadcrumbs} />
+
+  <div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl">
+      <div class="mx-auto max-w-2xl lg:mx-0">
+        <h2 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+          {name}
+        </h2>
+        <p class="mt-6 text-lg leading-8 text-gray-600">{description}</p>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-col gap-10">
+    <div class="bg-violet-100 p-20 rounded-xl flex flex-col gap-6">
+      <div class="flex gap-3 flex-col sm:flex-row">
+        <div class="basis-1/4">
+          <h3
+            class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+          >
+            Grant
+          </h3>
+          <p class="text-violet-950">
+            We offer two distinct grant amounts tailored to suit your needs,
+            whether you're at the startup stage or looking to scale up.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-4 basis-3/4">
+          <div class="bg-white rounded-xl p-8 flex flex-col gap-8">
+            <div class="flex flex-col gap-4">
+              <p class="uppercase text-xs text-gray-600">Up to</p>
+              <p class="text-4xl text-gray-700">£8,000</p>
+            </div>
+            <div class="flex flex-col gap-4">
+              <p class="uppercase text-sm text-gray-600">Criteria</p>
+              <ul
+                class="list-disc text-gray-700 text-sm list-inside flex flex-col gap-3"
+              >
+                <li>
+                  Your business is not yet or has been incorporated for less 4
+                  years
+                </li>
+                <li>
+                  Your business is not yet or has been incorporated for less 4
+                  years
+                </li>
+                <li>
+                  Your business is not yet or is already working with
+                  marginalised people
+                </li>
+                <li>
+                  Your business is not yet or already having impact on
+                  marginalised people
+                </li>
+              </ul>
+            </div>
           </div>
-          <div class="flex flex-col gap-3 basis-3/4">
-            <div>
-              <h4>Services</h4>
-              <div class="grid grid-cols-2 gap-4">
-                <div
-                  class="bg-white flex flex-col gap-2 rounded-tl-xl p-10 border-dashed border-2 border-sky-500"
-                >
-                  <div>
-                    <span
-                      class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
-                      ><i class="fa-solid fa-user-headset"></i>Support Manager</span
-                    >
-                  </div>
-                  <div>
-                    <h5 class="text-lg">Dedicated support manager</h5>
-                    <p class="text-gray-600">
-                      Someone to coach, mentor and support you to achieve your
-                      goals. We have dedicated teams and specialist support
-                      available to entrepreneurs with ideas to help people in
-                      these areas.
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="bg-white rounded-tr-xl p-10 border-dashed border-2 border-sky-500"
-                >
+          <div class="bg-white rounded-xl p-8 flex flex-col gap-8">
+            <div class="flex flex-col gap-4">
+              <p class="uppercase text-xs text-gray-600">Up to</p>
+              <p class="text-4xl text-gray-700">£18,000</p>
+            </div>
+            <div class="flex flex-col gap-4">
+              <p class="uppercase text-sm text-gray-600">Criteria</p>
+              <ul
+                class="list-disc text-gray-700 text-sm list-inside flex flex-col gap-3"
+              >
+                <li>Your business been incorporated for less than 4 years</li>
+                <li>
+                  Your business has been selling goods and services for 1 to 4
+                  years
+                </li>
+                <li>Your business is working with marginalised people</li>
+                <li>Your business is having impact on marginalised people</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex gap-3 flex-col sm:flex-row">
+        <div class="basis-1/4">
+          <h3
+            class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+          >
+            Support
+          </h3>
+          <p class="text-violet-950">
+            Every grant comes with 1 year of support.
+          </p>
+        </div>
+        <div class="flex flex-col gap-3 basis-3/4">
+          <div>
+            <h4>Services</h4>
+            <div class="grid grid-cols-2 gap-4">
+              <div
+                class="bg-white flex flex-col gap-2 rounded-tl-xl p-10 border-dashed border-2 border-sky-500"
+              >
+                <div>
                   <span
                     class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
-                    ><i class="fa-solid fa-users"></i>Mentors</span
+                    ><i class="fa-solid fa-user-headset"></i>Support Manager</span
                   >
-                  <h5 class="text-lg">Expert mentors and legal advisors</h5>
+                </div>
+                <div>
+                  <h5 class="text-lg">Dedicated support manager</h5>
+                  <p class="text-gray-600">
+                    Someone to coach, mentor and support you to achieve your
+                    goals. We have dedicated teams and specialist support
+                    available to entrepreneurs with ideas to help people in
+                    these areas.
+                  </p>
+                </div>
+              </div>
+              <div
+                class="bg-white rounded-tr-xl p-10 border-dashed border-2 border-sky-500"
+              >
+                <span
+                  class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+                  ><i class="fa-solid fa-users"></i>Mentors</span
+                >
+                <h5 class="text-lg">Expert mentors and legal advisors</h5>
+                <p class="text-gray-600">
+                  Expert advice and mentoring through our generous community of
+                  business professionals, corporate partners and Awards Winners
+                  who volunteer their skills and expertise.
+                </p>
+              </div>
+              <div
+                class="bg-white rounded-bl-xl p-10 border-dashed border-2 border-sky-500"
+              >
+                <span
+                  class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+                  ><i class="fa-solid fa-scale-balanced"></i>Legal Advisors</span
+                >
+                <h5 class="text-lg">Workshops and peer learning</h5>
+                <p class="text-gray-600">
+                  Through our regular workshops and support you will be able to
+                  learn about different aspects of running a business and learn
+                  from other entrepreneurs.
+                </p>
+              </div>
+              <div
+                class="bg-white rounded-br-xl p-10 border-dashed border-2 border-sky-500"
+              >
+                <span
+                  class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
+                  ><i class="fa-solid fa-chalkboard-user"></i>Workshop</span
+                >
+                <h5 class="text-lg">Workshops and peer learning</h5>
+                <p class="text-gray-600">
+                  Through our regular workshops and support you will be able to
+                  learn about different aspects of running a business and learn
+                  from other entrepreneurs.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h4>Programmes</h4>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white rounded-xl p-10 w-96">
+                <a href="/awards/healthy-ageing">
+                  <h5>Healthy Ageing</h5>
+                  <p class="text-gray-600">
+                    Someone to coach, mentor and support you to achieve your
+                    goals. We have dedicated teams and specialist support
+                    available to entrepreneurs with ideas to help people in
+                    these areas.
+                  </p>
+                </a>
+              </div>
+
+              <div class="bg-white rounded-xl p-10 w-96">
+                <a href="/awards/access-to-employment">
+                  <h5>Access to employment</h5>
                   <p class="text-gray-600">
                     Expert advice and mentoring through our generous community
-                    of business professionals, corporate partners and Awards
+                    of business professionals, corporate partners and Award
                     Winners who volunteer their skills and expertise.
                   </p>
-                </div>
-                <div
-                  class="bg-white rounded-bl-xl p-10 border-dashed border-2 border-sky-500"
-                >
-                  <span
-                    class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
-                    ><i class="fa-solid fa-scale-balanced"></i>Legal Advisors</span
-                  >
-                  <h5 class="text-lg">Workshops and peer learning</h5>
+                </a>
+              </div>
+
+              <div class="bg-white rounded-xl p-10 w-96">
+                <a href="/awards/movement-for-change">
+                  <h4>Movement for Change</h4>
                   <p class="text-gray-600">
                     Through our regular workshops and support you will be able
                     to learn about different aspects of running a business and
                     learn from other entrepreneurs.
                   </p>
-                </div>
-                <div
-                  class="bg-white rounded-br-xl p-10 border-dashed border-2 border-sky-500"
-                >
-                  <span
-                    class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
-                    ><i class="fa-solid fa-chalkboard-user"></i>Workshop</span
-                  >
-                  <h5 class="text-lg">Workshops and peer learning</h5>
-                  <p class="text-gray-600">
-                    Through our regular workshops and support you will be able
-                    to learn about different aspects of running a business and
-                    learn from other entrepreneurs.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h4>Programmes</h4>
-              <div class="grid grid-cols-2 gap-4">
-                <div class="bg-white rounded-xl p-10 w-96">
-                  <a href="/awards/healthy-ageing">
-                    <h5>Healthy Ageing</h5>
-                    <p class="text-gray-600">
-                      Someone to coach, mentor and support you to achieve your
-                      goals. We have dedicated teams and specialist support
-                      available to entrepreneurs with ideas to help people in
-                      these areas.
-                    </p>
-                  </a>
-                </div>
-
-                <div class="bg-white rounded-xl p-10 w-96">
-                  <a href="/awards/access-to-employment">
-                    <h5>Access to employment</h5>
-                    <p class="text-gray-600">
-                      Expert advice and mentoring through our generous community
-                      of business professionals, corporate partners and Award
-                      Winners who volunteer their skills and expertise.
-                    </p>
-                  </a>
-                </div>
-
-                <div class="bg-white rounded-xl p-10 w-96">
-                  <a href="/awards/movement-for-change">
-                    <h4>Movement for Change</h4>
-                    <p class="text-gray-600">
-                      Through our regular workshops and support you will be able
-                      to learn about different aspects of running a business and
-                      learn from other entrepreneurs.
-                    </p>
-                  </a>
-                </div>
+                </a>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="border-b border-gray-200 bg-slate-50 px-4 py-5 sm:px-6">
-        <div
-          class="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap"
-        >
-          <div class="ml-4 mt-2">
-            <h3 class="text-base font-semibold leading-6 text-gray-900">
-              Job Postings
-            </h3>
-          </div>
-          <div class="ml-4 mt-2 flex-shrink-0"></div>
-        </div>
-      </div>
-
-      <div class="rounded-xl border-violet-600 border-solid border-2">
-        <div class="p-10 bg-slate-100 border-b border-slate-200">
-          <p>Step 1</p>
-          <p>Check if you and your business are eligibile</p>
-          <i class="fa-solid fa-house text-black"></i>
-        </div>
-        <div class="p-10 bg-slate-50">
-          <h3>What am i doing here?</h3>
         </div>
       </div>
     </div>
 
-    <!-- <div>
+    <div class="border-b border-gray-200 bg-slate-50 px-4 py-5 sm:px-6">
+      <div
+        class="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap"
+      >
+        <div class="ml-4 mt-2">
+          <h3 class="text-base font-semibold leading-6 text-gray-900">
+            Job Postings
+          </h3>
+        </div>
+        <div class="ml-4 mt-2 flex-shrink-0"></div>
+      </div>
+    </div>
+
+    <div class="rounded-xl border-violet-600 border-solid border-2">
+      <div class="p-10 bg-slate-100 border-b border-slate-200">
+        <p>Step 1</p>
+        <p>Check if you and your business are eligibile</p>
+        <i class="fa-solid fa-house text-black"></i>
+      </div>
+      <div class="p-10 bg-slate-50">
+        <h3>What am i doing here?</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div>
         {
                       funds
                         .filter(
@@ -300,7 +1119,7 @@ programmes.map((programme) => {
         }
       </div> -->
 
-    <!-- <div class="bg-white py-24 sm:py-32">
+  <!-- <div class="bg-white py-24 sm:py-32">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl sm:text-center">
           <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Simple no-tricks pricing</h2>
@@ -354,8 +1173,8 @@ programmes.map((programme) => {
       </div>
     </div> -->
 
-    <!-- support -->
-    <!-- <div class="bg-white py-24 sm:py-32">
+  <!-- support -->
+  <!-- <div class="bg-white py-24 sm:py-32">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:text-center">
           <h2 class="text-base font-semibold leading-7 text-indigo-600">Support</h2>
@@ -405,7 +1224,7 @@ programmes.map((programme) => {
       </div>
     </div> -->
 
-    <!-- <a href="/funds" class="text-amber-700 underline">Funds</a>
+  <!-- <a href="/funds" class="text-amber-700 underline">Funds</a>
       <a href="/awards/faq" class="text-amber-700 underline">FAQ</a>
       <a
         href="/awards/application-preview"
@@ -415,7 +1234,7 @@ programmes.map((programme) => {
         href="/awards/contact-us"
         class="text-amber-700 underline">Contact us</a
       > -->
-    <!-- <Hero2
+  <!-- <Hero2
         name={name}
         description={description}
         features={[
@@ -426,7 +1245,7 @@ programmes.map((programme) => {
         ]}
       /> -->
 
-    <!-- <ul
+  <!-- <ul
         role="list"
         class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       >
@@ -479,6 +1298,7 @@ programmes.map((programme) => {
           ))
         }
       </ul> -->
-  </Container>
-</Template>
+</Container>
+
  ../../data/directus/programmes.js
+
