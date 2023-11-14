@@ -47,8 +47,8 @@
         ]
       },
       {
-        "name": "Get funding",
-        "slug": "get-funding",
+        "name": "our funding",
+        "slug": "our-funding",
         "children": [
           {
             "name": "Awards",
