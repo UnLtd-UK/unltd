@@ -1,159 +1,114 @@
 {
   "header": {
     "action": {
-      "name": "Log in",
-      "link": "https://unltd.microsoftcrmportals.com/applications"
+      "name": "My Award Account",
+      "link": "https://unltd.microsoftcrmportals.com/applications",
+      "children": []
     },
     "main": [
       {
-        "name": "Learn",
-        "slug": "learn",
-        "children": [
-          {
-            "name": "Choosing the right legal structure",
-            "link": "",
-            "slug": "learn/choosing-the-right-legal-structure",
-            "icon": "fa-solid fa-1",
-            "description": "..."
-          },
-          {
-            "name": "Defining social impact indicators, setting targets and refining your social model",
-            "link": "",
-            "slug": "learn/defining-social-impact-indictators-setting-targets-and-refining-your-social model",
-            "icon": "fa-solid fa-2",
-            "description": "..."
-          },
-          {
-            "name": "Stakeholder engagement and building networks",
-            "link": "",
-            "slug": "learn/stakeholder-engagement-and-building-networks",
-            "icon": "fa-solid fa-3",
-            "description": "..."
-          },
-          {
-            "name": "Securing start up funding",
-            "link": "",
-            "slug": "learn/securing-start-up-funding",
-            "icon": "fa-solid fa-4",
-            "description": "..."
-          },
-          {
-            "name": "Other funding and support available for social entrepreneurs",
-            "link": "",
-            "slug": "learn/other-funding-and-support-available-for-social-entrepreneurs",
-            "icon": "fa-solid fa-5",
-            "description": ""
-          }
-        ]
+        "name": "Awards",
+        "link": "",
+        "slug": "awards",
+        "icon": "",
+        "children": []
       },
       {
-        "name": "Get funding",
-        "slug": "get-funding",
-        "children": [
-          {
-            "name": "Awards",
-            "link": "",
-            "slug": "awards",
-            "icon": "fa-solid fa-user",
-            "description": "For social entrepreneurs"
-          },
-          {
-            "name": "Investment",
-            "link": "https://growthimpactfund.org.uk",
-            "slug": "",
-            "icon": "fa-solid fa-shop",
-            "description": "For social enterprises"
-          }
-        ],
-        "other": [
-          {
-            "name": "Get help",
-            "link": "",
-            "slug": "awards"
-          }
-        ]
-      },
-      {
-        "name": "Get involved",
-        "slug": "get-involved",
-        "children": [
-          {
-            "name": "Fundraisers",
-            "link": "",
-            "slug": "fundraisers",
-            "icon": "fa-solid fa-piggy-bank",
-            "description": "Give money"
-          },
-          {
-            "name": "Partnering",
-            "link": "",
-            "slug": "partnering",
-            "icon": "fa-solid fa-handshake",
-            "description": "Organisations wanting to fund and support us"
-          },
-          {
-            "name": "Volunteering",
-            "link": "",
-            "slug": "volunteering",
-            "icon": "fa-solid fa-street-view",
-            "description": "Individuals looking to do pro bono"
-          },
-          {
-            "name": "Become a employee",
-            "link": "https://www.jobtrain.co.uk/unltd-careers",
-            "slug": "",
-            "icon": "fa-solid fa-briefcase",
-            "description": "Join one of our teams"
-          },
-          {
-            "name": "Become a trustee",
-            "link": "https://unltd-trustees.co.uk",
-            "slug": "",
-            "icon": "fa-solid fa-user-shield",
-            "description": "Join our board"
-          }
-        ]
-      },
-      {
-        "name": "Blog",
-        "link": "https://unltd.ghost.io",
+        "name": "Investments",
+        "link": "https://growthimpactfund.org.uk",
         "slug": "",
         "icon": "",
         "children": []
       },
       {
+        "name": "Blog",
+        "link": "",
+        "slug": "blog",
+        "icon": "",
+        "children": []
+      },
+      {
+        "name": "Podcasts",
+        "link": "",
+        "slug": "podcasts/1",
+        "icon": "",
+        "children": []
+      },
+      {
+        "name": "Events",
+        "link": "https://www.eventbrite.co.uk/o/unltd-foundation-for-social-entrepreneurs-4248932779",
+        "slug": "",
+        "icon": "",
+        "children": []
+      },
+      {
+        "name": "Get involved",
+        "link": "",
+        "slug": "get-involved",
+        "icon": "",
+        "children": []
+      },
+      {
         "name": "About us",
+        "link": "",
         "slug": "about-us",
+        "icon": "",
         "children": [
           {
-            "name": "Our purpose",
+            "name": "What we do",
             "link": "",
-            "slug": "our-purpose",
-            "icon": "fa-solid fa-building-user",
-            "description": "Vision and mission"
+            "slug": "about-us/what-we-do",
+            "icon": "",
+            "children": []
+          },
+          {
+            "name": "Our strategy",
+            "link": "https://breakingdownbarriers.unltd.org.uk",
+            "slug": "",
+            "icon": "fa-arrow-up-right-from-square",
+            "children": []
           },
           {
             "name": "Our team",
             "link": "",
-            "slug": "our-team",
-            "icon": "fa-solid fa-people-group",
-            "description": "Made up of four direcorates"
+            "slug": "about-us/our-team",
+            "icon": "",
+            "children": []
           },
           {
-            "name": "Our strategy",
+            "name": "Our brand",
             "link": "",
-            "slug": "our-strategy",
-            "icon": "fa-solid fa-chess-pawn",
-            "tag": "",
-            "description": "How we make impact"
+            "slug": "about-us/our-brand",
+            "icon": "",
+            "children": []
           },
           {
-            "name": "Our impact",
-            "link": "UnLtd_Impact_Report_2022.pdf",
-            "slug": "",
-            "icon": "fa-solid fa-explosion",
-            "tag": "2021 - 2022",
-            "description": "The change we are having"
+            "name": "Safeguarding",
+            "link": "",
+            "slug": "about-us/safeguarding",
+            "icon": "",
+            "children": []
+          },
+          {
+            "name": "Equity commitments",
+            "link": "",
+            "slug": "about-us/equity-commitments",
+            "icon": "",
+            "children": []
+          },
+          {
+            "name": "Impact Reports",
+            "link": "",
+            "slug": "about-us/impact-reports",
+            "icon": "",
+            "children": []
+          },
+          {
+            "name": "Finanacial Reports",
+            "link": "",
+            "slug": "about-us/financial-reports",
+            "icon": "",
+            "children": []
           }
         ]
       }
@@ -162,34 +117,34 @@
   "footer": {
     "socials": [
       {
-        "name": "X",
+        "name": "Twitter",
         "link": "https://twitter.com/UnLtd",
         "slug": "",
-        "icon": "fa-brands fa-x-twitter"
+        "icon": "twitter"
       },
       {
         "name": "Instagram",
         "link": "https://www.instagram.com/unltduk",
         "slug": "",
-        "icon": "fa-brands fa-instagram"
+        "icon": "instagram"
       },
       {
         "name": "Facebook",
         "link": "https://www.facebook.com/UnLtd",
         "slug": "",
-        "icon": "fa-brands fa-facebook"
+        "icon": "facebook"
       },
       {
         "name": "YouTube",
         "link": "https://www.youtube.com/user/UnLtdVideos",
         "slug": "",
-        "icon": "fa-brands fa-youtube"
+        "icon": "youtube"
       },
       {
         "name": "LinkedIn",
         "link": "https://www.linkedin.com/company/unltd",
         "slug": "",
-        "icon": "fa-brands fa-linkedin"
+        "icon": "linkedin"
       }
     ],
     "address": {
@@ -198,126 +153,60 @@
       "address3": "EC1Y 8JJ",
       "phone": "02075661100"
     },
-    "phone": "02075661100",
-    "links": [
+    "numbers": [
       {
-        "name": "Governance",
-        "items": [
-          {
-            "name": "Companies House",
-            "description": "04180639",
-            "link": "https://find-and-update.company-information.service.gov.uk/company/04180639",
-            "slug": "",
-            "icon": ""
-          },
-          {
-            "name": "Charity Commission for England and Wales",
-            "description": "1090393",
-            "link": "https://apps.charitycommission.gov.uk/Showcharity/RegisterOfCharities/SearchResultHandler.aspx?RegisteredCharityNumber=1090393",
-            "slug": "",
-            "icon": ""
-          },
-          {
-            "name": "Scottish Charity Regulator",
-            "description": "SC032445",
-            "link": "https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC032445",
-            "slug": "",
-            "icon": ""
-          }
-        ]
+        "name": "Charity Commission for England and Wales",
+        "number": "1090393",
+        "link": "https://apps.charitycommission.gov.uk/Showcharity/RegisterOfCharities/SearchResultHandler.aspx?RegisteredCharityNumber=1090393"
       },
       {
-        "name": "Legal",
-        "items": [
-          {
-            "name": "Privacy Policy",
-            "link": "",
-            "slug": "privacy-policy",
-            "icon": ""
-          },
-          {
-            "name": "Complaints Policy",
-            "link": "",
-            "slug": "complaints-policy",
-            "icon": ""
-          },
-          {
-            "name": "Browser Storage Policy",
-            "link": "",
-            "slug": "browser-storage-policy",
-            "icon": ""
-          },
-          {
-            "name": "Photography & Filming Policy",
-            "link": "",
-            "slug": "photography-and-filming-policy",
-            "icon": ""
-          },
-          {
-            "name": "Terms & Conditions",
-            "link": "",
-            "slug": "terms-and-conditions",
-            "icon": ""
-          }
-        ]
+        "name": "Scottish Charity Regulator",
+        "number": "SC032445",
+        "link": "https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC032445"
+      }
+    ],
+    "other": [
+      {
+        "name": "Privacy Policy",
+        "link": "",
+        "slug": "privacy-policy",
+        "icon": ""
       },
       {
-        "name": "Other",
-        "items": [
-          {
-            "name": "General enquiries",
-            "link": "",
-            "slug": "general-enquiries",
-            "icon": ""
-          },
-          {
-            "name": "Press and media enquiries",
-            "link": "",
-            "slug": "press-and-media-enquiries",
-            "icon": ""
-          },
-          {
-            "name": "Safefuarding",
-            "link": "",
-            "slug": "safeguarding",
-            "icon": ""
-          },
-          {
-            "name": "Equity Commitments",
-            "link": "",
-            "slug": "equity-commitments",
-            "icon": ""
-          },
-          {
-            "name": "Gift Aid",
-            "link": "",
-            "slug": "gift-aid",
-            "icon": ""
-          }
-        ]
+        "name": "Complaints Policy",
+        "link": "",
+        "slug": "complaints-policy",
+        "icon": ""
       },
       {
-        "name": "Reports",
-        "items": [
-          {
-            "name": "Financial Reports",
-            "link": "",
-            "slug": "financial-reports",
-            "icon": ""
-          },
-          {
-            "name": "Impact Reports",
-            "link": "",
-            "slug": "impact-reports",
-            "icon": ""
-          },
-          {
-            "name": "Equity Reports",
-            "link": "",
-            "slug": "equity-reports",
-            "icon": ""
-          }
-        ]
+        "name": "Cookies Policy",
+        "link": "",
+        "slug": "cookies-policy",
+        "icon": ""
+      },
+      {
+        "name": "Terms & Conditions",
+        "link": "",
+        "slug": "terms-&-conditions",
+        "icon": ""
+      },
+      {
+        "name": "Contact us",
+        "link": "",
+        "slug": "contact-us",
+        "icon": ""
+      },
+      {
+        "name": "Careers",
+        "link": "https://www.jobtrain.co.uk/unltd-careers",
+        "slug": "",
+        "icon": "new-tab"
+      },
+      {
+        "name": "Photography & Filming Policy",
+        "link": "",
+        "slug": "photography-&-filming-policy",
+        "icon": ""
       }
     ]
   }

@@ -1,6 +1,9 @@
 ---
-import nav from "../data/json/nav.json";
+// import nav from "../data/json/nav.json";
 import Logo from "./SlateLogo.astro";
+
+import { navigation } from "../data/directus/navigation.js";
+let nav = navigation.code;
 ---
 
 <footer class="bg-slate-50" aria-labelledby="footer-heading">
