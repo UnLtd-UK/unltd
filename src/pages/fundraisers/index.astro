@@ -4,7 +4,7 @@ import Hero from "../../components/Hero.astro";
 import Container from "../../components/Container.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
-import { fundraisers } from "../../data/directus/fundraisers.js";
+import { fundraisers } from "../../data/fundraisers.js";
 
 const name = "Fundraisers";
 const slug = "fundraisers";
@@ -57,11 +57,11 @@ import moment from "moment";
                                     Opens
                                     <time
                                       datetime={moment(fundraiser.start).format(
-                                        "YYYY-MM-DD"
+                                        "YYYY-MM-DD",
                                       )}
                                     >
                                       {moment(fundraiser.start).format(
-                                        "dddd hh:mma, MMMM Do YYYY"
+                                        "dddd hh:mma, MMMM Do YYYY",
                                       )}
                                     </time>
                                   </>
@@ -74,11 +74,11 @@ import moment from "moment";
                                     Closes
                                     <time
                                       datetime={moment(
-                                        fundraiser.finish
+                                        fundraiser.finish,
                                       ).format("YYYY-MM-DD")}
                                     >
                                       {moment(fundraiser.finish).format(
-                                        "dddd hh:mma, MMMM Do YYYY"
+                                        "dddd hh:mma, MMMM Do YYYY",
                                       )}
                                     </time>
                                   </>
@@ -89,11 +89,11 @@ import moment from "moment";
                                     Completed
                                     <time
                                       datetime={moment(
-                                        fundraiser.finish
+                                        fundraiser.finish,
                                       ).format("YYYY-MM-DD")}
                                     >
                                       {moment(fundraiser.finish).format(
-                                        "dddd hh:mma, MMMM Do YYYY"
+                                        "dddd hh:mma, MMMM Do YYYY",
                                       )}
                                     </time>
                                   </>
