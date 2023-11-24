@@ -7,6 +7,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 // DATA
 import { programmes } from "../../data/programmes.js";
 import { areas } from "../../data/areas.js";
+import { services } from "../../data/services.js";
 // import { grants } from "../../data/directus/grants.js";
 // import { rounds } from "../../data/directus/rounds.js";
 
@@ -263,132 +264,38 @@ programmes.map((programme) => {
         <div class="flex flex-col gap-20">
           <!-- support services -->
           <div
-            class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+            class="mx-auto flex max-w-2xl gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none"
           >
-            <div class="flex flex-col gap-2">
+            <div class="basis-2/6 flex flex-col gap-2">
               <h2
                 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
               >
                 Services
               </h2>
-              <p class="text-slate-500">Your bespoke support could include</p>
+              <p class="text-slate-500">
+                UnLtd supports social entrepreneurs who are tackling a range of
+                social or environmental issues. If your application fits either
+                of these areas, a dedicated team will handle your application
+                and support.
+              </p>
             </div>
-            <dl
-              class="col-span-2 grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2"
-            >
-              <div>
-                <dt class="text-base font-semibold leading-7 text-gray-900">
-                  <div
-                    class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
-                  >
-                    <svg
-                      class="h-6 w-6 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                      ></path>
-                    </svg>
+            <div class="basis-4/6 flex gap-4 flex-wrap">
+              {
+                services.map((service) => (
+                  <div class="basis-1/2 p-8 bg-slate-50 rounded-2xl">
+                    <dt class="text-base font-semibold leading-7 text-gray-900">
+                      <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                        <i class={`${service.icon} text-white text-md`} />
+                      </div>
+                      {service.name}
+                    </dt>
+                    <dd class="mt-1 text-base leading-7 text-gray-600">
+                      {service.description}
+                    </dd>
                   </div>
-                   Spam report
-                </dt>
-                <dd class="mt-1 text-base leading-7 text-gray-600">
-                  Autem reprehenderit aut debitis ut. Officiis harum omnis
-                  placeat blanditiis delectus sint vel et voluptatum. Labore
-                  asperiores non corporis molestiae.
-                </dd>
-              </div>
-              <div>
-                <dt class="text-base font-semibold leading-7 text-gray-900">
-                  <div
-                    class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
-                  >
-                    <svg
-                      class="h-6 w-6 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-                      ></path>
-                    </svg>
-                  </div>
-                   Compose in markdown
-                </dt>
-                <dd class="mt-1 text-base leading-7 text-gray-600">
-                  Illum et aut inventore. Ut et dignissimos quasi. Omnis saepe
-                  dolorum. Hic autem fugiat. Voluptatem officiis necessitatibus
-                  est.
-                </dd>
-              </div>
-              <div>
-                <dt class="text-base font-semibold leading-7 text-gray-900">
-                  <div
-                    class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
-                  >
-                    <svg
-                      class="h-6 w-6 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
-                      ></path>
-                    </svg>
-                  </div>
-                   Email commenting
-                </dt>
-                <dd class="mt-1 text-base leading-7 text-gray-600">
-                  Commodi quam quo. In quasi mollitia optio voluptate et est
-                  reiciendis. Ut et sunt id officiis vitae perspiciatis. Et
-                  accusantium sapiente.
-                </dd>
-              </div>
-              <div>
-                <dt class="text-base font-semibold leading-7 text-gray-900">
-                  <div
-                    class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
-                  >
-                    <svg
-                      class="h-6 w-6 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
-                      ></path>
-                    </svg>
-                  </div>
-                   Customer connections
-                </dt>
-                <dd class="mt-1 text-base leading-7 text-gray-600">
-                  Deserunt corrupti praesentium quo vel cupiditate est occaecati
-                  ad. Aperiam libero modi similique iure praesentium facilis quo
-                  cumque quibusdam.
-                </dd>
-              </div>
-            </dl>
+                ))
+              }
+            </div>
           </div>
 
           <!-- support impact areas -->
@@ -413,19 +320,41 @@ programmes.map((programme) => {
             <div class="basis-4/6 flex gap-4">
               {
                 areas.map((area) => (
-                  <article class="flex-1 p-8 bg-slate-50 rounded-2xl">
-                    <dt class="text-base font-semibold leading-7 text-gray-900">
-                      <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                        <i class={`${area.icon} text-white text-md`} />
+                  <div class="flex-1 p-8 bg-slate-50 rounded-2xl flex flex-col gap-6">
+                    <div>
+                      <div class="text-base font-semibold leading-7 text-gray-900">
+                        <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                          <i class={`${area.icon} text-white text-md`} />
+                        </div>
+                        {area.name}
                       </div>
-                      Acces to Employment
-                    </dt>
-                    <dd class="mt-1 text-base leading-7 text-gray-600">
-                      Autem reprehenderit aut debitis ut. Officiis harum omnis
-                      placeat blanditiis delectus sint vel et voluptatum. Labore
-                      asperiores non corporis molestiae.
-                    </dd>
-                  </article>
+                      <p class="text-base leading-7 text-gray-600">
+                        {area.description}
+                      </p>
+                    </div>
+                    <div class="isolate flex -space-x-2 overflow-hidden">
+                      <img
+                        class="relative z-30 inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                        src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                      />
+                      <img
+                        class="relative z-20 inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                        src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                      />
+                      <img
+                        class="relative z-10 inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                        alt=""
+                      />
+                      <img
+                        class="relative z-0 inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        alt=""
+                      />
+                    </div>
+                  </div>
                 ))
               }
             </div>
