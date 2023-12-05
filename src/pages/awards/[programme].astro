@@ -364,6 +364,7 @@ const { programme } = Astro.props;
           <div class="flex flex-col basis-1/4 gap-10 px-5 2xl:px-0">
             <div class="flex flex-col gap-10">
               <!-- Article -->
+              { programme.post && 
               <div class="flex flex-col gap-3">
                 <h3 class="font-bold text-slate-500">Related posts</h3>
                 <article
@@ -386,9 +387,6 @@ const { programme } = Astro.props;
                   <div
                     class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-slate-300"
                   >
-                    <!-- <time datetime="2020-03-16" class="mr-8"
-                        >{programme.post.date}</time
-                      > -->
                     <div class="-ml-4 flex items-center gap-x-4">
                       <svg
                         viewBox="0 0 2 2"
@@ -409,6 +407,7 @@ const { programme } = Astro.props;
                   </h3>
                 </article>
               </div>
+              }
 
               <!-- Other programmes -->
               <div class="flex flex-col gap-4 lg:flex">
