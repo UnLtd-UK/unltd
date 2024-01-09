@@ -1,8 +1,13 @@
 ---
-import nav from "../../data/json/nav.json";
+// import nav from "../../data/json/nav.json";
 import Logo from "../OrangeLogo.astro";
 import Dropwdown from "./Dropdown.astro";
 import DropwdownMov from "./DropdownMov.astro";
+
+import { navigation } from "../../data/navigation.js";
+let nav = navigation.code;
+
+// import nav from "../../data/nav.json";
 ---
 
 <header class="">
@@ -68,15 +73,14 @@ import DropwdownMov from "./DropdownMov.astro";
         x-on:keydown.escape.prevent.stop="close($refs.button)"
         x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
         x-id="['dropdown-button']"
-        >
-
+      >
         <!-- Hamburger menu -->
         <button
           x-ref="button"
-            x-on:click="toggle()"
-            :aria-expanded="open"
-            :aria-controls="$id('dropdown-button')"
-            type="button"
+          x-on:click="toggle()"
+          :aria-expanded="open"
+          :aria-controls="$id('dropdown-button')"
+          type="button"
           class="block lg:hidden -m-2.5 rounded-md p-2.5 text-gray-700"
         >
           <span class="sr-only">Close menu</span>
@@ -101,13 +105,14 @@ import DropwdownMov from "./DropdownMov.astro";
             <span class="sr-only">Close menu</span>
             <i class="fa-solid fa-xmark h-6 w-6"></i>
           </button>
-          <div 
-                      x-ref="panel"
+          <div
+            x-ref="panel"
             x-show="open"
             x-transition.origin.top.left
             x-on:click.outside="close($refs.button)"
             :id="$id('dropdown-button')"
-          class="mt-6 flow-root">
+            class="mt-6 flow-root"
+          >
             <div class="divide-y divide-gray-500/10">
               <ul class="navbar gap-6 flex flex-col list-none">
                 {

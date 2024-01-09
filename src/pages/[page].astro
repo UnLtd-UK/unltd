@@ -9,7 +9,7 @@ import slugify from "slugify";
 import Faqtemplate from "../components/Faqtemplate.astro";
 import Faq from "../components/Faq.astro";
 
-import { pages } from "../data/directus/pages.js";
+import { pages } from "../data/pages.js";
 
 export async function getStaticPaths() {
   return pages.map((page) => {
