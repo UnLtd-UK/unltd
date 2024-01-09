@@ -1,6 +1,9 @@
 ---
-import nav from "../data/json/nav.json";
+// import nav from "../data/json/nav.json";
 import Logo from "./SlateLogo.astro";
+
+import { navigation } from "../data/navigation.js";
+let nav = navigation.code;
 ---
 
 <footer class="bg-slate-50" aria-labelledby="footer-heading">
@@ -25,7 +28,7 @@ import Logo from "./SlateLogo.astro";
             nav.footer.socials.map((social) => (
               <a href={social.link} class="text-slate-400 hover:text-slate-500">
                 <span class="sr-only">{social.name}</span>
-                <i class={`h-6 w-6 fa-brands fa-${social.icon}`} />
+                <i class={`h-6 w-6 ${social.icon}`} />
               </a>
             ))
           }

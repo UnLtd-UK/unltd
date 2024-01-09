@@ -5,11 +5,14 @@ import Container from "../../components/Container.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 // DATA
-import { programmes } from "../../data/directus/programmes.js";
+import { programmes } from "../../data/programmes.js";
+import { areas } from "../../data/areas.js";
+import { services } from "../../data/services.js";
 // import { grants } from "../../data/directus/grants.js";
 // import { rounds } from "../../data/directus/rounds.js";
 
 import moment from "moment";
+import truncate from "truncate";
 let todayDate = moment();
 
 const name = "Awards";
@@ -57,428 +60,767 @@ programmes.map((programme) => {
 ---
 
 <Template name={name} description={description}>
-  <Container>
-    <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <div class="bg-white py-24 sm:py-32">
-      <div class="mx-auto max-w-7xl">
-        <div class="mx-auto max-w-2xl lg:mx-0">
-          <h2
-            class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl"
+  <div class="bg-white">
+    <main>
+      <!-- Grants section -->
+      <div class="mx-auto mt-16 max-w-7xl px-6 sm:mt-32 lg:px-8">
+        <div class="mx-auto max-w-4xl text-center">
+          <h1 class="text-base font-semibold leading-7 text-indigo-600">
+            Pricing
+          </h1>
+          <p
+            class="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
           >
-            {name}
-          </h2>
-          <p class="mt-6 text-lg leading-8 text-gray-600">{description}</p>
+            Funding
+          </p>
         </div>
-      </div>
-    </div>
-    <div class="flex flex-col gap-10">
-      <div class="bg-violet-100 p-20 rounded-xl flex flex-col gap-6">
-        <div class="flex gap-3 flex-col sm:flex-row">
-          <div class="basis-1/4">
-            <h3
-              class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-            >
-              Grant
-            </h3>
-            <p class="text-violet-950">
-              We offer two distinct grant amounts tailored to suit your needs,
-              whether you're at the startup stage or looking to scale up.
-            </p>
-          </div>
-          <div class="grid grid-cols-2 gap-4 basis-3/4">
-            <div class="bg-white rounded-xl p-8 flex flex-col gap-8">
-              <div class="flex flex-col gap-4">
-                <p class="uppercase text-xs text-gray-600">Up to</p>
-                <p class="text-4xl text-gray-700">£8,000</p>
-              </div>
-              <div class="flex flex-col gap-4">
-                <p class="uppercase text-sm text-gray-600">Criteria</p>
-                <ul
-                  class="list-disc text-gray-700 text-sm list-inside flex flex-col gap-3"
-                >
-                  <li>
-                    Your business is not yet or has been incorporated for less 4
-                    years
-                  </li>
-                  <li>
-                    Your business is not yet or has been incorporated for less 4
-                    years
-                  </li>
-                  <li>
-                    Your business is not yet or is already working with
-                    marginalised people
-                  </li>
-                  <li>
-                    Your business is not yet or already having impact on
-                    marginalised people
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="bg-white rounded-xl p-8 flex flex-col gap-8">
-              <div class="flex flex-col gap-4">
-                <p class="uppercase text-xs text-gray-600">Up to</p>
-                <p class="text-4xl text-gray-700">£18,000</p>
-              </div>
-              <div class="flex flex-col gap-4">
-                <p class="uppercase text-sm text-gray-600">Criteria</p>
-                <ul
-                  class="list-disc text-gray-700 text-sm list-inside flex flex-col gap-3"
-                >
-                  <li>Your business been incorporated for less than 4 years</li>
-                  <li>
-                    Your business has been selling goods and services for 1 to 4
-                    years
-                  </li>
-                  <li>Your business is working with marginalised people</li>
-                  <li>Your business is having impact on marginalised people</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="flex gap-3 flex-col sm:flex-row">
-          <div class="basis-1/4">
-            <h3
-              class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-            >
-              Support
-            </h3>
-            <p class="text-violet-950">
-              Every grant comes with 1 year of support.
-            </p>
-          </div>
-          <div class="flex flex-col gap-3 basis-3/4">
-            <div>
-              <h4>Services</h4>
-              <div class="grid grid-cols-2 gap-4">
-                <div
-                  class="bg-white flex flex-col gap-2 rounded-tl-xl p-10 border-dashed border-2 border-sky-500"
-                >
-                  <div>
-                    <span
-                      class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
-                      ><i class="fa-solid fa-user-headset"></i>Support Manager</span
-                    >
-                  </div>
-                  <div>
-                    <h5 class="text-lg">Dedicated support manager</h5>
-                    <p class="text-gray-600">
-                      Someone to coach, mentor and support you to achieve your
-                      goals. We have dedicated teams and specialist support
-                      available to entrepreneurs with ideas to help people in
-                      these areas.
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="bg-white rounded-tr-xl p-10 border-dashed border-2 border-sky-500"
-                >
-                  <span
-                    class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
-                    ><i class="fa-solid fa-users"></i>Mentors</span
-                  >
-                  <h5 class="text-lg">Expert mentors and legal advisors</h5>
-                  <p class="text-gray-600">
-                    Expert advice and mentoring through our generous community
-                    of business professionals, corporate partners and Awards
-                    Winners who volunteer their skills and expertise.
-                  </p>
-                </div>
-                <div
-                  class="bg-white rounded-bl-xl p-10 border-dashed border-2 border-sky-500"
-                >
-                  <span
-                    class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
-                    ><i class="fa-solid fa-scale-balanced"></i>Legal Advisors</span
-                  >
-                  <h5 class="text-lg">Workshops and peer learning</h5>
-                  <p class="text-gray-600">
-                    Through our regular workshops and support you will be able
-                    to learn about different aspects of running a business and
-                    learn from other entrepreneurs.
-                  </p>
-                </div>
-                <div
-                  class="bg-white rounded-br-xl p-10 border-dashed border-2 border-sky-500"
-                >
-                  <span
-                    class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10"
-                    ><i class="fa-solid fa-chalkboard-user"></i>Workshop</span
-                  >
-                  <h5 class="text-lg">Workshops and peer learning</h5>
-                  <p class="text-gray-600">
-                    Through our regular workshops and support you will be able
-                    to learn about different aspects of running a business and
-                    learn from other entrepreneurs.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h4>Programmes</h4>
-              <div class="grid grid-cols-2 gap-4">
-                <div class="bg-white rounded-xl p-10 w-96">
-                  <a href="/awards/healthy-ageing">
-                    <h5>Healthy Ageing</h5>
-                    <p class="text-gray-600">
-                      Someone to coach, mentor and support you to achieve your
-                      goals. We have dedicated teams and specialist support
-                      available to entrepreneurs with ideas to help people in
-                      these areas.
-                    </p>
-                  </a>
-                </div>
-
-                <div class="bg-white rounded-xl p-10 w-96">
-                  <a href="/awards/access-to-employment">
-                    <h5>Access to employment</h5>
-                    <p class="text-gray-600">
-                      Expert advice and mentoring through our generous community
-                      of business professionals, corporate partners and Award
-                      Winners who volunteer their skills and expertise.
-                    </p>
-                  </a>
-                </div>
-
-                <div class="bg-white rounded-xl p-10 w-96">
-                  <a href="/awards/movement-for-change">
-                    <h4>Movement for Change</h4>
-                    <p class="text-gray-600">
-                      Through our regular workshops and support you will be able
-                      to learn about different aspects of running a business and
-                      learn from other entrepreneurs.
-                    </p>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="border-b border-gray-200 bg-slate-50 px-4 py-5 sm:px-6">
-        <div
-          class="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap"
+        <p
+          class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-gray-600"
         >
-          <div class="ml-4 mt-2">
-            <h3 class="text-base font-semibold leading-6 text-gray-900">
-              Job Postings
-            </h3>
-          </div>
-          <div class="ml-4 mt-2 flex-shrink-0"></div>
-        </div>
-      </div>
+          We combine funding and support to help you to get started or grow.
+          Depending on your stage of development we can offer up to £18,000. We
+          recommend you check the eligibility criteria closely to ensure you are
+          eligible as our awards are competitive.
+        </p>
 
-      <div class="rounded-xl border-violet-600 border-solid border-2">
-        <div class="p-10 bg-slate-100 border-b border-slate-200">
-          <p>Step 1</p>
-          <p>Check if you and your business are eligibile</p>
-          <i class="fa-solid fa-house text-black"></i>
-        </div>
-        <div class="p-10 bg-slate-50">
-          <h3>What am i doing here?</h3>
-        </div>
-      </div>
-    </div>
+        <div
+          class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-2"
+        >
+          <div class="rounded-3xl p-8 ring-1 ring-gray-200">
+            <h2
+              id="tier-hobby"
+              class="text-lg font-semibold leading-8 text-gray-900"
+            >
+              Starting up
+            </h2>
+            <p class="mt-4 text-sm leading-6 text-gray-600">
+              You have an idea or have started to make a difference to people's
+              lives, your community, or have ambitions to create change at a
+              national level.
+            </p>
+            <p class="mt-6 flex flex-col items-baseline gap-x-1">
+              <!-- Payment frequency, update based on frequency toggle state -->
+              <span class="text-sm font-semibold leading-6 text-gray-600"
+                >Up to</span
+              >
 
-    <!-- <div>
-        {
-                      funds
-                        .filter(
-                          (fundi) =>
-                            todayDate.isBefore(fundi.close) &&
-                            todayDate.isAfter(fundi.open) &&
-                            fundi.public
-                        )
-                        .map((fundi) => (
-          <div>
-            <h4 class="font-bold">{fundi.name}</h4>
-            <p>{fundi.description}</p>
-          </div>
-          ))
-        }
-      </div> -->
-
-    <!-- <div class="bg-white py-24 sm:py-32">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl sm:text-center">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Simple no-tricks pricing</h2>
-          <p class="mt-6 text-lg leading-8 text-gray-600">Distinctio et nulla eum soluta et neque labore quibusdam. Saepe et quasi iusto modi velit ut non voluptas in. Explicabo id ut laborum.</p>
-        </div>
-        <div class="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
-          <div class="p-8 sm:p-10 lg:flex-auto">
-            <h3 class="text-2xl font-bold tracking-tight text-gray-900">Lifetime membership</h3>
-            <p class="mt-6 text-base leading-7 text-gray-600">Lorem ipsum dolor sit amet consect etur adipisicing elit. Itaque amet indis perferendis blanditiis repellendus etur quidem assumenda.</p>
-            <div class="mt-10 flex items-center gap-x-4">
-              <h4 class="flex-none text-sm font-semibold leading-6 text-indigo-600">What’s included</h4>
-              <div class="h-px flex-auto bg-gray-100"></div>
-            </div>
-            <ul role="list" class="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6">
+              <!-- Price, update based on frequency toggle state -->
+              <span class="text-4xl font-bold tracking-tight text-gray-900"
+                >£8,000</span
+              >
+            </p>
+            <ul
+              role="list"
+              class="mt-8 space-y-3 text-sm leading-6 text-gray-600"
+            >
               <li class="flex gap-x-3">
-                <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
                 </svg>
-                Private forum access
+                 5 products
               </li>
               <li class="flex gap-x-3">
-                <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
                 </svg>
-                Member resources
+                 Up to 1,000 subscribers
               </li>
               <li class="flex gap-x-3">
-                <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
                 </svg>
-                Entry to annual conference
-              </li>
-              <li class="flex gap-x-3">
-                <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                </svg>
-                Official member t-shirt
+                 Basic analytics
               </li>
             </ul>
           </div>
-          <div class="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-            <div class="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
-              <div class="mx-auto max-w-xs px-8">
-                <p class="text-base font-semibold text-gray-600">Pay once, own it forever</p>
-                <p class="mt-6 flex items-baseline justify-center gap-x-2">
-                  <span class="text-5xl font-bold tracking-tight text-gray-900">£18,000</span>
-                </p>          </div>
+          <div class="rounded-3xl p-8 ring-1 ring-gray-200">
+            <h2
+              id="tier-freelancer"
+              class="text-lg font-semibold leading-8 text-gray-900"
+            >
+              Scaling up
+            </h2>
+            <p class="mt-4 text-sm leading-6 text-gray-600">
+              You are already running a social venture that is making a positive
+              difference and you have compelling evidence of your impact.
+            </p>
+            <p class="mt-6 flex flex-col items-baseline gap-x-1">
+              <!-- Payment frequency, update based on frequency toggle state -->
+              <span class="text-sm font-semibold leading-6 text-gray-600"
+                >Up to</span
+              >
+
+              <!-- Price, update based on frequency toggle state -->
+              <span class="text-4xl font-bold tracking-tight text-gray-900"
+                >£18,000</span
+              >
+            </p>
+            <ul
+              role="list"
+              class="mt-8 space-y-3 text-sm leading-6 text-gray-600"
+            >
+              <li class="flex gap-x-3">
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                 5 products
+              </li>
+              <li class="flex gap-x-3">
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                 Up to 1,000 subscribers
+              </li>
+              <li class="flex gap-x-3">
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                 Basic analytics
+              </li>
+              <li class="flex gap-x-3">
+                <svg
+                  class="h-6 w-5 flex-none text-indigo-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                    clip-rule="evenodd"></path>
+                </svg>
+                 48-hour support response time
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Support section -->
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:text-center">
+          <h2 class="text-base font-semibold leading-7 text-indigo-600">
+            One to one support
+          </h2>
+          <p
+            class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+          >
+            Support
+          </p>
+          <p class="mt-6 text-lg leading-8 text-gray-600">
+            Someone to coach, mentor and support you to achieve your goals. We
+            have dedicated teams and specialist support available to help you to
+            grow your venture and increase your impact.
+          </p>
+        </div>
+        <div class="flex flex-col gap-20">
+          <!-- support services -->
+          <div
+            class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+          >
+            <div class="basis-2/6 flex flex-col gap-2">
+              <h2
+                class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+              >
+                Services
+              </h2>
+              <p class="text-slate-500">
+                UnLtd supports social entrepreneurs who are tackling a range of
+                social or environmental issues. If your application fits either
+                of these areas, a dedicated team will handle your application
+                and support.
+              </p>
+            </div>
+            <div
+              class="col-span-2 grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2"
+            >
+              {
+                services.map((service) => (
+                  <div class="flex-1 relative isolate flex flex-col justify-end overflow-hidden rounded-2xl p-8 gap-4">
+                    <dt class="text-base font-semibold leading-7 text-gray-900">
+                      <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                        <i class={`${service.icon} text-white text-md`} />
+                      </div>
+                      {service.name}
+                    </dt>
+                    <dd class="mt-1 text-base leading-7 text-gray-600">
+                      {service.description}
+                    </dd>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+
+          <!-- support impact areas -->
+
+          <!-- <div
+            class="mx-auto flex max-w-2xl gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none"
+          >
+            <div class="basis-2/6 flex flex-col gap-2">
+              <h2
+                class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+              >
+                Sectors
+              </h2>
+              <p class="text-slate-500">
+                While we provide Awards across many sectors, certain sectors
+                benefit from our dedicated teams and specialised support.
+              </p>
+            </div>
+
+            <div
+              class="grid grid-cols-1 gap-4 sm:grid-cols-2 max-h-[360px] overflow-hidden bg-gradient-to-t to-white from-transparent"
+            >
+              {
+                areas.map((area) => (
+                  <div
+                    class={`relative flex items-center space-x-3 px-6 py-5 ${
+                      area.description &&
+                      "rounded-lg border border-gray-300 bg-white shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
+                    }`}
+                  >
+                    <div class="flex-shrink-0">
+                      <div
+                        class={`flex h-10 w-10 items-center justify-center rounded-full ${
+                          area.description && "bg-amber-50 ring-amber-600/20"
+                        }`}
+                      >
+                        <i
+                          class={`${area.icon} ${
+                            area.description && "text-amber-800"
+                          } text-xs`}
+                        />
+                      </div>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <a href={`/${area.name}`} class="focus:outline-none">
+                        <span class="absolute inset-0" aria-hidden="true" />
+                        {area.description && (
+                          <span class="inline-flex items-center rounded-md bg-amber-50 px-2 py-1 text-xs font-medium text-amber-800 ring-1 ring-inset ring-amber-600/20">
+                            Enhanced support
+                          </span>
+                        )}
+                        <p class="text-sm font-medium text-gray-900">
+                          {area.name}
+                        </p>
+                      </a>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+
+            <div class="basis-4/6 flex flex-col gap-4">
+              {
+                areas.map((area) =>
+                  area.icon ? (
+                    <div class="flex-1 p-8 bg-slate-50 rounded-2xl flex flex-col gap-6">
+                      <div>
+                        <div class="text-base font-semibold leading-7 text-gray-900">
+                          <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
+                            <i class={`${area.icon} text-white text-md`} />
+                          </div>
+                          {area.name}
+                        </div>
+                        <p class="text-base leading-7 text-gray-600">
+                          {area.description}
+                        </p>
+                      </div>
+                      <div class="isolate flex -space-x-2 overflow-hidden">
+                        <img
+                          class="relative z-30 inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                          src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          alt=""
+                        />
+                        <img
+                          class="relative z-20 inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                          src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          alt=""
+                        />
+                        <img
+                          class="relative z-10 inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                          src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                          alt=""
+                        />
+                        <img
+                          class="relative z-0 inline-block h-10 w-10 rounded-full ring-2 ring-white"
+                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
+                      {area.name}
+                    </span>
+                    // <div class="p-3 bg-slate-50 rounded-2xl text-slate-800">
+                    //   {area.name}
+                    // </div>
+                  ),
+                )
+              }
+            </div>
+          </div> -->
+
+          <!-- support programmes -->
+          <div
+            class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+          >
+            <div class="basis-2/6 flex flex-col gap-2">
+              <h2
+                class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+              >
+                Programmes
+              </h2>
+              <p class="text-slate-500">
+                Based on your age, geography and sectors you're working in,
+                you'll be placed on one of our programmes. Programmes make sure
+                our services are specialised to match you and your social
+                enterprises needs.
+              </p>
+            </div>
+
+            <div
+              class="col-span-2 grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2"
+            >
+              {
+                programmes.map((programme) => (
+                  <article class="flex-1 relative isolate flex flex-col justify-end overflow-hidden rounded-2xl p-8 gap-4">
+                    <img
+                      src={`https://unltd.directus.app/assets/${programme.image.id}`}
+                      alt=""
+                      class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50 blur-xs opacity-30"
+                    />
+                    <div
+                      class={`absolute inset-0 -z-10 bg-gradient-to-t from-${programme.colour}-700/80 to-${programme.colour}-900/20`}
+                    />
+                    <div
+                      class={`absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-${programme.colour}-900/10`}
+                    />
+
+                    <div>
+                      <span class="relative inline-block">
+                        <div
+                          class={`flex items-center justify-center h-14 w-14 rounded-md bg-${programme.colour}-600`}
+                        >
+                          <i
+                            class={`${programme.icon} text-${programme.colour}-200 text-2xl`}
+                          />
+                        </div>
+                      </span>
+                      <h3
+                        class={`mt-3 font-semibold leading-6 text-${programme.colour}-50`}
+                      >
+                        <a href={`/awards/${programme.slug}`}>
+                          <span class="absolute inset-0" />
+                          <p class="text-lg">{programme.name}</p>
+                        </a>
+                      </h3>
+                      <p class={`text-${programme.colour}-100 text-base`}>
+                        {truncate(programme.description, 100)}
+                      </p>
+                    </div>
+
+                    <div class="flex flex-col gap-3">
+                      <div>
+                        <p
+                          class={`truncate text-xs font-medium text-${programme.colour}-100 uppercase`}
+                        >
+                          <i
+                            class={`fa-solid fa-spinner text-${programme.colour}-50`}
+                          />{" "}
+                          Age
+                        </p>
+                        <p
+                          class={`mt-1 text-base font-semibold tracking-tight text-${programme.colour}-50`}
+                        >
+                          {programme.age}
+                        </p>
+                      </div>
+                      <div>
+                        <p
+                          class={`truncate text-xs font-medium text-${programme.colour}-100 uppercase`}
+                        >
+                          <i
+                            class={`fa-solid fa-location-dot text-${programme.colour}-50`}
+                          />{" "}
+                          Geography
+                        </p>
+                        <p
+                          class={`mt-1 text-base font-semibold tracking-tight text-${programme.colour}-50`}
+                        >
+                          {programme.geography}
+                        </p>
+                      </div>
+                      <div>
+                        <p
+                          class={`truncate text-xs font-medium text-${programme.colour}-100 uppercase`}
+                        >
+                          <i
+                            class={`fa-solid fa-vector-square text-${programme.colour}-50`}
+                          />{" "}
+                          Sectors
+                        </p>
+                        <p
+                          class={`mt-1 text-base font-semibold tracking-tight text-${programme.colour}-50`}
+                        >
+                          {programme.sectors}
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                ))
+              }
             </div>
           </div>
         </div>
       </div>
-    </div> -->
 
-    <!-- support -->
-    <!-- <div class="bg-white py-24 sm:py-32">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl lg:text-center">
-          <h2 class="text-base font-semibold leading-7 text-indigo-600">Support</h2>
-          <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">1 year of access to bespoke support</p>
-          <p class="mt-6 text-lg leading-8 text-gray-600">Quis tellus eget adipiscing convallis sit sit eget aliquet quis. Suspendisse eget egestas a elementum pulvinar et feugiat blandit at. In mi viverra elit nunc.</p>
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col gap-10">
+        <div class="px-4 py-5 sm:px-6 flex flex-col gap-4">
+          <div class="border-b border-gray-200 flex flex-col gap-3">
+            <i class="text-4xl text-gray-700 fa-solid fa-circle-1"></i>
+            <div>
+              <h3 class="text-2xl font-semibold leading-6 text-gray-900">
+                Check if you and your business are eligibile
+              </h3>
+              <p class="mt-1 text-sm text-gray-500 md:w-96"></p>
+            </div>
+          </div>
+          <div class="flex flex-row gap-2">
+            <div>
+              <p class="mt-1 text-sm text-gray-500 md:w-96">You</p>
+              <ul class="list-disc">
+                <li>Are 16 years old or older</li>
+                <li>
+                  Are located in England, Northern Ireland, Scotland or Wales
+                </li>
+                <li>
+                  Have no plan to employ others to undertake most of the work on
+                  your behalf
+                </li>
+                <li>
+                  Have no plan to use the grant predominately for you to
+                  undertake academic qualifications or overseas travel
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="mt-1 text-sm text-gray-500 md:w-96">Your business</p>
+              <ul class="list-disc">
+                <li>Does not involve political or religious campaigning</li>
+                <li>
+                  Does not predominantly focus on raising awareness of social
+                  issues
+                </li>
+                <li>
+                  Is located in England, Northern Ireland, Scotland or Wales
+                </li>
+                <li>
+                  Has or will have the majority of its impact in England,
+                  Northern Ireland, Scotland or Wales
+                </li>
+                <li>Earned Under £250,000 last financial year</li>
+                <li>Has or will have any legal structure</li>
+                <li>Is working with marginalised people in any areas</li>
+                <li>Is having an impact on marginalised people in any areas</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-          <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-            <div class="relative pl-16">
-              <dt class="text-base font-semibold leading-7 text-gray-900">
-                <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                  <i class="fa-regular fa-user-headset h-6 w-6 text-white"></i>
-                </div>
-                Dedicated support manager
-              </dt>
-              <dd class="mt-2 text-base leading-7 text-gray-600">Someone to coach, mentor and support you to achieve your goals. We have dedicated teams and specialist support available to entrepreneurs with ideas to help people in these areas.</dd>
+
+        <div class="px-4 py-5 sm:px-6 flex flex-col gap-4">
+          <div class="border-b border-gray-200 flex flex-col gap-2">
+            <i class="text-4xl text-gray-700 fa-solid fa-circle-2"></i>
+            <div>
+              <h3 class="text-2xl font-semibold leading-6 text-gray-900">
+                Create an Award account to start an application
+              </h3>
+              <p class="mt-1 text-sm text-gray-500 md:w-96">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit quam
+                corrupti consectetur.
+              </p>
             </div>
-            <div class="relative pl-16">
-              <dt class="text-base font-semibold leading-7 text-gray-900">
-                <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                  <i class="fa-regular fa-star h-6 w-6 text-white"></i>
-                </div>
-                Expert mentors
+          </div>
+          <div>
+            <p>
+              Apply before 30 September and you will get your results week
+              commencing 11 December.
+            </p>
+            <span
+              >Your application will be reviewed between 1 October to 10
+              December.</span
+            >
+            <table class="min-w-full divide-y divide-gray-300">
+              <thead>
+                <tr>
+                  <th
+                    scope="col"
+                    class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
+                    >Applications accepted</th
+                  >
+                  <th
+                    scope="col"
+                    class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >Applications accessed</th
+                  >
+                  <th
+                    scope="col"
+                    class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >Results week commencing</th
+                  >
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td
+                    class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                    >1 Oct 2023 - 31 Dec 2023</td
+                  >
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                    >1 Jan 2024 - 31 Mar 2024</td
+                  >
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                    >25 Mar 2024</td
+                  >
+                </tr>
+
+                <tr>
+                  <td
+                    class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                    >1 Jan 2024 - 31 Mar 2023</td
+                  >
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                    >1 Apr 2024 - 31 Mar 2024</td
+                  >
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                    >24 Jun 2024</td
+                  >
+                </tr>
+
+                <tr>
+                  <td
+                    class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                    >1 Apr 2024 - 30 Jun 2024</td
+                  >
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                    >1 Jul 2024 - 31 Sep 2024</td
+                  >
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                    >23 Sep 2024</td
+                  >
+                </tr>
+
+                <tr>
+                  <td
+                    class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0"
+                    >1 Jul 2024 - 30 Sep 2024</td
+                  >
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                    >1 Oct 2024 - 31 Dec 2024</td
+                  >
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
+                    >9 Dec 2024</td
+                  >
+                </tr>
+
+                <!-- More people... -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div
+          class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6 flex flex-col gap-3"
+        >
+          <i class="text-4xl text-gray-700 fa-solid fa-circle-3"></i>
+          <div>
+            <h3 class="text-2xl font-semibold leading-6 text-gray-900">
+              Submit your application
+            </h3>
+            <p class="mt-1 text-sm text-gray-500 md:w-96">
+              We recommend getting your application in early so that we have
+              time to ensure we have everything we need to assess it.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6 flex flex-col gap-3"
+        >
+          <i class="text-4xl text-gray-700 fa-solid fa-circle-4"></i>
+          <div>
+            <h3 class="text-2xl font-semibold leading-6 text-gray-900">
+              Application preview
+            </h3>
+            <p class="mt-1 text-sm text-gray-500 md:w-96">
+              If the application meets our eligibility criteria, our team will
+              then review the application based on impact, inclusion and
+              sustainability. Applications which show potential will be
+              discussed alongside others at peer review to progress those with
+              the most potential to meet our panel
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6 flex flex-col gap-3"
+        >
+          <i class="text-4xl text-gray-700 fa-solid fa-circle-5"></i>
+          <div>
+            <h3 class="text-2xl font-semibold leading-6 text-gray-900">
+              Panel
+            </h3>
+            <p class="mt-1 text-sm text-gray-500 md:w-96">
+              Here you will have the opportunity to discuss your application
+              with a panel made up of staff and other entrepreneurs.
+            </p>
+          </div>
+        </div>
+
+        <div
+          class="border-b border-gray-200 bg-white px-4 py-5 sm:px-6 flex flex-col gap-3"
+        >
+          <i class="text-4xl text-gray-700 fa-solid fa-circle-6"></i>
+          <div>
+            <h3 class="text-2xl font-semibold leading-6 text-gray-900">
+              Award results
+            </h3>
+            <p class="mt-1 text-sm text-gray-500 md:w-96">
+              If the application meets our eligibility criteria, our team will
+              then review the application based on impact, inclusion and
+              sustainability. Applications which show potential will be
+              discussed alongside others at peer review to progress those with
+              the most potential to meet our panel
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ section -->
+      <div class="mx-auto my-24 max-w-7xl px-6 sm:my-56 lg:px-8">
+        <div class="mx-auto max-w-4xl divide-y divide-gray-900/10">
+          <h2
+            class="text-2xl font-bold leading-10 tracking-tight text-gray-900"
+          >
+            Frequently asked questions
+          </h2>
+          <dl class="mt-10 space-y-6 divide-y divide-gray-900/10">
+            <div class="pt-6">
+              <dt>
+                <!-- Expand/collapse question button -->
+                <button
+                  type="button"
+                  class="flex w-full items-start justify-between text-left text-gray-900"
+                  aria-controls="faq-0"
+                  aria-expanded="false"
+                >
+                  <span class="text-base font-semibold leading-7"
+                    >What&#039;s the best thing about Switzerland?</span
+                  >
+                  <span class="ml-6 flex h-7 items-center">
+                    <!--
+                    Icon when question is collapsed.
+
+                    Item expanded: "hidden", Item collapsed: ""
+                  -->
+                    <svg
+                      class="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M12 6v12m6-6H6"></path>
+                    </svg>
+                    <!--
+                    Icon when question is expanded.
+
+                    Item expanded: "", Item collapsed: "hidden"
+                  -->
+                    <svg
+                      class="hidden h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M18 12H6"></path>
+                    </svg>
+                  </span>
+                </button>
               </dt>
-              <dd class="mt-2 text-base leading-7 text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Awards Winners who volunteer their skills and expertise.</dd>
+              <dd class="mt-2 pr-12" id="faq-0">
+                <p class="text-base leading-7 text-gray-600">
+                  I don&#039;t know, but the flag is a big plus. Lorem ipsum
+                  dolor sit amet consectetur adipisicing elit. Quas cupiditate
+                  laboriosam fugiat.
+                </p>
+              </dd>
             </div>
-            <div class="relative pl-16">
-              <dt class="text-base font-semibold leading-7 text-gray-900">
-                <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                  <i class="fa-regular fa-chalkboard-user h-6 w-6 text-white"></i>
-                </div>
-                Workshops and peer learning
-              </dt>
-              <dd class="mt-2 text-base leading-7 text-gray-600">Through our regular workshops and support you will be able to learn about different aspects of running a business and learn from other entrepreneurs.</dd>
-            </div>
-            <div class="relative pl-16">
-              <dt class="text-base font-semibold leading-7 text-gray-900">
-                <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
-                  <i class="fa-regular fa-scale-balanced h-6 w-6 text-white"></i>
-                </div>
-                Legal advisors
-              </dt>
-              <dd class="mt-2 text-base leading-7 text-gray-600">Expert advice and mentoring through our generous community of business professionals, corporate partners and Awards Winners who volunteer their skills and expertise.</dd>
-            </div>
+
+            <!-- More questions... -->
           </dl>
         </div>
       </div>
-    </div> -->
-
-    <!-- <a href="/funds" class="text-amber-700 underline">Funds</a>
-      <a href="/awards/faq" class="text-amber-700 underline">FAQ</a>
-      <a
-        href="/awards/application-preview"
-        class="text-amber-700 underline">Application preview</a
-      >
-            <a
-        href="/awards/contact-us"
-        class="text-amber-700 underline">Contact us</a
-      > -->
-    <!-- <Hero2
-        name={name}
-        description={description}
-        features={[
-          { icon: "user", name: "Availble to Grantees for 12 months" },
-          { icon: "user", name: "Availble for Investees indefinitely" },
-          { icon: "earth-europe", name: "Across the United Kingdom" },
-          { icon: "certificate", name: "Free forever" },
-        ]}
-      /> -->
-
-    <!-- <ul
-        role="list"
-        class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-      >
-        {
-          funds.map((fund) => (
-            <li class="col-span-1 flex flex-col divide-y divide-slate-200 rounded-lg bg-white text-center shadow">
-              <div class="flex flex-1 flex-col p-8">
-                <img
-                  class="mx-auto h-32 w-32 flex-shrink-0 rounded-full"
-                  src={`https://unltd.directus.app/assets/${fund.logo}`}
-                  alt=""
-                />
-                <h3 class="mt-6 text-sm font-medium text-slate-900">
-                  {fund.name}
-                </h3>
-                <dl class="mt-1 flex flex-grow flex-col justify-between">
-                  <dt class="sr-only">Fund name</dt>
-                  <dd class="text-sm text-slate-500">{fund.name}</dd>
-                  <dt class="sr-only">Grant amount</dt>
-                  <dd class="mt-3">
-                    <span class="rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
-                      {new Intl.NumberFormat("en-GB", {
-                        maximumSignificantDigits: 3,
-                        style: "currency",
-                        currency: "GBP",
-                      }).format(fund.minimum_amount)}{" "}
-                      -{" "}
-                      {new Intl.NumberFormat("en-GB", {
-                        maximumSignificantDigits: 3,
-                        style: "currency",
-                        currency: "GBP",
-                      }).format(fund.maximum_amount)}
-                    </span>
-                  </dd>
-                </dl>
-              </div>
-              <div>
-                <div class="-mt-px flex divide-x divide-slate-200">
-                  <div class="-ml-px flex w-0 flex-1">
-                    <a
-                      href={`/funds/${fund.slug}`}
-                      class="relative inline-flex w-0 flex-1 items-center justify-center rounded-br-lg border border-transparent py-4 text-sm font-medium text-slate-700 hover:text-slate-500"
-                    >
-                      <span class="text-xs">Visit fund</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
-          ))
-        }
-      </ul> -->
-  </Container>
+    </main>
+  </div>
 </Template>
- ../../data/directus/programmes.js
