@@ -4,8 +4,6 @@ import Template from "../../layouts/Template.astro";
 import Container from "../../components/Container.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
-import Header from "../../components/ui/Header.jsx";
-
 // DATA
 import { programmes } from "../../data/programmes.js";
 import { areas } from "../../data/areas.js";
@@ -64,7 +62,6 @@ programmes.map((programme) => {
 <Template name={name} description={description}>
   <div class="bg-white">
     <main>
-      <Header client:load />
       <!-- Grants section -->
       <div class="mx-auto mt-16 max-w-7xl px-6 sm:mt-32 lg:px-8">
         <div class="mx-auto max-w-4xl text-center">
