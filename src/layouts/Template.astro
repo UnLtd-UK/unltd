@@ -1,6 +1,6 @@
 ---
 const { name, description } = Astro.props.frontmatter || Astro.props;
-import Header from "../components/Header.astro";
+import Header from "../components/ui/Header.jsx";
 import Footer from "../components/Footer.astro";
 // Supports weights 100-900
 import "@fontsource-variable/lexend";
@@ -63,7 +63,7 @@ import "@fontsource-variable/lexend";
   </head>
   <body class="">
     <div class="flex flex-col justify-between h-full bg-white">
-      <Header />
+      <Header client:load />
       <div class="mb-10">
         <slot />
       </div>
