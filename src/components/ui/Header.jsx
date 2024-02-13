@@ -118,7 +118,7 @@ const about = {
         name: 'Our strategy',
         description: 'How we make impact',
         badge: "2022 - 2025",
-        href: "https://breakingdownbarriers.unltd.org.uk",
+        href: "https://strategy.unltd.org.uk",
         icon: "fa-solid fa-chess-pawn"
       },
       {
