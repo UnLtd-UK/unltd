@@ -2,6 +2,7 @@
 import Template from "../../layouts/Template.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import Container from "../../components/Container.astro";
+import Dialog from "../../components/ui/Dialog.jsx";
 
 import { programmes } from "../../data/programmes.js";
 
@@ -168,6 +169,10 @@ const { programme } = Astro.props;
                 }
               }
             </div>
+          </div>
+
+          <div>
+          <Dialog client:load/>
           </div>
 
           {
