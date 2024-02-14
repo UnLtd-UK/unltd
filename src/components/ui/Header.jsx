@@ -35,8 +35,6 @@ const learn = {
 
     ],
   actions: [
-    { name: 'Watch demo', href: '/', icon: 'fa-solid fa-5' },
-    { name: 'Contact sales', href: '/', icon: 'fa-solid fa-6' },
   ]
 };
 
@@ -58,8 +56,6 @@ const funding = {
       }
     ],
   actions: [
-    { name: 'Watch demo', href: '#', icon: 'fa-solid fa-7' },
-    { name: 'Contact sales', href: '#', icon: 'fa-solid fa-8' },
   ]
 };
 
