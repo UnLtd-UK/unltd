@@ -1,4 +1,4 @@
-let response = await fetch("https://unltd.directus.app/items/rounds/?fields[]=*.*.*", {
+let response = await fetch("https://unltd.directus.app/items/rounds/?fields[]=*.*.*&filter[status][_eq]=published", {
     method: "GET"
 });
 

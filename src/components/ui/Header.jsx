@@ -11,37 +11,32 @@ const learn = {
       {
         name: 'Choosing the right legal structure',
         description: 'Get a better understanding of your traffic',
-        href: "/choosing-the-right-legal-structure",
+        href: "/learn/choosing-the-right-legal-structure",
         icon: "fa-solid fa-1"
       },
       {
         name: 'Defining social impact indicators, setting targets and refining your social model',
         description: 'Get a better understanding of your traffic',
-        href: "/choosing-the-right-legal-structure",
+        href: "/learn/defining-social-impact-indictators-setting-targets-and-refining-your-social-model",
         icon: "fa-solid fa-2"
       },
       {
         name: 'Stakeholder engagement and building networks',
         description: 'Get a better understanding of your traffic',
-        href: "/choosing-the-right-legal-structure",
+        href: "/learn/stakeholder-engagement-and-building-networks",
         icon: "fa-solid fa-3"
       },
       {
         name: 'Securing start up funding',
         description: 'Get a better understanding of your traffic',
-        href: "/choosing-the-right-legal-structure",
+        href: "/learn/securing-start-up-funding",
         icon: "fa-solid fa-4"
       },
-      {
-        name: 'Other funding and support available for social entrepreneurs',
-        description: 'Get a better understanding of your traffic',
-        href: "/other-funding-and-support-available-for-social-entrepreneurs",
-        icon: "fa-solid fa-5"
-      }
+
     ],
   actions: [
-    { name: 'Watch demo', href: '#', icon: 'fa-solid fa-6' },
-    { name: 'Contact sales', href: '#', icon: 'fa-solid fa-7' },
+    { name: 'Watch demo', href: '/', icon: 'fa-solid fa-5' },
+    { name: 'Contact sales', href: '/', icon: 'fa-solid fa-6' },
   ]
 };
 
