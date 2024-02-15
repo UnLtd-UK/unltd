@@ -4,6 +4,8 @@ import Template from "../../layouts/Template.astro";
 import Container from "../../components/Container.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
+import Head from "../../components/ui/Head.jsx";
+
 // DATA
 import { programmes } from "../../data/programmes.js";
 import { areas } from "../../data/areas.js";
@@ -60,7 +62,9 @@ programmes.map((programme) => {
 ---
 
 <Template name={name} description={description}>
-  <div class="bg-white">
+  <div class="bg-slate-50">
+    <Head />
+
     <main>
       <!-- Grants section -->
       <div class="mx-auto mt-16 max-w-7xl px-6 sm:mt-32 lg:px-8">

@@ -10,29 +10,34 @@ const learn = {
     [
       {
         name: 'Choosing the right legal structure',
-        description: 'Get a better understanding of your traffic',
+        description: '',
         href: "/learn/choosing-the-right-legal-structure",
-        icon: "fa-solid fa-1"
+        icon: "fa-regular fa-file-lines"
       },
       {
         name: 'Defining social impact indicators, setting targets and refining your social model',
-        description: 'Get a better understanding of your traffic',
+        description: '',
         href: "/learn/defining-social-impact-indictators-setting-targets-and-refining-your-social-model",
-        icon: "fa-solid fa-2"
+        icon: "fa-regular fa-file-lines"
       },
       {
         name: 'Stakeholder engagement and building networks',
-        description: 'Get a better understanding of your traffic',
+        description: '',
         href: "/learn/stakeholder-engagement-and-building-networks",
-        icon: "fa-solid fa-3"
+        icon: "fa-regular fa-file-lines"
       },
       {
         name: 'Securing start up funding',
-        description: 'Get a better understanding of your traffic',
+        description: '',
         href: "/learn/securing-start-up-funding",
-        icon: "fa-solid fa-4"
+        icon: "fa-regular fa-file-lines"
       },
-
+      {
+        name: 'Start-up business planning',
+        description: '',
+        href: "/learn/start-up-business-planning",
+        icon: "fa-regular fa-file-lines"
+      }
     ],
   actions: [
   ]
