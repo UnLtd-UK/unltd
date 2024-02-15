@@ -1,8 +1,16 @@
-let response = await fetch("https://unltd.directus.app/items/pages/?fields=*&filter[status][_eq]=published", {
-    method: "GET"
-});
+import { createDirectus, rest, readItems } from '@directus/sdk';
 
-let json = await response.json();
-let pages = json.data;
+const client = createDirectus('https://unltd.directus.app').with(rest());
+
+const pages = await client.request(
+    readItems('pages', {
+        filter: {
+            status: {
+                _eq: 'published'
+            }
+        },
+        fields: ['*'],
+    })
+);
 
 export { pages }
