@@ -102,7 +102,7 @@ const about = {
         name: 'Our purpose',
         description: 'vision and mission',
         href: "/our-purpose",
-        icon: "fa-solid fa-building-user"
+        icon: "fa-solid fa-puzzle-piece"
       },
       {
         name: 'Our team',
