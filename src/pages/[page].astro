@@ -54,7 +54,7 @@ const { page } = Astro.props;
     <Hero name={page.name} description={page.description} />
     <div
       set:html={marked.parse(page.body)}
-      class="prose dark:prose-invert prose-lg prose-img:rounded-md prose-img:shadow-md prose-img:w-full prose-a:text-amber-500 prose-a:hover:text-amber-700"
+      class="prose dark:prose-invert prose-lg prose-img:rounded-md prose-img:shadow-md prose-img:w-full prose-a:text-amber-500 hover:prose-a:text-amber-600"
     />
   </Container>
 </Template>
