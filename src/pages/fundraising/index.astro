@@ -6,8 +6,8 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 import { fundraisers } from "../../data/fundraisers.js";
 
-const name = "Fundraisers";
-const slug = "fundraisers";
+const name = "Fundraising";
+const slug = "Fundraising";
 const description = "Give money";
 const breadcrumbs = [
   {
@@ -30,7 +30,7 @@ import moment from "moment";
           fundraisers.map((fundraiser) => (
             <li>
               <a
-                href={`/fundraisers/${fundraiser.slug}`}
+                href={`/fundraising/${fundraiser.slug}`}
                 class={`block hover:bg-slate-50 ${
                   todayDate.isAfter(fundraiser.finish) && "ring-slate-500/10"
                 }`}

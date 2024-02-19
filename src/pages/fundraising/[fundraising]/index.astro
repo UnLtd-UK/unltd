@@ -14,12 +14,12 @@ export async function getStaticPaths() {
   return fundraisers.map((fundraiser) => {
     let breadcrumbs = [
       {
-        name: "Fundraisers",
-        slug: "/fundraisers",
+        name: "Fundraising",
+        slug: "/fundraising",
       },
       {
         name: fundraiser.name,
-        slug: `/fundraisers/${fundraiser.slug}`,
+        slug: `/fundraising/${fundraiser.slug}`,
       },
     ];
 
@@ -27,7 +27,7 @@ export async function getStaticPaths() {
 
     let results = {
       params: {
-        fundraiser: fundraiser.slug,
+        fundraising: fundraiser.slug,
       },
       props: {
         fundraiser: fundraiser,
