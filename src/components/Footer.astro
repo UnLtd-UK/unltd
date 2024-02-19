@@ -10,15 +10,24 @@ let nav = navigation.code;
   <h2 id="footer-heading" class="sr-only">Footer</h2>
   <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-      <div class="space-y-8">
+      <div class="space-y-6">
         <Logo />
-        <a href="https://goo.gl/maps/AL5FhXFppVMmZsob6" target="_blank"
-          ><address class="text-sm text-slate-600 flex flex-col">
-            <span>{nav.footer.address.address1}</span>
-            <span>{nav.footer.address.address2}</span>
-            <span>{nav.footer.address.address3}</span>
-          </address>
-        </a>
+        <div class="flex gap-2">
+          <i class="text-xs text-slate-400 fa-solid fa-location-dot"></i>
+          <a href="https://goo.gl/maps/AL5FhXFppVMmZsob6" target="_blank"
+            ><address class="text-sm text-slate-600 flex flex-col">
+              <span>{nav.footer.address.address1}</span>
+              <span>{nav.footer.address.address2}</span>
+              <span>{nav.footer.address.address3}</span>
+            </address>
+          </a>
+        </div>
+        <div class="flex gap-2">
+          <i class="text-xs text-slate-400 fa-solid fa-phone"></i>
+          <a class="text-sm text-slate-600" href=`tel:${nav.footer.phone}`
+            >{nav.footer.phone}</a
+          >
+        </div>
         <div class="flex space-x-6">
           {
             nav.footer.socials.map((social) => (
@@ -28,6 +37,24 @@ let nav = navigation.code;
               </a>
             ))
           }
+        </div>
+        <div class="">
+          <ul role="list" class="mt-6 space-y-4">
+            {
+              nav.footer.regulatory.map((regulator) => (
+                <li>
+                  <a
+                    href={regulator.link}
+                    class="text-sm leading-6 text-slate-600 hover:text-slate-900"
+                  >
+                    {regulator.name}
+                  </a>
+                  <br />
+                  <span class="text-xs text-slate-500">{regulator.number}</span>
+                </li>
+              ))
+            }
+          </ul>
         </div>
       </div>
       <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
@@ -103,7 +130,7 @@ let nav = navigation.code;
     </div>
     <div class="mt-16 border-t border-slate-900/10 pt-8 sm:mt-20 lg:mt-24">
       <p class="text-xs leading-5 text-slate-500">
-        &copy; 2023 UnLtd, Inc. All rights reserved.
+        &copy; {new Date().getFullYear()} UnLtd, Inc. All rights reserved.
       </p>
     </div>
   </div>
