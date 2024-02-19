@@ -6,16 +6,20 @@ import { navigation } from "../data/navigation.js";
 let nav = navigation.code;
 ---
 
-<footer class="bg-slate-50" aria-labelledby="footer-heading">
+<footer class="bg-slate-100 dark:bg-slate-900" aria-labelledby="footer-heading">
   <h2 id="footer-heading" class="sr-only">Footer</h2>
   <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
       <div class="space-y-6">
         <Logo />
         <div class="flex gap-2">
-          <i class="text-xs text-slate-400 fa-solid fa-location-dot"></i>
+          <i
+            class="text-xs text-slate-400 dark:text-slate-600 fa-solid fa-location-dot"
+          ></i>
           <a href="https://goo.gl/maps/AL5FhXFppVMmZsob6" target="_blank"
-            ><address class="text-sm text-slate-600 flex flex-col">
+            ><address
+              class="text-sm text-slate-600 dark:text-slate-400 flex flex-col"
+            >
               <span>{nav.footer.address.address1}</span>
               <span>{nav.footer.address.address2}</span>
               <span>{nav.footer.address.address3}</span>
@@ -23,15 +27,21 @@ let nav = navigation.code;
           </a>
         </div>
         <div class="flex gap-2">
-          <i class="text-xs text-slate-400 fa-solid fa-phone"></i>
-          <a class="text-sm text-slate-600" href=`tel:${nav.footer.phone}`
-            >{nav.footer.phone}</a
+          <i
+            class="text-xs text-slate-400 dark:text-slate-600 fa-solid fa-phone"
+          ></i>
+          <a
+            class="text-sm text-slate-600 dark:text-slate-400"
+            href=`tel:${nav.footer.phone}`>{nav.footer.phone}</a
           >
         </div>
         <div class="flex space-x-6">
           {
             nav.footer.socials.map((social) => (
-              <a href={social.link} class="text-slate-400 hover:text-slate-500">
+              <a
+                href={social.link}
+                class="text-slate-400 hover:text-slate-500 dark:text-slate-600"
+              >
                 <span class="sr-only">{social.name}</span>
                 <i class={`h-6 w-6 ${social.icon}`} />
               </a>
