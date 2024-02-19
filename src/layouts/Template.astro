@@ -4,9 +4,6 @@ import Header from "../components/ui/Header.jsx";
 import Footer from "../components/Footer.astro";
 
 // import Nav from "../components/old-nav/Nav.astro";
-
-// Supports weights 100-900
-import "@fontsource-variable/lexend";
 ---
 
 <!doctype html>
@@ -63,9 +60,16 @@ import "@fontsource-variable/lexend";
     <script
       src="https://kit.fontawesome.com/0ff725f684.js"
       crossorigin="anonymous"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body class="">
-    <div class="flex flex-col justify-between h-full bg-white">
+  <body class="bg-slate-50 dark:bg-slate-950">
+    <div class="flex flex-col justify-between h-full">
       <Header client:load />
       <!-- <Nav /> -->
       <div class="mb-10">
