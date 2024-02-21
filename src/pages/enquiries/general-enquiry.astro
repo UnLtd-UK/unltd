@@ -8,10 +8,15 @@ const name = "General enquiry";
 const description =
   "Got questions or need further information? Fill out our General Enquiries form, and we'll get back to you with all the answers you need to keep moving forward.";
 const email = "comms@unltd.org.uk";
+const icon = "messages";
 const breadcrumbs = [
   {
+    name: "Enquiries",
+    slug: "/enquiries",
+  },
+  {
     name: "General enquiry",
-    slug: "general-enquiry",
+    slug: "/enquiries/general-enquiry",
   },
 ];
 ---
@@ -20,5 +25,5 @@ const breadcrumbs = [
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
   </Container>
-  <Form name={name} description={description} email={email} />
+  <Form name={name} description={description} email={email} icon={icon} />
 </Template>
