@@ -18,7 +18,7 @@ let nav = navigation.code;
           ></i>
           <a href="https://goo.gl/maps/AL5FhXFppVMmZsob6" target="_blank"
             ><address
-              class="text-sm text-slate-600 dark:text-slate-400 flex flex-col"
+              class="text-sm text-slate-600 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 flex flex-col"
             >
               <span>{nav.footer.address.address1}</span>
               <span>{nav.footer.address.address2}</span>
@@ -31,7 +31,7 @@ let nav = navigation.code;
             class="text-xs text-slate-400 dark:text-slate-600 fa-solid fa-phone"
           ></i>
           <a
-            class="text-sm text-slate-600 dark:text-slate-400"
+            class="text-sm text-slate-600 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
             href=`tel:${nav.footer.phone}`>{nav.footer.phone}</a
           >
         </div>
@@ -40,7 +40,7 @@ let nav = navigation.code;
             nav.footer.socials.map((social) => (
               <a
                 href={social.link}
-                class="text-slate-400 hover:text-slate-500 dark:text-slate-600"
+                class="text-slate-400 hover:text-slate-500 dark:text-slate-400 dark:hover:text-slate-300"
               >
                 <span class="sr-only">{social.name}</span>
                 <i class={`h-6 w-6 ${social.icon}`} />
@@ -55,12 +55,14 @@ let nav = navigation.code;
                 <li>
                   <a
                     href={regulator.link}
-                    class="text-sm leading-6 text-slate-600 hover:text-slate-900"
+                    class="text-sm leading-6 text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
                   >
                     {regulator.name}
                   </a>
                   <br />
-                  <span class="text-xs text-slate-500">{regulator.number}</span>
+                  <span class="text-xs text-slate-500 dark:text-slate-500">
+                    {regulator.number}
+                  </span>
                 </li>
               ))
             }
@@ -74,7 +76,7 @@ let nav = navigation.code;
               if (index < 2)
                 return (
                   <div class={index == 1 && `mt-10 md:mt-0`}>
-                    <h3 class="text-sm font-semibold leading-6 text-slate-900">
+                    <h3 class="text-sm font-semibold leading-6 text-slate-700 dark:text-slate-300">
                       {link.name}
                     </h3>
                     <ul role="list" class="mt-6 space-y-4">
@@ -82,7 +84,7 @@ let nav = navigation.code;
                         <li>
                           <a
                             href={item.link ? item.link : `/${item.slug}`}
-                            class="text-sm leading-6 text-slate-600 hover:text-slate-900"
+                            class="text-sm leading-6 text-slate-600 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
                           >
                             {item.name}
                             {!item.slug && item.link && (
@@ -108,7 +110,7 @@ let nav = navigation.code;
               if (index > 1)
                 return (
                   <div class={index == 3 && `mt-10 md:mt-0`}>
-                    <h3 class="text-sm font-semibold leading-6 text-slate-900">
+                    <h3 class="text-sm font-semibold leading-6 text-slate-900 dark:text-slate-300">
                       {link.name}
                     </h3>
                     <ul role="list" class="mt-6 space-y-4">
@@ -116,7 +118,7 @@ let nav = navigation.code;
                         <li>
                           <a
                             href={item.link ? item.link : `/${item.slug}`}
-                            class="text-sm leading-6 text-slate-600 hover:text-slate-900"
+                            class="text-sm leading-6 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
                           >
                             {item.name}
                             {!item.slug && item.link && (
@@ -139,7 +141,7 @@ let nav = navigation.code;
       </div>
     </div>
     <div class="mt-16 border-t border-slate-900/10 pt-8 sm:mt-20 lg:mt-24">
-      <p class="text-xs leading-5 text-slate-500">
+      <p class="text-xs leading-5 text-slate-500 dark:text-slate-400">
         &copy; {new Date().getFullYear()} UnLtd, Inc. All rights reserved.
       </p>
     </div>
