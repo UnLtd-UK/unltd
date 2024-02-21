@@ -1,0 +1,29 @@
+---
+import Template from "../../layouts/Template.astro";
+import Container from "../../components/Container.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Form from "../../components/Form.astro";
+import Faq from "../../components/Faq.astro";
+const name = "General enquiry";
+const description =
+  "Got questions or need further information? Fill out our General Enquiries form, and we'll get back to you with all the answers you need to keep moving forward.";
+const email = "comms@unltd.org.uk";
+const icon = "messages";
+const breadcrumbs = [
+  {
+    name: "Enquiries",
+    slug: "/enquiries",
+  },
+  {
+    name: "General enquiry",
+    slug: "/enquiries/general-enquiry",
+  },
+];
+---
+
+<Template name={name} description={description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+  </Container>
+  <Form name={name} description={description} email={email} icon={icon} />
+</Template>

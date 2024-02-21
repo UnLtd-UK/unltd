@@ -1,5 +1,5 @@
 ---
-const { name, description, email } = Astro.props;
+const { name, description, email, icon } = Astro.props;
 ---
 
 <div class="relative isolate">
@@ -10,9 +10,14 @@ const { name, description, email } = Astro.props;
           class="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-slate-50 dark:bg-slate-950 lg:w-1/2"
         >
         </div>
+        <div
+          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg outline outline-offset-2 outline-slate-300 dark:outline-slate-700"
+        >
+          <i class=`text-slate-800 dark:text-slate-200 fa-solid fa-${icon}`></i>
+        </div>
 
         <h2
-          class="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-200"
+          class="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-200 mt-4"
         >
           {name}
         </h2>
@@ -24,40 +29,10 @@ const { name, description, email } = Astro.props;
           <i class="text-slate-600 dark:text-slate-400 fa-regular fa-envelope"
           ></i>
           <a
-            class="text-slate-700 hover:text-slate-800 dark:text-slate-300 hover:dark:text-slate-200 text-lg leading-8 font-bold underline underline-offset-4 decoration-yellow-500 decoration-1 hover:decoration-2"
+            class="text-slate-700 hover:text-slate-800 dark:text-slate-300 hover:dark:text-slate-200 text-lg leading-8 font-bold underline underline-offset-4 decoration-amber-500 decoration-1 hover:decoration-2"
             href=`mailto:${email}`>{email}</a
           >
         </div>
-
-        <!-- <div
-          class="mt-6 rounded-md bg-yellow-50 p-4 ring-1 ring-yellow-300 shadow-md"
-        >
-          <div class="flex">
-            <div class="flex-shrink-0">
-              <i
-                class="h-5 w-5 text-yellow-400 fa-solid fa-triangle-exclamation"
-              ></i>
-            </div>
-            <div class="ml-3">
-              <h3 class="text-sm font-medium text-yellow-800">
-                Enquiring about Award
-              </h3>
-              <div class="mt-2 text-sm text-yellow-700">
-                <p>
-                  If your enquiry is about an Award, do not use this form. Read
-                  our <a
-                    class="font-bold underline underline-offset-4 decoration-yellow-500 decoration-1 hover:decoration-2"
-                    href="/award#faq">FAQ</a
-                  > or email <a
-                    class="font-bold underline underline-offset-4 decoration-yellow-500 decoration-1 hover:decoration-2"
-                    href="mailto:awardapplications@unltd.org.uk"
-                    >AwardApplications@UnLtd.org.uk</a
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-        </div> -->
       </div>
     </div>
     <form

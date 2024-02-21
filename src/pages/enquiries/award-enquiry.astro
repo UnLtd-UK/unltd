@@ -1,0 +1,29 @@
+---
+import Template from "../../layouts/Template.astro";
+import Container from "../../components/Container.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Form from "../../components/Form.astro";
+import Faq from "../../components/Faq.astro";
+const name = "Award enquiry";
+const description =
+  "Interested in our awards or need specifics on the nomination process? Our Award Enquiries form is the first step to all the details and support you need for our accolades.";
+const email = "awardapplications@unltd.org.uk";
+const icon = "award";
+const breadcrumbs = [
+  {
+    name: "Enquiries",
+    slug: "/enquiries",
+  },
+  {
+    name: "Award enquiry",
+    slug: "/enquiries/award-enquiry",
+  },
+];
+---
+
+<Template name={name} description={description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+  </Container>
+  <Form name={name} description={description} email={email} icon={icon} />
+</Template>

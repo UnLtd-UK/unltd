@@ -1,44 +1,27 @@
 import { useState } from 'react'
 import { Dialog, Disclosure, Popover } from '@headlessui/react'
 
+import slugify from "slugify";
 import PopoverComponent from './Popover';
 // import DisclosureComponent from './Disclosure';
 
+import { learns } from "../../data/learns.js";
+
+const learnItems = learns.map(learn => ({
+  name: learn.name,
+  description: learn.description,
+  href: `/learn/${slugify(learn.name, {
+    lower: true,
+    strict: true,
+    locale: "en",
+    trim: true,
+  })}`,
+  icon: "fa-regular fa-file-lines"
+}));
+
 const learn = {
   name: 'Learn',
-  items:
-    [
-      {
-        name: 'Choosing the right legal structure',
-        description: '',
-        href: "/learn/choosing-the-right-legal-structure",
-        icon: "fa-regular fa-file-lines"
-      },
-      {
-        name: 'Defining social impact indicators, setting targets and refining your social model',
-        description: '',
-        href: "/learn/defining-social-impact-indictators-setting-targets-and-refining-your-social-model",
-        icon: "fa-regular fa-file-lines"
-      },
-      {
-        name: 'Stakeholder engagement and building networks',
-        description: '',
-        href: "/learn/stakeholder-engagement-and-building-networks",
-        icon: "fa-regular fa-file-lines"
-      },
-      {
-        name: 'Securing start up funding',
-        description: '',
-        href: "/learn/securing-start-up-funding",
-        icon: "fa-regular fa-file-lines"
-      },
-      {
-        name: 'Start-up business planning',
-        description: '',
-        href: "/learn/start-up-business-planning",
-        icon: "fa-regular fa-file-lines"
-      }
-    ],
+  items: learnItems,
   actions: [
   ]
 };
@@ -51,7 +34,7 @@ const funding = {
         name: 'Awards',
         description: 'For individuals',
         href: "/awards",
-        icon: "fa-solid fa-user"
+        icon: "fa-solid fa-award"
       },
       {
         name: 'Investment',
