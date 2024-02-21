@@ -1,0 +1,60 @@
+---
+import Template from "../../layouts/Template.astro";
+import Container from "../../components/Container.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Hero from "../../components/Hero.astro";
+import { marked } from "marked";
+import slugify from "slugify";
+
+import Faqtemplate from "../../components/Faqtemplate.astro";
+import Faq from "../../components/Faq.astro";
+
+import { learns } from "../../data/learns.js";
+
+export async function getStaticPaths() {
+  return learns.map((learn) => {
+    let breadcrumbs = [
+      {
+        name: learn.name,
+        slug: `/${slugify(learn.name, {
+          lower: true,
+          strict: true,
+          locale: "en",
+          trim: true,
+        })}`,
+      },
+    ];
+
+    learn.breadcrumbs = breadcrumbs;
+
+    let item = {
+      params: {
+        learn: slugify(learn.name, {
+          lower: true,
+          strict: true,
+          locale: "en",
+          trim: true,
+        }),
+      },
+      props: {
+        learn: learn,
+      },
+    };
+
+    return item;
+  });
+}
+
+const { learn } = Astro.props;
+---
+
+<Template name={learn.name} description={learn.description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={learn.breadcrumbs} />
+    <Hero name={learn.name} description={learn.description} />
+    <div
+      set:html={marked.parse(learn.body)}
+      class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
+    />
+  </Container>
+</Template>
