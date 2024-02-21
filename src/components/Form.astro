@@ -1,0 +1,164 @@
+---
+const { name, description, email } = Astro.props;
+---
+
+<div class="relative isolate">
+  <div class="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
+    <div class="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
+      <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
+        <div
+          class="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-slate-50 dark:bg-slate-950 lg:w-1/2"
+        >
+        </div>
+
+        <h2
+          class="text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-200"
+        >
+          {name}
+        </h2>
+        <p class="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-400">
+          {description}
+        </p>
+
+        <div class="flex items-center gap-3 mt-6">
+          <i class="text-slate-500 fa-regular fa-envelope"></i>
+          <a
+            class="text-slate-800 dark:text-slate-400 text-lg leading-8 font-bold underline underline-offset-4 decoration-yellow-500 decoration-1 hover:decoration-2"
+            href=`mailto:${email}`>{email}</a
+          >
+        </div>
+
+        <!-- <div
+          class="mt-6 rounded-md bg-yellow-50 p-4 ring-1 ring-yellow-300 shadow-md"
+        >
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <i
+                class="h-5 w-5 text-yellow-400 fa-solid fa-triangle-exclamation"
+              ></i>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-yellow-800">
+                Enquiring about Award
+              </h3>
+              <div class="mt-2 text-sm text-yellow-700">
+                <p>
+                  If your enquiry is about an Award, do not use this form. Read
+                  our <a
+                    class="font-bold underline underline-offset-4 decoration-yellow-500 decoration-1 hover:decoration-2"
+                    href="/award#faq">FAQ</a
+                  > or email <a
+                    class="font-bold underline underline-offset-4 decoration-yellow-500 decoration-1 hover:decoration-2"
+                    href="mailto:awardapplications@unltd.org.uk"
+                    >AwardApplications@UnLtd.org.uk</a
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <storage-form>
+      <form
+        name="General enquiries"
+        method="POST"
+        class="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48"
+        data-netlify="true"
+      >
+        <div
+          class="mx-auto max-w-xl lg:mr-0 lg:max-w-lg bg-white dark:bg-black p-10 rounded-xl shadow"
+        >
+          <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+            <div class="sm:col-span-2">
+              <label
+                for="full-name"
+                class="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100"
+                >Full name</label
+              >
+              <div class="mt-2.5">
+                <input
+                  type="text"
+                  name="full-name"
+                  id="full-name"
+                  autocomplete="full-name"
+                  class="block w-full rounded-md border-0 dark:bg-white/5 px-3.5 py-2 text-slate-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-white/10 focus:ring-2 focus:ring-inset focus:ring-amber-600 dark:focus:ring-amber-500 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="email"
+                class="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100"
+                >Email</label
+              >
+              <div class="mt-2.5">
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  autocomplete="email"
+                  class="block w-full rounded-md border-0 dark:bg-white/5 px-3.5 py-2 text-slate-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-white/10 focus:ring-2 focus:ring-inset focus:ring-amber-600 dark:focus:ring-amber-500 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="phone-number"
+                class="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100"
+                >Phone number</label
+              >
+              <div class="mt-2.5">
+                <input
+                  type="tel"
+                  name="phone-number"
+                  id="phone-number"
+                  autocomplete="tel"
+                  class="block w-full rounded-md border-0 dark:bg-white/5 px-3.5 py-2 text-slate-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-white/10 focus:ring-2 focus:ring-inset focus:ring-amber-600 dark:focus:ring-amber-500 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="subject"
+                class="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100"
+                >Subject</label
+              >
+              <div class="mt-2.5">
+                <input
+                  type="text"
+                  name="subject"
+                  id="subject"
+                  autocomplete="subject"
+                  class="block w-full rounded-md border-0 dark:bg-white/5 px-3.5 py-2 text-slate-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-white/10 focus:ring-2 focus:ring-inset focus:ring-amber-600 dark:focus:ring-amber-500 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+            <div class="sm:col-span-2">
+              <label
+                for="message"
+                class="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100"
+                >Message</label
+              >
+              <div class="mt-2.5">
+                <textarea
+                  name="message"
+                  id="message"
+                  rows="4"
+                  class="block w-full rounded-md border-0 dark:bg-white/5 px-3.5 py-2 text-slate-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-white/10 focus:ring-2 focus:ring-inset focus:ring-amber-600 dark:focus:ring-amber-500 sm:text-sm sm:leading-6"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="mt-8 flex justify-end">
+            <button
+              type="submit"
+              class="rounded-md bg-amber-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+              >Send message</button
+            >
+          </div>
+        </div>
+      </form>
+    </storage-form>
+  </div>
+</div>
