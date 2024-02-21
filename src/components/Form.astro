@@ -21,9 +21,10 @@ const { name, description, email } = Astro.props;
         </p>
 
         <div class="flex items-center gap-3 mt-6">
-          <i class="text-slate-500 fa-regular fa-envelope"></i>
+          <i class="text-slate-600 dark:text-slate-400 fa-regular fa-envelope"
+          ></i>
           <a
-            class="text-slate-800 dark:text-slate-400 text-lg leading-8 font-bold underline underline-offset-4 decoration-yellow-500 decoration-1 hover:decoration-2"
+            class="text-slate-700 hover:text-slate-800 dark:text-slate-300 hover:dark:text-slate-200 text-lg leading-8 font-bold underline underline-offset-4 decoration-yellow-500 decoration-1 hover:decoration-2"
             href=`mailto:${email}`>{email}</a
           >
         </div>
