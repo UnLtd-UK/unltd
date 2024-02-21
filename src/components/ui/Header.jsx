@@ -34,7 +34,7 @@ const funding = {
         name: 'Awards',
         description: 'For individuals',
         href: "/awards",
-        icon: "fa-solid fa-user"
+        icon: "fa-solid fa-award"
       },
       {
         name: 'Investment',
