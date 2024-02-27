@@ -1,0 +1,55 @@
+---
+// PROPS
+const props = {
+  name: "Award",
+  slug: "award",
+  description:
+    "We offer packages of funding and support to social entrepreneurs who have an idea, or are the founder of a social venture which is making a positive difference in the UK",
+};
+
+// LAYOUT
+import Template from "../../layouts/Template.astro";
+import Container from "../../components/Container.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+
+// COMPONENTS
+import Grants from "../../components/award/Grants.astro";
+import Programmes from "../../components/award/Programmes.astro";
+import Steps from "../../components/award/Steps.astro";
+import Questions from "../../components/award/Questions.astro";
+
+// OTHER
+import Head from "../../components/ui/Head.jsx";
+import moment from "moment";
+let todayDate = moment();
+const breadcrumbs = [props];
+
+// let activeGrants = rounds.filter((round) => {
+//   let date = new Date();
+//   let roundopen = new Date(round.open);
+//   let roundclose = new Date(round.close);
+//   let fundopen = new Date(round.open);
+//   let fundclose = new Date(round.close);
+
+//   if (
+//     roundopen < date &&
+//     roundclose > date &&
+//     fundopen < date &&
+//     fundclose > date
+//   ) {
+//     return activeGrant;
+//   }
+// });
+---
+
+<Template name={props.name} description={props.description}>
+  <div class="bg-slate-50">
+    <Head />
+    <main>
+      <Grants />
+      <Programmes />
+      <Steps />
+      <Questions />
+    </main>
+  </div>
+</Template>

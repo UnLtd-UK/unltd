@@ -3,7 +3,6 @@ import Template from "../../layouts/Template.astro";
 import Container from "../../components/Container.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import Form from "../../components/Form.astro";
-import Faq from "../../components/Faq.astro";
 const name = "Award enquiry";
 const description =
   "Interested in our awards or need specifics on the nomination process? Our Award Enquiries form is the first step to all the details and support you need for our accolades.";
@@ -25,6 +24,16 @@ const fields = [
   { component: "Input", name: "Email", type: "email", required: true },
   { component: "Input", name: "Phone number", type: "tel", required: false },
   { component: "Input", name: "Subject", type: "text", required: true },
+  {
+    component: "Select",
+    name: "Support",
+    required: true,
+    options: [
+      { name: "Pre-application" },
+      { name: "Application" },
+      { name: "Post-application" },
+    ],
+  },
   { component: "Textarea", name: "Message", rows: "4", required: true },
 ];
 ---
