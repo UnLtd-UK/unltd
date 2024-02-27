@@ -3,10 +3,12 @@ const { name, description, email, icon, fields } = Astro.props;
 
 import Input from "./newfields/Input.astro";
 import Textarea from "./newfields/Textarea.astro";
+import Select from "./newfields/Select.astro";
 
 const componentMap = {
   Input: Input,
   Textarea: Textarea,
+  Select: Select,
   // Add other component mappings as needed
 };
 ---
@@ -66,6 +68,7 @@ const componentMap = {
                   type={field.type}
                   rows={field.rows}
                   required={field.required}
+                  options={field.options}
                 />
               );
             })

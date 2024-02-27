@@ -31,9 +31,9 @@ const funding = {
   items:
     [
       {
-        name: 'Awards',
+        name: 'Award',
         description: 'For individuals',
-        href: "/awards",
+        href: "/award",
         icon: "fa-solid fa-award"
       },
       {
