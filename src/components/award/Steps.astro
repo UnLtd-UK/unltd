@@ -37,25 +37,32 @@ const steps = [
 ];
 ---
 
+<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+  <!-- Content goes here -->
+</div>
+
+
 <div
-  class="mx-auto mt-16 max-w-7xl px-6 sm:mt-32 lg:px-8"
+  class="mx-auto max-w-7xl sm:px-6 lg:px-8"
   x-data="{ activeTab: 'tab1', tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-2 border-blue-500 text-blue-600' : '';} }"
 >
-  <div class="mx-auto max-w-4xl">
-    <h1
+
+<div>
+    <h2
       class="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl"
     >
       How to apply
-  </h1>
-  </div>
+  </h2>
   <p
-    class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-slate-600"
+    class="mt-6 max-w-2xl text-lg leading-8 text-slate-600"
   >
     We combine funding and support to help you to get started or grow. Depending
     on your stage of development we can offer up to £18,000. We recommend you
     check the eligibility criteria closely to ensure you are eligible as our
     awards are competitive.
   </p>
+</div>
+
   <div class="sm:hidden">
     <label for="tabs" class="sr-only">Select a tab</label>
     <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
