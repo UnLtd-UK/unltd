@@ -1,7 +1,11 @@
 ---
-import truncate from "truncate";
 import { programmes } from "../../data/programmes.js";
 import { services } from "../../data/services.js";
+import truncate from "truncate";
+
+import Programme from "../../components/award/Programme.astro";
+import { Description } from "../catalyst/fieldset";
+import { sesm } from "../../data/sesm.js";
 
 programmes.map((programme) => {
   const slugify = (text) =>
@@ -21,176 +25,133 @@ programmes.map((programme) => {
 
 <div class="mx-auto max-w-7xl px-6 lg:px-8">
   <div class="mx-auto max-w-2xl lg:text-center">
-    <h2 class="text-base font-semibold leading-7 text-amber-600">Support</h2>
+    <h1 class="text-base font-semibold leading-7 text-amber-600">Support</h1>
     <p
-      class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
+      class="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl"
     >
-      Programmes
+      Your programme
     </p>
-    <p class="mt-6 text-lg leading-8 text-slate-600">
+    <p
+      class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-slate-600"
+    >
       Based on your age, geography and sectors you're working in, you'll be
       placed on one of our programmes. Programmes make sure our services are
       specialised to match you and your social enterprises needs.
     </p>
   </div>
+
   <div class="flex flex-col gap-20">
     <!-- support programmes -->
-    <div class="flex overflow-x-auto space-x-5 py-5 px-5">
-      <!-- <article
-        class="inline-block h-72 bg-slate-200 text-center align-middle border border-slate-300 rounded-lg w-80"
-      >
-        <div
-          class={`absolute inset-0 -z-10 bg-gradient-to-t from-amber-700/80 to-amber-900/20`}
+    <div
+      class="mx-auto mt-16 max-w-2xl gap-6 sm:mt-20 lg:mx-0 lg:max-w-none flex flex-col"
+    >
+      <div class="flex gap-6 justify-center flex-col lg:flex-row">
+        <article
+          class="relative isolate flex flex-col gap-4 justify-end overflow-hidden rounded-2xl outline-slate-200 w-full px-8 py-10 md:w-1/3 outline-dashed outline-2 outline-offset-2"
         >
-        </div>
-        <div
-          class={`absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-amber-900/10`}
-        >
-        </div>
-
-        <div>
-          <span class="relative inline-block">
-            <div
-              class={`flex items-center justify-center h-14 w-14 rounded-md bg-amber-600`}
-            >
-              <i class={`award-simple text-amber-200 text-2xl`}></i>
-            </div>
-          </span>
-          <h3 class={`mt-3 font-semibold leading-6 text-amber-50`}>
-            <span class="absolute inset-0"></span>
-            <p class="text-lg">Core</p>
-          </h3>
-          <p class={`text-amber-100 text-base`}>
-            {truncate("Blah blah blah", 100)}
-          </p>
-        </div>
-
-        <div class="flex flex-col gap-3">
           <div>
-            <p class={`truncate text-xs font-medium text-amber-100 uppercase`}>
-              <i class={`fa-solid fa-spinner text-amber-50`}></i>{" "}
-              Age
-            </p>
-            <p
-              class={`mt-1 text-base font-semibold tracking-tight text-amber-50`}
-            >
-              16
-            </p>
-          </div>
-          <div>
-            <p class={`truncate text-xs font-medium text-amber-100 uppercase`}>
-              <i class={`fa-solid fa-location-dot text-amber-50`}></i>{" "}
-              Geography
-            </p>
-            <p
-              class={`mt-1 text-base font-semibold tracking-tight text-amber-50`}
-            >
-              United Kingdom
-            </p>
-          </div>
-          <div>
-            <p class={`truncate text-xs font-medium text-amber-100 uppercase`}>
-              <i class={`fa-solid fa-vector-square text-amber-50`}></i>{" "}
-              Sectors
-            </p>
-            <p
-              class={`mt-1 text-base font-semibold tracking-tight text-amber-50`}
-            >
-              All sectors
-            </p>
-          </div>
-        </div>
-      </article> -->
-      {
-        programmes.map((programme) => (
-          <article class="flex-1 relative isolate flex flex-col justify-end overflow-hidden rounded-2xl p-8 gap-4 w-80">
-            <img
-              src={`https://unltd.directus.app/assets/${programme.image.id}`}
-              alt=""
-              class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50 blur-xs opacity-30"
-            />
-            <div
-              class={`absolute inset-0 -z-10 bg-gradient-to-t from-${programme.colour}-700/80 to-${programme.colour}-900/20`}
-            />
-            <div
-              class={`absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-${programme.colour}-900/10`}
-            />
-
-            <div>
-              <span class="relative inline-block">
-                <div
-                  class={`flex items-center justify-center h-14 w-14 rounded-md bg-${programme.colour}-600`}
-                >
-                  <i
-                    class={`${programme.icon} text-${programme.colour}-200 text-2xl`}
-                  />
-                </div>
-              </span>
-              <h3
-                class={`mt-3 font-semibold leading-6 text-${programme.colour}-50`}
+            <span class="relative inline-block">
+              <div
+                class={`flex items-center justify-center h-14 w-14 rounded-md bg-amber-600`}
               >
-                <a href={`/award/${programme.slug}`}>
-                  <span class="absolute inset-0" />
-                  <p class="text-lg">{programme.name}</p>
-                </a>
-              </h3>
-              <p class={`text-${programme.colour}-100 text-base`}>
-                {truncate(programme.description, 100)}
+                <i class="fa-solid fa-award-simple text-amber-200 text-2xl"></i>
+              </div>
+            </span>
+            <h3 class={`mt-3 font-semibold leading-6 text-slate-800`}>
+              <span class="absolute inset-0"></span>
+              <p class="text-lg">Core</p>
+            </h3>
+            <p class={`text-slate-700 text-base`}>
+              {truncate("Blah blah blah", 100)}
+            </p>
+          </div>
+
+          <div class="flex flex-col gap-3">
+            <div>
+              <p
+                class={`truncate text-xs font-medium text-slate-400 uppercase`}
+              >
+                <i class={`fa-solid fa-spinner text-slate-500`}></i>{" "}
+                Age
+              </p>
+              <p
+                class={`mt-1 text-base font-semibold tracking-tight text-slate-500`}
+              >
+                16
               </p>
             </div>
-
-            <div class="flex flex-col gap-3">
-              <div>
-                <p
-                  class={`truncate text-xs font-medium text-${programme.colour}-100 uppercase`}
-                >
-                  <i
-                    class={`fa-solid fa-spinner text-${programme.colour}-50`}
-                  />{" "}
-                  Age
-                </p>
-                <p
-                  class={`mt-1 text-base font-semibold tracking-tight text-${programme.colour}-50`}
-                >
-                  {programme.age}
-                </p>
-              </div>
-              <div>
-                <p
-                  class={`truncate text-xs font-medium text-${programme.colour}-100 uppercase`}
-                >
-                  <i
-                    class={`fa-solid fa-location-dot text-${programme.colour}-50`}
-                  />{" "}
-                  Geography
-                </p>
-                <p
-                  class={`mt-1 text-base font-semibold tracking-tight text-${programme.colour}-50`}
-                >
-                  {programme.geography}
-                </p>
-              </div>
-              <div>
-                <p
-                  class={`truncate text-xs font-medium text-${programme.colour}-100 uppercase`}
-                >
-                  <i
-                    class={`fa-solid fa-vector-square text-${programme.colour}-50`}
-                  />{" "}
-                  Sectors
-                </p>
-                <p
-                  class={`mt-1 text-base font-semibold tracking-tight text-${programme.colour}-50`}
-                >
-                  {programme.sectors}
-                </p>
-              </div>
+            <div>
+              <p
+                class={`truncate text-xs font-medium text-slate-400 uppercase`}
+              >
+                <i class={`fa-solid fa-location-dot text-slate-500`}></i>
+                Geography
+              </p>
+              <p
+                class={`mt-1 text-base font-semibold tracking-tight text-slate-500`}
+              >
+                United Kingdom
+              </p>
             </div>
-          </article>
-        ))
-      }
+            <div>
+              <p
+                class={`truncate text-xs font-medium text-slate-400 uppercase`}
+              >
+                <i class={`fa-solid fa-vector-square text-slate-500`}></i>{" "}
+                Sectors
+              </p>
+              <p
+                class={`mt-1 text-base font-semibold tracking-tight text-slate-500`}
+              >
+                All sectors
+              </p>
+            </div>
+          </div>
+        </article>
+        {
+          programmes.map(
+            (programme, i) =>
+              i < 2 && (
+                <Programme
+                  image={programme.image.id}
+                  icon={programme.icon}
+                  colour={programme.colour}
+                  name={programme.name}
+                  description={programme.description}
+                  slug={programme.slug}
+                  age={programme.age}
+                  geography={programme.geography}
+                  sectors={programme.sectors}
+                />
+              ),
+          )
+        }
+      </div>
+      <div class="flex gap-6 justify-center flex-col md:flex-row">
+        {
+          programmes.map(
+            (programme, i) =>
+              i >= 2 && (
+                <Programme
+                  image={programme.image.id}
+                  icon={programme.icon}
+                  colour={programme.colour}
+                  name={programme.name}
+                  description={programme.description}
+                  slug={programme.slug}
+                  age={programme.age}
+                  geography={programme.geography}
+                  sectors={programme.sectors}
+                  size="w-9"
+                />
+              ),
+          )
+        }
+      </div>
     </div>
   </div>
+
+  <div class="flex -space-x-2 overflow-hidden"></div>
 
   <!-- support services -->
   <div
@@ -205,14 +166,26 @@ programmes.map((programme) => {
         or environmental issues. If your application fits either of these areas,
         a dedicated team will handle your application and support.
       </p>
+      <div class="flex -space-x-2 overflow-hidden">
+        {
+          sesm.map((employee) => (
+            <img
+              class="inline-block h-10 w-10 rounded-full ring-2 ring-white"
+              src={`https://unltd.directus.app/assets/${employee.person.image}`}
+              alt={`${employee.person.name}`}
+            />
+          ))
+        }
+      </div>
     </div>
+
     <div class="col-span-2 grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
       {
         services.map((service) => (
           <div class="flex-1 relative isolate flex flex-col justify-end overflow-hidden rounded-2xl p-8 gap-4">
             <dt class="text-base font-semibold leading-7 text-slate-900">
-              <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-amber-600">
-                <i class={`${service.icon} text-white text-md`} />
+              <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-full bg-slate-200">
+                <i class={`${service.icon} text-slate-500 text-md`} />
               </div>
               {service.name}
             </dt>
