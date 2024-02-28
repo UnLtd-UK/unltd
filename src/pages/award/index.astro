@@ -45,11 +45,13 @@ const breadcrumbs = [props];
 <Template name={props.name} description={props.description}>
   <div class="bg-slate-50">
     <Header />
-    <main>
+    <main class="flex flex-col gap-10">
       <Grants />
       <Programmes />
+    </main>
+    <div class="flex flex-col gap-10">
       <Steps />
       <Questions />
-    </main>
+    </div>
   </div>
 </Template>
