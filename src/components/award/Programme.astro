@@ -1,16 +1,7 @@
 ---
 import truncate from "truncate";
-const {
-  image,
-  icon,
-  colour,
-  name,
-  description,
-  slug,
-  age,
-  geography,
-  sectors,
-} = Astro.props;
+const { image, icon, colour, name, blurb, slug, age, geography, sectors } =
+  Astro.props;
 ---
 
 <article
@@ -42,7 +33,7 @@ const {
       </a>
     </h3>
     <p class={`text-${colour}-100 text-sm`}>
-      {truncate(description, 100)}
+      {truncate(blurb, 100)}
     </p>
   </div>
 

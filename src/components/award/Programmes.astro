@@ -61,8 +61,8 @@ programmes.map((programme) => {
               <span class="absolute inset-0"></span>
               <p class="text-lg">Core</p>
             </h3>
-            <p class={`text-slate-700 text-base`}>
-              {truncate("Blah blah blah", 100)}
+            <p class={`text-slate-700 text-sm`}>
+              {truncate("Funded by the Millennium Awards Trust", 100)}
             </p>
           </div>
 
@@ -117,7 +117,7 @@ programmes.map((programme) => {
                   icon={programme.icon}
                   colour={programme.colour}
                   name={programme.name}
-                  description={programme.description}
+                  blurb={programme.blurb}
                   slug={programme.slug}
                   age={programme.age}
                   geography={programme.geography}
@@ -137,7 +137,7 @@ programmes.map((programme) => {
                   icon={programme.icon}
                   colour={programme.colour}
                   name={programme.name}
-                  description={programme.description}
+                  blurb={programme.blurb}
                   slug={programme.slug}
                   age={programme.age}
                   geography={programme.geography}
