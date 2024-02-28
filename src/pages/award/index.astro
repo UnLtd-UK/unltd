@@ -13,13 +13,13 @@ import Container from "../../components/Container.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 // COMPONENTS
+import Header from "../../components/award/Header.astro";
 import Grants from "../../components/award/Grants.astro";
 import Programmes from "../../components/award/Programmes.astro";
 import Steps from "../../components/award/Steps.astro";
 import Questions from "../../components/award/Questions.astro";
 
 // OTHER
-import Head from "../../components/ui/Head.jsx";
 import moment from "moment";
 let todayDate = moment();
 const breadcrumbs = [props];
@@ -44,7 +44,7 @@ const breadcrumbs = [props];
 
 <Template name={props.name} description={props.description}>
   <div class="bg-slate-50">
-    <Head />
+    <Header />
     <main>
       <Grants />
       <Programmes />
