@@ -1,0 +1,13 @@
+---
+const { message } = Astro.props;
+---
+
+<div class="group relative inline-block">
+  <span class="bg-amber-100"
+    ><slot /><i class="fa-solid fa-circle-info"></i></span
+  >
+  <span
+    class="absolute bottom-10 scale-0 transition-all rounded bg-slate-800 p-2 text-xs text-slate-50 group-hover:scale-100 mb-10 -ml-28"
+    >{message}</span
+  >
+</div>
