@@ -15,6 +15,7 @@ module.exports = {
     { pattern: /^text-/ },
     { pattern: /^border-/, variants: ['hover'] },
     { pattern: /^from-/ },
-    { pattern: /^to-/ }
+    { pattern: /^to-/ },
+    { pattern: /^shadow-/, variants: ['hover'] }
   ]
 };
