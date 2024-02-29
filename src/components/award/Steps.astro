@@ -3,6 +3,8 @@ import { Code } from "astro:components";
 import { marked } from "marked";
 import Container from "../../components/Container.astro"
 
+import slugify from "slugify";
+
 const steps = [
   {
     name: "Check your eligibility",
@@ -104,7 +106,7 @@ This is some **bold** text and this is some *italic* text.
       <!-- Default: "bg-slate-100 text-slate-500 hover:text-slate-700 dark:bg-slate-900 dark:text-slate-500 dark:hover:text-slate-300" -->
       {
         steps.map((step, i) => (
-          <button
+          <button id={`#${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}`}
             @click=`activeTab = 'tab${i}'`
             :class={`tabClass(${i})`}
             class={`rounded-t-md px-5 py-4 flex justify-center items-center gap-2 text-slate-500 hover:text-slate-700 dark:bg-slate-900 dark:text-slate-500 dark:hover:text-slate-300 border-b-2`}
@@ -134,7 +136,7 @@ This is some **bold** text and this is some *italic* text.
         <div class={`prose prose-slate dark:prose-invert`} set:html={marked.parse(step.body)}></div>
         </div>
        { step.button && <div class="rounded-b-md border-t border-slate-300 px-10 py-6 flex justify-end">
-                { step.button && <button type="button" @click=`activeTab = 'tab${i+1}'` class="rounded-full bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><span>{step.button}</span> <i class="fa-regular fa-circle-check text-lg"></i></button> }
+                { step.button && <a href={`#${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}`}><button type="button" @click=`activeTab = 'tab${i+1}'` class="rounded-full bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><span>{step.button}</span> <i class="fa-regular fa-circle-check text-lg"></i></button></a> }
         </div> }
       </div>
     ))
