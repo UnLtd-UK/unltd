@@ -1,0 +1,152 @@
+---
+import { Code } from "astro:components";
+import { marked } from "marked";
+import Container from "../../components/Container.astro"
+
+import slugify from "slugify";
+
+const steps = [
+  {
+    name: "Check your eligibility",
+    slug: "check-your-eligibility",
+    body: `
+## You
+
+This is some **bold** text and this is some *italic* text.
+
+- List item 1
+- List item 2
+- List item 3
+
+[Link](http://a.com)
+
+## Your business
+
+This is some **bold** text and this is some *italic* text.
+
+- List item 1
+- List item 2
+- List item 3
+  `,
+    button: "I am eligible",
+    altbutton: "I am not eligible",
+    altbody: "Here is a link to more funders and support"
+  },
+  {
+    name: "Create your account",
+    slug: "create-an-account",
+    body: "This is the body 2.",
+    button: "I have created an account"
+  },
+  {
+    name: "Start your application",
+    slug: "start-your-application",
+    body: "This is the body 3. Application preview is useful.",
+    button: "Submit your application"
+
+  },
+  {
+    name: "Submit your application",
+    slug: "submit-your-application",
+    body: "This is the body 4. Show dates",
+    button: "Submit your application"
+  },
+  {
+    name: "Final steps",
+    slug: "final-steps",
+    body: `
+
+If the application meets our eligibility criteria, our team will then review the application based on impact, inclusion and sustainability. Applications which show potential will be discussed alongside others at peer review to progress those with the most potential to meet our panel.
+
+You will have the opportunity to discuss your application with a panel made up of staff and other social entrepreneurs.
+
+If the application meets our eligibility criteria, our team will then review the application based on impact, inclusion and sustainability. Applications which show potential will be discussed alongside others at peer review to progress those with the most potential to meet our panel
+`,
+  },
+];
+---
+
+<Container>
+<div
+  class=" sm:px-6 lg:px-8"
+  x-data="{ activeTab: 'tab0', tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-2 border-amber-500 text-amber-600 bg-slate-200' :'bg-slate-50'}}"
+>
+
+<div>
+    <h2
+      class="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl"
+    >
+      How to apply
+  </h2>
+  <p
+    class="mt-6 max-w-2xl text-lg leading-8 text-slate-600"
+  >
+    We combine funding and support to help you to get started or grow. Depending
+    on your stage of development we can offer up to £18,000. We recommend you
+    check the eligibility criteria closely to ensure you are eligible as our
+    awards are competitive.
+  </p>
+</div>
+
+  <div class="sm:hidden">
+    <label for="tabs" class="sr-only">Select a tab</label>
+    <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+    <select
+    @change="activeTab = $event.target.value"
+      id="tabs"
+      name="tabs"
+      class="block w-full rounded-md border-slate-300 focus:border-amber-500 focus:ring-amber-500"
+    >
+      {
+        steps.map((step, i) => (
+          <option value={`tab${i}`} selected={i == 0 && true}>
+            {i + 1}. {step.name}
+          </option>
+        ))
+      }
+    </select>
+  </div>
+  <div class="hidden sm:block">
+    <nav class="flex space-x-4" aria-label="Tabs">
+      <!-- Current: "bg-slate-200 text-slate-700 hover:text-slate-100 dark:bg-slate-200 dark:text-slate-300 dark:hover:text-slate-900" -->
+
+      <!-- Default: "bg-slate-100 text-slate-500 hover:text-slate-700 dark:bg-slate-900 dark:text-slate-500 dark:hover:text-slate-300" -->
+      {
+        steps.map((step, i) => (
+          <button id={`#${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}`}
+            @click=`activeTab = 'tab${i}'`
+            :class={`tabClass(${i})`}
+            class={`rounded-t-md px-5 py-4 flex justify-center items-center gap-2 text-slate-500 hover:text-slate-700 dark:bg-slate-900 dark:text-slate-500 dark:hover:text-slate-300 border-b-2`}
+          >
+            <span
+              class={`text-xs font-medium rounded-full p-2 h-4 w-4 flex justify-center items-center outline outline-slate-300 text-slate-500`}
+            >
+              {i + 1}
+            </span>
+            <span
+              class={`text-sm font-medium ${i == 0 ? "text-slate-700 hover:text-slate-700 dark:text-slate-700 dark:hover:text-slate-700" : "text-slate-500 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-500"}`}
+            >
+              {step.name}
+            </span>
+          </button>
+        ))
+      }
+    </nav>
+  </div>
+  <!-- Tab Content -->
+  {
+    steps.map((step, i) => (
+      <div x-show={`activeTab === 'tab${i}'`} class={`bg-slate-200 rounded-b-md `} x-cloak>
+        <div
+          class={`px-10 py-6 ${i==0 && "rounded-tr-md"} ${i==4 && "rounded-tl-md"}`}
+        >
+        <div class={`prose prose-slate dark:prose-invert`} set:html={marked.parse(step.body)}></div>
+        </div>
+       { step.button && <div class="rounded-b-md border-t border-slate-300 px-10 py-6 flex justify-end">
+                { step.button && <a href={`#${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}`}><button type="button" @click=`activeTab = 'tab${i+1}'` class="rounded-full bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><span>{step.button}</span> <i class="fa-regular fa-circle-check text-lg"></i></button></a> }
+        </div> }
+      </div>
+    ))
+  }
+</div>
+</Container>

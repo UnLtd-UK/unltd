@@ -19,11 +19,25 @@ const breadcrumbs = [
     slug: "/enquiries/general-enquiry",
   },
 ];
+
+const fields = [
+  { component: "Input", name: "Full name", type: "text", required: true },
+  { component: "Input", name: "Email", type: "email", required: true },
+  { component: "Input", name: "Phone number", type: "tel", required: false },
+  { component: "Input", name: "Subject", type: "text", required: true },
+  { component: "Textarea", name: "Message", rows: "4", required: true },
+];
 ---
 
 <Template name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
   </Container>
-  <Form name={name} description={description} email={email} icon={icon} />
+  <Form
+    name={name}
+    description={description}
+    email={email}
+    icon={icon}
+    fields={fields}
+  />
 </Template>
