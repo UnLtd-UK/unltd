@@ -128,7 +128,7 @@ const grants = [
             </span>
           </p>
 
-          <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-3">
             {grant.features.map((item) => (
               <div>
                 <p
@@ -137,16 +137,18 @@ const grants = [
                   <i
                     class={`${item.icon} text-slate-600 dark:text-slate-400`}
                   />
-                  <span>{item.name}</span>
+                  <span class="text-slate-00 dark:text-slate-300">
+                    {item.name}
+                  </span>
                 </p>
               </div>
             ))}
           </div>
 
           <div class="flex flex-col gap-6">
-            <h2 class="text-sm text-slate-800 dark:text-slate-200">
+            <p class="text-sm text-slate-800 dark:text-slate-200">
               Your business eligibility:
-            </h2>
+            </p>
             {grant.eligibility.map((item) => (
               <div>
                 <p
