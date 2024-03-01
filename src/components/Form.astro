@@ -1,5 +1,16 @@
 ---
-const { name, description, email, icon } = Astro.props;
+const { name, description, email, icon, fields } = Astro.props;
+
+import Input from "./newfields/Input.astro";
+import Textarea from "./newfields/Textarea.astro";
+import Select from "./newfields/Select.astro";
+
+const componentMap = {
+  Input: Input,
+  Textarea: Textarea,
+  Select: Select,
+  // Add other component mappings as needed
+};
 ---
 
 <div class="relative isolate">
@@ -45,85 +56,23 @@ const { name, description, email, icon } = Astro.props;
         class="mx-auto max-w-xl lg:mr-0 lg:max-w-lg bg-white dark:bg-slate-900 p-10 rounded-xl shadow"
       >
         <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-          <div class="sm:col-span-2">
-            <label
-              for="full-name"
-              class="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100"
-              >Full name</label
-            >
-            <div class="mt-2.5">
-              <input
-                type="text"
-                name="full-name"
-                id="full-name"
-                autocomplete="full-name"
-                class="block w-full rounded-md border-0 dark:bg-white/5 px-3.5 py-2 text-slate-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-white/10 focus:ring-2 focus:ring-inset focus:ring-amber-600 dark:focus:ring-amber-500 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label
-              for="email"
-              class="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100"
-              >Email</label
-            >
-            <div class="mt-2.5">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                autocomplete="email"
-                class="block w-full rounded-md border-0 dark:bg-white/5 px-3.5 py-2 text-slate-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-white/10 focus:ring-2 focus:ring-inset focus:ring-amber-600 dark:focus:ring-amber-500 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label
-              for="phone-number"
-              class="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100"
-              >Phone number</label
-            >
-            <div class="mt-2.5">
-              <input
-                type="tel"
-                name="phone-number"
-                id="phone-number"
-                autocomplete="tel"
-                class="block w-full rounded-md border-0 dark:bg-white/5 px-3.5 py-2 text-slate-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-white/10 focus:ring-2 focus:ring-inset focus:ring-amber-600 dark:focus:ring-amber-500 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label
-              for="subject"
-              class="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100"
-              >Subject</label
-            >
-            <div class="mt-2.5">
-              <input
-                type="text"
-                name="subject"
-                id="subject"
-                autocomplete="subject"
-                class="block w-full rounded-md border-0 dark:bg-white/5 px-3.5 py-2 text-slate-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-white/10 focus:ring-2 focus:ring-inset focus:ring-amber-600 dark:focus:ring-amber-500 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          <div class="sm:col-span-2">
-            <label
-              for="message"
-              class="block text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100"
-              >Message</label
-            >
-            <div class="mt-2.5">
-              <textarea
-                name="message"
-                id="message"
-                rows="4"
-                class="block w-full rounded-md border-0 dark:bg-white/5 px-3.5 py-2 text-slate-900 dark:text-slate-100 shadow-sm ring-1 ring-inset ring-slate-300 dark:ring-white/10 focus:ring-2 focus:ring-inset focus:ring-amber-600 dark:focus:ring-amber-500 sm:text-sm sm:leading-6"
-              ></textarea>
-            </div>
-          </div>
+          {
+            fields.map((field) => {
+              const Component = componentMap[field.component];
+              if (!Component) {
+                return null; // Or handle unknown components as you see fit
+              }
+              return (
+                <Component
+                  name={field.name}
+                  type={field.type}
+                  rows={field.rows}
+                  required={field.required}
+                  options={field.options}
+                />
+              );
+            })
+          }
         </div>
         <div class="mt-8 flex justify-end">
           <button

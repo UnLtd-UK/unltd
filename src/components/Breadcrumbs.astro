@@ -3,13 +3,16 @@ import Container from "../components/Container.astro";
 const { breadcrumbs } = Astro.props;
 ---
 
-<div class="py-10 flex flex-col gap-12">
+<div class="py-5 flex flex-col gap-12 bg-slate-50 dark:bg-slate-950">
   <div class="flex flex-row gap-5 justify-between">
     <nav class="flex" aria-label="Breadcrumb">
       <ol role="list" class="flex flex-col gap-4 md:flex-row md:items-center">
         <li>
           <div>
-            <a href="/" class="hover:text-slate-700 text-slate-600 transition">
+            <a
+              href="/"
+              class="hover:text-slate-700 text-slate-600 dark:hover:text-slate-300 dark:text-slate-400 transition"
+            >
               <i class="fa-solid fa-house text-xs"></i>
               <span class="sr-only">UnLtd</span>
             </a>
@@ -20,10 +23,10 @@ const { breadcrumbs } = Astro.props;
           breadcrumbs.map((crumb) => (
             <li>
               <div class="flex items-center">
-                <i class="fa-solid fa-chevron-right text-slate-500 text-xs" />
+                <i class="fa-solid fa-chevron-right hover:text-slate-700 text-slate-600 dark:hover:text-slate-300 dark:text-slate-400 text-xs" />
                 <a
                   href={`${crumb.slug}`}
-                  class="ml-4 text-xs font-medium hover:text-slate-700 text-slate-600 transition"
+                  class="ml-4 text-xs font-medium hover:text-slate-700 text-slate-600 dark:hover:text-slate-300 dark:text-slate-400  transition"
                 >
                   {crumb.name}
                 </a>
