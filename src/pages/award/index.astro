@@ -44,6 +44,9 @@ const breadcrumbs = [props];
 
 <Template name={props.name} description={props.description}>
   <div class="bg-slate-50">
+    <Container>
+      <Breadcrumbs breadcrumbs={breadcrumbs} />
+    </Container>
     <Header />
     <main class="flex flex-col gap-20 bg-slate-50 dark:bg-slate-950">
       <Grants />
