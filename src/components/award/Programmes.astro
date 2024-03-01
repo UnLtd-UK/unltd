@@ -7,6 +7,160 @@ import Programme from "../../components/award/Programme.astro";
 import { Description } from "../catalyst/fieldset";
 import { sesm } from "../../data/sesm.js";
 
+const features = [
+  {
+    name: "Access to Employment",
+    items: [
+      {
+        name: "Everything in Core",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Bespoke Workshops",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Learning Circles",
+        icon: "fa-solid fa-circle-check",
+      },
+    ],
+  },
+  {
+    name: "Financial Inclusion",
+    items: [
+      {
+        name: "Everything in Core",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Bespoke Workshops",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Learning Circles",
+        icon: "fa-solid fa-circle-check",
+      },
+    ],
+  },
+  {
+    name: "Healthy Ageing",
+    items: [
+      {
+        name: "Everything in Core",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Bespoke Workshops",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Learning Circles",
+        icon: "fa-solid fa-circle-check",
+      },
+    ],
+  },
+  {
+    name: "Movement for Change",
+    items: [
+      {
+        name: "Everything in Core",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Bespoke Workshops",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Learning Circles",
+        icon: "fa-solid fa-circle-check",
+      },
+    ],
+  },
+];
+
+const eligibility = [
+  {
+    name: "Access to Employment",
+    items: [
+      {
+        name: "Age",
+        value: "16+",
+        icon: "fa-solid fa-spinner",
+      },
+      {
+        name: "Geography",
+        value: "United Kingdom",
+        icon: "fa-solid fa-location-dot",
+      },
+      {
+        name: "Sectors",
+        value: "Access to Employment",
+        icon: "fa-solid fa-vector-square",
+      },
+    ],
+  },
+  {
+    name: "Financial Inclusion",
+    items: [
+      {
+        name: "Age",
+        value: "16 - 30",
+        icon: "fa-solid fa-spinner",
+      },
+      {
+        name: "Geography",
+        value: "United Kingdom",
+        icon: "fa-solid fa-location-dot",
+      },
+      {
+        name: "Sectors",
+        value: "Finance",
+        icon: "fa-solid fa-vector-square",
+      },
+    ],
+  },
+  {
+    name: "Healthy Ageing",
+    items: [
+      {
+        name: "Age",
+        value: "16+",
+        icon: "fa-solid fa-spinner",
+      },
+      {
+        name: "Geography",
+        value: "United Kingdom",
+        icon: "fa-solid fa-location-dot",
+      },
+      {
+        name: "Sectors",
+        value: "Healthy Ageing",
+        icon: "fa-solid fa-vector-square",
+      },
+    ],
+  },
+  {
+    name: "Movement for Change",
+    items: [
+      {
+        name: "Age",
+        value: "16+",
+        icon: "fa-solid fa-spinner",
+      },
+      {
+        name: "Geography",
+        value: "England",
+        icon: "fa-solid fa-location-dot",
+      },
+      {
+        name: "Sectors",
+        value: "Sports and physical activities",
+        icon: "fa-solid fa-vector-square",
+      },
+    ],
+  },
+];
+
 programmes.map((programme) => {
   const slugify = (text) =>
     text
@@ -20,6 +174,22 @@ programmes.map((programme) => {
       .replace(/--+/g, "-");
 
   programme.slug = slugify(programme.name);
+});
+
+programmes.map((programme) => {
+  eligibility.map((eligibili) => {
+    if (eligibili.name.toLowerCase() == programme.name.toLowerCase()) {
+      programme.eligibility = eligibili.items;
+    }
+  });
+});
+
+programmes.map((programme) => {
+  features.map((feature) => {
+    if (feature.name == programme.name) {
+      programme.features = feature.items;
+    }
+  });
 });
 ---
 
@@ -52,7 +222,7 @@ programmes.map((programme) => {
       >
         <div class="flex gap-6 justify-center flex-col lg:flex-row">
           <article
-            class="relative isolate flex flex-col gap-4 justify-end overflow-hidden rounded-2xl outline-slate-300 dark:outline-slate-700 w-full px-8 py-10 md:w-1/3 outline-dashed outline-2 outline-offset-2"
+            class="relative isolate flex flex-col justify-between gap-4 justify-end overflow-hidden rounded-2xl outline-slate-300 dark:outline-slate-700 w-full px-8 py-10 md:w-1/3 outline-dashed outline-2 outline-offset-2"
           >
             <div>
               <span class="relative inline-block">
@@ -132,6 +302,8 @@ programmes.map((programme) => {
                     age={programme.age}
                     geography={programme.geography}
                     sectors={programme.sectors}
+                    eligibility={programme.eligibility}
+                    features={programme.features}
                   />
                 ),
             )
@@ -153,6 +325,8 @@ programmes.map((programme) => {
                       age={programme.age}
                       geography={programme.geography}
                       sectors={programme.sectors}
+                      eligibility={programme.eligibility}
+                      features={programme.features}
                       size="w-9"
                     />
                   ),
