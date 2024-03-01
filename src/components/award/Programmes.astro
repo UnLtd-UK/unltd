@@ -166,30 +166,6 @@ programmes.map((programme) => {
     <div
       class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
     >
-      <div class="basis-2/6 flex flex-col gap-2">
-        <h2
-          class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
-        >
-          Services
-        </h2>
-        <p class="text-slate-500">
-          UnLtd supports social entrepreneurs who are tackling a range of social
-          or environmental issues. If your application fits either of these
-          areas, a dedicated team will handle your application and support.
-        </p>
-        <div class="flex -space-x-2 overflow-hidden">
-          {
-            sesm.map((employee) => (
-              <img
-                class="inline-block h-10 w-10 rounded-full ring-2 ring-slate-200 dark:ring-slate-800"
-                src={`https://unltd.directus.app/assets/${employee.person.image}`}
-                alt={`${employee.person.name}`}
-              />
-            ))
-          }
-        </div>
-      </div>
-
       <div class="col-span-2 grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
         {
           services.map((service) => (
@@ -205,6 +181,17 @@ programmes.map((programme) => {
               <dd class="mt-1 text-base leading-7 text-slate-600 dark:text-slate-400">
                 {service.description}
               </dd>
+              {service.name == "Support Manager" && (
+                <div class="flex -space-x-2 overflow-hidden">
+                  {sesm.map((employee) => (
+                    <img
+                      class="inline-block h-10 w-10 rounded-full ring-2 ring-slate-200 dark:ring-slate-800"
+                      src={`https://unltd.directus.app/assets/${employee.person.image}`}
+                      alt={`${employee.person.name}`}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           ))
         }
