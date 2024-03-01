@@ -35,11 +35,11 @@ const { image, icon, colour, name, blurb, slug, features, eligibility } =
           <p class="text-lg">{name}</p>
         </a>
       </h3>
-      {
+      <!-- {
         blurb && (
           <p class={`text-${colour}-100/80 text-xs`}>{truncate(blurb, 100)}</p>
         )
-      }
+      } -->
     </div>
 
     <div class="flex flex-col gap-3">
@@ -60,7 +60,7 @@ const { image, icon, colour, name, blurb, slug, features, eligibility } =
     </div>
   </div>
 
-  <div class={`flex flex-col gap-3 bg-slate-700/50 rounded-md p-5`}>
+  <div class={`flex flex-col gap-3 bg-slate-950/10 rounded-md p-5`}>
     <p class={`text-sm text-${colour}-100 dark:text-${colour}-200`}>
       Your eligibility:
     </p>
