@@ -13,7 +13,7 @@ const { image, icon, colour, name, blurb, slug, age, geography, sectors } =
     class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50 blur-xs opacity-30"
   />
   <div
-    class={`absolute inset-0 -z-10 bg-gradient-to-t from-${colour}-700/80 to-${colour}-900/20`}
+    class={`absolute inset-0 -z-10 bg-gradient-to-t from-${colour}-500/80 to-${colour}-700/20 dark:from-${colour}-700/80 dark:to-${colour}-900/20`}
   >
   </div>
   <div class={`absolute inset-0 -z-10 rounded-2xl`}></div>
@@ -21,9 +21,10 @@ const { image, icon, colour, name, blurb, slug, age, geography, sectors } =
   <div>
     <span class="relative inline-block">
       <div
-        class={`flex items-center justify-center h-14 w-14 rounded-md bg-${colour}-600`}
+        class={`flex items-center justify-center h-14 w-14 rounded-md bg-${colour}-600 dark:bg-${colour}-400`}
       >
-        <i class={`${icon} text-${colour}-200 text-2xl`}></i>
+        <i class={`${icon} text-${colour}-200 dark:text-${colour}-800 text-2xl`}
+        ></i>
       </div>
     </span>
     <h3 class={`mt-3 font-semibold leading-6 text-${colour}-50`}>
