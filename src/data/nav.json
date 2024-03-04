@@ -1,15 +1,15 @@
 {
   "header": {
     "action": {
-      "name": "My Award Account",
+      "name": "My Account",
       "link": "https://unltd.microsoftcrmportals.com/applications",
       "children": []
     },
     "main": [
       {
-        "name": "Awards",
+        "name": "Award",
         "link": "",
-        "slug": "awards",
+        "slug": "award",
         "icon": "",
         "children": []
       },
@@ -184,9 +184,9 @@
         "icon": ""
       },
       {
-        "name": "Contact us",
+        "name": "Enquiries",
         "link": "",
-        "slug": "contact-us",
+        "slug": "enquiries",
         "icon": ""
       },
       {
