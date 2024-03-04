@@ -6,10 +6,11 @@ import Hero from "../components/Hero.astro";
 import { marked } from "marked";
 import slugify from "slugify";
 
+import { pages } from "../data/pages.js";
+
 import Faqtemplate from "../components/Faqtemplate.astro";
 import Faq from "../components/Faq.astro";
-
-import { pages } from "../data/pages.js";
+import Note from "../components/Note.astro";
 
 export async function getStaticPaths() {
   return pages.map((page) => {
@@ -51,7 +52,11 @@ const { page } = Astro.props;
 <Template name={page.name} description={page.description}>
   <Container>
     <Breadcrumbs breadcrumbs={page.breadcrumbs} />
-    <Hero name={page.name} description={page.description} />
+    <Hero
+      name={page.name}
+      description={page.description}
+      updated={page.date_updated}
+    />
     <div
       set:html={marked.parse(page.body)}
       class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
