@@ -7,9 +7,9 @@
     },
     "main": [
       {
-        "name": "Awards",
+        "name": "Award",
         "link": "",
-        "slug": "awards",
+        "slug": "award",
         "icon": "",
         "children": []
       },
