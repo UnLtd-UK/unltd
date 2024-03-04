@@ -1,75 +1,28 @@
 ---
 const { name, description, primaryButton, secondaryButton, updated, reviewed } =
   Astro.props;
+
+import moment from "moment";
 ---
 
-<div class="pb-14 flex flex-col gap-12">
+<div class="max-w-4xl flex flex-col gap-3 mb-16">
   {
-    updated && updated && (
-      <div class="flex flex-row gap-5 justify-between">
-        {reviewed && (
-          <div class="flex flex-row gap-10">
-            {updated && (
-              <div>
-                <p class="text-slate-900 text-xs">Updated</p>
-                <p class="text-slate-900 text-sm">
-                  {new Date(updated).toLocaleDateString()}
-                </p>
-              </div>
-            )}
-
-            {updated && (
-              <div>
-                <p class="text-slate-900 text-xs">Reviewed</p>
-                <p class="text-slate-900 text-sm">
-                  {new Date(reviewed).toLocaleDateString()}
-                </p>
-              </div>
-            )}
-          </div>
-        )}
+    updated && (
+      <div class="flex flex-col gap-5 justify-between">
+        <p class="text-slate-800 dark:text-slate-200 text-sm">
+          Updated: {moment(updated).format("dddd hh:mma, MMMM Do YYYY")}
+        </p>
       </div>
     )
   }
-
-  <div class="max-w-4xl flex flex-col gap-3">
-    <div class="flex flex-col gap-3">
-      <h2
-        class="text-4xl font-bold tracking-tight text-slate-800 dark:text-slate-200 sm:text-4xl lg:text-5xl"
-      >
-        {name}
-      </h2>
-      <p class="text-2xl text-slate-600 dark:text-slate-400">
-        {description}
-      </p>
-    </div>
+  <div class="flex flex-col gap-3">
+    <h2
+      class="text-4xl font-bold tracking-tight text-slate-800 dark:text-slate-200 sm:text-4xl lg:text-5xl"
+    >
+      {name}
+    </h2>
+    <p class="text-2xl text-slate-600 dark:text-slate-400">
+      {description}
+    </p>
   </div>
-
-  {
-    primaryButton && (
-      <div class="flex flex-row">
-        <div class="inline-flex rounded-md shadow">
-          {primaryButton && (
-            <a
-              target={primaryButton.url.startsWith("https://") && "_blank"}
-              href={primaryButton.url}
-              class="inline-flex items-center justify-center rounded-full border border-transparent bg-slate-100 px-5 py-3 text-base font-medium text-slate hover:bg-amber-700"
-            >
-              {primaryButton.text}
-            </a>
-          )}
-        </div>
-        <div class="ml-3 inline-flex">
-          {secondaryButton && (
-            <a
-              href={secondaryButton.url}
-              class="inline-flex items-center justify-center rounded-full border border-transparent bg-slate-100 px-5 py-3 text-base font-medium text-slate-700 hover:bg-amber-200"
-            >
-              {secondaryButton.text}
-            </a>
-          )}
-        </div>
-      </div>
-    )
-  }
 </div>
