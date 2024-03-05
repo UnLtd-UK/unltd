@@ -159,12 +159,8 @@ A recommendation is made to our Awards Committee (a group of our trustees which 
 ---
 
 <Container>
-<div
-  class="w-full"
-  x-data="{ activeTab: 'tab0', tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-2 border-amber-500 text-amber-600 bg-slate-100' :'bg-slate-50'}}"
->
-
-<div>
+  <div class="flex flex-col gap-10">
+  <div>
     <h2
       class="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl"
     >
@@ -176,7 +172,10 @@ A recommendation is made to our Awards Committee (a group of our trustees which 
 To apply for our award, please start by filling out the online application form available on our website. Ensure you provide detailed information about your business or project, highlighting how it aligns with our criteria. After submitting the form, our team will review your application and contact you with the next steps. We look forward to learning about your innovative ideas and how we can support your journey toward making a significant impact.
   </p>
 </div>
-
+<div
+  class="w-full"
+  x-data="{ activeTab: 'tab0', tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-2 border-amber-500 text-amber-600 bg-slate-100' :'bg-slate-50'}}"
+>
   <div class="sm:hidden">
     <label for="tabs" class="sr-only">Select a tab</label>
     <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
@@ -232,11 +231,12 @@ To apply for our award, please start by filling out the online application form 
         <div class={`prose prose-slate dark:prose-invert prose-img:rounded-md prose-img:shadow-md`} set:html={marked.parse(step.body)}></div>
         </div>
        { step.button && <div class="rounded-b-md border-t border-slate-300 px-10 py-6 flex justify-between items-center">
-        { step.alt && <a href={step.alt.link}><i class="fa-solid fa-circle-question text-slate-600 dark:tex-slate-400"></i> <span class="text-slate-800 dark:text-slate-200">{step.alt.name}</span></a> }
+        { step.alt && <a href={step.alt.link}><i class="fa-solid fa-circle-question text-slate-500 dark:text-slate-500 text-sm"></i> <span class="text-slate-600 dark:text-slate-400 text-sm">{step.alt.name}</span></a> }
                 { step.button && <a href={`/award#${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}`}><button type="button" @click=`activeTab = 'tab${i+1}'` class="rounded-full bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><span>{step.button}</span> <i class="fa-regular fa-circle-check text-lg"></i></button></a> }
         </div> }
       </div>
     ))
   }
+</div>
 </div>
 </Container>
