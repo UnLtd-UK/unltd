@@ -53,7 +53,7 @@ We receive many more applications than we can support. While we do not want to d
 ## You
 
 - We support individuals. This means that the application must be completed by the founder; the social entrepreneur who needs our financial and non-financial support
-- We don’t discriminate based on who you are and where you come from and to support our equity commitments at least 50% of our Awards will support entrepreneurs who come from a disabled and/or Black, Asian or minority ethnic background.
+- We don't discriminate based on who you are and where you come from and to support our equity commitments at least 50% of our Awards will support entrepreneurs who come from a disabled and/or Black, Asian or minority ethnic background.
 - We are looking for people who have lived experience of the issues they are looking to tackle. We believe that having a deep understanding of the challenges you want to tackle makes you a passionate and determined social entrepreneur.
 - We are not looking for people who know everything they need to know to run a social venture, in fact, we are looking for people who need the non-financial support just as much as the financial support we offer. 
 
@@ -82,7 +82,10 @@ You have an idea or are providing opportunities for marginalised communities to 
   {
     name: "Create your account",
     slug: "create-an-account",
-    body: "This is the body 3. Help them create an account.",
+    body: `
+Go to the [UnLtd Portal](https://unltd.microsoftcrmportals.com/applications) and click 'Sign up now' to create an account.
+![This is how you create an account](/img/signup.webp)
+`,
     button: "I have created an account"
   },
   {
@@ -204,7 +207,7 @@ To apply for our award, please start by filling out the online application form 
         <div
           class={`px-10 py-6 ${i==0 && "rounded-tr-md"} ${i==4 && "rounded-tl-md"}`}
         >
-        <div class={`prose prose-slate dark:prose-invert`} set:html={marked.parse(step.body)}></div>
+        <div class={`prose prose-slate dark:prose-invert prose-img:rounded-md prose-img:shadow-md`} set:html={marked.parse(step.body)}></div>
         </div>
        { step.button && <div class="rounded-b-md border-t border-slate-300 px-10 py-6 flex justify-end">
                 { step.button && <a href={`/award#${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}`}><button type="button" @click=`activeTab = 'tab${i+1}'` class="rounded-full bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><span>{step.button}</span> <i class="fa-regular fa-circle-check text-lg"></i></button></a> }
