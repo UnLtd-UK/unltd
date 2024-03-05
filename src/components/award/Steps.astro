@@ -41,34 +41,98 @@ const steps = [
 Not eligible? [Other services for funding and support](/learn/other-services-for-funding-and-support)
 `,
     button: "I am eligible",
-    altbutton: "I am not eligible",
-    altbody: "Here is a link to more funders and support.",
+    alt: {
+      name: "Not eligible? Check out other funding and support",
+      link: "/learn/other-funding-and-support-available-for-social-entrepreneurs/"
+    }
+  },
+  {
+    name: "Check your suitability",
+    slug: "check-your-suitability",
+    body: `
+We receive many more applications than we can support. While we do not want to discourage social entrepreneurs from applying, we want you to be confident that our awards are right for you and your social venture before applying.
+
+## You
+
+- We support individuals. This means that the application must be completed by the founder; the social entrepreneur who needs our financial and non-financial support
+- We don't discriminate based on who you are and where you come from and to support our equity commitments at least 50% of our Awards will support entrepreneurs who come from a disabled and/or Black, Asian or minority ethnic background.
+- We are looking for people who have lived experience of the issues they are looking to tackle. We believe that having a deep understanding of the challenges you want to tackle makes you a passionate and determined social entrepreneur.
+- We are not looking for people who know everything they need to know to run a social venture, in fact, we are looking for people who need the non-financial support just as much as the financial support we offer. 
+
+## Your business
+
+- We are looking to support social ventures which have the potential to be financially sustainable, with prospects for growth. We want to support you to create long-lasting change for people, communities, and the planet. 
+- We are particularly interested in social ventures which are tackling inequality and reaching the most marginalised people and communities in the UK.
+- We want to help your social venture to succeed. If you need a lot more money than we can offer, without a clear plan for how you will get it, you are unlikely to get our support.
+- You might not have secured your first customers yet if you are starting out, but you will have an idea who might pay for your product or service. 
+- If you have already started trading (selling goods or services) and are applying for our Scaling Up award, we will be looking at your potential to grow your impact alongside your revenue. 
+
+
+If you are working to achieve impact in an area listed below, we would like to hear from you if you are able to demonstrate:
+
+## Access to Employment
+You have an idea or are supporting people into employment, either through direct employment, supporting people to become more employable, or helping people who face additional barriers to remaining in employment. We are particularly interested in social ventures which are helping people to access good jobs and meaningful employment, supporting the most marginalised in the labour market. 
+
+## Healthy Ageing
+You have an idea or are reducing health inequalities for older adults in the UK, or improving the experience of later life in by providing products and services that meet the needs and aspirations of older adults. We are particularly interested in social ventures which are working with marginalised older adults. 
+
+## Movement for Change
+You have an idea or are providing opportunities for marginalised communities to access the experiences and benefits of sport and physical activity. We are particularly looking to support ventures which are looking to grow their impact and ensure they continue to reach those who face the most barriers to engaging in physical activity, particularly considering the cost of living. 
+`,
+    button: "I am suitable",
+    alt: {
+      name: "Not suitable? Check out other funding and support",
+      link: "/learn/other-funding-and-support-available-for-social-entrepreneurs/"
+    }
   },
   {
     name: "Create your account",
     slug: "create-an-account",
-    body: "This is the body 2. Help them create an account.",
-    button: "I have created an account"
+    body: `
+Go to the [UnLtd Portal](https://unltd.microsoftcrmportals.com/applications) and click 'Sign up now' to create an account.
+![This is how you create an account](/img/signup.webp)
+`,
+    button: "I have created an account",
+    alt: {
+      name: "Need help with creating an account?",
+      link: "/enquiries/award-enquiry"
+    }
   },
   {
     name: "Start your application",
     slug: "start-your-application",
     body: `
-[Award application preview](/award/application-preview)`,
-    button: "Submit your application"
 
+You can review the application form here. We have 3 different application forms depending on how long your business has been trading:
+
+[Your business is not yet trading](/award/forming-i-have-an-idea)
+
+[You business has been trading for less than 1 year](award/ive-been-trading-for-less-than-1-year)
+
+[Your business has been trading between 1 to 4 years](award/ive-been-trading-for-1-year-or-more)`,
+    button: "Submit your application",
+    alt: {
+      name: "Need help with making your application?",
+      link: "/enquiries/award-enquiry"
+    }
   },
   {
     name: "Submit your application",
     slug: "submit-your-application",
     body: `
-| Test    | Tom |
-| -------- | ------- |
-| January  | $250    |
-| February | $80     |
-| March    | $420    |
+Apply before 31 March and you will get your results week commencing 24 June.
+
+| Application submitted   | Application assessed    | Application result |
+| ------------------------ | ------------------------ | -------------------- |
+| 1 Jan 2024 - 31 Mar 2024 | 1 Apr 2024 - 30 Jun 2024 | 24 Jun 2024          |
+| 1 Apr 2024 - 30 Jun 2024 | 1 Jul 2024 - 30 Sep 2024 | 23 Sep 2024          |
+| 1 Jul 2024 - 30 Sep 2024 | 1 Oct 2024 - 31 Dec 2024 | 9 Dec 2024           |
 `,
-    button: "Submit your application"
+    button: "Submit your application",
+        alt: {
+      name: "Need help submitting your application?",
+      link: "/enquiries/award-enquiry"
+    }
   },
   {
     name: "Final steps",
@@ -85,17 +149,18 @@ Here you will have the opportunity to discuss your application with a panel made
 
 ## 4. Result
 A recommendation is made to our Awards Committee (a group of our trustees which also includes social entrepreneurs) who make the final decision on your application. You will be informed of the outcome of your application.`,
-  },
+    alt: {
+      name: "Need help?",
+      link: "/enquiries/award-enquiry"
+    }
+
+},
 ];
 ---
 
 <Container>
-<div
-  class=" sm:px-6 lg:px-8"
-  x-data="{ activeTab: 'tab0', tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-2 border-amber-500 text-amber-600 bg-slate-200' :'bg-slate-50'}}"
->
-
-<div>
+  <div class="flex flex-col gap-10">
+  <div>
     <h2
       class="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl"
     >
@@ -107,7 +172,10 @@ A recommendation is made to our Awards Committee (a group of our trustees which 
 To apply for our award, please start by filling out the online application form available on our website. Ensure you provide detailed information about your business or project, highlighting how it aligns with our criteria. After submitting the form, our team will review your application and contact you with the next steps. We look forward to learning about your innovative ideas and how we can support your journey toward making a significant impact.
   </p>
 </div>
-
+<div
+  class="w-full"
+  x-data="{ activeTab: 'tab0', tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-2 border-amber-500 text-amber-600 bg-slate-100' :'bg-slate-50'}}"
+>
   <div class="sm:hidden">
     <label for="tabs" class="sr-only">Select a tab</label>
     <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
@@ -133,7 +201,7 @@ To apply for our award, please start by filling out the online application form 
       <!-- Default: "bg-slate-100 text-slate-500 hover:text-slate-700 dark:bg-slate-900 dark:text-slate-500 dark:hover:text-slate-300" -->
       {
         steps.map((step, i) => (
-          <button id={`#${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}`}
+          <button id={`${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}`}
             @click=`activeTab = 'tab${i}'`
             :class={`tabClass(${i})`}
             class={`rounded-t-md px-5 py-4 flex justify-center items-center gap-2 text-slate-500 hover:text-slate-700 dark:bg-slate-900 dark:text-slate-500 dark:hover:text-slate-300 border-b-2`}
@@ -156,17 +224,19 @@ To apply for our award, please start by filling out the online application form 
   <!-- Tab Content -->
   {
     steps.map((step, i) => (
-      <div x-show={`activeTab === 'tab${i}'`} class={`bg-slate-200 rounded-b-md `} x-cloak>
+      <div x-show={`activeTab === 'tab${i}'`} class={`bg-slate-100 rounded-b-md border border-slate-200`} x-cloak>
         <div
           class={`px-10 py-6 ${i==0 && "rounded-tr-md"} ${i==4 && "rounded-tl-md"}`}
         >
-        <div class={`prose prose-slate dark:prose-invert`} set:html={marked.parse(step.body)}></div>
+        <div class={`prose prose-slate dark:prose-invert prose-img:rounded-md prose-img:shadow-md`} set:html={marked.parse(step.body)}></div>
         </div>
-       { step.button && <div class="rounded-b-md border-t border-slate-300 px-10 py-6 flex justify-end">
-                { step.button && <a href={`#${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}`}><button type="button" @click=`activeTab = 'tab${i+1}'` class="rounded-full bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><span>{step.button}</span> <i class="fa-regular fa-circle-check text-lg"></i></button></a> }
+       { step.button && <div class="rounded-b-md border-t border-slate-300 px-10 py-6 flex justify-between items-center">
+        { step.alt && <a href={step.alt.link}><i class="fa-solid fa-circle-question text-slate-500 dark:text-slate-500 text-sm"></i> <span class="text-slate-600 dark:text-slate-400 text-sm">{step.alt.name}</span></a> }
+                { step.button && <a href={`/award#${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}`}><button type="button" @click=`activeTab = 'tab${i+1}'` class="rounded-full bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><span>{step.button}</span> <i class="fa-regular fa-circle-check text-lg"></i></button></a> }
         </div> }
       </div>
     ))
   }
+</div>
 </div>
 </Container>

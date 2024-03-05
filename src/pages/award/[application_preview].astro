@@ -1,11 +1,11 @@
 ---
-import Template from "../../../layouts/Template.astro";
-import Container from "../../../components/Container.astro";
-import Breadcrumbs from "../../../components/Breadcrumbs.astro";
-import Main from "../../../components/application-preview/Main.astro";
-import AsideRight from "../../../components/application-preview/AsideRight.astro";
+import Template from "../../layouts/Template.astro";
+import Container from "../../components/Container.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Main from "../../components/application-preview/Main.astro";
+import AsideRight from "../../components/application-preview/AsideRight.astro";
 
-import { applications } from "../../../data/applications.js";
+import { applications } from "../../data/applications.js";
 
 Astro.props;
 
@@ -14,10 +14,6 @@ export function getStaticPaths() {
     {
       name: "Award",
       slug: "/award",
-    },
-    {
-      name: "Application preview",
-      slug: `/award/application-preview`,
     },
   ];
   const pages = [];
