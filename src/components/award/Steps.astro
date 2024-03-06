@@ -228,19 +228,20 @@ To apply for our Award, please start by filling out the online application form 
   </div>
   <!-- Tab Content -->
   {
-    steps.map((step, i) => (
-      <div x-show={`activeTab === 'tab${i}'`} class={`bg-slate-100 rounded-b-md border border-slate-200 shadow-sm`} x-cloak>
+    steps.map((step, i) => {
+      let basePath = step.button && `/award#${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true})}`;
+      return (<div x-show={`activeTab === 'tab${i}'`} class={`bg-slate-100 rounded-b-md border border-slate-200 shadow-sm`} x-cloak>
         <div
           class={`px-10 py-6 ${i==0 && "rounded-tr-md"} ${i==4 && "rounded-tl-md"}`}
         >
         <div class={`prose prose-slate dark:prose-invert prose-sm prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2`} set:html={marked.parse(step.body)}></div>
         </div>
       <div class="rounded-b-md border-t border-slate-300 px-10 py-6 flex justify-between items-center">
-        { step.button && <a href={`/award#${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}`}><button type="button" @click=`activeTab = 'tab${i+1}'` class="rounded-full bg-amber-600 px-4 py-2.5 font-semibold text-slate-50 shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><i class="fa-regular fa-circle-check text-lg"></i><span class="text-sm">{step.button}</span></button></a> }
+        { step.button && <a href={basePath}><button type="button" @click=`activeTab = 'tab${i+1}'` class="rounded-full bg-amber-600 px-4 py-2.5 font-semibold text-slate-50 shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><i class="fa-regular fa-circle-check text-lg"></i><span class="text-sm">{step.button}</span></button></a> }
         { step.alt && <a href={step.alt.link} class="flex gap-2 items-center"><i class="fa-solid fa-circle-question text-slate-500 dark:text-slate-500 text-lg"></i> <span class="text-slate-600 dark:text-slate-400 text-sm">{step.alt.name}</span></a> }
         </div>
-      </div>
-    ))
+      </div>)
+    })
   }
 </div>
 </div>
