@@ -102,7 +102,7 @@ If you and your Social Venture are based in Wales and identify as a marginalised
 [Learn more about the extra support for marginlised individuals in Wales](/extra-support-for-marginalised-individuals-in-wales).
 
 `,
-    button: "I am capable of completing the application form",
+    button: "I understand what the application form requires",
     alt: {
       name: "Do you want help reviewing the application form?",
       link: "/enquiries/award-enquiry"
@@ -125,7 +125,7 @@ Go to the [UnLtd Portal](https://unltd.microsoftcrmportals.com/applications) and
     name: "Make your application",
     slug: "make-your-application",
     body: `
-Apply before 31 March and you will get your results week commencing 24 June.
+Apply before 31 March and you should get your results by the week commencing 24 June.
 
 | Application submitted   | Application assessed    | Application result |
 | ------------------------ | ------------------------ | -------------------- |
@@ -142,6 +142,21 @@ Apply before 31 March and you will get your results week commencing 24 June.
   {
     name: "Submit your application",
     slug: "submit your application",
+    body: `
+| Application submitted   | Application assessed    | Application result |
+| ------------------------ | ------------------------ | -------------------- |
+| 1 Jan 2024 - 31 Mar 2024 | 1 Apr 2024 - 30 Jun 2024 | 24 Jun 2024          |
+| 1 Apr 2024 - 30 Jun 2024 | 1 Jul 2024 - 30 Sep 2024 | 23 Sep 2024          |
+| 1 Jul 2024 - 30 Sep 2024 | 1 Oct 2024 - 31 Dec 2024 | 9 Dec 2024  `,
+    alt: {
+      name: "Need help?",
+      link: "/enquiries/award-enquiry"
+    }
+
+},
+  {
+    name: "Assessment process",
+    slug: "accessment-process",
     body: `
 ## 1. Support Manager assessment
 If the application meets our eligibility criteria, our team will then review the application based on impact, inclusion and sustainability.
@@ -167,10 +182,16 @@ A recommendation is made to our Awards Committee (a group of our trustees which 
   <div class="flex flex-col gap-10">
   <div>
     <h2
-      id="how-to-apply" class="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl"
+      id="support"
+      class="text-base font-semibold leading-7 text-amber-600 dark:text-amber-500"
     >
-      How to apply
-  </h2>
+      Apply
+    </h2>
+    <p
+      class="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl"
+    >
+      How to get an Award
+    </p>
   <p
     class="mt-6 max-w-2xl text-lg leading-8 text-slate-600"
   >
@@ -217,7 +238,7 @@ To apply for our Award, please start by filling out the online application form 
               {i + 1}
             </span>
             <span
-              class={`text-sm font-medium ${i == 0 ? "text-slate-700 hover:text-slate-700 dark:text-slate-700 dark:hover:text-slate-700" : "text-slate-500 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-500"}`}
+              class={`text-xs font-medium ${i == 0 ? "text-slate-700 hover:text-slate-700 dark:text-slate-700 dark:hover:text-slate-700" : "text-slate-500 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-500"}`}
             >
               {step.name}
             </span>
