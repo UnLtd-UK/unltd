@@ -140,8 +140,8 @@ Apply before 31 March and you should get your results by the week commencing 24 
     }
   },
   {
-    name: "Submit your application",
-    slug: "submit your application",
+    name: "Submit your application and deadlines",
+    slug: "submit-your-application-and-deadlines",
     body: `
 | Application submitted   | Application assessed    | Application result |
 | ------------------------ | ------------------------ | -------------------- |
@@ -195,7 +195,7 @@ A recommendation is made to our Awards Committee (a group of our trustees which 
   <p
     class="mt-6 max-w-2xl text-lg leading-8 text-slate-600"
   >
-To apply for our Award, please start by filling out the online application form available on our website. Ensure you provide detailed information about your Social Venture, highlighting how it aligns with our criteria. After submitting the form, our team will review your application and contact you with the next steps. We look forward to learning about your innovative ideas and how we can support your journey toward making a significant impact.
+To apply for our Award, please start by filling out the online application form available on our website. Ensure you provide detailed information about your Social Venture, highlighting how it aligns with our criteria. After submitting the form, our team will review your application and contact you with the next steps. We look forward to learning about your innovative ideas and how we can support your journey toward making a significant impact. <span class="font-bold">We recommend that you read through all of the following steps to guide you in your application</span>.
   </p>
 </div>
 <div
@@ -230,7 +230,7 @@ To apply for our Award, please start by filling out the online application form 
           <button id={`${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}`}
             @click=`activeTab = 'tab${i}'`
             :class={`tabClass(${i})`}
-            class={`rounded-t-md px-5 py-4 flex flex-col justify-center items-center gap-2 text-slate-500 hover:text-slate-700 dark:bg-slate-900 dark:text-slate-500 dark:hover:text-slate-300 border-b-2 hover:bg-slate-100 transition duration-200`}
+            class={`rounded-t-md px-4 py-4 flex flex-col justify-center items-center gap-2 text-slate-500 hover:text-slate-700 dark:bg-slate-900 dark:text-slate-500 dark:hover:text-slate-300 border-b-2 hover:bg-slate-100 transition duration-200`}
           >
             <span
               class={`text-xs font-medium rounded-full p-2 h-4 w-4 flex justify-center items-center outline outline-slate-300 text-slate-500`}
