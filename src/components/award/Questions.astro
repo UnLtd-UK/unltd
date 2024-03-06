@@ -1,84 +1,81 @@
 ---
 import Faq from "../../components/Faq.astro";
+import Container from "../../components/Container.astro";
+
+const items = [
+  {
+    a: "Am I eligible to apply for an Award?",
+    q: "Our eligibility criteria are listed on the Award page. You must meet all the eligibility criteria to make an application as we are unable to make exceptions.",
+  },
+  {
+    a: "I registered my Social Venture more than four years ago but started trading less than four years ago. Can I apply?",
+    q: "We check the date of registration on Companies House/Charity Commission during our assessment. If your Social Venture has been registered for longer than four years at the time of your application, you are ineligible to apply for Award.",
+  },
+  {
+    a: "Does the legal structure of my Social Venture matter?",
+    q: "No. You can apply to us even before identifying the right legal structure and may wish to seek support from us on the right one for your Social Venture.",
+  },
+  {
+    a: "Does my Social Venture sound like the type of application UnLtd could support?",
+    q: "We aim to support people who are creating or developing Social Ventures which have the most potential to create positive social change. By Social Venture, we mean an organisation which creates social impact but has a business model that is financially sustainable so that it can continue to make a difference. You can read more about this in our 2025 strategy, Breaking Down Barriers.",
+  },
+  {
+    a: "Can I speak to a member of staff about my Social Venture?",
+    q: "We aim for our Award making to be as equitable as possible, so we are unable to advise you on your idea or your Social Venture and we cannot tell you if your application would be successful or give specific advice before you apply. Our focus is on assisting those with additional support needs to access our application process.",
+  },
+  {
+    a: "Do you accept Social Venture plans/proposal documents in place of an application?",
+    q: "Currently we can only accept applications via our online application form. This is to ensure that we provide an equitable experience for all applicants. If you are facing barriers to applying, please get in touch with us and we will do our best to assist you.",
+  },
+  {
+    a: "What support can you offer if I have additional needs, or I am facing barriers in applying?",
+    q: "To accommodate different accessibility needs we can be asked to make changes to our process to give people the best chance of communicating their idea and plans with us. This could be arranging a conversation with a member of the team to provide clarity on the questions and process, providing information in accessible formats or working with you to make available a BSL interpreter, for example. We are happy to consider any requests for accessibility that might reduce barriers to applying.",
+  },
+  {
+    a: "Can I access application guidance?",
+    q: "You can preview our full application form along with guidance for each question here. The same guidance is also available in the online form.",
+  },
+  {
+    a: "Can I work on my application offline?",
+    q: "We have Word and PDF versions of our application available here. Once you are ready, you will need to create or log into your account to complete the application online. Please ensure that you take note of the character counts for each question so that you can copy and paste your answers into the online form.",
+  },
+  {
+    a: "Can I save my application and return to it later?",
+    q: "Use the save and close button to save your progress so far. You can then return to the application to complete it when you are ready. Take note of the date you will need to submit your application if you want it to be reviewed during the next round of assessments.",
+  },
+  {
+    a: "Why can't I paste my answers into the online form?",
+    q: "Please check that you are using the latest version of your web browser. Please also carefully check that you haven't gone over the character count for each answer (this is the number of characters used rather than the number of words). Spaces are included in these character counts.",
+  },
+  {
+    a: "When will I receive the outcome of my application?",
+    q: "We distribute Awards quarterly to provide the best support to our Award Winners, so we understand that it can feel like you have been waiting a while for the outcome of your application. You can find the application and assessment dates on the Award page of our website. During the assessment period you will receive updates from us via email, or you can log back into your account to see the status of your application.",
+  },
+  {
+    a: "Can you give me more information about why my application was unsuccessful?",
+    q: "Due to the volume of applications we receive, we cannot provide any more detail on why your application was not successful beyond the information received within our decision email.",
+  },
+  {
+    a: "Can I reapply if I have been unsuccessful?",
+    q: "You may reapply however we would encourage you to carefully consider any feedback we gave you on your previous application. If you have been unsuccessful multiple times, please get in touch with us before starting a new application.",
+  },
+];
 ---
 
-<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-  <h2
-    class="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl"
-  >
-    Frequently asked questions
-  </h2>
-  <div class="divide-y divide-slate-900/10 dark:divide-slate-900/10">
+<Container>
+  <div>
+    <h2
+      class="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl"
+    >
+      Frequently asked questions
+    </h2>
+    <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+      Blah blah blah
+    </p>
+  </div>
+  <div class="max-w-4xl divide-y divide-slate-900/10 dark:divide-slate-900/10">
     <dl class="mt-10 space-y-6 divide-y divide-slate-900/10">
-      <Faq
-        question="Am I eligible to apply for an Award?"
-        answer="Our eligibility criteria are listed on the Award page. You must meet all the eligibility criteria to make an application as we are unable to make exceptions."
-      />
-
-      <Faq
-        question="I registered my business more than four years ago but started trading less than four years ago. Can I apply?"
-        answer="We check the date of registration on Companies House/Charity Commission during our assessment. If your business has been registered for longer than four years at the time of your application, you are ineligible to apply for Award."
-      />
-
-      <Faq
-        question="Does the legal structure of my business matter?"
-        answer="No. You can apply to us even before identifying the right legal structure and may wish to seek support from us on the right one for your business."
-      />
-
-      <Faq
-        question="Does my idea/business sound like the type of application UnLtd could support?"
-        answer="We aim to support people who are creating or developing businesses which have the most potential to create positive social change. By social business, we mean an organisation which creates social impact but has a business model that is financially sustainable so that it can continue to make a difference. You can read more about this in our 2025 strategy, Breaking Down Barriers."
-      />
-
-      <Faq
-        question="Can I speak to a member of staff about my idea/business?"
-        answer="We aim for our Award making to be as equitable as possible, so we are unable to advise you on your idea or your business and we cannot tell you if your application would be successful or give specific advice before you apply. Our focus is on assisting those with additional support needs to access our application process."
-      />
-
-      <Faq
-        question="Do you accept business plans/proposal documents in place of an application?"
-        answer="Currently we can only accept applications via our online application form. This is to ensure that we provide an equitable experience for all applicants. If you are facing barriers to applying, please get in touch with us and we will do our best to assist you."
-      />
-
-      <Faq
-        question="What support can you offer if I have additional needs, or I am facing barriers in applying?"
-        answer="To accommodate different accessibility needs we can be asked to make changes to our process to give people the best chance of communicating their idea and plans with us. This could be arranging a conversation with a member of the team to provide clarity on the questions and process, providing information in accessible formats or working with you to make available a BSL interpreter, for example. We are happy to consider any requests for accessibility that might reduce barriers to applying."
-      />
-
-      <Faq
-        question="Can I access application guidance?"
-        answer="You can preview our full application form along with guidance for each question here. The same guidance is also available in the online form."
-      />
-
-      <Faq
-        question="Can I work on my application offline?"
-        answer="We have Word and PDF versions of our application available here. Once you are ready, you will need to create or log into your account to complete the application online. Please ensure that you take note of the character counts for each question so that you can copy and paste your answers into the online form."
-      />
-
-      <Faq
-        question="Can I save my application and return to it later?"
-        answer="Use the save and close button to save your progress so far. You can then return to the application to complete it when you are ready. Take note of the date you will need to submit your application if you want it to be reviewed during the next round of assessments."
-      />
-
-      <Faq
-        question="Why can't I paste my answers into the online form?"
-        answer="Please check that you are using the latest version of your web browser. Please also carefully check that you haven't gone over the character count for each answer (this is the number of characters used rather than the number of words). Spaces are included in these character counts."
-      />
-
-      <Faq
-        question="When will I receive the outcome of my application?"
-        answer="We distribute Awards quarterly to provide the best support to our Award Winners, so we understand that it can feel like you have been waiting a while for the outcome of your application. You can find the application and assessment dates on the Award page of our website. During the assessment period you will receive updates from us via email, or you can log back into your account to see the status of your application."
-      />
-
-      <Faq
-        question="Can you give me more information about why my application was unsuccessful?"
-        answer="Due to the volume of applications we receive, we cannot provide any more detail on why your application was not successful beyond the information received within our decision email."
-      />
-
-      <Faq
-        question="Can I reapply if I have been unsuccessful?"
-        answer="You may reapply however we would encourage you to carefully consider any feedback we gave you on your previous application. If you have been unsuccessful multiple times, please get in touch with us before starting a new application."
-      />
+      {items.map((item, i) => <Faq question={item.a} answer={item.q} i={i} />)}
     </dl>
   </div>
-</div>
+</Container>
