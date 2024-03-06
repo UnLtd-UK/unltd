@@ -32,13 +32,13 @@ const funding = {
     [
       {
         name: 'Award',
-        description: 'For individuals',
+        description: 'For Social Entrepreneurs',
         href: "/award",
         icon: "fa-solid fa-award"
       },
       {
         name: 'Investment',
-        description: 'For businesses',
+        description: 'For organisations',
         href: "https://growthimpactfund.org.uk",
         icon: "fa-solid fa-shop"
       }
