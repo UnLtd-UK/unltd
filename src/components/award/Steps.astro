@@ -13,7 +13,7 @@ const steps = [
 ## Social Entrepreneur
 
 ### Eligible
-- The founder of the Social Venture.
+- The founder and lead of the Social Venture.
 - Are 16+ years old.
 - Living in the United Kingdom.
 
@@ -89,20 +89,23 @@ You have an idea or are providing opportunities for marginalised communities to 
     body: `
 Before you make an account and start your application, you can review the application form to see if it is managable and something you think you can proceed with. We have 3 different application forms depending on how long Social Venture has been trading:
 
-Starting up | Up to £8,000 - Any programme<br/>[Your Social Venture is not yet trading](/award/forming-i-have-an-idea)
+### Starting up - Up to £8,000 | Any programme 
+[Your Social Venture is not yet trading](/award/forming-i-have-an-idea)
 
-Starting up | Up to £8,000 - Any programme<br/>[Your Social Venture has been trading for less than 1 year](award/ive-been-trading-for-less-than-1-year)
+### Starting up - Up to £8,000 | Any programme 
+[Your Social Venture has been trading for less than 1 year](/award/ive-been-trading-for-less-than-1-year)
 
-Scaling up | Up to £18,000 - Any programme<br/>[Your Social Venture has been trading between 1 to 4 years](award/ive-been-trading-for-1-year-or-more)
+### Scaling up - Up to £18,000 | Any programme 
+[Your Social Venture has been trading between 1 to 4 years](/award/ive-been-trading-for-1-year-or-more)
 
 ---
 
 ## Based in Wales?
-If you and your Social Venture and are based in Wales and idetify as a marginalised individual, we can offer 1 to 1 assistance with making an application and signposting to other funding and support.
+If you and your Social Venture are based in Wales and identify as a marginalised individual, we can offer 1 to 1 assistance with making an application and signposting to other funding and support.
 [Learn more about the extra support for marginlised individuals in Wales](/extra-support-for-marginalised-individuals-in-wales).
 
 `,
-    button: "I am capable of completing the application form",
+    button: "I understand what the application form requires",
     alt: {
       name: "Do you want help reviewing the application form?",
       link: "/enquiries/award-enquiry"
@@ -125,7 +128,7 @@ Go to the [UnLtd Portal](https://unltd.microsoftcrmportals.com/applications) and
     name: "Make your application",
     slug: "make-your-application",
     body: `
-Apply before 31 March and you will get your results week commencing 24 June.
+Apply before 31 March and you should get your results by the week commencing 24 June.
 
 | Application submitted   | Application assessed    | Application result |
 | ------------------------ | ------------------------ | -------------------- |
@@ -140,8 +143,23 @@ Apply before 31 March and you will get your results week commencing 24 June.
     }
   },
   {
-    name: "Submit your application",
-    slug: "submit your application",
+    name: "Submit your application and deadlines",
+    slug: "submit-your-application-and-deadlines",
+    body: `
+| Application submitted   | Application assessed    | Application result |
+| ------------------------ | ------------------------ | -------------------- |
+| 1 Jan 2024 - 31 Mar 2024 | 1 Apr 2024 - 30 Jun 2024 | 24 Jun 2024          |
+| 1 Apr 2024 - 30 Jun 2024 | 1 Jul 2024 - 30 Sep 2024 | 23 Sep 2024          |
+| 1 Jul 2024 - 30 Sep 2024 | 1 Oct 2024 - 31 Dec 2024 | 9 Dec 2024  `,
+    alt: {
+      name: "Need help?",
+      link: "/enquiries/award-enquiry"
+    }
+
+},
+  {
+    name: "Assessment process",
+    slug: "accessment-process",
     body: `
 ## 1. Support Manager assessment
 If the application meets our eligibility criteria, our team will then review the application based on impact, inclusion and sustainability.
@@ -167,19 +185,25 @@ A recommendation is made to our Awards Committee (a group of our trustees which 
   <div class="flex flex-col gap-10">
   <div>
     <h2
-      class="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl"
+      id="support"
+      class="text-base font-semibold leading-7 text-amber-600 dark:text-amber-500"
     >
-      How to apply
-  </h2>
+      Apply
+    </h2>
+    <p
+      class="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl"
+    >
+      How to get an Award
+    </p>
   <p
     class="mt-6 max-w-2xl text-lg leading-8 text-slate-600"
   >
-To apply for our Award, please start by filling out the online application form available on our website. Ensure you provide detailed information about your Social Venture, highlighting how it aligns with our criteria. After submitting the form, our team will review your application and contact you with the next steps. We look forward to learning about your innovative ideas and how we can support your journey toward making a significant impact.
+We recommend that you read through all of the following steps to guide you in your application.
   </p>
 </div>
 <div
   class="w-full"
-  x-data="{ activeTab: 'tab0', tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-2 border-b-amber-500 border-slate-200 text-amber-600 bg-slate-100' :'bg-slate-50'}}"
+  x-data="{ activeTab: 'tab0', tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-3 border-2 border-b-amber-500 border-slate-200 text-amber-600 bg-slate-100' :'bg-slate-50'}}"
 >
   <div class="sm:hidden">
     <label for="tabs" class="sr-only">Select a tab</label>
@@ -209,7 +233,7 @@ To apply for our Award, please start by filling out the online application form 
           <button id={`${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}`}
             @click=`activeTab = 'tab${i}'`
             :class={`tabClass(${i})`}
-            class={`rounded-t-md px-5 py-4 flex flex-col justify-center items-center gap-2 text-slate-500 hover:text-slate-700 dark:bg-slate-900 dark:text-slate-500 dark:hover:text-slate-300 border-b-2 hover:bg-slate-100 transition duration-200`}
+            class={`rounded-t-md px-4 py-4 flex flex-col justify-center items-center gap-2 text-slate-500 hover:text-slate-700 dark:bg-slate-900 dark:text-slate-500 dark:hover:text-slate-300 border-b-2 hover:bg-slate-100 transition duration-200`}
           >
             <span
               class={`text-xs font-medium rounded-full p-2 h-4 w-4 flex justify-center items-center outline outline-slate-300 text-slate-500`}
@@ -217,7 +241,7 @@ To apply for our Award, please start by filling out the online application form 
               {i + 1}
             </span>
             <span
-              class={`text-sm font-medium ${i == 0 ? "text-slate-700 hover:text-slate-700 dark:text-slate-700 dark:hover:text-slate-700" : "text-slate-500 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-500"}`}
+              class={`text-xs font-medium ${i == 0 ? "text-slate-700 hover:text-slate-700 dark:text-slate-700 dark:hover:text-slate-700" : "text-slate-500 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-500"}`}
             >
               {step.name}
             </span>
@@ -228,19 +252,20 @@ To apply for our Award, please start by filling out the online application form 
   </div>
   <!-- Tab Content -->
   {
-    steps.map((step, i) => (
-      <div x-show={`activeTab === 'tab${i}'`} class={`bg-slate-100 rounded-b-md border border-slate-200 shadow-sm`} x-cloak>
+    steps.map((step, i) => {
+      let basePath = step.button && `/award#${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true})}`;
+      return (<div x-show={`activeTab === 'tab${i}'`} class={`bg-slate-100 rounded-b-md border border-slate-200 shadow-sm`} x-cloak>
         <div
           class={`px-10 py-6 ${i==0 && "rounded-tr-md"} ${i==4 && "rounded-tl-md"}`}
         >
         <div class={`prose prose-slate dark:prose-invert prose-sm prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2`} set:html={marked.parse(step.body)}></div>
         </div>
-      <div class="rounded-b-md border-t border-slate-300 px-10 py-6 flex justify-between items-center">
-        { step.alt && <a href={step.alt.link} class="flex gap-2 items-center"><i class="fa-solid fa-circle-question text-slate-500 dark:text-slate-500 text-xl"></i> <span class="text-slate-600 dark:text-slate-400 text-sm">{step.alt.name}</span></a> }
-                { step.button && <a href={`/award#${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}`}><button type="button" @click=`activeTab = 'tab${i+1}'` class="rounded-full bg-amber-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><span>{step.button}</span> <i class="fa-regular fa-circle-check text-lg"></i></button></a> }
+        <div class="rounded-b-md border-t border-slate-300 px-10 py-6 flex justify-between items-center">
+          { step.button && <a href={basePath}><button type="button" @click=`activeTab = 'tab${i+1}'` class="rounded-full bg-amber-600 px-4 py-2.5 font-semibold text-slate-50 shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><i class="fa-regular fa-circle-check text-lg"></i><span class="text-sm">{step.button}</span></button></a> }
+        { step.alt && <a href={step.alt.link} class="flex gap-2 items-center"><i class="fa-solid fa-circle-question text-slate-500 dark:text-slate-500 text-lg"></i> <span class="text-slate-600 dark:text-slate-400 text-sm">{step.alt.name}</span></a> }
         </div>
-      </div>
-    ))
+      </div>)
+    })
   }
 </div>
 </div>
