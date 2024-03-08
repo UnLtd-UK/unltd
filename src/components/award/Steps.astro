@@ -205,7 +205,7 @@ We recommend that you read through all of the following steps to guide you in yo
 </div>
 <div
   class="w-full"
-  x-data="{ activeTab: 'tab0', urlUpdater: function(slug) { history.pushState(null, null, `#${slug}`); const targetElement = document.getElementById(slug);
+  x-data="{ activeTab: 'tab0', urlUpdater: function(slug) { history.pushState(null, null, `/award#${slug}`); const targetElement = document.getElementById(slug);
     if (targetElement) {
         targetElement.scrollIntoView({ behavior: 'smooth' });
     } }, selectHs: function(i) {document.getElementById('tabs').value = `tab${i}` }, tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-3 border-2 border-b-amber-500 border-slate-200 text-amber-600 bg-slate-100' :'bg-slate-50'}}"
