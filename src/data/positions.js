@@ -1,8 +1,20 @@
-let response = await fetch("https://unltd.directus.app/items/positions?sort[]=person.name&fields[]=*.*&filter[status][_eq]=published", {
-    method: "GET"
-});
+import { createDirectus, rest, readItems } from '@directus/sdk';
 
-let json = await response.json();
-let positions = json.data;
+const client = createDirectus('https://unltd.directus.app').with(rest());
+
+const positions = await client.request(
+    readItems('positions', {
+        sort: ['sort', 'person.name'],
+        filter: {
+            status: {
+                _eq: 'published'
+            },
+            person: {
+                _nnull: true
+            }
+        },
+        fields: ['*.*'],
+    })
+);
 
 export { positions }

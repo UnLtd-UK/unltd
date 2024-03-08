@@ -48,7 +48,7 @@ const steps = [
     name: "Check your suitability",
     slug: "check-your-suitability",
     body: `
-We receive many more applications than we can support. While we do not want to discourage social entrepreneurs from applying, we want you to be confident that our awards are right for you and your social venture before applying.
+We receive many more applications than we can support. While we do not want to discourage social entrepreneurs from applying, we want you to be confident that our Awards are right for you and your social venture before applying.
 
 ## Social Entreprneur
 
@@ -83,20 +83,39 @@ You have an idea or are providing opportunities for marginalised communities to 
       link: "/learn/other-funding-and-support-available-for-social-entrepreneurs/"
     }
   },
+      {
+    name: "Review application process timeline",
+    slug: "review-application-process-timeline",
+    body: `
+Apply **before 31 March** and you should get your results by the **week commencing 24 June**.
+
+| Application submitted   | Application assessed    | Application result |
+| ------------------------ | ------------------------ | -------------------- |
+| 1 Jan 2024 - 31 Mar 2024 | 1 Apr 2024 - 30 Jun 2024 | 24 Jun 2024          |
+| 1 Apr 2024 - 30 Jun 2024 | 1 Jul 2024 - 30 Sep 2024 | 23 Sep 2024          |
+| 1 Jul 2024 - 30 Sep 2024 | 1 Oct 2024 - 31 Dec 2024 | 9 Dec 2024           |
+`,
+    button: "I understand how long it may take to get an Award",
+        alt: {
+      name: "Do you want help understanding the deadlines?",
+      link: "/enquiries/award-enquiry"
+    }
+  },
   {
     name: "Review the application form",
     slug: "review-the-application-form",
     body: `
 Before you make an account and start your application, you can review the application form to see if it is managable and something you think you can proceed with. We have 3 different application forms depending on how long Social Venture has been trading:
 
-### Starting up - Up to £8,000 | Any programme 
-[Your Social Venture is not yet trading](/award/forming-i-have-an-idea)
+### Starting Up
 
-### Starting up - Up to £8,000 | Any programme 
-[Your Social Venture has been trading for less than 1 year](/award/ive-been-trading-for-less-than-1-year)
+#### Up to £8,000 | Any programme<br/>[Your Social Venture is not yet trading](/award/forming-i-have-an-idea)
 
-### Scaling up - Up to £18,000 | Any programme 
-[Your Social Venture has been trading between 1 to 4 years](/award/ive-been-trading-for-1-year-or-more)
+#### Up to £8,000 | Any programme<br/>[Your Social Venture has been trading for less than 1 year](/award/ive-been-trading-for-less-than-1-year)
+
+### Starting Up
+
+#### Up to £18,000 | Any programme<br/>[Your Social Venture has been trading between 1 to 4 years](/award/ive-been-trading-for-1-year-or-more)
 
 ---
 
@@ -125,32 +144,15 @@ Go to the [UnLtd Portal](https://unltd.microsoftcrmportals.com/applications) and
     }
   },
   {
-    name: "Make your application",
-    slug: "make-your-application",
+    name: "Create and submit your application",
+    slug: "Create and submit your application",
     body: `
-Apply before 31 March and you should get your results by the week commencing 24 June.
-
-| Application submitted   | Application assessed    | Application result |
-| ------------------------ | ------------------------ | -------------------- |
-| 1 Jan 2024 - 31 Mar 2024 | 1 Apr 2024 - 30 Jun 2024 | 24 Jun 2024          |
-| 1 Apr 2024 - 30 Jun 2024 | 1 Jul 2024 - 30 Sep 2024 | 23 Sep 2024          |
-| 1 Jul 2024 - 30 Sep 2024 | 1 Oct 2024 - 31 Dec 2024 | 9 Dec 2024           |
+Click 'Start a new application'.
+![This is how you create an account](/img/create.png)
+Complete each section of the form. You can save and come back to it at any time.
+![This is how you create an account](/img/steps.png)
 `,
-    button: "Submit your application",
-        alt: {
-      name: "Do you want help submitting your application?",
-      link: "/enquiries/award-enquiry"
-    }
-  },
-  {
-    name: "Submit your application and deadlines",
-    slug: "submit-your-application-and-deadlines",
-    body: `
-| Application submitted   | Application assessed    | Application result |
-| ------------------------ | ------------------------ | -------------------- |
-| 1 Jan 2024 - 31 Mar 2024 | 1 Apr 2024 - 30 Jun 2024 | 24 Jun 2024          |
-| 1 Apr 2024 - 30 Jun 2024 | 1 Jul 2024 - 30 Sep 2024 | 23 Sep 2024          |
-| 1 Jul 2024 - 30 Sep 2024 | 1 Oct 2024 - 31 Dec 2024 | 9 Dec 2024  `,
+button: "I have submit my application",
     alt: {
       name: "Need help?",
       link: "/enquiries/award-enquiry"
@@ -162,16 +164,16 @@ Apply before 31 March and you should get your results by the week commencing 24 
     slug: "accessment-process",
     body: `
 ## 1. Support Manager assessment
-If the application meets our eligibility criteria, our team will then review the application based on impact, inclusion and sustainability.
+If the application meets our eligibility and suitability criteria, our team will then review the application based on impact, inclusion and sustainability.
 
 ## 2. Peer review
-Applications which show potential will be discussed alongside others at peer review to progress those with the most potential to meet our panel.
+If your applications shows potential it will be reviewed and discussed by our Support Managers. If we think your application has potential we will invite you to a panel stage.
 
 ## 3. Panel stage
-Here you will have the opportunity to discuss your application with a panel made up of staff and other social entrepreneurs.
+Here you will have the opportunity to discuss your application with a panel made up of UnLtd staff and other Social Entrepreneurs.
 
 ## 4. Result
-A recommendation is made to our Awards Committee (a group of our trustees which also includes social entrepreneurs) who make the final decision on your application. You will be informed of the outcome of your application.`,
+If you pass, we will recommend your application to the Awards Committee (a group of our trustees which also includes Social Entrepreneurs) who make the final decision on your application. You will be informed over email of the outcome of your application.`,
     alt: {
       name: "Need help?",
       link: "/enquiries/award-enquiry"
@@ -203,7 +205,8 @@ We recommend that you read through all of the following steps to guide you in yo
 </div>
 <div
   class="w-full"
-  x-data="{ activeTab: 'tab0', tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-3 border-2 border-b-amber-500 border-slate-200 text-amber-600 bg-slate-100' :'bg-slate-50'}}"
+  x-init="checkUrl()"
+  x-data="{ activeTab: 'tab0', checkUrl: function() { let element = window.location.hash ? document.getElementById(window.location.hash.substring(1)) : null; element && element.tagName === 'BUTTON' ? element.click() : null; }, urlUpdater: function(slug) { history.pushState(null, null, `/award#${slug}`); const targetElement = document.getElementById(slug); if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); } }, selectHs: function(i) {document.getElementById('tabs').value = `tab${i}` }, tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-3 border-2 border-b-amber-500 border-slate-200 text-amber-600 bg-slate-100' :'bg-slate-50'}}"
 >
   <div class="sm:hidden">
     <label for="tabs" class="sr-only">Select a tab</label>
@@ -231,7 +234,7 @@ We recommend that you read through all of the following steps to guide you in yo
       {
         steps.map((step, i) => (
           <button id={`${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}`}
-            @click=`activeTab = 'tab${i}'`
+            @click=`activeTab = 'tab${i}', selectHs('${i}'), urlUpdater('${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}')`
             :class={`tabClass(${i})`}
             class={`rounded-t-md px-4 py-4 flex flex-col justify-center items-center gap-2 text-slate-500 hover:text-slate-700 dark:bg-slate-900 dark:text-slate-500 dark:hover:text-slate-300 border-b-2 hover:bg-slate-100 transition duration-200`}
           >
@@ -252,20 +255,19 @@ We recommend that you read through all of the following steps to guide you in yo
   </div>
   <!-- Tab Content -->
   {
-    steps.map((step, i) => {
-      let basePath = step.button && `/award#${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true})}`;
-      return (<div x-show={`activeTab === 'tab${i}'`} class={`bg-slate-100 rounded-b-md border border-slate-200 shadow-sm`} x-cloak>
+    steps.map((step, i) => (
+      <div x-show={`activeTab === 'tab${i}'`} class={`bg-slate-100 rounded-b-md border border-slate-200 shadow-sm`} x-cloak>
         <div
           class={`px-10 py-6 ${i==0 && "rounded-tr-md"} ${i==4 && "rounded-tl-md"}`}
         >
         <div class={`prose prose-slate dark:prose-invert prose-sm prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2`} set:html={marked.parse(step.body)}></div>
         </div>
         <div class="rounded-b-md border-t border-slate-300 px-10 py-6 flex justify-between items-center">
-          { step.button && <a href={basePath}><button type="button" @click=`activeTab = 'tab${i+1}'` class="rounded-full bg-amber-600 px-4 py-2.5 font-semibold text-slate-50 shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><i class="fa-regular fa-circle-check text-lg"></i><span class="text-sm">{step.button}</span></button></a> }
+          { step.button && <button type="button" @click=`activeTab = 'tab${i+1}', selectHs('${i+1}'), urlUpdater('${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}')` class="rounded-full bg-amber-600 px-4 py-2.5 font-semibold text-slate-50 shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center"><i class="fa-regular fa-circle-check text-lg"></i><span class="text-sm">{step.button}</span></button> }
         { step.alt && <a href={step.alt.link} class="flex gap-2 items-center"><i class="fa-solid fa-circle-question text-slate-500 dark:text-slate-500 text-lg"></i> <span class="text-slate-600 dark:text-slate-400 text-sm">{step.alt.name}</span></a> }
         </div>
-      </div>)
-    })
+      </div>
+      ))
   }
 </div>
 </div>
