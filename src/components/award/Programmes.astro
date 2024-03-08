@@ -129,6 +129,27 @@ const features = [
       },
     ],
   },
+  {
+    name: "Technical Assistance Fund",
+    items: [
+      {
+        name: "Everything in Core",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Bespoke Workshops",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Learning Circles",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Subsidised Consultancy",
+        icon: "fa-solid fa-circle-check",
+      },
+    ],
+  },
 ];
 
 const eligibility = [
@@ -208,6 +229,26 @@ const eligibility = [
       {
         name: "Sectors",
         value: "Sports and physical activities",
+        icon: "fa-solid fa-vector-square",
+      },
+    ],
+  },
+  {
+    name: "Technical Assistance Fund",
+    items: [
+      {
+        name: "Age",
+        value: "18+",
+        icon: "fa-solid fa-spinner",
+      },
+      {
+        name: "Geography",
+        value: "United Kingdom",
+        icon: "fa-solid fa-location-dot",
+      },
+      {
+        name: "Sectors",
+        value: "All sectors",
         icon: "fa-solid fa-vector-square",
       },
     ],
@@ -319,7 +360,7 @@ programmes.map((programme) => {
 
             <div class="flex flex-col gap-3 bg-slate-950/10 rounded-md p-5">
               <p class={`text-sm text-slate-600 dark:text-slate-400`}>
-                Your eligibility:
+                Social Entrepreneur eligibility:
               </p>
               {
                 coreel.map((item) => (
