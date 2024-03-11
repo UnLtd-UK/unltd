@@ -1,13 +1,19 @@
-let response = await fetch("https://unltd.directus.app/items/programmes/?sort[]=name&fields=*.*.*.*.*&filter[status][_eq]=published", {
-    method: "GET"
-});
-
-let json = await response.json();
-let oldProgrammes = json.data;
-
 import { JSDOM } from 'jsdom';
+import { createDirectus, rest, readItems } from '@directus/sdk';
 
-// let newProgrammes;  // Declare 'programmes' at the top level
+const client = createDirectus('https://unltd.directus.app').with(rest());
+
+const response = await client.request(
+    readItems('programmes', {
+        sort: ['sort', 'name'],
+        filter: {
+            status: {
+                _eq: 'published'
+            }
+        },
+        fields: ['*.*.*.*.*'],
+    })
+);
 
 async function fetchMetadata(url) {
     if (!url || typeof url !== 'string') {
@@ -53,7 +59,7 @@ async function updateProgrammes(oldProgrammes) {
 let programmes;
 
 try {
-    programmes = await updateProgrammes(oldProgrammes);
+    programmes = await updateProgrammes(response);
 } catch (error) {
     console.error('Error updating programmes:', error);
 }
