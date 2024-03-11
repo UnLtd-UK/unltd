@@ -59,7 +59,6 @@ const { programme } = Astro.props;
   <Container>
     <Breadcrumbs breadcrumbs={programme.breadcrumbs} />
   </Container>
-  <!------------------------ -->
   <div
     class=`relative isolate overflow-hidden py-24 sm:py-32 bg-gradient-to-r from-${programme.colour}-700 to-${programme.colour}-900`
   >
@@ -107,11 +106,6 @@ const { programme } = Astro.props;
               {programme.description}
             </p>
           </div>
-
-          <!-- <div
-            class="prose lg:prose-xl"
-            set:html={marked.parse(`${programme.impact_area}`)}
-          /> -->
 
           <div class="flex flex-col gap-2">
             <div>
