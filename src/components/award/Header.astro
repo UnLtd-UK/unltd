@@ -1,5 +1,6 @@
 ---
 import Tooltip from "./Tooltip.astro";
+import Container from "../Container.astro";
 ---
 
 <!-- <div class="bg-slate-100 dark:bg-slate-900 py-24 sm:py-32">
@@ -36,7 +37,7 @@ import Tooltip from "./Tooltip.astro";
     </div>
   </div>
 </div> -->
-<div class="bg-slate-50 dark:bg-slate950 px-6 py-24 sm:py-32 lg:px-8">
+<div class="bg-slate-50 dark:bg-slate-950 px-6 py-24 sm:py-32 lg:px-8">
   <div class="mx-auto max-w-2xl flex flex-col gap-3 items-center">
     <div class="flex flex-col gap-2 items-center">
       <p class="text-base font-semibold leading-7 text-amber-600">
@@ -51,15 +52,22 @@ import Tooltip from "./Tooltip.astro";
       are the founder of a Social Venture which is making a positive difference
       in the UK
     </p>
-    <div class="w-full">
+  </div>
+  <Container>
+    <div class="aspect-video mt-6">
       <iframe
         src="https://player.vimeo.com/video/548879391?badge=0&autopause=0&player_id=0&app_id=58479"
         allow="autoplay; fullscreen; picture-in-picture"
         title="Introduction to Award"
-        class="w-full h-full"
+        class="w-full h-full rounded-xl shadow-xl"
       >
       </iframe>
+      <a
+        class="text-xs text-slate-950 dark:text-slate-50 font-bold underline underline-offset-4 decoration-amber-500 decoration-1 hover:decoration-2"
+        href="https://youtu.be/1TKzE-gArR0?si=AjSaxWg0nuTFElC-"
+        >Sign language version available</a
+      >
     </div>
-  </div>
+  </Container>
   <script src="https://player.vimeo.com/api/player.js"></script>
 </div>
