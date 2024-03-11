@@ -3,57 +3,23 @@ import Tooltip from "./Tooltip.astro";
 import Container from "../Container.astro";
 ---
 
-<!-- <div class="bg-slate-100 dark:bg-slate-900 py-24 sm:py-32">
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
-    <div class="mx-auto max-w-2xl lg:mx-0">
-      <p class="text-base font-semibold leading-7 text-amber-600">
-        For individuals
-      </p>
-      <h2
-        class="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-6xl"
-      >
-        Award
-      </h2>
-      <p class="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-400">
-        Anim aute id magna aliqua ad ad non sunt. Qui irure qui lorem cupidatat
-        commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.
+<Container light="slate-50" dark="slate-950">
+  <div class="px-6 py-24 sm:py-32 lg:px-8 flex flex-col gap-3 items-center">
+    <div>
+      <div class="flex flex-col gap-2 items-center">
+        <p class="text-base font-semibold leading-7 text-amber-600">
+          For Social Entrepreneurs
+        </p>
+        <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+          Award
+        </h1>
+      </div>
+      <p class="text-lg text-center leading-8 text-gray-600">
+        We offer packages of funding and support to people who have an idea, or
+        are the founder of a Social Venture which is making a positive
+        difference in the UK
       </p>
     </div>
-    <div class="flex flex-col gap-3">
-      <iframe
-        class="rounded-md shadow-md"
-        width="560"
-        height="315"
-        src="https://www.youtube-nocookie.com/embed/1TKzE-gArR0?si=3owAaHkHzyuaZ9zs"
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen></iframe>
-      <a
-        class="text-xs text-slate-950 dark:text-slate-50 font-bold underline underline-offset-4 decoration-amber-500 decoration-1 hover:decoration-2"
-        href="https://youtu.be/1TKzE-gArR0?si=AjSaxWg0nuTFElC-"
-        >Sign language version available</a
-      >
-    </div>
-  </div>
-</div> -->
-<div class="bg-slate-50 dark:bg-slate-950 px-6 py-24 sm:py-32 lg:px-8">
-  <div class="mx-auto max-w-2xl flex flex-col gap-3 items-center">
-    <div class="flex flex-col gap-2 items-center">
-      <p class="text-base font-semibold leading-7 text-amber-600">
-        For Social Entrepreneurs
-      </p>
-      <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-        Award
-      </h1>
-    </div>
-    <p class="text-lg text-center leading-8 text-gray-600">
-      We offer packages of funding and support to people who have an idea, or
-      are the founder of a Social Venture which is making a positive difference
-      in the UK
-    </p>
-  </div>
-  <Container>
     <div class="aspect-video mt-6">
       <iframe
         src="https://player.vimeo.com/video/548879391?badge=0&autopause=0&player_id=0&app_id=58479"
@@ -68,6 +34,6 @@ import Container from "../Container.astro";
         >Sign language version available</a
       >
     </div>
-  </Container>
+  </div>
   <script src="https://player.vimeo.com/api/player.js"></script>
-</div>
+</Container>

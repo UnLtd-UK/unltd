@@ -1,57 +1,60 @@
 ---
-import truncate from "truncate";
-const { image, icon, colour, name, blurb, slug, features, eligibility } =
-  Astro.props;
+import Card from "./cards/Card.astro";
+const { image, icon, colour, name, features, eligibilities } = Astro.props;
+
+function isValidUrl(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
 ---
 
-<article
-  class={`relative isolate flex flex-col justify-between gap-4 overflow-hidden rounded-2xl px-8 py-10 w-1/3 shadow-lg shadow-${colour}-500/20 hover:shadow-${colour}-500/30 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300`}
->
-  <div class="flex flex-col gap-2">
+<Card>
+  <article
+    class="relative isolate flex flex-col justify-end overflow-hidden rounded-t-2xl bg-slate-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-40"
+  >
     <img
-      src={`https://unltd.directus.app/assets/${image}`}
+      src={isValidUrl(image)
+        ? image
+        : `https://unltd.directus.app/assets/${image}`}
       alt=""
-      class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50 blur-xs opacity-30"
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
     />
     <div
-      class={`absolute inset-0 -z-10 bg-gradient-to-t from-${colour}-500/80 to-${colour}-700/20 dark:from-${colour}-700/80 dark:to-${colour}-900/20`}
+      class={`absolute inset-0 -z-10 bg-gradient-to-t from-${colour}-950/90 via-${colour}-600/80`}
     >
     </div>
-    <div class={`absolute inset-0 -z-10 rounded-2xl`}></div>
-
-    <div>
+    <div
+      class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-slate-900/10"
+    >
+    </div>
+    <div class="flex gap-2">
       <span class="relative inline-block">
         <div
-          class={`flex items-center justify-center h-14 w-14 rounded-md bg-${colour}-600 dark:bg-${colour}-400`}
+          class={`flex items-center justify-center h-14 w-14 rounded-md bg-${colour}-100 dark:bg-${colour}-400`}
         >
           <i
-            class={`${icon} text-${colour}-200 dark:text-${colour}-800 text-2xl`}
+            class={`${icon} text-${colour}-600 dark:text-${colour}-800 text-2xl`}
           ></i>
         </div>
       </span>
-      <h3 class={`mt-3 font-semibold leading-6 text-${colour}-50`}>
-        <a href={`/award/${slug}`}>
-          <span class="absolute inset-0"></span>
-          <p class="text-lg">{name}</p>
-        </a>
-      </h3>
-      <!-- {
-        blurb && (
-          <p class={`text-${colour}-100/80 text-xs`}>{truncate(blurb, 100)}</p>
-        )
-      } -->
+      <h3 class={`text-base font-semibold leading-6 text-slate-100`}>{name}</h3>
     </div>
-
+  </article>
+  <div class="p-8 flex flex-col gap-6">
     <div class="flex flex-col gap-3">
       {
-        features.map((item) => (
-          <div key={item.name}>
+        features.map((feature) => (
+          <div>
             <p class={`truncate text-sm font-medium flex gap-2 items-center`}>
               <i
-                class={`${item.icon} text-${colour}-100 dark:text-${colour}-200`}
+                class={`${feature.icon} text-${colour}-500 dark:text-${colour}-200`}
               />
-              <span class={`text-${colour}-50 dark:text-${colour}-100`}>
-                {item.name}
+              <span class={`text-slate-500 dark:text-slate-500`}>
+                {feature.name}
               </span>
             </p>
           </div>
@@ -60,30 +63,30 @@ const { image, icon, colour, name, blurb, slug, features, eligibility } =
     </div>
   </div>
 
-  <div class={`flex flex-col gap-3 bg-slate-950/10 rounded-md p-5`}>
-    <p class={`text-sm text-${colour}-100 dark:text-${colour}-200`}>
+  <div class={`flex flex-col gap-3 bg-slate-100 rounded-b-3xl p-8`}>
+    <p class={`text-sm text-slate-600 dark:text-slate-200`}>
       Social Entrepreneur eligibility:
     </p>
-    {
-      eligibility.map((item) => (
-        <div key={item.name}>
-          <p
-            class={`truncate text-xs font-medium uppercase flex gap-2 items-center`}
-          >
-            <i
-              class={`${item.icon} text-${colour}-100 dark:text-${colour}-200`}
-            />
-            <span class={`text-${colour}-100 dark:text-${colour}-200`}>
-              {item.name}
-            </span>
-          </p>
-          <p
-            class={`mt-1 text-sm font-semibold tracking-tight text-${colour}-50`}
-          >
-            {item.value}
-          </p>
-        </div>
-      ))
-    }
+    <ul class="flex flex-col gap-6">
+      {
+        eligibilities.map((eligibility) => (
+          <li class="flex flex-col gap-1">
+            <p
+              class={`truncate text-xs font-medium uppercase flex gap-2 items-center`}
+            >
+              <i
+                class={`${eligibility.icon} text-slate-600 dark:text-slate-500`}
+              />
+              <span class={`text-slate-600 dark:text-slate-200`}>
+                {eligibility.name}
+              </span>
+            </p>
+            <p class={`text-sm font-semibold tracking-tight text-slate-600`}>
+              {eligibility.value}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
   </div>
-</article>
+</Card>
