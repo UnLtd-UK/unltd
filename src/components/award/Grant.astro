@@ -1,0 +1,97 @@
+---
+import Card from "./cards/Card.astro";
+
+const { name, description, amount, features, eligibilities, programmes } =
+  Astro.props;
+---
+
+<Card>
+  <div class="flex flex-col gap-10 p-8">
+    <div>
+      <h2
+        id="tier-hobby"
+        class="text-lg font-semibold leading-8 text-slate-900 dark:text-slate-100"
+      >
+        {name}
+      </h2>
+      <p class="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-400">
+        {description}
+      </p>
+    </div>
+
+    <p class="flex flex-col items-baseline gap-x-1">
+      <span
+        class="text-sm font-semibold leading-6 text-slate-600 dark:text-slate-400"
+      >
+        Up to
+      </span>
+      <span
+        class="text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100"
+      >
+        £{amount}
+      </span>
+    </p>
+
+    <div>
+      <p
+        class={`truncate text-xs font-medium text-slate-600 dark:text-slate-400 uppercase flex gap-2 items-center`}
+      >
+        How you can spend
+      </p>
+      <div class="flex flex-col gap-3">
+        {
+          features.map((feature) => (
+            <p class={`truncate text-sm font-medium flex gap-2 items-center`}>
+              <i class={`${feature.icon} text-slate-200 dark:text-slate-200`} />
+              <span class={`text-slate-500 dark:text-slate-500`}>
+                {feature.name}
+              </span>
+            </p>
+          ))
+        }
+      </div>
+    </div>
+
+    <div>
+      <p>Programmes available:</p>
+      <ul class="flex-inline space-x-1">
+        {
+          programmes.map((programme) => (
+            <li
+              class={`inline-flex items-center rounded-md bg-${programme.colour}-50 px-2 py-1 text-xs font-medium text-${programme.colour}-600`}
+            >
+              {programme.name}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class={`flex flex-col gap-3 bg-slate-100 rounded-b-3xl p-8`}>
+    <p class={`text-sm text-slate-600 dark:text-slate-200`}>
+      Social Venture eligibility:
+    </p>
+    <ul class="flex flex-col gap-6">
+      {
+        eligibilities.map((eligibility) => (
+          <li class="flex flex-col gap-1">
+            <p
+              class={`truncate text-xs font-medium uppercase flex gap-2 items-center`}
+            >
+              <i
+                class={`${eligibility.icon} text-slate-600 dark:text-slate-500`}
+              />
+              <span class={`text-slate-600 dark:text-slate-200`}>
+                {eligibility.name}
+              </span>
+            </p>
+            <p class={`text-sm font-semibold tracking-tight text-slate-600`}>
+              {eligibility.value}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Card>
