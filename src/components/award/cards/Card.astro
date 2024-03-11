@@ -1,9 +1,13 @@
 ---
 const { url } = Astro.props;
+
+import Wrapper from "./Wrapper.astro";
 ---
 
-<li
-  class="col-span-1 divide-y rounded-3xl bg-slate-50 shadow ring-1 ring-slate-300 dark:ring-slate-700 hover:shadow-md"
->
-  <slot />
-</li>
+<Wrapper url={url}>
+  <div
+    class={`col-span-1 divide-y rounded-3xl bg-slate-50 shadow-md ring-1 ring-slate-300 dark:ring-slate-700 ${typeof url === "string" && url.length > 0 && `hover:shadow-xl transition ease-in-out delay-150 hover:-translate-y-1 duration-300`}`}
+  >
+    <slot />
+  </div>
+</Wrapper>

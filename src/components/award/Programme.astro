@@ -1,6 +1,7 @@
 ---
 import Card from "./cards/Card.astro";
-const { image, icon, colour, name, features, eligibilities } = Astro.props;
+const { image, icon, colour, name, slug, features, eligibilities } =
+  Astro.props;
 
 function isValidUrl(string) {
   try {
@@ -12,7 +13,7 @@ function isValidUrl(string) {
 }
 ---
 
-<Card>
+<Card url={slug && `/award/${slug}`}>
   <article
     class="relative isolate flex flex-col justify-end overflow-hidden rounded-t-2xl bg-slate-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-40"
   >
@@ -21,12 +22,9 @@ function isValidUrl(string) {
         ? image
         : `https://unltd.directus.app/assets/${image}`}
       alt=""
-      class="absolute inset-0 -z-10 h-full w-full object-cover"
+      class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50"
     />
-    <div
-      class={`absolute inset-0 -z-10 bg-gradient-to-t from-${colour}-950/90 via-${colour}-600/80`}
-    >
-    </div>
+    <div class={`absolute inset-0 -z-10 bg-${colour}-600/60`}></div>
     <div
       class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-slate-900/10"
     >
@@ -41,7 +39,9 @@ function isValidUrl(string) {
           ></i>
         </div>
       </span>
-      <h3 class={`text-base font-semibold leading-6 text-slate-100`}>{name}</h3>
+      <h3 class={`text-base font-semibold leading-6 text-slate-100`}>
+        {name}
+      </h3>
     </div>
   </article>
   <div class="p-8 flex flex-col gap-6">
