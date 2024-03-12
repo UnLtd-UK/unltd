@@ -1,7 +1,11 @@
 ---
+import Container from "../Container.astro";
+import Grant from "./Grant.astro";
+import List from "./cards/List.astro";
 const grants = [
   {
     name: "Starting Up",
+    demographic: "Social Entrepreneur",
     description:
       "You have an idea or have started to make a difference to people's lives, your community, or have ambitions to create change at a national level.",
     amount: "8,000",
@@ -19,7 +23,7 @@ const grants = [
         icon: "fa-solid fa-circle-check",
       },
     ],
-    eligibility: [
+    eligibilities: [
       {
         name: "Incorporated",
         value: "Not yet or less 4 years",
@@ -35,6 +39,13 @@ const grants = [
         value: "Not yet or yes",
         icon: "fa-solid fa-people-line",
       },
+    ],
+    programmes: [
+      { name: "Core", colour: "amber" },
+      { name: "Access to Employment", colour: "violet" },
+      { name: "Financial Inclusion", colour: "red" },
+      { name: "Healthy Ageing", colour: "green" },
+      { name: "Movement for Change", colour: "blue" },
     ],
   },
   {
@@ -56,7 +67,7 @@ const grants = [
         icon: "fa-solid fa-circle-check",
       },
     ],
-    eligibility: [
+    eligibilities: [
       {
         name: "Incorporated",
         value: "Less 4 years",
@@ -73,14 +84,19 @@ const grants = [
         icon: "fa-solid fa-people-line",
       },
     ],
+    programmes: [
+      { name: "Core", colour: "amber" },
+      { name: "Access to Employment", colour: "violet" },
+      { name: "Financial Inclusion", colour: "red" },
+      { name: "Healthy Ageing", colour: "green" },
+      { name: "Movement for Change", colour: "blue" },
+    ],
   },
 ];
 ---
 
-<div
-  class="mx-auto mt-16 max-w-7xl px-6 sm:mt-32 lg:px-8 bg-slate-100 dark:bg-slate-900"
->
-  <div class="mx-auto max-w-4xl text-center">
+<Container light="slate-100" dark="slate-900">
+  <div class="mx-auto max-w-4xl text-center mb-10 pt-20">
     <h2
       id="funding"
       class="text-base font-semibold leading-7 text-amber-600 dark:text-amber-500"
@@ -92,82 +108,26 @@ const grants = [
     >
       Your grant
     </p>
+    <p
+      class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-slate-600 dark:text-slate-400"
+    >
+      We combine funding and support to help you to get started or grow.
+      Depending on your stage of development we can offer up to £18,000.
+    </p>
   </div>
-  <p
-    class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-slate-600 dark:text-slate-400"
-  >
-    We combine funding and support to help you to get started or grow. Depending
-    on your stage of development we can offer up to £18,000.
-  </p>
 
-  <div
-    class="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-2"
-  >
+  <List>
     {
       grants.map((grant) => (
-        <div class="rounded-3xl p-8 ring-1 ring-slate-300 dark:ring-slate-700 flex flex-col gap-10">
-          <div>
-            <h2
-              id="tier-hobby"
-              class="text-lg font-semibold leading-8 text-slate-900 dark:text-slate-100"
-            >
-              {grant.name}
-            </h2>
-            <p class="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-400">
-              {grant.description}
-            </p>
-          </div>
-
-          <p class="flex flex-col items-baseline gap-x-1">
-            <span class="text-sm font-semibold leading-6 text-slate-600 dark:text-slate-400">
-              Up to
-            </span>
-            <span class="text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
-              £{grant.amount}
-            </span>
-          </p>
-
-          <div class="flex flex-col gap-3">
-            {grant.features.map((item) => (
-              <div>
-                <p
-                  class={`truncate text-base font-medium text-slate-600 dark:text-slate-400 flex gap-2 items-center`}
-                >
-                  <i
-                    class={`${item.icon} text-slate-600 dark:text-slate-400`}
-                  />
-                  <span class="text-slate-00 dark:text-slate-300">
-                    {item.name}
-                  </span>
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div class="flex flex-col gap-6">
-            <p class="text-sm text-slate-800 dark:text-slate-200">
-              Social Venture eligibility:
-            </p>
-            {grant.eligibility.map((item) => (
-              <div>
-                <p
-                  class={`truncate text-xs font-medium text-slate-600 dark:text-slate-400 uppercase flex gap-2 items-center`}
-                >
-                  <i
-                    class={`${item.icon} text-slate-600 dark:text-slate-400`}
-                  />
-                  <span>{item.name}</span>
-                </p>
-                <p
-                  class={`mt-1 text-sm font-semibold tracking-tight text-slate-700 dark:text-slate-300`}
-                >
-                  {item.value}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Grant
+          name={grant.name}
+          description={grant.description}
+          amount={grant.amount}
+          features={grant.features}
+          eligibilities={grant.eligibilities}
+          programmes={grant.programmes}
+        />
       ))
     }
-  </div>
-</div>
+  </List>
+</Container>

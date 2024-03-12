@@ -1,0 +1,17 @@
+---
+const { url } = Astro.props;
+---
+
+<li>
+  {
+    typeof url === "string" && url.length > 0 ? (
+      <a href={url}>
+        <slot />
+      </a>
+    ) : (
+      <div>
+        <slot />
+      </div>
+    )
+  }
+</li>
