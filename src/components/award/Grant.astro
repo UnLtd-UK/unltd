@@ -48,12 +48,12 @@ const { name, description, amount, features, eligibilities, programmes } =
     </div>
 
     <div>
-      <p>Programmes available:</p>
+      <p class="text-slate-600 dark:text-slate-600">Programmes available:</p>
       <ul class="flex-inline space-x-1">
         {
           programmes.map((programme) => (
             <li
-              class={`inline-flex items-center rounded-md bg-${programme.colour}-50 px-2 py-1 text-xs font-medium text-${programme.colour}-600`}
+              class={`inline-flex items-center rounded-md bg-${programme.colour}-50 dark:bg-${programme.colour}-400 px-2 py-1 text-xs font-medium text-${programme.colour}-600 dark:text-${programme.colour}-400`}
             >
               {programme.name}
             </li>
@@ -63,8 +63,10 @@ const { name, description, amount, features, eligibilities, programmes } =
     </div>
   </div>
 
-  <div class={`flex flex-col gap-3 bg-slate-100 rounded-b-3xl p-8`}>
-    <p class={`text-sm text-slate-600 dark:text-slate-200`}>
+  <div
+    class={`flex flex-col gap-3 bg-slate-100 dark:bg-slate-950 rounded-b-3xl p-8`}
+  >
+    <p class={`text-sm text-slate-600 dark:text-slate-300`}>
       Social Venture eligibility:
     </p>
     <ul class="flex flex-col gap-6">
@@ -77,11 +79,13 @@ const { name, description, amount, features, eligibilities, programmes } =
               <i
                 class={`${eligibility.icon} text-slate-600 dark:text-slate-500`}
               />
-              <span class={`text-slate-600 dark:text-slate-200`}>
+              <span class={`text-slate-600 dark:text-slate-500`}>
                 {eligibility.name}
               </span>
             </p>
-            <p class={`text-sm font-semibold tracking-tight text-slate-600`}>
+            <p
+              class={`text-sm font-semibold tracking-tight text-slate-600 dark:text-slate-400`}
+            >
               {eligibility.value}
             </p>
           </li>
