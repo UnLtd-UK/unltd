@@ -1,0 +1,58 @@
+---
+import Template from "../../layouts/Template.astro";
+import Container from "../../components/Container.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import Hero from "../../components/Hero.astro";
+import { marked } from "marked";
+
+import { posts } from "../../data/posts.js";
+
+import Faqtemplate from "../../components/Faqtemplate.astro";
+import Faq from "../../components/Faq.astro";
+import Note from "../../components/Note.astro";
+
+export async function getStaticPaths() {
+  return posts.map((post) => {
+    let breadcrumbs = [
+      {
+        name: "Blog",
+        slug: "/blog",
+      },
+      {
+        name: post.title,
+        slug: `/blog/${post.slug}`,
+      },
+    ];
+
+    post.breadcrumbs = breadcrumbs;
+
+    let item = {
+      params: {
+        post: post.slug,
+      },
+      props: {
+        post: post,
+      },
+    };
+
+    return item;
+  });
+}
+
+const { post } = Astro.props;
+---
+
+<Template name={post.title} description={post.description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={post.breadcrumbs} />
+    <Hero
+      name={post.title}
+      description={post.description}
+      updated={post.date_time}
+    />
+    <div
+      set:html={marked.parse(post.body)}
+      class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
+    />
+  </Container>
+</Template>
