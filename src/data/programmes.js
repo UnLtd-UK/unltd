@@ -56,6 +56,12 @@ async function updateProgrammes(oldProgrammes) {
     }));
 }
 
+async function newUpdate(res) {
+    res.map(r => {
+
+    })
+}
+
 let programmes;
 
 try {
