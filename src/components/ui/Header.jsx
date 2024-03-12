@@ -146,7 +146,7 @@ export default function Example() {
 
           <PopoverComponent thing={join} />
 
-          <a href="https://ghost.org" className="text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
+          <a href="/blog" className="text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">
             Blog
           </a>
 
@@ -265,7 +265,7 @@ export default function Example() {
                 </Disclosure>
 
                 <a
-                  href="#"
+                  href="/blog"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-slate-900 hover:bg-slate-50"
                 >
                   Blog
