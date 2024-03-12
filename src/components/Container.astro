@@ -1,5 +1,9 @@
-<div
-  class="mx-auto max-w-7xl sm:px-6 lg:px-8 px-3 bg-slate-50 dark:bg-slate-950"
->
-  <slot />
+---
+const { light, dark } = Astro.props;
+---
+
+<div class={`bg-${light} dark:bg-${dark}`}>
+  <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 px-3">
+    <slot />
+  </div>
 </div>

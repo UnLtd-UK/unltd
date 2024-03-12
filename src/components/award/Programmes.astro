@@ -1,53 +1,62 @@
 ---
 import { programmes } from "../../data/programmes.js";
+import List from "./cards/List.astro";
 import { services } from "../../data/services.js";
 import truncate from "truncate";
 
+import Container from "../../components/Container.astro";
 import Programme from "../../components/award/Programme.astro";
 import { Description } from "../catalyst/fieldset";
 import { sesm } from "../../data/sesm.js";
 
-const core = [
+const programmesLocal = [
   {
-    name: "Support Manager",
-    icon: "fa-solid fa-circle-check",
+    name: "Core",
+    image:
+      "https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
+    slug: "core",
+    colour: "amber",
+    icon: "fa-solid fa-award",
+    features: [
+      {
+        name: "Support Manager",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Expert advice and guidance",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Pro-bono consultancy",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Upskill with your peers",
+        icon: "fa-solid fa-circle-check",
+      },
+    ],
+    eligibilities: [
+      {
+        name: "Age",
+        value: "16+",
+        icon: "fa-solid fa-spinner",
+      },
+      {
+        name: "Geography",
+        value: "United Kingdom",
+        icon: "fa-solid fa-location-dot",
+      },
+      {
+        name: "Sectors",
+        value: "All sectors",
+        icon: "fa-solid fa-vector-square",
+      },
+    ],
   },
-  {
-    name: "Expert advice and guidance",
-    icon: "fa-solid fa-circle-check",
-  },
-  {
-    name: "Pro-bono consultancy",
-    icon: "fa-solid fa-circle-check",
-  },
-  {
-    name: "Upskill with your peers",
-    icon: "fa-solid fa-circle-check",
-  },
-];
-
-const coreel = [
-  {
-    name: "Age",
-    value: "16+",
-    icon: "fa-solid fa-spinner",
-  },
-  {
-    name: "Geography",
-    value: "United Kingdom",
-    icon: "fa-solid fa-location-dot",
-  },
-  {
-    name: "Sectors",
-    value: "All sectors",
-    icon: "fa-solid fa-vector-square",
-  },
-];
-
-const features = [
   {
     name: "Access to Employment",
-    items: [
+    slug: "access-to-employment",
+    features: [
       {
         name: "Everything in Core",
         icon: "fa-solid fa-circle-check",
@@ -65,97 +74,7 @@ const features = [
         icon: "fa-solid fa-circle-check",
       },
     ],
-  },
-  {
-    name: "Financial Inclusion",
-    items: [
-      {
-        name: "Everything in Core",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Bespoke Workshops",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Learning Circles",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Subsidised Consultancy",
-        icon: "fa-solid fa-circle-check",
-      },
-    ],
-  },
-  {
-    name: "Healthy Ageing",
-    items: [
-      {
-        name: "Everything in Core",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Monthly online meet-up",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Learning Circles",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Subsidised Consultancy",
-        icon: "fa-solid fa-circle-check",
-      },
-    ],
-  },
-  {
-    name: "Movement for Change",
-    items: [
-      {
-        name: "Everything in Core",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Bespoke Workshops",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Learning Circles",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Subsidised Consultancy",
-        icon: "fa-solid fa-circle-check",
-      },
-    ],
-  },
-  {
-    name: "Technical Assistance Fund",
-    items: [
-      {
-        name: "Everything in Core",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Bespoke Workshops",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Learning Circles",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Subsidised Consultancy",
-        icon: "fa-solid fa-circle-check",
-      },
-    ],
-  },
-];
-
-const eligibility = [
-  {
-    name: "Access to Employment",
-    items: [
+    eligibilities: [
       {
         name: "Age",
         value: "16+",
@@ -175,7 +94,26 @@ const eligibility = [
   },
   {
     name: "Financial Inclusion",
-    items: [
+    slug: "financial-inclusion",
+    features: [
+      {
+        name: "Everything in Core",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Monthly online meet-up",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Learning Circles",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Subsidised Consultancy",
+        icon: "fa-solid fa-circle-check",
+      },
+    ],
+    eligibilities: [
       {
         name: "Age",
         value: "16 - 30",
@@ -195,7 +133,26 @@ const eligibility = [
   },
   {
     name: "Healthy Ageing",
-    items: [
+    slug: "healthy-ageing",
+    features: [
+      {
+        name: "Everything in Core",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Monthly online meet-up",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Learning Circles",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Subsidised Consultancy",
+        icon: "fa-solid fa-circle-check",
+      },
+    ],
+    eligibilities: [
       {
         name: "Age",
         value: "16+",
@@ -215,7 +172,26 @@ const eligibility = [
   },
   {
     name: "Movement for Change",
-    items: [
+    slug: "movement-for-change",
+    features: [
+      {
+        name: "Everything in Core",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Monthly online meet-up",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Learning Circles",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Subsidised Consultancy",
+        icon: "fa-solid fa-circle-check",
+      },
+    ],
+    eligibilities: [
       {
         name: "Age",
         value: "16+",
@@ -235,7 +211,26 @@ const eligibility = [
   },
   {
     name: "Technical Assistance Fund",
-    items: [
+    slug: "technical-assistance-fund",
+    features: [
+      {
+        name: "Everything in Core",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Monthly online meet-up",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Learning Circles",
+        icon: "fa-solid fa-circle-check",
+      },
+      {
+        name: "Subsidised Consultancy",
+        icon: "fa-solid fa-circle-check",
+      },
+    ],
+    eligibilities: [
       {
         name: "Age",
         value: "18+",
@@ -256,39 +251,18 @@ const eligibility = [
 ];
 
 programmes.map((programme) => {
-  const slugify = (text) =>
-    text
-      .toString()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, "-")
-      .replace(/[^\w-]+/g, "")
-      .replace(/--+/g, "-");
-
-  programme.slug = slugify(programme.name);
-});
-
-programmes.map((programme) => {
-  eligibility.map((eligibili) => {
-    if (eligibili.name.toLowerCase() == programme.name.toLowerCase()) {
-      programme.eligibility = eligibili.items;
-    }
-  });
-});
-
-programmes.map((programme) => {
-  features.map((feature) => {
-    if (feature.name == programme.name) {
-      programme.features = feature.items;
+  programmesLocal.map((programmeLocal) => {
+    if (programmeLocal.name.toLowerCase() == programme.name.toLowerCase()) {
+      programme.eligibilities = programmeLocal.eligibilities;
+      programme.features = programmeLocal.features;
+      programme.slug = programmeLocal.slug;
     }
   });
 });
 ---
 
-<div class="mx-auto mb-16 max-w-7xl px-6 lg:px-8 flex flex-col gap-5">
-  <div class="mx-auto max-w-2xl lg:text-center">
+<Container light="slate-100" dark="slate-900">
+  <div class="mx-auto max-w-4xl text-center mb-10 pt-16">
     <h2
       id="support"
       class="text-base font-semibold leading-7 text-amber-600 dark:text-amber-500"
@@ -311,169 +285,69 @@ programmes.map((programme) => {
     </p>
   </div>
 
-  <div>
-    <!-- support programmes -->
-    <div class="flex flex-col gap-20">
-      <div
-        class="mx-auto mt-16 max-w-2xl gap-6 sm:mt-20 lg:mx-0 lg:max-w-none flex flex-col"
-      >
-        <div class="flex gap-6 justify-center flex-col lg:flex-row">
-          <article
-            class="relative isolate flex flex-col justify-between gap-4 overflow-hidden rounded-2xl outline-slate-300 dark:outline-slate-700 w-full px-8 py-10 md:w-1/3 outline-dashed outline-2 outline-offset-2"
-          >
-            <div class="flex flex-col gap-2">
-              <div>
-                <span class="relative inline-block">
-                  <div
-                    class={`flex items-center justify-center h-14 w-14 rounded-md bg-amber-500`}
-                  >
-                    <i class="fa-solid fa-award-simple text-amber-100 text-2xl"
-                    ></i>
-                  </div>
-                </span>
-                <h3
-                  class={`mt-3 font-semibold leading-6 text-slate-800 dark:text-slate-200`}
-                >
-                  <span class="absolute inset-0"></span>
-                  <p class="text-lg">Core</p>
-                </h3>
-              </div>
-              <div class="flex flex-col gap-3">
-                {
-                  core.map((item) => (
-                    <div key={item.name}>
-                      <p
-                        class={`truncate text-sm font-medium flex gap-2 items-center`}
-                      >
-                        <i
-                          class={`fa-solid fa-circle-check text-slate-400 dark:text-slate-600`}
-                        />
-                        <span class={`text-slate-600 dark:text-slate-400`}>
-                          {item.name}
-                        </span>
-                      </p>
-                    </div>
-                  ))
-                }
-              </div>
-            </div>
+  <List>
+    <Programme
+      icon={programmesLocal[0].icon}
+      image={programmesLocal[0].image}
+      colour={programmesLocal[0].colour}
+      name={programmesLocal[0].name}
+      features={programmesLocal[0].features}
+      eligibilities={programmesLocal[0].eligibilities}
+    />
+    {
+      programmes.map((programme, i) => (
+        <Programme
+          image={programme.image.id}
+          icon={programme.icon}
+          colour={programme.colour}
+          name={programme.name}
+          slug={programme.slug}
+          eligibilities={programme.eligibilities}
+          features={programme.features}
+        />
+      ))
+    }
+  </List>
+  <!-- support services -->
 
-            <div class="flex flex-col gap-3 bg-slate-950/10 rounded-md p-5">
-              <p class={`text-sm text-slate-600 dark:text-slate-400`}>
-                Social Entrepreneur eligibility:
-              </p>
-              {
-                coreel.map((item) => (
-                  <div key={item.name}>
-                    <p
-                      class={`truncate text-xs font-medium uppercase flex gap-2 items-center`}
-                    >
-                      <i
-                        class={`${item.icon} text-slate-500 dark:text-slate-200`}
-                      />
-                      <span class={`text-slate-500 dark:text-slate-200`}>
-                        {item.name}
-                      </span>
-                    </p>
-                    <p
-                      class={`mt-1 text-sm font-semibold tracking-tight text-slate-500`}
-                    >
-                      {item.value}
-                    </p>
-                  </div>
-                ))
-              }
-            </div>
-          </article>
+  <div class="bg-slate-100 dark:bg-slate-900 pb-20">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+        <dl
+          class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
+        >
           {
-            programmes.map(
-              (programme, i) =>
-                i < 2 && (
-                  <Programme
-                    image={programme.image.id}
-                    icon={programme.icon}
-                    colour={programme.colour}
-                    name={programme.name}
-                    blurb={programme.blurb}
-                    slug={programme.slug}
-                    age={programme.age}
-                    geography={programme.geography}
-                    sectors={programme.sectors}
-                    eligibility={programme.eligibility}
-                    features={programme.features}
-                  />
-                ),
-            )
-          }
-        </div>
-        <div class="flex gap-6 justify-center flex-col md:flex-row">
-          {
-            programmes.length >= 2 &&
-              programmes.map(
-                (programme, i) =>
-                  i >= 2 && (
-                    <Programme
-                      image={programme.image.id}
-                      icon={programme.icon}
-                      colour={programme.colour}
-                      name={programme.name}
-                      blurb={programme.blurb}
-                      slug={programme.slug}
-                      age={programme.age}
-                      geography={programme.geography}
-                      sectors={programme.sectors}
-                      eligibility={programme.eligibility}
-                      features={programme.features}
-                      size="w-9"
+            services.map((service) => (
+              <div class="relative pl-16">
+                <dt class="text-base font-semibold leading-7">
+                  <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800">
+                    <i
+                      class={`${service.icon} text-slate-600 dark:text-slate-400 text-md`}
                     />
-                  ),
-              )
-          }
-        </div>
-      </div>
-    </div>
-
-    <!-- support services -->
-
-    <div class="bg-slate-100 dark:bg-slate-900">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-          <dl
-            class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
-          >
-            {
-              services.map((service) => (
-                <div class="relative pl-16">
-                  <dt class="text-base font-semibold leading-7">
-                    <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800">
-                      <i
-                        class={`${service.icon} text-slate-600 dark:text-slate-400 text-md`}
-                      />
+                  </div>
+                  <span class="text-slate-700 dark:text-slate-300">
+                    {service.name}
+                  </span>
+                  {service.name == "Support Manager" && (
+                    <div class="flex -space-x-2 overflow-hidden mt-2">
+                      {sesm.map((employee) => (
+                        <img
+                          class="inline-block h-8 w-8 rounded-full ring-2 ring-slate-200 dark:ring-slate-800"
+                          src={`https://unltd.directus.app/assets/${employee.person.image}`}
+                          alt={`${employee.person.name}`}
+                        />
+                      ))}
                     </div>
-                    <span class="text-slate-700 dark:text-slate-300">
-                      {service.name}
-                    </span>
-                    {service.name == "Support Manager" && (
-                      <div class="flex -space-x-2 overflow-hidden mt-2">
-                        {sesm.map((employee) => (
-                          <img
-                            class="inline-block h-8 w-8 rounded-full ring-2 ring-slate-200 dark:ring-slate-800"
-                            src={`https://unltd.directus.app/assets/${employee.person.image}`}
-                            alt={`${employee.person.name}`}
-                          />
-                        ))}
-                      </div>
-                    )}
-                  </dt>
-                  <dd class="mt-2 text-base leading-7 text-slate-600 dark:text-slate-400">
-                    {service.description}
-                  </dd>
-                </div>
-              ))
-            }
-          </dl>
-        </div>
+                  )}
+                </dt>
+                <dd class="mt-2 text-base leading-7 text-slate-600 dark:text-slate-400">
+                  {service.description}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
       </div>
     </div>
   </div>
-</div>
+</Container>
