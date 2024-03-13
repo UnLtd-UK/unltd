@@ -3,6 +3,46 @@ import Card from "./cards/Card.astro";
 const { image, icon, colour, name, slug, features, eligibilities } =
   Astro.props;
 
+const title = {
+  blue: "text-blue-100 dark:text-blue-100",
+  teal: "text-teal-100 dark:text-teal-100",
+  purple: "text-purple-100 dark:text-purple-100",
+  red: "text-red-100 dark:text-red-100",
+  stone: "text-stone-100 dark:text-stone-100",
+};
+
+const skin = {
+  blue: "text-blue-600 dark:text-blue-100 bg-blue-100 dark:bg-blue-600",
+  teal: "text-teal-600 dark:text-teal-800 bg-teal-100 dark:bg-teal-400",
+  purple: "text-purple-600 dark:text-purple-100 bg-blue-100 dark:bg-purple-600",
+  red: "text-red-600 dark:text-red-800 bg-teal-100 dark:bg-red-400",
+  stone: "text-stone-600 dark:text-stone-100 bg-blue-100 dark:bg-stone-600",
+};
+
+const gradient = {
+  blue: "from-blue-600/60",
+  teal: "from-teal-600/60",
+  purple: "from-purple-600/60",
+  red: "from-red-600/60",
+  stone: "from-stone-600/60",
+};
+
+const tick = {
+  blue: "text-blue-500 dark:text-blue-200",
+  teal: "text-teal-500 dark:text-teal-200",
+  purple: "text-purple-500 dark:text-purple-200",
+  red: "text-red-500 dark:text-red-200",
+  stone: "text-stone-500 dark:text-stone-200",
+};
+
+const description = {
+  blue: "text-blue-200",
+  teal: "text-teal-200",
+  purple: "text-purple-200",
+  red: "text-red-200",
+  stone: "text-stone-200",
+};
+
 function isValidUrl(string) {
   try {
     new URL(string);
@@ -24,9 +64,7 @@ function isValidUrl(string) {
       alt=""
       class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50"
     />
-    <div
-      class={`absolute inset-0 -z-10 bg-gradient-to-tr from-${colour}-600/60`}
-    >
+    <div class={`absolute inset-0 -z-10 bg-gradient-to-tr ${gradient[colour]}`}>
     </div>
     <div
       class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-slate-900/10"
@@ -35,18 +73,16 @@ function isValidUrl(string) {
     <div class="flex flex-col gap-3">
       <span class="relative inline-block">
         <div
-          class={`flex items-center justify-center h-14 w-14 rounded-md bg-${colour}-100 dark:bg-${colour}-400`}
+          class={`flex items-center justify-center h-14 w-14 rounded-md ${skin[colour]}`}
         >
-          <i
-            class={`${icon} text-${colour}-600 dark:text-${colour}-800 text-2xl`}
-          ></i>
+          <i class={`${icon} text-2xl`}></i>
         </div>
       </span>
       <div class="flex flex-col gap-1">
-        <h3 class={`text-base font-bold leading-6 text-${colour}-100 `}>
+        <h3 class={`text-base font-bold leading-6 ${title[colour]} `}>
           {name}
         </h3>
-        <p class={`text-${colour}-200 text-sm font-semibold`}>
+        <p class={`${description[colour]} text-sm font-semibold`}>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
@@ -59,9 +95,7 @@ function isValidUrl(string) {
         features.map((feature) => (
           <div>
             <p class={`truncate text-sm font-medium flex gap-2 items-center`}>
-              <i
-                class={`${feature.icon} text-${colour}-500 dark:text-${colour}-200`}
-              />
+              <i class={`${feature.icon} ${tick[colour]}`} />
               <span class={`text-slate-500 dark:text-slate-500`}>
                 {feature.name}
               </span>

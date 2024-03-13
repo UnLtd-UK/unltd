@@ -26,7 +26,6 @@ async function fetchData(collection, collectionUrl, filterOptions, attach) {
         // Write the file
         await fs.writeFile(collectionUrl, JSON.stringify(response));
 
-        console.log("Got from Directus!")
         console.log("Wrote cache: ", `${collection}.js`)
 
         return response;
