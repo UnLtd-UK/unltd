@@ -1,8 +1,17 @@
-let response = await fetch("https://unltd.directus.app/items/navigation?filter[status][_eq]=published", {
-    method: "GET"
-});
+import { getCollection } from './load.js';
 
-let json = await response.json();
-let navigation = json.data;
+const collection = "navigation";
+
+const filterOptions = {
+    filter: {
+        status: {
+            _eq: 'published'
+        }
+    }
+}
+
+const attach = false;
+
+const navigation = await getCollection(collection, filterOptions, attach);
 
 export { navigation }
