@@ -1,35 +1,19 @@
-import { JSDOM } from 'jsdom';
-import { createDirectus, rest, readItems } from '@directus/sdk';
+import { getCollection } from './load.js';
 
-const client = createDirectus('https://unltd.directus.app').with(rest());
+const collection = "programmes";
 
-const response = await client.request(
-    readItems('programmes', {
-        sort: ['sort', 'name'],
-        filter: {
-            status: {
-                _eq: 'published'
-            }
-        },
-        fields: ['*.*.*.*.*'],
-    })
-);
-
-let programmes;
-
-try {
-    programmes = response.map((currentObject, index, originalArray) => {
-        // Filter out the current object
-        const remainingObjects = originalArray.filter((_, filterIndex) => index !== filterIndex);
-
-        // Return a new object with the remainingObjects attached
-        return {
-            ...currentObject,
-            programmes: remainingObjects
-        };
-    });
-} catch (error) {
-    console.error('Error updating programmes:', error);
+const filterOptions = {
+    sort: ['sort', 'name'],
+    filter: {
+        status: {
+            _eq: 'published'
+        }
+    },
+    fields: ['*.*.*.*.*'],
 }
+
+const attach = true;
+
+const programmes = await getCollection(collection, filterOptions, attach);
 
 export { programmes }
