@@ -14,6 +14,7 @@ import slugify from "slugify";
 let todayDate = moment();
 
 const textVariants = {
+  amber: 'text-amber-200 dark:bg-amber-200',
   blue: 'text-blue-200 dark:text-blue-200',
   teal: 'text-teal-200 dark:text-teal-200',
   purple: "text-purple-200 dark:text-purple-200",
@@ -22,6 +23,7 @@ const textVariants = {
 }
 
 const bgVariants = {
+  amber: 'bg-amber-600 dark:bg-amber-600',
   blue: 'bg-blue-600 dark:bg-blue-600',
   teal: 'bg-teal-600 dark:bg-teal-600',
   purple: "bg-purple-600 dark:bg-purple-600",
@@ -30,6 +32,7 @@ const bgVariants = {
 }
 
 const fromToVariants = {
+  amber: 'from-amber-700 to-amber-900 dark:from-amber-700 dark:to-amber-900',
   blue: 'from-blue-700 to-blue-900 dark:from-blue-700 dark:to-blue-900',
   teal: 'from-teal-700 to-teal-900 dark:from-teal-700 dark:to-teal-900',
   purple: "from-purple-700 to-purple-900 dark:from-purple-700 dark:to-purple-900",
@@ -38,11 +41,12 @@ const fromToVariants = {
 }
 
 const skin = {
+  amber: "text-amber-600 dark:text-amber-100 bg-amber-100 dark:bg-amber-600",
   blue: "text-blue-600 dark:text-blue-100 bg-blue-100 dark:bg-blue-600",
-  teal: "text-teal-600 dark:text-teal-800 bg-teal-100 dark:bg-teal-400",
-  purple: "text-purple-600 dark:text-purple-100 bg-blue-100 dark:bg-purple-600",
-  red: "text-red-600 dark:text-red-800 bg-teal-100 dark:bg-red-400",
-  stone: "text-stone-600 dark:text-stone-100 bg-blue-100 dark:bg-stone-600",
+  teal: "text-teal-600 dark:text-teal-100 bg-teal-100 dark:bg-teal-600",
+  purple: "text-purple-600 dark:text-purple-100 bg-purple-100 dark:bg-purple-600",
+  red: "text-red-600 dark:text-red-100 bg-red-100 dark:bg-red-600",
+  stone: "text-stone-600 dark:text-stone-100 bg-stone-100 dark:bg-stone-600",
 };
 
 export async function getStaticPaths() {
