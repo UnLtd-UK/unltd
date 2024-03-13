@@ -25,7 +25,7 @@
     "@heroicons/react": "^2.1.1",
     "@types/alpinejs": "^3.13.7",
     "@types/react": "^18.2.65",
-    "@types/react-dom": "^18.2.21",
+    "@types/react-dom": "^18.2.22",
     "alpinejs": "^3.13.7",
     "astro": "^4.5.2",
     "clsx": "^2.1.0",
