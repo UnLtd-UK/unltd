@@ -1,8 +1,18 @@
-let response = await fetch("https://unltd.directus.app/items/campiagns/?fields=*&fields=funds.funds_id.*&fields=sponsors.organisations_id.*&fields=supporters.organisations_id.*&fields=manager.person.*&fields=manager.role.*&filter[status][_eq]=published", {
-    method: "GET"
-});
+import { getCollection } from './load.js';
 
-let json = await response.json();
-let campaigns = json.data;
+const collection = "campaigns";
+
+const filterOptions = {
+    filter: {
+        status: {
+            _eq: 'published'
+        }
+    },
+    fields: ['*', 'funds.funds_id.*', 'sponsors.organisations_id.*', 'supporters.organisations_id.*', 'manager.person.*', 'manager.role.*']
+}
+
+const attach = false;
+
+const campaigns = await getCollection(collection, filterOptions, attach);
 
 export { campaigns }
