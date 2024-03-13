@@ -24,7 +24,8 @@ const componentMap = {
         <div
           class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg outline outline-offset-2 outline-slate-300 dark:outline-slate-700"
         >
-          <i class=`text-slate-800 dark:text-slate-200 fa-solid fa-${icon}`></i>
+          <i class={`text-slate-800 dark:text-slate-200 fa-solid fa-${icon}`}
+          ></i>
         </div>
 
         <h2
@@ -41,7 +42,7 @@ const componentMap = {
           ></i>
           <a
             class="text-slate-700 hover:text-slate-800 dark:text-slate-300 hover:dark:text-slate-200 text-lg leading-8 font-bold underline underline-offset-4 decoration-amber-500 decoration-1 hover:decoration-2"
-            href=`mailto:${email}`>{email}</a
+            href={`mailto:${email}`}>{email}</a
           >
         </div>
       </div>
