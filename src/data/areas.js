@@ -1,8 +1,19 @@
-let response = await fetch("https://unltd.directus.app/items/areas/?fields=*.*.*.*.*&filter[status][_eq]=published&sort[]=name", {
-    method: "GET"
-});
+import { getCollection } from './load.js';
 
-let json = await response.json();
-let areas = json.data;
+const collection = "areas";
+
+const filterOptions = {
+    sort: ['sort', 'name'],
+    filter: {
+        status: {
+            _eq: 'published'
+        }
+    },
+    fields: ['*.*.*.*.*']
+}
+
+const attach = false;
+
+const areas = await getCollection(collection, filterOptions, attach);
 
 export { areas }
