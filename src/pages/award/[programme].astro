@@ -52,6 +52,14 @@ const skin = {
 export async function getStaticPaths() {
 
   return programmes.map((programme) => {
+
+let slug = slugify(programme.name, {
+          lower: true,
+          strict: true,
+          locale: "en",
+          trim: true,
+        });
+
     let breadcrumbs = [
       {
         name: "Award",
@@ -59,12 +67,7 @@ export async function getStaticPaths() {
       },
       {
         name: programme.name,
-        slug: `/award/${slugify(programme.name, {
-          lower: true,
-          strict: true,
-          locale: "en",
-          trim: true,
-        })}`,
+        slug: `/award/${slug}`,
       },
     ];
 
@@ -72,12 +75,7 @@ export async function getStaticPaths() {
 
     let item = {
       params: {
-        programme: slugify(programme.name, {
-          lower: true,
-          strict: true,
-          locale: "en",
-          trim: true,
-        }),
+        programme: slugify(slug),
       },
       props: {
         programme: programme,
