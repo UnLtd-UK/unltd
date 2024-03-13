@@ -1,16 +1,18 @@
-import { createDirectus, rest, readItems } from '@directus/sdk';
+import { getCollection } from './load.js';
 
-const client = createDirectus('https://unltd.directus.app').with(rest());
+const collection = "pages";
 
-const pages = await client.request(
-    readItems('pages', {
-        filter: {
-            status: {
-                _eq: 'published'
-            }
-        },
-        fields: ['*'],
-    })
-);
+const filterOptions = {
+    filter: {
+        status: {
+            _eq: 'published'
+        }
+    },
+    fields: ['*'],
+}
+
+const attach = false;
+
+const pages = await getCollection(collection, filterOptions, attach);
 
 export { pages }

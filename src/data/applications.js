@@ -1,8 +1,18 @@
-let response = await fetch("https://unltd.directus.app/items/applications/?filter[status][_eq]=published&fields[]=*&fields[]=sections.sections_id.*&fields[]=sections.sections_id.fields.fields_id.*", {
-    method: "GET"
-});
+import { getCollection } from './load.js';
 
-let json = await response.json();
-let applications = json.data;
+const collection = "applications";
+
+const filterOptions = {
+    filter: {
+        status: {
+            _eq: 'published'
+        }
+    },
+    fields: ['*', 'sections.sections_id.*', 'sections.sections_id.fields.fields_id.*']
+}
+
+const attach = false;
+
+const applications = await getCollection(collection, filterOptions, attach);
 
 export { applications }

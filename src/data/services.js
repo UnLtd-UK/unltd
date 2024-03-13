@@ -1,16 +1,18 @@
-import { createDirectus, rest, readItems } from '@directus/sdk';
+import { getCollection } from './load.js';
 
-const client = createDirectus('https://unltd.directus.app').with(rest());
+const collection = "services";
 
-const services = await client.request(
-    readItems('services', {
-        filter: {
-            status: {
-                _eq: 'published'
-            }
-        },
-        fields: ['*.*.*.*.*'],
-    })
-);
+const filterOptions = {
+    filter: {
+        status: {
+            _eq: 'published'
+        }
+    },
+    fields: ['*.*.*.*.*'],
+}
+
+const attach = false;
+
+const services = await getCollection(collection, filterOptions, attach);
 
 export { services }

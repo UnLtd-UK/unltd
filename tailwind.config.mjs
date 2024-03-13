@@ -9,13 +9,5 @@ module.exports = {
       sans: ["'nunito'", ...defaultTheme.fontFamily.sans],
     }
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")],
-  safelist: [
-    { pattern: /^bg-/ },
-    { pattern: /^text-/ },
-    { pattern: /^border-/, variants: ['hover'] },
-    { pattern: /^from-/ },
-    { pattern: /^to-/ },
-    { pattern: /^shadow-/, variants: ['hover'] }
-  ]
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")]
 };
