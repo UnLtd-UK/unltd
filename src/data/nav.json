@@ -1,15 +1,15 @@
 {
   "header": {
     "action": {
-      "name": "My Account",
+      "name": "My award account",
       "link": "https://unltd.microsoftcrmportals.com/applications",
       "children": []
     },
     "main": [
       {
-        "name": "Award",
+        "name": "Awards",
         "link": "",
-        "slug": "award",
+        "slug": "awards",
         "icon": "",
         "children": []
       },
