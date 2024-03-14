@@ -32,7 +32,7 @@ const funding = {
     [
       {
         name: 'Award',
-        description: 'For Social Entrepreneurs',
+        description: 'For social entrepreneurs',
         href: "/award",
         icon: "fa-solid fa-award"
       },
