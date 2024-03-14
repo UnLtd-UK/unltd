@@ -24,7 +24,7 @@
     "@fontsource/nunito": "^5.0.17",
     "@headlessui/react": "^2.0.0-alpha.4",
     "@heroicons/react": "^2.1.1",
-    "@types/alpinejs": "^3.13.7",
+    "@types/alpinejs": "^3.13.9",
     "@types/react": "^18.2.65",
     "@types/react-dom": "^18.2.22",
     "alpinejs": "^3.13.7",
