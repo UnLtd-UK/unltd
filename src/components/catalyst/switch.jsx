@@ -75,9 +75,9 @@ const colors = {
     '[--switch-bg-ring:theme(colors.orange.600/90%)] [--switch-bg:theme(colors.orange.500)] dark:[--switch-bg-ring:transparent]',
     '[--switch:white] [--switch-ring:theme(colors.orange.600/90%)] [--switch-shadow:theme(colors.orange.900/20%)]',
   ],
-  amber: [
-    '[--switch-bg-ring:theme(colors.amber.500/80%)] [--switch-bg:theme(colors.amber.400)] dark:[--switch-bg-ring:transparent]',
-    '[--switch-ring:transparent] [--switch-shadow:transparent] [--switch:theme(colors.amber.950)]',
+  orange: [
+    '[--switch-bg-ring:theme(colors.orange.500/80%)] [--switch-bg:theme(colors.orange.400)] dark:[--switch-bg-ring:transparent]',
+    '[--switch-ring:transparent] [--switch-shadow:transparent] [--switch:theme(colors.orange.950)]',
   ],
   yellow: [
     '[--switch-bg-ring:theme(colors.yellow.400/80%)] [--switch-bg:theme(colors.yellow.300)] dark:[--switch-bg-ring:transparent]',
@@ -182,7 +182,7 @@ export function Switch({ color = 'dark/zinc', className, children, ...props }) {
           'pointer-events-none relative inline-block size-[1.125rem] rounded-full sm:size-3.5',
 
           // Transition
-          'translate-x-0 transition duration-200 ease-in-out',
+          'tranviolet-x-0 transition duration-200 ease-in-out',
 
           // Invisible border so the switch is still visible in forced-colors mode
           'border border-transparent',
@@ -192,7 +192,7 @@ export function Switch({ color = 'dark/zinc', className, children, ...props }) {
 
           // Checked
           'group-data-[checked]:bg-[--switch] group-data-[checked]:shadow-[--switch-shadow] group-data-[checked]:ring-[--switch-ring]',
-          'group-data-[checked]:translate-x-4 sm:group-data-[checked]:translate-x-3',
+          'group-data-[checked]:tranviolet-x-4 sm:group-data-[checked]:tranviolet-x-3',
 
           // Disabled
           'group-data-[disabled]:group-data-[checked]:bg-white group-data-[disabled]:group-data-[checked]:shadow group-data-[disabled]:group-data-[checked]:ring-black/5'
