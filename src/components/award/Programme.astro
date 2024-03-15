@@ -66,7 +66,7 @@ function isValidUrl(string) {
     <img
       src={isValidUrl(image)
         ? image
-        : `https://unltd.directus.app/assets/${image}`}
+        : `https://unltd.directus.app/assets/${image}?width=384`}
       alt=""
       class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50"
     />
@@ -114,7 +114,7 @@ function isValidUrl(string) {
 
   <div class={`flex flex-col gap-3 bg-slate-100 rounded-b-3xl p-8`}>
     <p class={`text-sm text-slate-600 dark:text-slate-200`}>
-      Social Entrepreneur eligibility:
+      Social entrepreneur eligibility:
     </p>
     <ul class="flex flex-col gap-6">
       {
