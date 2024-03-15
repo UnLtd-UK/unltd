@@ -14,15 +14,15 @@ const { fundi } = Astro.props;
       </div>
       <div class="">
         <a href={`/funds/${fundi.round.fund.slug}`}>
-          <h3 class="text-lg font-medium leading-6 text-slate-900">
+          <h3 class="text-lg font-medium leading-6 text-violet-900">
             {fundi.round.fund.name}
           </h3>
         </a>
-        <p class="text-xs text-slate-500">Funded by</p>
+        <p class="text-xs text-violet-500">Funded by</p>
       </div>
     </div>
-    <div class="px-5 py-1 bg-slate-300 border-t border-b border-slate-400">
-      <p class="text-xs text-slate-700">
+    <div class="px-5 py-1 bg-violet-300 border-t border-b border-violet-400">
+      <p class="text-xs text-violet-700">
         Round: {fundi.round.open} - {fundi.round.close}
       </p>
     </div>
@@ -57,7 +57,7 @@ const { fundi } = Astro.props;
     <div class="p-5">
       <button
         type="button"
-        class="inline-flex items-center rounded-full border border-transparent bg-amber-600 px-5 py-2 text-base font-medium text-white shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+        class="inline-flex items-center rounded-full border border-transparent bg-orange-600 px-5 py-2 text-base font-medium text-white shadow-sm hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
         >Apply now</button
       >
     </div>
