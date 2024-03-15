@@ -40,8 +40,7 @@ const breadcrumbs = [
               <article class="flex flex-col items-start justify-between transition hover:bg-slate-100 p-6 rounded-2xl">
                 <div class="relative w-full">
                   <img
-                    src="https://source.unsplash.com/random?nature
-"
+                    src={`/img/blog/${slugify(post.tag, { lower: true, strict: true, locale: "en", trim: true })}.webp`}
                     alt=""
                     class="aspect-[16/9] w-full rounded-2xl bg-slate-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
                   />
