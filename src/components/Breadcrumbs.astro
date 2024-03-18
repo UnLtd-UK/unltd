@@ -3,8 +3,8 @@ import Container from "../components/Container.astro";
 const { breadcrumbs } = Astro.props;
 ---
 
-<Container light="slate-50" dark="slate-950">
-  <div class="py-5 flex flex-col gap-12 bg-slate-50 dark:bg-slate-950">
+<Container light="violet-50" dark="violet-950">
+  <div class="py-5 flex flex-col gap-12 bg-violet-50 dark:bg-violet-950">
     <div class="flex flex-row gap-5 justify-between">
       <nav class="flex" aria-label="Breadcrumb">
         <ol role="list" class="flex flex-col gap-4 md:flex-row md:items-center">
@@ -12,7 +12,7 @@ const { breadcrumbs } = Astro.props;
             <div>
               <a
                 href="/"
-                class="hover:text-slate-700 text-slate-600 dark:hover:text-slate-300 dark:text-slate-400 transition"
+                class="hover:text-violet-700 text-violet-600 dark:hover:text-violet-300 dark:text-violet-400 transition"
               >
                 <i class="fa-solid fa-house text-xs"></i>
                 <span class="sr-only">UnLtd</span>
@@ -24,10 +24,10 @@ const { breadcrumbs } = Astro.props;
             breadcrumbs.map((crumb) => (
               <li>
                 <div class="flex items-center">
-                  <i class="fa-solid fa-chevron-right hover:text-slate-700 text-slate-600 dark:hover:text-slate-300 dark:text-slate-400 text-xs" />
+                  <i class="fa-solid fa-chevron-right hover:text-violet-700 text-violet-600 dark:hover:text-violet-300 dark:text-violet-400 text-xs" />
                   <a
                     href={`${crumb.slug}`}
-                    class="ml-4 text-xs font-medium hover:text-slate-700 text-slate-600 dark:hover:text-slate-300 dark:text-slate-400  transition"
+                    class="ml-4 text-xs font-medium hover:text-violet-700 text-violet-600 dark:hover:text-violet-300 dark:text-violet-400  transition"
                   >
                     {crumb.name}
                   </a>

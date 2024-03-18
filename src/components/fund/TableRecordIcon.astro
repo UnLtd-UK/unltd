@@ -3,16 +3,16 @@ const { question, description, answer } = Astro.props;
 ---
 
 <tr
-  class="border-t border-slate-200 flex flex-row items-center p-5 justify-between gap-5"
+  class="border-t border-violet-200 flex flex-row items-center p-5 justify-between gap-5"
 >
-  <th class="text-left text-sm font-normal text-slate-500" scope="row">
-    <span class="font-medium text-slate-500">{question}</span><span
-      class="font-normal text-slate-400 block w-60">{description}</span
+  <th class="text-left text-sm font-normal text-violet-500" scope="row">
+    <span class="font-medium text-violet-500">{question}</span><span
+      class="font-normal text-violet-400 block w-60">{description}</span
     >
   </th>
   <td class="">
     <i
-      class={`fa-solid fa-${answer == "No" ? `xmark` : `check`} text-slate-500`}
+      class={`fa-solid fa-${answer == "No" ? `xmark` : `check`} text-violet-500`}
     ></i>
     <span class="sr-only">{answer}</span>
   </td>

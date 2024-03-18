@@ -4,9 +4,12 @@ marked.use({ mangle: false, headerIds: false });
 const { question, answer } = Astro.props;
 ---
 
-<tr class="border-t border-slate-200 flex flex-col p-5 gap-2">
-  <th class="text-left text-sm font-normal text-slate-500" scope="row">
+<tr class="border-t border-violet-200 flex flex-col p-5 gap-2">
+  <th class="text-left text-sm font-normal text-violet-500" scope="row">
     <span>{question}</span>
   </th>
-  <td class="block text-sm text-slate-700 prose" set:html={marked.parse(`${answer}`)} />
+  <td
+    class="block text-sm text-violet-700 prose"
+    set:html={marked.parse(`${answer}`)}
+  />
 </tr>

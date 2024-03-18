@@ -23,13 +23,13 @@ function playsound(name) {
 
 <div class="py-5 sm:py-10">
   <div
-    class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 bg-slate-100 dark:bg-slate-900 p-28 rounded-3xl"
+    class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 bg-violet-100 dark:bg-violet-900 p-28 rounded-3xl"
   >
     <div class="max-w-2xl">
-      <h2 class="text-3xl font-bold tracking-tight text-slate-600 dark:text-slate-300 sm:text-4xl">
+      <h2 class="text-3xl font-bold tracking-tight text-violet-600 dark:text-violet-300 sm:text-4xl">
         {name}
       </h2>
-      <p class="mt-6 text-lg leading-8 text-slate-500 dark:text-slate-400">
+      <p class="mt-6 text-lg leading-8 text-violet-500 dark:text-violet-400">
         {description}
       </p>
     </div>
@@ -55,11 +55,11 @@ function playsound(name) {
                 />
                 <div class="flex flex-col gap-1">
                   <div class="flex gap-2 items-center">
-                    <h3 class="text-base font-semibold leading-7 tracking-tight text-slate-600 items-center">
+                    <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-600 items-center">
                       {position.person.name}
                     </h3>
                     <!-- <button onclick={`playsound("${position.person.name}")`}>
-                      <i class="fa-solid fa-volume-high text-slate-500 text-xs" />
+                      <i class="fa-solid fa-volume-high text-violet-500 text-xs" />
                     </button> -->
                     <audio
                       id={`audio-${position.person.name
@@ -78,7 +78,7 @@ function playsound(name) {
                     { position.person.gender_pronouns && position.person.gender_pronouns.length > 0 &&
                     <div class="flex gap-1">
                       { position.person.gender_pronouns?.map((item) => (
-                        <span class="text-xs text-slate-600">
+                        <span class="text-xs text-violet-600">
                           {item}
                         </span>
                       )) } 
@@ -101,14 +101,14 @@ function playsound(name) {
                     </div>
                   </div>
                   <div>
-                    <p class="text-sm leading-2 text-slate-500">
+                    <p class="text-sm leading-2 text-violet-500">
                     {position.role.name}
                   </p>
                   {position.person.linkedin && (
                     <a
                       href={position.person.linkedin}
                       target="_blank"
-                      class="text-slate-600"
+                      class="text-violet-600"
                     >
                       <span class="sr-only">LinkedIn</span>
                       <i class="text-sm fa-brands fa-linkedin" />

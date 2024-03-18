@@ -41,11 +41,11 @@ export function Dialog({ open, onClose, size = 'lg', className, children, ...pro
         <HeadlessTransitionChild
           className="fixed inset-0 w-screen overflow-y-auto pt-6 sm:pt-0"
           enter="ease-out duration-100"
-          enterFrom="opacity-0 translate-y-12 sm:translate-y-0"
-          enterTo="opacity-100 translate-y-0"
+          enterFrom="opacity-0 tranviolet-y-12 sm:tranviolet-y-0"
+          enterTo="opacity-100 tranviolet-y-0"
           leave="ease-in duration-100"
-          leaveFrom="opacity-100 translate-y-0"
-          leaveTo="opacity-0 translate-y-12 sm:translate-y-0"
+          leaveFrom="opacity-100 tranviolet-y-0"
+          leaveTo="opacity-0 tranviolet-y-12 sm:tranviolet-y-0"
         >
           <div className="grid min-h-full grid-rows-[1fr_auto] justify-items-center sm:grid-rows-[1fr_auto_3fr] sm:p-4">
             <HeadlessTransitionChild

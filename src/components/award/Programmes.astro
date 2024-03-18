@@ -15,7 +15,7 @@ const programmesLocal = [
     image:
       "https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
     slug: "core",
-    colour: "amber",
+    colour: "orange",
     icon: "fa-solid fa-award",
     features: [
       {
@@ -266,21 +266,21 @@ programmes.map((programme) => {
 });
 ---
 
-<Container light="slate-100" dark="slate-900">
+<Container light="violet-100" dark="violet-900">
   <div class="mx-auto max-w-4xl text-center mb-10 pt-16">
     <h2
       id="support"
-      class="text-base font-semibold leading-7 text-amber-600 dark:text-amber-500"
+      class="text-base font-semibold leading-7 text-orange-600 dark:text-orange-500"
     >
       Support
     </h2>
     <p
-      class="mt-2 text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl"
+      class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
     >
       Your programme
     </p>
     <p
-      class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-slate-600 dark:text-slate-400"
+      class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-600 dark:text-violet-400"
     >
       Considering your age, geographic location, and the sectors in which you
       and your social venture operate, you will be assigned to one of our
@@ -315,7 +315,7 @@ programmes.map((programme) => {
   </List>
   <!-- support services -->
 
-  <div class="bg-slate-100 dark:bg-slate-900 pb-20">
+  <div class="bg-violet-100 dark:bg-violet-900 pb-20">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
         <dl
@@ -325,19 +325,19 @@ programmes.map((programme) => {
             services.map((service) => (
               <div class="relative pl-16">
                 <dt class="text-base font-semibold leading-7">
-                  <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-slate-200 dark:bg-slate-800">
+                  <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-violet-200 dark:bg-violet-800">
                     <i
-                      class={`${service.icon} text-slate-600 dark:text-slate-400 text-md`}
+                      class={`${service.icon} text-violet-600 dark:text-violet-400 text-md`}
                     />
                   </div>
-                  <span class="text-slate-700 dark:text-slate-300">
+                  <span class="text-violet-700 dark:text-violet-300">
                     {service.name}
                   </span>
                   {service.name == "Support Manager" && (
                     <div class="flex -space-x-2 overflow-hidden mt-2">
                       {sesm.map((employee) => (
                         <img
-                          class="inline-block h-8 w-8 rounded-full ring-2 ring-slate-200 dark:ring-slate-800"
+                          class="inline-block h-8 w-8 rounded-full ring-2 ring-violet-200 dark:ring-violet-800"
                           src={`https://unltd.directus.app/assets/${employee.person.image}?height=64`}
                           alt={`${employee.person.name}`}
                         />
@@ -345,7 +345,7 @@ programmes.map((programme) => {
                     </div>
                   )}
                 </dt>
-                <dd class="mt-2 text-base leading-7 text-slate-600 dark:text-slate-400">
+                <dd class="mt-2 text-base leading-7 text-violet-600 dark:text-violet-400">
                   {service.description}
                 </dd>
               </div>

@@ -10,22 +10,22 @@ const { name, description, slug, required, number } = Astro.props;
         aria-describedby={`${slug}-description`}
         name={`${slug}`}
         type="checkbox"
-        class="h-4 w-4 rounded border-slate-300 text-amber-600 focus:amber-amber-500"
+        class="h-4 w-4 rounded border-violet-300 text-orange-600 focus:orange-orange-500"
       />
     </div>
     <div class="ml-3 text-sm">
       <div class="flex justify-between">
-        <label for={slug} class="font-medium text-slate-700"
-          ><span class="text-slate-400 text-sm mr-1">{number}.</span>
+        <label for={slug} class="font-medium text-violet-700"
+          ><span class="text-violet-400 text-sm mr-1">{number}.</span>
           {name}</label
         >
-        <span class="text-sm text-slate-500" id="email-required"
+        <span class="text-sm text-violet-500" id="email-required"
           >{required === "true" && `Required`}</span
         >
       </div>
       <p
         id={`${slug}-description`}
-        class="mt-2 text-sm text-slate-500 leading-relaxed"
+        class="mt-2 text-sm text-violet-500 leading-relaxed"
       >
         {description}
       </p>

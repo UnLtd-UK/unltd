@@ -3,11 +3,11 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  // darkMode: 'selector',
+  darkMode: 'selector',
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     fontFamily: {
-      sans: ["'nunito'", ...defaultTheme.fontFamily.sans],
+      sans: ["'montserrat'", ...defaultTheme.fontFamily.sans],
     }
   },
   plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")]
