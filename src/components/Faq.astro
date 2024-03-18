@@ -8,7 +8,7 @@ const { question, answer, i } = Astro.props;
     <button
       x-on:click="open = ! open"
       type="button"
-      class="flex w-full items-start justify-between text-left text-slate-900"
+      class="flex w-full items-start justify-between text-left text-violet-900"
       aria-controls="faq-0"
       aria-expanded="false"
     >
@@ -54,7 +54,7 @@ const { question, answer, i } = Astro.props;
     </button>
   </dt>
   <dd class="mt-2 pr-12" id={`faq-${i + 1}`} x-show="open" x-transition>
-    <p class="text-base leading-7 text-slate-600">
+    <p class="text-base leading-7 text-violet-600">
       {answer}
     </p>
   </dd>

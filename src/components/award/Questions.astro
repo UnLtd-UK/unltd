@@ -66,16 +66,18 @@ const items = [
   <div>
     <h2
       id="frequently-asked-questions"
-      class="mt-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl"
+      class="mt-2 text-4xl font-bold tracking-tight text-violet-900 sm:text-5xl"
     >
       Frequently asked questions
     </h2>
-    <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+    <p class="mt-6 max-w-2xl text-lg leading-8 text-violet-600">
       Blah blah blah
     </p>
   </div>
-  <div class="max-w-4xl divide-y divide-slate-900/10 dark:divide-slate-900/10">
-    <dl class="mt-10 space-y-6 divide-y divide-slate-900/10">
+  <div
+    class="max-w-4xl divide-y divide-violet-900/10 dark:divide-violet-900/10"
+  >
+    <dl class="mt-10 space-y-6 divide-y divide-violet-900/10">
       {items.map((item, i) => <Faq question={item.a} answer={item.q} i={i} />)}
     </dl>
   </div>

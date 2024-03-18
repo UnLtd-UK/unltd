@@ -20,22 +20,22 @@ if (description != null) {
 
 <div>
   <div class="flex justify-between gap-5">
-    <label for={slug} class="block text-sm font-medium text-slate-700"
-      ><span class="text-slate-400 text-sm mr-1">{number}.</span> {name}</label
+    <label for={slug} class="block text-sm font-medium text-violet-700"
+      ><span class="text-violet-400 text-sm mr-1">{number}.</span> {name}</label
     >
-    <span class="text-sm text-slate-400" id={`${slug}-required`}
+    <span class="text-sm text-violet-400" id={`${slug}-required`}
       >{required == true && `Required`}</span
     >
   </div>
   <div
-    class="mt-2 text-sm text-slate-500 leading-relaxed prose"
+    class="mt-2 text-sm text-violet-500 leading-relaxed prose"
     id={`${slug}-description}`}
     set:html={markdown}
   />
   <div class="mt-1 flex rounded-md shadow-sm">
     {
       prefix && (
-        <span class="inline-flex items-center rounded-l-md border border-r-0 border-slate-300 bg-slate-50 px-3 text-slate-500 sm:text-sm">
+        <span class="inline-flex items-center rounded-l-md border border-r-0 border-violet-300 bg-violet-50 px-3 text-violet-500 sm:text-sm">
           {prefix}
         </span>
       )
@@ -44,19 +44,19 @@ if (description != null) {
     {
       input_type == "file" ? (
         <div
-          class={`flex w-full justify-center rounded-md border-2 border-dashed border-slate-300 px-6 pt-5 pb-6 ${
-            disabled && "cursor-not-allowed bg-slate-100"
+          class={`flex w-full justify-center rounded-md border-2 border-dashed border-violet-300 px-6 pt-5 pb-6 ${
+            disabled && "cursor-not-allowed bg-violet-100"
           }`}
         >
           <div class="space-y-1 text-center">
-            <i class="fa-solid fa-table text-slate-400 text-3xl" />
-            <div class="flex text-sm text-slate-600">
+            <i class="fa-solid fa-table text-violet-400 text-3xl" />
+            <div class="flex text-sm text-violet-600">
               <label
                 for="file-upload"
                 class={`relative cursor-pointer rounded-md font-medium  focus-within:outline-none focus-within:ring-2  focus-within:ring-offset-2 ${
                   disabled
-                    ? "text-slate-500"
-                    : "text-amber-600 focus-within:ring-amber-500"
+                    ? "text-violet-500"
+                    : "text-orange-600 focus-within:ring-orange-500"
                 }`}
               >
                 <span class={disabled && "cursor-not-allowed"}>
@@ -72,7 +72,7 @@ if (description != null) {
               </label>
               <p class="pl-1">or drag and drop</p>
             </div>
-            <p class="text-xs text-slate-500">CSV, GSHEET, XLSX up to 2MB</p>
+            <p class="text-xs text-violet-500">CSV, GSHEET, XLSX up to 2MB</p>
           </div>
         </div>
       ) : (
@@ -81,7 +81,7 @@ if (description != null) {
           name={slug}
           id={slug}
           aria-describedby={`${slug}-description}`}
-          class={`block w-full border-slate-300 py-2 pl-3 pr-3 text-base focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm disabled:cursor-not-allowed disabled:border-slate-200 disabled:bg-slate-100 disabled:text-slate-500 ${
+          class={`block w-full border-violet-300 py-2 pl-3 pr-3 text-base focus:border-orange-500 focus:outline-none focus:ring-orange-500 sm:text-sm disabled:cursor-not-allowed disabled:border-violet-200 disabled:bg-violet-100 disabled:text-violet-500 ${
             prefix ? "rounded-none rounded-r-md" : "rounded-md"
           }`}
           disabled={disabled}

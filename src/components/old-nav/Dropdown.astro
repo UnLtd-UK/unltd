@@ -5,7 +5,7 @@ import Item from "./Item.astro";
 
 <button
   id={`dropdownButton-${navItem.slug}`}
-  class="dropdownButton p-3 text-sm font-medium bg-slate-200 text-slate-800 hover:bg-slate-300 hover:text-slate-900 focus:font-bold focus:bg-slate-300 focus:text-slate-900"
+  class="dropdownButton p-3 text-sm font-medium bg-violet-200 text-violet-800 hover:bg-violet-300 hover:text-violet-900 focus:font-bold focus:bg-violet-300 focus:text-violet-900"
   onclick={`desktop("${navItem.slug}")`}
   aria-expanded="false"
 >
@@ -14,7 +14,7 @@ import Item from "./Item.astro";
 
 <ul
   id={`dropdownContent-${navItem.slug}`}
-  class="flex flex-col gap-4 p-3 bg-slate-300 border border-sky-500 dropdownContent absolute hidden"
+  class="flex-col gap-4 p-3 bg-violet-300 border border-sky-500 dropdownContent absolute hidden"
 >
   {
     navItem.children.map((navItemChild) => (

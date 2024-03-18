@@ -79,7 +79,7 @@ function desktop(item) {
       <div class="flex items-center justify-between">
         <a href="/">
           <span class="sr-only">UnLtd</span>
-          <Logo colour="amber-600" />
+          <Logo colour="orange-600" />
         </a>
       </div>
       <div
@@ -100,7 +100,7 @@ function desktop(item) {
                   {navItem.children.length >= 1 ? (
                     <button
                       id={`dropdownButton-${navItem.slug}`}
-                      class="text-base font-medium text-white hover:text-amber-500 flex flex-row items-center gap-2"
+                      class="text-base font-medium text-white hover:text-orange-500 flex flex-row items-center gap-2"
                       onclick={`desktop("${navItem.slug}")`}
                       aria-expanded="false"
                       data-dropdown="dropdownButton"
@@ -112,7 +112,7 @@ function desktop(item) {
 
                       <ul
                         id={`dropdownContent-${navItem.slug}`}
-                        class="gap-4 p-3 bg-white text-slate-950 rounded-md absolute z-10 hidden border shadow-lg"
+                        class="gap-4 p-3 bg-white text-violet-950 rounded-md absolute z-10 hidden border shadow-lg"
                         data-dropdown="dropdownContent"
                       >
                         {
@@ -120,13 +120,13 @@ function desktop(item) {
                             <a
                               href={navItem.slug && !navItem.link ? `/${navItem.slug}` : `${navItem.link}`}
                               target={!navItem.slug && navItem.link && "_blank"}
-                              class="flex flex-row gap-2 items-center p-3 py-3 hover:bg-amber-100 rounded-md"
+                              class="flex flex-row gap-2 items-center p-3 py-3 hover:bg-orange-100 rounded-md"
                               data-dropdown="dropdownA"
                             >
                               <div class="flex flex-col gap-1">
                                 <span class="text-sm font-medium">{navItem.name}</span>
                                 {navItem.description && (
-                                  <span class="text-xs text-slate-600">{navItem.description}</span>
+                                  <span class="text-xs text-violet-600">{navItem.description}</span>
                                 )}
                               </div>
                               {!navItem.slug && navItem.link && (
@@ -145,7 +145,7 @@ function desktop(item) {
                           : `${navItem.link}`
                       }
                       target={!navItem.slug && navItem.link && "_blank"}
-                      class="flex flex-row items-center gap-2 text-base font-medium text-white hover:text-amber-500"
+                      class="flex flex-row items-center gap-2 text-base font-medium text-white hover:text-orange-500"
                     >
                       <span>{navItem.name}</span>
                       {!navItem.slug && navItem.link && (

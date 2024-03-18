@@ -121,9 +121,9 @@ const styles = {
       'text-white [--btn-hover-overlay:theme(colors.white/10%)] [--btn-bg:theme(colors.orange.500)] [--btn-border:theme(colors.orange.600/90%)]',
       '[--btn-icon:theme(colors.orange.300)] data-[active]:[--btn-icon:theme(colors.orange.200)] data-[hover]:[--btn-icon:theme(colors.orange.200)]',
     ],
-    amber: [
-      'text-amber-950 [--btn-hover-overlay:theme(colors.white/25%)] [--btn-bg:theme(colors.amber.400)] [--btn-border:theme(colors.amber.500/80%)]',
-      '[--btn-icon:theme(colors.amber.600)]',
+    orange: [
+      'text-orange-950 [--btn-hover-overlay:theme(colors.white/25%)] [--btn-bg:theme(colors.orange.400)] [--btn-border:theme(colors.orange.500/80%)]',
+      '[--btn-icon:theme(colors.orange.600)]',
     ],
     yellow: [
       'text-yellow-950 [--btn-hover-overlay:theme(colors.white/25%)] [--btn-bg:theme(colors.yellow.300)] [--btn-border:theme(colors.yellow.400/80%)]',
@@ -200,7 +200,7 @@ export function TouchTarget({ children }) {
     <>
       {children}
       <span
-        className="absolute left-1/2 top-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden"
+        className="absolute left-1/2 top-1/2 size-[max(100%,2.75rem)] -tranviolet-x-1/2 -tranviolet-y-1/2 [@media(pointer:fine)]:hidden"
         aria-hidden="true"
       />
     </>
