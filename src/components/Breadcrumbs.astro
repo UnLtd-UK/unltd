@@ -12,7 +12,7 @@ const { breadcrumbs } = Astro.props;
             <div>
               <a
                 href="/"
-                class="hover:text-violet-700 text-violet-600 dark:hover:text-violet-300 dark:text-violet-400 transition"
+                class="hover:text-violet-900 text-violet-800 dark:hover:text-violet-100 dark:text-violet-200 transition"
               >
                 <i class="fa-solid fa-house text-xs"></i>
                 <span class="sr-only">UnLtd</span>
@@ -24,10 +24,10 @@ const { breadcrumbs } = Astro.props;
             breadcrumbs.map((crumb) => (
               <li>
                 <div class="flex items-center">
-                  <i class="fa-solid fa-chevron-right hover:text-violet-700 text-violet-600 dark:hover:text-violet-300 dark:text-violet-400 text-xs" />
+                  <i class="fa-solid fa-chevron-right hover:text-violet-900 text-violet-800 dark:hover:text-violet-100 dark:text-violet-200 text-xs" />
                   <a
                     href={`${crumb.slug}`}
-                    class="ml-4 text-xs font-medium hover:text-violet-700 text-violet-600 dark:hover:text-violet-300 dark:text-violet-400  transition"
+                    class="ml-4 text-xs font-medium hover:text-violet-900 text-violet-800 dark:hover:text-violet-100 dark:text-violet-200  transition"
                   >
                     {crumb.name}
                   </a>

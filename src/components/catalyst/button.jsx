@@ -117,13 +117,13 @@ const styles = {
       'text-white [--btn-hover-overlay:theme(colors.white/10%)] [--btn-bg:theme(colors.red.600)] [--btn-border:theme(colors.red.700/90%)]',
       '[--btn-icon:theme(colors.red.300)] data-[active]:[--btn-icon:theme(colors.red.200)] data-[hover]:[--btn-icon:theme(colors.red.200)]',
     ],
-    orange: [
-      'text-white [--btn-hover-overlay:theme(colors.white/10%)] [--btn-bg:theme(colors.orange.500)] [--btn-border:theme(colors.orange.600/90%)]',
-      '[--btn-icon:theme(colors.orange.300)] data-[active]:[--btn-icon:theme(colors.orange.200)] data-[hover]:[--btn-icon:theme(colors.orange.200)]',
+    amber: [
+      'text-white [--btn-hover-overlay:theme(colors.white/10%)] [--btn-bg:theme(colors.amber.500)] [--btn-border:theme(colors.amber.600/90%)]',
+      '[--btn-icon:theme(colors.amber.300)] data-[active]:[--btn-icon:theme(colors.amber.200)] data-[hover]:[--btn-icon:theme(colors.amber.200)]',
     ],
-    orange: [
-      'text-orange-950 [--btn-hover-overlay:theme(colors.white/25%)] [--btn-bg:theme(colors.orange.400)] [--btn-border:theme(colors.orange.500/80%)]',
-      '[--btn-icon:theme(colors.orange.600)]',
+    amber: [
+      'text-amber-950 [--btn-hover-overlay:theme(colors.white/25%)] [--btn-bg:theme(colors.amber.400)] [--btn-border:theme(colors.amber.500/80%)]',
+      '[--btn-icon:theme(colors.amber.600)]',
     ],
     yellow: [
       'text-yellow-950 [--btn-hover-overlay:theme(colors.white/25%)] [--btn-bg:theme(colors.yellow.300)] [--btn-border:theme(colors.yellow.400/80%)]',
