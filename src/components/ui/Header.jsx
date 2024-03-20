@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Dialog, Disclosure, Popover } from '@headlessui/react'
 
 import slugify from "slugify";
+import Logo from "../Logo.jsx";
 import PopoverComponent from './Popover';
 // import DisclosureComponent from './Disclosure';
 
@@ -115,7 +116,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Header() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -180,19 +181,13 @@ export default function Example() {
             <div className="-my-6 divide-y divide-violet-500/10">
               <div className="space-y-2 py-6">
 
-                {/* <DisclosureComponent thing={learn} />
-
-                <DisclosureComponent thing={funding} />
-
-                <DisclosureComponent thing={join} /> */}
-
                 <Disclosure as="div" className="-mx-3">
                   {({ open }) => (
                     <>
                       <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50">
                         {learn.name}
                         <i
-                          className={classNames(open ? 'rotate-180' : '', 'fa-solid fa-chevron-down h-5 w-5 flex-none')}
+                          className={classNames(open ? 'rotate-180' : '', 'fa-solid fa-chevron-down h-5 w-5 flex-none text-violet-100')}
                           aria-hidden="true"
                         ></i>
                       </Disclosure.Button>
@@ -218,7 +213,7 @@ export default function Example() {
                       <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50">
                         {funding.name}
                         <i
-                          className={classNames(open ? 'rotate-180' : '', 'fa-solid fa-chevron-down h-5 w-5 flex-none')}
+                          className={classNames(open ? 'rotate-180' : '', 'fa-solid fa-chevron-down h-5 w-5 flex-none text-violet-100')}
                           aria-hidden="true"
                         ></i>
                       </Disclosure.Button>
@@ -270,8 +265,6 @@ export default function Example() {
                 >
                   Blog
                 </a>
-
-                {/* <DisclosureComponent thing={about} /> */}
 
                 <Disclosure as="div" className="-mx-3">
                   {({ open }) => (

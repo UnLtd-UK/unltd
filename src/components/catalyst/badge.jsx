@@ -6,10 +6,10 @@ import { Link } from './link'
 
 const colors = {
   red: 'bg-red-500/15 text-red-700 group-data-[hover]:bg-red-500/25 dark:bg-red-500/10 dark:text-red-400 dark:group-data-[hover]:bg-red-500/20',
-  orange:
-    'bg-orange-500/15 text-orange-700 group-data-[hover]:bg-orange-500/25 dark:bg-orange-500/10 dark:text-orange-400 dark:group-data-[hover]:bg-orange-500/20',
-  orange:
-    'bg-orange-400/20 text-orange-700 group-data-[hover]:bg-orange-400/30 dark:bg-orange-400/10 dark:text-orange-400 dark:group-data-[hover]:bg-orange-400/15',
+  amber:
+    'bg-amber-500/15 text-amber-700 group-data-[hover]:bg-amber-500/25 dark:bg-amber-500/10 dark:text-amber-400 dark:group-data-[hover]:bg-amber-500/20',
+  amber:
+    'bg-amber-400/20 text-amber-700 group-data-[hover]:bg-amber-400/30 dark:bg-amber-400/10 dark:text-amber-400 dark:group-data-[hover]:bg-amber-400/15',
   yellow:
     'bg-yellow-400/20 text-yellow-700 group-data-[hover]:bg-yellow-400/30 dark:bg-yellow-400/10 dark:text-yellow-300 dark:group-data-[hover]:bg-yellow-400/15',
   lime: 'bg-lime-400/20 text-lime-700 group-data-[hover]:bg-lime-400/30 dark:bg-lime-400/10 dark:text-lime-300 dark:group-data-[hover]:bg-lime-400/15',

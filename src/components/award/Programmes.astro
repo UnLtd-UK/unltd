@@ -15,7 +15,7 @@ const programmesLocal = [
     image:
       "https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
     slug: "core",
-    colour: "orange",
+    colour: "amber",
     icon: "fa-solid fa-award",
     features: [
       {
@@ -270,7 +270,7 @@ programmes.map((programme) => {
   <div class="mx-auto max-w-4xl text-center mb-10 pt-16">
     <h2
       id="support"
-      class="text-base font-semibold leading-7 text-orange-600 dark:text-orange-500"
+      class="text-base font-semibold leading-7 text-amber-500 dark:text-amber-500"
     >
       Support
     </h2>
@@ -280,7 +280,7 @@ programmes.map((programme) => {
       Your programme
     </p>
     <p
-      class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-600 dark:text-violet-400"
+      class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
     >
       Considering your age, geographic location, and the sectors in which you
       and your social venture operate, you will be assigned to one of our
@@ -315,7 +315,7 @@ programmes.map((programme) => {
   </List>
   <!-- support services -->
 
-  <div class="bg-violet-100 dark:bg-violet-900 pb-20">
+  <div class="pb-20">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
         <dl
@@ -325,19 +325,19 @@ programmes.map((programme) => {
             services.map((service) => (
               <div class="relative pl-16">
                 <dt class="text-base font-semibold leading-7">
-                  <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-violet-200 dark:bg-violet-800">
+                  <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-violet-50 dark:bg-violet-950">
                     <i
-                      class={`${service.icon} text-violet-600 dark:text-violet-400 text-md`}
+                      class={`${service.icon} text-violet-800 dark:text-violet-200 text-md`}
                     />
                   </div>
-                  <span class="text-violet-700 dark:text-violet-300">
+                  <span class="text-violet-800 dark:text-violet-200">
                     {service.name}
                   </span>
                   {service.name == "Support Manager" && (
                     <div class="flex -space-x-2 overflow-hidden mt-2">
                       {sesm.map((employee) => (
                         <img
-                          class="inline-block h-8 w-8 rounded-full ring-2 ring-violet-200 dark:ring-violet-800"
+                          class="inline-block h-8 w-8 rounded-full ring-2 ring-violet-100 dark:ring-violet-900"
                           src={`https://unltd.directus.app/assets/${employee.person.image}?height=64`}
                           alt={`${employee.person.name}`}
                         />
@@ -345,7 +345,7 @@ programmes.map((programme) => {
                     </div>
                   )}
                 </dt>
-                <dd class="mt-2 text-base leading-7 text-violet-600 dark:text-violet-400">
+                <dd class="mt-2 text-base leading-7 text-violet-600 dark:text-violet-300">
                   {service.description}
                 </dd>
               </div>

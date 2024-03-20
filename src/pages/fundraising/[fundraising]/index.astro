@@ -60,7 +60,7 @@ const { fundraiser } = Astro.props;
         aria-hidden="true"
       >
         <div
-          class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-violet-950-600 to-orange-600 opacity-20"
+          class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-violet-950-600 to-amber-600 opacity-20"
           style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
         >
         </div>
@@ -94,7 +94,7 @@ const { fundraiser } = Astro.props;
         >
           { () => {
             if(!todayDate.isAfter(fundraiser.start) && !todayDate.isAfter(fundraiser.finish)) {
-              return(<span class="inline-flex items-center rounded-full bg-orange-50 px-2 py-1 text-xs font-medium text-orange-700 ring-1 ring-inset ring-orange-600/20">
+              return(<span class="inline-flex items-center rounded-full bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20">
                 Coming soon
               </span>)
             } else if(!todayDate.isAfter(fundraiser.finish)) {
@@ -149,7 +149,7 @@ const { fundraiser } = Astro.props;
                 <a
                   href={`https://${fundraiser.link}`}
                   target="_blank"
-                  class="p-7 flex gap-2 items-center rounded-r-xl bg-orange-600 text-sm font-semibold text-white shadow-sm 0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+                  class="p-7 flex gap-2 items-center rounded-r-xl bg-amber-600 text-sm font-semibold text-white shadow-sm 0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
                 >
                   <span>Donate now</span><i class="fa-solid fa-arrow-right"></i>
                 </a>
@@ -166,7 +166,7 @@ const { fundraiser } = Astro.props;
             fundraiser.funds.length > 0 ? (
               <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {fundraiser.funds.map((fund) => (
-                  <div class="relative flex items-center space-x-3 rounded-lg border border-violet-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-orange-500 focus-within:ring-offset-2 hover:border-violet-400">
+                  <div class="relative flex items-center space-x-3 rounded-lg border border-violet-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-amber-500 focus-within:ring-offset-2 hover:border-violet-400">
                     <div class="flex-shrink-0">
                       <!-- <img
                         class="h-10 w-10 rounded-md drop-shadow-md"
@@ -222,7 +222,7 @@ const { fundraiser } = Astro.props;
               <a
                 href={`https://${fundraiser.website}`}
                 target="_blank"
-                class="text-sm text-orange-800 hover:underline"
+                class="text-sm text-amber-800 hover:underline"
               >
                 {fundraiser.website}
               </a>
@@ -237,7 +237,7 @@ const { fundraiser } = Astro.props;
               <a
                 href={`https://${fundraiser.link}`}
                 target="_blank"
-                class="text-sm text-orange-800 hover:underline"
+                class="text-sm text-amber-800 hover:underline"
               >
                 {fundraiser.link}
               </a>

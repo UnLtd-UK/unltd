@@ -63,22 +63,30 @@ const items = [
 ---
 
 <Container>
-  <div>
-    <h2
-      id="frequently-asked-questions"
-      class="mt-2 text-4xl font-bold tracking-tight text-violet-900 sm:text-5xl"
+  <div class="py-20">
+    <div>
+      <h2
+        id="frequently-asked-questions"
+        class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
+      >
+        Frequently asked questions
+      </h2>
+      <p
+        class="mt-6 max-w-2xl text-lg leading-8 text-violet-800 dark:text-violet-200"
+      >
+        Blah blah blah
+      </p>
+    </div>
+    <div
+      class="max-w-4xl divide-y divide-violet-900/10 dark:divide-violet-900/10"
     >
-      Frequently asked questions
-    </h2>
-    <p class="mt-6 max-w-2xl text-lg leading-8 text-violet-600">
-      Blah blah blah
-    </p>
-  </div>
-  <div
-    class="max-w-4xl divide-y divide-violet-900/10 dark:divide-violet-900/10"
-  >
-    <dl class="mt-10 space-y-6 divide-y divide-violet-900/10">
-      {items.map((item, i) => <Faq question={item.a} answer={item.q} i={i} />)}
-    </dl>
+      <dl class="mt-10 space-y-6 divide-y divide-violet-900/10">
+        {
+          items.map((item, i) => (
+            <Faq question={item.a} answer={item.q} i={i} />
+          ))
+        }
+      </dl>
+    </div>
   </div>
 </Container>
