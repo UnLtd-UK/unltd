@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { programmes } from "../../data/programmes.js";
 import List from "./cards/List.astro";
 import { services } from "../../data/services.js";
@@ -266,7 +267,7 @@ programmes.map((programme) => {
 });
 ---
 
-<Container light="violet-100" dark="violet-900">
+<Container light="violet-100" dark="violet-950">
   <div class="mx-auto max-w-4xl text-center mb-10 pt-16">
     <h2
       id="support"
@@ -336,7 +337,9 @@ programmes.map((programme) => {
                   {service.name == "Support Manager" && (
                     <div class="flex -space-x-2 overflow-hidden mt-2">
                       {sesm.map((employee) => (
-                        <img
+                        <Image
+                          width="32"
+                          height="32"
                           class="inline-block h-8 w-8 rounded-full ring-2 ring-violet-100 dark:ring-violet-900"
                           src={`https://unltd.directus.app/assets/${employee.person.image}?height=64`}
                           alt={`${employee.person.name}`}
