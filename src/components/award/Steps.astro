@@ -207,7 +207,7 @@ We recommend that you read through all of the following steps to guide you in yo
 <div
   class="w-full"
   x-init="checkUrl()"
-  x-data="{ activeTab: 'tab0', checkUrl: function() { let element = window.location.hash ? document.getElementById(window.location.hash.substring(1)) : null; element && element.tagName === 'BUTTON' ? element.click() : null; }, urlUpdater: function(slug) { history.pushState(null, null, `/award#${slug}`); const targetElement = document.getElementById(slug); if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); } }, selectHs: function(i) {document.getElementById('tabs').value = `tab${i}` }, tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-3 border-2 border-b-amber-500 border-violet-200 text-amber-600 bg-violet-50' :'bg-violet-50'}}"
+  x-data="{ activeTab: 'tab0', checkUrl: function() { let element = window.location.hash ? document.getElementById(window.location.hash.substring(1)) : null; element && element.tagName === 'BUTTON' ? element.click() : null; }, urlUpdater: function(slug) { history.pushState(null, null, `/award#${slug}`); const targetElement = document.getElementById(slug); if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); } }, selectHs: function(i) {document.getElementById('tabs').value = `tab${i}` }, tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-4 border-b-amber-500' : 'bg-violet-50'}}"
 >
   <div class="sm:hidden">
     <label for="tabs" class="sr-only">Select a tab</label>
@@ -237,15 +237,15 @@ We recommend that you read through all of the following steps to guide you in yo
           <button id={`${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}`}
             @click={`activeTab = 'tab${i}', selectHs('${i}'), urlUpdater('${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}')`}
             :class={`tabClass(${i})`}
-            class={`rounded-t-md px-4 py-4 flex flex-col justify-center items-center gap-2 text-violet-500 hover:text-violet-700 dark:bg-violet-900 dark:text-violet-500 dark:hover:text-violet-300 border-b-2 hover:bg-violet-100 transition duration-200`}
+            class={`flex-1 group rounded-t-md px-4 py-4 flex flex-col items-start gap-2 bg-violet-100 dark:bg-violet-900 dark:hover:border-b-4 dark:hover:border-b-amber-500/20 transition duration-200`}
           >
             <span
-              class={`text-xs font-medium rounded-full p-2 h-4 w-4 flex justify-center items-center outline outline-violet-300 dark:outline-violet-800 text-violet-600 dark:text-violet-400`}
+              class={`text-xs font-bold rounded-full p-2 h-4 w-4 flex justify-center items-center outline bg-violet-300 outline-violet-700 dark:outline-violet-300 text-violet-600 dark:text-violet-800`}
             >
               {i + 1}
             </span>
             <span
-              class={`text-xs font-medium ${i == 0 ? "text-violet-700 dark:text-violet-300 hover:text-violet-700 dark:hover:text-violet-700" : "text-violet-500 hover:text-violet-600 dark:text-violet-500 dark:hover:text-violet-500"}`}
+              class={`text-xs font-medium ${i == 0 ? "text-violet-100 dark:text-violet-100" : "text-violet-700 dark:text-violet-300"}`}
             >
               {step.name}
             </span>
