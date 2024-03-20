@@ -1,6 +1,6 @@
 ---
 import nav from "../../data/nav.json";
-import Logo from "../OrangeLogoBig.astro";
+import Logo from "../LogoBig.astro";
 ---
 
 <script is:inline>
@@ -79,7 +79,7 @@ function desktop(item) {
       <div class="flex items-center justify-between">
         <a href="/">
           <span class="sr-only">UnLtd</span>
-          <Logo colour="orange-600" />
+          <Logo colour="amber-600" />
         </a>
       </div>
       <div
@@ -88,7 +88,7 @@ function desktop(item) {
               <div class="hidden lg:flex gap-3 lg:ml-auto lg:flex-end">
           <a
             href={nav.header.action.link}
-            class="rounded-full px-3.5 py-2.5 text-sm font-semibold text-white border-2 shadow-sm hover:text-orange-400"
+            class="rounded-full px-3.5 py-2.5 text-sm font-semibold text-white border-2 shadow-sm hover:text-amber-400"
             >{nav.header.action.name}</a
           >
         </div>
@@ -100,7 +100,7 @@ function desktop(item) {
                   {navItem.children.length >= 1 ? (
                     <button
                       id={`dropdownButton-${navItem.slug}`}
-                      class="text-base font-medium text-white hover:text-orange-500 flex flex-row items-center gap-2"
+                      class="text-base font-medium text-white hover:text-amber-500 flex flex-row items-center gap-2"
                       onclick={`desktop("${navItem.slug}")`}
                       aria-expanded="false"
                       data-dropdown="dropdownButton"
@@ -120,7 +120,7 @@ function desktop(item) {
                             <a
                               href={navItem.slug && !navItem.link ? `/${navItem.slug}` : `${navItem.link}`}
                               target={!navItem.slug && navItem.link && "_blank"}
-                              class="flex flex-row gap-2 items-center p-3 py-3 hover:bg-orange-100 rounded-md"
+                              class="flex flex-row gap-2 items-center p-3 py-3 hover:bg-amber-100 rounded-md"
                               data-dropdown="dropdownA"
                             >
                               <div class="flex flex-col gap-1">
@@ -145,7 +145,7 @@ function desktop(item) {
                           : `${navItem.link}`
                       }
                       target={!navItem.slug && navItem.link && "_blank"}
-                      class="flex flex-row items-center gap-2 text-base font-medium text-white hover:text-orange-500"
+                      class="flex flex-row items-center gap-2 text-base font-medium text-white hover:text-amber-500"
                     >
                       <span>{navItem.name}</span>
                       {!navItem.slug && navItem.link && (
