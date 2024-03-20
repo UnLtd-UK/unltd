@@ -3,6 +3,8 @@ const { name, description } = Astro.props.frontmatter || Astro.props;
 import Header from "../components/ui/Header.jsx";
 import Footer from "../components/Footer.astro";
 
+import { ViewTransitions } from "astro:transitions";
+
 // import Nav from "../components/old-nav/Nav.astro";
 ---
 
@@ -63,6 +65,7 @@ import Footer from "../components/Footer.astro";
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <ViewTransitions />
   </head>
   <body class="bg-violet-50 dark:bg-violet-950 dark">
     <div class="flex flex-col justify-between h-full">

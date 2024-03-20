@@ -14,9 +14,6 @@ const { name, description, amount, features, eligibilities, programmes } =
       >
         {name}
       </h2>
-      <p class="mt-4 text-sm leading-6 text-violet-600 dark:text-violet-400">
-        {description}
-      </p>
     </div>
 
     <div class="flex flex-col gap-2">
@@ -66,27 +63,30 @@ const { name, description, amount, features, eligibilities, programmes } =
   </div>
 
   <div
-    class={`flex flex-col gap-3 bg-violet-100 dark:bg-violet-950 rounded-b-3xl p-8`}
+    class={`flex flex-col gap-5 bg-violet-100 dark:bg-violet-950 rounded-b-3xl p-8`}
   >
-    <p class={`text-sm text-violet-600 dark:text-violet-300`}>
-      Social venture eligibility:
-    </p>
+    <div>
+      <h3 class={`text-base text-violet-600 dark:text-violet-200`}>
+        Social venture eligibility
+      </h3>
+      <p class="text-sm leading-6 text-violet-600 dark:text-violet-300">
+        {description}
+      </p>
+    </div>
     <ul class="flex flex-col gap-6">
       {
         eligibilities.map((eligibility) => (
           <li class="flex flex-col gap-1">
-            <p
-              class={`truncate text-xs font-medium uppercase flex gap-2 items-center`}
-            >
+            <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
               <i
-                class={`${eligibility.icon} text-violet-600 dark:text-violet-500`}
+                class={`${eligibility.icon} text-violet-600 dark:text-violet-400`}
               />
-              <span class={`text-violet-600 dark:text-violet-500`}>
+              <span class={`text-violet-600 dark:text-violet-400`}>
                 {eligibility.name}
               </span>
             </p>
             <p
-              class={`text-sm font-semibold tracking-tight text-violet-600 dark:text-violet-400`}
+              class={`text-sm font-medium tracking-tight text-violet-600 dark:text-violet-300`}
             >
               {eligibility.value}
             </p>
