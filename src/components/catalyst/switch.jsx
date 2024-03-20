@@ -71,13 +71,13 @@ const colors = {
     '[--switch-bg-ring:theme(colors.red.700/90%)] [--switch-bg:theme(colors.red.600)] dark:[--switch-bg-ring:transparent]',
     '[--switch:white] [--switch-ring:theme(colors.red.700/90%)] [--switch-shadow:theme(colors.red.900/20%)]',
   ],
-  orange: [
-    '[--switch-bg-ring:theme(colors.orange.600/90%)] [--switch-bg:theme(colors.orange.500)] dark:[--switch-bg-ring:transparent]',
-    '[--switch:white] [--switch-ring:theme(colors.orange.600/90%)] [--switch-shadow:theme(colors.orange.900/20%)]',
+  amber: [
+    '[--switch-bg-ring:theme(colors.amber.600/90%)] [--switch-bg:theme(colors.amber.500)] dark:[--switch-bg-ring:transparent]',
+    '[--switch:white] [--switch-ring:theme(colors.amber.600/90%)] [--switch-shadow:theme(colors.amber.900/20%)]',
   ],
-  orange: [
-    '[--switch-bg-ring:theme(colors.orange.500/80%)] [--switch-bg:theme(colors.orange.400)] dark:[--switch-bg-ring:transparent]',
-    '[--switch-ring:transparent] [--switch-shadow:transparent] [--switch:theme(colors.orange.950)]',
+  amber: [
+    '[--switch-bg-ring:theme(colors.amber.500/80%)] [--switch-bg:theme(colors.amber.400)] dark:[--switch-bg-ring:transparent]',
+    '[--switch-ring:transparent] [--switch-shadow:transparent] [--switch:theme(colors.amber.950)]',
   ],
   yellow: [
     '[--switch-bg-ring:theme(colors.yellow.400/80%)] [--switch-bg:theme(colors.yellow.300)] dark:[--switch-bg-ring:transparent]',
