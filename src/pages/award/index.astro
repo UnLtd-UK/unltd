@@ -14,6 +14,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 
 // COMPONENTS
 import Header from "../../components/award/Header.astro";
+import Definitions from "../../components/award/Definitions.astro";
 import Grants from "../../components/award/Grants.astro";
 import Programmes from "../../components/award/Programmes.astro";
 import Steps from "../../components/award/Steps.astro";
@@ -45,6 +46,7 @@ const breadcrumbs = [props];
 <Template name={props.name} description={props.description}>
   <Breadcrumbs breadcrumbs={breadcrumbs} />
   <Header />
+  <Definitions />
   <Grants />
   <Programmes />
   <Steps />
