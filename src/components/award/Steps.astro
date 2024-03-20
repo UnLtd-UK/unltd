@@ -185,11 +185,11 @@ If you pass, we will recommend your application to the Awards Committee (a group
 ---
 
 <Container>
-  <div class="flex flex-col gap-10">
+  <div class="flex flex-col gap-10 my-20">
   <div>
     <h2
       id="support"
-      class="text-base font-semibold leading-7 text-orange-600 dark:text-orange-500"
+      class="text-base font-semibold leading-7 text-orange-500 dark:text-orange-500"
     >
       Apply
     </h2>
@@ -199,7 +199,7 @@ If you pass, we will recommend your application to the Awards Committee (a group
       How to get an Award
     </p>
   <p
-    class="mt-6 max-w-2xl text-lg leading-8 text-violet-600"
+    class="mt-6 max-w-2xl text-lg leading-8 text-violet-800 dark:text-violet-200"
   >
 We recommend that you read through all of the following steps to guide you in your application.
   </p>
@@ -240,12 +240,12 @@ We recommend that you read through all of the following steps to guide you in yo
             class={`rounded-t-md px-4 py-4 flex flex-col justify-center items-center gap-2 text-violet-500 hover:text-violet-700 dark:bg-violet-900 dark:text-violet-500 dark:hover:text-violet-300 border-b-2 hover:bg-violet-100 transition duration-200`}
           >
             <span
-              class={`text-xs font-medium rounded-full p-2 h-4 w-4 flex justify-center items-center outline outline-violet-300 text-violet-500`}
+              class={`text-xs font-medium rounded-full p-2 h-4 w-4 flex justify-center items-center outline outline-violet-300 dark:outline-violet-800 text-violet-600 dark:text-violet-400`}
             >
               {i + 1}
             </span>
             <span
-              class={`text-xs font-medium ${i == 0 ? "text-violet-700 hover:text-violet-700 dark:text-violet-700 dark:hover:text-violet-700" : "text-violet-500 hover:text-violet-600 dark:text-violet-500 dark:hover:text-violet-500"}`}
+              class={`text-xs font-medium ${i == 0 ? "text-violet-700 dark:text-violet-300 hover:text-violet-700 dark:hover:text-violet-700" : "text-violet-500 hover:text-violet-600 dark:text-violet-500 dark:hover:text-violet-500"}`}
             >
               {step.name}
             </span>
@@ -257,13 +257,13 @@ We recommend that you read through all of the following steps to guide you in yo
   <!-- Tab Content -->
   {
     steps.map((step, i) => (
-      <div x-show={`activeTab === 'tab${i}'`} class={`bg-violet-100 rounded-b-md border border-violet-200 shadow-sm`} x-cloak>
+      <div x-show={`activeTab === 'tab${i}'`} class={`bg-violet-100 dark:bg-violet-900 rounded-b-md border border-violet-300 dark:border-violet-700 shadow-sm`} x-cloak>
         <div
           class={`px-10 py-6 ${i==0 && "rounded-tr-md"} ${i==4 && "rounded-tl-md"}`}
         >
-        <div class={`prose prose-violet dark:prose-invert prose-sm prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-orange-500 prose-a:decoration-1 hover:prose-a:decoration-2`} set:html={marked.parse(step.body)}></div>
+        <div class={`prose prose-slate dark:prose-invert prose-sm prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-orange-500 prose-a:decoration-1 hover:prose-a:decoration-2`} set:html={marked.parse(step.body)}></div>
         </div>
-        <div class="rounded-b-md border-t border-violet-300 px-10 py-6 flex justify-between items-center">
+        <div class="rounded-b-md border-t border-violet-600 dark:border-violet-400 px-10 py-6 flex justify-between items-center">
           { step.button && <button type="button" @click={`activeTab = 'tab${i+1}', selectHs('${i+1}'), urlUpdater('${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}')`} class="rounded-full bg-orange-600 px-4 py-2.5 font-semibold text-violet-50 shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 flex gap-2 items-center"><i class="fa-regular fa-circle-check text-lg"></i><span class="text-sm">{step.button}</span></button> }
         { step.alt && <a href={step.alt.link} class="flex gap-2 items-center"><i class="fa-solid fa-circle-question text-violet-500 dark:text-violet-500 text-lg"></i> <span class="text-violet-600 dark:text-violet-400 text-sm">{step.alt.name}</span></a> }
         </div>

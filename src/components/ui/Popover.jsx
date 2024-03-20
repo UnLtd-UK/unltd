@@ -5,7 +5,7 @@ const PopoverComponent = (props) => {
     return <Popover className="relative">
         <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-violet-900 dark:text-violet-100">
             {props.thing.name}
-            <i className="fa-solid fa-chevron-down h-4 w-4 flex-none text-violet-400 dark:text-violet-500" aria-hidden="true"></i>
+            <i className="fa-solid fa-chevron-down h-4 w-4 flex-none text-violet-700 dark:text-violet-300" aria-hidden="true"></i>
         </Popover.Button>
 
         <Transition
