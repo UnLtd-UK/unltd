@@ -38,7 +38,7 @@ export async function getStaticPaths() {
         }),
       },
       props: {
-        page: page,
+        ...page,
       },
     };
 
@@ -46,19 +46,15 @@ export async function getStaticPaths() {
   });
 }
 
-const { page } = Astro.props;
+const { name, description, date_updated, body, breadcrumbs } = Astro.props;
 ---
 
-<Template name={page.name} description={page.description}>
+<Template name={name} description={description}>
   <Container>
-    <Breadcrumbs breadcrumbs={page.breadcrumbs} />
-    <Hero
-      name={page.name}
-      description={page.description}
-      updated={page.date_updated}
-    />
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+    <Hero name={name} description={description} updated={date_updated} />
     <div
-      set:html={marked.parse(page.body)}
+      set:html={marked.parse(body)}
       class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
     />
   </Container>
