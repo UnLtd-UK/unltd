@@ -96,38 +96,40 @@ const grants = [
 ---
 
 <Container light="violet-100" dark="violet-900">
-  <div class="mx-auto max-w-4xl text-center mb-10 pt-20">
-    <h2
-      id="funding"
-      class="text-base font-semibold leading-7 text-amber-500 dark:text-amber-500"
-    >
-      Funding
-    </h2>
-    <p
-      class="mt-2 text-2xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
-    >
-      Your grant
-    </p>
-    <p
-      class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
-    >
-      We combine funding and support to help you to get started or grow.
-      Depending on your stage of development we can offer up to £18,000.
-    </p>
-  </div>
+  <div class="py-20 flex flex-col gap-20">
+    <div class="mx-auto max-w-4xl text-center">
+      <h2
+        id="funding"
+        class="text-base font-semibold leading-7 text-amber-500 dark:text-amber-500"
+      >
+        Funding
+      </h2>
+      <p
+        class="mt-2 text-2xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
+      >
+        Your grant
+      </p>
+      <p
+        class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
+      >
+        We combine funding and support to help you to get started or grow.
+        Depending on your stage of development we can offer up to £18,000.
+      </p>
+    </div>
 
-  <List>
-    {
-      grants.map((grant) => (
-        <Grant
-          name={grant.name}
-          description={grant.description}
-          amount={grant.amount}
-          features={grant.features}
-          eligibilities={grant.eligibilities}
-          programmes={grant.programmes}
-        />
-      ))
-    }
-  </List>
+    <List>
+      {
+        grants.map((grant) => (
+          <Grant
+            name={grant.name}
+            description={grant.description}
+            amount={grant.amount}
+            features={grant.features}
+            eligibilities={grant.eligibilities}
+            programmes={grant.programmes}
+          />
+        ))
+      }
+    </List>
+  </div>
 </Container>
