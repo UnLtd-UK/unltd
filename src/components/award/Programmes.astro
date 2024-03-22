@@ -267,58 +267,33 @@ programmes.map((programme) => {
 });
 ---
 
-<Container light="violet-100" dark="violet-900">
-  <div class="mx-auto max-w-4xl text-center mb-10 pt-16">
-    <h2
-      id="support"
-      class="text-base font-semibold leading-7 text-amber-500 dark:text-amber-500"
-    >
-      Support
-    </h2>
-    <p
-      class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
-    >
-      Your programme
-    </p>
-    <p
-      class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
-    >
-      Considering your age, geographic location, and the sectors in which you
-      and your social venture operate, you will be assigned to one of our
-      tailored programs for a duration of one year. These programs are designed
-      to provide specialised support that aligns precisely with the unique needs
-      of you and social venture.
-    </p>
-  </div>
+<Container light="violet-50" dark="violet-950">
+  <div class="py-20 flex flex-col gap-20">
+    <div class="mx-auto max-w-4xl text-center">
+      <h2
+        id="support"
+        class="text-base font-semibold leading-7 text-amber-500 dark:text-amber-500"
+      >
+        Support
+      </h2>
+      <p
+        class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
+      >
+        Your programme
+      </p>
+      <p
+        class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
+      >
+        Considering your age, geographic location, and the sectors in which you
+        and your social venture operate, you will be assigned to one of our
+        tailored programs for a duration of one year. These programs are
+        designed to provide specialised support that aligns precisely with the
+        unique needs of you and social venture.
+      </p>
+    </div>
 
-  <List>
-    <Programme
-      icon={programmesLocal[0].icon}
-      image={programmesLocal[0].image}
-      colour={programmesLocal[0].colour}
-      name={programmesLocal[0].name}
-      features={programmesLocal[0].features}
-      eligibilities={programmesLocal[0].eligibilities}
-    />
-    {
-      programmes.map((programme, i) => (
-        <Programme
-          image={programme.image.id}
-          icon={programme.icon}
-          colour={programme.colour}
-          name={programme.name}
-          slug={programme.slug}
-          eligibilities={programme.eligibilities}
-          features={programme.features}
-        />
-      ))
-    }
-  </List>
-  <!-- support services -->
-
-  <div class="pb-20">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+      <div class="mx-auto max-w-2xl lg:max-w-4xl">
         <dl
           class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
         >
@@ -326,9 +301,9 @@ programmes.map((programme) => {
             services.map((service) => (
               <div class="relative pl-16">
                 <dt class="text-base font-semibold leading-7">
-                  <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-violet-50 dark:bg-violet-950">
+                  <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-violet-50 dark:bg-violet-900  dark:outline outline-1 dark:outline-violet-700 shadow-lg">
                     <i
-                      class={`${service.icon} text-violet-800 dark:text-violet-200 text-md`}
+                      class={`${service.icon} text-violet-800 dark:text-violet-200 text-md shadow-2xl`}
                     />
                   </div>
                   <span class="text-violet-800 dark:text-violet-200">
@@ -357,5 +332,29 @@ programmes.map((programme) => {
         </dl>
       </div>
     </div>
+
+    <List>
+      <Programme
+        icon={programmesLocal[0].icon}
+        image={programmesLocal[0].image}
+        colour={programmesLocal[0].colour}
+        name={programmesLocal[0].name}
+        features={programmesLocal[0].features}
+        eligibilities={programmesLocal[0].eligibilities}
+      />
+      {
+        programmes.map((programme, i) => (
+          <Programme
+            image={programme.image.id}
+            icon={programme.icon}
+            colour={programme.colour}
+            name={programme.name}
+            slug={programme.slug}
+            eligibilities={programme.eligibilities}
+            features={programme.features}
+          />
+        ))
+      }
+    </List>
   </div>
 </Container>
