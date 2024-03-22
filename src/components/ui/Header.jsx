@@ -60,7 +60,7 @@ const join = {
       },
       {
         name: 'Partnering',
-        description: 'Organisations wanting to fund and support us',
+        description: 'Orgs looking to fund and support us',
         href: "/partnering",
         icon: "fa-solid fa-handshake"
       },
