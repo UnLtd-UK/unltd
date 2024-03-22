@@ -1,18 +1,20 @@
-<div class="bg-violet-950 py-12 sm:py-12">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+---
+import Container from "../Container.astro";
+---
+
+<Container light="violet-50" dark="violet-950">
+    <div class="py-20">
         <div class="mx-auto max-w-2xl lg:mx-0">
-            <h2 class="text-base font-semibold leading-7 text-indigo-400">
-                Confused
+            <h2
+                id="support"
+                class="text-base font-semibold leading-7 text-amber-500 dark:text-amber-500"
+            >
+                Definitions
             </h2>
             <p
                 class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl"
             >
                 What is a social entrepreneur and a social venture?
-            </p>
-            <p class="mt-6 text-lg leading-8 text-gray-300">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Maiores impedit perferendis suscipit eaque, iste dolor
-                cupiditate blanditiis.
             </p>
         </div>
         <dl
@@ -63,4 +65,4 @@
             </div>
         </dl>
     </div>
-</div>
+</Container>
