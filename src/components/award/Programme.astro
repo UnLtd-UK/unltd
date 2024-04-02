@@ -8,7 +8,7 @@ const title = {
   blue: "text-blue-100 dark:text-blue-100",
   teal: "text-teal-100 dark:text-teal-100",
   purple: "text-purple-100 dark:text-purple-100",
-  red: "text-red-100 dark:text-red-100",
+  cyan: "text-cyan-100 dark:text-cyan-100",
   stone: "text-stone-100 dark:text-stone-100",
 };
 
@@ -18,17 +18,44 @@ const skin = {
   teal: "text-teal-600 dark:text-teal-100 bg-teal-100 dark:bg-teal-600",
   purple:
     "text-purple-600 dark:text-purple-100 bg-purple-100 dark:bg-purple-600",
-  red: "text-red-600 dark:text-red-100 bg-red-100 dark:bg-red-600",
+  cyan: "text-cyan-600 dark:text-cyan-100 bg-cyan-100 dark:bg-cyan-600",
   stone: "text-stone-600 dark:text-stone-100 bg-stone-100 dark:bg-stone-600",
 };
 
-const gradient = {
-  amber: "from-amber-600/60",
-  blue: "from-blue-600/60",
-  teal: "from-teal-600/60",
-  purple: "from-purple-600/60",
-  red: "from-red-600/60",
-  stone: "from-stone-600/60",
+const bg = {
+  amber: "bg-amber-400/60 dark:bg-amber-600/60",
+  blue: "bg-blue-400/60 dark:bg-blue-600/60",
+  teal: "bg-teal-400/60 dark:bg-teal-600/60",
+  purple: "bg-purple-400/60 dark:bg-purple-600/60",
+  cyan: "bg-cyan-400/60 dark:bg-cyan-600/60",
+  stone: "bg-stone-400/60 dark:bg-stone-600/60",
+};
+
+const bg2 = {
+  amber: "bg-amber-300/60 dark:bg-amber-700/60",
+  blue: "bg-blue-300/60 dark:bg-blue-700/60",
+  teal: "bg-teal-300/60 dark:bg-teal-700/60",
+  purple: "bg-purple-300/60 dark:bg-purple-700/60",
+  cyan: "bg-cyan-300/60 dark:bg-cyan-700/60",
+  stone: "bg-stone-300/60 dark:bg-stone-700/60",
+};
+
+const ring = {
+  amber: "ring-amber-400 dark:ring-amber-600",
+  blue: "ring-blue-400 dark:ring-blue-600",
+  teal: "ring-teal-400 dark:ring-teal-600",
+  purple: "ring-purple-400 dark:ring-purple-600",
+  cyan: "ring-cyan-400 dark:ring-cyan-600",
+  stone: "ring-stone-400 dark:ring-stone-600",
+};
+
+const divide = {
+  amber: "divide-amber-100 dark:divide-amber-900",
+  blue: "divide-blue-100 dark:divide-blue-900",
+  teal: "divide-teal-100 dark:divide-teal-900",
+  purple: "divide-purple-100 dark:divide-purple-900",
+  cyan: "divide-cyan-100 dark:divide-cyan-900",
+  stone: "divide-stone-100 dark:divide-stone-900",
 };
 
 const tick = {
@@ -36,7 +63,7 @@ const tick = {
   blue: "text-blue-500 dark:text-blue-200",
   teal: "text-teal-500 dark:text-teal-200",
   purple: "text-purple-500 dark:text-purple-200",
-  red: "text-red-500 dark:text-red-200",
+  cyan: "text-cyan-500 dark:text-cyan-200",
   stone: "text-stone-500 dark:text-stone-200",
 };
 
@@ -45,8 +72,17 @@ const description = {
   blue: "text-blue-200",
   teal: "text-teal-200",
   purple: "text-purple-200",
-  red: "text-red-200",
+  cyan: "text-cyan-200",
   stone: "text-stone-200",
+};
+
+const border = {
+  amber: "border-amber-400",
+  blue: "border-blue-400",
+  teal: "border-teal-400",
+  purple: "border-purple-400",
+  cyan: "border-cyan-400",
+  stone: "border-stone-400",
 };
 
 function isValidUrl(string) {
@@ -59,7 +95,11 @@ function isValidUrl(string) {
 }
 ---
 
-<Card url={slug && `/award/${slug}`}>
+<Card
+  url={slug && `/award/${slug}`}
+  ring={ring[colour]}
+  divide={divide[colour]}
+>
   <article
     class="relative isolate flex flex-col justify-end overflow-hidden rounded-t-2xl bg-violet-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-40"
   >
@@ -68,10 +108,9 @@ function isValidUrl(string) {
         ? image
         : `https://unltd.directus.app/assets/${image}?width=384`}
       alt=""
-      class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50"
+      class="absolute inset-0 -z-10 h-full w-full object-cover opacity-50"
     />
-    <div class={`absolute inset-0 -z-10 bg-gradient-to-tr ${gradient[colour]}`}>
-    </div>
+    <div class={`absolute inset-0 -z-10 ${bg[colour]}`}></div>
     <div
       class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-violet-900/10"
     >
@@ -79,7 +118,7 @@ function isValidUrl(string) {
     <div class="flex flex-col gap-3">
       <span class="relative inline-block">
         <div
-          class={`flex items-center justify-center h-14 w-14 rounded-md ${skin[colour]}`}
+          class={`flex items-center justify-center h-14 w-14 rounded-md ${skin[colour]} border border-1 ${border[colour]} shadow-2xl`}
         >
           <i class={`${icon} text-2xl`}></i>
         </div>
@@ -95,16 +134,14 @@ function isValidUrl(string) {
       </div>
     </div>
   </article>
-  <div class="p-8 flex flex-col gap-6">
+  <div class={`p-8 flex flex-col gap-6 ${bg[colour]}`}>
     <div class="flex flex-col gap-3">
       {
         features.map((feature) => (
           <div>
             <p class={`truncate text-sm font-medium flex gap-2 items-center`}>
               <i class={`${feature.icon} ${tick[colour]}`} />
-              <span class={`text-violet-800 dark:text-violet-200`}>
-                {feature.name}
-              </span>
+              <span class={`${description[colour]}`}>{feature.name}</span>
             </p>
           </div>
         ))
@@ -112,8 +149,8 @@ function isValidUrl(string) {
     </div>
   </div>
 
-  <div class={`flex flex-col gap-3  rounded-b-3xl p-8`}>
-    <p class={`text-sm text-violet-600 dark:text-violet-200`}>
+  <div class={`flex flex-col gap-3  rounded-b-2xl p-8 ${bg2[colour]}`}>
+    <p class={`text-sm ${description[colour]}`}>
       Social entrepreneur eligibility:
     </p>
     <ul class="flex flex-col gap-6">
@@ -121,15 +158,11 @@ function isValidUrl(string) {
         eligibilities.map((eligibility) => (
           <li class="flex flex-col gap-1">
             <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-              <i
-                class={`${eligibility.icon} text-violet-600 dark:text-violet-400`}
-              />
-              <span class={`text-violet-600 dark:text-violet-400`}>
-                {eligibility.name}
-              </span>
+              <i class={`${eligibility.icon} ${description[colour]}`} />
+              <span class={`${description[colour]}`}>{eligibility.name}</span>
             </p>
             <p
-              class={`text-sm font-medium tracking-tight text-violet-600 dark:text-violet-300`}
+              class={`text-sm font-medium tracking-tight ${description[colour]}`}
             >
               {eligibility.value}
             </p>
