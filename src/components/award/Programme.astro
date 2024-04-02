@@ -22,13 +22,40 @@ const skin = {
   stone: "text-stone-600 dark:text-stone-100 bg-stone-100 dark:bg-stone-600",
 };
 
-const gradient = {
-  amber: "from-amber-600/60",
-  blue: "from-blue-600/60",
-  teal: "from-teal-600/60",
-  purple: "from-purple-600/60",
-  red: "from-red-600/60",
-  stone: "from-stone-600/60",
+const bg = {
+  amber: "bg-amber-400/60 dark:bg-amber-600/60",
+  blue: "bg-blue-400/60 dark:bg-blue-600/60",
+  teal: "bg-teal-400/60 dark:bg-teal-600/60",
+  purple: "bg-purple-400/60 dark:bg-purple-600/60",
+  red: "bg-red-400/60 dark:bg-red-600/60",
+  stone: "bg-stone-400/60 dark:bg-stone-600/60",
+};
+
+const bg2 = {
+  amber: "bg-amber-300/60 dark:bg-amber-700/60",
+  blue: "bg-blue-300/60 dark:bg-blue-700/60",
+  teal: "bg-teal-300/60 dark:bg-teal-700/60",
+  purple: "bg-purple-300/60 dark:bg-purple-700/60",
+  red: "bg-red-300/60 dark:bg-red-700/60",
+  stone: "bg-stone-300/60 dark:bg-stone-700/60",
+};
+
+const outline = {
+  amber: "ring-amber-200 dark:ring-amber-800",
+  blue: "ring-blue-200 dark:ring-blue-800",
+  teal: "ring-teal-200 dark:ring-teal-800",
+  purple: "ring-purple-200 dark:ring-purple-800",
+  red: "ring-red-200 dark:ring-red-800",
+  stone: "ring-stone-200 dark:ring-stone-800",
+};
+
+const divide = {
+  amber: "divide-amber-100 dark:divide-amber-900",
+  blue: "divide-blue-100 dark:divide-blue-900",
+  teal: "divide-teal-100 dark:divide-teal-900",
+  purple: "divide-purple-100 dark:divide-purple-900",
+  red: "divide-red-100 dark:divide-red-900",
+  stone: "divide-stone-100 dark:divide-stone-900",
 };
 
 const tick = {
@@ -49,6 +76,15 @@ const description = {
   stone: "text-stone-200",
 };
 
+const border = {
+  amber: "border-amber-400",
+  blue: "border-blue-400",
+  teal: "border-teal-400",
+  purple: "border-purple-400",
+  red: "border-red-400",
+  stone: "border-stone-400",
+};
+
 function isValidUrl(string) {
   try {
     new URL(string);
@@ -59,7 +95,11 @@ function isValidUrl(string) {
 }
 ---
 
-<Card url={slug && `/award/${slug}`}>
+<Card
+  url={slug && `/award/${slug}`}
+  outline={outline[colour]}
+  divide={divide[colour]}
+>
   <article
     class="relative isolate flex flex-col justify-end overflow-hidden rounded-t-2xl bg-violet-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-40"
   >
@@ -68,10 +108,9 @@ function isValidUrl(string) {
         ? image
         : `https://unltd.directus.app/assets/${image}?width=384`}
       alt=""
-      class="absolute inset-0 -z-10 h-full w-full object-cover brightness-50"
+      class="absolute inset-0 -z-10 h-full w-full object-cover opacity-50"
     />
-    <div class={`absolute inset-0 -z-10 bg-gradient-to-tr ${gradient[colour]}`}>
-    </div>
+    <div class={`absolute inset-0 -z-10 ${bg[colour]}`}></div>
     <div
       class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-violet-900/10"
     >
@@ -79,7 +118,7 @@ function isValidUrl(string) {
     <div class="flex flex-col gap-3">
       <span class="relative inline-block">
         <div
-          class={`flex items-center justify-center h-14 w-14 rounded-md ${skin[colour]}`}
+          class={`flex items-center justify-center h-14 w-14 rounded-md ${skin[colour]} border border-1 ${border[colour]} shadow-2xl`}
         >
           <i class={`${icon} text-2xl`}></i>
         </div>
@@ -95,7 +134,7 @@ function isValidUrl(string) {
       </div>
     </div>
   </article>
-  <div class="p-8 flex flex-col gap-6">
+  <div class={`p-8 flex flex-col gap-6 ${bg[colour]}`}>
     <div class="flex flex-col gap-3">
       {
         features.map((feature) => (
@@ -112,7 +151,7 @@ function isValidUrl(string) {
     </div>
   </div>
 
-  <div class={`flex flex-col gap-3  rounded-b-3xl p-8`}>
+  <div class={`flex flex-col gap-3  rounded-b-2xl p-8 ${bg2[colour]}`}>
     <p class={`text-sm text-violet-600 dark:text-violet-200`}>
       Social entrepreneur eligibility:
     </p>
