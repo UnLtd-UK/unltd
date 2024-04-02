@@ -40,13 +40,13 @@ const bg2 = {
   stone: "bg-stone-300/60 dark:bg-stone-700/60",
 };
 
-const outline = {
-  amber: "ring-amber-200 dark:ring-amber-800",
-  blue: "ring-blue-200 dark:ring-blue-800",
-  teal: "ring-teal-200 dark:ring-teal-800",
-  purple: "ring-purple-200 dark:ring-purple-800",
-  cyan: "ring-cyan-200 dark:ring-cyan-800",
-  stone: "ring-stone-200 dark:ring-stone-800",
+const ring = {
+  amber: "ring-amber-400 dark:ring-amber-600",
+  blue: "ring-blue-400 dark:ring-blue-600",
+  teal: "ring-teal-400 dark:ring-teal-600",
+  purple: "ring-purple-400 dark:ring-purple-600",
+  cyan: "ring-cyan-400 dark:ring-cyan-600",
+  stone: "ring-stone-400 dark:ring-stone-600",
 };
 
 const divide = {
@@ -97,7 +97,7 @@ function isValidUrl(string) {
 
 <Card
   url={slug && `/award/${slug}`}
-  outline={outline[colour]}
+  ring={ring[colour]}
   divide={divide[colour]}
 >
   <article
@@ -141,9 +141,7 @@ function isValidUrl(string) {
           <div>
             <p class={`truncate text-sm font-medium flex gap-2 items-center`}>
               <i class={`${feature.icon} ${tick[colour]}`} />
-              <span class={`text-violet-800 dark:text-violet-200`}>
-                {feature.name}
-              </span>
+              <span class={`${description[colour]}`}>{feature.name}</span>
             </p>
           </div>
         ))
@@ -152,7 +150,7 @@ function isValidUrl(string) {
   </div>
 
   <div class={`flex flex-col gap-3  rounded-b-2xl p-8 ${bg2[colour]}`}>
-    <p class={`text-sm text-violet-600 dark:text-violet-200`}>
+    <p class={`text-sm ${description[colour]}`}>
       Social entrepreneur eligibility:
     </p>
     <ul class="flex flex-col gap-6">
@@ -160,15 +158,11 @@ function isValidUrl(string) {
         eligibilities.map((eligibility) => (
           <li class="flex flex-col gap-1">
             <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-              <i
-                class={`${eligibility.icon} text-violet-600 dark:text-violet-400`}
-              />
-              <span class={`text-violet-600 dark:text-violet-400`}>
-                {eligibility.name}
-              </span>
+              <i class={`${eligibility.icon} ${description[colour]}`} />
+              <span class={`${description[colour]}`}>{eligibility.name}</span>
             </p>
             <p
-              class={`text-sm font-medium tracking-tight text-violet-600 dark:text-violet-300`}
+              class={`text-sm font-medium tracking-tight ${description[colour]}`}
             >
               {eligibility.value}
             </p>
