@@ -1,12 +1,12 @@
 ---
-const { url } = Astro.props;
+const { url, outline, divide } = Astro.props;
 
 import Wrapper from "./Wrapper.astro";
 ---
 
 <Wrapper url={url}>
   <div
-    class={`col-span-1 divide-y divide-violet-100 dark:divide-violet-900 rounded-2xl bg-violet-200 dark:bg-violet-950 shadow-md ring-1 ring-violet-200 dark:ring-violet-800 ${typeof url === "string" && url.length > 0 && `hover:shadow-xl transition ease-in-out delay-150 hover:scale-105 hover:-translate-y-2 duration-300`}`}
+    class={`col-span-1 divide-y ${divide} rounded-2xl bg-violet-200 dark:bg-violet-950 shadow-md ring-1 ring-violet-200 dark:ring-violet-800 ${typeof url === "string" && url.length > 0 && `hover:shadow-xl transition ease-in-out delay-150 hover:scale-105 hover:-translate-y-2 duration-300`}`}
   >
     <slot />
   </div>
