@@ -1,6 +1,8 @@
 ---
 import Container from "../Container.astro";
 import Grant from "./Grant.astro";
+import { programmeColours } from "../../data/programmeColours.js";
+import { programmes } from "../../data/programmes.js";
 import List from "./cards/List.astro";
 const grants = [
   {
@@ -12,15 +14,15 @@ const grants = [
     features: [
       {
         name: "For social venture costs",
-        icon: "fa-solid fa-circle-check",
+        icon: "fa-regular fa-circle-check",
       },
       {
         name: "This is feature two",
-        icon: "fa-solid fa-circle-check",
+        icon: "fa-regular fa-circle-check",
       },
       {
         name: "This is feature three",
-        icon: "fa-solid fa-circle-check",
+        icon: "fa-regular fa-circle-check",
       },
     ],
     eligibilities: [
@@ -56,15 +58,15 @@ const grants = [
     features: [
       {
         name: "For social venture costs",
-        icon: "fa-solid fa-circle-check",
+        icon: "fa-regular fa-circle-check",
       },
       {
         name: "For social entrepreneur living costs",
-        icon: "fa-solid fa-circle-check",
+        icon: "fa-regular fa-circle-check",
       },
       {
         name: "This is feature three",
-        icon: "fa-solid fa-circle-check",
+        icon: "fa-regular fa-circle-check",
       },
     ],
     eligibilities: [
@@ -126,7 +128,7 @@ const grants = [
             amount={grant.amount}
             features={grant.features}
             eligibilities={grant.eligibilities}
-            programmes={grant.programmes}
+            programmes={programmes}
           />
         ))
       }

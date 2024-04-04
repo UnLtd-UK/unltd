@@ -110,31 +110,59 @@ const {
   </div>
 
   <div
-    class={`flex flex-col gap-3  rounded-b-2xl p-8 ${programmeColours.bg2[colour]}`}
+    class={`flex flex-col gap-6  rounded-b-2xl p-8 ${programmeColours.bg2[colour]}`}
   >
-    <p class={`text-sm ${programmeColours.text1[colour]}`}>
-      Social entrepreneur eligibility:
-    </p>
-    <ul class="flex flex-col gap-4">
-      {
-        eligibilities.map((eligibility) => (
-          <li class="flex flex-col gap-1">
-            <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-              <i
-                class={`${eligibility.eligibilities_id.icon} ${programmeColours.text2[colour]}`}
-              />
-              <span class={`${programmeColours.text2[colour]}`}>
-                {eligibility.eligibilities_id.name}
-              </span>
-            </p>
-            <p
-              class={`text-sm font-medium tracking-tight ${programmeColours.text1[colour]}`}
-            >
-              {eligibility.eligibilities_id.description}
-            </p>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="flex flex-col gap-3">
+      <p class={`text-xs font-semibold ${programmeColours.text1[colour]}`}>
+        Social entrepreneur eligibility:
+      </p>
+      <ul class="flex flex-col gap-4">
+        {
+          eligibilities.map((eligibility) => (
+            <li class="flex flex-col gap-1">
+              <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
+                <i
+                  class={`${eligibility.eligibilities_id.icon} ${programmeColours.text2[colour]}`}
+                />
+                <span class={`${programmeColours.text2[colour]}`}>
+                  {eligibility.eligibilities_id.name}
+                </span>
+              </p>
+              <p
+                class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+              >
+                {eligibility.eligibilities_id.description}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <!-- <div class="flex flex-col gap-3">
+      <p class={`text-xs font-semibold ${programmeColours.text1[colour]}`}>
+        Social venture eligibility:
+      </p>
+      <ul class="flex flex-col gap-4">
+        {
+          eligibilities.map((eligibility) => (
+            <li class="flex flex-col gap-1">
+              <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
+                <i
+                  class={`${eligibility.eligibilities_id.icon} ${programmeColours.text2[colour]}`}
+                />
+                <span class={`${programmeColours.text2[colour]}`}>
+                  {eligibility.eligibilities_id.name}
+                </span>
+              </p>
+              <p
+                class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+              >
+                {eligibility.eligibilities_id.description}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div> -->
   </div>
 </Card>
