@@ -1,270 +1,12 @@
 ---
-import { Image } from "astro:assets";
+import slugify from "slugify";
+
 import { programmes } from "../../data/programmes.js";
-import List from "./cards/List.astro";
-import { services } from "../../data/services.js";
-import truncate from "truncate";
 
 import Container from "../../components/Container.astro";
-import Programme from "../../components/award/Programme.astro";
-import { Description } from "../catalyst/fieldset";
-import { sesm } from "../../data/sesm.js";
-
-const programmesLocal = [
-  {
-    name: "Core",
-    image:
-      "https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80",
-    slug: "core",
-    colour: "amber",
-    icon: "fa-solid fa-award",
-    features: [
-      {
-        name: "Support Manager",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Expert advice and guidance",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Pro-bono consultancy",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Upskill with your peers",
-        icon: "fa-solid fa-circle-check",
-      },
-    ],
-    eligibilities: [
-      {
-        name: "Age",
-        value: "16+",
-        icon: "fa-solid fa-spinner",
-      },
-      {
-        name: "Geography",
-        value: "United Kingdom",
-        icon: "fa-solid fa-location-dot",
-      },
-      {
-        name: "Sectors",
-        value: "All sectors",
-        icon: "fa-solid fa-vector-square",
-      },
-    ],
-  },
-  {
-    name: "Access to Employment",
-    slug: "access-to-employment",
-    colour: "violet",
-    features: [
-      {
-        name: "Everything in Core",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Monthly online meet-up",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Learning Circles",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Subsidised Consultancy",
-        icon: "fa-solid fa-circle-check",
-      },
-    ],
-    eligibilities: [
-      {
-        name: "Age",
-        value: "16+",
-        icon: "fa-solid fa-spinner",
-      },
-      {
-        name: "Geography",
-        value: "United Kingdom",
-        icon: "fa-solid fa-location-dot",
-      },
-      {
-        name: "Sectors",
-        value: "Access to Employment",
-        icon: "fa-solid fa-vector-square",
-      },
-    ],
-  },
-  {
-    name: "Funding futures",
-    slug: "funding-futures",
-    colour: "cyan",
-    features: [
-      {
-        name: "Everything in Core",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Monthly online meet-up",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Learning Circles",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Subsidised Consultancy",
-        icon: "fa-solid fa-circle-check",
-      },
-    ],
-    eligibilities: [
-      {
-        name: "Age",
-        value: "16 - 30",
-        icon: "fa-solid fa-spinner",
-      },
-      {
-        name: "Geography",
-        value: "United Kingdom",
-        icon: "fa-solid fa-location-dot",
-      },
-      {
-        name: "Sectors",
-        value: "Finance",
-        icon: "fa-solid fa-vector-square",
-      },
-    ],
-  },
-  {
-    name: "Healthy Ageing",
-    slug: "healthy-ageing",
-    colour: "emerald",
-    features: [
-      {
-        name: "Everything in Core",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Monthly online meet-up",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Learning Circles",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Subsidised Consultancy",
-        icon: "fa-solid fa-circle-check",
-      },
-    ],
-    eligibilities: [
-      {
-        name: "Age",
-        value: "16+",
-        icon: "fa-solid fa-spinner",
-      },
-      {
-        name: "Geography",
-        value: "United Kingdom",
-        icon: "fa-solid fa-location-dot",
-      },
-      {
-        name: "Sectors",
-        value: "Healthy Ageing",
-        icon: "fa-solid fa-vector-square",
-      },
-    ],
-  },
-  {
-    name: "Movement for Change",
-    slug: "movement-for-change",
-    colour: "blue",
-    features: [
-      {
-        name: "Everything in Core",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Monthly online meet-up",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Learning Circles",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "Subsidised Consultancy",
-        icon: "fa-solid fa-circle-check",
-      },
-    ],
-    eligibilities: [
-      {
-        name: "Age",
-        value: "16+",
-        icon: "fa-solid fa-spinner",
-      },
-      {
-        name: "Geography",
-        value: "England",
-        icon: "fa-solid fa-location-dot",
-      },
-      {
-        name: "Sectors",
-        value: "Sports and physical activities",
-        icon: "fa-solid fa-vector-square",
-      },
-    ],
-  },
-  // {
-  //   name: "Technical Assistance Fund",
-  //   slug: "technical-assistance-fund",
-  //   colour: "gray",
-  //   features: [
-  //     {
-  //       name: "Everything in Core",
-  //       icon: "fa-solid fa-circle-check",
-  //     },
-  //     {
-  //       name: "Monthly online meet-up",
-  //       icon: "fa-solid fa-circle-check",
-  //     },
-  //     {
-  //       name: "Learning Circles",
-  //       icon: "fa-solid fa-circle-check",
-  //     },
-  //     {
-  //       name: "Subsidised Consultancy",
-  //       icon: "fa-solid fa-circle-check",
-  //     },
-  //   ],
-  //   eligibilities: [
-  //     {
-  //       name: "Age",
-  //       value: "18+",
-  //       icon: "fa-solid fa-spinner",
-  //     },
-  //     {
-  //       name: "Geography",
-  //       value: "United Kingdom",
-  //       icon: "fa-solid fa-location-dot",
-  //     },
-  //     {
-  //       name: "Sectors",
-  //       value: "All sectors",
-  //       icon: "fa-solid fa-vector-square",
-  //     },
-  //   ],
-  // },
-];
-
-programmes.map((programme) => {
-  programmesLocal.map((programmeLocal) => {
-    if (programmeLocal.name.toLowerCase() == programme.name.toLowerCase()) {
-      programme.eligibilities = programmeLocal.eligibilities;
-      programme.features = programmeLocal.features;
-      programme.slug = programmeLocal.slug;
-    }
-  });
-});
+import List from "./cards/List.astro";
+import ProgrammeBig from "./programme/ProgrammeBig.astro";
+import ProgrammeSmall from "./programme/ProgrammeSmall.astro";
 ---
 
 <Container light="violet-50" dark="violet-950">
@@ -284,77 +26,64 @@ programmes.map((programme) => {
       <p
         class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
       >
-        Considering your age, geographic location, and the sectors in which you
-        and your social venture operate, you will be assigned to one of our
-        tailored programs for a duration of one year. These programs are
-        designed to provide specialised support that aligns precisely with the
-        unique needs of you and social venture.
+        As an Award Winner you will have access to the advice, guidance and
+        expertise needed to build on the foundations of your social venture and
+        grow your impact.
       </p>
     </div>
 
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl lg:max-w-4xl">
-        <dl
-          class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
-        >
-          {
-            services.map((service) => (
-              <div class="relative pl-16">
-                <dt class="text-base font-semibold leading-7">
-                  <div class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full bg-violet-50 dark:bg-violet-900  dark:outline outline-1 dark:outline-violet-700 shadow-lg">
-                    <i
-                      class={`${service.icon} text-violet-800 dark:text-violet-200 text-md shadow-2xl`}
-                    />
-                  </div>
-                  <span class="text-violet-800 dark:text-violet-200">
-                    {service.name}
-                  </span>
-                  {service.name == "Support Manager" && (
-                    <div class="flex -space-x-2 overflow-hidden mt-2">
-                      {sesm.map((employee) => (
-                        <Image
-                          width="32"
-                          height="32"
-                          class="inline-block h-8 w-8 rounded-full ring-2 ring-violet-100 dark:ring-violet-900"
-                          src={`https://unltd.directus.app/assets/${employee.person.image}?height=64`}
-                          alt={`${employee.person.name}`}
-                        />
-                      ))}
-                    </div>
-                  )}
-                </dt>
-                <dd class="mt-2 text-base leading-7 text-violet-600 dark:text-violet-300">
-                  {service.description}
-                </dd>
-              </div>
-            ))
-          }
-        </dl>
-      </div>
+    <div class="mx-auto max-w-7xl">
+                  <ProgrammeBig
+              image={
+                programmes[0].image && programmes[0].image.id
+                  ? programmes[0].image.id
+                  : false
+              }
+              icon={programmes[0].icon}
+              colour={programmes[0].colour}
+              name={programmes[0].name}
+              slogan={programmes[0].slogan}
+              description={programmes[0].description}
+              slug={slugify(programmes[0].name, {lower: true, strict: true, locale: "en", trim: true,})},
+              services={programmes[0].services}
+              eligibilities={programmes[0].eligibilities}
+              />
     </div>
 
-    <List>
-      <Programme
-        icon={programmesLocal[0].icon}
-        image={programmesLocal[0].image}
-        colour={programmesLocal[0].colour}
-        name={programmesLocal[0].name}
-        features={programmesLocal[0].features}
-        eligibilities={programmesLocal[0].eligibilities}
-      />
-      {
-        programmes.map((programme, i) => (
-          <Programme
-            image={programme.image.id}
-            icon={programme.icon}
-            colour={programme.colour}
-            name={programme.name}
-            slug={programme.slug}
-            eligibilities={programme.eligibilities}
-            features={programme.features}
-          />
-        ))
-      }
-    </List>
+    <div>
+      <div class="mx-auto max-w-4xl text-center">
+        <p
+          class="mx-auto mb-14 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
+        >
+          Considering your age, geographic location, and the sectors in which
+          you and your social venture operate, you will be assigned to one of
+          our tailored programs for a duration of one year. These programs are
+          designed to provide specialised support that aligns precisely with the
+          unique needs of you and social venture.
+        </p>
+      </div>
+      <List>
+        {
+          programmes.filter(programme => programme.name !== "Core").map((programme, i) => (
+            <ProgrammeSmall
+              key={i}
+              image={
+                programme.image && programme.image.id
+                  ? programme.image.id
+                  : false
+              }
+              icon={programme.icon}
+              colour={programme.colour}
+              name={programme.name}
+              slogan={programme.slogan}
+              description={programme.description}
+              slug={slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})},
+              services={programme.services}
+              eligibilities={programme.eligibilities}
+            />
+          ))
+        }
+      </List>
+    </div>
   </div>
 </Container>
