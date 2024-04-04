@@ -1,5 +1,6 @@
 ---
 import Card from "./cards/Card.astro";
+import Badge from "./cards/Badge.astro";
 
 const colorVariants = {
   slate: "dark:bg-slate-400/10 dark:text-slate-400 dark:ring-slate-400/20",
@@ -33,7 +34,9 @@ const { name, description, amount, features, eligibilities, programmes } =
 ---
 
 <Card>
-  <div class="flex flex-col gap-10 p-8">
+  <div
+    class="flex flex-col gap-10 p-8 bg-violet-50 dark:bg-violet-950 rounded-t-2xl"
+  >
     <div>
       <h2
         class="text-lg font-semibold leading-8 text-violet-900 dark:text-violet-100"
@@ -78,11 +81,11 @@ const { name, description, amount, features, eligibilities, programmes } =
         {
           programmes.map((programme) => (
             <>
-              <span
-                class={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${colorVariants[programme.colour]}`}
-              >
-                {programme.name}
-              </span>
+              <Badge
+                icon={programme.icon}
+                name={programme.name}
+                colour={colorVariants[programme.colour]}
+              />
             </>
           ))
         }
@@ -91,7 +94,7 @@ const { name, description, amount, features, eligibilities, programmes } =
   </div>
 
   <div
-    class={`flex flex-col gap-5 bg-violet-100 dark:bg-violet-950 rounded-b-3xl p-8`}
+    class={`flex flex-col gap-5 bg-violet-50 dark:bg-violet-950 rounded-b-3xl p-8`}
   >
     <div>
       <h3 class={`text-base text-violet-600 dark:text-violet-200`}>
