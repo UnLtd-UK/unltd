@@ -32,7 +32,7 @@ const {
   <div class="row-span-2 col-span-2 bg-blue-500 ...">03</div>
 </div> -->
 <div
-  class={`grid grid-rows-2 grid-flow-col rounded-2xl shadow-md ring-1 ${programmeColours.ring[colour]} ${programmeColours.divide[colour]}`}
+  class={`grid grid-rows-2 grid-flow-col rounded-2xl shadow-md border ${programmeColours.border1[colour]} ${programmeColours.divide[colour]}`}
 >
   <div
     class={`row-span-3 rounded-l-2xl relative isolate flex flex-col justify-end overflow-hidden px-8 py-8`}
@@ -59,7 +59,7 @@ const {
             />
           ) : (
             <div
-              class={`flex items-center justify-center h-16 w-16 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border[colour]}`}
+              class={`flex items-center justify-center h-16 w-16 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
             >
               <i class={`${icon} text-3xl ${programmeColours.text1[colour]}`} />
             </div>
@@ -104,7 +104,7 @@ const {
                   <Image
                     width="32"
                     height="32"
-                    class={`inline-block h-8 w-8 rounded-full ring-2 ${programmeColours.ring[colour]}`}
+                    class={`inline-block h-8 w-8 rounded-full border-2 ${programmeColours.border1[colour]}`}
                     src={`https://unltd.directus.app/assets/${employee.person.image}?height=64`}
                     alt={`${employee.person.name}`}
                   />

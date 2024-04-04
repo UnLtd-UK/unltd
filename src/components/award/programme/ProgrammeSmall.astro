@@ -28,7 +28,7 @@ const {
 
 <Card
   url={slug && `/award/${slug}`}
-  ring={programmeColours.ring[colour]}
+  border={programmeColours.border1[colour]}
   divide={programmeColours.divide[colour]}
 >
   <article
@@ -56,7 +56,7 @@ const {
             />
           ) : (
             <div
-              class={`flex items-center justify-center h-16 w-16 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border[colour]}`}
+              class={`flex items-center justify-center h-16 w-16 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
             >
               <i class={`${icon} text-3xl ${programmeColours.text1[colour]}`} />
             </div>
