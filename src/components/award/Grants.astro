@@ -29,7 +29,7 @@ import List from "./cards/List.astro";
       </p>
     </div>
 
-    <List>
+    <ul class="flex flex-col lg:flex-row gap-6">
       {
         grants.map((grant) => (
           <Grant
@@ -42,6 +42,6 @@ import List from "./cards/List.astro";
           />
         ))
       }
-    </List>
+    </ul>
   </div>
 </Container>
