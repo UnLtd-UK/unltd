@@ -18,6 +18,9 @@ const {
   colour,
   name,
   slogan,
+  age,
+  geography,
+  sectors,
   description,
   slug,
   services,
@@ -47,21 +50,11 @@ const {
     </div>
     <div class="flex flex-col gap-3">
       <span class="relative inline-block">
-        {
-          typeof logo === "string" ? (
-            <img
-              class="inline-block h-14"
-              src={`https://unltd.directus.app/assets/${logo}?width=384`}
-              alt=""
-            />
-          ) : (
-            <div
-              class={`flex items-center justify-center h-16 w-16 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
-            >
-              <i class={`${icon} text-3xl ${programmeColours.text1[colour]}`} />
-            </div>
-          )
-        }
+        <div
+          class={`flex items-center justify-center h-16 w-16 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
+        >
+          <i class={`${icon} text-3xl ${programmeColours.text1[colour]}`}></i>
+        </div>
       </span>
       <div class="flex flex-col gap-1">
         <h3
@@ -69,9 +62,9 @@ const {
         >
           {name}
         </h3>
-        <p class={`text-sm font-semibold ${programmeColours.text2[colour]}`}>
-          {slogan}
-        </p>
+        <!-- <p class={`text-xs font-semibold ${programmeColours.text2[colour]}`}>
+          {description}
+        </p> -->
       </div>
     </div>
   </article>
@@ -118,25 +111,44 @@ const {
         Social entrepreneur eligibility:
       </p>
       <ul class="flex flex-col gap-4">
-        {
-          eligibilities.map((eligibility) => (
-            <li class="flex flex-col gap-1">
-              <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-                <i
-                  class={`${eligibility.eligibilities_id.icon} ${programmeColours.text2[colour]}`}
-                />
-                <span class={`${programmeColours.text2[colour]}`}>
-                  {eligibility.eligibilities_id.name}
-                </span>
-              </p>
-              <p
-                class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
-              >
-                {eligibility.eligibilities_id.description}
-              </p>
-            </li>
-          ))
-        }
+        <li class="flex flex-col gap-1">
+          <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
+            <i class={`fa-solid fa-spinner ${programmeColours.text2[colour]}`}
+            ></i>
+            <span class={`${programmeColours.text2[colour]}`}> Age </span>
+          </p>
+          <p
+            class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+          >
+            {age}
+          </p>
+        </li>
+        <li class="flex flex-col gap-1">
+          <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
+            <i
+              class={`fa-solid fa-location-dot ${programmeColours.text2[colour]}`}
+            ></i>
+            <span class={`${programmeColours.text2[colour]}`}> Geography </span>
+          </p>
+          <p
+            class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+          >
+            {geography}
+          </p>
+        </li>
+        <li class="flex flex-col gap-1">
+          <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
+            <i
+              class={`fa-solid fa-vector-square ${programmeColours.text2[colour]}`}
+            ></i>
+            <span class={`${programmeColours.text2[colour]}`}> Sectors </span>
+          </p>
+          <p
+            class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+          >
+            {sectors}
+          </p>
+        </li>
       </ul>
     </div>
     <!-- <div class="flex flex-col gap-3">

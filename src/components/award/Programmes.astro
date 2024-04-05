@@ -42,6 +42,9 @@ import ProgrammeSmall from "./programme/ProgrammeSmall.astro";
               icon={programmes[0].icon}
               colour={programmes[0].colour}
               name={programmes[0].name}
+              age={programmes[0].age}
+              geography={programmes[0].geography}
+              sectors={programmes[0].sectors}
               slogan={programmes[0].slogan}
               description={programmes[0].description}
               slug={slugify(programmes[0].name, {lower: true, strict: true, locale: "en", trim: true,})},
@@ -75,6 +78,14 @@ import ProgrammeSmall from "./programme/ProgrammeSmall.astro";
               icon={programme.icon}
               colour={programme.colour}
               name={programme.name}
+              logo={
+                programme.logo && programme.logo.id
+                  ? programme.logo.id
+                  : false
+              }
+              age={programme.age}
+              geography={programme.geography}
+              sectors={programme.sectors}
               slogan={programme.slogan}
               description={programme.description}
               slug={slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})},

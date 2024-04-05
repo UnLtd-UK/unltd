@@ -1,10 +1,16 @@
 ---
-const { colour, name, icon } = Astro.props;
+const { colour, name, icon, logo } = Astro.props;
 ---
 
 <span
     class={`inline-flex gap-1 justify-center items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${colour}`}
 >
-    {icon && <i class={`${icon} text-xs`} />}
+    {
+        logo && logo ? (
+            <img class="h-3" src={logo} alt="" />
+        ) : (
+            <i class={`${icon} text-xs`} />
+        )
+    }
     <span>{name}</span>
 </span>

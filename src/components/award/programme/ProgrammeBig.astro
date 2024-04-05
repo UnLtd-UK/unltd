@@ -18,6 +18,9 @@ const {
   colour,
   name,
   slogan,
+  age,
+  geography,
+  sectors,
   description,
   slug,
   services,
@@ -26,11 +29,6 @@ const {
 } = Astro.props;
 ---
 
-<!-- <div class="grid grid-rows-3 grid-flow-col">
-  <div class="row-span-3 bg-green-500 ...">01</div>
-  <div class="col-span-2 bg-red-500 ...">02</div>
-  <div class="row-span-2 col-span-2 bg-blue-500 ...">03</div>
-</div> -->
 <div
   class={`grid grid-flow-col rounded-2xl shadow-md border ${programmeColours.border1[colour]} ${programmeColours.divide[colour]}`}
 >
@@ -123,35 +121,6 @@ const {
     }
   </div>
 
-  <!-- <div
-    class={`row-span-2 col-span-2 rounded-br-2xl px-16 py-8 ${programmeColours.bg2[colour]}`}
-  >
-    <p class={`text-sm ${programmeColours.text1[colour]}`}>
-      Social entrepreneur eligibility:
-    </p>
-    <ul class="flex flex-row gap-24">
-      {
-        eligibilities.map((eligibility) => (
-          <li class="flex flex-col gap-1">
-            <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-              <i
-                class={`${eligibility.eligibilities_id.icon} ${programmeColours.text2[colour]}`}
-              />
-              <span class={`${programmeColours.text2[colour]}`}>
-                {eligibility.eligibilities_id.name}
-              </span>
-            </p>
-            <p
-              class={`text-sm font-medium tracking-tight ${programmeColours.text1[colour]}`}
-            >
-              {eligibility.eligibilities_id.description}
-            </p>
-          </li>
-        ))
-      }
-    </ul>
-  </div> -->
-
   <div
     class={`row-span-2 col-span-2 rounded-br-2xl flex flex-col gap-5 p-8 px-16 py-8 ${programmeColours.bg2[colour]}`}
   >
@@ -161,40 +130,45 @@ const {
       </h3>
     </div>
     <ul class="flex flex-row gap-10">
-      {
-        eligibilities.map((eligibility) => (
-          <li class="flex flex-col gap-1">
-            <p
-              class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
-            >
-              <i class={`${eligibility.eligibilities_id.icon} `} />
-              <span class={`text-xs `}>
-                {eligibility.eligibilities_id.name}
-              </span>
-            </p>
-            <p
-              class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
-            >
-              {eligibility.eligibilities_id.description}
-            </p>
-          </li>
-        ))
-      }
+      <li class="flex flex-col gap-1">
+        <p
+          class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
+        >
+          <i class={`fa-solid fa-spinner `}></i>
+          <span class={`text-xs `}> Age </span>
+        </p>
+        <p
+          class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+        >
+          {age}
+        </p>
+      </li>
+      <li class="flex flex-col gap-1">
+        <p
+          class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
+        >
+          <i class={`fa-solid fa-location-pin `}></i>
+          <span class={`text-xs `}> Geography </span>
+        </p>
+        <p
+          class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+        >
+          {geography}
+        </p>
+      </li>
+      <li class="flex flex-col gap-1">
+        <p
+          class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
+        >
+          <i class={`fa-solid fa-vector-square `}></i>
+          <span class={`text-xs `}> Sectors </span>
+        </p>
+        <p
+          class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+        >
+          {sectors}
+        </p>
+      </li>
     </ul>
   </div>
 </div>
-
-<!-- <div
-  class={`rounded-2xl shadow-md ring-1 flex flex-col lg:flex-row ${programmeColours.ring[colour]} ${programmeColours.divide[colour]}`}
->
-  <article
-    class="rounded-l-2xl relative isolate flex flex-col justify-end overflow-hidden px-8 pb-8 pt-80 sm:pt-48 lg:pt-40"
-  >
-  </article>
-  <div class="flex flex-col">
-    <div
-      class={`flex flex-col gap-3 rounded-br-2xl p-8 ${programmeColours.bg2[colour]}`}
-    >
-    </div>
-  </div>
-</div> -->
