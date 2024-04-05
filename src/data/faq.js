@@ -1,9 +1,8 @@
 import { getCollection } from './load.js';
 
-const collection = "grants";
+const collection = "faq";
 
 const filterOptions = {
-    sort: ['sort'],
     filter: {
         status: {
             _eq: 'published'
@@ -13,6 +12,6 @@ const filterOptions = {
 
 const attach = false;
 
-const grants = await getCollection(collection, filterOptions, attach);
+const faq = await getCollection(collection, filterOptions, attach);
 
-export { grants }
+export { faq }

@@ -1,98 +1,10 @@
 ---
 import Container from "../Container.astro";
 import Grant from "./Grant.astro";
+import { programmeColours } from "../../data/programmeColours.js";
+import { programmes } from "../../data/programmes.js";
+import { grants } from "../../data/grants.js";
 import List from "./cards/List.astro";
-const grants = [
-  {
-    name: "Starting Up",
-    demographic: "Social entrepreneur",
-    description:
-      "You have an idea or have started to make a difference to people's lives, your community, or have ambitions to create change at a national level.",
-    amount: "8,000",
-    features: [
-      {
-        name: "For social venture costs",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "This is feature two",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "This is feature three",
-        icon: "fa-solid fa-circle-check",
-      },
-    ],
-    eligibilities: [
-      {
-        name: "Incorporated",
-        value: "Not yet or less 4 years",
-        icon: "fa-solid fa-pen-nib",
-      },
-      {
-        name: "Selling goods and services",
-        value: "Less than 1 year",
-        icon: "fa-solid fa-bag-shopping",
-      },
-      {
-        name: "Working with marginalised people",
-        value: "Not yet or yes",
-        icon: "fa-solid fa-people-line",
-      },
-    ],
-    programmes: [
-      { name: "Core", colour: "amber" },
-      { name: "Access to Employment", colour: "violet" },
-      { name: "Financial Inclusion", colour: "red" },
-      { name: "Healthy Ageing", colour: "green" },
-      { name: "Movement for Change", colour: "blue" },
-    ],
-  },
-  {
-    name: "Scaling Up",
-    description:
-      "You are already running a social venture that is making a positive difference and you have compelling evidence of your impact.",
-    amount: "18,000",
-    features: [
-      {
-        name: "For social venture costs",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "For social entrepreneur living costs",
-        icon: "fa-solid fa-circle-check",
-      },
-      {
-        name: "This is feature three",
-        icon: "fa-solid fa-circle-check",
-      },
-    ],
-    eligibilities: [
-      {
-        name: "Incorporated",
-        value: "Less 4 years",
-        icon: "fa-solid fa-pen-nib",
-      },
-      {
-        name: "Selling goods and services",
-        value: "1 to 4 years",
-        icon: "fa-solid fa-bag-shopping",
-      },
-      {
-        name: "Working with marginalised people",
-        value: "Yes",
-        icon: "fa-solid fa-people-line",
-      },
-    ],
-    programmes: [
-      { name: "Core", colour: "amber" },
-      { name: "Access to Employment", colour: "violet" },
-      { name: "Financial Inclusion", colour: "red" },
-      { name: "Healthy Ageing", colour: "green" },
-      { name: "Movement for Change", colour: "blue" },
-    ],
-  },
-];
 ---
 
 <Container light="violet-100" dark="violet-900">
@@ -107,7 +19,7 @@ const grants = [
       <p
         class="mt-2 text-2xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
       >
-        Your grant
+        Awards
       </p>
       <p
         class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
@@ -117,19 +29,20 @@ const grants = [
       </p>
     </div>
 
-    <List>
+    <ul class="flex flex-col lg:flex-row gap-6">
       {
         grants.map((grant) => (
           <Grant
             name={grant.name}
             description={grant.description}
             amount={grant.amount}
-            features={grant.features}
-            eligibilities={grant.eligibilities}
-            programmes={grant.programmes}
+            incorporated={grant.incorporated}
+            selling_goods_and_services={grant.selling_goods_and_services}
+            feature_1={grant.feature_1}
+            feature_2={grant.feature_2}
           />
         ))
       }
-    </List>
+    </ul>
   </div>
 </Container>
