@@ -1,0 +1,407 @@
+---
+import Template from "../layouts/Template.astro";
+import Container from "../components/Container.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import Hero from "../components/Hero.astro";
+
+const name = "Logo";
+const description = "Blah blah blah";
+
+const breadcrumbs = [
+    {
+        name: "Logos",
+        slug: "logos",
+    },
+];
+
+// const colorLightVariants = {
+//     slate: "dark:bg-slate-100 dark:text-slate-900",
+//     gray: "dark:bg-gray-100 dark:text-gray-900",
+//     zinc: "dark:bg-zinc-100 dark:text-zinc-900",
+//     neutral: "dark:bg-neutral-100 dark:text-neutral-900",
+//     stone: "dark:bg-stone-100 dark:text-stone-900",
+//     red: "dark:bg-red-100 dark:text-red-900",
+//     orange: "dark:bg-orange-100 dark:text-orange-900",
+//     amber: "dark:bg-amber-100 dark:text-amber-900",
+//     yellow: "dark:bg-yellow-100 dark:text-yellow-900",
+//     lime: "dark:bg-lime-100 dark:text-lime-900",
+//     green: "dark:bg-green-100 dark:text-green-900",
+//     emerald: "dark:bg-emerald-100 dark:text-emerald-900",
+//     teal: "dark:bg-teal-100 dark:text-teal-900",
+//     cyan: "dark:bg-cyan-100 dark:text-cyan-900",
+//     sky: "dark:bg-sky-100 dark:text-sky-900",
+//     blue: "dark:bg-blue-100 dark:text-blue-900",
+//     indigo: "dark:bg-indigo-100 dark:text-indigo-900",
+//     violet: "dark:bg-violet-100 dark:text-violet-900",
+//     purple: "dark:bg-purple-100 dark:text-purple-900",
+//     fuchsia: "dark:bg-fuchsia-100 dark:text-fuchsia-900",
+//     pink: "dark:bg-pink-100 dark:text-pink-900",
+//     rose: "dark:bg-rose-100 dark:text-rose-900",
+// };
+
+// const colorDarkVariants = {
+//     slate: "dark:bg-slate-900 dark:text-slate-100",
+//     gray: "dark:bg-gray-900 dark:text-gray-100",
+//     zinc: "dark:bg-zinc-900 dark:text-zinc-100",
+//     neutral: "dark:bg-neutral-900 dark:text-neutral-100",
+//     stone: "dark:bg-stone-900 dark:text-stone-100",
+//     red: "dark:bg-red-900 dark:text-red-100",
+//     orange: "dark:bg-orange-900 dark:text-orange-100",
+//     amber: "dark:bg-amber-900 dark:text-amber-100",
+//     yellow: "dark:bg-yellow-900 dark:text-yellow-100",
+//     lime: "dark:bg-lime-900 dark:text-lime-100",
+//     green: "dark:bg-green-900 dark:text-green-100",
+//     emerald: "dark:bg-emerald-900 dark:text-emerald-100",
+//     teal: "dark:bg-teal-900 dark:text-teal-100",
+//     cyan: "dark:bg-cyan-900 dark:text-cyan-100",
+//     sky: "dark:bg-sky-900 dark:text-sky-100",
+//     blue: "dark:bg-blue-900 dark:text-blue-100",
+//     indigo: "dark:bg-indigo-900 dark:text-indigo-100",
+//     violet: "dark:bg-violet-900 dark:text-violet-100",
+//     purple: "dark:bg-purple-900 dark:text-purple-100",
+//     fuchsia: "dark:bg-fuchsia-900 dark:text-fuchsia-100",
+//     pink: "dark:bg-pink-900 dark:text-pink-100",
+//     rose: "dark:bg-rose-900 dark:text-rose-100",
+// };
+
+const grayLight = "dark:bg-gray-100 dark:text-gray-900";
+
+const grayDark = "dark:bg-gray-900 dark:text-gray-100";
+
+const colours = [
+    "slate",
+    "gray",
+    "zinc",
+    "neutral",
+    "stone",
+    "red",
+    "orange",
+    "amber",
+    "yellow",
+    "lime",
+    "green",
+    "emerald",
+    "teal",
+    "cyan",
+    "sky",
+    "blue",
+    "indigo",
+    "violet",
+    "purple",
+    "fuchsia",
+    "pink",
+    "rose",
+];
+
+const partnersLightColour = [
+    {
+        type: "colour",
+        name: "coop",
+        format: "svg",
+    },
+    {
+        type: "colour",
+        name: "phoenix-dark",
+        format: "svg",
+    },
+    {
+        type: "colour",
+        name: "mat",
+        format: "svg",
+    },
+];
+
+const partnersDarkColour = [
+    {
+        type: "colour",
+        name: "coop",
+        format: "svg",
+    },
+    {
+        type: "colour",
+        name: "phoenix-light",
+        format: "svg",
+    },
+    {
+        type: "colour",
+        name: "mat",
+        format: "svg",
+    },
+];
+
+const partnersLight = [
+    {
+        type: "light",
+        name: "coop",
+        format: "svg",
+    },
+    {
+        type: "light",
+        name: "phoenix",
+        format: "svg",
+    },
+    {
+        type: "light",
+        name: "mat",
+        format: "svg",
+    },
+];
+
+const partnersDark = [
+    {
+        type: "dark",
+        name: "coop",
+        format: "svg",
+    },
+    {
+        type: "dark",
+        name: "phoenix",
+        format: "svg",
+    },
+    {
+        type: "dark",
+        name: "mat",
+        format: "svg",
+    },
+];
+---
+
+<Template name={name} description={description}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <!----------------------------------------------------------------------->
+
+        <!-- COLOUR LOGO-->
+        <!-- Light Colour bg -->
+        <!-- <div class="flex flex-col gap-2 mt-40">
+            <Hero name="Light logo lock-in" />
+            {
+                colours.map((colour, index) => (
+                    <div class={`${colorLightVariants[colour]} py-24 sm:py-32`}>
+                        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                            <a
+                                class={`${colorLightVariants[colour]}`}
+                                href={`/logos#CC${index}`}
+                            >
+                                CC{index}
+                            </a>
+                            <h2
+                                id={`CC${index}`}
+                                class={`text-center text-lg font-semibold leading-8 ${colorLightVariants[colour]}`}
+                            >
+                                In partnership with:
+                            </h2>
+                            <div class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+                                <img
+                                    class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                                    src="/svg/colour/coop.svg"
+                                    alt="Transistor"
+                                    width="158"
+                                    height="48"
+                                />
+                                <img
+                                    class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                                    src="/svg/colour/phoenix.svg"
+                                    alt="Reform"
+                                    width="158"
+                                    height="48"
+                                />
+                                <img
+                                    class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                                    src="/svg/colour/unltd.svg"
+                                    alt="Tuple"
+                                    width="158"
+                                    height="48"
+                                />
+                                <img
+                                    class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
+                                    src="/svg/colour/phoenix.svg"
+                                    alt="SavvyCal"
+                                    width="158"
+                                    height="48"
+                                />
+                                <img
+                                    class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+                                    src="/svg/colour/phoenix.svg"
+                                    alt="Statamic"
+                                    width="158"
+                                    height="48"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div> -->
+
+        <!-- Dark Colour bg -->
+        <!-- <div class="flex flex-col gap-2 mt-40">
+            <Hero name="Light logo lock-in" />
+            {
+                colours.map((colour, index) => (
+                    <div class={`${colorDarkVariants[colour]} py-24 sm:py-32`}>
+                        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                            <a
+                                class={`${colorDarkVariants[colour]}`}
+                                href={`/logos#CC${index}`}
+                            >
+                                CC{index}
+                            </a>
+                            <h2
+                                id={`CC${index}`}
+                                class={`text-center text-lg font-semibold leading-8 ${colorDarkVariants[colour]}`}
+                            >
+                                In partnership with:
+                            </h2>
+                            <div class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5">
+                                <img
+                                    class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                                    src="/svg/colour/coop.svg"
+                                    alt="Transistor"
+                                    width="158"
+                                    height="48"
+                                />
+                                <img
+                                    class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                                    src="/svg/colour/phoenix.svg"
+                                    alt="Reform"
+                                    width="158"
+                                    height="48"
+                                />
+                                <img
+                                    class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                                    src="/svg/colour/unltd.svg"
+                                    alt="Tuple"
+                                    width="158"
+                                    height="48"
+                                />
+                                <img
+                                    class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1"
+                                    src="/svg/colour/phoenix.svg"
+                                    alt="SavvyCal"
+                                    width="158"
+                                    height="48"
+                                />
+                                <img
+                                    class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1"
+                                    src="/svg/colour/phoenix.svg"
+                                    alt="Statamic"
+                                    width="158"
+                                    height="48"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div> -->
+
+        <!-- light bg -->
+        <div class="flex flex-col gap-2 mt-40">
+            <Hero name="Light + Colour" />
+            <div class={`dark:bg-gray-100 dark:text-gray-900 py-24 sm:py-32`}>
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                    <h2 class={`text-center text-lg font-semibold leading-8`}>
+                        In partnership with:
+                    </h2>
+                    <div
+                        class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+                    >
+                        {
+                            partnersLightColour.map((partner) => (
+                                <img
+                                    class="col-span-3 max-h-12 w-full object-contain lg:col-span-1"
+                                    src={`/svg/${partner.type}/${partner.name}.${partner.format}`}
+                                    alt={partner.name}
+                                    width="158"
+                                    height="48"
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- dark bg -->
+        <div class="flex flex-col gap-2 mt-40">
+            <Hero name="Dark + Colour" />
+            <div class={`dark:bg-gray-900 dark:text-gray-100 py-24 sm:py-32`}>
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                    <h2 class={`text-center text-lg font-semibold leading-8`}>
+                        In partnership with:
+                    </h2>
+                    <div
+                        class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+                    >
+                        {
+                            partnersDarkColour.map((partner) => (
+                                <img
+                                    class="col-span-3 max-h-12 w-full object-contain lg:col-span-1"
+                                    src={`/svg/${partner.type}/${partner.name}.${partner.format}`}
+                                    alt={partner.name}
+                                    width="158"
+                                    height="48"
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- light bg -->
+        <div class="flex flex-col gap-2 mt-40">
+            <Hero name="Light" />
+            <div class={`dark:bg-gray-100 dark:text-gray-900 py-24 sm:py-32`}>
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                    <h2 class={`text-center text-lg font-semibold leading-8`}>
+                        In partnership with:
+                    </h2>
+                    <div
+                        class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+                    >
+                        {
+                            partnersLight.map((partner) => (
+                                <img
+                                    class="col-span-3 max-h-12 w-full object-contain lg:col-span-1"
+                                    src={`/svg/${partner.type}/${partner.name}.${partner.format}`}
+                                    alt={partner.name}
+                                    width="158"
+                                    height="48"
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- dark bg -->
+        <div class="flex flex-col gap-2 mt-40">
+            <Hero name="Dark" />
+            <div class={`dark:bg-gray-900 dark:text-gray-100 py-24 sm:py-32`}>
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                    <h2 class={`text-center text-lg font-semibold leading-8`}>
+                        In partnership with:
+                    </h2>
+                    <div
+                        class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+                    >
+                        {
+                            partnersDark.map((partner) => (
+                                <img
+                                    class="col-span-3 max-h-12 w-full object-contain lg:col-span-1"
+                                    src={`/svg/${partner.type}/${partner.name}.${partner.format}`}
+                                    alt={partner.name}
+                                    width="158"
+                                    height="48"
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </Container>
+</Template>
