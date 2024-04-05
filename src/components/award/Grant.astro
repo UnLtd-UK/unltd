@@ -1,126 +1,130 @@
 ---
 import Card from "./cards/Card.astro";
+import Badge from "./cards/Badge.astro";
 
-const colorVariants = {
-  slate: "dark:bg-slate-400/10 dark:text-slate-400 dark:ring-slate-400/20",
-  gray: "dark:bg-gray-400/10 dark:text-gray-400 dark:ring-gray-400/20",
-  zinc: "dark:bg-zinc-400/10 dark:text-zinc-400 dark:ring-zinc-400/20",
-  neutral:
-    "dark:bg-neutral-400/10 dark:text-neutral-400 dark:ring-neutral-400/20",
-  stone: "dark:bg-stone-400/10 dark:text-stone-400 dark:ring-stone-400/20",
-  red: "dark:bg-red-400/10 dark:text-red-400 dark:ring-red-400/20",
-  orange: "dark:bg-orange-400/10 dark:text-orange-400 dark:ring-orange-400/20",
-  amber: "dark:bg-amber-400/10 dark:text-amber-400 dark:ring-amber-400/20",
-  yellow: "dark:bg-yellow-400/10 dark:text-yellow-400 dark:ring-yellow-400/20",
-  lime: "dark:bg-lime-400/10 dark:text-lime-400 dark:ring-lime-400/20",
-  green: "dark:bg-green-400/10 dark:text-green-400 dark:ring-green-400/20",
-  emerald:
-    "dark:bg-emerald-400/10 dark:text-emerald-400 dark:ring-emerald-400/20",
-  teal: "dark:bg-teal-400/10 dark:text-teal-400 dark:ring-teal-400/20",
-  cyan: "dark:bg-cyan-400/10 dark:text-cyan-400 dark:ring-cyan-400/20",
-  sky: "dark:bg-sky-400/10 dark:text-sky-400 dark:ring-sky-400/20",
-  blue: "dark:bg-blue-400/10 dark:text-blue-400 dark:ring-blue-400/20",
-  indigo: "dark:bg-indigo-400/10 dark:text-indigo-400 dark:ring-indigo-400/20",
-  violet: "dark:bg-violet-400/10 dark:text-violet-400 dark:ring-violet-400/20",
-  purple: "dark:bg-purple-400/10 dark:text-purple-400 dark:ring-purple-400/20",
-  fuchsia: "dark:bg-fuchsia-400/10 dark:text-fuchsia-400 dark:ring-v-400/20",
-  pink: "dark:bg-pink-400/10 dark:text-pink-400 dark:ring-pink-400/20",
-  rose: "dark:bg-rose-400/10 dark:text-rose-400 dark:ring-rose-400/20",
-};
+import { programmeColours } from "../../data/programmeColours.js";
+import { programmes } from "../../data/programmes.js";
 
-const { name, description, amount, features, eligibilities, programmes } =
-  Astro.props;
+const {
+  name,
+  description,
+  amount,
+  incorporated,
+  selling_goods_and_services,
+  feature_1,
+  feature_2,
+} = Astro.props;
 ---
 
-<Card>
-  <div class="flex flex-col gap-10 p-8">
-    <div>
-      <h2
-        class="text-lg font-semibold leading-8 text-violet-900 dark:text-violet-100"
-      >
-        {name}
-      </h2>
-    </div>
+<div
+  class={`flex-1 grow divide-y rounded-2xl shadow-md border-2 ${programmeColours.divide["violet"]} ${programmeColours.border1["violet"]} `}
+>
+  <div class="bg-violet-50 dark:bg-violet-950 rounded-t-2xl px-8 py-6">
+    <h2 class="text-2xl font-semibold text-violet-900 dark:text-violet-100">
+      {name}
+    </h2>
+  </div>
 
-    <div class="flex flex-col gap-2">
-      <p class="flex flex-col items-baseline gap-x-1">
-        <span
-          class="text-sm font-semibold leading-6 text-violet-600 dark:text-violet-400"
-        >
-          Up to
-        </span>
-        <span
-          class="text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100"
-        >
-          £{amount}
-        </span>
-      </p>
-
-      <div class="flex flex-col gap-3">
-        {
-          features.map((feature) => (
-            <p class={`truncate text-sm font-medium flex gap-2 items-center`}>
-              <i
-                class={`${feature.icon} text-violet-500 dark:text-violet-200`}
-              />
-              <span class={`text-violet-600 dark:text-violet-200`}>
-                {feature.name}
-              </span>
-            </p>
-          ))
-        }
+  <div class="flex flex-col gap-4 p-8 bg-violet-50 dark:bg-violet-950">
+    <div class="flex gap-10">
+      <div class="flex flex-1 flex-col gap-4">
+        <p class="flex flex-col items-baseline gap-x-1">
+          <span
+            class="text-sm font-semibold leading-6 text-violet-600 dark:text-violet-400"
+          >
+            Up to
+          </span>
+          <span
+            class="text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100"
+          >
+            £{amount}
+          </span>
+        </p>
+        <p class="text-xs text-violet-600 dark:text-violet-300">
+          {description}
+        </p>
+        <div class="flex flex-col gap-3">
+          <p class={`truncate text-xs font-medium flex gap-2 items-center`}>
+            <i class={`fa-solid fa-check text-violet-500 dark:text-violet-200`}
+            ></i>
+            <span class={`text-violet-600 dark:text-violet-200`}>
+              {feature_1}
+            </span>
+          </p>
+          {
+            feature_2 && (
+              <p class={`truncate text-xs font-medium flex gap-2 items-center`}>
+                <i
+                  class={`fa-solid fa-check text-violet-500 dark:text-violet-200`}
+                />
+                <span class={`text-violet-600 dark:text-violet-200`}>
+                  {feature_2}
+                </span>
+              </p>
+            )
+          }
+        </div>
       </div>
-    </div>
 
-    <div>
-      <p class="text-violet-600 dark:text-violet-200">Programmes available:</p>
-      <ul class="flex-inline space-x-1">
-        {
-          programmes.map((programme) => (
-            <>
-              <span
-                class={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${colorVariants[programme.colour]}`}
-              >
-                {programme.name}
-              </span>
-            </>
-          ))
-        }
-      </ul>
+      <div class="flex flex-1 flex-col gap-2">
+        <p class="text-xs font-semibold text-violet-600 dark:text-violet-200">
+          Programmes available:
+        </p>
+        <ul class="flex flex-col gap-1">
+          {
+            programmes.map((programme) => (
+              <div>
+                <Badge
+                  icon={programme.icon}
+                  name={programme.name}
+                  colour={programmeColours.badge[programme.colour]}
+                />
+              </div>
+            ))
+          }
+        </ul>
+      </div>
     </div>
   </div>
 
   <div
-    class={`flex flex-col gap-5 bg-violet-100 dark:bg-violet-950 rounded-b-3xl p-8`}
+    class={`flex flex-col gap-5 bg-violet-50 dark:bg-violet-950 rounded-b-2xl p-8`}
   >
-    <div>
-      <h3 class={`text-base text-violet-600 dark:text-violet-200`}>
+    <div class="flex flex-col gap-1">
+      <h3 class={`text-xs font-semibold text-violet-600 dark:text-violet-200`}>
         Social venture eligibility
       </h3>
-      <p class="text-sm leading-6 text-violet-600 dark:text-violet-300">
-        {description}
-      </p>
     </div>
-    <ul class="flex flex-col gap-6">
-      {
-        eligibilities.map((eligibility) => (
-          <li class="flex flex-col gap-1">
-            <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-              <i
-                class={`${eligibility.icon} text-violet-600 dark:text-violet-400`}
-              />
-              <span class={`text-violet-600 dark:text-violet-400`}>
-                {eligibility.name}
-              </span>
-            </p>
-            <p
-              class={`text-sm font-medium tracking-tight text-violet-600 dark:text-violet-300`}
-            >
-              {eligibility.value}
-            </p>
-          </li>
-        ))
-      }
+    <ul class="flex flex-row gap-10">
+      <li class="flex flex-col gap-1">
+        <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
+          <i class={`fa-solid fa-pen-nib text-violet-600 dark:text-violet-300`}
+          ></i>
+          <span class={`text-xs text-violet-600 dark:text-violet-300`}>
+            Incorporated
+          </span>
+        </p>
+        <p
+          class={`text-xs font-medium tracking-tight text-violet-600 dark:text-violet-200`}
+        >
+          {incorporated}
+        </p>
+      </li>
+      <li class="flex flex-col gap-1">
+        <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
+          <i
+            class={`fa-solid fa-bag-shopping text-violet-600 dark:text-violet-300`}
+          ></i>
+          <span class={`text-xs text-violet-600 dark:text-violet-300`}>
+            Selling goods and services
+          </span>
+        </p>
+        <p
+          class={`text-xs font-medium tracking-tight text-violet-600 dark:text-violet-200`}
+        >
+          {selling_goods_and_services}
+        </p>
+      </li>
     </ul>
   </div>
-</Card>
+</div>

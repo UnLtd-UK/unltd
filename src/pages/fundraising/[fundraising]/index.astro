@@ -92,21 +92,32 @@ const { fundraiser } = Astro.props;
         <div
           class="flex flex-col lg:flex-row items-start lg:items-center lg:justify-between gap-2"
         >
-          { () => {
-            if(!todayDate.isAfter(fundraiser.start) && !todayDate.isAfter(fundraiser.finish)) {
-              return(<span class="inline-flex items-center rounded-full bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20">
-                Coming soon
-              </span>)
-            } else if(!todayDate.isAfter(fundraiser.finish)) {
-              return(<span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/10">
-                Active
-              </span>)
-            } else {
-              return(<span class="inline-flex items-center rounded-full bg-violet-50 px-2 py-1 text-xs font-medium text-violet-600 ring-1 ring-inset ring-violet-500/10">
-                Completed
-              </span>)
+          {
+            () => {
+              if (
+                !todayDate.isAfter(fundraiser.start) &&
+                !todayDate.isAfter(fundraiser.finish)
+              ) {
+                return (
+                  <span class="inline-flex items-center rounded-full bg-amber-50 px-2 py-1 text-xs font-medium text-amber-700 ring-1 ring-inset ring-amber-600/20">
+                    Coming soon
+                  </span>
+                );
+              } else if (!todayDate.isAfter(fundraiser.finish)) {
+                return (
+                  <span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-500/10">
+                    Active
+                  </span>
+                );
+              } else {
+                return (
+                  <span class="inline-flex items-center rounded-full bg-violet-50 px-2 py-1 text-xs font-medium text-violet-600 ring-1 ring-inset ring-violet-500/10">
+                    Completed
+                  </span>
+                );
+              }
             }
-          }}
+          }
           <div>
             <p class="text-xs text-violet-400">
               {
@@ -151,54 +162,20 @@ const { fundraiser } = Astro.props;
                   target="_blank"
                   class="p-7 flex gap-2 items-center rounded-r-xl bg-amber-600 text-sm font-semibold text-white shadow-sm 0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
                 >
-                  <span>Donate now</span><i class="fa-solid fa-arrow-right"></i>
+                  <>
+                    <span>Donate now</span>
+                    <i class="fa-solid fa-arrow-right" />
+                  </>
                 </a>
               </div>
             )
           }
         </div>
 
-        <div class="text-violet-600" set:html={marked.parse(`${fundraiser.description}`)}/>
-
-        <div class="flex flex-col gap-3">
-          <p class="text-xl">Raising funds for</p>
-          {
-            fundraiser.funds.length > 0 ? (
-              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {fundraiser.funds.map((fund) => (
-                  <div class="relative flex items-center space-x-3 rounded-lg border border-violet-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-amber-500 focus-within:ring-offset-2 hover:border-violet-400">
-                    <div class="flex-shrink-0">
-                      <!-- <img
-                        class="h-10 w-10 rounded-md drop-shadow-md"
-                        src={`https://unltd.directus.app/assets/${fund.funds_id.logo}`}
-                        alt=""
-                      /> -->
-                    </div>
-                    <div class="min-w-0 flex-1">
-                     <!-- <a
-                        href={`/funds/${fund.funds_id.slug}`}
-                        class="focus:outline-none"
-                      > -->
-                        <span class="absolute inset-0" aria-hidden="true" />
-                        <p class="text-sm font-medium text-violet-900">
-                          {fund.funds_id.name}
-                        </p>
-                                                <p class="text-xs text-violet-900">
-                          {fund.funds_id.description}
-                        </p>
-                      <!-- </a> -->
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-violet-600 bg-violet-100 rounded-md">
-                <i class="fa-regular fa-hourglass text-lg" />
-                <p>No funds</p>
-              </div>
-            )
-          }
-        </div>
+        <div
+          class="text-violet-600"
+          set:html={marked.parse(`${fundraiser.description}`)}
+        />
 
         <div class="flex flex-col">
           {
@@ -230,7 +207,7 @@ const { fundraiser } = Astro.props;
           )
         }
 
-                {
+        {
           fundraiser.link && (
             <div class="flex flex-col">
               <span class="text-violet-500 text-xs">Donations website</span>

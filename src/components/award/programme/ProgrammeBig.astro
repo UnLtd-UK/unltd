@@ -1,0 +1,174 @@
+---
+import { Image } from "astro:assets";
+import { sesm } from "../../../data/sesm.js";
+import { programmeColours } from "../../../data/programmeColours.js";
+
+function isValidUrl(string) {
+  try {
+    new URL(string);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+const {
+  image,
+  icon,
+  colour,
+  name,
+  slogan,
+  age,
+  geography,
+  sectors,
+  description,
+  slug,
+  services,
+  eligibilities,
+  logo,
+} = Astro.props;
+---
+
+<div
+  class={`grid grid-flow-col rounded-2xl shadow-md border ${programmeColours.border1[colour]} ${programmeColours.divide[colour]}`}
+>
+  <div
+    class="row-span-3 rounded-l-2xl relative isolate flex flex-col justify-end overflow-hidden px-10 py-10"
+  >
+    <img
+      src={isValidUrl(image)
+        ? image
+        : `https://unltd.directus.app/assets/${image}?width=600`}
+      alt=""
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+    />
+    <div
+      class={`absolute inset-0 -z-10 opacity-70 ${programmeColours.bg1[colour]}`}
+    >
+    </div>
+    <div class="flex flex-col gap-3">
+      <span class="relative inline-block">
+        {
+          typeof logo === "string" ? (
+            <img
+              class="inline-block h-14"
+              src={`https://unltd.directus.app/assets/${logo}?width=384`}
+              alt=""
+            />
+          ) : (
+            <div
+              class={`flex items-center justify-center h-16 w-16 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
+            >
+              <i class={`${icon} text-3xl ${programmeColours.text1[colour]}`} />
+            </div>
+          )
+        }
+      </span>
+      <div class="flex flex-col gap-1">
+        <h3
+          class={`text-base font-bold leading-6 ${programmeColours.text1[colour]}`}
+        >
+          {name}
+        </h3>
+        <p class={`text-sm font-semibold ${programmeColours.text2[colour]}`}>
+          {slogan}
+        </p>
+        <p class={`text-sm  ${programmeColours.text2[colour]}`}>
+          {description}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class={`col-span-2 rounded-tr-2xl grid grid-cols-2 grid-rows-2 gap-4 p-16 ${programmeColours.bg1[colour]}`}
+  >
+    {
+      services.map((service) => (
+        <div class="relative pl-16 basis-1/4">
+          <dt class="text-base font-semibold leading-7">
+            <div
+              class={`absolute left-0 top-0 flex items-center justify-center rounded-full`}
+            >
+              <i
+                class={`${service.services_id.icon} text-md shadow-3xl h-10 w-10 ${programmeColours.text2[colour]}`}
+              />
+            </div>
+            <span class={`text-base ${programmeColours.text1[colour]}`}>
+              {service.services_id.name}
+            </span>
+            {service.services_id.name == "Support Manager" && (
+              <div class="flex -space-x-2 overflow-hidden mt-2">
+                {sesm.map((employee) => (
+                  <Image
+                    width="32"
+                    height="32"
+                    class={`inline-block h-8 w-8 rounded-full border-2 ${programmeColours.border1[colour]}`}
+                    src={`https://unltd.directus.app/assets/${employee.person.image}?height=64`}
+                    alt={`${employee.person.name}`}
+                  />
+                ))}
+              </div>
+            )}
+          </dt>
+          <dd
+            class={`mt-2 text-sm leading-6 ${programmeColours.text2[colour]}`}
+          >
+            {service.services_id.description}
+          </dd>
+        </div>
+      ))
+    }
+  </div>
+
+  <div
+    class={`row-span-2 col-span-2 rounded-br-2xl flex flex-col gap-5 p-8 px-16 py-8 ${programmeColours.bg2[colour]}`}
+  >
+    <div class="flex flex-col gap-1">
+      <h3 class={`text-xs font-semibold ${programmeColours.text1[colour]}`}>
+        Social entrepreneur eligibility
+      </h3>
+    </div>
+    <ul class="flex flex-row gap-10">
+      <li class="flex flex-col gap-1">
+        <p
+          class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
+        >
+          <i class={`fa-solid fa-spinner `}></i>
+          <span class={`text-xs `}> Age </span>
+        </p>
+        <p
+          class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+        >
+          {age}
+        </p>
+      </li>
+      <li class="flex flex-col gap-1">
+        <p
+          class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
+        >
+          <i class={`fa-solid fa-location-pin `}></i>
+          <span class={`text-xs `}> Geography </span>
+        </p>
+        <p
+          class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+        >
+          {geography}
+        </p>
+      </li>
+      <li class="flex flex-col gap-1">
+        <p
+          class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
+        >
+          <i class={`fa-solid fa-vector-square `}></i>
+          <span class={`text-xs `}> Sectors </span>
+        </p>
+        <p
+          class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+        >
+          {sectors}
+        </p>
+      </li>
+    </ul>
+  </div>
+</div>
