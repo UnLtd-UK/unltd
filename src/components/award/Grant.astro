@@ -37,7 +37,13 @@ const {
           <span
             class="text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100"
           >
-            £{amount}
+            {
+              new Intl.NumberFormat("en-GB", {
+                maximumSignificantDigits: 3,
+                style: "currency",
+                currency: "GBP",
+              }).format(amount)
+            }
           </span>
         </p>
         <p class="text-xs text-violet-600 dark:text-violet-300">
