@@ -3,185 +3,9 @@ import { Code } from "astro:components";
 import { marked } from "marked";
 import Container from "../../components/Container.astro"
 
+import { steps } from "../../data/steps.js";
+
 import slugify from "slugify";
-
-const steps = [
-  {
-    name: "Check your eligibility",
-    slug: "check-your-eligibility",
-    body: `
-## Social entrepreneur
-
-### Eligible
-- The founder and lead of the social venture.
-- Are 16+ years old.
-- Living in the United Kingdom.
-
-### Not eligible
-- Looking for funding for a one-off or short-term project where there is limited potential for a sustained and longer-term impact.
-- Requests for support which are predominately for the individual to undertake academic qualifications or overseas travel.
-- Individuals who plan to employ others to undertake most of the work on their behalf.
-
-## Social venture
-
-### Eligible
-- Your social venture should have the potential to be financially sustainable with our support.
-- Can demonstrate a clear need for your idea or social venture.
-- Is clearly driven by its social purpose.
-- Needs both our financial and non-financial support to make it happen.
-
-### Not eligible
-- Is predominantly focused on having an impact on people or places outside the UK.
-- Incorporated for over four years at the time of application (Companies House or Charity Commission registration).
-- Had a turnover of over £250,000 in its last financial year.
-- Involves political, or religious campaigning.
-- Involves activities outside of the law, against public policy or anything which encourages ethnic, religious, or commercial disharmony.
-- Social ventures whose focus is predominantly on raising awareness of social issues.
-- Charities incorporated longer than 4 years who are setting up a social venture are not eligible
-`,
-    button: "I am eligible",
-    alt: {
-      name: "Not eligible? Check out other funding and support",
-      link: "/learn/other-funding-and-support-available-for-social-entrepreneurs/"
-    }
-  },
-  {
-    name: "Check your suitability",
-    slug: "check-your-suitability",
-    body: `
-We receive many more applications than we can support. While we do not want to discourage social entrepreneurs from applying, we want you to be confident that our Awards are right for you and your social venture before applying.
-
-## Social Entreprneur
-
-- We support individuals. This means that the application must be completed by the founder; the social entrepreneur who needs our financial and non-financial support
-- We don't discriminate based on who you are and where you come from and to support our equity commitments at least 50% of our Awards will support entrepreneurs who come from a disabled and/or Black, Asian or minority ethnic background.
-- We are looking for people who have lived experience of the issues they are looking to tackle. We believe that having a deep understanding of the challenges you want to tackle makes you a passionate and determined social entrepreneur.
-- We are not looking for people who know everything they need to know to run a social venture, in fact, we are looking for people who need the non-financial support just as much as the financial support we offer. 
-
-## Social venture
-
-- We are looking to support social ventures which have the potential to be financially sustainable, with prospects for growth. We want to support you to create long-lasting change for people, communities, and the planet. 
-- We are particularly interested in social ventures which are tackling inequality and reaching the most marginalised people and communities in the UK.
-- We want to help your social venture to succeed. If you need a lot more money than we can offer, without a clear plan for how you will get it, you are unlikely to get our support.
-- You might not have secured your first customers yet if you are starting out, but you will have an idea who might pay for your product or service. 
-- If you have already started trading (selling goods or services) and are applying for our Scaling Up award, we will be looking at your potential to grow your impact alongside your revenue. 
-
-
-If you are working to achieve impact in an area listed below, we would like to hear from you if you are able to demonstrate:
-
-## Access to Employment
-You have an idea or are supporting people into employment, either through direct employment, supporting people to become more employable, or helping people who face additional barriers to remaining in employment. We are particularly interested in social ventures which are helping people to access good jobs and meaningful employment, supporting the most marginalised in the labour market. 
-
-## Healthy Ageing
-You have an idea or are reducing health inequalities for older adults in the UK, or improving the experience of later life in by providing products and services that meet the needs and aspirations of older adults. We are particularly interested in social ventures which are working with marginalised older adults. 
-
-## Movement for Change
-You have an idea or are providing opportunities for marginalised communities to access the experiences and benefits of sport and physical activity. We are particularly looking to support ventures which are looking to grow their impact and ensure they continue to reach those who face the most barriers to engaging in physical activity, particularly considering the cost of living. 
-`,
-    button: "I am suitable",
-    alt: {
-      name: "Not suitable? Check out other funding and support",
-      link: "/learn/other-funding-and-support-available-for-social-entrepreneurs/"
-    }
-  },
-      {
-    name: "Check your application process timeline",
-    slug: "check-your-application-process-timeline",
-    body: `
-Apply **before 31 March** and you should get your results by the **week commencing 24 June**.
-
-| Application submitted   | Application assessed    | Application result |
-| ------------------------ | ------------------------ | -------------------- |
-| 1 Jan 2024 - 31 Mar 2024 | 1 Apr 2024 - 30 Jun 2024 | 24 Jun 2024          |
-| 1 Apr 2024 - 30 Jun 2024 | 1 Jul 2024 - 30 Sep 2024 | 23 Sep 2024          |
-| 1 Jul 2024 - 30 Sep 2024 | 1 Oct 2024 - 31 Dec 2024 | 9 Dec 2024           |
-`,
-    button: "I understand how long it may take to get an Award",
-        alt: {
-      name: "Do you want help understanding the deadlines?",
-      link: "/enquiries/award-enquiry"
-    }
-  },
-  {
-    name: "Check your application form",
-    slug: "check-your-application-form",
-    body: `
-Before you make an account and start your application, you can review the application form to see if it is managable and something you think you can proceed with. We have 3 different application forms depending on how long social venture has been trading:
-
-### Starting Up
-
-#### Up to £8,000 | Any programme<br/>[Your social venture is not yet trading](/award/forming-i-have-an-idea)
-
-#### Up to £8,000 | Any programme<br/>[Your social venture has been trading for less than 1 year](/award/ive-been-trading-for-less-than-1-year)
-
-### Starting Up
-
-#### Up to £18,000 | Any programme<br/>[Your social venture has been trading between 1 to 4 years](/award/ive-been-trading-for-1-year-or-more)
-
----
-
-## Based in Wales?
-If you and your social venture are based in Wales and identify as a marginalised individual, we can offer 1 to 1 assistance with making an application and signposting to other funding and support.
-[Learn more about the extra support for marginlised individuals in Wales](/extra-support-for-marginalised-individuals-in-wales).
-
-`,
-    button: "I understand what the application form requires",
-    alt: {
-      name: "Do you want help reviewing the application form?",
-      link: "/enquiries/award-enquiry"
-    }
-  },
-  {
-    name: "Create your account",
-    slug: "create-an-account",
-    body: `
-Go to the [UnLtd Portal](https://unltd.microsoftcrmportals.com/applications) and click 'Sign up now' to create an account.
-![This is how you create an account](/img/signup.webp)
-`,
-    button: "I have created an account",
-    alt: {
-      name: "Do you want help creating an account?",
-      link: "/enquiries/award-enquiry"
-    }
-  },
-  {
-    name: "Create and submit your application",
-    slug: "Create and submit your application",
-    body: `
-Click 'Start a new application'.
-![This is how you create an account](/img/create.png)
-Complete each section of the form. You can save and come back to it at any time.
-![This is how you create an account](/img/steps.png)
-`,
-button: "I have submit my application",
-    alt: {
-      name: "Need help?",
-      link: "/enquiries/award-enquiry"
-    }
-
-},
-  {
-    name: "Assessment process",
-    slug: "accessment-process",
-    body: `
-## 1. Support Manager assessment
-If the application meets our eligibility and suitability criteria, our team will then review the application based on impact, inclusion and sustainability.
-
-## 2. Peer review
-If your applications shows potential it will be reviewed and discussed by our Support Managers. If we think your application has potential we will invite you to a panel stage.
-
-## 3. Panel stage
-Here you will have the opportunity to discuss your application with a panel made up of UnLtd staff and other social entrepreneurs.
-
-## 4. Result
-If you pass, we will recommend your application to the Awards Committee (a group of our trustees which also includes social entrepreneurs) who make the final decision on your application. You will be informed over email of the outcome of your application.`,
-    alt: {
-      name: "Need help?",
-      link: "/enquiries/award-enquiry"
-    }
-
-},
-];
 ---
 
 <Container light="violet-100" dark="violet-900">
@@ -211,7 +35,6 @@ Read through all of the following steps to guide you in your application.
 >
   <div class="lg:hidden">
     <label for="tabs" class="sr-only">Select a tab</label>
-    <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
     <select
     @change="activeTab = $event.target.value"
       id="tabs"
@@ -229,9 +52,6 @@ Read through all of the following steps to guide you in your application.
   </div>
   <div class="hidden lg:block">
     <nav class="flex space-x-4" aria-label="Tabs">
-      <!-- Current: "bg-violet-200 text-violet-700 hover:text-violet-100 dark:bg-violet-200 dark:text-violet-300 dark:hover:text-violet-950" -->
-
-      <!-- Default: "bg-violet-100 text-violet-500 hover:text-violet-700 dark:bg-violet-950 dark:text-violet-500 dark:hover:text-violet-300" -->
       {
         steps.map((step, i) => (
           <button id={`${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}`}
@@ -240,13 +60,13 @@ Read through all of the following steps to guide you in your application.
             class={`flex-1 flex flex-col gap-3 justify-start items-center group rounded-t-md px-3 py-5 h-28 bg-violet-100 dark:bg-violet-950 dark:hover:border-b-4 dark:hover:border-b-amber-500/20 duration-200 shadow-3xl`}
           >
             <span
-              class={`text-xs font-bold rounded-full h-4 w-4 flex justify-center items-center outline bg-violet-300 outline-violet-700 dark:outline-violet-300 text-violet-600 dark:text-violet-800`}
+              class={`text-sm font-bold rounded-full h-6 w-6 flex justify-center items-center outline bg-violet-300 outline-violet-700 dark:outline-violet-300 text-violet-600 dark:text-violet-800`}
             >
               {i + 1}
             </span>
 
             <div class="flex-auto flex flex-col items-center justify-center">
-              <span class={`text-xs font-medium text-violet-700 dark:text-violet-300`}>
+              <span class={`text-sm font-medium text-violet-700 dark:text-violet-300`}>
                 {step.name}
               </span>
             </div>
@@ -255,7 +75,6 @@ Read through all of the following steps to guide you in your application.
       }
     </nav>
   </div>
-  <!-- Tab Content -->
   {
     steps.map((step, i) => (
       <div x-show={`activeTab === 'tab${i}'`} class={`bg-violet-100 dark:bg-violet-950 rounded-b-md border-2 border-violet-300 dark:border-violet-700 shadow-sm`} x-cloak>
