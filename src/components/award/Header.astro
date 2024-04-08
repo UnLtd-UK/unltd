@@ -22,67 +22,55 @@ import Container from "../Container.astro";
         class="text-lg max-w-xl text-center leading-8 text-violet-800 dark:text-violet-200"
       >
         You have an idea or are already making a difference and are looking for
-        support to develop your social venture
+        support to develop your social venture We combine funding and support to
+        help you get started or grow
       </p>
     </div>
-    <div class="aspect-video mt-6 w-full h-full">
-      <iframe
-        src="https://player.vimeo.com/video/548879391?badge=0&autopause=0&player_id=0&app_id=58479"
-        allow="autoplay; fullscreen; picture-in-picture"
-        title="Introduction to Award"
-        class="w-full h-full rounded-xl shadow-xl mb-3"
-      >
-      </iframe>
-      <a
-        class="text-xs text-violet-100 hover:text-violet-50 font-bold underline underline-offset-4 decoration-amber-500 decoration-1 hover:decoration-2"
-        href="#">Sign language version available</a
-      >
-    </div>
-    <!-- <div class="flex-1">
+    <div class="flex flex-col gap-10 lg:flex-row">
+      <div class="aspect-video mt-6 w-full h-full basis-3/4">
+        <iframe
+          src="https://player.vimeo.com/video/548879391?badge=0&autopause=0&player_id=0&app_id=58479"
+          allow="autoplay; fullscreen; picture-in-picture"
+          title="Introduction to Award"
+          class="w-full h-full rounded-xl shadow-xl mb-3"
+        >
+        </iframe>
+        <a
+          class="text-xs text-violet-100 hover:text-violet-50 font-bold underline underline-offset-4 decoration-amber-500 decoration-1 hover:decoration-2"
+          href="#">British Sign Language (BSL) version available</a
+        >
+      </div>
+      <div class="flex flex-col gap-4 basis-1/4">
+        <h2
+          id="definitions"
+          class="text-base font-semibold leading-7 text-amber-500 dark:text-amber-500"
+        >
+          Definitions
+        </h2>
+        <div class="flex flex-col gap-6">
           <div class="">
-            <dt class="inline font-semibold text-white">
-              <svg
-                class="absolute left-1 top-1 h-5 w-5 text-indigo-500"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M5.5 17a4.5 4.5 0 01-1.44-8.765 4.5 4.5 0 018.302-3.046 3.5 3.5 0 014.504 4.272A4 4 0 0115 17H5.5zm3.75-2.75a.75.75 0 001.5 0V9.66l1.95 2.1a.75.75 0 101.1-1.02l-3.25-3.5a.75.75 0 00-1.1 0l-3.25 3.5a.75.75 0 101.1 1.02l1.95-2.1v4.59z"
-                  clip-rule="evenodd"></path>
-              </svg>
+            <dt class="inline font-semibold text-violet-100">
+              <i class="fa-solid fa-person h-5 w-5 text-violet-100"></i>
               Social entrepreneur
             </dt>
-            <dd class="inline">
-              is the name we give to people who have started, or looking to
-              start, a social venture, someone who is driven by their passion to
-              make a difference.
+            <dd class="inline text-sm leading-7 text-violet-300">
+              is someone who will tackle a social issue within a community. They
+              are enthusiatic about creating change in the world and often have
+              experiences of the issue they are tying to tackle.
             </dd>
           </div>
           <div class="">
-            <dt class="inline font-semibold text-white">
-              <svg
-                class="absolute left-1 top-1 h-5 w-5 text-indigo-500"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fill-rule="evenodd"
-                  d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
-                  clip-rule="evenodd"></path>
-              </svg>
+            <dt class="inline font-semibold text-violet-100">
+              <i class="fa-solid fa-store h-5 w-5 text-violet-100"></i>
               Social venture
             </dt>
-            <dd class="inline">
-              is an organisation whose purpose is to create impact but has a
-              financially sustainable business model to continue to make a
-              difference. It sits in between a commercial business and a
-              charity, often described as profit for purpose.
+            <dd class="inline text-sm leading-7 text-violet-300">
+              is a business with a social mission at its heart, often described
+              as a profit for purpose business.
             </dd>
           </div>
         </div>
-      </div> -->
+      </div>
+    </div>
   </div>
 </Container>
