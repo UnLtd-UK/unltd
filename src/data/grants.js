@@ -1,6 +1,7 @@
 import { getCollection } from './load.js';
 
 const collection = "grants";
+const name = "grants";
 
 const filterOptions = {
     sort: ['sort'],
@@ -13,6 +14,6 @@ const filterOptions = {
 
 const attach = false;
 
-const grants = await getCollection(collection, filterOptions, attach);
+const grants = await getCollection(collection, name, filterOptions, attach);
 
 export { grants }

@@ -1,6 +1,7 @@
 import { getCollection } from './load.js';
 
 const collection = "services";
+const name = "services";
 
 const filterOptions = {
     filter: {
@@ -13,6 +14,6 @@ const filterOptions = {
 
 const attach = false;
 
-const services = await getCollection(collection, filterOptions, attach);
+const services = await getCollection(collection, name, filterOptions, attach);
 
 export { services }
