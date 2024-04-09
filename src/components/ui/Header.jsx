@@ -6,26 +6,26 @@ import Logo from "../Logo.jsx";
 import PopoverComponent from './Popover';
 // import DisclosureComponent from './Disclosure';
 
-import { learns } from "../../data/learns.js";
+// import { learns } from "../../data/learns.js";
 
-const learnItems = learns.map(learn => ({
-  name: learn.name,
-  description: learn.description,
-  href: `/learn/${slugify(learn.name, {
-    lower: true,
-    strict: true,
-    locale: "en",
-    trim: true,
-  })}`,
-  icon: "fa-regular fa-file-lines"
-}));
+// const learnItems = learns.map(learn => ({
+//   name: learn.name,
+//   description: learn.description,
+//   href: `/learn/${slugify(learn.name, {
+//     lower: true,
+//     strict: true,
+//     locale: "en",
+//     trim: true,
+//   })}`,
+//   icon: "fa-regular fa-file-lines"
+// }));
 
-const learn = {
-  name: 'Learn',
-  items: learnItems,
-  actions: [
-  ]
-};
+// const learn = {
+//   name: 'Learn',
+//   items: learnItems,
+//   actions: [
+//   ]
+// };
 
 const funding = {
   name: 'Our funding',
@@ -72,8 +72,6 @@ const join = {
       }
     ],
   actions: [
-    { name: 'Become an employee', href: 'https://www.jobtrain.co.uk/unltd-careers', icon: "fa-solid fa-briefcase" },
-    { name: 'Become a trustee', href: 'https://unltd-trustees.co.uk', icon: "fa-solid fa-user-shield" },
   ]
 };
 
@@ -140,7 +138,7 @@ export default function Header() {
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
 
-          <PopoverComponent thing={learn} />
+          {/* <PopoverComponent thing={learn} /> */}
 
           <PopoverComponent thing={funding} />
 

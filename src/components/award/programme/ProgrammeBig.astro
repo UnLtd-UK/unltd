@@ -30,7 +30,7 @@ const {
 ---
 
 <div
-  class={`grid grid-flow-col rounded-2xl shadow-md border ${programmeColours.border1[colour]} ${programmeColours.divide[colour]}`}
+  class={`grid grid-flow-col shadow-md rounded-2xl border-2 ${programmeColours.divide[colour]} ${programmeColours.bg2[colour]} ${programmeColours.border1[colour]}`}
 >
   <div
     class="row-span-3 rounded-l-2xl relative isolate flex flex-col justify-end overflow-hidden px-10 py-10"
@@ -59,20 +59,17 @@ const {
             <div
               class={`flex items-center justify-center h-16 w-16 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
             >
-              <i class={`${icon} text-3xl ${programmeColours.text1[colour]}`} />
+              <i class={`${icon} text-3xl ${programmeColours.text2[colour]}`} />
             </div>
           )
         }
       </span>
       <div class="flex flex-col gap-1">
         <h3
-          class={`text-base font-bold leading-6 ${programmeColours.text1[colour]}`}
+          class={`text-lg font-bold leading-6 ${programmeColours.text1[colour]}`}
         >
           {name}
         </h3>
-        <p class={`text-sm font-semibold ${programmeColours.text2[colour]}`}>
-          {slogan}
-        </p>
         <p class={`text-sm  ${programmeColours.text2[colour]}`}>
           {description}
         </p>
@@ -88,10 +85,10 @@ const {
         <div class="relative pl-16 basis-1/4">
           <dt class="text-base font-semibold leading-7">
             <div
-              class={`absolute left-0 top-0 flex items-center justify-center rounded-full`}
+              class={`absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full shadow-lg border ${programmeColours.bg1[colour]} ${programmeColours.border2[colour]}`}
             >
               <i
-                class={`${service.services_id.icon} text-md shadow-3xl h-10 w-10 ${programmeColours.text2[colour]}`}
+                class={`${service.services_id.icon} text-md shadow-3xl ${programmeColours.text2[colour]}`}
               />
             </div>
             <span class={`text-base ${programmeColours.text1[colour]}`}>
@@ -104,7 +101,11 @@ const {
                     width="32"
                     height="32"
                     class={`inline-block h-8 w-8 rounded-full border-2 ${programmeColours.border1[colour]}`}
-                    src={`https://unltd.directus.app/assets/${employee.person.image}?height=64`}
+                    src={
+                      employee.person.image !== null
+                        ? `https://unltd.directus.app/assets/${employee.person.image}?height=64`
+                        : `https://source.boringavatars.com/beam/128/${encodeURI(employee.person.name)}?colors=f59e0b,8b5cf6`
+                    }
                     alt={`${employee.person.name}`}
                   />
                 ))}
@@ -134,7 +135,7 @@ const {
         <p
           class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
         >
-          <i class={`fa-solid fa-spinner `}></i>
+          <i class={`fa-light fa-spinner `}></i>
           <span class={`text-xs `}> Age </span>
         </p>
         <p
@@ -147,7 +148,7 @@ const {
         <p
           class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
         >
-          <i class={`fa-solid fa-location-pin `}></i>
+          <i class={`fa-light fa-location-dot `}></i>
           <span class={`text-xs `}> Geography </span>
         </p>
         <p
@@ -160,7 +161,7 @@ const {
         <p
           class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
         >
-          <i class={`fa-solid fa-vector-square `}></i>
+          <i class={`fa-light fa-vector-square `}></i>
           <span class={`text-xs `}> Sectors </span>
         </p>
         <p

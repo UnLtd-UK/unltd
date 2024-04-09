@@ -1,16 +1,19 @@
-import { createDirectus, rest, readItems } from '@directus/sdk';
+import { getCollection } from './load.js';
 
-const client = createDirectus('https://unltd.directus.app').with(rest());
+const collection = "learn";
+const name = "learn";
 
-const learns = await client.request(
-    readItems('learn', {
-        filter: {
-            status: {
-                _eq: 'published'
-            }
-        },
-        fields: ['*'],
-    })
-);
+const filterOptions = {
+    sort: ['sort'],
+    filter: {
+        status: {
+            _eq: 'published'
+        }
+    }
+}
+
+const attach = false;
+
+const learns = await getCollection(collection, name, filterOptions, attach);
 
 export { learns }
