@@ -1,5 +1,4 @@
 ---
-import Card from "./cards/Card.astro";
 import Badge from "./cards/Badge.astro";
 
 import { programmeColours } from "../../data/programmeColours.js";
@@ -17,7 +16,7 @@ const {
 ---
 
 <div
-  class={`flex-1 grow divide-y rounded-2xl shadow-md border-2 ${programmeColours.divide["violet"]} ${programmeColours.border1["violet"]} `}
+  class={`flex flex-col flex-1 grow divide-y rounded-2xl shadow-md border-2 ${programmeColours.divide["violet"]} ${programmeColours.border1["violet"]} `}
 >
   <div class="bg-violet-50 dark:bg-violet-950 rounded-t-2xl px-8 py-6">
     <h2 class="text-2xl font-semibold text-violet-900 dark:text-violet-100">
@@ -25,7 +24,7 @@ const {
     </h2>
   </div>
 
-  <div class="flex flex-col gap-4 p-8 bg-violet-50 dark:bg-violet-950">
+  <div class="flex grow flex-col gap-4 p-8 bg-violet-50 dark:bg-violet-950">
     <div class="flex gap-10">
       <div class="flex flex-1 flex-col gap-4">
         <p class="flex flex-col items-baseline gap-x-1">
@@ -51,7 +50,7 @@ const {
         </p>
         <div class="flex flex-col gap-3">
           <p class={`truncate text-xs font-medium flex gap-2 items-center`}>
-            <i class={`fa-solid fa-check text-violet-500 dark:text-violet-200`}
+            <i class={`fa-light fa-check text-violet-500 dark:text-violet-200`}
             ></i>
             <span class={`text-violet-600 dark:text-violet-200`}>
               {feature_1}
@@ -61,7 +60,7 @@ const {
             feature_2 && (
               <p class={`truncate text-xs font-medium flex gap-2 items-center`}>
                 <i
-                  class={`fa-solid fa-check text-violet-500 dark:text-violet-200`}
+                  class={`fa-light fa-check text-violet-500 dark:text-violet-200`}
                 />
                 <span class={`text-violet-600 dark:text-violet-200`}>
                   {feature_2}
@@ -104,7 +103,7 @@ const {
     <ul class="flex flex-row gap-10">
       <li class="flex flex-col gap-1">
         <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-          <i class={`fa-solid fa-pen-nib text-violet-600 dark:text-violet-300`}
+          <i class={`fa-light fa-pen-nib text-violet-600 dark:text-violet-300`}
           ></i>
           <span class={`text-xs text-violet-600 dark:text-violet-300`}>
             Incorporated
@@ -119,7 +118,7 @@ const {
       <li class="flex flex-col gap-1">
         <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
           <i
-            class={`fa-solid fa-bag-shopping text-violet-600 dark:text-violet-300`}
+            class={`fa-light fa-bag-shopping text-violet-600 dark:text-violet-300`}
           ></i>
           <span class={`text-xs text-violet-600 dark:text-violet-300`}>
             Selling goods and services
