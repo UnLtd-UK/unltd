@@ -4,7 +4,6 @@ import slugify from "slugify";
 import { programmes } from "../../data/programmes.js";
 
 import Container from "../../components/Container.astro";
-import List from "./cards/List.astro";
 import ProgrammeBig from "./programme/ProgrammeBig.astro";
 import ProgrammeSmall from "./programme/ProgrammeSmall.astro";
 ---
@@ -65,7 +64,7 @@ import ProgrammeSmall from "./programme/ProgrammeSmall.astro";
           unique needs of you and social venture.
         </p>
       </div>
-      <List>
+      <ul role="list" class="flex flex-col lg:flex-row gap-6">
         {
           programmes.filter(programme => programme.name !== "Core").map((programme, i) => (
             <ProgrammeSmall
@@ -94,7 +93,7 @@ import ProgrammeSmall from "./programme/ProgrammeSmall.astro";
             />
           ))
         }
-      </List>
+      </ul>
     </div>
   </div>
 </Container>
