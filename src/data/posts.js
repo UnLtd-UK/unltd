@@ -1,6 +1,7 @@
 import { getCollection } from './load.js';
 
 const collection = "posts";
+const name = "posts";
 
 const filterOptions = {
     sort: ['sort', '-date_time'],
@@ -13,6 +14,6 @@ const filterOptions = {
 
 const attach = false;
 
-const posts = await getCollection(collection, filterOptions, attach);
+const posts = await getCollection(collection, name, filterOptions, attach);
 
 export { posts }

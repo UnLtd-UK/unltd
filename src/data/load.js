@@ -1,7 +1,7 @@
 import fs from 'fs/promises';
 import { createDirectus, rest, readItems } from '@directus/sdk';
 
-async function fetchData(collection, collectionUrl, filterOptions, attach) {
+async function fetchData(collection, name, collectionUrl, filterOptions, attach) {
     try {
 
         const client = createDirectus('https://unltd.directus.app').with(rest());
@@ -26,17 +26,17 @@ async function fetchData(collection, collectionUrl, filterOptions, attach) {
         // Write the file
         await fs.writeFile(collectionUrl, JSON.stringify(response));
 
-        console.log("Wrote cache: ", `${collection}.js`)
+        console.log("Wrote cache: ", `${name}.json`)
 
         return response;
     } catch (error) {
-        console.error('Error getting collection:', error);
+        console.error(`Error getting ${name} collection:`, error);
     }
 }
 
-async function load(collection, filterOptions, attach) {
+async function load(collection, name, filterOptions, attach) {
 
-    const collectionUrl = `./src/data/cache/${collection}.json`;
+    const collectionUrl = `./src/data/cache/${name}.json`;
 
     // Check if the JSON file exists
     try {
@@ -44,19 +44,19 @@ async function load(collection, filterOptions, attach) {
 
         const data = await fs.readFile(collectionUrl, 'utf8');
 
-        console.log("Read cache: ", `${collection}.js`)
+        console.log("Read cache: ", `${name}.json`)
         return JSON.parse(data);
 
     } catch (error) {
         if (error.code === 'ENOENT') {
             // If the file does not exist, fetch data from the API
-            return fetchData(collection, collectionUrl, filterOptions, attach);
+            return fetchData(collection, name, collectionUrl, filterOptions, attach);
         }
 
         console.error('Error:', error);
     }
 }
 
-export async function getCollection(collection, filterOptions, attach) {
-    return await load(collection, filterOptions, attach);
+export async function getCollection(collection, name, filterOptions, attach) {
+    return await load(collection, name, filterOptions, attach);
 }
