@@ -1,5 +1,4 @@
 ---
-import Card from "../cards/Card.astro";
 import Badge from "../cards/Badge.astro";
 import { programmeColours } from "../../../data/programmeColours.js";
 
@@ -29,13 +28,11 @@ const {
 } = Astro.props;
 ---
 
-<Card
-  url={slug && `/award/${slug}`}
-  border={programmeColours.border1[colour]}
-  divide={programmeColours.divide[colour]}
+<div
+  class={`flex flex-col col-span-1 divide-y shadow-md rounded-2xl border-2 ${programmeColours.divide[colour]} ${programmeColours.bg2[colour]} ${programmeColours.border1[colour]} ${typeof slug === "string" && slug.length > 0 && `hover:shadow-xl transition ease-in-out delay-150  hover:-translate-y-2 duration-300`}`}
 >
   <article
-    class="relative isolate flex flex-col justify-end overflow-hidden rounded-t-2xl px-8 pb-8 pt-80 sm:pt-48 lg:pt-40"
+    class={`grow relative isolate flex flex-col justify-end overflow-hidden rounded-t-2xl px-8 pb-8 pt-80 sm:pt-48 lg:pt-40`}
   >
     <img
       src={isValidUrl(image)
@@ -73,10 +70,10 @@ const {
       <div>
         <p class={`truncate text-xs font-medium flex gap-2 items-center`}>
           <i
-            class={`fa-solid fa-universal-access ${programmeColours.text2[colour]}`}
+            class={`fa-duotone fa-universal-access ${programmeColours.text2[colour]}`}
           ></i>
           <span class={`${programmeColours.text1[colour]}`}
-            >Everything in <Badge
+            >All services in <Badge
               name="Core"
               colour={programmeColours.badge["amber"]}
               icon="fa-solid fa-universal-access"
@@ -113,7 +110,7 @@ const {
       <ul class="flex flex-col gap-4">
         <li class="flex flex-col gap-1">
           <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-            <i class={`fa-solid fa-spinner ${programmeColours.text2[colour]}`}
+            <i class={`fa-light fa-spinner ${programmeColours.text2[colour]}`}
             ></i>
             <span class={`${programmeColours.text2[colour]}`}> Age </span>
           </p>
@@ -126,7 +123,7 @@ const {
         <li class="flex flex-col gap-1">
           <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
             <i
-              class={`fa-solid fa-location-dot ${programmeColours.text2[colour]}`}
+              class={`fa-light fa-location-dot ${programmeColours.text2[colour]}`}
             ></i>
             <span class={`${programmeColours.text2[colour]}`}> Geography </span>
           </p>
@@ -139,7 +136,7 @@ const {
         <li class="flex flex-col gap-1">
           <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
             <i
-              class={`fa-solid fa-vector-square ${programmeColours.text2[colour]}`}
+              class={`fa-light fa-vector-square ${programmeColours.text2[colour]}`}
             ></i>
             <span class={`${programmeColours.text2[colour]}`}> Sectors </span>
           </p>
@@ -178,4 +175,4 @@ const {
       </ul>
     </div> -->
   </div>
-</Card>
+</div>
