@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { sesm } from "../../../data/sesm.js";
+import Icon from "../cards/Icon.astro";
 import { programmeColours } from "../../../data/programmeColours.js";
 
 function isValidUrl(string) {
@@ -58,13 +59,12 @@ const {
                   alt=""
                 />
               ) : (
-                <div
-                  class={`flex items-center justify-center h-28 w-28 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
-                >
-                  <i
-                    class={`${icon} text-6xl ${programmeColours.text2[colour]}`}
-                  />
-                </div>
+                <Icon
+                  icon={icon}
+                  textColour={programmeColours.text2[colour]}
+                  bgColour={programmeColours.bg1[colour]}
+                  borderColour={programmeColours.border1[colour]}
+                />
               )
             }
           </span>
