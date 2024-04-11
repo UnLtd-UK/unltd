@@ -43,7 +43,7 @@ const {
       class="absolute inset-0 -z-10 h-full w-full object-cover"
     />
     <div
-      class={`absolute inset-0 -z-10 opacity-70 ${programmeColours.bg1[colour]}`}
+      class={`absolute inset-0 -z-10 opacity-80 ${programmeColours.bg1[colour]}`}
     >
     </div>
     <div class="flex flex-col gap-3">
@@ -57,28 +57,43 @@ const {
             />
           ) : (
             <div
-              class={`flex items-center justify-center h-16 w-16 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
+              class={`flex items-center justify-center h-28 w-28 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
             >
-              <i class={`${icon} text-3xl ${programmeColours.text2[colour]}`} />
+              <i class={`${icon} text-6xl ${programmeColours.text2[colour]}`} />
             </div>
           )
         }
       </span>
       <div class="flex flex-col gap-1">
         <h3
-          class={`text-base font-bold leading-6 ${programmeColours.text1[colour]}`}
+          class={`text-lg font-bold leading-6 ${programmeColours.text1[colour]}`}
         >
           {name}
         </h3>
-        <p class={`text-sm  ${programmeColours.text2[colour]}`}>
+        <p class={`text-sm ${programmeColours.text2[colour]}`}>
           {description}
         </p>
+        <p class={`text-sm ${programmeColours.text2[colour]}`}>
+          {description}
+        </p>
+        <p class={`text-sm ${programmeColours.text2[colour]}`}>
+          {description}
+        </p>
+      </div>
+      <div>
+        <h2
+          class={`text-sm font-semibold leading-8 text-gray-900 ${programmeColours.text2[colour]}`}
+        >
+          Partners and Funders:
+        </h2>
+        <img class="h-12" src={`/svg/dark/mat.svg`} alt="MAT" />
       </div>
     </div>
   </div>
 
   <div
     class={`col-span-2 rounded-tr-2xl grid grid-cols-2 grid-rows-2 gap-4 p-16 ${programmeColours.bg1[colour]}`}
+    style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22 viewBox=%220 0 4 4%22%3E%3Cpath fill=%22%23ffffff%22 fill-opacity=%220.08%22 d=%22M1 3h1v1H1V3zm2-2h1v1H3V1z%22%3E%3C/path%3E%3C/svg%3E');"
   >
     {
       services.map((service) => (
@@ -135,7 +150,7 @@ const {
         <p
           class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
         >
-          <i class={`fa-light fa-spinner `}></i>
+          <i class={`fa-thin fa-spinner `}></i>
           <span class={`text-xs `}> Age </span>
         </p>
         <p
@@ -148,7 +163,7 @@ const {
         <p
           class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
         >
-          <i class={`fa-light fa-location-dot `}></i>
+          <i class={`fa-thin fa-location-dot `}></i>
           <span class={`text-xs `}> Geography </span>
         </p>
         <p
@@ -161,7 +176,7 @@ const {
         <p
           class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
         >
-          <i class={`fa-light fa-vector-square `}></i>
+          <i class={`fa-thin fa-vector-square `}></i>
           <span class={`text-xs `}> Sectors </span>
         </p>
         <p
