@@ -1,6 +1,5 @@
 ---
 import Badge from "../cards/Badge.astro";
-import Wrapper from "../cards/Wrapper.astro";
 import { programmeColours } from "../../../data/programmeColours.js";
 
 function isValidUrl(string) {
@@ -29,136 +28,126 @@ const {
 } = Astro.props;
 ---
 
-<div class="flex-1">
-  <Wrapper url={slug && `/award/${slug}`}>
+<a
+  href={`/award/${slug}`}
+  class={`flex-1 flex flex-col divide-y shadow-md hover:shadow-xl rounded-2xl border-2 transition ease-in-out delay-150 hover:-translate-y-2 duration-300 ${programmeColours.divide[colour]} ${programmeColours.bg2[colour]} ${programmeColours.border1[colour]}`}
+>
+  <article
+    class={`relative isolate flex flex-col justify-end overflow-hidden rounded-t-2xl px-8 pb-8 pt-80 sm:pt-48 lg:pt-40`}
+  >
+    <img
+      src={isValidUrl(image)
+        ? image
+        : `https://unltd.directus.app/assets/${image}?width=600`}
+      alt=""
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+    />
     <div
-      class={`flex flex-col col-span-1 divide-y shadow-md rounded-2xl border-2 ${programmeColours.divide[colour]} ${programmeColours.bg2[colour]} ${programmeColours.border1[colour]} ${typeof slug === "string" && slug.length > 0 && `hover:shadow-xl transition ease-in-out delay-150  hover:-translate-y-2 duration-300`}`}
+      class={`absolute inset-0 -z-10 rounded-t-2xl opacity-70 ${programmeColours.bg1[colour]}`}
     >
-      <article
-        class={`grow relative isolate flex flex-col justify-end overflow-hidden rounded-t-2xl px-8 pb-8 pt-80 sm:pt-48 lg:pt-40`}
-      >
-        <img
-          src={isValidUrl(image)
-            ? image
-            : `https://unltd.directus.app/assets/${image}?width=600`}
-          alt=""
-          class="absolute inset-0 -z-10 h-full w-full object-cover"
-        />
+    </div>
+    <div class="flex flex-col gap-3">
+      <span class="relative inline-block">
         <div
-          class={`absolute inset-0 -z-10 rounded-t-2xl opacity-70 ${programmeColours.bg1[colour]}`}
+          class={`flex items-center justify-center h-16 w-16 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
         >
+          <i class={`${icon} text-3xl ${programmeColours.text2[colour]}`}></i>
         </div>
-        <div class="flex flex-col gap-3">
-          <span class="relative inline-block">
-            <div
-              class={`flex items-center justify-center h-16 w-16 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
-            >
-              <i class={`${icon} text-3xl ${programmeColours.text2[colour]}`}
-              ></i>
-            </div>
-          </span>
-          <div class="flex flex-col gap-1">
-            <h3
-              class={`text-base font-bold leading-6 ${programmeColours.text1[colour]}`}
-            >
-              {name}
-            </h3>
-            <!-- <p class={`text-xs font-semibold ${programmeColours.text2[colour]}`}>
+      </span>
+      <div class="flex flex-col gap-1">
+        <h3
+          class={`text-sm font-bold leading-6 ${programmeColours.text1[colour]}`}
+        >
+          {name}
+        </h3>
+        <!-- <p class={`text-xs font-semibold ${programmeColours.text2[colour]}`}>
           {description}
         </p> -->
-          </div>
-        </div>
-      </article>
-      <div class={`p-8 flex flex-col gap-6 ${programmeColours.bg1[colour]}`}>
-        <div class="flex flex-col gap-2">
-          <div>
-            <p class={`flex gap-2 items-center`}>
-              <i
-                class={`fa-duotone fa-universal-access text-sm ${programmeColours.text2[colour]}`}
-              ></i>
-              <span
-                class={`text-xs font-medium ${programmeColours.text1[colour]}`}
-                >All services in <Badge
-                  name="Core"
-                  colour={programmeColours.badge["amber"]}
-                  icon="fa-solid fa-universal-access"
-                /></span
-              >
-            </p>
-          </div>
-          {
-            services.map((service) => (
-              <div>
-                <p class={`truncate flex gap-2 items-center`}>
-                  <i
-                    class={`text-sm ${service.services_id.icon} ${programmeColours.text2[colour]}`}
-                  />
-                  <span
-                    class={`text-xs font-medium ${programmeColours.text1[colour]}`}
-                  >
-                    {service.services_id.name}
-                  </span>
-                </p>
-              </div>
-            ))
-          }
-        </div>
-      </div>
-
-      <div
-        class={`flex flex-col gap-6  rounded-b-2xl p-8 ${programmeColours.bg2[colour]}`}
-      >
-        <div class="flex flex-col gap-3">
-          <p class={`text-xs font-semibold ${programmeColours.text1[colour]}`}>
-            Social entrepreneur eligibility:
-          </p>
-          <ul class="flex flex-col gap-4">
-            <li class="flex flex-col gap-1">
-              <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-                <i
-                  class={`fa-light fa-spinner ${programmeColours.text2[colour]}`}
-                ></i>
-                <span class={`${programmeColours.text2[colour]}`}> Age </span>
-              </p>
-              <p
-                class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
-              >
-                {age}
-              </p>
-            </li>
-            <li class="flex flex-col gap-1">
-              <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-                <i
-                  class={`fa-light fa-location-dot ${programmeColours.text2[colour]}`}
-                ></i>
-                <span class={`${programmeColours.text2[colour]}`}>
-                  Geography
-                </span>
-              </p>
-              <p
-                class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
-              >
-                {geography}
-              </p>
-            </li>
-            <li class="flex flex-col gap-1">
-              <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-                <i
-                  class={`fa-light fa-vector-square ${programmeColours.text2[colour]}`}
-                ></i>
-                <span class={`${programmeColours.text2[colour]}`}>
-                  Sectors
-                </span>
-              </p>
-              <p
-                class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
-              >
-                {sectors}
-              </p>
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
-  </Wrapper>
-</div>
+  </article>
+  <div class={`p-8 flex flex-col gap-6 ${programmeColours.bg1[colour]}`}>
+    <div class="flex flex-col gap-2">
+      <div>
+        <p class={`flex gap-2 items-center`}>
+          <i
+            class={`fa-duotone fa-universal-access text-sm ${programmeColours.text2[colour]}`}
+          ></i>
+          <span class={`text-xs font-medium ${programmeColours.text1[colour]}`}
+            >Everything in <Badge
+              name="MAT"
+              colour={programmeColours.badge["amber"]}
+              icon="fa-solid fa-universal-access"
+            /></span
+          >
+        </p>
+      </div>
+      {
+        services.map((service) => (
+          <div>
+            <p class={`truncate flex gap-2 items-center`}>
+              <i
+                class={`text-sm ${service.services_id.icon} ${programmeColours.text2[colour]}`}
+              />
+              <span
+                class={`text-xs font-medium ${programmeColours.text1[colour]}`}
+              >
+                {service.services_id.name}
+              </span>
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+
+  <div
+    class={`flex flex-col gap-6  rounded-b-2xl p-8 ${programmeColours.bg2[colour]}`}
+  >
+    <div class="flex flex-col gap-3">
+      <p class={`text-xs font-semibold ${programmeColours.text1[colour]}`}>
+        Social entrepreneur eligibility:
+      </p>
+      <ul class="flex flex-col gap-4">
+        <li class="flex flex-col gap-1">
+          <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
+            <i class={`fa-light fa-spinner ${programmeColours.text2[colour]}`}
+            ></i>
+            <span class={`${programmeColours.text2[colour]}`}> Age </span>
+          </p>
+          <p
+            class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+          >
+            {age}
+          </p>
+        </li>
+        <li class="flex flex-col gap-1">
+          <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
+            <i
+              class={`fa-light fa-location-dot ${programmeColours.text2[colour]}`}
+            ></i>
+            <span class={`${programmeColours.text2[colour]}`}> Geography </span>
+          </p>
+          <p
+            class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+          >
+            {geography}
+          </p>
+        </li>
+        <li class="flex flex-col gap-1">
+          <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
+            <i
+              class={`fa-light fa-vector-square ${programmeColours.text2[colour]}`}
+            ></i>
+            <span class={`${programmeColours.text2[colour]}`}> Sectors </span>
+          </p>
+          <p
+            class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
+          >
+            {sectors}
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</a>
