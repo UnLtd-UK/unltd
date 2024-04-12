@@ -59,12 +59,11 @@ const {
                   alt=""
                 />
               ) : (
-                <Icon
-                  icon={icon}
-                  textColour={programmeColours.text2[colour]}
-                  bgColour={programmeColours.bg1[colour]}
-                  borderColour={programmeColours.border1[colour]}
-                />
+                <div
+                  class={`flex items-center justify-center h-24 w-24 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
+                >
+                  <img class="h-12" src="/svg/unltd.svg" alt="" />
+                </div>
               )
             }
           </span>
