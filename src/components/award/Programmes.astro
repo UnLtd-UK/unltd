@@ -25,9 +25,7 @@ import ProgrammeSmall from "./programme/ProgrammeSmall.astro";
       <p
         class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
       >
-        As an Award Winner you will have access to the advice, guidance and
-        expertise needed to build on the foundations of your social venture and
-        grow your impact.
+As an Award Winner you will have access to the advice, guidance and expertise needed to build on the foundations of your social venture and grow your impact.
       </p>
     </div>
 
@@ -57,16 +55,13 @@ import ProgrammeSmall from "./programme/ProgrammeSmall.astro";
         <p
           class="mx-auto mb-14 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
         >
-          Considering your age, geographic location, and the sectors in which
-          you and your social venture operate, you will be assigned to one of
-          our tailored programs for a duration of one year. These programs are
-          designed to provide specialised support that aligns precisely with the
-          unique needs of you and social venture.
+          Considering your age, location, and the sectors in which you and your social venture operate, you will be assigned to one of our tailored programmes for support for up to a year. Our programmes are designed to provide specialised support that align with the needs of you and your social venture.
         </p>
       </div>
-      <ul role="list" class="flex flex-col lg:flex-row gap-6">
+      <!-- <div role="list" class="flex flex-col lg:flex-row gap-6"> -->
+<div class="grid grid-cols-4 gap-4  ">
         {
-          programmes.filter(programme => programme.name !== "Core").map((programme, i) => (
+          programmes.filter(programme => programme.name !== "Millennium Awards Trust (MAT)").map((programme, i) => (
             <ProgrammeSmall
               key={i}
               image={
@@ -93,7 +88,7 @@ import ProgrammeSmall from "./programme/ProgrammeSmall.astro";
             />
           ))
         }
-      </ul>
+      </div>
     </div>
   </div>
 </Container>
