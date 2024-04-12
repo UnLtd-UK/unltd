@@ -79,12 +79,14 @@ const {
             class={`fa-light fa-heart text-sm ${programmeColours.text2[colour]}`}
           ></i>
           <span class={`text-sm font-medium ${programmeColours.text1[colour]}`}
-            >Everything in <Badge
-              name="MAT"
-              colour={programmeColours.badge["amber"]}
-              icon="fa-duotone fa-universal-access"
-            /></span
-          >
+            >Everything in
+            <span
+              class={`inline-flex gap-1 justify-center items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${programmeColours.badge["amber"]}`}
+            >
+              <img class="h-3" src="/svg/unltd.svg" alt="" />
+              <span>MAT</span>
+            </span>
+          </span>
         </p>
       </div>
       {
