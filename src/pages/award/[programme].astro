@@ -3,6 +3,9 @@ import Template from "../../layouts/Template.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import Container from "../../components/Container.astro";
 import Dialog from "../../components/ui/Dialog.jsx";
+import { programmeColours } from "../../data/programmeColours.js";
+import Icon from "../../components/award/cards/Icon.astro";
+import Partners from "../../components/award/programme/Partners.astro"
 
 import { programmes } from "../../data/programmes.js";
 
@@ -12,42 +15,6 @@ import { marked } from "marked";
 import slugify from "slugify";
 
 let todayDate = moment();
-
-const textVariants = {
-  amber: 'text-amber-200 dark:bg-amber-200',
-  blue: 'text-blue-200 dark:text-blue-200',
-  teal: 'text-teal-200 dark:text-teal-200',
-  purple: "text-purple-200 dark:text-purple-200",
-  red: "text-red-200 dark:text-red-200",
-  stone: "text-stone-200 dark:text-stone-200",
-}
-
-const bgVariants = {
-  amber: 'bg-amber-600 dark:bg-amber-600',
-  blue: 'bg-blue-600 dark:bg-blue-600',
-  teal: 'bg-teal-600 dark:bg-teal-600',
-  purple: "bg-purple-600 dark:bg-purple-600",
-  red: "bg-red-600 dark:bg-red-600",
-  stone: "bg-stone-600 dark:bg-stone-600",
-}
-
-const fromToVariants = {
-  amber: 'from-amber-700 to-amber-900 dark:from-amber-700 dark:to-amber-900',
-  blue: 'from-blue-700 to-blue-900 dark:from-blue-700 dark:to-blue-900',
-  teal: 'from-teal-700 to-teal-900 dark:from-teal-700 dark:to-teal-900',
-  purple: "from-purple-700 to-purple-900 dark:from-purple-700 dark:to-purple-900",
-  red: "from-red-700 to-red-900 dark:from-red-700 dark:to-red-900",
-  stone: "from-stone-700 to-stone-900 dark:from-stone-700 dark:to-stone-900",
-}
-
-const skin = {
-  amber: "text-amber-600 dark:text-amber-100 bg-amber-100 dark:bg-amber-600",
-  blue: "text-blue-600 dark:text-blue-100 bg-blue-100 dark:bg-blue-600",
-  teal: "text-teal-600 dark:text-teal-100 bg-teal-100 dark:bg-teal-600",
-  purple: "text-purple-600 dark:text-purple-100 bg-purple-100 dark:bg-purple-600",
-  red: "text-red-600 dark:text-red-100 bg-red-100 dark:bg-red-600",
-  stone: "text-stone-600 dark:text-stone-100 bg-stone-100 dark:bg-stone-600",
-};
 
 export async function getStaticPaths() {
 
@@ -62,7 +29,7 @@ let slug = slugify(programme.name, {
 
     let breadcrumbs = [
       {
-        name: "Award",
+        name: "Awards",
         slug: "/award",
       },
       {
@@ -94,7 +61,7 @@ const { programme } = Astro.props;
     <Breadcrumbs breadcrumbs={programme.breadcrumbs} />
   </Container>
   <div
-    class={`relative isolate overflow-hidden py-24 sm:py-32 bg-gradient-to-r ${fromToVariants[programme.colour]}`}
+    class={`relative isolate overflow-hidden py-24 sm:py-32 bg-gradient-to-r ${programmeColours.bg1[programme.colour]}`}
   >
     <img
       src={`https://unltd.directus.app/assets/${programme.image.id}`}
@@ -106,7 +73,7 @@ const { programme } = Astro.props;
       aria-hidden="true"
     >
       <div
-        class={`aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr ${fromToVariants[programme.colour]} opacity-20`}
+        class={`aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr ${programmeColours.bg1[programme.colour]} opacity-20`}
         style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
       >
       </div>
@@ -116,7 +83,7 @@ const { programme } = Astro.props;
       aria-hidden="true"
     >
       <div
-        class={`aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr ${fromToVariants[programme.colour]} opacity-20`}
+        class={`aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr ${programmeColours.bg1[programme.colour]} opacity-20`}
         style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
       >
       </div>
@@ -124,19 +91,21 @@ const { programme } = Astro.props;
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="col-span-4 flex flex-col gap-20 lg:flex-row">
         <div class="lg:basis-1/2 flex flex-col gap-8">
-          <span class="relative inline-block">
-            <div
-              class={`flex items-center justify-center h-28 w-28 rounded-md ${skin[programme.colour]}`}
-            >
-              <i class={`${programme.icon} text-5xl`}></i>
-            </div>
-          </span>
+          <Icon
+          icon={programme.icon}
+          textColour={programmeColours.text2[programme.colour]}
+          bgColour={programmeColours.bg1[programme.colour]}
+          borderColour={programmeColours.border1[programme.colour]}
+          />
 
           <div class="flex flex-col gap-3">
-            <h1 class="text-5xl font-bold text-violet-100">
+            <div class={`flex flex-inline items-center gap-3 ${programmeColours.text1[programme.colour]}`}>
+              <i class={`fa-solid fa-award text-xl ${programmeColours.text2[programme.colour]}`}></i><span class="text-1xl tracking-widest uppercase font-bold">Award Programme</span>
+            </div>
+            <h1 class={`text-4xl font-bold ${programmeColours.text1[programme.colour]}`}>
               {programme.name}
             </h1>
-            <p class={`text-lg leading-relaxed text-${programme.colour}-200`}>
+            <p class={`text-lg leading-relaxed  ${programmeColours.text2[programme.colour]}`}>
               {programme.description}
             </p>
           </div>
@@ -155,7 +124,7 @@ const { programme } = Astro.props;
                           <i class="fa-solid fa-circle text-blue-700 text-xs" />
                           Coming soon
                         </span>
-                        <p class="text-xs text-violet-100">
+                        <p class={`text-xs ${programmeColours.text1[programme.colour]}`}>
                           Application window opens
                           {moment(programme.from).format(
                             "dddd hh:mma, MMMM Do YYYY",
@@ -170,7 +139,7 @@ const { programme } = Astro.props;
                           <i class="fa-solid fa-circle text-green-700 text-xs" />
                           Open
                         </span>
-                        <p class="text-xs text-violet-100">
+                        <p class={`text-xs ${programmeColours.text1[programme.colour]}`}>
                           Application window closes
                           {moment(programme.till).format(
                             "dddd hh:mma, MMMM Do YYYY",
@@ -185,7 +154,7 @@ const { programme } = Astro.props;
                           <i class="fa-solid fa-circle text-red-700 text-xs" />
                           Closed
                         </span>
-                        <p class="text-xs text-violet-100">
+                        <p class={`text-xs ${programmeColours.text1[programme.colour]}`}>
                           Application window closed
                           {moment(programme.till).format(
                             "dddd hh:mma, MMMM Do YYYY",
@@ -199,40 +168,8 @@ const { programme } = Astro.props;
             </div>
           </div>
 
-
-          {
-            programme.partners.length > 0 && (
-              <div class="flex flex-col gap-2">
-                <h2 class="text-xl text-violet-200">Partners</h2>
-                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {programme.partners.map((partner) => (
-                    <div class="relative flex items-center space-x-3 rounded-lg border border-violet-500 backdrop-blur-sm bg-white/30 px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-violet-400">
-                      <div class="flex-shrink-0">
-<img
-                          class="h-10 w-10 rounded-lg"
-                          src={`https://unltd.directus.app/assets/${partner.organisations_id.logo.id}`}
-                          alt=""
-                        />
-                      </div>
-                      <div class="min-w-0 flex-1">
-                        <a
-                          href={partner.organisations_id.website}
-                          target="_blank"
-                          class="focus:outline-none"
-                        >
-                          <span class="absolute inset-0" aria-hidden="true" />
-                          <p class="text-xs font-medium text-violet-100">
-                            {partner.organisations_id.name}
-                          </p>
-                        </a>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )
-          }
         </div>
+        
 
         <div class="lg:basis-1/2 flex flex-col justify-center">
           <section
@@ -241,8 +178,8 @@ const { programme } = Astro.props;
 
           { programme.video ? <iframe width="560" height="315" src={programme.video} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
            : <blockquote class="">
-              <div class="mx-auto text-xl font-medium leading-9 text-violet-900">
-                <span class="text-violet-300">"{programme.quote}"</span>
+              <div class={`mx-auto text-xl font-medium leading-9 ${programmeColours.text1[programme.colour]}`}>
+                <span class={`${programmeColours.text2[programme.colour]}`}>"{programme.quote}"</span>
                 <footer class="mt-8">
                   <div class="md:flex gap-4">
                     <!-- <img
@@ -251,11 +188,11 @@ const { programme } = Astro.props;
                     alt=""
                   /> -->
                     <div class="mt-3 md:mt-0 md:flex md:flex-col gap-1">
-                      <div class="text-base font-medium text-violet-100">
+                      <div class={`text-base font-medium ${programmeColours.text2[programme.colour]}`}>
                         {programme.quote_person[0].positions_id.person.name}
                       </div>
 
-                      <div class={`text-base font-medium text-${programme.colour}-200`}>
+                      <div class={`text-base font-medium ${programmeColours.text2[programme.colour]}`}>
                         {
                           `${programme.quote_person[0].positions_id.role.name}, ${programme.quote_person[0].positions_id.role.organisation.name}`
                         }
@@ -263,7 +200,7 @@ const { programme } = Astro.props;
 
                       <div>
                         <span
-                          class={`inline-flex items-center rounded-md bg-${programme.colour}-100 px-2.5 py-0.5 text-xs font-medium text-${programme.colour}-800`}
+                          class={`inline-flex items-center rounded-md ${programmeColours.bg1[programme.colour]} px-2.5 py-0.5 text-xs font-medium  ${programmeColours.text1[programme.colour]}`}
                           >{programme.name} Award Winner</span
                         >
                       </div>
@@ -273,7 +210,6 @@ const { programme } = Astro.props;
               </div>
             </blockquote>
           }
-
           </section>
         </div>
       </div>
@@ -282,23 +218,65 @@ const { programme } = Astro.props;
 
   <Container />
 
+  <Partners partners={programme.partners} colour={programme.colour} />
 
-  <div class="flex flex-col gap-20 mt-20">
+  <div class={`flex flex-col gap-20 p-20 ${programmeColours.bg2[programme.colour]}`}>
     <div class="grid grid-cols-4 gap-20 mx-auto max-w-7xl">
       <div class="col-span-4 flex flex-col gap-10 lg:col-span-4">
         <div class="flex flex-col gap-10 lg:flex-row">
           <div class="flex flex-col basis-3/4 gap-12 px-5 2xl:px-0">
+
+                        <div class="flex flex-col gap-2">
+              <div class="relative">
+                <div
+                  class="absolute inset-0 flex items-center"
+                  aria-hidden="true"
+                >
+                  <div class={`w-full border-t ${programmeColours.border1[programme.colour]}`}></div>
+                </div>
+                <div class="relative flex justify-start">
+                  <span
+                    class={`bg-white pr-3 text-3xl font-semibold leading-6 ${programmeColours.text1[programme.colour]} ${programmeColours.bg2[programme.colour]}`}
+                    >What additional support is available</span
+                  >
+                </div>
+              </div>
+              {
+                programme.services.map((service) => (
+                  <div class="relative pl-16 basis-1/4">
+                    <dt class="text-base leading-7">
+                      <div
+                        class={`absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full shadow-lg border ${programmeColours.bg1[programme.colour]} ${programmeColours.border1[programme.colour]}`}
+                      >
+                        <i
+                          class={`${service.services_id.icon} text-md shadow-3xl ${programmeColours.text2[programme.colour]}`}
+                        />
+                      </div>
+                      <span class={`text-base ${programmeColours.text1[programme.colour]}`}>
+                        {service.services_id.name}
+                      </span>
+                    </dt>
+                    <dd
+                      class={`mt-2 text-sm leading-6 ${programmeColours.text2[programme.colour]}`}
+                    >
+                      {service.services_id.description}
+                    </dd>
+                  </div>
+                ))
+              }
+            </div>
+
             <div class="flex flex-col gap-5">
               <div class="relative">
                 <div
                   class="absolute inset-0 flex items-center"
                   aria-hidden="true"
                 >
-                  <div class="w-full border-t border-violet-300"></div>
+                  <div class={`w-full border-t ${programmeColours.border1[programme.colour]}`}></div>
                 </div>
                 <div class="relative flex justify-start">
                   <span
-                    class="bg-white pr-3 text-3xl font-semibold leading-6 text-violet-600"
+                    class={`pr-3 text-3xl font-semibold leading-6 ${programmeColours.text1[programme.colour]} ${programmeColours.bg2[programme.colour]}`}
                     >What we are looking for</span
                   >
                 </div>
@@ -309,19 +287,19 @@ const { programme } = Astro.props;
                     class="absolute inset-0 flex items-center"
                     aria-hidden="true"
                   >
-                    <div class="w-full border-t border-violet-300"></div>
+                    <div class={`w-full border-t ${programmeColours.border1[programme.colour]}`}></div>
                   </div>
                   <div class="relative flex justify-start">
                     <span
-                      class="bg-white pr-3 text-base font-semibold leading-6 text-violet-500"
-                      >Social entrepreneur</span
-                    >
+                      class={`bg-white pr-3 text-base font-semibold leading-6 ${programmeColours.text1[programme.colour]} ${programmeColours.bg2[programme.colour]}`}
+                      >Social entrepreneur</span>
                   </div>
                 </div>
-                <div
-                  class="prose lg:prose-xl"
-                  set:html={marked.parse(`${programme.entrepreneur}`)}
-                />
+                <div class={`${programmeColours.text1[programme.colour]}`}>
+                  <p>Age: {programme.age}</p>
+                  <p>Geography: {programme.geography}</p>
+                  <p>Sectors: {programme.sectors}</p>
+                </div>
               </div>
 
               <div>
@@ -330,53 +308,26 @@ const { programme } = Astro.props;
                     class="absolute inset-0 flex items-center"
                     aria-hidden="true"
                   >
-                    <div class="w-full border-t border-violet-300"></div>
+                    <div class={`w-full border-t ${programmeColours.border1[programme.colour]}`}></div>
                   </div>
                   <div class="relative flex justify-start">
                     <span
-                      class="bg-white pr-3 text-base font-semibold leading-6 text-violet-500"
+                      class={`bg-white pr-3 text-base font-semibold leading-6 ${programmeColours.text1[programme.colour]} ${programmeColours.bg2[programme.colour]}`}
                       >Social enterprise</span
                     >
                   </div>
                 </div>
-                <div
-                  class="prose lg:prose-xl"
-                  set:html={marked.parse(`${programme.venture}`)}
-                />
+                <div>
+                  </div>
               </div>
             </div>
 
-            <div class="flex flex-col gap-2">
-              <div class="relative">
-                <div
-                  class="absolute inset-0 flex items-center"
-                  aria-hidden="true"
-                >
-                  <div class="w-full border-t border-violet-300"></div>
-                </div>
-                <div class="relative flex justify-start">
-                  <span
-                    class="bg-white pr-3 text-3xl font-semibold leading-6 text-violet-600"
-                    >What additional support is available</span
-                  >
-                </div>
-              </div>
-              <p class="prose lg:prose-xl">
-                In addition to <a href="/award">UnLtd's support</a>, by being a
-                part of {programme.name} you will be able to benefit from:
-              </p>
-              <div
-                class="prose lg:prose-xl"
-                set:html={marked.parse(`${programme.support}`)}
-              />
-            </div>
 
-
-            <div class={`bg-${programme.colour}-50 rounded-xl`}>
+            <div class={`${programmeColours.bg1[programme.colour]} rounded-xl`}>
               
               <div class="mx-auto max-w-7xl px-6 py-12 lg:px-8">
                 <h2
-                  class="text-3xl font-bold tracking-tight text-violet-900 sm:text-4xl"
+                  class={`text-3xl font-bold tracking-tight sm:text-4xl ${programmeColours.text1[programme.colour]}`}
                 >
                   Join {programme.name}
                 </h2>
@@ -412,14 +363,8 @@ const { programme } = Astro.props;
 
                 <div class="mt-10 flex items-center gap-x-6">
                   <a
-                    href="https://unltd.microsoftcrmportals.com/applications"
-                    target="_blank"
-                    class={`rounded-md bg-${programme.colour}-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-${programme.colour}-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-${programme.colour}-600`}
-                    >Apply now</a
-                  >
-                  <a
                     href="/award"
-                    class="text-sm font-semibold leading-6 text-violet-900"
+                    class={`text-sm font-semibold leading-6 ${programmeColours.text2[programme.colour]}`}
                     >Learn more about Award <span aria-hidden="true">→</span
                     ></a
                   >
@@ -477,8 +422,8 @@ const { programme } = Astro.props;
 
               <!-- Other programmes -->
               <div class="flex flex-col gap-4 lg:flex">
-                <h3 class="font-bold text-violet-500">Other programmes</h3>
-                <div class="flex flex-col gap-3">
+                <h3 class="font-bold text-slate-100">Other programmes</h3>
+                <div class="flex flex-col gap-3 ">
                   {
                     programmes
                       .filter(
@@ -489,21 +434,22 @@ const { programme } = Astro.props;
                       )
                       .map((programme) => (
                         <a
-                          href={`/award/${programme.slug}`}
-                          class={`border border-violet-100 p-6 rounded-2xl flex flex-col gap-5 hover:border-${programme.colour}-200 transition`}
+                          href={`/award/${slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})}`}
+                          class={`border border-violet-100 p-6 rounded-2xl flex flex-col gap-5 hover:border-${programme.colour}-200 transition bg-slate-100`}
                         >
                           <div class="flex flex-col gap-2">
 
-                                        <div
-              class={`flex items-center justify-center h-14 w-14 rounded-md bg-${programme.colour}-600`}
-            >
-              <i class={`${programme.icon} text-${programme.colour}-200 text-xl`}></i>
-            </div>
+          <Icon
+          icon={programme.icon}
+          textColour={programmeColours.text2[programme.colour]}
+          bgColour={programmeColours.bg1[programme.colour]}
+          borderColour={programmeColours.border1[programme.colour]}
+          />
                             <div>
-                              <h3 class={`text-lg font-bold text-${programme.colour}-900`}>
+                              <h3 class={`text-lg font-bold ${programmeColours.text1[programme.colour]}`}>
                                 {programme.name}
                               </h3>
-                              <p class={`text-xs leading-relaxed text-violet-500`}>
+                              <p class={`text-xs leading-relaxed ${programmeColours.text2[programme.colour]}`}>
                                 {truncate(programme.description, 100)}
                               </p>
                             </div>
@@ -511,46 +457,6 @@ const { programme } = Astro.props;
                         </a>
                       ))
                   }
-                </div>
-              </div>
-
-              <!-- Help -->
-              <div class="flex flex-col gap-3">
-                <h3 class="font-bold text-violet-500">Help</h3>
-                <div class="flex flex-col gap-3">
-                  <p class="text-sm text-violet-500 leading-relaxed">
-                    For social entrepreneurs with questions about Award and {
-                      programme.name
-                    }
-                  </p>
-                </div>
-                <div class="flex flex-row gap-5">
-                  <a
-                    class="text-xs text-amber-700 hover:underline hover:text-amber-800"
-                    href="mailto:AwardApplications@UnLtd.org.uk"
-                    >AwardApplications@UnLtd.org.uk</a
-                  >
-                </div>
-              </div>
-
-              <!-- Inclusion -->
-              <div class="flex flex-col gap-3">
-                <h3 class="font-bold text-violet-500">Inclusion</h3>
-                <div class="flex flex-col gap-3">
-                  <p class="text-sm text-violet-500 leading-relaxed">
-                    At least 50% of Awards will go to Black, Asian, marginalised
-                    ethnic groups or disabled backgrounds
-                  </p>
-                </div>
-                <div class="flex flex-col gap-2">
-                  <a
-                    class="text-xs text-amber-700 hover:underline hover:text-amber-800"
-                    href="https://www.unltd.org.uk/blog/news/our-commitment-to-lgbtq-inclusion-and-support"
-                    >Our LGBTQIA+ equity commitments</a>
-                                    <a
-                    class="text-xs text-amber-700 hover:underline hover:text-amber-800"
-                    href="/equity-commitments"
-                    >Our equity commitments</a>
                 </div>
               </div>
             </div>
