@@ -1,5 +1,10 @@
 ---
-const { name, description } = Astro.props.frontmatter || Astro.props;
+const {
+  name,
+  description,
+  colour = "bg-violet-950",
+} = Astro.props.frontmatter || Astro.props;
+import { programmeColours } from "../data/programmeColours.js";
 import Header from "../components/ui/Header.jsx";
 import Footer from "../components/Footer.astro";
 
@@ -63,7 +68,7 @@ import "@fontsource-variable/montserrat";
       src="https://kit.fontawesome.com/0ff725f684.js"
       crossorigin="anonymous"></script>
   </head>
-  <body class="bg-violet-50 dark:bg-violet-950 dark">
+  <body class={`bg-violet-50 dark:${colour} dark`}>
     <div class="flex flex-col justify-between h-full">
       <Header client:load />
       <!-- <Nav /> -->
