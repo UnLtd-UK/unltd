@@ -61,7 +61,7 @@ const { programme } = Astro.props;
     <Breadcrumbs breadcrumbs={programme.breadcrumbs} />
   </Container>
   <div
-    class={`relative isolate overflow-hidden py-24 sm:py-32 bg-gradient-to-r ${programmeColours.bg1[programme.colour]}`}
+    class={`relative isolate overflow-hidden py-14 sm:py-14 bg-gradient-to-r ${programmeColours.bg1[programme.colour]}`}
   >
     <img
       src={`https://unltd.directus.app/assets/${programme.image.id}`}
@@ -219,12 +219,11 @@ const { programme } = Astro.props;
           </section>
         </div>
       </div>
+        <Partners partners={programme.partners} colour={programme.colour} />
     </div>
   </div>
 
   <Container />
-
-  <Partners partners={programme.partners} colour={programme.colour} />
 
   <div class={`flex flex-col gap-20 p-20 ${programmeColours.bg2[programme.colour]}`}>
     <div class="grid grid-cols-4 gap-20 mx-auto max-w-7xl">
@@ -339,17 +338,17 @@ const { programme } = Astro.props;
                 </h2>
 
                 { programme.video &&
-                                        <blockquote class={`outline outline-offset-2 outline-violet-200 p-6 rounded-xl mt-4`}>
-              <div class={`mx-auto text-xl font-medium leading-9 text-violet-900`}>
-                <span class={`text-violet-900`}>"{programme.quote}"</span>
+                                        <blockquote class={`p-6 rounded-xl mt-4 ${programmeColours.bg2[programme.colour]}`}>
+              <div class={`mx-auto text-xl font-medium leading-9 `}>
+                <span class={`${programmeColours.text1[programme.colour]}`}>"{programme.quote}"</span>
                 <footer class="mt-8">
                   <div class="md:flex gap-4">
                     <div class="mt-3 md:mt-0 md:flex md:flex-col gap-1">
-                      <div class={`text-base font-medium text-violet-900`}>
+                      <div class={`text-base font-medium ${programmeColours.text1[programme.colour]}`}>
                         {programme.quote_person[0].positions_id.person.name}
                       </div>
 
-                      <div class={`text-base font-medium text-violet-700`}>
+                      <div class={`text-base font-medium ${programmeColours.text1[programme.colour]}`}>
                         {
                           `${programme.quote_person[0].positions_id.role.name}, ${programme.quote_person[0].positions_id.role.organisation.name}`
                         }
@@ -357,7 +356,7 @@ const { programme } = Astro.props;
 
                       <div>
                         <span
-                          class={`inline-flex items-center rounded-md bg-violet-50 px-2.5 py-0.5 text-xs font-medium text-violet-800`}
+                          class={`inline-flex items-center rounded-md ${programmeColours.bg1[programme.colour]} px-2.5 py-0.5 text-xs font-medium ${programmeColours.text1[programme.colour]}`}
                           >{programme.name} Awards Winner</span
                         >
                       </div>
@@ -393,16 +392,16 @@ const { programme } = Astro.props;
                     class="absolute inset-0 -z-10 h-full w-full object-cover"
                   />
                   <div
-                    class={`absolute inset-0 -z-10 bg-gradient-to-t from-violet-900 via-violet-900/40`}
+                    class={`absolute inset-0 -z-10 ${programmeColours.bg1[programme.colour]}`}
                   >
                   </div>
                   <div
-                    class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-violet-900/10"
+                    class="absolute inset-0 -z-10 rounded-2xl"
                   >
                   </div>
 
                   <div
-                    class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-violet-300"
+                    class={`flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 ${programmeColours.text1[programme.colour]}`}
                   >
                     <div class="-ml-4 flex items-center gap-x-4">
                       <svg
