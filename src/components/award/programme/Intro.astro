@@ -8,6 +8,14 @@ import { programmeColours } from "../../../data/programmeColours.js";
 
 import moment from "moment";
 let todayDate = moment();
+
+const font = {
+    "Funding Futures Programme": "font-ff",
+    "Healthy Ageing": "font-ha",
+    "Movement for Change": "font-mfc",
+    "Access to employment": "font-ate",
+}
+
 ---
 
 <Container>
@@ -62,7 +70,8 @@ let todayDate = moment();
             </div><h1 class={`text-4xl font-bold ${programmeColours.text1[programme.colour]}`}>
               {programme.name}
             </h1> }
-            <p class={`text-base leading-relaxed  ${programmeColours.text2[programme.colour]}`}>
+            <p class={` 
+               text-base leading-relaxed ${programmeColours.text2[programme.colour]} ${font[programme.name]}`}>
               {programme.description}
             </p>
           </div>
