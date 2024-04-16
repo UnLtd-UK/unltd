@@ -79,7 +79,7 @@ const { programme } = Astro.props;
       </div>
     </div>
     <div
-      class="absolute -top-52 left-1/2 -z-10 -tranviolet-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:tranviolet-x-0 sm:transform-gpu"
+      class="absolute -top-52 left-1/2 -z-10 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:transform-gpu"
       aria-hidden="true"
     >
       <div
@@ -91,20 +91,26 @@ const { programme } = Astro.props;
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="col-span-4 flex flex-col gap-20 lg:flex-row">
         <div class="lg:basis-1/2 flex flex-col gap-8">
+
+          { programme.logo ? (            <div class={`flex flex-inline items-center gap-3 ${programmeColours.text1[programme.colour]}`}>
+              <i class={`fa-solid fa-award text-xl ${programmeColours.text2[programme.colour]}`}></i><span class="text-1xl tracking-widest uppercase font-bold">Award Programme</span>
+            </div><img src={`https://unltd.directus.app/assets/${programme.logo.id}`} alt="">) :
+
           <Icon
           icon={programme.icon}
           textColour={programmeColours.text2[programme.colour]}
           bgColour={programmeColours.bg1[programme.colour]}
           borderColour={programmeColours.border1[programme.colour]}
           />
+        }
 
+        
           <div class="flex flex-col gap-3">
-            <div class={`flex flex-inline items-center gap-3 ${programmeColours.text1[programme.colour]}`}>
+            { !programme.logo &&             <div class={`flex flex-inline items-center gap-3 ${programmeColours.text1[programme.colour]}`}>
               <i class={`fa-solid fa-award text-xl ${programmeColours.text2[programme.colour]}`}></i><span class="text-1xl tracking-widest uppercase font-bold">Award Programme</span>
-            </div>
-            <h1 class={`text-4xl font-bold ${programmeColours.text1[programme.colour]}`}>
+            </div><h1 class={`text-4xl font-bold ${programmeColours.text1[programme.colour]}`}>
               {programme.name}
-            </h1>
+            </h1> }
             <p class={`text-lg leading-relaxed  ${programmeColours.text2[programme.colour]}`}>
               {programme.description}
             </p>
@@ -333,17 +339,17 @@ const { programme } = Astro.props;
                 </h2>
 
                 { programme.video &&
-                                        <blockquote class={`outline outline-offset-2 outline-${programme.colour}-200 p-6 rounded-xl mt-4`}>
-              <div class="mx-auto text-xl font-medium leading-9 text-violet-900">
-                <span class={`text-${programme.colour}-900`}>"{programme.quote}"</span>
+                                        <blockquote class={`outline outline-offset-2 outline-violet-200 p-6 rounded-xl mt-4`}>
+              <div class={`mx-auto text-xl font-medium leading-9 text-violet-900`}>
+                <span class={`text-violet-900`}>"{programme.quote}"</span>
                 <footer class="mt-8">
                   <div class="md:flex gap-4">
                     <div class="mt-3 md:mt-0 md:flex md:flex-col gap-1">
-                      <div class={`text-base font-medium text-${programme.colour}-900`}>
+                      <div class={`text-base font-medium text-violet-900`}>
                         {programme.quote_person[0].positions_id.person.name}
                       </div>
 
-                      <div class={`text-base font-medium text-${programme.colour}-700`}>
+                      <div class={`text-base font-medium text-violet-700`}>
                         {
                           `${programme.quote_person[0].positions_id.role.name}, ${programme.quote_person[0].positions_id.role.organisation.name}`
                         }
@@ -351,7 +357,7 @@ const { programme } = Astro.props;
 
                       <div>
                         <span
-                          class={`inline-flex items-center rounded-md bg-${programme.colour}-50 px-2.5 py-0.5 text-xs font-medium text-${programme.colour}-800`}
+                          class={`inline-flex items-center rounded-md bg-violet-50 px-2.5 py-0.5 text-xs font-medium text-violet-800`}
                           >{programme.name} Awards Winner</span
                         >
                       </div>
@@ -377,9 +383,9 @@ const { programme } = Astro.props;
               <!-- Article -->
               { programme.post && 
               <div class="flex flex-col gap-3">
-                <h3 class="font-bold text-violet-500">Related posts</h3>
+                <h3 class={`font-bold ${programmeColours.text1[programme.colour]}`}>Related posts</h3>
                 <article
-                  class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-violet-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+                  class={`relative isolate flex flex-col justify-end overflow-hidden rounded-2xl ${programmeColours.bg1[programme.colour]} px-8 pb-8 pt-80 sm:pt-48 lg:pt-80`}
                 >
                   <img
                     src={programme.post.image}
@@ -387,7 +393,7 @@ const { programme } = Astro.props;
                     class="absolute inset-0 -z-10 h-full w-full object-cover"
                   />
                   <div
-                    class={`absolute inset-0 -z-10 bg-gradient-to-t from-${programme.colour}-900 via-violet-900/40`}
+                    class={`absolute inset-0 -z-10 bg-gradient-to-t from-violet-900 via-violet-900/40`}
                   >
                   </div>
                   <div
@@ -435,7 +441,7 @@ const { programme } = Astro.props;
                       .map((programme) => (
                         <a
                           href={`/award/${slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})}`}
-                          class={`border border-violet-900 p-6 rounded-2xl flex flex-col gap-5 hover:border-${programme.colour}-200 transition bg-violet-950`}
+                          class={`border ${programmeColours.border1[programme.colour]} p-6 rounded-2xl flex flex-col gap-5 transition ${programmeColours.bg2[programme.colour]}`}
                         >
                           <div class="flex flex-col gap-2">
 
@@ -446,7 +452,7 @@ const { programme } = Astro.props;
           borderColour={programmeColours.border1[programme.colour]}
           />
                             <div>
-                              <h3 class={`text-lg font-bold ${programmeColours.text1[programme.colour]}`}>
+                              <h3 class={`text-base font-bold ${programmeColours.text1[programme.colour]}`}>
                                 {programme.name}
                               </h3>
                               <p class={`text-xs leading-relaxed ${programmeColours.text2[programme.colour]}`}>
