@@ -5,16 +5,12 @@ import Icon from "../../../components/award/cards/Icon.astro";
 import Container from "../../../components/Container.astro";
 import Partners from "../../../components/award/programme/Partners.astro";
 import { programmeColours } from "../../../data/programmeColours.js";
+import { fonts } from "../../../data/fonts.js";
 
 import moment from "moment";
 let todayDate = moment();
 
-const font = {
-    "Funding Futures Programme": "font-ff",
-    "Healthy Ageing": "font-ha",
-    "Movement for Change": "font-mfc",
-    "Access to employment": "font-ate",
-}
+
 
 ---
 
@@ -71,7 +67,7 @@ const font = {
               {programme.name}
             </h1> }
             <p class={` 
-               text-base leading-relaxed ${programmeColours.text2[programme.colour]} ${font[programme.name]}`}>
+               text-base leading-relaxed ${programmeColours.text2[programme.colour]} ${fonts[programme.name]}`}>
               {programme.description}
             </p>
           </div>
@@ -105,7 +101,7 @@ const font = {
                           <i class="fa-solid fa-circle text-green-700 text-xs" />
                           Open
                         </span>
-                        <p class={`text-xs ${programmeColours.text1[programme.colour]}`}>
+                        <p class={`text-xs ${fonts[programme.name]} ${programmeColours.text1[programme.colour]}`}>
                           Application window closes
                           {moment(programme.till).format(
                             "dddd hh:mma, MMMM Do YYYY",
@@ -120,7 +116,7 @@ const font = {
                           <i class="fa-solid fa-circle text-red-700 text-xs" />
                           Closed
                         </span>
-                        <p class={`text-xs ${programmeColours.text1[programme.colour]}`}>
+                        <p class={`text-xs  ${programmeColours.text1[programme.colour]}`}>
                           Application window closed
                           {moment(programme.till).format(
                             "dddd hh:mma, MMMM Do YYYY",
@@ -179,7 +175,7 @@ const font = {
           </section>
         </div>
       </div>
-        <Partners partners={programme.partners} colour={programme.colour} />
+        <Partners partners={programme.partners} colour={programme.colour} name={programme.name}/>
     </div>
   </div>
   </Container>

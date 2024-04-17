@@ -1,34 +1,33 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { Disclosure } from '@headlessui/react';
 
-const DisclosureComponent = (props) => {
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
 
+export default function DisclosureComp({ item }) {
     return <Disclosure as="div" className="-mx-3">
         {({ open }) => (
             <>
                 <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50">
-                    {props.thing.name}
-                    <ChevronDownIcon
-                        className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
+                    {item.name}
+                    <i
+                        className={classNames(open ? 'rotate-180' : '', 'fa-solid fa-chevron-down h-5 w-5 flex-none text-violet-100')}
                         aria-hidden="true"
-                    />
+                    ></i>
                 </Disclosure.Button>
                 <Disclosure.Panel className="mt-2 space-y-2">
-                    {[...props.thing.items, ...props.thing.actions].map((item) => (
+                    {[...item.items, ...item.actions].map((child) => (
                         <Disclosure.Button
-                            key={item.name}
+                            key={child.name}
                             as="a"
-                            href={item.href}
+                            href={child.href}
                             className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-violet-900 hover:bg-violet-50"
                         >
-                            {item.name}
+                            {child.name}
                         </Disclosure.Button>
                     ))}
                 </Disclosure.Panel>
             </>
         )}
-    </Disclosure>;
+    </Disclosure>
 };
-
-export default DisclosureComponent;
