@@ -1,121 +1,306 @@
-import { useState } from 'react'
-import { Dialog, Disclosure, Popover } from '@headlessui/react'
+import { Fragment, useState } from 'react'
+import { Popover, Transition } from '@headlessui/react'
 
-import slugify from "slugify";
-import Logo from "../Logo.jsx";
-import PopoverComponent from './Popover';
-// import DisclosureComponent from './Disclosure';
 
-// import { learns } from "../../data/learns.js";
+// Real data we aren't using //
+// import { navigation } from "../../data/navigation.js"
+// const navigations = navigation.code.header.main;
+// console.log("Diretcus: ", navigation);
 
-// const learnItems = learns.map(learn => ({
-//   name: learn.name,
-//   description: learn.description,
-//   href: `/learn/${slugify(learn.name, {
-//     lower: true,
-//     strict: true,
-//     locale: "en",
-//     trim: true,
-//   })}`,
-//   icon: "fa-regular fa-file-lines"
-// }));
 
-// const learn = {
-//   name: 'Learn',
-//   items: learnItems,
-//   actions: [
-//   ]
-// };
-
-const funding = {
-  name: 'Our funding',
-  items:
-    [
+// Fake data we are using to debug //
+const data = {
+  header: {
+    action: {
+      name: "Log in",
+      link: "https://unltd.microsoftcrmportals.com/applications"
+    },
+    main: [
       {
-        name: 'Awards',
-        description: 'For social entrepreneurs',
-        href: "/award",
-        icon: "fa-solid fa-award"
+        id: 1,
+        name: "Our funding",
+        items: [
+          {
+            id: 1,
+            name: "Awards",
+            description: "For social entrepreneurs",
+            href: "/award",
+            icon: "fa-solid fa-award"
+          },
+          {
+            id: 2,
+            name: "Investment",
+            description: "For organisations",
+            href: "https://growthimpactfund.org.uk",
+            icon: "fa-solid fa-shop"
+          }
+        ],
+        actions: []
       },
       {
-        name: 'Investment',
-        description: 'For organisations',
-        href: "https://growthimpactfund.org.uk",
-        icon: "fa-solid fa-shop"
+        id: 2,
+        name: "Join us",
+        items: [
+          {
+            id: 1,
+            name: "Fundraising",
+            description: "Give money",
+            href: "/fundraising",
+            icon: "fa-solid fa-piggy-bank"
+          },
+          {
+            id: 2,
+            name: "Partnering",
+            description: "Orgs looking to fund and support us",
+            href: "/partnering",
+            icon: "fa-solid fa-handshake"
+          },
+          {
+            id: 3,
+            name: "Volunteering",
+            description: "Individuals looking to do pro bono",
+            href: "/volunteering",
+            icon: "fa-solid fa-street-view"
+          }
+        ],
+        actions: []
+      },
+      {
+        id: 3,
+        name: "About us",
+        items: [
+          {
+            id: 1,
+            name: "Our purpose",
+            description: "vision and mission",
+            href: "/our-purpose",
+            icon: "fa-solid fa-puzzle-piece"
+          },
+          {
+            id: 2,
+            name: "Our team",
+            description: "Made up of four direcorates",
+            href: "/our-team",
+            icon: "fa-solid fa-people-group"
+          },
+          {
+            id: 3,
+            name: "Our strategy",
+            description: "How we make impact",
+            badge: "2022 - 2025",
+            href: "https://strategy.unltd.org.uk",
+            icon: "fa-solid fa-chess-pawn"
+          },
+          {
+            id: 4,
+            name: "Our impact",
+            description: "The change we are having",
+            badge: "2021 - 2022",
+            href: "/UnLtd_Impact_Report_2022.pdf",
+            icon: "fa-solid fa-explosion"
+          }
+        ],
+        actions: []
+      }
+    ]
+  },
+  footer: {
+    socials: [
+      {
+        name: "X",
+        link: "https://twitter.com/UnLtd",
+        slug: "",
+        icon: "fa-brands fa-x-twitter"
+      },
+      {
+        name: "Instagram",
+        link: "https://www.instagram.com/unltduk",
+        slug: "",
+        icon: "fa-brands fa-instagram"
+      },
+      {
+        name: "Facebook",
+        link: "https://www.facebook.com/UnLtd",
+        slug: "",
+        icon: "fa-brands fa-facebook"
+      },
+      {
+        name: "YouTube",
+        link: "https://www.youtube.com/user/UnLtdVideos",
+        slug: "",
+        icon: "fa-brands fa-youtube"
+      },
+      {
+        name: "LinkedIn",
+        link: "https://www.linkedin.com/company/unltd",
+        slug: "",
+        icon: "fa-brands fa-linkedin"
       }
     ],
-  actions: [
-  ]
-};
-
-const join = {
-  name: 'Join us',
-  items:
-    [
+    address: {
+      address1: "123 Whitecross Street",
+      address2: "Islington, London",
+      address3: "EC1Y 8JJ",
+      phone: "02075661100"
+    },
+    phone: "+44 20 7566 1100",
+    regulatory: [
       {
-        name: 'Fundraising',
-        description: 'Give money',
-        href: "/fundraising",
-        icon: "fa-solid fa-piggy-bank"
+        name: "Companies House",
+        link: "https://find-and-update.company-information.service.gov.uk/company/04180639",
+        number: "04180639"
       },
       {
-        name: 'Partnering',
-        description: 'Orgs looking to fund and support us',
-        href: "/partnering",
-        icon: "fa-solid fa-handshake"
+        name: "Charity Commission for England and Wales",
+        link: "https://apps.charitycommission.gov.uk/Showcharity/RegisterOfCharities/SearchResultHandler.aspx?RegisteredCharityNumber=1090393",
+        number: "1090393"
       },
       {
-        name: 'Volunteering',
-        description: 'Individuals looking to do pro bono',
-        href: "/volunteering",
-        icon: "fa-solid fa-street-view"
+        name: "Scottish Charity Regulator",
+        link: "https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC032445",
+        number: "SC032445"
       }
     ],
-  actions: [
-  ]
-};
-
-
-const about = {
-  name: 'About us',
-  items:
-    [
+    links: [
       {
-        name: 'Our purpose',
-        description: 'vision and mission',
-        href: "/our-purpose",
-        icon: "fa-solid fa-puzzle-piece"
+        name: "Enquiries",
+        items: [
+          {
+            name: "Award enquiry",
+            link: "",
+            slug: "enquiries/award-enquiry",
+            icon: ""
+          },
+          {
+            name: "General enquiry",
+            link: "",
+            slug: "enquiries/general-enquiry",
+            icon: ""
+          },
+          {
+            name: "Press & media enquiry",
+            link: "",
+            slug: "enquiries/press-and-media-enquiry",
+            icon: ""
+          }
+        ]
       },
       {
-        name: 'Our team',
-        description: 'Made up of four direcorates',
-        href: "/our-team",
-        icon: "fa-solid fa-people-group"
+        name: "Legal",
+        items: [
+          {
+            name: "Privacy Policy",
+            link: "",
+            slug: "privacy-policy",
+            icon: ""
+          },
+          {
+            name: "Complaints Policy",
+            link: "",
+            slug: "complaints-policy",
+            icon: ""
+          },
+          {
+            name: "Browser Storage Policy",
+            link: "",
+            slug: "browser-storage-policy",
+            icon: ""
+          },
+          {
+            name: "Photography & Filming Policy",
+            link: "",
+            slug: "photography-and-filming-policy",
+            icon: ""
+          },
+          {
+            name: "Terms & Conditions",
+            link: "",
+            slug: "terms-and-conditions",
+            icon: ""
+          }
+        ]
       },
       {
-        name: 'Our strategy',
-        description: 'How we make impact',
-        badge: "2022 - 2025",
-        href: "https://strategy.unltd.org.uk",
-        icon: "fa-solid fa-chess-pawn"
+        name: "Reports & Equity",
+        items: [
+          {
+            name: "Financial Reports",
+            link: "",
+            slug: "financial-reports",
+            icon: ""
+          },
+          {
+            name: "Impact Reports",
+            link: "",
+            slug: "impact-reports",
+            icon: ""
+          },
+          {
+            name: "Equity Report",
+            link: "",
+            slug: "equity-report",
+            icon: ""
+          },
+          {
+            name: "Equity Audit",
+            link: "",
+            slug: "equity-audit",
+            icon: ""
+          },
+          {
+            name: "Equity Commitments",
+            link: "",
+            slug: "equity-commitments",
+            icon: ""
+          }
+        ]
       },
       {
-        name: 'Our impact',
-        description: 'The change we are having',
-        badge: "2021 - 2022",
-        href: "/UnLtd_Impact_Report_2022.pdf",
-        icon: "fa-solid fa-explosion"
+        name: "Other",
+        items: [
+          {
+            name: "Careers",
+            link: "https://www.jobtrain.co.uk/unltd-careers",
+            slug: "",
+            icon: ""
+          },
+          {
+            name: "Plausible Analytics",
+            link: "https://plausible.io/unltd.org.uk",
+            slug: "",
+            icon: ""
+          },
+          {
+            name: "Safeguarding",
+            link: "",
+            slug: "safeguarding",
+            icon: ""
+          },
+          {
+            name: "Gift Aid",
+            link: "",
+            slug: "gift-aid",
+            icon: ""
+          },
+          {
+            name: "Our brand",
+            link: "",
+            slug: "our-brand",
+            icon: ""
+          }
+        ]
       }
-    ],
-  actions: []
-};
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+    ]
+  }
 }
+const navigations = data.header.main;
+// console.log("Local: ", navigations);
 
-export default function Header() {
+import Logo from "../Logo.jsx";
+import PopoverComponent from './Popover.jsx';
+import DialogComponent from './Dialog.jsx';
 
+export default function HeaderComp() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -137,19 +322,12 @@ export default function Header() {
           </button>
         </div>
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
-
-          {/* <PopoverComponent thing={learn} /> */}
-
-          <PopoverComponent thing={funding} />
-
-          <PopoverComponent thing={join} />
-
+          {
+            navigations.map((nav, i) => <PopoverComponent key={i} nav={nav} />)
+          }
           <a href="/blog" className="text-sm font-semibold leading-6 text-violet-900 dark:text-violet-100">
             Blog
           </a>
-
-          <PopoverComponent thing={about} />
-
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="https://unltd.microsoftcrmportals.com/applications" className="text-sm font-semibold leading-6 text-violet-900 dark:text-violet-100">
@@ -157,150 +335,7 @@ export default function Header() {
           </a>
         </div>
       </nav>
-      <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-        <div className="fixed inset-0 z-10" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-violet-50 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-violet-900/10">
-          <div className="flex items-center justify-between">
-            <a href="/" className="-m-1.5 p-1.5">
-              <Logo colour="fill-amber-600" />
-            </a>
-            <button
-              type="button"
-              className="-m-2.5 rounded-md p-2.5 text-violet-700"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span className="sr-only">Close menu</span>
-              <i className="fa-solid fa-xmark h-6 w-6" aria-hidden="true" ></i>
-            </button>
-          </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-violet-500/10">
-              <div className="space-y-2 py-6">
-
-                <Disclosure as="div" className="-mx-3">
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50">
-                        {learn.name}
-                        <i
-                          className={classNames(open ? 'rotate-180' : '', 'fa-solid fa-chevron-down h-5 w-5 flex-none text-violet-100')}
-                          aria-hidden="true"
-                        ></i>
-                      </Disclosure.Button>
-                      <Disclosure.Panel className="mt-2 space-y-2">
-                        {[...learn.items, ...learn.actions].map((item) => (
-                          <Disclosure.Button
-                            key={item.name}
-                            as="a"
-                            href={item.href}
-                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-violet-900 hover:bg-violet-50"
-                          >
-                            {item.name}
-                          </Disclosure.Button>
-                        ))}
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
-
-                <Disclosure as="div" className="-mx-3">
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50">
-                        {funding.name}
-                        <i
-                          className={classNames(open ? 'rotate-180' : '', 'fa-solid fa-chevron-down h-5 w-5 flex-none text-violet-100')}
-                          aria-hidden="true"
-                        ></i>
-                      </Disclosure.Button>
-                      <Disclosure.Panel className="mt-2 space-y-2">
-                        {[...funding.items, ...funding.actions].map((item) => (
-                          <Disclosure.Button
-                            key={item.name}
-                            as="a"
-                            href={item.href}
-                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-violet-900 hover:bg-violet-50"
-                          >
-                            {item.name}
-                          </Disclosure.Button>
-                        ))}
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
-
-                <Disclosure as="div" className="-mx-3">
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50">
-                        {join.name}
-                        <i
-                          className={classNames(open ? 'rotate-180' : '', 'fa-solid fa-chevron-down h-5 w-5 flex-none')}
-                          aria-hidden="true"
-                        ></i>
-                      </Disclosure.Button>
-                      <Disclosure.Panel className="mt-2 space-y-2">
-                        {[...join.items, ...join.actions].map((item) => (
-                          <Disclosure.Button
-                            key={item.name}
-                            as="a"
-                            href={item.href}
-                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-violet-900 hover:bg-violet-50"
-                          >
-                            {item.name}
-                          </Disclosure.Button>
-                        ))}
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
-
-                <a
-                  href="/blog"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50"
-                >
-                  Blog
-                </a>
-
-                <Disclosure as="div" className="-mx-3">
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50">
-                        {about.name}
-                        <i
-                          className={classNames(open ? 'rotate-180' : '', 'fa-solid fa-chevron-down h-5 w-5 flex-none')}
-                          aria-hidden="true"
-                        ></i>
-                      </Disclosure.Button>
-                      <Disclosure.Panel className="mt-2 space-y-2">
-                        {[...about.items, ...about.actions].map((item) => (
-                          <Disclosure.Button
-                            key={item.name}
-                            as="a"
-                            href={item.href}
-                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-violet-900 hover:bg-violet-50"
-                          >
-                            {item.name}
-                          </Disclosure.Button>
-                        ))}
-                      </Disclosure.Panel>
-                    </>
-                  )}
-                </Disclosure>
-
-              </div>
-              <div className="py-6">
-                <a
-                  href="https://unltd.microsoftcrmportals.com/applications"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50"
-                >
-                  Log in
-                </a>
-              </div>
-            </div>
-          </div>
-        </Dialog.Panel>
-      </Dialog>
+      <DialogComponent nav={navigations} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
     </header>
   )
 }
