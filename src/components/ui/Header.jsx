@@ -1,14 +1,11 @@
-import { Fragment, useState } from 'react'
-import { Popover, Transition } from '@headlessui/react'
+import { useState } from 'react'
 
-
-// Real data we aren't using //
+// Real data we aren't using //////////////////////////////
 // import { navigation } from "../../data/navigation.js"
 // const navigations = navigation.code.header.main;
 // console.log("Diretcus: ", navigation);
 
-
-// Fake data we are using to debug //
+// Fake data we are using to debug //////////////////////////////
 const data = {
   header: {
     action: {
@@ -297,8 +294,8 @@ const navigations = data.header.main;
 // console.log("Local: ", navigations);
 
 import Logo from "../Logo.jsx";
-import PopoverComponent from './Popover.jsx';
-import DialogComponent from './Dialog.jsx';
+import PanelComp from './Panel.jsx';
+import DialogComp from './Dialog.jsx';
 
 export default function HeaderComp() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -321,21 +318,14 @@ export default function HeaderComp() {
             <i className="fa-solid fa-bars h-6 w-6" aria-hidden="true" ></i>
           </button>
         </div>
-        <Popover.Group className="hidden lg:flex lg:gap-x-12">
-          {
-            navigations.map((nav, i) => <PopoverComponent key={i} nav={nav} />)
-          }
-          <a href="/blog" className="text-sm font-semibold leading-6 text-violet-900 dark:text-violet-100">
-            Blog
-          </a>
-        </Popover.Group>
+        <PanelComp navs={navigations} />
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="https://unltd.microsoftcrmportals.com/applications" className="text-sm font-semibold leading-6 text-violet-900 dark:text-violet-100">
             Log in <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </nav>
-      <DialogComponent nav={navigations} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+      <DialogComp nav={navigations} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
     </header>
   )
 }
