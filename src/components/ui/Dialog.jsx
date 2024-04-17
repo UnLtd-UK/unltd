@@ -1,5 +1,5 @@
 import { Dialog } from '@headlessui/react'
-import DisclosureComponent from './Disclosure.jsx';
+import DisclosureComp from './Disclosure.jsx';
 import Logo from "../Logo.jsx";
 
 export default function DialogComp({ nav, mobileMenuOpen, setMobileMenuOpen }) {
@@ -24,7 +24,7 @@ export default function DialogComp({ nav, mobileMenuOpen, setMobileMenuOpen }) {
                     <div className="-my-6 divide-y divide-violet-500/10">
                         <div className="space-y-2 py-6">
                             {
-                                nav.map((item) => <DisclosureComponent key={item.id} item={item} />)
+                                nav.map((item) => <DisclosureComp key={item.id} item={item} />)
                             }
                             <a
                                 href="/blog"
