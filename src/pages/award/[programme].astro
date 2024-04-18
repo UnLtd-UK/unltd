@@ -56,10 +56,13 @@ const { programme } = Astro.props;
 <Template
   name={programme.name}
   description={programme.description}
-  colour={programmeColours.bg2[programme.colour]}
+  fill={programmeColours.progFill[programme.name]}
+  text={programmeColours.progText[programme.name]}
+  text2={programmeColours.progText2[programme.name]}
+  bg={programmeColours.progBg[programme.name]}
+  bg2={programmeColours.progBg2[programme.name]}
+  breadcrumbs={programme.breadcrumbs}
 >
-  <Breadcrumbs breadcrumbs={programme.breadcrumbs} />
-
   <Intro programme={programme} />
 
   <Container>
@@ -74,16 +77,16 @@ const { programme } = Astro.props;
                     class="absolute inset-0 flex items-center"
                     aria-hidden="true"
                   >
-                    <div
-                      class={`w-full border-t ${programmeColours.border1[programme.colour]}`}
-                    >
-                    </div>
                   </div>
-                  <div class="relative flex justify-start">
+                  <div class="relative flex flex-col gap-3 justify-start">
                     <span
-                      class={`bg-white pr-3 text-3xl font-semibold leading-6 ${programmeColours.text1[programme.colour]} ${programmeColours.bg2[programme.colour]}`}
+                      class={`pr-3 text-3xl font-semibold leading-6 ${programmeColours.text1[programme.colour]}`}
                       >What additional support is available</span
                     >
+                    <div
+                      class={`w-full border-t ${programmeColours.bg1[programme.colour]}`}
+                    >
+                    </div>
                   </div>
                 </div>
                 {
@@ -119,16 +122,16 @@ const { programme } = Astro.props;
                     class="absolute inset-0 flex items-center"
                     aria-hidden="true"
                   >
-                    <div
-                      class={`w-full border-t ${programmeColours.border1[programme.colour]}`}
-                    >
-                    </div>
                   </div>
-                  <div class="relative flex justify-start">
+                  <div class="relative flex flex-col gap-3 justify-start">
                     <span
-                      class={`pr-3 text-3xl font-semibold leading-6 ${programmeColours.text1[programme.colour]} ${programmeColours.bg2[programme.colour]}`}
+                      class={`pr-3 text-3xl font-semibold leading-6 ${programmeColours.text1[programme.colour]} `}
                       >What we are looking for</span
                     >
+                    <div
+                      class={`w-full border-t ${programmeColours.bg1[programme.colour]}`}
+                    >
+                    </div>
                   </div>
                 </div>
                 <div>
@@ -137,14 +140,10 @@ const { programme } = Astro.props;
                       class="absolute inset-0 flex items-center"
                       aria-hidden="true"
                     >
-                      <div
-                        class={`w-full border-t ${programmeColours.border1[programme.colour]}`}
-                      >
-                      </div>
                     </div>
                     <div class="relative flex justify-start">
                       <span
-                        class={`bg-white pr-3 text-base font-semibold leading-6 ${programmeColours.text1[programme.colour]} ${programmeColours.bg2[programme.colour]}`}
+                        class={`pr-3 text-base font-semibold leading-6 ${programmeColours.text1[programme.colour]} `}
                         >Social entrepreneur</span
                       >
                     </div>
@@ -162,14 +161,10 @@ const { programme } = Astro.props;
                       class="absolute inset-0 flex items-center"
                       aria-hidden="true"
                     >
-                      <div
-                        class={`w-full border-t ${programmeColours.border1[programme.colour]}`}
-                      >
-                      </div>
                     </div>
                     <div class="relative flex justify-start">
                       <span
-                        class={`bg-white pr-3 text-base font-semibold leading-6 ${programmeColours.text1[programme.colour]} ${programmeColours.bg2[programme.colour]}`}
+                        class={`pr-3 text-base font-semibold leading-6 ${programmeColours.text1[programme.colour]}`}
                         >Social enterprise</span
                       >
                     </div>

@@ -43,8 +43,11 @@ const breadcrumbs = [props];
 // });
 ---
 
-<Template name={props.name} description={props.description}>
-  <Breadcrumbs breadcrumbs={breadcrumbs} />
+<Template
+  name={props.name}
+  description={props.description}
+  breadcrumbs={breadcrumbs}
+>
   <Header />
   <Grants />
   <Programmes />

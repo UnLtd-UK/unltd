@@ -1,6 +1,6 @@
 ---
 import Container from "../components/Container.astro";
-const { breadcrumbs } = Astro.props;
+const { breadcrumbs, text, text2 } = Astro.props;
 ---
 
 <Container>
@@ -12,7 +12,7 @@ const { breadcrumbs } = Astro.props;
             <div>
               <a
                 href="/"
-                class="hover:text-violet-900 text-violet-800 dark:hover:text-violet-100 dark:text-violet-200 transition"
+                class={`${text} hover:text-violet-900 dark:hover:text-violet-100 transition`}
               >
                 <i class="fa-solid fa-house text-xs"></i>
                 <span class="sr-only">UnLtd</span>
