@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BrowserRouter, useLocation } from 'react-router-dom'; // Import useLocation hook
 
 // Real data we aren't using //////////////////////////////
 // import { navigation } from "../../data/navigation.js"
@@ -293,11 +294,13 @@ const data = {
 const navigations = data.header.main;
 // console.log("Local: ", navigations);
 
+import { programmeColours } from "../../data/programmeColours.js";
+
 import Logo from "../Logo.jsx";
 import PanelComp from './Panel.jsx';
 import DialogComp from './Dialog.jsx';
 
-export default function HeaderComp() {
+export default function HeaderComp({ fill, text, text2, bg, bg2 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
@@ -305,27 +308,27 @@ export default function HeaderComp() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
-            <Logo colour="fill-amber-600" />
+            <Logo colour={fill} />
           </a>
         </div>
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-violet-700"
+            className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 ${text}`}
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
             <i className="fa-solid fa-bars h-6 w-6" aria-hidden="true" ></i>
           </button>
         </div>
-        <PanelComp navs={navigations} />
+        <PanelComp navs={navigations} text={text} text2={text2} bg={bg} bg2={bg2} />
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="https://unltd.microsoftcrmportals.com/applications" className="text-sm font-semibold leading-6 text-violet-900 dark:text-violet-100">
-            Log in <span aria-hidden="true">&rarr;</span>
+          <a href="https://unltd.microsoftcrmportals.com/applications" className={`text-sm font-semibold leading-6 ${text}`}>
+            Log in <span aria-hidden="true" className={text2}>&rarr;</span>
           </a>
         </div>
       </nav>
-      <DialogComp nav={navigations} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+      <DialogComp nav={navigations} fill={fill} text={text} text2={text2} bg={bg} bg2={bg2} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
     </header>
   )
 }

@@ -1,30 +1,30 @@
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 
-export default function PopoverComp({ nav }) {
+export default function PopoverComp({ nav, text, text2, bg, bg2 }) {
     return <Popover className="relative">
-        <Popover.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-violet-900 dark:text-violet-100">
+        <Popover.Button className={`flex items-center gap-x-1 text-sm font-semibold leading-6 ${text}`}>
             {nav.name}
-            <i className="fa-solid fa-chevron-down h-4 w-4 flex-none text-violet-700 dark:text-violet-300" aria-hidden="true"></i>
+            <i className={`fa-solid fa-chevron-down h-4 w-4 flex-none ${text2}`} aria-hidden="true"></i>
         </Popover.Button>
         <Transition
             as={Fragment}
             enter="transition ease-out duration-200"
-            enterFrom="opacity-0 tranviolet-y-1"
-            enterTo="opacity-100 tranviolet-y-0"
+            enterFrom="opacity-0 translate-y-1"
+            enterTo="opacity-100 translate-y-0"
             leave="transition ease-in duration-150"
-            leaveFrom="opacity-100 tranviolet-y-0"
-            leaveTo="opacity-0 tranviolet-y-1"
+            leaveFrom="opacity-100 translate-y-0"
+            leaveTo="opacity-0 translate-y-1"
         >
-            <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-violet-50 dark:bg-violet-950 shadow-lg ring-1 ring-violet-900/5 dark:ring-violet-50/10">
+            <Popover.Panel className={`absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl ${bg} shadow-lg ring-1 ring-violet-900/5 dark:ring-violet-50/10`}>
                 <div className="p-4">
                     {nav.items.map((child) => (
                         <div
                             key={child.id}
-                            className="group relative flex gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-violet-100 dark:hover:bg-violet-900"
+                            className={`group relative flex gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-violet-100 dark:hover:bg-violet-900`}
                         >
-                            <div className="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-violet-50 dark:bg-violet-900 group-hover:bg-violet-50 dark:group-hover:bg-violet-950">
-                                <i className={`${child.icon} h-6 w-6 text-violet-600 dark:text-violet-300 group-hover:text-amber-600 dark:group-hover:text-amber-700 flex justify-center items-center`} aria-hidden="true" />
+                            <div className={`mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg ${bg2} group-hover:bg-violet-50 dark:group-hover:bg-violet-950`}>
+                                <i className={`${child.icon} h-6 w-6 ${text} group-hover:text-amber-600 dark:group-hover:text-amber-700 flex justify-center items-center`} aria-hidden="true" />
                             </div>
                             <div className="flex-auto">
                                 <a href={child.href} className="block font-semibold text-violet-900 dark:text-violet-100">
@@ -33,7 +33,7 @@ export default function PopoverComp({ nav }) {
                                         {child.badge}
                                     </span>}
                                 </a>
-                                <p className="mt-1 text-violet-600 dark:text-violet-400">{child.description}</p>
+                                <p className={`mt-1 ${text2}`}>{child.description}</p>
                             </div>
                         </div>
                     ))}

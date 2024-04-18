@@ -2,10 +2,15 @@
 const {
   name,
   description,
-  colour = "bg-violet-950",
+  fill = "fill-amber-400 dark:fill-amber-600",
+  text = "text-violet-950 dark:text-violet-50",
+  text2 = "text-violet-800 dark:text-violet-200",
+  bg = "bg-violet-50 dark:bg-violet-950",
+  bg2 = "bg-violet-100 dark:bg-violet-900",
+  breadcrumbs = [],
 } = Astro.props.frontmatter || Astro.props;
-import { programmeColours } from "../data/programmeColours.js";
 import Header from "../components/ui/Header.jsx";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Footer from "../components/Footer.astro";
 
 import "@fontsource-variable/montserrat";
@@ -72,9 +77,17 @@ import "@fontsource-variable/unbounded"; // ATE
       src="https://kit.fontawesome.com/0ff725f684.js"
       crossorigin="anonymous"></script>
   </head>
-  <body class={`bg-violet-50 dark:${colour} dark`}>
+  <body class={`dark ${bg}`}>
     <div class="flex flex-col justify-between h-full">
-      <Header client:load />
+      <Header
+        fill={fill}
+        text={text}
+        text2={text2}
+        bg={bg}
+        bg2={bg2}
+        client:load
+      />
+      <Breadcrumbs breadcrumbs={breadcrumbs} text={text} text2={text2} />
       <!-- <Nav /> -->
       <div>
         <slot />

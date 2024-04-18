@@ -185,6 +185,42 @@ const programmeColours = {
         pink: "bg-pink-400/50 text-pink-600 ring-pink-500/10 dark:bg-pink-600/50 dark:text-pink-200 dark:ring-pink-400/20",
         rose: "bg-rose-400/50 text-rose-600 ring-rose-500/10 dark:bg-rose-600/50 dark:text-rose-200 dark:ring-rose-400/20",
     },
+    "progBg": {
+        "Funding Futures Programme": "bg-gradient-to-br from-orange-400 to-purple-400 dark:from-orange-600 dark:to-purple-600",
+        "Healthy Ageing": "bg-gradient-to-br from-emerald-400 to-teal-400 dark:from-emerald-600 dark:to-teal-600",
+        "Movement for Change": "bg-gradient-to-br from-sky-400 to-blue-400 dark:from-sky-600 dark:to-blue-600",
+        "Access to Employment": "bg-gradient-to-br from-red-400 to-rose-400 dark:from-red-600 dark:to-rose-600",
+    },
+    "progBg2": {
+        "Funding Futures Programme": "bg-gradient-to-br from-orange-300 to-purple-300 dark:from-orange-700 dark:to-purple-700",
+        "Healthy Ageing": "bg-gradient-to-br from-emerald-300 to-teal-300 dark:from-emerald-700 dark:to-teal-700",
+        "Movement for Change": "bg-gradient-to-br from-sky-300 to-blue-300 dark:from-sky-700 dark:to-blue-700",
+        "Access to Employment": "bg-gradient-to-br from-red-300 to-rose-300 dark:from-red-700 dark:to-rose-700",
+    },
+    "progFill": {
+        "Funding Futures Programme": "fill-orange-950 dark:fill-orange-50",
+        "Healthy Ageing": "fill-emerald-950 dark:fill-emerald-50",
+        "Movement for Change": "fill-sky-950 dark:fill-sky-50",
+        "Access to Employment": "fill-red-950 dark:fill-red-50",
+    },
+    "progText": {
+        "Funding Futures Programme": "text-orange-950 dark:text-orange-50",
+        "Healthy Ageing": "text-emerald-950 dark:text-emerald-50",
+        "Movement for Change": "text-sky-950 dark:text-sky-50",
+        "Access to Employment": "text-red-950 dark:text-red-50",
+    },
+    "progText2": {
+        "Funding Futures Programme": "text-orange-800 dark:text-orange-200",
+        "Healthy Ageing": "text-emerald-800 dark:text-emerald-200",
+        "Movement for Change": "text-sky-800 dark:text-sky-200",
+        "Access to Employment": "text-red-800 dark:text-red-200",
+    },
+    "progRing": {
+        "Funding Futures Programme": "ring-amber-900/5 dark:ring-amber-50/10",
+        "Healthy Ageing": "ring-emerald-900/5 dark:ring-emerald-50/10",
+        "Movement for Change": "ring-sky-900/5 dark:ring-sky-50/10",
+        "Access to Employment": "ring-red-900/5 dark:ring-red-50/10",
+    },
 }
 
 export { programmeColours }
