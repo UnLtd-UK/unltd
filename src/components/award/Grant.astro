@@ -1,7 +1,7 @@
 ---
 import Badge from "./cards/Badge.astro";
 
-import { programmeColours } from "../../data/programmeColours.js";
+import { styles } from "../../data/styles.js";
 import { programmes } from "../../data/programmes.js";
 
 const {
@@ -16,7 +16,7 @@ const {
 ---
 
 <div
-  class={`flex flex-col flex-1 grow divide-y rounded-2xl shadow-md border ${programmeColours.divide["violet"]} ${programmeColours.border1["violet"]} `}
+  class={`flex flex-col flex-1 grow divide-y rounded-2xl shadow-md border border-violet-400 dark:border-violet-600 divide-violet-200 dark:divide-violet-800`}
 >
   <div class="bg-violet-50 dark:bg-violet-950 rounded-t-2xl px-8 py-6">
     <h2 class="text-2xl font-semibold text-violet-900 dark:text-violet-100">
@@ -75,25 +75,6 @@ const {
           </div>
         </div>
       </div>
-
-      <!-- <div class="flex flex-1 flex-col gap-2">
-        <p class="text-xs font-semibold text-violet-600 dark:text-violet-200">
-          Programmes available:
-        </p>
-        <ul class="flex flex-col gap-1">
-          {
-            programmes.map((programme) => (
-              <div>
-                <Badge
-                  icon={programme.icon}
-                  name={programme.name}
-                  colour={programmeColours.badge[programme.colour]}
-                />
-              </div>
-            ))
-          }
-        </ul>
-      </div> -->
     </div>
   </div>
 

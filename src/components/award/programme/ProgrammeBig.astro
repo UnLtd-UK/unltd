@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import { sesm } from "../../../data/sesm.js";
 import Icon from "../cards/Icon.astro";
-import { programmeColours } from "../../../data/programmeColours.js";
+import { styles } from "../../../data/styles.js";
 
 function isValidUrl(string) {
   try {
@@ -31,7 +31,7 @@ const {
 ---
 
 <div
-  class={`grid grid-flow-col shadow-md rounded-2xl border-2 ${programmeColours.divide[colour]} ${programmeColours.bg2[colour]} ${programmeColours.border1[colour]}`}
+  class={`grid grid-flow-col shadow-md rounded-2xl border-2 ${styles[name].divide} ${styles[name].bg2} ${styles[name].border}`}
 >
   <div
     class="row-span-3 rounded-l-2xl relative isolate flex flex-col justify-end overflow-hidden px-10 py-10"
@@ -43,10 +43,7 @@ const {
       alt=""
       class="absolute inset-0 -z-10 h-full w-full object-cover"
     />
-    <div
-      class={`absolute inset-0 -z-10 opacity-80 ${programmeColours.bg1[colour]}`}
-    >
-    </div>
+    <div class={`absolute inset-0 -z-10 opacity-80 ${styles[name].bg}`}></div>
     <div class="flex flex-col gap-6">
       <div class="flex flex-col gap-4">
         <div class="flex flex-col gap-2">
@@ -60,34 +57,32 @@ const {
                 />
               ) : (
                 <div
-                  class={`flex items-center justify-center h-24 w-24 rounded-md border shadow-2xl ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
+                  class={`flex items-center justify-center h-24 w-24 rounded-md border shadow-2xl ${styles[name].bg} ${styles[name].border}`}
                 >
                   <img class="h-12" src="/svg/unltd.svg" alt="" />
                 </div>
               )
             }
           </span>
-          <h3
-            class={`text-lg font-bold leading-6 ${programmeColours.text1[colour]}`}
-          >
+          <h3 class={`text-lg font-bold leading-6 ${styles[name].text}`}>
             {name}
           </h3>
         </div>
         <div class="flex flex-col gap-1">
-          <p class={`text-sm ${programmeColours.text2[colour]}`}>
+          <p class={`text-sm ${styles[name].text2}`}>
             {description}
           </p>
-          <p class={`text-sm ${programmeColours.text2[colour]}`}>
+          <p class={`text-sm ${styles[name].text2}`}>
             {description}
           </p>
-          <p class={`text-sm ${programmeColours.text2[colour]}`}>
+          <p class={`text-sm ${styles[name].text2}`}>
             {description}
           </p>
         </div>
       </div>
       <div>
         <h2
-          class={`text-sm font-semibold leading-8 text-gray-900 ${programmeColours.text1[colour]}`}
+          class={`text-sm font-semibold leading-8 text-gray-900 ${styles[name].text}`}
         >
           Partners and Funders
         </h2>
@@ -97,7 +92,7 @@ const {
   </div>
 
   <div
-    class={`col-span-2 rounded-tr-2xl grid grid-cols-2 grid-rows-2 gap-4 p-16 ${programmeColours.bg1[colour]}`}
+    class={`col-span-2 rounded-tr-2xl grid grid-cols-2 grid-rows-2 gap-4 p-16 ${styles[name].bg}`}
     style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22 viewBox=%220 0 4 4%22%3E%3Cpath fill=%22%23ffffff%22 fill-opacity=%220.08%22 d=%22M1 3h1v1H1V3zm2-2h1v1H3V1z%22%3E%3C/path%3E%3C/svg%3E');"
   >
     {
@@ -105,13 +100,13 @@ const {
         <div class="relative pl-16 basis-1/4">
           <dt class="text-base leading-7">
             <div
-              class={`absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full shadow-lg border ${programmeColours.bg1[colour]} ${programmeColours.border1[colour]}`}
+              class={`absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full shadow-lg border ${styles[name].bg} ${styles[name].border}`}
             >
               <i
-                class={`${service.services_id.icon} text-md shadow-3xl ${programmeColours.text2[colour]}`}
+                class={`${service.services_id.icon} text-md shadow-3xl ${styles[name].text2}`}
               />
             </div>
-            <span class={`text-base ${programmeColours.text1[colour]}`}>
+            <span class={`text-base ${styles[name].text}`}>
               {service.services_id.name}
             </span>
             {service.services_id.name == "Support manager" && (
@@ -120,7 +115,7 @@ const {
                   <Image
                     width="32"
                     height="32"
-                    class={`inline-block h-8 w-8 rounded-full border-2 ${programmeColours.border1[colour]}`}
+                    class={`inline-block h-8 w-8 rounded-full border-2 ${styles[name].border}`}
                     src={
                       employee.person.image !== null
                         ? `https://unltd.directus.app/assets/${employee.person.image}?height=64`
@@ -132,9 +127,7 @@ const {
               </div>
             )}
           </dt>
-          <dd
-            class={`mt-2 text-sm leading-6 ${programmeColours.text2[colour]}`}
-          >
+          <dd class={`mt-2 text-sm leading-6 ${styles[name].text2}`}>
             {service.services_id.description}
           </dd>
         </div>
@@ -143,50 +136,44 @@ const {
   </div>
 
   <div
-    class={`row-span-2 col-span-2 rounded-br-2xl flex flex-col gap-5 p-8 px-16 py-8 ${programmeColours.bg2[colour]}`}
+    class={`row-span-2 col-span-2 rounded-br-2xl flex flex-col gap-5 p-8 px-16 py-8 ${styles[name].bg2}`}
   >
     <div class="flex flex-col gap-1">
-      <h3 class={`text-xs font-semibold ${programmeColours.text1[colour]}`}>
+      <h3 class={`text-xs font-semibold ${styles[name].text}`}>
         Social entrepreneur eligibility
       </h3>
     </div>
     <ul class="flex flex-row gap-10">
       <li class="flex flex-col gap-1">
         <p
-          class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
+          class={`truncate text-xs uppercase flex gap-2 items-center ${styles[name].text2}`}
         >
           <i class={`fa-thin fa-spinner `}></i>
           <span class={`text-xs `}> Age </span>
         </p>
-        <p
-          class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
-        >
+        <p class={`text-xs font-medium tracking-tight ${styles[name].text}`}>
           {age}
         </p>
       </li>
       <li class="flex flex-col gap-1">
         <p
-          class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
+          class={`truncate text-xs uppercase flex gap-2 items-center ${styles[name].text2}`}
         >
           <i class={`fa-thin fa-location-dot `}></i>
           <span class={`text-xs `}> Geography </span>
         </p>
-        <p
-          class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
-        >
+        <p class={`text-xs font-medium tracking-tight ${styles[name].text}`}>
           {geography}
         </p>
       </li>
       <li class="flex flex-col gap-1">
         <p
-          class={`truncate text-xs uppercase flex gap-2 items-center ${programmeColours.text2[colour]}`}
+          class={`truncate text-xs uppercase flex gap-2 items-center ${styles[name].text2}`}
         >
           <i class={`fa-thin fa-vector-square `}></i>
           <span class={`text-xs `}> Sectors </span>
         </p>
-        <p
-          class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
-        >
+        <p class={`text-xs font-medium tracking-tight ${styles[name].text}`}>
           {sectors}
         </p>
       </li>

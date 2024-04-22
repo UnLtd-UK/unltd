@@ -1,0 +1,53 @@
+---
+import moment from "moment";
+let todayDate = moment();
+
+const { from, till, styles } = Astro.props;
+---
+
+<div>
+    {
+        () => {
+            if (!from && !till) {
+                return (
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center rounded-full gap-1 bg-blue-100 px-3 py-0.5 text-sm font-medium text-blue-700">
+                            <i class="fa-solid fa-circle text-blue-700 text-xs" />
+                            Coming soon
+                        </span>
+                        <p class={`text-xs ${styles.text2}`}>
+                            Application window opens
+                            {moment(from).format("dddd hh:mma, MMMM Do YYYY")}
+                        </p>
+                    </div>
+                );
+            } else if (!todayDate.isAfter(till)) {
+                return (
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center rounded-full gap-1 bg-green-100 px-3 py-0.5 text-sm font-medium text-green-700">
+                            <i class="fa-solid fa-circle text-green-700 text-xs" />
+                            Open
+                        </span>
+                        <p class={`text-xs ${styles.font} ${styles.text2}`}>
+                            Application window closes
+                            {moment(till).format("dddd hh:mma, MMMM Do YYYY")}
+                        </p>
+                    </div>
+                );
+            } else {
+                return (
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center rounded-full gap-1 bg-red-100 px-3 py-0.5 text-sm font-medium text-red-700">
+                            <i class="fa-solid fa-circle text-red-700 text-xs" />
+                            Closed
+                        </span>
+                        <p class={`text-xs ${styles.font} ${styles.text2}`}>
+                            Application window closed
+                            {moment(till).format("dddd hh:mma, MMMM Do YYYY")}
+                        </p>
+                    </div>
+                );
+            }
+        }
+    }
+</div>

@@ -294,7 +294,7 @@ const data = {
 const navigations = data.header.main;
 // console.log("Local: ", navigations);
 
-import { programmeColours } from "../../data/programmeColours.js";
+import { styles } from "../../data/styles.js";
 
 import Logo from "../Logo.jsx";
 import PanelComp from './Panel.jsx';

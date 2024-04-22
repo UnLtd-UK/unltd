@@ -1,14 +1,18 @@
 ---
+import { styles } from "../data/styles.js";
+
 const {
-  name,
-  description,
-  fill = "fill-amber-400 dark:fill-amber-600",
-  text = "text-violet-950 dark:text-violet-50",
-  text2 = "text-violet-800 dark:text-violet-200",
-  bg = "bg-violet-50 dark:bg-violet-950",
-  bg2 = "bg-violet-100 dark:bg-violet-900",
+  name = "UnLtd",
+  description = "No description",
+  fill = styles["UnLtd"].fill,
+  text = styles["UnLtd"].text,
+  text2 = styles["UnLtd"].text2,
+  bg = styles["UnLtd"].bg,
+  bg2 = styles["UnLtd"].bg2,
   breadcrumbs = [],
+  body = styles["UnLtd"].bg,
 } = Astro.props.frontmatter || Astro.props;
+
 import Header from "../components/ui/Header.jsx";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Footer from "../components/Footer.astro";
@@ -89,10 +93,11 @@ import "@fontsource-variable/unbounded"; // ATE
       />
       <Breadcrumbs breadcrumbs={breadcrumbs} text={text} text2={text2} />
       <!-- <Nav /> -->
-      <div>
+      <div class={body}>
         <slot />
       </div>
       <Footer />
     </div>
   </body>
 </html>
+../data/styles.js

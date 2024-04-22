@@ -1,181 +1,93 @@
 ---
-const { programme } = Astro.props;
+const { programme, styles } = Astro.props;
 
 import Icon from "../../../components/award/cards/Icon.astro";
 import Container from "../../../components/Container.astro";
+import Status from "../../../components/award/programme/Status.astro";
 import Partners from "../../../components/award/programme/Partners.astro";
-import { programmeColours } from "../../../data/programmeColours.js";
-import { fonts } from "../../../data/fonts.js";
 
 import moment from "moment";
 let todayDate = moment();
-
-
-
 ---
 
-<Container>
+<div class={`relative isolate overflow-hidden ${styles.bg} py-24 sm:py-32`}>
+  <img
+    src={`https://unltd.directus.app/assets/${programme.image.id}`}
+    alt=""
+    class="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center brightness-50 blur-sm opacity-30"
+  />
   <div
-    class={`relative isolate overflow-hidden py-14 sm:py-14 rounded-xl shadow-2xl border ${programmeColours.border2[programme.colour]}`}
+    class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
+    aria-hidden="true"
   >
-    <img
-      src={`https://unltd.directus.app/assets/${programme.image.id}`}
-      alt=""
-      class="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center brightness-50 blur-sm opacity-30"
-    />
     <div
-      class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
-      aria-hidden="true"
+      class={`aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr ${styles.bg} opacity-20`}
+      style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
     >
-      <div
-        class={`aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr ${programmeColours.bg1[programme.colour]} opacity-20`}
-        style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
-      >
-      </div>
-    </div>
-    <div
-      class="absolute -top-52 left-1/2 -z-10 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:transform-gpu"
-      aria-hidden="true"
-    >
-      <div
-        class={`aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr ${programmeColours.bg1[programme.colour]} opacity-20`}
-        style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
-      >
-      </div>
-    </div>
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="col-span-4 flex flex-col gap-20 lg:flex-row">
-        <div class="lg:basis-1/2 flex flex-col gap-8">
-
-          { programme.logo ? (<div class={`flex flex-inline items-center gap-3 ${programmeColours.text1[programme.colour]}`}>
-              <i class={`fa-solid fa-award text-xl ${programmeColours.text2[programme.colour]}`}></i><span class="text-1xl tracking-widest uppercase font-bold">Award Programme</span>
-            </div><img src={`https://unltd.directus.app/assets/${programme.logo.id}`} alt="">) :
-
-          <Icon
-          icon={programme.icon}
-          textColour={programmeColours.text2[programme.colour]}
-          bgColour={programmeColours.bg1[programme.colour]}
-          borderColour={programmeColours.border1[programme.colour]}
-          />
-        }
-
-        
-          <div class="flex flex-col gap-3">
-            { !programme.logo &&             <div class={`flex flex-inline items-center gap-3 ${programmeColours.text1[programme.colour]}`}>
-              <i class={`fa-solid fa-award text-xl ${programmeColours.text2[programme.colour]}`}></i><span class="text-1xl tracking-widest uppercase font-bold">Award Programme</span>
-            </div><h1 class={`text-4xl font-bold ${programmeColours.text1[programme.colour]}`}>
-              {programme.name}
-            </h1> }
-            <p class={` 
-               text-base leading-relaxed ${programmeColours.text2[programme.colour]} ${fonts[programme.name]}`}>
-              {programme.description}
-            </p>
-          </div>
-
-          <div class="flex flex-col gap-2">
-            <div>
-              {
-                () => {
-                  if (
-                    !todayDate.isAfter(programme.from) &&
-                    !todayDate.isAfter(programme.till)
-                  ) {
-                    return (
-                      <div class="flex items-center gap-2">
-                        <span class="inline-flex items-center rounded-full gap-1 bg-blue-100 px-3 py-0.5 text-sm font-medium text-blue-700">
-                          <i class="fa-solid fa-circle text-blue-700 text-xs" />
-                          Coming soon
-                        </span>
-                        <p class={`text-xs ${programmeColours.text1[programme.colour]}`}>
-                          Application window opens
-                          {moment(programme.from).format(
-                            "dddd hh:mma, MMMM Do YYYY",
-                          )}
-                        </p>
-                      </div>
-                    );
-                  } else if (!todayDate.isAfter(programme.till)) {
-                    return (
-                      <div class="flex items-center gap-2">
-                        <span class="inline-flex items-center rounded-full gap-1 bg-green-100 px-3 py-0.5 text-sm font-medium text-green-700">
-                          <i class="fa-solid fa-circle text-green-700 text-xs" />
-                          Open
-                        </span>
-                        <p class={`text-xs ${fonts[programme.name]} ${programmeColours.text1[programme.colour]}`}>
-                          Application window closes
-                          {moment(programme.till).format(
-                            "dddd hh:mma, MMMM Do YYYY",
-                          )}
-                        </p>
-                      </div>
-                    );
-                  } else {
-                    return (
-                      <div class="flex items-center gap-2">
-                        <span class="inline-flex items-center rounded-full gap-1 bg-red-100 px-3 py-0.5 text-sm font-medium text-red-700">
-                          <i class="fa-solid fa-circle text-red-700 text-xs" />
-                          Closed
-                        </span>
-                        <p class={`text-xs  ${programmeColours.text1[programme.colour]}`}>
-                          Application window closed
-                          {moment(programme.till).format(
-                            "dddd hh:mma, MMMM Do YYYY",
-                          )}
-                        </p>
-                      </div>
-                    );
-                  }
-                }
-              }
-            </div>
-          </div>
-
-        </div>
-        
-
-        <div class="lg:basis-1/2 flex flex-col justify-center">
-          <section
-            class="overflow-hidden relative mx-auto p-6 lg:p-6 backdrop-blur-md bg-white/10 rounded-2xl"
-          >
-
-          { programme.video ? <iframe width="560" height="315" src={programme.video} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-           : <blockquote class="">
-              <div class={`mx-auto text-xl font-medium leading-9 ${programmeColours.text1[programme.colour]}`}>
-                <span class={`${programmeColours.text2[programme.colour]}`}>"{programme.quote}"</span>
-                <footer class="mt-8">
-                  <div class="md:flex gap-4">
-                    <!-- <img
-                    class="inline-block h-14 w-14 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  /> -->
-                    <div class="mt-3 md:mt-0 md:flex md:flex-col gap-1">
-                      <div class={`text-base font-medium ${programmeColours.text2[programme.colour]}`}>
-                        {programme.quote_person[0].positions_id.person.name}
-                      </div>
-
-                      <div class={`text-base font-medium ${programmeColours.text2[programme.colour]}`}>
-                        {
-                          `${programme.quote_person[0].positions_id.role.name}, ${programme.quote_person[0].positions_id.role.organisation.name}`
-                        }
-                      </div>
-
-                      <div>
-                        <span
-                          class={`inline-flex items-center rounded-md ${programmeColours.bg1[programme.colour]} px-2.5 py-0.5 text-xs font-medium  ${programmeColours.text1[programme.colour]}`}
-                          >{programme.name} Award Winner</span
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </footer>
-              </div>
-            </blockquote>
-          }
-          </section>
-        </div>
-      </div>
-        <Partners partners={programme.partners} colour={programme.colour} name={programme.name}/>
     </div>
   </div>
-  </Container>
+  <div
+    class="absolute -top-52 left-1/2 -z-10 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:transform-gpu"
+    aria-hidden="true"
+  >
+    <div
+      class={`aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr ${styles.bg1} opacity-20`}
+      style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+    >
+    </div>
+  </div>
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="col-span-4 flex flex-col gap-20 lg:flex-row">
+      <div class="flex flex-col gap-8">
+        <div class="flex flex-row gap-8 items-center">
+          {
+            programme.logo ? (
+              <div
+                class={`flex items-center justify-center h-36 w-36 rounded-md border shadow-2xl ${styles.bg} ${styles.border}`}
+              >
+                <img
+                  src={`https://unltd.directus.app/assets/${programme.logo.id}`}
+                  class="w-28"
+                  alt=""
+                />
+              </div>
+            ) : (
+              <Icon
+                icon={programme.icon}
+                textColour={styles.text2}
+                bgColour={styles.bg}
+                borderColour={styles.border}
+              />
+            )
+          }
+          <div class="flex flex-col gap-3">
+            <div class={`flex flex-inline items-center gap-3 ${styles.text}`}>
+              <i class={`fa-solid fa-award text-base ${styles.text2}`}></i><span
+                class="text-xs tracking-widest uppercase font-bold"
+                >Award Programme</span
+              >
+            </div><h1
+              class={`text-6xl font-bold ${styles.text} ${styles.font}`}
+            >
+              {programme.name}
+            </h1>
+          </div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <p
+            class={`max-w-xl
+               text-sm leading-relaxed ${styles.text2} ${styles.font}`}
+          >
+            {programme.description}
+          </p>
+        </div>
+      </div>
+    </div>
+    <Partners
+      name={programme.name}
+      partners={programme.partners}
+      styles={styles}
+    />
+    <Status from={programme.from} till={programme.till} styles={styles} />
+  </div>
+</div>
