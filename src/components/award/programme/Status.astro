@@ -8,9 +8,6 @@ const { from, till, styles } = Astro.props;
 <div>
     {
         () => {
-            console.log("from: ", from);
-            console.log("till: ", till);
-            console.log("Test: ", moment().diff(till, "days") > -90);
             if (todayDate.isBefore(from)) {
                 return (
                     <div class="flex items-center gap-2">
