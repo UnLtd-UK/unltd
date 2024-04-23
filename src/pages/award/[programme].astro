@@ -64,8 +64,403 @@ const { programme } = Astro.props;
     <div class={`flex flex-col gap-20 pt-20`}>
       <div class="grid grid-cols-4 gap-20">
         <div class="col-span-4 flex flex-col gap-10 lg:col-span-4">
-          <div class="flex flex-col gap-10 lg:flex-row">
-            <div class="flex flex-col basis-3/4 gap-12">
+          <div class="flex flex-col gap-10">
+            <!-- main -->
+            <div class="flex flex-col gap-6">
+              <section class="py-24 sm:py-32">
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                  <div
+                    class="mx-auto grid max-w-2xl grid-cols-1 lg:mx-0 lg:max-w-none lg:grid-cols-2"
+                  >
+                    <div
+                      class="flex flex-col pb-10 sm:pb-16 lg:pb-0 lg:pr-8 xl:pr-20"
+                    >
+                      <img
+                        class="h-12 self-start"
+                        src="https://tailwindui.com/img/logos/tuple-logo-gray-900.svg"
+                        alt=""
+                      />
+                      <figure
+                        class="mt-10 flex flex-auto flex-col justify-between"
+                      >
+                        <blockquote
+                          class={`text-lg leading-8 ${styles[programme.name].text}`}
+                        >
+                          <p>
+                            "Once you get guys into a job and find their
+                            strengths - everyone has them - you see a blossoming
+                            that is hard to describe"
+                          </p>
+                        </blockquote>
+                        <figcaption class="mt-10 flex items-center gap-x-6">
+                          <img
+                            class="h-14 w-14 rounded-full bg-gray-50"
+                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                          />
+                          <div class="text-base">
+                            <div class="font-semibold text-gray-900">
+                              Judith Black
+                            </div>
+                            <div class="mt-1 text-gray-500">CEO of Tuple</div>
+                          </div>
+                        </figcaption>
+                      </figure>
+                    </div>
+                    <div
+                      class={`flex flex-col border-t ${styles[programme.name].border} pt-10 sm:pt-16 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0 xl:pl-20`}
+                    >
+                      <img
+                        class="h-12 self-start"
+                        src="https://tailwindui.com/img/logos/reform-logo-gray-900.svg"
+                        alt=""
+                      />
+                      <figure
+                        class="mt-10 flex flex-auto flex-col justify-between"
+                      >
+                        <blockquote
+                          class={`text-lg leading-8 ${styles[programme.name].text}`}
+                        >
+                          <p>
+                            “Excepteur veniam labore ullamco eiusmod. Pariatur
+                            consequat proident duis dolore nulla veniam
+                            reprehenderit nisi officia voluptate incididunt
+                            exercitation exercitation elit. Nostrud veniam sint
+                            dolor nisi ullamco.”
+                          </p>
+                        </blockquote>
+                        <figcaption class="mt-10 flex items-center gap-x-6">
+                          <img
+                            class="h-14 w-14 rounded-full bg-gray-50"
+                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                            alt=""
+                          />
+                          <div class="text-base">
+                            <div
+                              class={`font-semibold ${styles[programme.name].text}`}
+                            >
+                              Joseph Rodriguez
+                            </div>
+                            <div class={`mt-1 ${styles[programme.name].text2}`}>
+                              CEO of Reform
+                            </div>
+                            <span
+                              class={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${styles[programme.name].badge}`}
+                              >Starting up - Award Winner</span
+                            >
+                          </div>
+                        </figcaption>
+                      </figure>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div class="py-24 sm:py-32">
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                  <div class="mx-auto max-w-2xl lg:text-center">
+                    <h2
+                      class="text-base font-semibold leading-7 text-indigo-600"
+                    >
+                      Deploy faster
+                    </h2>
+                    <p
+                      class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+                    >
+                      Everything you need to deploy your app
+                    </p>
+                    <p class="mt-6 text-lg leading-8 text-gray-600">
+                      Quis tellus eget adipiscing convallis sit sit eget aliquet
+                      quis. Suspendisse eget egestas a elementum pulvinar et
+                      feugiat blandit at. In mi viverra elit nunc.
+                    </p>
+                  </div>
+                  <div
+                    class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl"
+                  >
+                    <dl
+                      class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
+                    >
+                      <div class="relative pl-16">
+                        <dt
+                          class="text-base font-semibold leading-7 text-gray-900"
+                        >
+                          <div
+                            class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+                          >
+                            <svg
+                              class="h-6 w-6 text-white"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              aria-hidden="true"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
+                              ></path>
+                            </svg>
+                          </div>
+                          Push to deploy
+                        </dt>
+                        <dd class="mt-2 text-base leading-7 text-gray-600">
+                          Morbi viverra dui mi arcu sed. Tellus semper
+                          adipiscing suspendisse semper morbi. Odio urna massa
+                          nunc massa.
+                        </dd>
+                      </div>
+                      <div class="relative pl-16">
+                        <dt
+                          class="text-base font-semibold leading-7 text-gray-900"
+                        >
+                          <div
+                            class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+                          >
+                            <svg
+                              class="h-6 w-6 text-white"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              aria-hidden="true"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+                              ></path>
+                            </svg>
+                          </div>
+                          SSL certificates
+                        </dt>
+                        <dd class="mt-2 text-base leading-7 text-gray-600">
+                          Sit quis amet rutrum tellus ullamcorper ultricies
+                          libero dolor eget. Sem sodales gravida quam turpis
+                          enim lacus amet.
+                        </dd>
+                      </div>
+                      <div class="relative pl-16">
+                        <dt
+                          class="text-base font-semibold leading-7 text-gray-900"
+                        >
+                          <div
+                            class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+                          >
+                            <svg
+                              class="h-6 w-6 text-white"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              aria-hidden="true"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                              ></path>
+                            </svg>
+                          </div>
+                          Simple queues
+                        </dt>
+                        <dd class="mt-2 text-base leading-7 text-gray-600">
+                          Quisque est vel vulputate cursus. Risus proin diam
+                          nunc commodo. Lobortis auctor congue commodo diam
+                          neque.
+                        </dd>
+                      </div>
+                      <div class="relative pl-16">
+                        <dt
+                          class="text-base font-semibold leading-7 text-gray-900"
+                        >
+                          <div
+                            class="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+                          >
+                            <svg
+                              class="h-6 w-6 text-white"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke-width="1.5"
+                              stroke="currentColor"
+                              aria-hidden="true"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M7.864 4.243A7.5 7.5 0 0119.5 10.5c0 2.92-.556 5.709-1.568 8.268M5.742 6.364A7.465 7.465 0 004.5 10.5a7.464 7.464 0 01-1.15 3.993m1.989 3.559A11.209 11.209 0 008.25 10.5a3.75 3.75 0 117.5 0c0 .527-.021 1.049-.064 1.565M12 10.5a14.94 14.94 0 01-3.6 9.75m6.633-4.596a18.666 18.666 0 01-2.485 5.33"
+                              ></path>
+                            </svg>
+                          </div>
+                          Advanced security
+                        </dt>
+                        <dd class="mt-2 text-base leading-7 text-gray-600">
+                          Arcu egestas dolor vel iaculis in ipsum mauris.
+                          Tincidunt mattis aliquet hac quis. Id hac maecenas ac
+                          donec pharetra eget.
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white py-24 sm:py-32">
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                  <dl
+                    class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3"
+                  >
+                    <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+                      <dt class="text-base leading-7 text-gray-600">
+                        Transactions every 24 hours
+                      </dt>
+                      <dd
+                        class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"
+                      >
+                        44 million
+                      </dd>
+                    </div>
+                    <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+                      <dt class="text-base leading-7 text-gray-600">
+                        Assets under holding
+                      </dt>
+                      <dd
+                        class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"
+                      >
+                        $119 trillion
+                      </dd>
+                    </div>
+                    <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+                      <dt class="text-base leading-7 text-gray-600">
+                        New users annually
+                      </dt>
+                      <dd
+                        class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"
+                      >
+                        46,000
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+
+              <div class="bg-white py-24 sm:py-32">
+                <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                  <div class="mx-auto max-w-2xl text-center">
+                    <h2
+                      class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+                    >
+                      From the blog
+                    </h2>
+                    <p class="mt-2 text-lg leading-8 text-gray-600">
+                      Learn how to grow your business with our expert advice.
+                    </p>
+                  </div>
+                  <div
+                    class="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+                  >
+                    <article
+                      class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+                    >
+                      <img
+                        src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80"
+                        alt=""
+                        class="absolute inset-0 -z-10 h-full w-full object-cover"
+                      />
+                      <div
+                        class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"
+                      >
+                      </div>
+                      <div
+                        class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"
+                      >
+                      </div>
+
+                      <div
+                        class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300"
+                      >
+                        <time datetime="2020-03-16" class="mr-8"
+                          >Mar 16, 2020</time
+                        >
+                        <div class="-ml-4 flex items-center gap-x-4">
+                          <svg
+                            viewBox="0 0 2 2"
+                            class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50"
+                          >
+                            <circle cx="1" cy="1" r="1"></circle>
+                          </svg>
+                          <div class="flex gap-x-2.5">
+                            <img
+                              src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                              alt=""
+                              class="h-6 w-6 flex-none rounded-full bg-white/10"
+                            />
+                            Michael Foster
+                          </div>
+                        </div>
+                      </div>
+                      <h3
+                        class="mt-3 text-lg font-semibold leading-6 text-white"
+                      >
+                        <a href="#">
+                          <span class="absolute inset-0"></span>
+                          Boost your conversion rate
+                        </a>
+                      </h3>
+                    </article>
+
+                    <!-- More posts... -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- Post -->
+              {
+                programme.post && (
+                  <div class="flex flex-col gap-3">
+                    <h3 class={`font-bold ${styles[programme.name].text}`}>
+                      Related posts
+                    </h3>
+                    <article
+                      class={`relative isolate flex flex-col justify-end overflow-hidden rounded-2xl ${styles[programme.name].bg} px-8 pb-8 pt-80 sm:pt-48 lg:pt-80`}
+                    >
+                      <img
+                        src={programme.post.image}
+                        alt=""
+                        class="absolute inset-0 -z-10 h-full w-full object-cover"
+                      />
+                      <div
+                        class={`absolute inset-0 -z-10 ${styles[programme.name].bg}`}
+                      />
+                      <div class="absolute inset-0 -z-10 rounded-2xl" />
+
+                      <div
+                        class={`flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 ${styles[programme.name].text}`}
+                      >
+                        <div class="-ml-4 flex items-center gap-x-4">
+                          <svg
+                            viewBox="0 0 2 2"
+                            class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50"
+                          >
+                            <circle cx="1" cy="1" r="1" />
+                          </svg>
+                          <div class="flex gap-x-2.5">
+                            By {programme.post.author}
+                          </div>
+                        </div>
+                      </div>
+                      <h3 class="mt-3 text-lg font-semibold leading-6 text-white">
+                        <a href={programme.post.link}>
+                          <span class="absolute inset-0" />
+                          {programme.post.title}
+                        </a>
+                      </h3>
+                    </article>
+                  </div>
+                )
+              }
+
               <div class="flex flex-col gap-2">
                 <div class="relative">
                   <div
@@ -172,48 +567,6 @@ const { programme } = Astro.props;
                     Apply for {programme.name}
                   </h2>
 
-                  {
-                    programme.video && (
-                      <blockquote
-                        class={`p-6 rounded-xl mt-4 ${styles[programme.name].bg}`}
-                      >
-                        <div class={`mx-auto text-xl font-medium leading-9 `}>
-                          <span class={`${styles[programme.name].text}`}>
-                            "{programme.quote}"
-                          </span>
-                          <footer class="mt-8">
-                            <div class="md:flex gap-4">
-                              <div class="mt-3 md:mt-0 md:flex md:flex-col gap-1">
-                                <div
-                                  class={`text-base font-medium ${styles[programme.name].text}`}
-                                >
-                                  {
-                                    programme.quote_person[0].positions_id
-                                      .person.name
-                                  }
-                                </div>
-
-                                <div
-                                  class={`text-base font-medium ${styles[programme.name].text}`}
-                                >
-                                  {`${programme.quote_person[0].positions_id.role.name}, ${programme.quote_person[0].positions_id.role.organisation.name}`}
-                                </div>
-
-                                <div>
-                                  <span
-                                    class={`inline-flex items-center rounded-md ${styles[programme.name].bg} px-2.5 py-0.5 text-xs font-medium ${styles[programme.name].text}`}
-                                  >
-                                    {programme.name} Awards Winner
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </footer>
-                        </div>
-                      </blockquote>
-                    )
-                  }
-
                   <div class="mt-10 flex items-center gap-x-6">
                     <a
                       href="/award"
@@ -225,58 +578,14 @@ const { programme } = Astro.props;
                 </div>
               </div>
             </div>
-            <div class="flex flex-col basis-1/4 gap-10 px-5 2xl:px-0">
+
+            <!-- sidebar -->
+            <div class="flex flex-col gap-10 px-5 2xl:px-0">
               <div class="flex flex-col gap-10">
-                <!-- Article -->
-                {
-                  programme.post && (
-                    <div class="flex flex-col gap-3">
-                      <h3 class={`font-bold ${styles[programme.name].text}`}>
-                        Related posts
-                      </h3>
-                      <article
-                        class={`relative isolate flex flex-col justify-end overflow-hidden rounded-2xl ${styles[programme.name].bg} px-8 pb-8 pt-80 sm:pt-48 lg:pt-80`}
-                      >
-                        <img
-                          src={programme.post.image}
-                          alt=""
-                          class="absolute inset-0 -z-10 h-full w-full object-cover"
-                        />
-                        <div
-                          class={`absolute inset-0 -z-10 ${styles[programme.name].bg}`}
-                        />
-                        <div class="absolute inset-0 -z-10 rounded-2xl" />
-
-                        <div
-                          class={`flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 ${styles[programme.name].text}`}
-                        >
-                          <div class="-ml-4 flex items-center gap-x-4">
-                            <svg
-                              viewBox="0 0 2 2"
-                              class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50"
-                            >
-                              <circle cx="1" cy="1" r="1" />
-                            </svg>
-                            <div class="flex gap-x-2.5">
-                              By {programme.post.author}
-                            </div>
-                          </div>
-                        </div>
-                        <h3 class="mt-3 text-lg font-semibold leading-6 text-white">
-                          <a href={programme.post.link}>
-                            <span class="absolute inset-0" />
-                            {programme.post.title}
-                          </a>
-                        </h3>
-                      </article>
-                    </div>
-                  )
-                }
-
                 <!-- Other programmes -->
                 <div class="flex flex-col gap-4 lg:flex">
                   <h3 class="font-bold text-slate-100">Other programmes</h3>
-                  <div class="flex flex-col gap-3">
+                  <div class="flex flex-row gap-3">
                     {
                       programmes
                         .filter(
@@ -284,14 +593,14 @@ const { programme } = Astro.props;
                             !(programmei.name === programme.name) &&
                             todayDate.isBefore(programmei.till) &&
                             todayDate.isAfter(programmei.from) &&
-                            programmei.name !== "Millennium Awards Trust (MAT)",
+                            programmei.name !== "Millennium Awards Trust",
                         )
                         .map((programme) => (
                           <a
                             href={`/award/${slugify(programme.name, { lower: true, strict: true, locale: "en", trim: true })}`}
-                            class={`border ${styles[programme.name].border} p-6 rounded-2xl flex flex-col gap-5 transition ${styles[programme.name].bg2}`}
+                            class={`border ${styles[programme.name].border} p-6 rounded-2xl flex flex-1 flex-col gap-5 transition ${styles[programme.name].bg2}`}
                           >
-                            <div class="flex flex-col gap-2">
+                            <div class="flex flex-row gap-6 items-center">
                               <Icon
                                 icon={programme.icon}
                                 textColour={styles[programme.name].text2}
@@ -299,16 +608,16 @@ const { programme } = Astro.props;
                                 borderColour={styles[programme.name].border}
                               />
                               <div>
+                                <span
+                                  class={`uppercase tracking-widest text-xs ${styles[programme.name].text2}`}
+                                >
+                                  {programme.code}
+                                </span>
                                 <h3
-                                  class={`text-base font-bold ${styles[programme.name].text}`}
+                                  class={`text-lg font-bold leading-6 ${styles[programme.name].text}`}
                                 >
                                   {programme.name}
                                 </h3>
-                                <p
-                                  class={`text-xs leading-relaxed ${styles[programme.name].text2}`}
-                                >
-                                  {truncate(programme.description, 100)}
-                                </p>
                               </div>
                             </div>
                           </a>
