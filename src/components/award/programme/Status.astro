@@ -28,10 +28,14 @@ const { from, till, styles } = Astro.props;
                             <i class="fa-solid fa-circle text-green-700 text-xs" />
                             Open
                         </span>
-                        <p class={`text-xs ${styles.font} ${styles.text2}`}>
-                            Application window closes
-                            {moment(till).format("dddd hh:mma, MMMM Do YYYY")}
-                        </p>
+                        {moment().diff(till, "days") > -90 && (
+                            <p class={`text-xs ${styles.font} ${styles.text2}`}>
+                                Application window closes
+                                {moment(till).format(
+                                    "dddd hh:mma, MMMM Do YYYY",
+                                )}
+                            </p>
+                        )}
                     </div>
                 );
             } else {
