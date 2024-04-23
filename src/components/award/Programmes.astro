@@ -47,6 +47,7 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
               slug={slugify(programmes[0].name, {lower: true, strict: true, locale: "en", trim: true,})},
               services={programmes[0].services}
               eligibilities={programmes[0].eligibilities}
+              code={programmes[0].code}
               />
     </div>
 
@@ -85,6 +86,7 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
               slug={slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})},
               services={programme.services}
               eligibilities={programme.eligibilities}
+              code={programme.code}
             />
           ))
         }
