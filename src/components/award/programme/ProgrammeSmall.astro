@@ -26,6 +26,7 @@ const {
   services,
   eligibilities,
   logo,
+  code,
 } = Astro.props;
 ---
 
@@ -56,13 +57,13 @@ const {
           borderColour={styles[name].border}
         />
       </span>
-      <div class="flex flex-col gap-1">
+      <div>
+        <span class={`uppercase tracking-widest text-xs ${styles[name].text2}`}
+          >{code}</span
+        >
         <h3 class={`text-lg font-bold leading-6 ${styles[name].text}`}>
           {name}
         </h3>
-        <!-- <p class={`text-xs font-semibold ${styles[name].text2}`}>
-          {description}
-        </p> -->
       </div>
     </div>
   </article>
@@ -80,7 +81,7 @@ const {
               class={`inline-flex gap-1 justify-center items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${styles["UnLtd"].badge}`}
             >
               <img class="h-3" src="/svg/unltd.svg" alt="" />
-              <span>MAT</span>
+              <span class="uppercase tracking-widest text-xs">mat</span>
             </span>
           </span>
         </p>
