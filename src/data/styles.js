@@ -14,7 +14,7 @@ const styles = {
         "divide": "divide-violet-200 dark:divide-violet-800"
     },
     "Millennium Awards Trust": {
-        "font": "font-mat",
+        "font": "font-sans",
         "bg": "bg-amber-100 dark:bg-amber-900",
         "bg2": "bg-amber-50 dark:bg-amber-950",
         "text": "text-amber-950 dark:text-amber-50",
@@ -28,7 +28,7 @@ const styles = {
         "divide": "divide-amber-200 dark:divide-amber-800"
     },
     "Funding Futures Programme": {
-        "font": "font-ff",
+        "font": "font-sans",
         "bg": "bg-purple-100 dark:bg-purple-900",
         "bg2": "bg-purple-50 dark:bg-purple-950",
         "text": "text-purple-950 dark:text-purple-50",
@@ -42,7 +42,7 @@ const styles = {
         "divide": "divide-purple-200 dark:divide-purple-800"
     },
     "Access to Employment": {
-        "font": "font-ate",
+        "font": "font-sans",
         "bg": "bg-red-100 dark:bg-red-900",
         "bg2": "bg-red-50 dark:bg-red-950",
         "text": "text-red-950 dark:text-red-50",
@@ -56,7 +56,7 @@ const styles = {
         "divide": "divide-red-200 dark:divide-red-800"
     },
     "Healthy Ageing": {
-        "font": "font-ha",
+        "font": "font-sans",
         "bg": "bg-emerald-100 dark:bg-emerald-900",
         "bg2": "bg-emerald-50 dark:bg-emerald-950",
         "text": "text-emerald-950 dark:text-emerald-50",
@@ -70,7 +70,7 @@ const styles = {
         "divide": "divide-emerald-200 dark:divide-emerald-800"
     },
     "Movement for Change": {
-        "font": "font-mfc",
+        "font": "font-sans",
         "bg": "bg-blue-100 dark:bg-blue-900",
         "bg2": "bg-blue-50 dark:bg-blue-950",
         "text": "text-blue-950 dark:text-blue-50",

@@ -2,6 +2,7 @@
 const { programme, styles } = Astro.props;
 
 import Icon from "../../../components/award/cards/Icon.astro";
+import IconBig from "../../../components/award/cards/IconBig.astro";
 import Container from "../../../components/Container.astro";
 import Status from "../../../components/award/programme/Status.astro";
 import Partners from "../../../components/award/programme/Partners.astro";
@@ -39,36 +40,46 @@ let todayDate = moment();
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="col-span-4 flex flex-col gap-20 lg:flex-row">
       <div class="flex flex-col gap-8">
-        <div class="flex flex-row gap-8 items-center">
-          {
-            programme.logo ? (
-              <div
-                class={`flex items-center justify-center h-36 w-36 rounded-md border shadow-2xl ${styles.bg} ${styles.border}`}
-              >
-                <img
-                  src={`https://unltd.directus.app/assets/${programme.logo.id}`}
-                  class="w-28"
-                  alt=""
-                />
-              </div>
-            ) : (
-              <Icon
-                icon={programme.icon}
-                textColour={styles.text2}
-                bgColour={styles.bg}
-                borderColour={styles.border}
-              />
-            )
-          }
-          <div class="flex flex-col gap-3">
-            <div class={`flex flex-inline items-center gap-3 ${styles.text}`}>
-              <i class={`fa-solid fa-award text-base ${styles.text2}`}></i><span
-                class="text-xs tracking-widest uppercase font-bold"
-                >Award Programme</span
-              >
-            </div><h1
-              class={`text-6xl font-bold ${styles.text} ${styles.font}`}
+        {
+          programme.logo ? (
+            <div
+              class={`flex items-center justify-center h-36 w-36 rounded-md border shadow-2xl ${styles.bg} ${styles.border}`}
             >
+              <img
+                src={`https://unltd.directus.app/assets/${programme.logo.id}`}
+                class="w-28"
+                alt=""
+              />
+            </div>
+          ) : (
+            <IconBig
+              icon={programme.icon}
+              textColour={styles.text2}
+              bgColour={styles.bg}
+              borderColour={styles.border2}
+            />
+          )
+        }
+        <div class="flex flex-row gap-8 items-center">
+          <div class="flex flex-col gap-3">
+            <div class="flex flex-row gap-4">
+              <div
+                class={`flex flex-inline items-center gap-3 pr-3 border-r ${styles.border2} ${styles.text}`}
+              >
+                <i class={`fa-solid fa-award text-base ${styles.text2}`}
+                ></i><span
+                  class={`text-xs tracking-widest uppercase font-bold ${styles.text2}`}
+                  >Award Programme</span
+                >
+              </div>
+              <Status
+                from={programme.from}
+                till={programme.till}
+                styles={styles}
+              />
+            </div>
+
+            <h1 class={`text-6xl font-bold ${styles.text} ${styles.font}`}>
               {programme.name}
             </h1>
           </div>
@@ -76,7 +87,7 @@ let todayDate = moment();
         <div class="flex flex-col gap-2">
           <p
             class={`max-w-xl
-               text-sm leading-relaxed ${styles.text2} ${styles.font}`}
+               text-base leading-relaxed ${styles.text2} ${styles.font}`}
           >
             {programme.description}
           </p>
@@ -88,6 +99,5 @@ let todayDate = moment();
       partners={programme.partners}
       styles={styles}
     />
-    <Status from={programme.from} till={programme.till} styles={styles} />
   </div>
 </div>
