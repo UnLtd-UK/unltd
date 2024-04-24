@@ -118,19 +118,19 @@ const {
             </span>
             {service.services_id.name == "Support manager" && (
               <div class="flex -space-x-2 overflow-hidden mt-2">
-                {sesm.map((employee) => (
-                  <Image
-                    width="32"
-                    height="32"
-                    class={`inline-block h-8 w-8 rounded-full border-2 ${styles[name].border}`}
-                    src={
-                      employee.person.image !== null
-                        ? `https://unltd.directus.app/assets/${employee.person.image}?height=64`
-                        : `https://source.boringavatars.com/beam/128/${encodeURI(employee.person.name)}?colors=f59e0b,8b5cf6`
-                    }
-                    alt={`${employee.person.name}`}
-                  />
-                ))}
+                {sesm.map((employee) => {
+                  return (
+                    employee.person.image !== null && (
+                      <Image
+                        width="32"
+                        height="32"
+                        class={`inline-block h-8 w-8 rounded-full border-2 ${styles[name].border}`}
+                        src={`https://unltd.directus.app/assets/${employee.person.image}?height=64`}
+                        alt={`${employee.person.name}`}
+                      />
+                    )
+                  );
+                })}
               </div>
             )}
           </dt>
