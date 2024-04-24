@@ -1,10 +1,10 @@
 ---
 import Container from "../components/Container.astro";
-const { breadcrumbs, text, text2 } = Astro.props;
+const { breadcrumbs, text, text2, bg } = Astro.props;
 ---
 
-<Container>
-  <div class="py-5 flex flex-col gap-12">
+<Container bg={bg}>
+  <div class={`py-5 flex flex-col gap-12 ${bg}`}>
     <div class="flex flex-row gap-5 justify-between">
       <nav class="flex" aria-label="Breadcrumb">
         <ol role="list" class="flex flex-col gap-4 md:flex-row md:items-center">

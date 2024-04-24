@@ -10,7 +10,6 @@ const {
   bg = styles["UnLtd"].bg,
   bg2 = styles["UnLtd"].bg2,
   breadcrumbs = [],
-  body = styles["UnLtd"].bg,
 } = Astro.props.frontmatter || Astro.props;
 
 import Header from "../components/ui/Header.jsx";
@@ -81,7 +80,7 @@ import "@fontsource-variable/unbounded"; // ATE
       src="https://kit.fontawesome.com/0ff725f684.js"
       crossorigin="anonymous"></script>
   </head>
-  <body class={`dark ${bg}`}>
+  <body class={`dark ${styles["UnLtd"].bg}`}>
     <div class="flex flex-col justify-between h-full">
       <Header
         fill={fill}
@@ -91,13 +90,17 @@ import "@fontsource-variable/unbounded"; // ATE
         bg2={bg2}
         client:load
       />
-      <Breadcrumbs breadcrumbs={breadcrumbs} text={text} text2={text2} />
+      <Breadcrumbs
+        breadcrumbs={breadcrumbs}
+        text={text}
+        bg={bg}
+        text2={text2}
+      />
       <!-- <Nav /> -->
-      <div class={body}>
+      <div class={bg}>
         <slot />
       </div>
       <Footer />
     </div>
   </body>
 </html>
-../data/styles.js
