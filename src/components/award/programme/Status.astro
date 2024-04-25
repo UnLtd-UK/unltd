@@ -1,0 +1,70 @@
+---
+import moment from "moment";
+let todayDate = moment();
+
+const { from, till, styles } = Astro.props;
+---
+
+<div>
+    {
+        () => {
+            if (todayDate.isBefore(from)) {
+                return (
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center rounded-full gap-1 bg-blue-100 px-3 py-0.5 text-sm font-medium text-blue-700">
+                            <i class="fa-solid fa-circle text-blue-700 text-xs" />
+                            Opens soon
+                        </span>
+                        <p class={`text-xs ${styles.text2}`}>
+                            Programme opens
+                            {moment(from).format("dddd hh:mma, MMMM Do YYYY")}
+                        </p>
+                    </div>
+                );
+            } else if (
+                todayDate.isAfter(from) &&
+                todayDate.isBefore(till) &&
+                moment().diff(till, "days") < -90
+            ) {
+                return (
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center rounded-full gap-1 bg-green-100 px-3 py-0.5 text-xs font-medium text-green-700">
+                            <i class="fa-solid fa-circle text-green-700 text-xs" />
+                            Open
+                        </span>
+                    </div>
+                );
+            } else if (
+                todayDate.isAfter(from) &&
+                todayDate.isBefore(till) &&
+                moment().diff(till, "days") > -90
+            ) {
+                return (
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center rounded-full gap-1 bg-yellow-100 px-3 py-0.5 text-xs font-medium text-yellow-700">
+                            <i class="fa-solid fa-circle text-yellow-700 text-xs" />
+                            Closes soon
+                        </span>
+                        <p class={`text-xs ${styles.font} ${styles.text2}`}>
+                            Programme closes
+                            {moment(till).format("dddd hh:mma, MMMM Do YYYY")}
+                        </p>
+                    </div>
+                );
+            } else {
+                return (
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex items-center rounded-full gap-1 bg-red-100 px-3 py-0.5 text-sm font-medium text-red-700">
+                            <i class="fa-solid fa-circle text-red-700 text-xs" />
+                            Closed
+                        </span>
+                        <p class={`text-xs ${styles.font} ${styles.text2}`}>
+                            Programme closed
+                            {moment(till).format("dddd hh:mma, MMMM Do YYYY")}
+                        </p>
+                    </div>
+                );
+            }
+        }
+    }
+</div>

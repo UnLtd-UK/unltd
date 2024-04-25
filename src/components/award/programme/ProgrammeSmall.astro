@@ -1,6 +1,6 @@
 ---
 import Badge from "../cards/Badge.astro";
-import { programmeColours } from "../../../data/programmeColours.js";
+import { styles } from "../../../data/styles.js";
 import Icon from "../cards/Icon.astro";
 
 function isValidUrl(string) {
@@ -26,12 +26,13 @@ const {
   services,
   eligibilities,
   logo,
+  code,
 } = Astro.props;
 ---
 
 <a
   href={`/award/${slug}`}
-  class={`flex-1 flex flex-col divide-y-2 shadow-md hover:shadow-xl rounded-2xl border-2 transition ease-in-out delay-150 hover:-translate-y-2 duration-300 ${programmeColours.divide[colour]} ${programmeColours.bg2[colour]} ${programmeColours.border1[colour]}`}
+  class={`flex-1 flex flex-col divide-y-2 shadow-md hover:shadow-xl rounded-2xl border-2 transition ease-in-out delay-150 hover:-translate-y-2 duration-300 ${styles[name].divide} ${styles[name].bg2} ${styles[name].border}`}
 >
   <article
     class={`relative isolate flex flex-col justify-end overflow-hidden rounded-t-2xl px-8 pb-8 pt-80 sm:pt-48 lg:pt-40`}
@@ -44,47 +45,43 @@ const {
       class="absolute inset-0 -z-10 h-full w-full object-cover"
     />
     <div
-      class={`absolute inset-0 -z-10 rounded-t-2xl opacity-80 ${programmeColours.bg1[colour]}`}
+      class={`absolute inset-0 -z-10 rounded-t-2xl opacity-80 ${styles[name].bg}`}
     >
     </div>
     <div class="flex flex-col gap-3">
       <span class="relative inline-block">
         <Icon
           icon={icon}
-          textColour={programmeColours.text2[colour]}
-          bgColour={programmeColours.bg1[colour]}
-          borderColour={programmeColours.border1[colour]}
+          textColour={styles[name].text2}
+          bgColour={styles[name].bg}
+          borderColour={styles[name].border2}
         />
       </span>
-      <div class="flex flex-col gap-1">
-        <h3
-          class={`text-lg font-bold leading-6 ${programmeColours.text1[colour]}`}
+      <div>
+        <span class={`uppercase tracking-widest text-xs ${styles[name].text2}`}
+          >{code}</span
         >
+        <h3 class={`text-lg font-bold leading-6 ${styles[name].text}`}>
           {name}
         </h3>
-        <!-- <p class={`text-xs font-semibold ${programmeColours.text2[colour]}`}>
-          {description}
-        </p> -->
       </div>
     </div>
   </article>
   <div
-    class={`p-8 flex flex-col gap-6 ${programmeColours.bg1[colour]}`}
+    class={`p-8 flex flex-col gap-6 ${styles[name].bg}`}
     style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22 viewBox=%220 0 4 4%22%3E%3Cpath fill=%22%23ffffff%22 fill-opacity=%220.08%22 d=%22M1 3h1v1H1V3zm2-2h1v1H3V1z%22%3E%3C/path%3E%3C/svg%3E');"
   >
     <div class="flex flex-col gap-2">
       <div>
         <p class={`flex gap-2 items-center`}>
-          <i
-            class={`fa-light fa-heart text-sm ${programmeColours.text2[colour]}`}
-          ></i>
-          <span class={`text-sm font-medium ${programmeColours.text1[colour]}`}
+          <i class={`fa-light fa-heart text-sm ${styles[name].text2}`}></i>
+          <span class={`text-sm font-medium ${styles[name].text}`}
             >Everything in
             <span
-              class={`inline-flex gap-1 justify-center items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${programmeColours.badge["amber"]}`}
+              class={`inline-flex gap-1 justify-center items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${styles["UnLtd"].badge}`}
             >
               <img class="h-3" src="/svg/unltd.svg" alt="" />
-              <span>MAT</span>
+              <span class="uppercase tracking-widest text-xs">mat</span>
             </span>
           </span>
         </p>
@@ -94,11 +91,9 @@ const {
           <div>
             <p class={`truncate flex gap-2 items-center`}>
               <i
-                class={`text-sm ${service.services_id.icon} ${programmeColours.text2[colour]}`}
+                class={`text-sm ${service.services_id.icon} ${styles[name].text2}`}
               />
-              <span
-                class={`text-sm font-medium ${programmeColours.text1[colour]}`}
-              >
+              <span class={`text-sm font-medium ${styles[name].text}`}>
                 {service.services_id.name}
               </span>
             </p>
@@ -108,49 +103,36 @@ const {
     </div>
   </div>
 
-  <div
-    class={`flex flex-col gap-6  rounded-b-2xl p-8 ${programmeColours.bg2[colour]}`}
-  >
+  <div class={`flex flex-col gap-6  rounded-b-2xl p-8 ${styles[name].bg2}`}>
     <div class="flex flex-col gap-3">
-      <p class={`text-xs font-semibold ${programmeColours.text1[colour]}`}>
+      <p class={`text-xs font-semibold ${styles[name].text}`}>
         Social entrepreneur eligibility:
       </p>
       <ul class="flex flex-col gap-4">
         <li class="flex flex-col gap-1">
           <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-            <i class={`fa-thin fa-spinner ${programmeColours.text2[colour]}`}
-            ></i>
-            <span class={`${programmeColours.text2[colour]}`}> Age </span>
+            <i class={`fa-thin fa-spinner ${styles[name].text2}`}></i>
+            <span class={`${styles[name].text2}`}> Age </span>
           </p>
-          <p
-            class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
-          >
+          <p class={`text-xs font-medium tracking-tight ${styles[name].text}`}>
             {age}
           </p>
         </li>
         <li class="flex flex-col gap-1">
           <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-            <i
-              class={`fa-thin fa-location-dot ${programmeColours.text2[colour]}`}
-            ></i>
-            <span class={`${programmeColours.text2[colour]}`}> Geography </span>
+            <i class={`fa-thin fa-location-dot ${styles[name].text2}`}></i>
+            <span class={`${styles[name].text2}`}> Geography </span>
           </p>
-          <p
-            class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
-          >
+          <p class={`text-xs font-medium tracking-tight ${styles[name].text}`}>
             {geography}
           </p>
         </li>
         <li class="flex flex-col gap-1">
           <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-            <i
-              class={`fa-thin fa-vector-square ${programmeColours.text2[colour]}`}
-            ></i>
-            <span class={`${programmeColours.text2[colour]}`}> Sectors </span>
+            <i class={`fa-thin fa-vector-square ${styles[name].text2}`}></i>
+            <span class={`${styles[name].text2}`}> Sectors </span>
           </p>
-          <p
-            class={`text-xs font-medium tracking-tight ${programmeColours.text1[colour]}`}
-          >
+          <p class={`text-xs font-medium tracking-tight ${styles[name].text}`}>
             {sectors}
           </p>
         </li>

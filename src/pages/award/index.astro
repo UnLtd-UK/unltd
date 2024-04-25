@@ -1,7 +1,7 @@
 ---
 // PROPS
 const props = {
-  name: "Award",
+  name: "Awards",
   slug: "award",
   description:
     "We offer packages of funding and support to social entrepreneurs who have an idea, or are the founder of a social venture which is making a positive difference in the UK",
@@ -43,8 +43,11 @@ const breadcrumbs = [props];
 // });
 ---
 
-<Template name={props.name} description={props.description}>
-  <Breadcrumbs breadcrumbs={breadcrumbs} />
+<Template
+  name={props.name}
+  description={props.description}
+  breadcrumbs={breadcrumbs}
+>
   <Header />
   <Grants />
   <Programmes />

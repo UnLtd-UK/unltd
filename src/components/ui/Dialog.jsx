@@ -1,27 +1,49 @@
-import { Button } from '../catalyst/button'
-import { Dialog, DialogActions, DialogBody, DialogDescription, DialogTitle } from '../catalyst/dialog'
-import { Field, Label } from '../catalyst/fieldset'
-import { Input } from '../catalyst/input'
-import { useState } from 'react'
+import { Dialog } from '@headlessui/react'
+import DisclosureComp from './Disclosure.jsx';
+import Logo from "../Logo.jsx";
 
-export default function Example() {
-    let [isOpen, setIsOpen] = useState(false)
-
+export default function DialogComp({ nav, fill, text, text2, bg, bg2, mobileMenuOpen, setMobileMenuOpen }) {
     return (
-        <>
-            <Button type="button" onClick={() => setIsOpen(true)}>
-                Watch video
-            </Button>
-            <Dialog size="5xl" open={isOpen} onClose={setIsOpen}>
-                <DialogBody>
-                    <iframe class="w-full" src="https://www.youtube-nocookie.com/embed/OiTiKOy59o4?si=KD3ZOPTqW24ePHSC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </DialogBody>
-                <DialogActions>
-                    <Button plain onClick={() => setIsOpen(false)}>
-                        Close
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </>
+        <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
+            <div className="fixed inset-0 z-10" />
+            <Dialog.Panel className={`fixed inset-y-0 right-0 z-10 w-full overflow-y-auto px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-violet-900/10 ${bg}`}>
+                <div className="flex items-center justify-between">
+                    <a href="/" className="-m-1.5 p-1.5">
+                        <Logo colour={fill} />
+                    </a>
+                    <button
+                        type="button"
+                        className="-m-2.5 rounded-md p-2.5 text-violet-700"
+                        onClick={() => setMobileMenuOpen(false)}
+                    >
+                        <span className="sr-only">Close menu</span>
+                        <i className="fa-solid fa-xmark h-6 w-6" aria-hidden="true" ></i>
+                    </button>
+                </div>
+                <div className="mt-6 flow-root">
+                    <div className="-my-6 divide-y divide-violet-500/10">
+                        <div className="space-y-2 py-6">
+                            {
+                                nav.map((item) => <DisclosureComp key={item.id} item={item} />)
+                            }
+                            <a
+                                href="/blog"
+                                className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50"
+                            >
+                                Blog
+                            </a>
+                        </div>
+                        <div className="py-6">
+                            <a
+                                href="https://unltd.microsoftcrmportals.com/applications"
+                                className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50"
+                            >
+                                Log in
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </Dialog.Panel>
+        </Dialog>
     )
 }
