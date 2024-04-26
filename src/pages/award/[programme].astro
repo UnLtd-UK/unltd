@@ -5,8 +5,11 @@ import Container from "@components/Container.astro";
 import { styles } from "@data/styles.js";
 import Icon from "@components/award/cards/Icon.astro";
 import Intro from "@components/award/programme/Intro.astro";
-import Media from "@components/award/programme/Media.astro";
-import Features from "@components/award/programme/Features.astro";
+import Posts from "@components/award/programme/Posts.astro";
+import Services from "@components/award/programme/Services.astro";
+import Quotes from "@components/award/programme/Quotes.astro";
+import Criteria from "@components/award/programme/Criteria.astro";
+import Videos from "@components/award/programme/Videos.astro";
 
 import { programmes } from "@data/programmes.js";
 
@@ -67,299 +70,149 @@ const { programme } = Astro.props;
       <div class="grid grid-cols-4 gap-20">
         <div class="col-span-4 flex flex-col gap-10 lg:col-span-4">
           <div class="flex flex-col gap-10">
-            <!-- main -->
             <div class="flex flex-col gap-6">
-              <section class="py-24 sm:py-32">
-                <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                  <div
-                    class="mx-auto grid max-w-2xl grid-cols-1 lg:mx-0 lg:max-w-none lg:grid-cols-2"
-                  >
+              <Videos
+                styles={styles[programme.name]}
+                posts={programme.videos}
+              />
+
+              <Quotes
+                styles={styles[programme.name]}
+                posts={programme.quotes}
+              />
+
+              <Services
+                styles={styles[programme.name]}
+                posts={programme.services}
+              />
+
+              <Criteria
+                styles={styles[programme.name]}
+                posts={programme.criteria}
+              />
+
+              <Posts styles={styles[programme.name]} posts={programme.posts} />
+
+              <!-- OLD -->
+              <div>
+                <div class="flex flex-col gap-2">
+                  <div class="relative">
                     <div
-                      class="flex flex-col pb-10 sm:pb-16 lg:pb-0 lg:pr-8 xl:pr-20"
+                      class="absolute inset-0 flex items-center"
+                      aria-hidden="true"
                     >
-                      <img
-                        class="h-12 self-start"
-                        src="https://tailwindui.com/img/logos/tuple-logo-gray-900.svg"
-                        alt=""
-                      />
-                      <figure
-                        class="mt-10 flex flex-auto flex-col justify-between"
-                      >
-                        <blockquote
-                          class={`text-lg leading-8 ${styles[programme.name].text}`}
-                        >
-                          <p>
-                            "Once you get guys into a job and find their
-                            strengths - everyone has them - you see a blossoming
-                            that is hard to describe"
-                          </p>
-                        </blockquote>
-                        <figcaption class="mt-10 flex items-center gap-x-6">
-                          <img
-                            class="h-14 w-14 rounded-full bg-gray-50"
-                            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
-                          />
-                          <div class="text-base">
-                            <div class="font-semibold text-gray-900">
-                              Judith Black
-                            </div>
-                            <div class="mt-1 text-gray-500">CEO of Tuple</div>
-                          </div>
-                        </figcaption>
-                      </figure>
                     </div>
-                    <div
-                      class={`flex flex-col border-t ${styles[programme.name].border} pt-10 sm:pt-16 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0 xl:pl-20`}
-                    >
-                      <img
-                        class="h-12 self-start"
-                        src="https://tailwindui.com/img/logos/reform-logo-gray-900.svg"
-                        alt=""
-                      />
-                      <figure
-                        class="mt-10 flex flex-auto flex-col justify-between"
+                    <div class="relative flex flex-col gap-3 justify-start">
+                      <span
+                        class={`pr-3 text-3xl font-semibold leading-6 ${styles[programme.name].text}`}
+                        >What additional support is available</span
                       >
-                        <blockquote
-                          class={`text-lg leading-8 ${styles[programme.name].text}`}
-                        >
-                          <p>
-                            “Excepteur veniam labore ullamco eiusmod. Pariatur
-                            consequat proident duis dolore nulla veniam
-                            reprehenderit nisi officia voluptate incididunt
-                            exercitation exercitation elit. Nostrud veniam sint
-                            dolor nisi ullamco.”
-                          </p>
-                        </blockquote>
-                        <figcaption class="mt-10 flex items-center gap-x-6">
-                          <img
-                            class="h-14 w-14 rounded-full bg-gray-50"
-                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
-                          />
-                          <div class="text-base">
-                            <div
-                              class={`font-semibold ${styles[programme.name].text}`}
-                            >
-                              Joseph Rodriguez
-                            </div>
-                            <div class={`mt-1 ${styles[programme.name].text2}`}>
-                              CEO of Reform
-                            </div>
-                            <span
-                              class={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${styles[programme.name].badge}`}
-                              >Starting up - Award Winner</span
-                            >
-                          </div>
-                        </figcaption>
-                      </figure>
-                    </div>
-                  </div>
-                </div>
-              </section>
-
-              <Features />
-
-              <div class="bg-white py-24 sm:py-32">
-                <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                  <dl
-                    class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3"
-                  >
-                    <div class="mx-auto flex max-w-xs flex-col gap-y-4">
-                      <dt class="text-base leading-7 text-gray-600">
-                        Transactions every 24 hours
-                      </dt>
-                      <dd
-                        class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"
-                      >
-                        44 million
-                      </dd>
-                    </div>
-                    <div class="mx-auto flex max-w-xs flex-col gap-y-4">
-                      <dt class="text-base leading-7 text-gray-600">
-                        Assets under holding
-                      </dt>
-                      <dd
-                        class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"
-                      >
-                        $119 trillion
-                      </dd>
-                    </div>
-                    <div class="mx-auto flex max-w-xs flex-col gap-y-4">
-                      <dt class="text-base leading-7 text-gray-600">
-                        New users annually
-                      </dt>
-                      <dd
-                        class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl"
-                      >
-                        46,000
-                      </dd>
-                    </div>
-                  </dl>
-                </div>
-              </div>
-
-              <Media />
-
-              <!-- Post -->
-              {
-                programme.post && (
-                  <div class="flex flex-col gap-3">
-                    <h3 class={`font-bold ${styles[programme.name].text}`}>
-                      Related posts
-                    </h3>
-                    <article
-                      class={`relative isolate flex flex-col justify-end overflow-hidden rounded-2xl ${styles[programme.name].bg} px-8 pb-8 pt-80 sm:pt-48 lg:pt-80`}
-                    >
-                      <img
-                        src={programme.post.image}
-                        alt=""
-                        class="absolute inset-0 -z-10 h-full w-full object-cover"
-                      />
                       <div
-                        class={`absolute inset-0 -z-10 ${styles[programme.name].bg}`}
-                      />
-                      <div class="absolute inset-0 -z-10 rounded-2xl" />
-
-                      <div
-                        class={`flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 ${styles[programme.name].text}`}
+                        class={`w-full border-t ${styles[programme.name].bg}`}
                       >
-                        <div class="-ml-4 flex items-center gap-x-4">
-                          <svg
-                            viewBox="0 0 2 2"
-                            class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50"
-                          >
-                            <circle cx="1" cy="1" r="1" />
-                          </svg>
-                          <div class="flex gap-x-2.5">
-                            By {programme.post.author}
-                          </div>
-                        </div>
                       </div>
-                      <h3 class="mt-3 text-lg font-semibold leading-6 text-white">
-                        <a href={programme.post.link}>
-                          <span class="absolute inset-0" />
-                          {programme.post.title}
-                        </a>
-                      </h3>
-                    </article>
-                  </div>
-                )
-              }
-
-              <div class="flex flex-col gap-2">
-                <div class="relative">
-                  <div
-                    class="absolute inset-0 flex items-center"
-                    aria-hidden="true"
-                  >
-                  </div>
-                  <div class="relative flex flex-col gap-3 justify-start">
-                    <span
-                      class={`pr-3 text-3xl font-semibold leading-6 ${styles[programme.name].text}`}
-                      >What additional support is available</span
-                    >
-                    <div class={`w-full border-t ${styles[programme.name].bg}`}>
                     </div>
                   </div>
-                </div>
-                {
-                  programme.services.map((service) => (
-                    <div class="relative pl-16 basis-1/4">
-                      <dt class="text-base leading-7">
-                        <div
-                          class={`absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full shadow-lg border ${styles[programme.name].bg} ${styles[programme.name].border}`}
+                  {
+                    programme.services.map((service) => (
+                      <div class="relative pl-16 basis-1/4">
+                        <dt class="text-base leading-7">
+                          <div
+                            class={`absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full shadow-lg border ${styles[programme.name].bg} ${styles[programme.name].border}`}
+                          >
+                            <i
+                              class={`${service.services_id.icon} text-md shadow-3xl ${styles[programme.name].text2}`}
+                            />
+                          </div>
+                          <span
+                            class={`text-base ${styles[programme.name].text}`}
+                          >
+                            {service.services_id.name}
+                          </span>
+                        </dt>
+                        <dd
+                          class={`mt-2 text-sm leading-6 ${styles[programme.name].text2}`}
                         >
-                          <i
-                            class={`${service.services_id.icon} text-md shadow-3xl ${styles[programme.name].text2}`}
-                          />
-                        </div>
+                          {service.services_id.description}
+                        </dd>
+                      </div>
+                    ))
+                  }
+                </div>
+
+                <div class="flex flex-col gap-5">
+                  <div class="relative">
+                    <div
+                      class="absolute inset-0 flex items-center"
+                      aria-hidden="true"
+                    >
+                    </div>
+                    <div class="relative flex flex-col gap-3 justify-start">
+                      <span
+                        class={`pr-3 text-3xl font-semibold leading-6 ${styles[programme.name].text} `}
+                        >What we are looking for</span
+                      >
+                      <div
+                        class={`w-full border-t ${styles[programme.name].bg}`}
+                      >
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="relative">
+                      <div
+                        class="absolute inset-0 flex items-center"
+                        aria-hidden="true"
+                      >
+                      </div>
+                      <div class="relative flex justify-start">
                         <span
-                          class={`text-base ${styles[programme.name].text}`}
+                          class={`pr-3 text-base font-semibold leading-6 ${styles[programme.name].text}`}
+                          >Social entrepreneur</span
                         >
-                          {service.services_id.name}
-                        </span>
-                      </dt>
-                      <dd
-                        class={`mt-2 text-sm leading-6 ${styles[programme.name].text2}`}
-                      >
-                        {service.services_id.description}
-                      </dd>
+                      </div>
                     </div>
-                  ))
-                }
-              </div>
+                    <div class={`${styles[programme.name].text}`}>
+                      <p>Age: {programme.age}</p>
+                      <p>Geography: {programme.geography}</p>
+                      <p>Sectors: {programme.sectors}</p>
+                    </div>
+                  </div>
 
-              <div class="flex flex-col gap-5">
-                <div class="relative">
-                  <div
-                    class="absolute inset-0 flex items-center"
-                    aria-hidden="true"
-                  >
-                  </div>
-                  <div class="relative flex flex-col gap-3 justify-start">
-                    <span
-                      class={`pr-3 text-3xl font-semibold leading-6 ${styles[programme.name].text} `}
-                      >What we are looking for</span
-                    >
-                    <div class={`w-full border-t ${styles[programme.name].bg}`}>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div class="relative">
-                    <div
-                      class="absolute inset-0 flex items-center"
-                      aria-hidden="true"
-                    >
-                    </div>
-                    <div class="relative flex justify-start">
-                      <span
-                        class={`pr-3 text-base font-semibold leading-6 ${styles[programme.name].text}`}
-                        >Social entrepreneur</span
+                  <div>
+                    <div class="relative">
+                      <div
+                        class="absolute inset-0 flex items-center"
+                        aria-hidden="true"
                       >
+                      </div>
+                      <div class="relative flex justify-start">
+                        <span
+                          class={`pr-3 text-base font-semibold leading-6 ${styles[programme.name].text}`}
+                          >Social enterprise</span
+                        >
+                      </div>
                     </div>
-                  </div>
-                  <div class={`${styles[programme.name].text}`}>
-                    <p>Age: {programme.age}</p>
-                    <p>Geography: {programme.geography}</p>
-                    <p>Sectors: {programme.sectors}</p>
+                    <div></div>
                   </div>
                 </div>
 
-                <div>
-                  <div class="relative">
-                    <div
-                      class="absolute inset-0 flex items-center"
-                      aria-hidden="true"
+                <div class={`${styles[programme.name].bg2} rounded-xl`}>
+                  <div class="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+                    <h2
+                      class={`text-3xl font-bold tracking-tight sm:text-4xl ${styles[programme.name].text}`}
                     >
-                    </div>
-                    <div class="relative flex justify-start">
-                      <span
-                        class={`pr-3 text-base font-semibold leading-6 ${styles[programme.name].text}`}
-                        >Social enterprise</span
+                      Apply for {programme.name}
+                    </h2>
+
+                    <div class="mt-10 flex items-center gap-x-6">
+                      <a
+                        href="/award"
+                        class={`text-sm font-semibold leading-6 ${styles[programme.name].text2}`}
+                        >Learn more about Award <span aria-hidden="true">→</span
+                        ></a
                       >
                     </div>
-                  </div>
-                  <div></div>
-                </div>
-              </div>
-
-              <div class={`${styles[programme.name].bg2} rounded-xl`}>
-                <div class="mx-auto max-w-7xl px-6 py-12 lg:px-8">
-                  <h2
-                    class={`text-3xl font-bold tracking-tight sm:text-4xl ${styles[programme.name].text}`}
-                  >
-                    Apply for {programme.name}
-                  </h2>
-
-                  <div class="mt-10 flex items-center gap-x-6">
-                    <a
-                      href="/award"
-                      class={`text-sm font-semibold leading-6 ${styles[programme.name].text2}`}
-                      >Learn more about Award <span aria-hidden="true">→</span
-                      ></a
-                    >
                   </div>
                 </div>
               </div>
