@@ -32,10 +32,10 @@ const {
 ---
 
 <div
-  class={`grid grid-flow-col shadow-md rounded-2xl border-2 ${styles[name].divide} ${styles[name].bg2} ${styles[name].border}`}
+  class={`grid lg:grid-flow-col shadow-md rounded-2xl border-2 ${styles[name].divide} ${styles[name].bg2} ${styles[name].border}`}
 >
   <div
-    class="row-span-3 rounded-l-2xl relative isolate flex flex-col justify-end overflow-hidden px-10 py-10"
+    class="col-span-2 lg:row-span-3 rounded-t-2xl lg:rounded-l-2xl relative isolate flex flex-col justify-end overflow-hidden px-10 py-10"
   >
     <img
       src={isValidUrl(image)
@@ -76,13 +76,13 @@ const {
           </div>
         </div>
         <div class="flex flex-col gap-1">
-          <p class={`text-sm ${styles[name].text2}`}>
+          <p class={`text-sm max-w-sm ${styles[name].text2}`}>
             {description}
           </p>
-          <p class={`text-sm ${styles[name].text2}`}>
+          <p class={`text-sm max-w-sm ${styles[name].text2}`}>
             {description}
           </p>
-          <p class={`text-sm ${styles[name].text2}`}>
+          <p class={`text-sm max-w-sm ${styles[name].text2}`}>
             {description}
           </p>
         </div>
@@ -99,7 +99,7 @@ const {
   </div>
 
   <div
-    class={`col-span-2 rounded-tr-2xl grid grid-cols-2 grid-rows-2 gap-4 p-16 ${styles[name].bg}`}
+    class={`col-span-2 lg:rounded-tr-2xl grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 p-16 ${styles[name].bg}`}
     style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22 viewBox=%220 0 4 4%22%3E%3Cpath fill=%22%23ffffff%22 fill-opacity=%220.08%22 d=%22M1 3h1v1H1V3zm2-2h1v1H3V1z%22%3E%3C/path%3E%3C/svg%3E');"
   >
     {
@@ -143,14 +143,14 @@ const {
   </div>
 
   <div
-    class={`row-span-2 col-span-2 rounded-br-2xl flex flex-col gap-5 p-8 px-16 py-8 ${styles[name].bg2}`}
+    class={`row-span-2 col-span-2 rounded-b-2xl lg:rounded-br-2xl flex flex-col gap-5 p-8 px-16 py-8 ${styles[name].bg2}`}
   >
     <div class="flex flex-col gap-1">
       <h3 class={`text-xs font-semibold ${styles[name].text}`}>
         Social entrepreneur eligibility
       </h3>
     </div>
-    <ul class="flex flex-row gap-10">
+    <ul class="flex flex-col sm:flex-row gap-10">
       <li class="flex flex-col gap-1">
         <p
           class={`truncate text-xs uppercase flex gap-2 items-center ${styles[name].text2}`}
