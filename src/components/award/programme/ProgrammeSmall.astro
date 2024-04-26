@@ -58,9 +58,9 @@ const {
         />
       </span>
       <div>
-        <span class={`uppercase tracking-widest text-xs ${styles[name].text2}`}
+        <!-- <span class={`uppercase tracking-widest text-xs ${styles[name].text2}`}
           >{code}</span
-        >
+        > -->
         <h3 class={`text-lg font-bold leading-6 ${styles[name].text}`}>
           {name}
         </h3>
@@ -75,13 +75,14 @@ const {
       <div>
         <p class={`flex gap-2 items-center`}>
           <i class={`fa-light fa-heart text-sm ${styles[name].text2}`}></i>
-          <span class={`text-sm font-medium ${styles[name].text}`}
+          <span class={`text-xs font-medium ${styles[name].text}`}
             >Everything in
             <span
               class={`inline-flex gap-1 justify-center items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${styles["UnLtd"].badge}`}
             >
               <img class="h-3" src="/svg/unltd.svg" alt="" />
-              <span class="uppercase tracking-widest text-xs">mat</span>
+              <span class="tracking-tight text-xs">Millennium Awards Trust</span
+              >
             </span>
           </span>
         </p>
@@ -93,7 +94,7 @@ const {
               <i
                 class={`text-sm ${service.services_id.icon} ${styles[name].text2}`}
               />
-              <span class={`text-sm font-medium ${styles[name].text}`}>
+              <span class={`text-xs font-medium ${styles[name].text}`}>
                 {service.services_id.name}
               </span>
             </p>
