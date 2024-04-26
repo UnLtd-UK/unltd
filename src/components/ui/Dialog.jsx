@@ -1,6 +1,6 @@
 import { Dialog } from '@headlessui/react'
-import DisclosureComp from './Disclosure.jsx';
-import Logo from "../Logo.jsx";
+import DisclosureComp from '@components/ui/Disclosure.jsx';
+import Logo from "@components/Logo.jsx";
 
 export default function DialogComp({ nav, fill, text, text2, bg, bg2, mobileMenuOpen, setMobileMenuOpen }) {
     return (

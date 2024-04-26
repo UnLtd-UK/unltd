@@ -1,5 +1,5 @@
 ---
-import { styles } from "../data/styles.js";
+import { styles } from "@data/styles.js";
 
 const {
   name = "UnLtd",
@@ -12,9 +12,9 @@ const {
   breadcrumbs = [],
 } = Astro.props.frontmatter || Astro.props;
 
-import Header from "../components/ui/Header.jsx";
-import Breadcrumbs from "../components/Breadcrumbs.astro";
-import Footer from "../components/Footer.astro";
+import Header from "@components/ui/Header.jsx";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Footer from "@components/Footer.astro";
 
 import "@fontsource-variable/montserrat";
 import "@fontsource-variable/lexend"; // FF
@@ -22,7 +22,7 @@ import "@fontsource-variable/caveat"; // HA
 import "@fontsource-variable/outfit"; // MFC
 import "@fontsource-variable/unbounded"; // ATE
 
-// import Nav from "../components/old-nav/Nav.astro";
+// import Nav from "@components/old-nav/Nav.astro";
 ---
 
 <!doctype html>

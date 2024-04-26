@@ -2,9 +2,9 @@
 import { marked } from "marked";
 marked.use({ mangle: false, headerIds: false });
 
-import TableRecordIcon from "./TableRecordIcon.astro";
-import TableRecordText from "./TableRecordText.astro";
-import TableRecordDes from "./TableRecordDes.astro";
+import TableRecordIcon from "@components/fund/TableRecordIcon.astro";
+import TableRecordText from "@components/fund/TableRecordText.astro";
+import TableRecordDes from "@components/fund/TableRecordDes.astro";
 
 const { grants } = Astro.props;
 ---
