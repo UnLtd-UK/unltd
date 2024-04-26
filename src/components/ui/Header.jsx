@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { BrowserRouter, useLocation } from 'react-router-dom'; // Import useLocation hook
 
 // Real data we aren't using //////////////////////////////
-// import { navigation } from "../../data/navigation.js"
+// import { navigation } from "@data/navigation.js"
 // const navigations = navigation.code.header.main;
 // console.log("Diretcus: ", navigation);
 
@@ -294,9 +294,9 @@ const data = {
 const navigations = data.header.main;
 // console.log("Local: ", navigations);
 
-import { styles } from "../../data/styles.js";
+import { styles } from "@data/styles.js";
 
-import Logo from "../Logo.jsx";
+import Logo from "@components/Logo.jsx";
 import PanelComp from './Panel.jsx';
 import DialogComp from './Dialog.jsx';
 
