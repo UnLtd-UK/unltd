@@ -3,10 +3,17 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
+    "baseUrl": ".",
     "paths": {
-      "@components/*": ["./src/components/*"],
-      "@data/*": ["./src/data/*"],
-      "@layouts/*": ["./src/layouts/*"],
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"],
+      "@data/*": ["src/data/*"],
+      "@layouts/*": ["src/layouts/*"],
     }
-  }
+  },
+  "include": [
+    "src/**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.astro"
+  ]
 }
