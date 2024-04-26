@@ -5,7 +5,7 @@ const styles = {
         "bg2": "bg-violet-100 dark:bg-violet-900",
         "text": "text-violet-950 dark:text-violet-50",
         "text2": "text-violet-800 dark:text-violet-200",
-        "fill": "fill-amber-900 dark:fill-amber-500",
+        "fill": "fill-amber-900 dark:fill-amber-600",
         "ring": "ring-violet-950/5 dark:ring-violet-50/10",
         "ring2": "ring-violet-900/5 dark:ring-violet-100/10",
         "border": "border-violet-400 dark:border-violet-600",
