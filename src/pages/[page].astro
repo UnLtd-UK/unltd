@@ -1,16 +1,16 @@
 ---
-import Template from "../layouts/Template.astro";
-import Container from "../components/Container.astro";
-import Breadcrumbs from "../components/Breadcrumbs.astro";
-import Hero from "../components/Hero.astro";
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Hero from "@components/Hero.astro";
 import { marked } from "marked";
 import slugify from "slugify";
 
-import { pages } from "../data/pages.js";
+import { pages } from "@data/pages.js";
 
-import Faqtemplate from "../components/Faqtemplate.astro";
-import Faq from "../components/Faq.astro";
-import Note from "../components/Note.astro";
+import Faqtemplate from "@components/Faqtemplate.astro";
+import Faq from "@components/Faq.astro";
+import Note from "@components/Note.astro";
 
 export async function getStaticPaths() {
   return pages.map((page) => {
