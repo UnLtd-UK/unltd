@@ -10,14 +10,11 @@ import Services from "@components/award/programme/Services.astro";
 import Quotes from "@components/award/programme/Quotes.astro";
 import Criteria from "@components/award/programme/Criteria.astro";
 import Videos from "@components/award/programme/Videos.astro";
+import Other from "@components/award/programme/Other.astro";
+import Banner from "@components/award/programme/Banner.astro";
 
 import { programmes } from "@data/programmes.js";
-
-import truncate from "truncate";
-import moment from "moment";
-import { marked } from "marked";
 import slugify from "slugify";
-let todayDate = moment();
 
 export async function getStaticPaths() {
   return programmes.map((programme) => {
@@ -73,198 +70,35 @@ const { programme } = Astro.props;
             <div class="flex flex-col gap-6">
               <Videos
                 styles={styles[programme.name]}
-                posts={programme.videos}
+                videos={programme.videos}
               />
 
               <Quotes
                 styles={styles[programme.name]}
-                posts={programme.quotes}
+                quotes={programme.quotes}
               />
 
               <Services
                 styles={styles[programme.name]}
-                posts={programme.services}
+                services={programme.services}
               />
 
               <Criteria
                 styles={styles[programme.name]}
-                posts={programme.criteria}
+                age={programme.age}
+                geography={programme.geography}
+                sectors={programme.sectors}
               />
 
               <Posts styles={styles[programme.name]} posts={programme.posts} />
 
-              <!-- OLD -->
-              <div>
-                <div class="flex flex-col gap-2">
-                  <div class="relative">
-                    <div
-                      class="absolute inset-0 flex items-center"
-                      aria-hidden="true"
-                    >
-                    </div>
-                    <div class="relative flex flex-col gap-3 justify-start">
-                      <span
-                        class={`pr-3 text-3xl font-semibold leading-6 ${styles[programme.name].text}`}
-                        >What additional support is available</span
-                      >
-                      <div
-                        class={`w-full border-t ${styles[programme.name].bg}`}
-                      >
-                      </div>
-                    </div>
-                  </div>
-                  {
-                    programme.services.map((service) => (
-                      <div class="relative pl-16 basis-1/4">
-                        <dt class="text-base leading-7">
-                          <div
-                            class={`absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full shadow-lg border ${styles[programme.name].bg} ${styles[programme.name].border}`}
-                          >
-                            <i
-                              class={`${service.services_id.icon} text-md shadow-3xl ${styles[programme.name].text2}`}
-                            />
-                          </div>
-                          <span
-                            class={`text-base ${styles[programme.name].text}`}
-                          >
-                            {service.services_id.name}
-                          </span>
-                        </dt>
-                        <dd
-                          class={`mt-2 text-sm leading-6 ${styles[programme.name].text2}`}
-                        >
-                          {service.services_id.description}
-                        </dd>
-                      </div>
-                    ))
-                  }
-                </div>
+              <Banner styles={styles[programme.name]} programme={programme} />
 
-                <div class="flex flex-col gap-5">
-                  <div class="relative">
-                    <div
-                      class="absolute inset-0 flex items-center"
-                      aria-hidden="true"
-                    >
-                    </div>
-                    <div class="relative flex flex-col gap-3 justify-start">
-                      <span
-                        class={`pr-3 text-3xl font-semibold leading-6 ${styles[programme.name].text} `}
-                        >What we are looking for</span
-                      >
-                      <div
-                        class={`w-full border-t ${styles[programme.name].bg}`}
-                      >
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="relative">
-                      <div
-                        class="absolute inset-0 flex items-center"
-                        aria-hidden="true"
-                      >
-                      </div>
-                      <div class="relative flex justify-start">
-                        <span
-                          class={`pr-3 text-base font-semibold leading-6 ${styles[programme.name].text}`}
-                          >Social entrepreneur</span
-                        >
-                      </div>
-                    </div>
-                    <div class={`${styles[programme.name].text}`}>
-                      <p>Age: {programme.age}</p>
-                      <p>Geography: {programme.geography}</p>
-                      <p>Sectors: {programme.sectors}</p>
-                    </div>
-                  </div>
-
-                  <div>
-                    <div class="relative">
-                      <div
-                        class="absolute inset-0 flex items-center"
-                        aria-hidden="true"
-                      >
-                      </div>
-                      <div class="relative flex justify-start">
-                        <span
-                          class={`pr-3 text-base font-semibold leading-6 ${styles[programme.name].text}`}
-                          >Social enterprise</span
-                        >
-                      </div>
-                    </div>
-                    <div></div>
-                  </div>
-                </div>
-
-                <div class={`${styles[programme.name].bg2} rounded-xl`}>
-                  <div class="mx-auto max-w-7xl px-6 py-12 lg:px-8">
-                    <h2
-                      class={`text-3xl font-bold tracking-tight sm:text-4xl ${styles[programme.name].text}`}
-                    >
-                      Apply for {programme.name}
-                    </h2>
-
-                    <div class="mt-10 flex items-center gap-x-6">
-                      <a
-                        href="/award"
-                        class={`text-sm font-semibold leading-6 ${styles[programme.name].text2}`}
-                        >Learn more about Award <span aria-hidden="true">→</span
-                        ></a
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- sidebar -->
-            <div class="flex flex-col gap-10 px-5 2xl:px-0">
-              <div class="flex flex-col gap-10">
-                <!-- Other programmes -->
-                <div class="flex flex-col gap-4 lg:flex">
-                  <h3 class="font-bold text-slate-100">Other programmes</h3>
-                  <div class="flex flex-row gap-3">
-                    {
-                      programmes
-                        .filter(
-                          (programmei) =>
-                            !(programmei.name === programme.name) &&
-                            todayDate.isBefore(programmei.till) &&
-                            todayDate.isAfter(programmei.from) &&
-                            programmei.name !== "Millennium Awards Trust",
-                        )
-                        .map((programme) => (
-                          <a
-                            href={`/award/${slugify(programme.name, { lower: true, strict: true, locale: "en", trim: true })}`}
-                            class={`border ${styles[programme.name].border} p-6 rounded-2xl flex flex-1 flex-col gap-5 transition ${styles[programme.name].bg2}`}
-                          >
-                            <div class="flex flex-row gap-6 items-center">
-                              <Icon
-                                icon={programme.icon}
-                                textColour={styles[programme.name].text2}
-                                bgColour={styles[programme.name].bg}
-                                borderColour={styles[programme.name].border}
-                              />
-                              <div>
-                                {/* <span
-                                  class={`uppercase tracking-widest text-xs ${styles[programme.name].text2}`}
-                                >
-                                  {programme.code}
-                                </span> */}
-                                <h3
-                                  class={`text-lg font-bold leading-6 ${styles[programme.name].text}`}
-                                >
-                                  {programme.name}
-                                </h3>
-                              </div>
-                            </div>
-                          </a>
-                        ))
-                    }
-                  </div>
-                </div>
-              </div>
+              <Other
+                current={programme}
+                programmes={programmes}
+                styles={styles[programme.name]}
+              />
             </div>
           </div>
         </div>
