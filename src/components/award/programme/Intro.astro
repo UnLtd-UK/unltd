@@ -11,7 +11,7 @@ import moment from "moment";
 let todayDate = moment();
 ---
 
-<div class={`relative isolate overflow-hidden ${styles.bg} py-24 sm:py-32`}>
+<div class={`relative isolate overflow-hidden ${styles.bg} py-10 sm:py-14`}>
   <img
     src={`https://unltd.directus.app/assets/${programme.image.id}`}
     alt=""
@@ -92,12 +92,12 @@ let todayDate = moment();
             {programme.description}
           </p>
         </div>
+        <Partners
+          name={programme.name}
+          partners={programme.partners}
+          styles={styles}
+        />
       </div>
     </div>
-    <Partners
-      name={programme.name}
-      partners={programme.partners}
-      styles={styles}
-    />
   </div>
 </div>

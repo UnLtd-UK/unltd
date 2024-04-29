@@ -62,47 +62,35 @@ const { programme } = Astro.props;
 >
   <Intro programme={programme} styles={styles[programme.name]} />
 
-  <Container>
-    <div class={`flex flex-col gap-20 pt-20`}>
-      <div class="grid grid-cols-4 gap-20">
-        <div class="col-span-4 flex flex-col gap-10 lg:col-span-4">
-          <div class="flex flex-col gap-10">
-            <div class="flex flex-col gap-6">
-              <Videos
-                styles={styles[programme.name]}
-                videos={programme.videos}
-              />
+  <Videos styles={styles[programme.name]} videos={programme.videos} />
 
-              <Quotes
-                styles={styles[programme.name]}
-                quotes={programme.quotes}
-              />
+  <Quotes styles={styles[programme.name]} quotes={programme.quotes} />
 
-              <Services
-                styles={styles[programme.name]}
-                services={programme.services}
-              />
+  <Services styles={styles[programme.name]} services={programme.services} />
 
-              <Criteria
-                styles={styles[programme.name]}
-                age={programme.age}
-                geography={programme.geography}
-                sectors={programme.sectors}
-              />
+  <Criteria
+    styles={styles[programme.name]}
+    age={programme.age}
+    geography={programme.geography}
+    sectors={programme.sectors}
+  />
 
-              <Posts styles={styles[programme.name]} posts={programme.posts} />
+  <Banner styles={styles[programme.name]} programme={programme} />
 
-              <Banner styles={styles[programme.name]} programme={programme} />
+  {
+    programme.posts.length > 0 && (
+      <Posts
+        styles={styles[programme.name]}
+        posts={programme.posts}
+        name={programme.name}
+      />
+    )
+  }
 
-              <Other
-                current={programme}
-                programmes={programmes}
-                styles={styles[programme.name]}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </Container>
+  <Other
+    current={programme}
+    programmes={programmes}
+    styles={styles[programme.name]}
+    name={programme.name}
+  />
 </Template>
