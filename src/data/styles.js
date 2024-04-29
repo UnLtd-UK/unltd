@@ -11,7 +11,8 @@ const styles = {
         "border": "border-violet-400 dark:border-violet-600",
         "border2": "border-violet-600 dark:border-violet-400",
         "badge": "bg-amber-400/50 text-amber-600 ring-amber-500/10 dark:bg-amber-600/50 dark:text-amber-200 dark:ring-amber-400/20",
-        "divide": "divide-violet-200 dark:divide-violet-800"
+        "divide": "divide-violet-200 dark:divide-violet-800",
+        "gradient": "from-violet-900 via-violet-900/40"
     },
     "Millennium Awards Trust": {
         "font": "font-sans",
@@ -25,7 +26,8 @@ const styles = {
         "border": "border-amber-400 dark:border-amber-600",
         "border2": "border-amber-600 dark:border-amber-400",
         "badge": "bg-amber-400/50 text-amber-600 ring-amber-500/10 dark:bg-amber-600/50 dark:text-amber-200 dark:ring-amber-400/20",
-        "divide": "divide-amber-200 dark:divide-amber-800"
+        "divide": "divide-amber-200 dark:divide-amber-800",
+        "gradient": "from-amber-900 via-amber-900/40"
     },
     "Funding Futures Programme": {
         "font": "font-sans",
@@ -39,7 +41,8 @@ const styles = {
         "border": "border-purple-400 dark:border-purple-600",
         "border2": "border-purple-600 dark:border-purple-400",
         "badge": "bg-purple-400/50 text-purple-600 ring-purple-500/10 dark:bg-purple-600/50 dark:text-purple-200 dark:ring-purple-400/20",
-        "divide": "divide-purple-200 dark:divide-purple-800"
+        "divide": "divide-purple-200 dark:divide-purple-800",
+        "gradient": "from-purple-900 via-purple-900/40"
     },
     "Access to Employment": {
         "font": "font-sans",
@@ -53,7 +56,8 @@ const styles = {
         "border": "border-teal-400 dark:border-teal-600",
         "border2": "border-teal-600 dark:border-teal-400",
         "badge": "bg-teal-400/50 text-teal-600 ring-teal-500/10 dark:bg-teal-600/50 dark:text-teal-200 dark:ring-teal-400/20",
-        "divide": "divide-teal-200 dark:divide-teal-800"
+        "divide": "divide-teal-200 dark:divide-teal-800",
+        "gradient": "from-teal-900 via-teal-900/40"
     },
     "Healthy Ageing": {
         "font": "font-sans",
@@ -67,7 +71,8 @@ const styles = {
         "border": "border-lime-400 dark:border-lime-600",
         "border2": "border-lime-600 dark:border-lime-400",
         "badge": "bg-lime-400/50 text-lime-600 ring-lime-500/10 dark:bg-lime-600/50 dark:text-lime-200 dark:ring-lime-400/20",
-        "divide": "divide-lime-200 dark:divide-lime-800"
+        "divide": "divide-lime-200 dark:divide-lime-800",
+        "gradient": "from-lime-900 via-lime-900/40"
     },
     "Movement for Change": {
         "font": "font-sans",
@@ -81,7 +86,8 @@ const styles = {
         "border": "border-blue-400 dark:border-blue-600",
         "border2": "border-blue-600 dark:border-blue-400",
         "badge": "bg-blue-400/50 text-blue-600 ring-blue-500/10 dark:bg-blue-600/50 dark:text-blue-200 dark:ring-blue-400/20",
-        "divide": "divide-blue-200 dark:divide-blue-800"
+        "divide": "divide-blue-200 dark:divide-blue-800",
+        "gradient": "from-blue-900 via-blue-900/40"
     }
 }
 
