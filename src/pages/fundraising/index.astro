@@ -19,9 +19,8 @@ let todayDate = moment();
 import moment from "moment";
 ---
 
-<Template name={name} description={description}>
+<Template name={name} description={description} breadcrumbs={breadcrumbs}>
   <Container>
-    <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Hero name={name} description={description} />
 
     <div

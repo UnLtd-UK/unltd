@@ -2,7 +2,7 @@
 import Template from "@layouts/Template.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Container from "@components/Container.astro";
-import { styles } from "@data/styles.js";
+import { palette } from "@data/palette.js";
 import Icon from "@components/award/cards/Icon.astro";
 import Intro from "@components/award/programme/Intro.astro";
 import Posts from "@components/award/programme/Posts.astro";
@@ -58,29 +58,33 @@ const { programme } = Astro.props;
   name={programme.name}
   description={programme.description}
   breadcrumbs={programme.breadcrumbs}
-  bg={styles[programme.name].bg}
+  theme={palette[programme.name]}
 >
-  <Intro programme={programme} styles={styles[programme.name]} />
+  <Intro programme={programme} styles={palette[programme.name]} />
 
-  <Videos styles={styles[programme.name]} videos={programme.videos} />
+  {
+    programme.videos.length > 0 && (
+      <Videos styles={palette[programme.name]} videos={programme.videos} />
+    )
+  }
 
-  <Quotes styles={styles[programme.name]} quotes={programme.quotes} />
+  <Quotes styles={palette[programme.name]} quotes={programme.quotes} />
 
-  <Services styles={styles[programme.name]} services={programme.services} />
+  <Services styles={palette[programme.name]} services={programme.services} />
 
   <Criteria
-    styles={styles[programme.name]}
+    styles={palette[programme.name]}
     age={programme.age}
     geography={programme.geography}
     sectors={programme.sectors}
   />
 
-  <Banner styles={styles[programme.name]} programme={programme} />
+  <Banner styles={palette[programme.name]} programme={programme} />
 
   {
     programme.posts.length > 0 && (
       <Posts
-        styles={styles[programme.name]}
+        styles={palette[programme.name]}
         posts={programme.posts}
         name={programme.name}
       />
@@ -90,7 +94,7 @@ const { programme } = Astro.props;
   <Other
     current={programme}
     programmes={programmes}
-    styles={styles[programme.name]}
+    styles={palette[programme.name]}
     name={programme.name}
   />
 </Template>

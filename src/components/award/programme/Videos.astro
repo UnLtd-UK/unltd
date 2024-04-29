@@ -8,27 +8,31 @@ import Container from "@components/Container.astro";
         role="list"
         class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
     >
-        <li
-            class="grid-cols-1 lg:col-span-2 flex flex-col divide-y divide-gray-200 rounded-xl bg-white shadow"
-        >
-            <iframe
-                src="https://www.youtube-nocookie.com/embed/QoyV65HoRFA?si=NHslClglIi-IZPOa"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen></iframe>
-        </li>
-        <li
-            class="grid-cols-1 lg:col-span-2 flex flex-col divide-y divide-gray-200 rounded-lg bg-white shadow"
-        >
-            <iframe
-                src="https://www.youtube-nocookie.com/embed/pAwebgSJ60k?si=Oj8vsZVjx082d98m"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen></iframe>
-        </li>
+        {
+            videos.map((post) => (
+                <>
+                    <li class="grid-cols-1 lg:col-span-2 flex flex-col divide-y divide-gray-200 rounded-xl bg-white shadow">
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/QoyV65HoRFA"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen
+                        />
+                    </li>
+                    <li class="grid-cols-1 lg:col-span-2 flex flex-col divide-y divide-gray-200 rounded-lg bg-white shadow">
+                        <iframe
+                            src="https://www.youtube-nocookie.com/embed/pAwebgSJ60k"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen
+                        />
+                    </li>
+                </>
+            ))
+        }
     </ul>
 </Container>
