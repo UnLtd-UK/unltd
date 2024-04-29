@@ -4,6 +4,10 @@ import Logo from "@components/Logo.jsx";
 
 import { navigation } from "@data/navigation.js";
 const nav = navigation.code;
+
+const styles = {
+  fill: "fill-slate-600 dark:fill-slate-400",
+};
 ---
 
 <footer class="bg-slate-200 dark:bg-slate-800" aria-labelledby="footer-heading">
@@ -11,7 +15,7 @@ const nav = navigation.code;
   <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
       <div class="space-y-6">
-        <Logo colour="fill-slate-400" />
+        <Logo styles={styles} />
         <div class="flex gap-2">
           <i
             class="text-xs text-slate-400 dark:text-slate-600 fa-solid fa-location-dot"

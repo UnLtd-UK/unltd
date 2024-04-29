@@ -2,6 +2,7 @@
 import slugify from "slugify";
 
 import { programmes } from "@data/programmes.js";
+import { palette } from "@data/palette.js";
 
 import Container from "@components/Container.astro";
 import ProgrammeBig from "@components/award/programme/ProgrammeBig.astro";
@@ -37,7 +38,7 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
                   : false
               }
               icon={programmes[0].icon}
-              colour={programmes[0].colour}
+              styles={palette[programmes[0].name]}
               name={programmes[0].name}
               age={programmes[0].age}
               geography={programmes[0].geography}
@@ -71,7 +72,7 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
                   : false
               }
               icon={programme.icon}
-              colour={programme.colour}
+              styles={palette[programme.name]}
               name={programme.name}
               logo={
                 programme.logo && programme.logo.id
