@@ -49,9 +49,8 @@ export async function getStaticPaths() {
 const { name, description, date_updated, body, breadcrumbs } = Astro.props;
 ---
 
-<Template name={name} description={description}>
+<Template name={name} description={description} breadcrumbs={breadcrumbs}>
   <Container>
-    <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Hero name={name} description={description} updated={date_updated} />
     <div
       set:html={marked.parse(body)}

@@ -18,9 +18,8 @@ const breadcrumbs = [
 ];
 ---
 
-<Template name={name} description={description}>
+<Template name={name} description={description} breadcrumbs={breadcrumbs}>
   <Container>
-    <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Hero name={name} description={description} />
     <Team
       name="Leadership"

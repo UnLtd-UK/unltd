@@ -292,43 +292,40 @@ const data = {
   }
 }
 const navigations = data.header.main;
-// console.log("Local: ", navigations);
-
-import { styles } from "@data/styles.js";
 
 import Logo from "@components/Logo.jsx";
 import PanelComp from './Panel.jsx';
 import DialogComp from './Dialog.jsx';
 
-export default function HeaderComp({ fill, text, text2, bg, bg2 }) {
+export default function HeaderComp({ styles }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="">
+    <header className={styles.bg}>
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <a href="/" className="-m-1.5 p-1.5">
-            <Logo colour={fill} />
+            <Logo styles={styles} />
           </a>
         </div>
         <div className="flex lg:hidden">
           <button
             type="button"
-            className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 ${text}`}
+            className={`-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 ${styles.text}`}
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
             <i className="fa-solid fa-bars h-6 w-6" aria-hidden="true" ></i>
           </button>
         </div>
-        <PanelComp navs={navigations} text={text} text2={text2} bg={bg} bg2={bg2} />
+        <PanelComp navs={navigations} styles={styles} />
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="https://unltd.microsoftcrmportals.com/applications" className={`text-sm font-semibold leading-6 ${text}`}>
-            Log in <span aria-hidden="true" className={text2}>&rarr;</span>
+          <a href="https://unltd.microsoftcrmportals.com/applications" className={`text-sm font-semibold leading-6 ${styles.text}`}>
+            Log in <span aria-hidden="true" className={styles.text2}>&rarr;</span>
           </a>
         </div>
       </nav>
-      <DialogComp nav={navigations} fill={fill} text={text} text2={text2} bg={bg} bg2={bg2} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+      <DialogComp nav={navigations} styles={styles} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
     </header>
   )
 }

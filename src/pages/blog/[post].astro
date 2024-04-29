@@ -1,7 +1,6 @@
 ---
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
-import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Hero from "@components/Hero.astro";
 import { marked } from "marked";
 
@@ -42,9 +41,12 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 ---
 
-<Template name={post.title} description={post.description}>
+<Template
+  name={post.title}
+  description={post.description}
+  breadcrumbs={post.breadcrumbs}
+>
   <Container>
-    <Breadcrumbs breadcrumbs={post.breadcrumbs} />
     <Hero
       name={post.title}
       description={post.description}

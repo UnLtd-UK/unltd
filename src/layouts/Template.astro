@@ -1,14 +1,10 @@
 ---
-import { styles } from "@data/styles.js";
+import { palette } from "@data/palette.js";
 
 const {
   name = "UnLtd",
   description = "No description",
-  fill = styles["UnLtd"].fill,
-  text = styles["UnLtd"].text,
-  text2 = styles["UnLtd"].text2,
-  bg = styles["UnLtd"].bg,
-  bg2 = styles["UnLtd"].bg2,
+  theme = palette["UnLtd"],
   breadcrumbs = [],
 } = Astro.props.frontmatter || Astro.props;
 
@@ -80,24 +76,12 @@ import "@fontsource-variable/unbounded"; // ATE
       src="https://kit.fontawesome.com/0ff725f684.js"
       crossorigin="anonymous"></script>
   </head>
-  <body class={`dark ${styles["UnLtd"].bg}`}>
+  <body class={`dark ${palette["UnLtd"].bg}`}>
     <div class="flex flex-col justify-between h-full">
-      <Header
-        fill={fill}
-        text={text}
-        text2={text2}
-        bg={bg}
-        bg2={bg2}
-        client:load
-      />
-      <Breadcrumbs
-        breadcrumbs={breadcrumbs}
-        text={text}
-        bg={bg}
-        text2={text2}
-      />
+      <Header styles={palette["UnLtd"]} client:load />
+      <Breadcrumbs breadcrumbs={breadcrumbs} styles={theme} />
       <!-- <Nav /> -->
-      <div class={bg}>
+      <div class={theme.bg}>
         <slot />
       </div>
       <Footer />
