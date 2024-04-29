@@ -1,6 +1,7 @@
 ---
 const { styles, name, posts } = Astro.props;
 import Container from "@components/Container.astro";
+import slugify from "slugify";
 ---
 
 <Container bg={styles.bg2}>
@@ -17,16 +18,14 @@ import Container from "@components/Container.astro";
         >
             {
                 posts.map((post) => (
-                    <article
-                        class={`relative isolate flex flex-col justify-end overflow-hidden rounded-2xl ${styles.bg} px-8 pb-8 pt-80 sm:pt-48 lg:pt-80`}
-                    >
+                    <article class={`relative isolate flex flex-col justify-end overflow-hidden rounded-2xl transition ease-in-out delay-150 hover:-translate-y-2 duration-300 ${styles.bg} px-8 pb-8 pt-80 sm:pt-48 lg:pt-80`}>
                         <img
-                            src={`https://unltd.directus.app/assets/${post.posts_id.image.id}`}
+                            src={ post.posts_id.image !== null && post.posts_id.image.id !== null ? `https://unltd.directus.app/assets/${post.posts_id.image.id}` : `/img/blog/${slugify(post.posts_id.tag, { lower: true, strict: true, locale: "en", trim: true })}.webp`}
                             alt=""
                             class="absolute inset-0 -z-10 h-full w-full object-cover"
                         />
                         <div
-                            class={`absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40`}
+                            class={`absolute inset-0 -z-10 bg-gradient-to-t ${styles.gradient}`}
                         />
                         <div
                             class={`absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ${styles.ring}`}
