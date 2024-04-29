@@ -1,53 +1,55 @@
 ---
-const { programmes, current } = Astro.props;
+const { programmes, current, styles, name } = Astro.props;
 import moment from "moment";
 let todayDate = moment();
 import slugify from "slugify";
-
+import Container from "@components/Container.astro";
 
 import ProgrammeSmall from "@components/award/programme/ProgrammeSmall.astro";
 ---
-        <div class="flex flex-col gap-10 px-5 2xl:px-0">
-          <div class="flex flex-col gap-10">
-            <div class="flex flex-col gap-4 lg:flex">
-              <h3 class="font-bold text-slate-100">Other programmes</h3>
-              <div class="flex flex-row gap-3">
-                {
-                  programmes
-                    .filter(
-                      (programmei) =>
-                        !(programmei.name === current.name) &&
-                        todayDate.isBefore(programmei.till) &&
-                        todayDate.isAfter(programmei.from) &&
-                        programmei.name !== "Millennium Awards Trust",
-                    )
-                    .map((programme, i) =>             <ProgrammeSmall
-              key={i}
-              image={
-                programme.image && programme.image.id
-                  ? programme.image.id
-                  : false
-              }
-              icon={programme.icon}
-              colour={programme.colour}
-              name={programme.name}
-              logo={
-                programme.logo && programme.logo.id
-                  ? programme.logo.id
-                  : false
-              }
-              age={programme.age}
-              geography={programme.geography}
-              sectors={programme.sectors}
-              slogan={programme.slogan}
-              description={programme.description}
-              slug={slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})},
-              services={programme.services}
-              eligibilities={programme.eligibilities}
-              code={programme.code}
-            />)
-                }
-              </div>
-            </div>
-          </div>
-        </div>
+<Container bg={styles.bg2}>
+  <div class="flex flex-col py-20 gap-10 px-5 2xl:px-0">
+    <div class="">
+        <h2 class={`text-xl font-bold tracking-tight ${styles.text} sm:text-2xl`}>
+            Other programmes
+        </h2>
+    </div>
+    <div class="flex flex-row gap-3">
+          {
+            programmes
+              .filter(
+                (programmei) =>
+                  !(programmei.name === current.name) &&
+                  todayDate.isBefore(programmei.till) &&
+                  todayDate.isAfter(programmei.from) &&
+                  programmei.name !== "Millennium Awards Trust",
+              )
+              .map((programme, i) =>             <ProgrammeSmall
+        key={i}
+        image={
+          programme.image && programme.image.id
+            ? programme.image.id
+            : false
+        }
+        icon={programme.icon}
+        colour={programme.colour}
+        name={programme.name}
+        logo={
+          programme.logo && programme.logo.id
+            ? programme.logo.id
+            : false
+        }
+        age={programme.age}
+        geography={programme.geography}
+        sectors={programme.sectors}
+        slogan={programme.slogan}
+        description={programme.description}
+        slug={slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})},
+        services={programme.services}
+        eligibilities={programme.eligibilities}
+        code={programme.code}
+      />)
+          }
+    </div>
+  </div>
+</Container>
