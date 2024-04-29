@@ -48,9 +48,12 @@ export async function getStaticPaths() {
 const { learn } = Astro.props;
 ---
 
-<Template name={learn.name} description={learn.description}>
+<Template
+  name={learn.name}
+  description={learn.description}
+  breadcrumbs={learn.breadcrumbs}
+>
   <Container>
-    <Breadcrumbs breadcrumbs={learn.breadcrumbs} />
     <Hero name={learn.name} description={learn.description} />
     <div
       set:html={marked.parse(learn.body)}

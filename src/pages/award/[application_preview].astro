@@ -65,10 +65,8 @@ const {
 } = Astro.props;
 ---
 
-<Template name={name} description={description}>
+<Template name={name} description={description} breadcrumbs={breadcrumbs}>
   <Container>
-    <Breadcrumbs breadcrumbs={breadcrumbs} />
-
     <div class="flex flex-col gap-2">
       <div class="flex flex-col sm:flex-row gap-10">
         <div

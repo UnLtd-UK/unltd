@@ -1,12 +1,12 @@
 import PopoverComp from './Popover.jsx';
 import { Popover } from '@headlessui/react'
 
-export default function PanelComp({ navs, text, text2, bg, bg2 }) {
+export default function PanelComp({ navs, styles }) {
     return (<Popover.Group className="hidden lg:flex lg:gap-x-12">
         {
-            navs.map((nav, i) => <PopoverComp key={i} nav={nav} text={text} text2={text2} bg={bg} bg2={bg2} />)
+            navs.map((nav, i) => <PopoverComp key={i} nav={nav} styles={styles} />)
         }
-        <a href="/blog" className={`text-sm font-semibold leading-6 ${text}`}>
+        <a href="/blog" className={`text-sm font-semibold leading-6 ${styles.text}`}>
             Blog
         </a>
     </Popover.Group>)

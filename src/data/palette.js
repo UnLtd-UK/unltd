@@ -1,8 +1,9 @@
-const styles = {
+const palette = {
     "UnLtd": {
         "font": "font-sans",
         "bg": "bg-violet-50 dark:bg-violet-950",
         "bg2": "bg-violet-100 dark:bg-violet-900",
+        "bg3": "bg-violet-200 dark:bg-violet-800",
         "text": "text-violet-950 dark:text-violet-50",
         "text2": "text-violet-800 dark:text-violet-200",
         "fill": "fill-amber-900 dark:fill-amber-600",
@@ -12,12 +13,16 @@ const styles = {
         "border2": "border-violet-600 dark:border-violet-400",
         "badge": "bg-amber-400/50 text-amber-600 ring-amber-500/10 dark:bg-amber-600/50 dark:text-amber-200 dark:ring-amber-400/20",
         "divide": "divide-violet-200 dark:divide-violet-800",
-        "gradient": "from-violet-900 via-violet-900/40"
+        "gradient": "from-violet-100 via-violet-100/40 dark:from-violet-900 dark:via-violet-900/40",
+        "gradient2": "from-violet-200 via-violet-50 dark:from-violet-800 dark:via-violet-950",
+        "breadcrumb": "hover:text-violet-900 text-violet-800 dark:hover:text-violet-100 dark:text-violet-200",
+        "hover": "hover:bg-violet-100 dark:hover:bg-violet-900"
     },
     "Millennium Awards Trust": {
         "font": "font-sans",
         "bg": "bg-amber-100 dark:bg-amber-900",
         "bg2": "bg-amber-50 dark:bg-amber-950",
+        "bg3": "bg-amber-200 dark:bg-amber-800",
         "text": "text-amber-950 dark:text-amber-50",
         "text2": "text-amber-800 dark:text-amber-200",
         "fill": "fill-amber-950 dark:fill-amber-50",
@@ -27,12 +32,16 @@ const styles = {
         "border2": "border-amber-600 dark:border-amber-400",
         "badge": "bg-amber-400/50 text-amber-600 ring-amber-500/10 dark:bg-amber-600/50 dark:text-amber-200 dark:ring-amber-400/20",
         "divide": "divide-amber-200 dark:divide-amber-800",
-        "gradient": "from-amber-900 via-amber-900/40"
+        "gradient": "from-amber-100 via-amber-100/40 dark:from-amber-900 dark:via-amber-900/40",
+        "gradient2": "from-amber-200 via-amber-50 dark:from-amber-800 dark:via-amber-950",
+        "breadcrumb": "hover:text-amber-900 text-amber-800 dark:hover:text-amber-100 dark:text-amber-200",
+        "hover": "hover:bg-amber-100 dark:hover:bg-amber-900"
     },
     "Funding Futures Programme": {
         "font": "font-sans",
         "bg": "bg-purple-100 dark:bg-purple-900",
         "bg2": "bg-purple-50 dark:bg-purple-950",
+        "bg3": "bg-purple-200 dark:bg-purple-800",
         "text": "text-purple-950 dark:text-purple-50",
         "text2": "text-purple-800 dark:text-purple-200",
         "fill": "fill-purple-950 dark:fill-purple-50",
@@ -42,12 +51,16 @@ const styles = {
         "border2": "border-purple-600 dark:border-purple-400",
         "badge": "bg-purple-400/50 text-purple-600 ring-purple-500/10 dark:bg-purple-600/50 dark:text-purple-200 dark:ring-purple-400/20",
         "divide": "divide-purple-200 dark:divide-purple-800",
-        "gradient": "from-purple-900 via-purple-900/40"
+        "gradient": "from-purple-100 via-purple-100/40 dark:from-purple-900 dark:via-purple-900/40",
+        "gradient2": "from-purple-200 via-purple-50 dark:from-purple-800 dark:via-purple-950",
+        "breadcrumb": "hover:text-purple-900 text-purple-800 dark:hover:text-purple-100 dark:text-purple-200",
+        "hover": "hover:bg-purple-100 dark:hover:bg-purple-900"
     },
     "Access to Employment": {
         "font": "font-sans",
         "bg": "bg-teal-100 dark:bg-teal-900",
         "bg2": "bg-teal-50 dark:bg-teal-950",
+        "bg3": "bg-purple-200 dark:bg-purple-800",
         "text": "text-teal-950 dark:text-teal-50",
         "text2": "text-teal-800 dark:text-teal-200",
         "fill": "fill-teal-950 dark:fill-teal-50",
@@ -57,12 +70,16 @@ const styles = {
         "border2": "border-teal-600 dark:border-teal-400",
         "badge": "bg-teal-400/50 text-teal-600 ring-teal-500/10 dark:bg-teal-600/50 dark:text-teal-200 dark:ring-teal-400/20",
         "divide": "divide-teal-200 dark:divide-teal-800",
-        "gradient": "from-teal-900 via-teal-900/40"
+        "gradient": "from-teal-100 via-teal-100/40 dark:from-teal-900 dark:via-teal-900/40",
+        "gradient2": "from-teal-200 via-teal-50 dark:from-teal-800 dark:via-teal-950",
+        "breadcrumb": "hover:text-teal-900 text-teal-800 dark:hover:text-teal-100 dark:text-teal-200",
+        "hover": "hover:bg-teal-100 dark:hover:bg-teal-900"
     },
     "Healthy Ageing": {
         "font": "font-sans",
         "bg": "bg-lime-100 dark:bg-lime-900",
         "bg2": "bg-lime-50 dark:bg-lime-950",
+        "bg3": "bg-purple-200 dark:bg-purple-800",
         "text": "text-lime-950 dark:text-lime-50",
         "text2": "text-lime-800 dark:text-lime-200",
         "fill": "fill-lime-950 dark:fill-lime-50",
@@ -72,12 +89,16 @@ const styles = {
         "border2": "border-lime-600 dark:border-lime-400",
         "badge": "bg-lime-400/50 text-lime-600 ring-lime-500/10 dark:bg-lime-600/50 dark:text-lime-200 dark:ring-lime-400/20",
         "divide": "divide-lime-200 dark:divide-lime-800",
-        "gradient": "from-lime-900 via-lime-900/40"
+        "gradient": "from-lime-100 via-lime-100/40 dark:from-lime-900 dark:via-lime-900/40",
+        "gradient2": "from-lime-200 via-lime-50 dark:from-lime-800 dark:via-lime-950",
+        "breadcrumb": "hover:text-lime-900 text-lime-800 dark:hover:text-lime-100 dark:text-lime-200",
+        "hover": "hover:bg-lime-100 dark:hover:bg-lime-900"
     },
     "Movement for Change": {
         "font": "font-sans",
         "bg": "bg-blue-100 dark:bg-blue-900",
         "bg2": "bg-blue-50 dark:bg-blue-950",
+        "bg3": "bg-blue-200 dark:bg-blue-800",
         "text": "text-blue-950 dark:text-blue-50",
         "text2": "text-blue-800 dark:text-blue-200",
         "fill": "fill-blue-950 dark:fill-blue-50",
@@ -87,8 +108,11 @@ const styles = {
         "border2": "border-blue-600 dark:border-blue-400",
         "badge": "bg-blue-400/50 text-blue-600 ring-blue-500/10 dark:bg-blue-600/50 dark:text-blue-200 dark:ring-blue-400/20",
         "divide": "divide-blue-200 dark:divide-blue-800",
-        "gradient": "from-blue-900 via-blue-900/40"
+        "gradient": "from-blue-100 via-blue-100/40 dark:from-blue-900 dark:via-blue-900/40",
+        "gradient2": "from-blue-200 via-blue-50 dark:from-blue-800 dark:via-blue-950",
+        "breadcrumb": "hover:text-blue-900 text-blue-800 dark:hover:text-blue-100 dark:text-blue-200",
+        "hover": "hover:bg-blue-100 dark:hover:bg-blue-900"
     }
 }
 
-export { styles }
+export { palette }
