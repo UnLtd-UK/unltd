@@ -73,6 +73,7 @@ const { programme } = Astro.props;
   <Services styles={palette[programme.name]} services={programme.services} />
 
   <Criteria
+    programme={programme}
     styles={palette[programme.name]}
     age={programme.age}
     geography={programme.geography}

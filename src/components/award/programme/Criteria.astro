@@ -1,5 +1,5 @@
 ---
-const { styles, age, geography, sectors } = Astro.props;
+const { styles, age, geography, sectors, programme } = Astro.props;
 import Container from "@components/Container.astro";
 ---
 
@@ -12,9 +12,7 @@ import Container from "@components/Container.astro";
                 Programme eligibility
             </p>
             <p class={`mt-6 text-lg leading-8 ${styles.text2}`}>
-                Quis tellus eget adipiscing convallis sit sit eget aliquet quis.
-                Suspendisse eget egestas a elementum pulvinar et feugiat blandit
-                at. In mi viverra elit nunc.
+                To be considered for the {programme.name} you must be:
             </p>
         </div>
         <div class="flex flex-row gap-24">
@@ -49,7 +47,7 @@ import Container from "@components/Container.astro";
                 <dt
                     class={`text-base leading-7 ${styles.text2} ${styles.font}`}
                 >
-                    Sectors
+                    Operating in
                 </dt>
                 <dd
                     class={`order-first text-xl font-semibold tracking-tight sm:text-2xl ${styles.text} ${styles.font}`}
