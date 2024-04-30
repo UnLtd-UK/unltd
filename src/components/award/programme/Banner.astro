@@ -13,7 +13,9 @@ import Container from "@components/Container.astro";
             Apply for an Award
         </h2>
         <p class={`mx-auto mt-6 max-w-xl text-lg leading-8 ${styles.text2}`}>
-            Apply and you could be lucky enough to get on the {programme.name}.
+            Apply for an Award and join {programme.name} to {
+                programme.slogan.toLowerCase()
+            }.
         </p>
         <div class="mt-10 flex items-center justify-center gap-x-6">
             <a

@@ -70,7 +70,11 @@ const { programme } = Astro.props;
 
   <Quotes styles={palette[programme.name]} quotes={programme.quotes} />
 
-  <Services styles={palette[programme.name]} services={programme.services} />
+  <Services
+    styles={palette[programme.name]}
+    services={programme.services}
+    programme={programme}
+  />
 
   <Criteria
     programme={programme}
