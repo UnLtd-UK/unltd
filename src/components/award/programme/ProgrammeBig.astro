@@ -27,8 +27,9 @@ const {
 } = Astro.props;
 ---
 
-<div
-  class={`grid lg:grid-flow-col shadow-md rounded-2xl border-2 ${styles.divide} ${styles.bg2} ${styles.border}`}
+<a
+  href=`/award/${slug}`
+  class={`grid lg:grid-flow-col shadow-md rounded-2xl border-2 transition ease-in-out delay-150 hover:-translate-y-2 duration-300 ${styles.divide} ${styles.bg2} ${styles.border}`}
 >
   <div
     class="col-span-2 lg:row-span-3 rounded-t-2xl lg:rounded-l-2xl relative isolate flex flex-col justify-end overflow-hidden px-10 py-10"
@@ -81,7 +82,7 @@ const {
         <h2
           class={`text-sm font-semibold leading-8 text-gray-900 ${styles.text}`}
         >
-          Powered by
+          Supported by
         </h2>
         <img class="h-12" src={`/svg/dark/mat.svg`} alt="MAT" />
       </div>
@@ -137,7 +138,7 @@ const {
   >
     <div class="flex flex-col gap-1">
       <h3 class={`text-xs font-semibold ${styles.text}`}>
-        Social entrepreneur eligibility
+        Programme eligibility
       </h3>
     </div>
     <ul class="flex flex-col sm:flex-row gap-10">
@@ -146,7 +147,7 @@ const {
           class={`truncate text-xs uppercase flex gap-2 items-center ${styles.text2}`}
         >
           <i class={`fa-thin fa-spinner `}></i>
-          <span class={`text-xs `}> Age </span>
+          <span class={`text-xs `}> Aged </span>
         </p>
         <p class={`text-xs font-medium tracking-tight ${styles.text}`}>
           {age}
@@ -157,7 +158,7 @@ const {
           class={`truncate text-xs uppercase flex gap-2 items-center ${styles.text2}`}
         >
           <i class={`fa-thin fa-location-dot `}></i>
-          <span class={`text-xs `}> Geography </span>
+          <span class={`text-xs `}> Location </span>
         </p>
         <p class={`text-xs font-medium tracking-tight ${styles.text}`}>
           {geography}
@@ -168,7 +169,7 @@ const {
           class={`truncate text-xs uppercase flex gap-2 items-center ${styles.text2}`}
         >
           <i class={`fa-thin fa-vector-square `}></i>
-          <span class={`text-xs `}> Sectors </span>
+          <span class={`text-xs `}> Operating in </span>
         </p>
         <p class={`text-xs font-medium tracking-tight ${styles.text}`}>
           {sectors}
@@ -176,4 +177,4 @@ const {
       </li>
     </ul>
   </div>
-</div>
+</a>
