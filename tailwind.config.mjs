@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     fontFamily: {
       'sans': ['Montserrat Variable', ...defaultTheme.fontFamily.sans],
-      'ff': ['Lexend Variable', ...defaultTheme.fontFamily.sans],
+      'ff': ['Inter Variable', ...defaultTheme.fontFamily.sans],
       'ha': ['Caveat Variable', ...defaultTheme.fontFamily.sans],
       'mfc': ['Outfit Variable', ...defaultTheme.fontFamily.sans],
       'ate': ['Unbounded Variable', ...defaultTheme.fontFamily.sans]
