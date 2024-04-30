@@ -27,8 +27,9 @@ const {
 } = Astro.props;
 ---
 
-<div
-  class={`grid lg:grid-flow-col shadow-md rounded-2xl border-2 ${styles.divide} ${styles.bg2} ${styles.border}`}
+<a
+  href=`/award/${slug}`
+  class={`grid lg:grid-flow-col shadow-md rounded-2xl border-2 transition ease-in-out delay-150 hover:-translate-y-2 duration-300 ${styles.divide} ${styles.bg2} ${styles.border}`}
 >
   <div
     class="col-span-2 lg:row-span-3 rounded-t-2xl lg:rounded-l-2xl relative isolate flex flex-col justify-end overflow-hidden px-10 py-10"
@@ -176,4 +177,4 @@ const {
       </li>
     </ul>
   </div>
-</div>
+</a>
