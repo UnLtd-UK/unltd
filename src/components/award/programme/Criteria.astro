@@ -1,44 +1,62 @@
 ---
 const { styles, age, geography, sectors } = Astro.props;
+import Container from "@components/Container.astro";
 ---
 
-<div class="py-36">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <dl
-            class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3"
-        >
-            <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+<Container>
+    <div class="flex flex-col gap-8 py-36">
+        <div class="max-w-2xl">
+            <p
+                class={`mt-2 text-3xl font-bold tracking-tight ${styles.text} sm:text-4xl`}
+            >
+                Programme eligibility
+            </p>
+            <p class={`mt-6 text-lg leading-8 ${styles.text2}`}>
+                Quis tellus eget adipiscing convallis sit sit eget aliquet quis.
+                Suspendisse eget egestas a elementum pulvinar et feugiat blandit
+                at. In mi viverra elit nunc.
+            </p>
+        </div>
+        <div class="flex flex-row gap-24">
+            <div class="flex max-w-sm flex-col gap-y-2">
+                <i class={`fa-thin fa-location-dot ${styles.text2}`}></i>
                 <dt
                     class={`text-base leading-7 ${styles.text2} ${styles.font}`}
                 >
                     Geography
                 </dt>
                 <dd
-                    class={`order-first text-3xl font-semibold tracking-tight sm:text-5xl ${styles.text} ${styles.font}`}
+                    class={`order-first text-xl font-semibold tracking-tight sm:text-2xl ${styles.text} ${styles.font}`}
                 >
                     {geography}
                 </dd>
             </div>
-            <div class="mx-auto flex max-w-xs flex-col gap-y-4">
+            <div class="flex max-w-sm flex-col gap-y-2">
+                <i class={`fa-thin fa-spinner ${styles.text2}`}></i>
                 <dt
                     class={`text-base leading-7 ${styles.text2} ${styles.font}`}
                 >
                     Age
                 </dt>
                 <dd
-                    class={`order-first text-3xl font-semibold tracking-tight sm:text-5xl ${styles.text} ${styles.font}`}
+                    class={`order-first text-xl font-semibold tracking-tight sm:text-2xl ${styles.text} ${styles.font}`}
                 >
                     {age}
                 </dd>
             </div>
-            <div class="mx-auto flex max-w-xs flex-col gap-y-4">
-                <dt class={`text-base leading-7 ${styles.text2}`}>Sectors</dt>
+            <div class="flex max-w-sm flex-col gap-y-2">
+                <i class={`fa-thin fa-vector-square ${styles.text2}`}></i>
+                <dt
+                    class={`text-base leading-7 ${styles.text2} ${styles.font}`}
+                >
+                    Sectors
+                </dt>
                 <dd
-                    class={`order-first text-3xl font-semibold tracking-tight ${styles.text} sm:text-5xl`}
+                    class={`order-first text-xl font-semibold tracking-tight sm:text-2xl ${styles.text} ${styles.font}`}
                 >
                     {sectors}
                 </dd>
             </div>
-        </dl>
+        </div>
     </div>
-</div>
+</Container>
