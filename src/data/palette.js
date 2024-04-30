@@ -38,10 +38,10 @@ const palette = {
         "hover": "hover:bg-amber-100 dark:hover:bg-amber-900"
     },
     "Funding Futures Programme": {
-        "font": "font-sans",
-        "bg": "bg-purple-100 dark:bg-purple-900",
-        "bg2": "bg-purple-50 dark:bg-purple-950",
-        "bg3": "bg-purple-200 dark:bg-purple-800",
+        "font": "font-ff",
+        "bg": "bg-gradient-to-br from-purple-100 to-orange-100 dark:from-purple-900 dark:to-orange-900",
+        "bg2": "bg-gradient-to-br from-purple-50 to-orange-50 dark:from-purple-950 dark:to-orange-950",
+        "bg3": "bg-gradient-to-br from-purple-200 to-orange-200 dark:from-purple-800 dark:to-orange-800",
         "text": "text-purple-950 dark:text-purple-50",
         "text2": "text-purple-800 dark:text-purple-200",
         "fill": "fill-purple-950 dark:fill-purple-50",
