@@ -4,19 +4,19 @@ import Container from "@components/Container.astro";
 ---
 
 <Container>
-    <div class="flex py-36">
-        <div class="mx-auto max-w-2xl">
+    <div class="flex gap-10 my-24">
+        <div class="mx-auto max-w-3xl">
             <p
-                class={`mt-2 text-3xl font-bold tracking-tight ${styles.text} sm:text-4xl`}
+                class={`mt-2 text-3xl font-bold tracking-tight sm:text-4xl ${styles.text} ${styles.font}`}
             >
                 Tailored support
             </p>
-            <p class={`mt-6 text-lg leading-8 ${styles.text2}`}>
+            <p class={`mt-6 text-lg leading-8 ${styles.text2} ${styles.font}`}>
                 As an Award Winner on {programme.name}, you will be able to
                 access tailored support including:
             </p>
         </div>
-        <div class="mx-auto max-w-2xl lg:max-w-4xl">
+        <div class="mx-auto max-w-2xl lg:max-w-3xl">
             <dl
                 class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
             >
@@ -31,12 +31,14 @@ import Container from "@components/Container.astro";
                                         class={`${service.services_id.icon} text-md shadow-3xl ${styles.text2}`}
                                     />
                                 </div>
-                                <span class={`text-base ${styles.text}`}>
+                                <span
+                                    class={`text-base ${styles.text} ${styles.font}`}
+                                >
                                     {service.services_id.name}
                                 </span>
                             </dt>
                             <dd
-                                class={`mt-2 text-sm leading-6 ${styles.text2}`}
+                                class={`mt-2 text-sm leading-6 ${styles.text2} ${styles.font}`}
                             >
                                 {service.services_id.description}
                             </dd>
