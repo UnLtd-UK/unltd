@@ -40,12 +40,7 @@ let todayDate = moment();
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="col-span-4 flex flex-col gap-8 lg:flex-row">
       <div class="flex flex-col gap-8">
-        <IconBig
-          icon={programme.icon}
-          textColour={styles.text2}
-          bgColour={styles.bg}
-          borderColour={styles.border2}
-        />
+        <IconBig programme={programme} styles={styles} />
         <div class="flex flex-row gap-8 items-center">
           <div class="flex flex-col gap-3">
             <div class="flex flex-row gap-4">

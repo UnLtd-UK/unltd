@@ -1,9 +1,21 @@
 ---
-const { icon, textColour, bgColour, borderColour } = Astro.props;
+const { programme, styles } = Astro.props;
 ---
 
-<div
-    class={`flex items-center justify-center h-32 w-32 rounded-2xl border shadow-2xl ${bgColour} ${borderColour}`}
->
-    <i class={`${icon} text-6xl ${textColour}`}></i>
+<div>
+    {
+        programme.name === "Millennium Awards Trust" ? (
+            <div
+                class={`flex items-center justify-center h-32 w-32 rounded-xl border shadow-2xl ${styles.bg} ${styles.border2}`}
+            >
+                <img class="h-14" src="/svg/unltd.svg" alt="" />
+            </div>
+        ) : (
+            <div
+                class={`flex items-center justify-center h-32 w-32 rounded-2xl border shadow-2xl ${styles.bg} ${styles.border}`}
+            >
+                <i class={`${programme.icon} text-6xl ${styles.text}`} />
+            </div>
+        )
+    }
 </div>
