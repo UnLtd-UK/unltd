@@ -10,7 +10,7 @@ import Container from "@components/Container.astro";
     >
         {
             videos.map((video) => (
-                <li class="relative aspect-w-16 aspect-h-9 aspect-video block overflow-hidden rounded-lg shadow-2xl transition ease-in-out delay-150 hover:-translate-y-2 duration-300 -top-28">
+                <li class="relative aspect-w-16 aspect-h-9 aspect-video block overflow-hidden rounded-lg shadow-2xl transition ease-in-out delay-150 hover:-translate-y-2 duration-300 lg:-top-28">
                     <iframe
                         src={video.videos_id.url}
                         title={video.videos_id.title}

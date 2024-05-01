@@ -5,45 +5,45 @@ import Container from "@components/Container.astro";
 
 <Container>
     <div class="flex flex-col gap-8 my-24">
-        <div class="max-w-2xl">
+        <div class="max-w-3xl">
             <p
                 class={`mt-2 text-3xl font-bold tracking-tight ${styles.text} ${styles.font} sm:text-4xl`}
             >
                 Programme eligibility
             </p>
             <p class={`mt-6 text-lg leading-8 ${styles.text2} ${styles.font}`}>
-                To be considered for {programme.name} you must be:
+                To be considered for the {programme.name} programme you must be:
             </p>
         </div>
         <div class="flex flex-col lg:flex-row gap-8 lg:gap-24">
-            <div class="flex max-w-sm flex-col gap-y-2">
-                <div class="flex gap-3 items-center">
-                    <i class={`fa-thin fa-location-dot ${styles.text2}`}></i>
-                    <dt
-                        class={`text-base leading-7 ${styles.text2} ${styles.font}`}
-                    >
-                        Location
-                    </dt>
-                </div>
-                <dd
-                    class={`order-first text-xl font-semibold tracking-tight sm:text-2xl ${styles.text} ${styles.font}`}
-                >
-                    {geography}
-                </dd>
-            </div>
             <div class="flex max-w-sm flex-col gap-y-2">
                 <div class="flex gap-3 items-center">
                     <i class={`fa-thin fa-spinner ${styles.text2}`}></i>
                     <dt
                         class={`text-base leading-7 ${styles.text2} ${styles.font}`}
                     >
-                        Age
+                        Aged
                     </dt>
                 </div>
                 <dd
                     class={`order-first text-xl font-semibold tracking-tight sm:text-2xl ${styles.text} ${styles.font}`}
                 >
                     {age}
+                </dd>
+            </div>
+            <div class="flex max-w-sm flex-col gap-y-2">
+                <div class="flex gap-3 items-center">
+                    <i class={`fa-thin fa-location-dot ${styles.text2}`}></i>
+                    <dt
+                        class={`text-base leading-7 ${styles.text2} ${styles.font}`}
+                    >
+                        Location in
+                    </dt>
+                </div>
+                <dd
+                    class={`order-first text-xl font-semibold tracking-tight sm:text-2xl ${styles.text} ${styles.font}`}
+                >
+                    {geography}
                 </dd>
             </div>
             <div class="flex max-w-md flex-col gap-y-2">

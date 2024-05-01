@@ -15,7 +15,7 @@ const { partners, styles, name } = Astro.props;
             {
                 partners.map((partner) => (
                     <img
-                        class="col-span-2 max-h-12 w-full object-contain lg:col-span-1"
+                        class="col-span-2 max-h-20 w-full object-contain lg:col-span-1"
                         src={`https://unltd.directus.app/assets/${partner.organisations_id.logo.id}`}
                         alt={partner.name}
                         width="158"
