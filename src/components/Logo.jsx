@@ -1,4 +1,4 @@
-export default function Logo({ styles }) {
+export default function Logo({ styles = { fill: "fill-amber-600" } }) {
     return (
         <svg
             className="h-8 w-auto md:h-10"

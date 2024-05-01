@@ -1,73 +1,85 @@
 ---
-const { styles, quotes } = Astro.props;
+const { styles, quotes, programme } = Astro.props;
 import Container from "@components/Container.astro";
 ---
 
 <Container>
-    <div class="mx-auto max-w-7xl px-6 lg:px-8 py-36">
+    <div class="mx-auto max-w-7xl my-24">
         <div
             class="mx-auto grid max-w-2xl grid-cols-1 lg:mx-0 lg:max-w-none lg:grid-cols-2"
         >
-            <div class="flex flex-col pb-10 sm:pb-16 lg:pb-0 lg:pr-8 xl:pr-20">
-                <figure class="mt-10 flex flex-auto flex-col justify-between">
-                    <blockquote class={`text-lg leading-8 ${styles.text}`}>
-                        <p>
-                            "Once you get guys into a job and find their
-                            strengths - everyone has them - you see a blossoming
-                            that is hard to describe"
-                        </p>
-                    </blockquote>
-                    <figcaption class="mt-10 flex items-center gap-x-6">
-                        <div class="text-base">
-                            <div class={`font-semibold ${styles.text}`}>
-                                Judith Black
-                            </div>
-                            <div class={`mt-1 ${styles.text2}`}>
-                                CEO of Tuple
-                            </div>
+            {
+                quotes
+                    .filter(
+                        (quote) =>
+                            quote.award_winner.programme.id === programme.id,
+                    )
+                    .map((quote) => (
+                        <div
+                            class={`flex flex-col pb-10 sm:pb-16 lg:pb-0 lg:p-8 xl:p-12 rounded-xl p ${styles.bg2}`}
+                        >
+                            <figure class="mt-10 flex flex-auto flex-col justify-between">
+                                <blockquote
+                                    class={`text-lg leading-8 ${styles.text}`}
+                                >
+                                    <p>
+                                        <span
+                                            class={`font-bold text-3xl ${styles.text2}`}
+                                        >
+                                            "
+                                        </span>
+                                        {quote.body}
+                                        <span
+                                            class={`font-bold text-3xl ${styles.text2}`}
+                                        >
+                                            "
+                                        </span>
+                                    </p>
+                                </blockquote>
+                                <figcaption class="mt-10 flex items-center gap-x-6">
+                                    <div class="text-base flex flex-col gap-2">
+                                        <div class="flex flex-col gap-1">
+                                            <span
+                                                class={`font-semibold ${styles.text}`}
+                                            >
+                                                {quote.award_winner.person.name}
+                                            </span>
+
+                                            <span
+                                                class={`text-xs ${styles.text2}`}
+                                            >
+                                                {
+                                                    quote.award_winner
+                                                        .social_venture[0]
+                                                        .organisations_id.name
+                                                }
+                                            </span>
+                                        </div>
+
+                                        <div
+                                            class={`flex flex-row gap-1 items-center text-sm ${styles.text2}`}
+                                        >
+                                            <span>Award Winner</span>
+                                            <span
+                                                class={`border text-xs rounded-full ${styles.border} py-1 px-3 `}
+                                            >
+                                                {quote.award_winner.grant.name}
+                                            </span>
+                                            <span
+                                                class={`border text-xs rounded-full ${styles.border} py-1 px-3`}
+                                            >
+                                                {
+                                                    quote.award_winner.programme
+                                                        .name
+                                                }
+                                            </span>
+                                        </div>
+                                    </div>
+                                </figcaption>
+                            </figure>
                         </div>
-                    </figcaption>
-                </figure>
-            </div>
-            <div
-                class={`flex flex-col border-t ${styles.border} pt-10 sm:pt-16 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0 xl:pl-20`}
-            >
-                <img
-                    class="h-12 self-start"
-                    src="https://tailwindui.com/img/logos/reform-logo-gray-900.svg"
-                    alt=""
-                />
-                <figure class="mt-10 flex flex-auto flex-col justify-between">
-                    <blockquote class={`text-lg leading-8 ${styles.text}`}>
-                        <p>
-                            “Excepteur veniam labore ullamco eiusmod. Pariatur
-                            consequat proident duis dolore nulla veniam
-                            reprehenderit nisi officia voluptate incididunt
-                            exercitation exercitation elit. Nostrud veniam sint
-                            dolor nisi ullamco.”
-                        </p>
-                    </blockquote>
-                    <figcaption class="mt-10 flex items-center gap-x-6">
-                        <img
-                            class="h-14 w-14 rounded-full bg-gray-50"
-                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                            alt=""
-                        />
-                        <div class="text-base">
-                            <div class={`font-semibold ${styles.text}`}>
-                                Joseph Rodriguez
-                            </div>
-                            <div class={`mt-1 ${styles.text2}`}>
-                                CEO of Reform
-                            </div>
-                            <span
-                                class={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${styles.badge}`}
-                                >Starting up - Award Winner</span
-                            >
-                        </div>
-                    </figcaption>
-                </figure>
-            </div>
+                    ))
+            }
         </div>
     </div>
 </Container>

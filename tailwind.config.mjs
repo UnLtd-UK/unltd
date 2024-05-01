@@ -8,11 +8,11 @@ module.exports = {
   theme: {
     fontFamily: {
       'sans': ['Montserrat Variable', ...defaultTheme.fontFamily.sans],
-      'ff': ['Inter Variable', ...defaultTheme.fontFamily.sans],
+      'ff': ['Unbounded Variable', ...defaultTheme.fontFamily.sans],
       'ha': ['Caveat Variable', ...defaultTheme.fontFamily.sans],
       'mfc': ['Outfit Variable', ...defaultTheme.fontFamily.sans],
-      'ate': ['Unbounded Variable', ...defaultTheme.fontFamily.sans]
+      'ate': ['Inter Variable', ...defaultTheme.fontFamily.sans]
     }
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")]
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography"), require('@tailwindcss/aspect-ratio')]
 };
