@@ -4,48 +4,46 @@ import Container from "@components/Container.astro";
 ---
 
 <Container>
-    <div class="flex gap-10 my-24">
-        <div class="mx-auto max-w-3xl">
-            <p
-                class={`mt-2 text-3xl font-bold tracking-tight sm:text-4xl ${styles.text} ${styles.font}`}
+    <div
+        class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 mt-24"
+    >
+        <div>
+            <h2
+                class={`text-3xl font-bold tracking-tight sm:text-4xl ${styles.text} ${styles.font}`}
             >
                 Tailored support
-            </p>
+            </h2>
             <p class={`mt-6 text-lg leading-8 ${styles.text2} ${styles.font}`}>
-                As an Award Winner on {programme.name}, you will be able to
-                access tailored support including:
+                As an {programme.name} Award Winner, you will be able to access tailored
+                support including:
             </p>
         </div>
-        <div class="mx-auto max-w-2xl lg:max-w-3xl">
-            <dl
-                class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
-            >
-                {
-                    services.map((service) => (
-                        <div class="relative pl-16 basis-1/4">
-                            <dt class="text-base leading-7">
-                                <div
-                                    class={`absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full shadow-lg border ${styles.bg} ${styles.border}`}
-                                >
-                                    <i
-                                        class={`${service.services_id.icon} text-md shadow-3xl ${styles.text2}`}
-                                    />
-                                </div>
-                                <span
-                                    class={`text-base ${styles.text} ${styles.font}`}
-                                >
-                                    {service.services_id.name}
-                                </span>
-                            </dt>
-                            <dd
-                                class={`mt-2 text-sm leading-6 ${styles.text2} ${styles.font}`}
+        <dl class="col-span-2 grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2">
+            {
+                services.map((service) => (
+                    <div class="relative pl-16 basis-1/4">
+                        <dt class="text-base leading-7">
+                            <div
+                                class={`absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full shadow-lg border ${styles.bg} ${styles.border}`}
                             >
-                                {service.services_id.description}
-                            </dd>
-                        </div>
-                    ))
-                }
-            </dl>
-        </div>
+                                <i
+                                    class={`${service.services_id.icon} text-md shadow-3xl ${styles.text2}`}
+                                />
+                            </div>
+                            <span
+                                class={`text-base ${styles.text} ${styles.font}`}
+                            >
+                                {service.services_id.name}
+                            </span>
+                        </dt>
+                        <dd
+                            class={`mt-2 text-sm leading-6 ${styles.text2} ${styles.font}`}
+                        >
+                            {service.services_id.description}
+                        </dd>
+                    </div>
+                ))
+            }
+        </dl>
     </div>
 </Container>

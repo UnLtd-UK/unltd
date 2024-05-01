@@ -11,11 +11,11 @@ import ProgrammeSmall from "@components/award/programme/ProgrammeSmall.astro";
 <Container bg={styles.bg2}>
   <div class="flex flex-col py-20 gap-10 px-5 2xl:px-0">
     <div class="">
-        <h2 class={`text-xl font-bold tracking-tight ${styles.text} sm:text-2xl`}>
+        <h2 class={`text-xl font-bold tracking-tight sm:text-2xl ${styles.text} ${styles.font}`}>
             Other programmes
         </h2>
     </div>
-    <div class="flex flex-row gap-3">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {
             programmes
               .filter(
