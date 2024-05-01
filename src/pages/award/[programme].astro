@@ -14,6 +14,9 @@ import Other from "@components/award/programme/Other.astro";
 import Banner from "@components/award/programme/Banner.astro";
 
 import { programmes } from "@data/programmes.js";
+
+import { quotes } from "@data/quotes.js";
+
 import slugify from "slugify";
 
 export async function getStaticPaths() {
@@ -68,7 +71,17 @@ const { programme } = Astro.props;
     )
   }
 
-  <Quotes styles={palette[programme.name]} quotes={programme.quotes} />
+  {
+    quotes.some(
+      (quote) => quote.award_winner.programme.id === programme.id,
+    ) && (
+      <Quotes
+        styles={palette[programme.name]}
+        quotes={quotes}
+        programme={programme}
+      />
+    )
+  }
 
   <Services
     styles={palette[programme.name]}
