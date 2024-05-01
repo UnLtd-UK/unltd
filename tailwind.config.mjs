@@ -14,5 +14,5 @@ module.exports = {
       'ate': ['Inter Variable', ...defaultTheme.fontFamily.sans]
     }
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")]
+  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography"), require('@tailwindcss/aspect-ratio')]
 };

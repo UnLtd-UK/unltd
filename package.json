@@ -46,6 +46,7 @@
     "truncate": "^3.0.0"
   },
   "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.13",
     "prettier-plugin-astro": "^0.13.0",
