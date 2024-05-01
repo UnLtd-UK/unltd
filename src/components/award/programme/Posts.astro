@@ -2,6 +2,7 @@
 const { styles, name, posts } = Astro.props;
 import Container from "@components/Container.astro";
 import slugify from "slugify";
+import moment from "moment";
 ---
 
 <Container bg={styles.bg2}>
@@ -18,9 +19,16 @@ import slugify from "slugify";
         >
             {
                 posts.map((post) => (
-                    <article class={`relative isolate flex flex-col justify-end overflow-hidden rounded-2xl transition ease-in-out delay-150 hover:-translate-y-2 duration-300 ${styles.bg} px-8 pb-8 pt-80 sm:pt-48 lg:pt-80`}>
+                    <article
+                        class={`relative isolate flex flex-col justify-end overflow-hidden rounded-2xl transition ease-in-out delay-150 hover:-translate-y-2 duration-300 ${styles.bg} px-8 pb-8 pt-80 sm:pt-48 lg:pt-80`}
+                    >
                         <img
-                            src={ post.posts_id.image !== null && post.posts_id.image.id !== null ? `https://unltd.directus.app/assets/${post.posts_id.image.id}` : `/img/blog/${slugify(post.posts_id.tag, { lower: true, strict: true, locale: "en", trim: true })}.webp`}
+                            src={
+                                post.posts_id.image !== null &&
+                                post.posts_id.image.id !== null
+                                    ? `https://unltd.directus.app/assets/${post.posts_id.image.id}`
+                                    : `/img/blog/${slugify(post.posts_id.tag, { lower: true, strict: true, locale: "en", trim: true })}.webp`
+                            }
                             alt=""
                             class="absolute inset-0 -z-10 h-full w-full object-cover"
                         />
@@ -31,16 +39,19 @@ import slugify from "slugify";
                             class={`absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ${styles.ring}`}
                         />
 
-                        <div class="flex flex-wrap items-center gap-2 overflow-hidden text-sm leading-6 text-gray-300">
-                            <time datetime="2020-03-16">
-                                {post.posts_id.date_time}
+                        <div class="flex flex-wrap items-center gap-4 overflow-hidden text-sm leading-6 text-gray-300">
+                            <time
+                                datetime={post.posts_id.date_time}
+                                class={`${styles.text2}`}
+                            >
+                                {moment(post.posts_id.date_time).format(
+                                    "ddd hh:mm, DD MMM YYYY",
+                                )}
                             </time>
-                            <div class="flex gap-x-2.5">
-                                {post.posts_id.author_name}
-                            </div>
-                            <div class="flex gap-x-2.5">
+                            <div
+                                class={`flex gap-x-2.5 font-bold ${styles.text2}`}
+                            >
                                 {post.posts_id.tag}
-                            </div>
                             </div>
                         </div>
                         <h3

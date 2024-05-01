@@ -144,35 +144,35 @@ const {
     <ul class="flex flex-col sm:flex-row gap-10">
       <li class="flex flex-col gap-1">
         <p
-          class={`truncate text-xs uppercase flex gap-2 items-center ${styles.text2}`}
+          class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
         >
-          <i class={`fa-thin fa-spinner `}></i>
-          <span class={`text-xs `}> Aged </span>
-        </p>
-        <p class={`text-xs font-medium tracking-tight ${styles.text}`}>
           {age}
         </p>
+        <p class={`truncate text-xs flex gap-2 items-center`}>
+          <i class={`fa-thin fa-spinner ${styles.text2}`}></i>
+          <span class={`${styles.text2} ${styles.font}`}> Aged </span>
+        </p>
       </li>
       <li class="flex flex-col gap-1">
         <p
-          class={`truncate text-xs uppercase flex gap-2 items-center ${styles.text2}`}
+          class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
         >
-          <i class={`fa-thin fa-location-dot `}></i>
-          <span class={`text-xs `}> Location </span>
-        </p>
-        <p class={`text-xs font-medium tracking-tight ${styles.text}`}>
           {geography}
         </p>
+        <p class={`truncate text-xs flex gap-2 items-center`}>
+          <i class={`fa-thin fa-location-dot ${styles.text2}`}></i>
+          <span class={`${styles.text2} ${styles.font}`}> Location </span>
+        </p>
       </li>
       <li class="flex flex-col gap-1">
         <p
-          class={`truncate text-xs uppercase flex gap-2 items-center ${styles.text2}`}
+          class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
         >
-          <i class={`fa-thin fa-vector-square `}></i>
-          <span class={`text-xs `}> Operating in </span>
-        </p>
-        <p class={`text-xs font-medium tracking-tight ${styles.text}`}>
           {sectors}
+        </p>
+        <p class={`truncate text-xs flex gap-2 items-center`}>
+          <i class={`fa-thin fa-vector-square ${styles.text2}`}></i>
+          <span class={`${styles.text2} ${styles.font}`}> Operating in </span>
         </p>
       </li>
     </ul>

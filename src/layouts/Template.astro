@@ -8,17 +8,20 @@ const {
   breadcrumbs = [],
 } = Astro.props.frontmatter || Astro.props;
 
-import Header from "@components/ui/Header.jsx";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Footer from "@components/Footer.astro";
+
+// NEW HEADER
+import Header from "@components/ui/Header.jsx";
+
+// OLD HEADER
+// import Nav from "@components/old-nav/Nav.astro";
 
 import "@fontsource-variable/montserrat";
 import "@fontsource-variable/inter"; // FF
 import "@fontsource-variable/caveat"; // HA
 import "@fontsource-variable/outfit"; // MFC
 import "@fontsource-variable/unbounded"; // ATE
-
-// import Nav from "@components/old-nav/Nav.astro";
 ---
 
 <!doctype html>
@@ -78,9 +81,11 @@ import "@fontsource-variable/unbounded"; // ATE
   </head>
   <body class={`dark ${palette["UnLtd"].bg}`}>
     <div class="flex flex-col justify-between h-full">
+      <!-- NEW HEADER -->
       <Header styles={palette["UnLtd"]} client:load />
-      <Breadcrumbs breadcrumbs={breadcrumbs} styles={theme} />
+      <!-- OLD HEADER -->
       <!-- <Nav /> -->
+      <Breadcrumbs breadcrumbs={breadcrumbs} styles={theme} />
       <div class={theme.bg}>
         <slot />
       </div>
