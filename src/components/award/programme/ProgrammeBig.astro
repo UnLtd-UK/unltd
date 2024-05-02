@@ -2,6 +2,7 @@
 import { Image } from "astro:assets";
 import { sesm } from "@data/sesm.js";
 import Icon from "@components/award/cards/Icon.astro";
+import Partners from "@components/award/programme/Partners.astro";
 
 function isValidUrl(string) {
   try {
@@ -23,6 +24,7 @@ const {
   description,
   slug,
   services,
+  partners,
   logo,
 } = Astro.props;
 ---
@@ -46,21 +48,7 @@ const {
       <div class="flex flex-col gap-4">
         <div class="flex flex-col gap-4">
           <span class="relative inline-block">
-            {
-              typeof logo === "string" ? (
-                <img
-                  class="inline-block h-14"
-                  src={`https://unltd.directus.app/assets/${logo}?width=384`}
-                  alt=""
-                />
-              ) : (
-                <div
-                  class={`flex items-center justify-center h-20 w-20 rounded-xl border shadow-2xl ${styles.bg} ${styles.border2}`}
-                >
-                  <img class="h-9" src="/svg/unltd.svg" alt="" />
-                </div>
-              )
-            }
+            <Icon icon={icon} name={name} styles={styles} />
           </span>
           <div>
             <!-- <span
@@ -84,7 +72,7 @@ const {
         >
           Supported by
         </h2>
-        <img class="h-12" src={`/svg/dark/mat.svg`} alt="MAT" />
+        <Partners name={name} partners={partners} styles={styles} />
       </div>
     </div>
   </div>
@@ -143,36 +131,36 @@ const {
     </div>
     <ul class="flex flex-col sm:flex-row gap-10">
       <li class="flex flex-col gap-1">
+        <p class={`truncate text-xs flex gap-2 items-center`}>
+          <i class={`fa-thin fa-spinner ${styles.text2}`}></i>
+          <span class={`${styles.text2} ${styles.font}`}> Aged </span>
+        </p>
         <p
           class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
         >
           {age}
         </p>
-        <p class={`truncate text-xs flex gap-2 items-center`}>
-          <i class={`fa-thin fa-spinner ${styles.text2}`}></i>
-          <span class={`${styles.text2} ${styles.font}`}> Aged </span>
-        </p>
       </li>
       <li class="flex flex-col gap-1">
+        <p class={`truncate text-xs flex gap-2 items-center`}>
+          <i class={`fa-thin fa-location-dot ${styles.text2}`}></i>
+          <span class={`${styles.text2} ${styles.font}`}> Located in </span>
+        </p>
         <p
           class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
         >
           {geography}
         </p>
-        <p class={`truncate text-xs flex gap-2 items-center`}>
-          <i class={`fa-thin fa-location-dot ${styles.text2}`}></i>
-          <span class={`${styles.text2} ${styles.font}`}> Location in </span>
-        </p>
       </li>
       <li class="flex flex-col gap-1">
+        <p class={`truncate text-xs flex gap-2 items-center`}>
+          <i class={`fa-thin fa-vector-square ${styles.text2}`}></i>
+          <span class={`${styles.text2} ${styles.font}`}> Operating in </span>
+        </p>
         <p
           class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
         >
           {sectors}
-        </p>
-        <p class={`truncate text-xs flex gap-2 items-center`}>
-          <i class={`fa-thin fa-vector-square ${styles.text2}`}></i>
-          <span class={`${styles.text2} ${styles.font}`}> Operating in </span>
         </p>
       </li>
     </ul>
