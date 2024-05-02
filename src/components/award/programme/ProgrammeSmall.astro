@@ -33,12 +33,7 @@ const { image, icon, styles, name, slug, age, geography, sectors, services } =
     </div>
     <div class="flex flex-col gap-3">
       <span class="relative inline-block">
-        <Icon
-          icon={icon}
-          textColour={styles.text2}
-          bgColour={styles.bg}
-          borderColour={styles.border2}
-        />
+        <Icon icon={icon} name={name} styles={styles} />
       </span>
       <div>
         <!-- <span class={`uppercase tracking-widest text-xs ${styles.text2}`}
@@ -92,36 +87,36 @@ const { image, icon, styles, name, slug, age, geography, sectors, services } =
       <p class={`text-base  ${styles.text}`}>Programme eligibility</p>
       <ul class="flex flex-col gap-4">
         <li class="flex flex-col gap-1">
+          <p class={`truncate text-xs flex gap-2 items-center`}>
+            <i class={`fa-thin fa-spinner ${styles.text2}`}></i>
+            <span class={`${styles.text2} ${styles.font}`}> Aged </span>
+          </p>
           <p
             class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
           >
             {age}
           </p>
-          <p class={`truncate text-xs flex gap-2 items-center`}>
-            <i class={`fa-thin fa-spinner ${styles.text2}`}></i>
-            <span class={`${styles.text2} ${styles.font}`}> Aged </span>
-          </p>
         </li>
         <li class="flex flex-col gap-1">
+          <p class={`truncate text-xs flex gap-2 items-center`}>
+            <i class={`fa-thin fa-location-dot ${styles.text2}`}></i>
+            <span class={`${styles.text2} ${styles.font}`}> Located in </span>
+          </p>
           <p
             class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
           >
             {geography}
           </p>
-          <p class={`truncate text-xs flex gap-2 items-center`}>
-            <i class={`fa-thin fa-location-dot ${styles.text2}`}></i>
-            <span class={`${styles.text2} ${styles.font}`}> Location in </span>
-          </p>
         </li>
         <li class="flex flex-col gap-1">
+          <p class={`truncate text-xs flex gap-2 items-center`}>
+            <i class={`fa-thin fa-vector-square ${styles.text2}`}></i>
+            <span class={`${styles.text2} ${styles.font}`}> Operating in </span>
+          </p>
           <p
             class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
           >
             {sectors}
-          </p>
-          <p class={`truncate text-xs flex gap-2 items-center`}>
-            <i class={`fa-thin fa-vector-square ${styles.text2}`}></i>
-            <span class={`${styles.text2} ${styles.font}`}> Operating in </span>
           </p>
         </li>
       </ul>

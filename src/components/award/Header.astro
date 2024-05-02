@@ -27,14 +27,16 @@ import Container from "@components/Container.astro";
       </p>
     </div>
     <div class="flex flex-col gap-10 lg:flex-row items-center">
-      <div class="aspect-video mt-6 basis-3/4">
-        <iframe
-          class="w-full h-full rounded-xl shadow-xl mb-3"
-          src="https://www.youtube-nocookie.com/embed/leYUo0Wy5SE?si=KH0xrqM98xB3x9jm"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allowfullscreen></iframe>
+      <div class="mt-6 flex-grow-0 lg:flex-grow basis-3/4 max-w-3/4">
+        <div class="aspect-[16/9] aspect-content">
+          <iframe
+            class="aspect-content h-full w-full rounded-xl shadow-xl mb-3"
+            src="https://www.youtube-nocookie.com/embed/leYUo0Wy5SE?si=KH0xrqM98xB3x9jm"
+            title="Awards"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+        </div>
         <a
           class="text-xs text-violet-100 hover:text-violet-50 font-bold underline underline-offset-4 decoration-amber-500 decoration-1 hover:decoration-2"
           href="https://youtu.be/PyOstfZW3CI"
