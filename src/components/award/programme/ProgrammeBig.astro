@@ -61,18 +61,32 @@ const {
           </div>
         </div>
         <div class="flex flex-col gap-1">
-          <p class={`text-sm leading-relaxed max-w-sm ${styles.text2}`}>
+          <p
+            class={`text-sm font-semibold leading-relaxed max-w-sm ${styles.text2}`}
+          >
             {description}
           </p>
         </div>
       </div>
       <div>
-        <h2
-          class={`text-sm font-semibold leading-8 text-gray-900 ${styles.text}`}
-        >
-          Supported by
-        </h2>
-        <Partners name={name} partners={partners} styles={styles} />
+        <div class="mx-auto max-w-7xl flex flex-col gap-2">
+          <h2
+            class={`uppercase text-sm font-semibold leading-8 ${styles.font} ${styles.text}`}
+          >
+            Supported by
+          </h2>
+          <div class="flex flex-col items-start">
+            {
+              partners.map((partner) => (
+                <img
+                  class="h-8"
+                  src={`https://unltd.directus.app/assets/${partner.organisations_id.logo.id}`}
+                  alt={partner.name}
+                />
+              ))
+            }
+          </div>
+        </div>
       </div>
     </div>
   </div>
