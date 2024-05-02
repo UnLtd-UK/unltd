@@ -1,7 +1,6 @@
 ---
 const { programme, styles } = Astro.props;
 
-import Icon from "@components/award/cards/Icon.astro";
 import IconBig from "@components/award/cards/IconBig.astro";
 import Container from "@components/Container.astro";
 import Status from "@components/award/programme/Status.astro";
@@ -11,7 +10,9 @@ import moment from "moment";
 let todayDate = moment();
 ---
 
-<div class={`relative isolate overflow-hidden ${styles.bg} py-10 sm:pb-48`}>
+<div
+  class={`relative isolate overflow-hidden ${styles.bg} py-20 ${programme.videos.length > 0 && "xl:pb-96"}`}
+>
   <img
     src={`https://unltd.directus.app/assets/${programme.image.id}`}
     alt=""
@@ -37,15 +38,10 @@ let todayDate = moment();
     >
     </div>
   </div>
-  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8 xl:mb-10">
     <div class="col-span-4 flex flex-col gap-8 lg:flex-row">
       <div class="flex flex-col gap-8">
-        <IconBig
-          icon={programme.icon}
-          textColour={styles.text2}
-          bgColour={styles.bg}
-          borderColour={styles.border2}
-        />
+        <IconBig name={programme.name} icon={programme.icon} styles={styles} />
         <div class="flex flex-row gap-8 items-center">
           <div class="flex flex-col gap-3">
             <div class="flex flex-row gap-4">
