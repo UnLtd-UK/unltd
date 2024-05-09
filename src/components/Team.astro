@@ -8,7 +8,7 @@ const { name, description, positions, slug } = Astro.props;
   >
     <div class="max-w-2xl">
       <h2
-        class="text-3xl font-bold tracking-tight text-violet-600 dark:text-violet-300 sm:text-4xl"
+        class="text-3xl font-bold tracking-tight text-violet-600 dark:text-violet-200 sm:text-4xl"
       >
         {name}
       </h2>
@@ -35,7 +35,7 @@ const { name, description, positions, slug } = Astro.props;
             <div class="flex flex-col gap-1">
                 <div class="flex flex-col gap-1">
                   <div class="flex gap-2 items-center">
-                    <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-600 items-center">
+                    <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-300 items-center">
                       {position.person.name}
                     </h3>
                   </div>
@@ -44,7 +44,7 @@ const { name, description, positions, slug } = Astro.props;
                       position.person.gender_pronouns.length > 0 && (
                         <div class="flex gap-1">
                           {position.person.gender_pronouns?.map((item) => (
-                            <span class="text-xs text-violet-600">{item}</span>
+                            <span class="text-xs text-violet-400">{item}</span>
                           ))}
                         </div>
                       )}
@@ -66,14 +66,14 @@ const { name, description, positions, slug } = Astro.props;
                     </div>
                   </div>
                   <div>
-                    <p class="text-sm leading-2 text-violet-500">
+                    <p class="text-sm leading-2 text-violet-300">
                       {position.role.name}
                     </p>
                     {position.person.linkedin && (
                       <a
                         href={position.person.linkedin}
                         target="_blank"
-                        class="text-violet-600"
+                        class="text-violet-400"
                       >
                         <span class="sr-only">LinkedIn</span>
                         <i class="text-sm fa-brands fa-linkedin" />
