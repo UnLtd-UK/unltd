@@ -2,6 +2,7 @@
 // NEW FOOTER
 import { navigation } from "@data/navigation.js";
 const nav = navigation.code;
+import Container from "@components/Container.astro";
 
 // OLD FOOTER
 // import navigation from "@data/nav.json";
@@ -14,9 +15,12 @@ const styles = {
 };
 ---
 
-<footer class="bg-slate-200 dark:bg-slate-800" aria-labelledby="footer-heading">
+<footer
+  class="bg-slate-200 dark:bg-slate-800 pt-10 mt-10"
+  aria-labelledby="footer-heading"
+>
   <h2 id="footer-heading" class="sr-only">Footer</h2>
-  <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+  <Container>
     <div class="xl:grid xl:grid-cols-3 xl:gap-8">
       <div class="space-y-6">
         <Logo styles={styles} />
@@ -150,9 +154,7 @@ const styles = {
         </div>
       </div>
     </div>
-    <div
-      class="mt-16 border-t border-slate-900/10 pt-8 sm:mt-20 lg:mt-24 flex justify-between"
-    >
+    <div class="border-t border-slate-600 py-8 mt-20 flex justify-between">
       <p class="text-xs leading-5 text-slate-500 dark:text-slate-400">
         &copy; {new Date().getFullYear()} UnLtd, Inc. All rights reserved.
       </p>
@@ -161,5 +163,5 @@ const styles = {
         alt="Netlify status"
       />
     </div>
-  </div>
+  </Container>
 </footer>
