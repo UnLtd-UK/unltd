@@ -100,6 +100,8 @@ import slugify from "slugify";
       <div
         class={`px-10 py-6 ${i === 0 && "rounded-tr-md"} ${i === 4 && "rounded-tl-md"}`}
       >
+
+        {/* If the step is called Timeframe then don't use body. Generate it using  */}
         <div class={`prose prose-slate dark:prose-invert prose-sm prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2`} set:html={marked.parse(step.body)}></div>
       </div>
       <div class="rounded-b-md border-t border-violet-100 dark:border-violet-900 px-10 py-6 flex justify-between items-center">

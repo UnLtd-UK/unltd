@@ -25,65 +25,73 @@ const { name, description, positions, slug } = Astro.props;
         positions
           .filter((position) => position.role.team === name)
           .map((position) => (
-        <li>
-          <div class="flex items-center gap-x-6">
-              <img
-                class="h-16 w-16 rounded-full"
-                src={position.person.image !== null ? `https://unltd.directus.app/assets/${position.person.image}?height=128` : `https://source.boringavatars.com/marble/128/${encodeURI(position.person.name)}?colors=220353,3a0883,ce620c&circle`}
-                alt=""
-              />
-            <div class="flex flex-col gap-1">
+            <li>
+              <div class="flex items-center gap-x-6">
+                <img
+                  class="h-16 w-16 rounded-full"
+                  src={
+                    position.person.image !== null
+                      ? `https://unltd.directus.app/assets/${position.person.image}?height=128`
+                      : `https://source.boringavatars.com/marble/128/${encodeURI(position.person.name)}?colors=220353,3a0883,ce620c&circle`
+                  }
+                  alt=""
+                />
                 <div class="flex flex-col gap-1">
-                  <div class="flex gap-2 items-center">
-                    <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-300 items-center">
-                      {position.person.name}
-                    </h3>
-                  </div>
-                  <div class="flex items-center gap-1">
-                    {position.person.gender_pronouns &&
-                      position.person.gender_pronouns.length > 0 && (
-                        <div class="flex gap-1">
-                          {position.person.gender_pronouns?.map((item) => (
-                            <span class="text-xs text-violet-400">{item}</span>
-                          ))}
-                        </div>
-                      )}
+                  <div class="flex flex-col gap-1">
+                    <div class="flex gap-2 items-center">
+                      <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-300 items-center">
+                        {position.person.name}
+                      </h3>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      {position.person.gender_pronouns &&
+                        position.person.gender_pronouns.length > 0 && (
+                          <div class="flex gap-1">
+                            {position.person.gender_pronouns?.map((item) => (
+                              <span class="text-xs text-violet-400">
+                                {item}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      <div>
+                        {position.person.lgbtqia_plus && (
+                          <div>
+                            <span
+                              role="img"
+                              class="text-xl"
+                              aria-label="rainbow flag"
+                            >
+                              &#x1F3F3;&#xFE0F;&#x200D;&#x1F308;
+                            </span>
+                            <span class="sr-only">
+                              Member of the LGBTQ+ community
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                     <div>
-                      {position.person.lgbtqia_plus && (
-                        <div>
-                          <span
-                            role="img"
-                            class="text-xl"
-                            aria-label="rainbow flag"
-                          >
-                            &#x1F3F3;&#xFE0F;&#x200D;&#x1F308;
-                          </span>
-                          <span class="sr-only">
-                            Member of the LGBTQ+ community
-                          </span>
-                        </div>
+                      <p class="text-sm leading-2 text-violet-300">
+                        {position.role.name}
+                      </p>
+                      {position.person.linkedin && (
+                        <a
+                          href={position.person.linkedin}
+                          target="_blank"
+                          class="text-violet-400"
+                        >
+                          <span class="sr-only">LinkedIn</span>
+                          <i class="text-sm fa-brands fa-linkedin" />
+                        </a>
                       )}
                     </div>
-                  </div>
-                  <div>
-                    <p class="text-sm leading-2 text-violet-300">
-                      {position.role.name}
-                    </p>
-                    {position.person.linkedin && (
-                      <a
-                        href={position.person.linkedin}
-                        target="_blank"
-                        class="text-violet-400"
-                      >
-                        <span class="sr-only">LinkedIn</span>
-                        <i class="text-sm fa-brands fa-linkedin" />
-                      </a>
-                    )}
                   </div>
                 </div>
               </div>
             </li>
-          ))}
+          ))
+      }
     </ul>
   </div>
 </div>

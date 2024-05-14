@@ -39,9 +39,10 @@ import ProgrammeSmall from "@components/award/programme/ProgrammeSmall.astro";
             ? programme.logo.id
             : false
         }
+        stage={programme.stage}
         age={programme.age}
         geography={programme.geography}
-        sectors={programme.sectors}
+        focus={programme.focus}
         slogan={programme.slogan}
         description={programme.description}
         slug={slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})},

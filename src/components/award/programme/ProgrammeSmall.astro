@@ -11,8 +11,18 @@ function isValidUrl(string) {
   }
 }
 
-const { image, icon, styles, name, slug, age, geography, sectors, services } =
-  Astro.props;
+const {
+  image,
+  icon,
+  styles,
+  name,
+  slug,
+  stage,
+  age,
+  geography,
+  focus,
+  services,
+} = Astro.props;
 ---
 
 <a
@@ -88,6 +98,17 @@ const { image, icon, styles, name, slug, age, geography, sectors, services } =
       <ul class="flex flex-col gap-4">
         <li class="flex flex-col gap-1">
           <p class={`truncate text-xs flex gap-2 items-center`}>
+            <i class={`fa-thin fa-seedling ${styles.text2}`}></i>
+            <span class={`${styles.text2} ${styles.font}`}> Stage </span>
+          </p>
+          <p
+            class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
+          >
+            {stage}
+          </p>
+        </li>
+        <li class="flex flex-col gap-1">
+          <p class={`truncate text-xs flex gap-2 items-center`}>
             <i class={`fa-thin fa-spinner ${styles.text2}`}></i>
             <span class={`${styles.text2} ${styles.font}`}> Aged </span>
           </p>
@@ -110,13 +131,13 @@ const { image, icon, styles, name, slug, age, geography, sectors, services } =
         </li>
         <li class="flex flex-col gap-1">
           <p class={`truncate text-xs flex gap-2 items-center`}>
-            <i class={`fa-thin fa-vector-square ${styles.text2}`}></i>
-            <span class={`${styles.text2} ${styles.font}`}> Operating in </span>
+            <i class={`fa-thin fa-layer-group ${styles.text2}`}></i>
+            <span class={`${styles.text2} ${styles.font}`}> Focus </span>
           </p>
           <p
             class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
           >
-            {sectors}
+            {focus}
           </p>
         </li>
       </ul>
