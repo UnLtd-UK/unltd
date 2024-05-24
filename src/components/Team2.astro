@@ -1,0 +1,93 @@
+---
+const { name, description, people, slug } = Astro.props;
+---
+
+<div class="py-5 sm:py-10">
+  <div
+    class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 bg-violet-100 dark:bg-violet-900 p-28 rounded-3xl"
+  >
+    <div class="max-w-2xl">
+      <h2
+        class="text-3xl font-bold tracking-tight text-violet-600 dark:text-violet-200 sm:text-4xl"
+      >
+        {name}
+      </h2>
+      <p class="mt-6 text-lg leading-8 text-violet-500 dark:text-violet-400">
+        {description}
+      </p>
+    </div>
+
+    <ul
+      role="list"
+      class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
+    >
+      {
+        people.map((person) => (
+          <li>
+            <div class="flex items-center gap-x-6">
+              <img
+                class="h-16 w-16 rounded-full"
+                src={
+                  person.image !== null
+                    ? `https://unltd.directus.app/assets/${person.image.id}?height=128`
+                    : `https://source.boringavatars.com/marble/128/${encodeURI(person.name)}?colors=220353,3a0883,ce620c&circle`
+                }
+                alt=""
+              />
+              <div class="flex flex-col gap-1">
+                <div class="flex flex-col gap-1">
+                  <div class="flex gap-2 items-center">
+                    <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-300 items-center">
+                      {person.name}
+                    </h3>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    {person.gender_pronouns &&
+                      person.gender_pronouns.length > 0 && (
+                        <div class="flex gap-1">
+                          {person.gender_pronouns?.map((item) => (
+                            <span class="text-xs text-violet-400">{item}</span>
+                          ))}
+                        </div>
+                      )}
+                    <div>
+                      {person.lgbtqia_plus && (
+                        <div>
+                          <span
+                            role="img"
+                            class="text-xl"
+                            aria-label="rainbow flag"
+                          >
+                            &#x1F3F3;&#xFE0F;&#x200D;&#x1F308;
+                          </span>
+                          <span class="sr-only">
+                            Member of the LGBTQ+ community
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <p class="text-sm leading-2 text-violet-300">
+                      {person.role}
+                    </p>
+                    {person.linkedin && (
+                      <a
+                        href={person.linkedin}
+                        target="_blank"
+                        class="text-violet-400"
+                      >
+                        <span class="sr-only">LinkedIn</span>
+                        <i class="text-sm fa-brands fa-linkedin" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
