@@ -1,5 +1,5 @@
 ---
-const { styles, age, geography, sectors, programme } = Astro.props;
+const { styles, stage, age, geography, focus, programme } = Astro.props;
 import Container from "@components/Container.astro";
 ---
 
@@ -16,7 +16,22 @@ import Container from "@components/Container.astro";
             </p>
         </div>
         <div class="flex flex-col lg:flex-row gap-8 lg:gap-24">
-            <div class="flex max-w-sm flex-col gap-y-2">
+            <div class="flex flex-1 max-w-sm flex-col gap-y-2">
+                <div class="flex gap-3 items-center">
+                    <i class={`fa-thin fa-seedling ${styles.text2}`}></i>
+                    <dt
+                        class={`text-base leading-7 ${styles.text2} ${styles.font}`}
+                    >
+                        Stage
+                    </dt>
+                </div>
+                <dd
+                    class={`text-xl font-semibold tracking-tight sm:text-lg ${styles.text} ${styles.font}`}
+                >
+                    {stage}
+                </dd>
+            </div>
+            <div class="flex flex-1 max-w-sm flex-col gap-y-2">
                 <div class="flex gap-3 items-center">
                     <i class={`fa-thin fa-spinner ${styles.text2}`}></i>
                     <dt
@@ -26,12 +41,12 @@ import Container from "@components/Container.astro";
                     </dt>
                 </div>
                 <dd
-                    class={`text-xl font-semibold tracking-tight sm:text-2xl ${styles.text} ${styles.font}`}
+                    class={`text-xl font-semibold tracking-tight sm:text-lg ${styles.text} ${styles.font}`}
                 >
                     {age}
                 </dd>
             </div>
-            <div class="flex max-w-sm flex-col gap-y-2">
+            <div class="flex flex-1 max-w-sm flex-col gap-y-2">
                 <div class="flex gap-3 items-center">
                     <i class={`fa-thin fa-location-dot ${styles.text2}`}></i>
                     <dt
@@ -41,24 +56,24 @@ import Container from "@components/Container.astro";
                     </dt>
                 </div>
                 <dd
-                    class={`text-xl font-semibold tracking-tight sm:text-2xl ${styles.text} ${styles.font}`}
+                    class={`text-xl font-semibold tracking-tight sm:text-lg ${styles.text} ${styles.font}`}
                 >
                     {geography}
                 </dd>
             </div>
-            <div class="flex max-w-md flex-col gap-y-2">
+            <div class="flex flex-1 max-w-md flex-col gap-y-2">
                 <div class="flex gap-3 items-center">
-                    <i class={`fa-thin fa-vector-square ${styles.text2}`}></i>
+                    <i class={`fa-thin fa-layer-group ${styles.text2}`}></i>
                     <dt
                         class={`text-base leading-7 ${styles.text2} ${styles.font}`}
                     >
-                        Operating in
+                        Focused on
                     </dt>
                 </div>
                 <dd
-                    class={`text-xl font-semibold tracking-tight sm:text-2xl ${styles.text} ${styles.font}`}
+                    class={`text-xl font-semibold tracking-tight sm:text-lg ${styles.text} ${styles.font}`}
                 >
-                    {sectors}
+                    {focus}
                 </dd>
             </div>
         </div>

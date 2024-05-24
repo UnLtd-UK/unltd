@@ -40,9 +40,10 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
               icon={programmes[0].icon}
               styles={palette[programmes[0].name]}
               name={programmes[0].name}
+              stage={programmes[0].stage}
               age={programmes[0].age}
               geography={programmes[0].geography}
-              sectors={programmes[0].sectors}
+              focus={programmes[0].focus}
               slogan={programmes[0].slogan}
               description={programmes[0].description}
               slug={slugify(programmes[0].name, {lower: true, strict: true, locale: "en", trim: true,})},
@@ -80,9 +81,10 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
                   ? programme.logo.id
                   : false
               }
+              stage={programme.stage}
               age={programme.age}
               geography={programme.geography}
-              sectors={programme.sectors}
+              focus={programme.focus}
               slogan={programme.slogan}
               description={programme.description}
               slug={slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})},
