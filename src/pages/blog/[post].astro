@@ -51,6 +51,7 @@ const { post } = Astro.props;
       name={post.title}
       description={post.description}
       updated={post.date_time}
+      image={post.image}
     />
     <div
       set:html={marked.parse(post.body)}
