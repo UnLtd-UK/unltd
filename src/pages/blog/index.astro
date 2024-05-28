@@ -38,13 +38,20 @@ const breadcrumbs = [
           posts.map((post) => (
             <a href={`/blog/${post.slug}`}>
               <article class="flex flex-col items-start justify-between transition hover:bg-violet-100 dark:hover:bg-violet-900 hover:outline-violet-200 hover:dark:outline-violet-800 p-6 rounded-2xl">
-                <div class="relative w-full">
-                  <img
-                    src={`/img/blog/${slugify(post.tag, { lower: true, strict: true, locale: "en", trim: true })}.webp`}
-                    alt=""
-                    class="aspect-[16/9] w-full rounded-2xl bg-violet-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                  />
-                  <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-violet-900/10" />
+                <div class="relative w-full h-64">
+                  {post.image !== null ? (
+                    <img
+                      src={`https://unltd.directus.app/assets/${post.image}`}
+                      alt=""
+                      class="absolute inset-0 w-full h-full object-cover rounded-2xl"
+                    />
+                  ) : (
+                    <img
+                      src={`https://source.boringavatars.com/marble/128/${encodeURI(post.slug)}?colors=220353,3a0883,ce620c&square`}
+                      alt=""
+                      class="absolute inset-0 w-full h-full object-cover rounded-2xl"
+                    />
+                  )}
                 </div>
                 <div class="max-w-xl">
                   <div class="mt-8 flex items-center gap-x-4 text-xs">
@@ -65,10 +72,7 @@ const breadcrumbs = [
                     </h3>
                   </div>
                   <p class="mt-5 line-clamp-3 text-sm leading-6 text-violet-600 dark:text-violet-400">
-                    Illo sint voluptas. Error voluptates culpa eligendi. Hic vel
-                    totam vitae illo. Non aliquid explicabo necessitatibus unde.
-                    Sed exercitationem placeat consectetur nulla deserunt vel.
-                    Iusto corrupti dicta.
+                    {post.description}
                   </p>
                 </div>
                 <div class="relative mt-8 flex gap-x-4 text-sm leading-6 flex-col">
