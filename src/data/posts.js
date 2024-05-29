@@ -3,7 +3,7 @@ import { getCollection } from './load.js';
 const collection = "posts";
 const name = "posts";
 
-const status = context.env.BLOG === 'main' ? 'published' : 'draft';
+const status = context.env.BLOG === 'published' ? 'published' : 'draft';
 
 const filterOptions = {
     sort: ['sort', '-date_time'],
