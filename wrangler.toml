@@ -1,0 +1,9 @@
+name = "unltd"
+pages_build_output_dir = "./dist"
+compatibility_date = "2024-05-29"
+
+[env.production.vars]
+BLOG = "published"
+
+[env.preview.vars]
+BLOG = "draft"
