@@ -3,16 +3,20 @@ import { getCollection } from './load.js';
 const collection = "posts";
 const name = "posts";
 
-const status = process.env.BLOG === 'published' ? 'published' : ["published", "draft"];
+const status = process.env.BLOG === 'published' ? {
+    status: {
+        _eq: "published"
+    }
+} : {
+    status: {
+        _in: ["published", "draft"]
+    }
+}
 
 const filterOptions = {
     sort: ['sort', '-date_time'],
     limit: -1,
-    filter: {
-        status: {
-            _eq: status
-        }
-    }
+    filter: status
 }
 
 const attach = false;
