@@ -3,7 +3,7 @@ import { getCollection } from './load.js';
 const collection = "posts";
 const name = "posts";
 
-const status = process.env.BLOG === 'published' ? {
+const status = process.env.CF_PAGES_BRANCH === 'main' ? {
     status: {
         _eq: "published"
     }
