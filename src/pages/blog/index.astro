@@ -1,11 +1,11 @@
 ---
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
-import Breadcrumbs from "@components/Breadcrumbs.astro";
 import moment from "moment";
 import slugify from "slugify";
 
 import { posts } from "@data/posts.js";
+const types = [ "News", "Stories", "Insights", "How Tos" ]
 
 const name = "Blog";
 const slug = "blog";
@@ -20,7 +20,6 @@ const breadcrumbs = [
 
 <Template name={name} description={description} breadcrumbs={breadcrumbs}>
   <Container>
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto max-w-2xl text-center mt-14">
         <h2
           class="text-3xl font-bold tracking-tight text-violet-800 dark:text-violet-200 sm:text-4xl"
@@ -32,10 +31,60 @@ const breadcrumbs = [
         </p>
       </div>
       <div
-        class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+        class=""
       >
+<div
+  class="w-full flex flex-col gap-10"
+  x-init="checkUrl()"
+  x-data="{ activeTab: 'tab0', checkUrl: function() { let element = window.location.hash ? document.getElementById(window.location.hash.substring(1)) : null; element && element.tagName === 'BUTTON' ? element.click() : null; }, urlUpdater: function(slug) { history.pushState(null, null, `/blog#${slug}`); const targetElement = document.getElementById(slug); if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); } }, selectHs: function(i) {document.getElementById('tabs').value = `tab${i}` }, tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-4 border-b-amber-500' : 'bg-violet-200'}}"
+>
+  <div class="lg:hidden">
+    <label for="tabs" class="sr-only">Select a tab</label>
+    <select
+    @change="activeTab = $event.target.value"
+      id="tabs"
+      name="tabs"
+      class="block w-full rounded-md border-violet-300 focus:border-amber-500 focus:ring-amber-500"
+    >
+      {
+        types.map((type, i) => (
+          <option value={`tab${i}`} selected={i == 0 && true}>
+            {i + 1}. {type}
+          </option>
+        ))
+      }
+    </select>
+  </div>
+  <div class="hidden lg:block">
+    <nav class="flex space-x-4" aria-label="Tabs">
+      {
+        types.map((type, i) => (
+          <button id={`${slugify(type, {lower: true, strict: true, locale: "en", trim: true,})}`}
+            @click={`activeTab = 'tab${i}', selectHs('${i}'), urlUpdater('${slugify(type, {lower: true, strict: true, locale: "en", trim: true,})}')`}
+            :class={`tabClass(${i})`}
+            class={`text-gray-500 hover:text-gray-700 rounded-full px-3 py-2 text-sm font-medium`}
+          >
+              <span class={``}>
+                {type}
+              </span>
+          </button>
+        ))
+      }
+    </nav>
+  </div>
+{
+  types.map((type, i) => (
+    <div x-show={`activeTab === 'tab${i}'`} class={``} x-cloak>
+      <div
+        class={` ${i === 0 && "rounded-tr-md"} ${i === 4 && "rounded-tl-md"}`}
+      >
+
+        {/* If the step is called Timeframe then don't use body. Generate it using  */}
+        <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
         {
-          posts.map((post) => (
+          posts.filter(post => post.tag === type).map((post) => (
+              <li class="col-span-1 divide-y divide-gray-200 rounded-lg shadow">
             <a href={`/blog/${post.slug}`}>
               <article class="flex flex-col items-start justify-between transition hover:bg-violet-100 dark:hover:bg-violet-900 hover:outline-violet-200 hover:dark:outline-violet-800 p-6 rounded-2xl">
                 <div class="relative w-full h-64">
@@ -86,9 +135,16 @@ const breadcrumbs = [
                 </div>
               </article>
             </a>
+            </li>
           ))
         }
+        </div>
       </div>
+    </div>
+  ))
+}
+</div>
+
     </div>
   </Container>
 </Template>
