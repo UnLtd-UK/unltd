@@ -2,8 +2,10 @@
 import { Code } from "astro:components";
 import { marked } from "marked";
 import Container from "@components/Container.astro"
-
+import { rounds } from "@data/rounds.js";
+import moment from "moment";
 import { steps } from "@data/steps.js";
+import Rounds from "@components/Rounds.astro";
 
 import slugify from "slugify";
 ---
@@ -102,7 +104,7 @@ import slugify from "slugify";
       >
 
         {/* If the step is called Timeframe then don't use body. Generate it using  */}
-        <div class={`prose prose-slate dark:prose-invert prose-sm prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2`} set:html={marked.parse(step.body)}></div>
+        <div class={`prose prose-slate dark:prose-invert prose-sm prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2`} set:html={marked.parse(step.body)}> { step.name === "Timeframe" && <Rounds/>}</div>
       </div>
       <div class="rounded-b-md border-t border-violet-100 dark:border-violet-900 px-10 py-6 flex justify-between items-center">
         {step.next !== null && step.next_link === null ? (
@@ -118,6 +120,7 @@ import slugify from "slugify";
         )}
         { step.help && <a href={step.help_link} class="flex gap-2 items-center"><i class="fa-solid fa-circle-question text-violet-500 dark:text-violet-300 text-base"></i> <span class="text-violet-600 dark:text-violet-300 text-sm">{step.help}</span></a> }
       </div>
+
     </div>
   ))
 }
