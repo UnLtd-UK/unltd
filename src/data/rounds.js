@@ -10,7 +10,7 @@ const filterOptions = {
             _eq: 'published'
         }
     },
-    fields: ['*.*.*'],
+    fields: ['*.*.*.*'],
 }
 
 const attach = false;
