@@ -90,8 +90,11 @@ const { name, people, breadcrumbs } = Astro.props;
                         <h3 class="mt-6 text-base font-semibold leading-7 tracking-tight text-violet-200">
                             {person.people_id.name}
                         </h3>
+                        <p class="text-violet-400 text-xs">
+                            {person.people_id.image.id}
+                        </p>
 
-                        <div class="flex items-center gap-1">
+                        <div class="">
                             {person.people_id.gender_pronouns &&
                                 person.people_id.gender_pronouns.length > 0 && (
                                     <div class="flex gap-1">
