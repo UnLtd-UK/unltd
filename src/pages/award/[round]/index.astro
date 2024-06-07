@@ -25,7 +25,7 @@ export async function getStaticPaths() {
                     round.panels.some((panel) => panel.panels.id === round.id),
             )
             .map((round) => {
-                const name = `${round.name} Panels`;
+                const name = `${round.name}`;
                 const slug = slugify(round.name, {
                     lower: true,
                     strict: true,
