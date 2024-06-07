@@ -1,0 +1,129 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Hero from "@components/Hero.astro";
+import { marked } from "marked";
+import slugify from "slugify";
+import Team from "@components/Team2.astro";
+import moment from "moment";
+
+import { panels } from "@data/panels.js";
+
+import Faqtemplate from "@components/Faqtemplate.astro";
+import Faq from "@components/Faq.astro";
+import Note from "@components/Note.astro";
+
+export async function getStaticPaths() {
+    try {
+        return panels.map((panel) => {
+            const name = `${moment(panel.date_time).format(
+                "ddd hh:mm, DD MMM YYYY",
+            )} Panel`;
+            const slug = slugify(panel.date_time, {
+                lower: true,
+                strict: true,
+                locale: "en",
+                trim: true,
+            });
+
+            const roundName = panel.panels.name;
+
+            const roundSlug = slugify(panel.panels.name, {
+                lower: true,
+                strict: true,
+                locale: "en",
+                trim: true,
+            });
+
+            const breadcrumbs = [
+                {
+                    name: "Awards",
+                    slug: `/award`,
+                },
+                {
+                    name: roundName,
+                    slug: `/award/${roundSlug}`,
+                },
+                {
+                    name: name,
+                    slug: `/award/${roundSlug}/${slug}`,
+                },
+            ];
+
+            return {
+                params: {
+                    panel: slug,
+                    round: roundSlug,
+                },
+                props: {
+                    name: name,
+                    people: panel.people,
+                    breadcrumbs: breadcrumbs,
+                },
+            };
+        });
+    } catch (error) {
+        console.error("🐛 ", error);
+    }
+}
+
+const { name, people, breadcrumbs } = Astro.props;
+---
+
+<Template name={name} breadcrumbs={breadcrumbs}>
+    <Container>
+        <Hero name={name} description="Blah blah blah" />
+
+        <ul
+            role="list"
+            class="mx-auto mt-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6"
+        >
+            {
+                people.map((person) => (
+                    <li>
+                        <img
+                            class="mx-auto h-24 w-24 rounded-full"
+                            src={`https://unltd.directus.app/assets/${person.people_id.image.id}`}
+                            alt=""
+                        />
+                        <h3 class="mt-6 text-base font-semibold leading-7 tracking-tight text-violet-200">
+                            {person.people_id.name}
+                        </h3>
+
+                        <div class="flex items-center gap-1">
+                            {person.people_id.gender_pronouns &&
+                                person.people_id.gender_pronouns.length > 0 && (
+                                    <div class="flex gap-1">
+                                        {person.people_id.gender_pronouns?.map(
+                                            (item) => (
+                                                <span class="text-xs text-violet-400">
+                                                    {item}
+                                                </span>
+                                            ),
+                                        )}
+                                    </div>
+                                )}
+                            <div>
+                                {person.people_id.lgbtqia_plus && (
+                                    <div>
+                                        <span
+                                            role="img"
+                                            class="text-xl"
+                                            aria-label="rainbow flag"
+                                        >
+                                            &#x1F3F3;&#xFE0F;&#x200D;&#x1F308;
+                                        </span>
+                                        <span class="sr-only">
+                                            Member of the LGBTQ+ community
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </li>
+                ))
+            }
+        </ul>
+    </Container>
+</Template>
