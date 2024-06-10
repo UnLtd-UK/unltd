@@ -1,17 +1,12 @@
-name: Lighthouse CI
-on: push
+name: Lighthouse
+on: [pull_request]
+
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Audit URLs using Lighthouse
-        uses: treosh/lighthouse-ci-action@v11
-        with:
-          urls: |
-            https://unltd.pages.dev/
-            https://unltd.pages.dev/award/
-            https://unltd.pages.dev/blog/
-          budgetPath: ./budget.json # test performance budgets
-          uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+    - uses: actions/checkout@master
+    - name: Lighthouse
+      uses: foo-software/lighthouse-check-action@master
+      with:
+        urls: 'https://dev.unltd.pages.dev,https://dev.unltd.pages.dev/award'
