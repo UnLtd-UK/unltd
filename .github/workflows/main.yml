@@ -9,4 +9,5 @@ jobs:
     - name: Lighthouse
       uses: foo-software/lighthouse-check-action@master
       with:
+        prCommentEnabled: true
         urls: 'https://dev.unltd.pages.dev,https://dev.unltd.pages.dev/award'
