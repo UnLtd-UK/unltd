@@ -16,7 +16,7 @@ export async function getStaticPaths() {
                 "ddd hh:mm, DD MMM YYYY",
             )} Panel`;
             const slug = slugify(panel.date_time, {
-                lower: true,
+                lower: false,
                 strict: false,
                 locale: "en",
                 trim: true,
