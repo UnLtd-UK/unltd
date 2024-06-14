@@ -17,7 +17,7 @@ export async function getStaticPaths() {
             )} Panel`;
             const slug = slugify(panel.date_time, {
                 lower: true,
-                strict: true,
+                strict: false,
                 locale: "en",
                 trim: true,
             });
