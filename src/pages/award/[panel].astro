@@ -63,11 +63,11 @@ const { name, people, breadcrumbs } = Astro.props;
                         );
                         const name = searchParams.get("name");
 
-                        // Get the element with the id of "name"
+                        // Get the element with the id of "dos"
                         const nameElement = document.getElementById("dos");
 
-                        // Change the innerHTML of the element
-                        nameElement.innerHTML = name;
+                        // Change the textContent of the element
+                        nameElement.textContent = name;
 
                         console.log(name);
                     </script>
