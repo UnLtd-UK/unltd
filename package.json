@@ -54,7 +54,7 @@
     "@tailwindcss/typography": "^0.5.13",
     "prettier-plugin-astro": "^0.14.0",
     "rimraf": "^5.0.7",
-    "wrangler": "^3.60.2"
+    "wrangler": "^3.60.3"
   },
   "packageManager": "pnpm@9.0.2+sha256.d6fc013639b81658ff175829ebb9435bcb89eff206769e460fd3ae27c2054df6"
 }
