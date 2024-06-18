@@ -13,11 +13,11 @@ export default function DialogComp({ nav, styles, mobileMenuOpen, setMobileMenuO
                     </a>
                     <button
                         type="button"
-                        className="-m-2.5 rounded-md p-2.5 text-violet-700"
+                        className="-m-2.5 p-2.5 text-violet-100 hover:bg-violet-900 rounded-full"
                         onClick={() => setMobileMenuOpen(false)}
                     >
                         <span className="sr-only">Close menu</span>
-                        <i className="fa-solid fa-xmark h-6 w-6" aria-hidden="true" ></i>
+                        <i className="fa-solid fa-xmark w-6 h-6" aria-hidden="true" ></i>
                     </button>
                 </div>
                 <div className="mt-6 flow-root">
@@ -28,7 +28,7 @@ export default function DialogComp({ nav, styles, mobileMenuOpen, setMobileMenuO
                             }
                             <a
                                 href="/blog"
-                                className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50"
+                                className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-violet-50 hover:bg-violet-900"
                             >
                                 Blog
                             </a>
@@ -36,7 +36,7 @@ export default function DialogComp({ nav, styles, mobileMenuOpen, setMobileMenuO
                         <div className="py-6">
                             <a
                                 href="https://unltd.microsoftcrmportals.com/applications"
-                                className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50"
+                                className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-violet-50 hover:bg-violet-900"
                             >
                                 Log in
                             </a>
