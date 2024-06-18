@@ -14,7 +14,7 @@ export async function getStaticPaths() {
         return panels.map((panel) => {
             const name = `${moment(panel.date_time).format(
                 "ddd hh:mm, DD MMM YYYY",
-            )} Panel`;
+            )}`;
             const slug = slugify(panel.date_time, {
                 lower: false,
                 strict: false,
@@ -54,30 +54,28 @@ const { name, people, breadcrumbs } = Astro.props;
 
 <Template name={name} breadcrumbs={breadcrumbs}>
     <Container>
-        <div class="py-24 md:py-32">
+        <div class="py-12">
             <div class="grid grid-cols-1 gap-x-8 gap-y-20 xl:grid-cols-5">
-                <div class="max-w-2xl xl:col-span-2">
-                    <script is:inline>
-                        const searchParams = new URLSearchParams(
-                            window.location.search,
-                        );
-                        const name = searchParams.get("name");
-
-                        // Get the element with the id of "dos"
-                        const nameElement = document.getElementById("dos");
-
-                        // Change the textContent of the element
-                        nameElement.textContent = name;
-
-                        console.log(name);
-                    </script>
-
-                    <h2
-                        class="text-3xl font-bold tracking-tight text-violet-100 sm:text-4xl"
-                    >
-                        <span id="dos">Social Entrepreneur</span> Panel -
-                        {name}
-                    </h2>
+                <div class="max-w-2xl xl:col-span-2 flex flex-col gap-3">
+                    <div>
+                        <h2
+                            class="text-3xl font-bold tracking-tight text-violet-100"
+                        >
+                            Hello <span id="dos">social entrepreneur</span>!<br
+                            />
+                        </h2>
+                        <p></p>
+                    </div>
+                    <div>
+                        <h3 class="text-base tracking-tight text-violet-300">
+                            Date and time
+                        </h3>
+                        <p
+                            class="text-xl font-bold tracking-tight text-violet-200"
+                        >
+                            {name}
+                        </p>
+                    </div>
                     <p class="mt-6 text-lg leading-8 text-violet-300">
                         We’re a dynamic group of individuals who are passionate
                         about what we do and dedicated to delivering the best
@@ -128,3 +126,17 @@ const { name, people, breadcrumbs } = Astro.props;
         </div>
     </Container>
 </Template>
+
+<script is:inline>
+    const searchParams = new URLSearchParams(window.location.search);
+    let name = searchParams.get("name");
+    const nameElement = document.getElementById("dos");
+
+    name = name.replace("%20", " ").trim();
+
+    const regex = /^[a-zA-Z ]+$/;
+
+    console.log(regex.test(name));
+
+    if (regex.test(name)) nameElement.textContent = name;
+</script>
