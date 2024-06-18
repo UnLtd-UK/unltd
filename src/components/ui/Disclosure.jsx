@@ -8,7 +8,7 @@ export default function DisclosureComp({ item }) {
     return <Disclosure as="div" className="-mx-3">
         {({ open }) => (
             <>
-                <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-violet-900 hover:bg-violet-50">
+                <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-violet-100 hover:bg-violet-900">
                     {item.name}
                     <i
                         className={classNames(open ? 'rotate-180' : '', 'fa-solid fa-chevron-down h-5 w-5 flex-none text-violet-100')}
@@ -21,7 +21,7 @@ export default function DisclosureComp({ item }) {
                             key={child.name}
                             as="a"
                             href={child.href}
-                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-violet-900 hover:bg-violet-50"
+                            className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-violet-200 hover:bg-violet-900"
                         >
                             {child.name}
                         </Disclosure.Button>
