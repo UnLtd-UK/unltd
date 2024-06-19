@@ -12,9 +12,7 @@ import { panels } from "@data/panels.js";
 export async function getStaticPaths() {
     try {
         return panels.map((panel) => {
-            const name = `${moment(panel.date_time).format(
-                "ddd hh:mm, DD MMM YYYY",
-            )}`;
+            const name = `${moment(panel.date_time).format("DD MMM YYYY")}`;
             const slug = slugify(panel.date_time, {
                 lower: false,
                 strict: false,
@@ -68,7 +66,27 @@ const { name, people, breadcrumbs } = Astro.props;
                     </div>
                     <div>
                         <h3 class="text-base tracking-tight text-violet-300">
-                            Date and time
+                            Date
+                        </h3>
+                        <p
+                            class="text-xl font-bold tracking-tight text-violet-200"
+                        >
+                            {name}
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-base tracking-tight text-violet-300">
+                            Round
+                        </h3>
+                        <p
+                            class="text-xl font-bold tracking-tight text-violet-200"
+                        >
+                            {name}
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-base tracking-tight text-violet-300">
+                            Programme
                         </h3>
                         <p
                             class="text-xl font-bold tracking-tight text-violet-200"
@@ -95,9 +113,27 @@ const { name, people, breadcrumbs } = Astro.props;
                                     alt=""
                                 />
                                 <div class="max-w-xl flex-auto">
-                                    <h3 class="text-lg font-semibold leading-8 tracking-tight text-violet-100">
-                                        {person.people_id.name}
-                                    </h3>
+                                    <div>
+                                        <h3 class="text-lg font-semibold leading-8 tracking-tight text-violet-100">
+                                            {person.people_id.name}
+                                        </h3>
+                                        <div class="flex items-center gap-1">
+                                            {person.gender_pronouns &&
+                                                person.gender_pronouns.length >
+                                                    0 && (
+                                                    <div class="flex gap-1">
+                                                        {person.gender_pronouns?.map(
+                                                            (item) => (
+                                                                <span class="text-xs text-violet-400">
+                                                                    {item}
+                                                                </span>
+                                                            ),
+                                                        )}
+                                                    </div>
+                                                )}
+                                            <div />
+                                        </div>
+                                    </div>
                                     <p class="text-base leading-7 text-violet-300">
                                         Co-Founder / CEO
                                     </p>
@@ -105,17 +141,37 @@ const { name, people, breadcrumbs } = Astro.props;
                                         {person.people_id.bio}
                                     </p>
                                     <ul role="list" class="mt-6 flex gap-x-6">
-                                        <li>
-                                            <a
-                                                href={person.people_id.linkedin}
-                                                class="text-violet-200 hover:text-violet-400"
-                                            >
-                                                <span class="sr-only">
-                                                    LinkedIn
-                                                </span>
-                                                <i class="fa-brands fa-linkedin text-xl" />
-                                            </a>
-                                        </li>
+                                        {person.people_id.linkedin && (
+                                            <li>
+                                                <a
+                                                    href={
+                                                        person.people_id
+                                                            .linkedin
+                                                    }
+                                                    class="text-violet-200 hover:text-violet-400"
+                                                >
+                                                    <span class="sr-only">
+                                                        LinkedIn
+                                                    </span>
+                                                    <i class="fa-brands fa-linkedin text-xl" />
+                                                </a>
+                                            </li>
+                                        )}
+                                        {person.people_id.website && (
+                                            <li>
+                                                <a
+                                                    href={
+                                                        person.people_id.website
+                                                    }
+                                                    class="text-violet-200 hover:text-violet-400"
+                                                >
+                                                    <span class="sr-only">
+                                                        Website
+                                                    </span>
+                                                    <i class="fa-regular fa-globe text-xl" />
+                                                </a>
+                                            </li>
+                                        )}
                                     </ul>
                                 </div>
                             </li>
