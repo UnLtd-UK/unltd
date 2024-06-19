@@ -1,5 +1,5 @@
 ---
-const { name, description, email, icon, fields } = Astro.props;
+const { endpoint, name, description, email, icon, fields } = Astro.props;
 
 import Input from "@components/newfields/Input.astro";
 import Textarea from "@components/newfields/Textarea.astro";
@@ -48,6 +48,7 @@ const componentMap = {
       </div>
     </div>
     <form
+      action={endpoint}
       name={name}
       method="POST"
       class="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48"
