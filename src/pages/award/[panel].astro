@@ -99,7 +99,6 @@ const { name, date, programme, positions, breadcrumbs } = Astro.props;
                     {
                         positions.map((person) => (
                             <li class="flex flex-col gap-10 pt-12 sm:flex-row">
-                                {console.log(person.positions_id.person.image)}
                                 <img
                                     class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
                                     src={`https://unltd.directus.app/assets/${person.positions_id.person.image}`}
@@ -119,7 +118,7 @@ const { name, date, programme, positions, breadcrumbs } = Astro.props;
                                                     <div class="flex gap-1">
                                                         {person.positions_id.person.gender_pronouns?.map(
                                                             (item) => (
-                                                                <span class="text-xs text-violet-400">
+                                                                <span class="text-xs text-violet-200">
                                                                     {item}
                                                                 </span>
                                                             ),
@@ -129,7 +128,9 @@ const { name, date, programme, positions, breadcrumbs } = Astro.props;
                                             <div />
                                         </div>
                                     </div>
-                                    <p class="text-base leading-7 text-violet-300" />
+                                    <p class="text-base leading-7 text-violet-300">
+                                        {person.positions_id.role.name}
+                                    </p>
                                     <p class="mt-6 text-base leading-7 text-violet-200">
                                         {person.positions_id.person.bio}
                                     </p>
