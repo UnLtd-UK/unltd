@@ -3,20 +3,33 @@ import { getCollection } from './load.js';
 const collection = "posts";
 const name = "posts";
 
-const status = process.env.CF_PAGES_BRANCH === 'main' ? {
-    status: {
-        _eq: "published"
-    }
-} : {
-    status: {
-        _in: ["published", "draft"]
-    }
-}
+// let branch = "branch";
+
+// try {
+//     branch = process.env.CF_PAGES_BRANCH;
+// } catch (error) {
+//     console.error('process is not defined');
+//     branch = 'local'; // default value
+// }
+
+// const status = branch === 'main' ? {
+//     status: {
+//         _eq: "published"
+//     }
+// } : {
+//     status: {
+//         _in: ["published", "draft"]
+//     }
+// }
 
 const filterOptions = {
     sort: ['sort', '-date_time'],
     limit: -1,
-    filter: status
+    filter: {
+        status: {
+            _in: ["published", "draft"]
+        }
+    }
 }
 
 const attach = false;
