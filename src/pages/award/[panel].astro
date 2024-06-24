@@ -6,19 +6,22 @@ import Hero from "@components/Hero.astro";
 import { marked } from "marked";
 import slugify from "slugify";
 import moment from "moment";
+import { palette } from "@data/palette.js";
 
 import { panels } from "@data/panels.js";
 
 export async function getStaticPaths() {
     try {
         return panels.map((panel) => {
-            const name = `${moment(panel.date_time).format("DD MMM YYYY")}`;
-            const slug = slugify(panel.date_time, {
+            const name = `${moment(panel.date).format("DD-MM-YYYY")}`;
+            const slug = slugify(name, {
                 lower: false,
                 strict: false,
                 locale: "en",
                 trim: true,
             });
+
+            console.log(slug);
 
             const breadcrumbs = [
                 {
@@ -37,7 +40,7 @@ export async function getStaticPaths() {
                 },
                 props: {
                     name: name,
-                    date: `${moment(panel.date_time).format("DD MMM YYYY")}`,
+                    date: moment(panel.date).format("dddd, MMMM Do YYYY"),
                     programme: panel.programme,
                     positions: panel.positions,
                     breadcrumbs: breadcrumbs,
@@ -58,6 +61,11 @@ const { name, date, programme, positions, breadcrumbs } = Astro.props;
             <div class="grid grid-cols-1 gap-x-8 gap-y-20 xl:grid-cols-5">
                 <div class="max-w-2xl xl:col-span-2 flex flex-col gap-3">
                     <div>
+                        <p
+                            class="text-base font-bold tracking-wide uppercase text-violet-300"
+                        >
+                            Your Award Panel
+                        </p>
                         <h2
                             class="text-3xl font-bold tracking-tight text-violet-100"
                         >
@@ -73,18 +81,19 @@ const { name, date, programme, positions, breadcrumbs } = Astro.props;
                         <p
                             class="text-xl font-bold tracking-tight text-violet-200"
                         >
-                            {name}
+                            {date}
                         </p>
                     </div>
                     <div>
                         <h3 class="text-base tracking-tight text-violet-300">
-                            Programme
+                            Award Programme
                         </h3>
-                        <p
-                            class="text-xl font-bold tracking-tight text-violet-200"
+                        <span
+                            class={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${palette[programme.name].badge} ring-1 ring-inset gap-1`}
                         >
-                            {programme.name}
-                        </p>
+                            <i class={programme.icon}></i>
+                            <span>{programme.name}</span>
+                        </span>
                     </div>
                     <p class="mt-6 text-lg leading-8 text-violet-300">
                         We’re a dynamic group of individuals who are passionate
@@ -101,7 +110,7 @@ const { name, date, programme, positions, breadcrumbs } = Astro.props;
                             <li class="flex flex-col gap-10 pt-12 sm:flex-row">
                                 <img
                                     class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
-                                    src={`https://unltd.directus.app/assets/${person.positions_id.person.image}`}
+                                    src={`https://unltd.directus.app/assets/${person.positions_id.person.image.id}`}
                                     alt=""
                                 />
                                 <div class="max-w-xl flex-auto">
@@ -129,7 +138,11 @@ const { name, date, programme, positions, breadcrumbs } = Astro.props;
                                         </div>
                                     </div>
                                     <p class="text-base leading-7 text-violet-300">
-                                        {person.positions_id.role.name}
+                                        {person.positions_id.role.name} at
+                                        {
+                                            person.positions_id.role
+                                                .organisation.name
+                                        }
                                     </p>
                                     <p class="mt-6 text-base leading-7 text-violet-200">
                                         {person.positions_id.person.bio}
@@ -177,18 +190,18 @@ const { name, date, programme, positions, breadcrumbs } = Astro.props;
             </div>
         </div>
     </Container>
+
+    <script is:inline>
+        const searchParams = new URLSearchParams(window.location.search);
+        let name = searchParams.get("name");
+        const nameElement = document.getElementById("dos");
+
+        name = name.replace("%20", " ").trim();
+
+        const regex = /^[a-zA-Z ]+$/;
+
+        console.log(regex.test(name));
+
+        if (regex.test(name)) nameElement.textContent = name;
+    </script>
 </Template>
-
-<script is:inline>
-    const searchParams = new URLSearchParams(window.location.search);
-    let name = searchParams.get("name");
-    const nameElement = document.getElementById("dos");
-
-    name = name.replace("%20", " ").trim();
-
-    const regex = /^[a-zA-Z ]+$/;
-
-    console.log(regex.test(name));
-
-    if (regex.test(name)) nameElement.textContent = name;
-</script>
