@@ -88,12 +88,18 @@ const { name, date, programme, positions, breadcrumbs } = Astro.props;
                         <h3 class="text-base tracking-tight text-violet-300">
                             Award Programme
                         </h3>
-                        <span
+                        <a
+                            href={`/award/${slugify(programme.name, {
+                                lower: true,
+                                strict: false,
+                                locale: "en",
+                                trim: true,
+                            })}`}
                             class={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${palette[programme.name].badge} ring-1 ring-inset gap-1`}
                         >
                             <i class={programme.icon}></i>
                             <span>{programme.name}</span>
-                        </span>
+                        </a>
                     </div>
                     <p class="mt-6 text-lg leading-8 text-violet-300">
                         We’re a dynamic group of individuals who are passionate
