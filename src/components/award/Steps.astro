@@ -51,7 +51,7 @@ import slugify from "slugify";
 <div
   class="w-full"
   x-init="checkUrl()"
-  x-data="{ activeTab: 'tab0', checkUrl: function() { let element = window.location.hash ? document.getElementById(window.location.hash.substring(1)) : null; element && element.tagName === 'BUTTON' ? element.click() : null; }, urlUpdater: function(slug) { history.pushState(null, null, `/award#${slug}`); const targetElement = document.getElementById(slug); if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); } }, selectHs: function(i) {document.getElementById('tabs').value = `tab${i}` }, tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-4 border-b-amber-500' : 'bg-violet-50'}}"
+  x-data="{ activeTab: 'tab0', checkUrl: function() { window.addEventListener('popstate', function (event) { let element = window.location.hash ? document.getElementById(window.location.hash.substring(1)) : null; console.log(element); element && element.tagName === 'BUTTON' ? document.getElementById(window.location.hash.substring(1)).click() : null; })}, urlUpdater: function(slug) { history.pushState(null, null, `/award#${slug}`); const targetElement = document.getElementById(slug); if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); } }, selectHs: function(i) {document.getElementById('tabs').value = `tab${i}` }, tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-4 border-b-amber-500' : 'bg-violet-50'}}"
 >
   <div class="lg:hidden">
     <label for="tabs" class="sr-only">Select a tab</label>
@@ -97,7 +97,7 @@ import slugify from "slugify";
   </div>
 {
   steps.map((step, i) => (
-    <div x-show={`activeTab === 'tab${i}'`} class={`bg-violet-100 dark:bg-violet-950 rounded-b-md border-2 border-violet-300 dark:border-violet-700 shadow-sm`} x-cloak>
+    <div id={`tab${i}`} x-show={`activeTab === 'tab${i}'`} class={`bg-violet-100 dark:bg-violet-950 rounded-b-md border-2 border-violet-300 dark:border-violet-700 shadow-sm`} x-cloak>
       <div
         class={`px-10 py-6 ${i === 0 && "rounded-tr-md"} ${i === 4 && "rounded-tl-md"}`}
       >
