@@ -1,5 +1,6 @@
 ---
 const { question, answer, i } = Astro.props;
+import { marked } from "marked";
 ---
 
 <div class="pt-6" x-data="{ open: false }">
@@ -54,8 +55,9 @@ const { question, answer, i } = Astro.props;
     </button>
   </dt>
   <dd class="mt-2 pr-12" id={`faq-${i + 1}`} x-show="open" x-transition>
-    <p class="text-base leading-7 text-violet-700 dark:text-violet-300">
-      {answer}
-    </p>
+    <div
+      class="text-base leading-7 text-violet-700 dark:text-violet-300 prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2 set:html={markdown}"
+      set:html={marked.parse(answer)}
+    />
   </dd>
 </div>
