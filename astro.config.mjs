@@ -7,5 +7,6 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [svelte(), tailwind(), mdx(), alpinejs(), react()]
+  integrations: [svelte(), tailwind(), mdx(), alpinejs(), react()],
+  trailingSlash: 'never',
 });
