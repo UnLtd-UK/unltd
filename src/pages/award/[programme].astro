@@ -5,7 +5,7 @@ import Container from "@components/Container.astro";
 import { palette } from "@data/palette.js";
 import Icon from "@components/award/cards/Icon.astro";
 import Intro from "@components/award/programme/Intro.astro";
-import Posts from "@components/award/programme/Posts.astro";
+import Content from "@components/award/programme/Content.astro";
 import Services from "@components/award/programme/Services.astro";
 import Quotes from "@components/award/programme/Quotes.astro";
 import Criteria from "@components/award/programme/Criteria.astro";
@@ -65,29 +65,13 @@ const { programme } = Astro.props;
 >
   <Intro programme={programme} styles={palette[programme.name]} />
 
-  {
-    programme.videos.length > 0 && (
-      <Videos styles={palette[programme.name]} videos={programme.videos} />
-    )
-  }
-
-  {
-    quotes.some(
-      (quote) => quote.award_winner.programme.id === programme.id,
-    ) && (
-      <Quotes
-        styles={palette[programme.name]}
-        quotes={quotes}
-        programme={programme}
-      />
-    )
-  }
-
   <Services
     styles={palette[programme.name]}
     services={programme.services}
     programme={programme}
   />
+
+  <Content styles={palette[programme.name]} programme={programme} />
 
   <Criteria
     programme={programme}
@@ -99,16 +83,6 @@ const { programme } = Astro.props;
   />
 
   <Banner styles={palette[programme.name]} programme={programme} />
-
-  {
-    programme.posts.length > 0 && (
-      <Posts
-        styles={palette[programme.name]}
-        posts={programme.posts}
-        name={programme.name}
-      />
-    )
-  }
 
   <Other
     current={programme}

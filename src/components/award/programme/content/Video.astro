@@ -1,0 +1,16 @@
+---
+const { video, styles } = Astro.props;
+---
+
+<div class={`overflow-hidden rounded-lg ${styles.bg} shadow`}>
+    <div class="px-4 py-5 sm:p-6 flex justify-items-center items-center">
+        <iframe
+            class="w-full aspect-video"
+            src={video.id.url}
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+    </div>
+</div>

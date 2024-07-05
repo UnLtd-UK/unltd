@@ -1,0 +1,46 @@
+---
+const { post, styles } = Astro.props;
+import slugify from "slugify";
+---
+
+<article
+    class={`relative isolate flex flex-col justify-end overflow-hidden rounded-2xl transition ease-in-out delay-150 hover:-translate-y-2 duration-300 ${styles.bg} px-8 pb-8 pt-80 sm:pt-48 lg:pt-80`}
+>
+    <img
+        src={post.id.image !== null && post.id.image.id !== null
+            ? `https://unltd.directus.app/assets/${post.id.image.id}`
+            : `/img/blog/${slugify(post.tag, { lower: true, strict: true, locale: "en", trim: true })}.webp`}
+        alt=""
+        class="absolute inset-0 -z-10 h-full w-full object-cover"
+    />
+    <div class={`absolute inset-0 -z-10 bg-gradient-to-t ${styles.gradient}`}>
+    </div>
+    <div
+        class={`absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ${styles.ring}`}
+    >
+    </div>
+
+    <div
+        class="flex flex-wrap items-center gap-4 overflow-hidden text-sm leading-6 text-gray-300"
+    >
+        {
+            /* <time
+                                datetime={post.id.date_time}
+                                class={`${styles.text2}`}
+                            >
+                                {moment(post.id.date_time).format(
+                                    "ddd hh:mm, DD MMM YYYY",
+                                )}
+                            </time> */
+        }
+        <div class={`flex gap-x-2.5 font-bold ${styles.text2}`}>
+            {post.id.tag}
+        </div>
+    </div>
+    <h3 class={`mt-3 text-lg font-semibold leading-6 ${styles.text}`}>
+        <a href={`/blog/${post.id.slug}`}>
+            <span class="absolute inset-0"></span>
+            {post.id.title}
+        </a>
+    </h3>
+</article>
