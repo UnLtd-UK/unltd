@@ -39,9 +39,9 @@ const palette = {
     },
     "Funding Futures Programme": {
         "font": "font-ff",
-        "bg": "bg-gradient-to-br from-purple-100 to-orange-100 dark:from-purple-900 dark:to-orange-900",
-        "bg2": "bg-gradient-to-br from-purple-50 to-orange-50 dark:from-purple-950 dark:to-orange-950",
-        "bg3": "bg-gradient-to-br from-purple-300 to-orange-300 hover:from-purple-400 hover:to-orange-400 dark:from-purple-700 dark:to-orange-700 dark:hover:from-purple-600 dark:hover:to-orange-600",
+        "bg": "bg-purple-100 dark:bg-purple-900",
+        "bg2": "bg-purple-50 dark:bg-purple-950",
+        "bg3": "bg-purple-300 hover:bg-purple-400 dark:bg-purple-700 dark:hover:bg-purple-600",
         "text": "text-purple-950 dark:text-purple-50",
         "text2": "text-purple-800 dark:text-purple-200",
         "fill": "fill-purple-950 dark:fill-purple-50",
