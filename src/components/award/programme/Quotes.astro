@@ -17,67 +17,7 @@ import Container from "@components/Container.astro";
                             quote.award_winner.programme.id === programme.id,
                     )
                     .map((quote) => (
-                        <div
-                            class={`flex flex-col px-10 py-8 sm:px-12 sm:py-10 lg:px-14 lg:py-12 rounded-xl ${styles.bg2}`}
-                        >
-                            <figure class="flex flex-auto flex-col justify-between">
-                                <blockquote
-                                    class={`text-lg leading-8 ${styles.text}`}
-                                >
-                                    <p>
-                                        <span
-                                            class={`font-bold text-3xl ${styles.text2}`}
-                                        >
-                                            "
-                                        </span>
-                                        {quote.body}
-                                        <span
-                                            class={`font-bold text-3xl ${styles.text2}`}
-                                        >
-                                            "
-                                        </span>
-                                    </p>
-                                </blockquote>
-                                <figcaption class="mt-10 flex items-center gap-x-6">
-                                    <div class="text-base flex flex-col gap-2">
-                                        <div class="flex flex-col gap-1">
-                                            <span
-                                                class={`font-semibold ${styles.text}`}
-                                            >
-                                                {quote.award_winner.person.name}
-                                            </span>
 
-                                            <span
-                                                class={`text-xs ${styles.text2}`}
-                                            >
-                                                Founder,{" "}
-                                                {
-                                                    quote.award_winner
-                                                        .social_venture[0]
-                                                        .organisations_id.name
-                                                }
-                                            </span>
-                                        </div>
-
-                                        <div
-                                            class={`flex flex-row gap-1 items-center text-sm ${styles.text2}`}
-                                        >
-                                            {/* <span>Award Winner</span>
-                                            <span
-                                                class={`border text-xs rounded-full ${styles.border} py-1 px-3 `}
-                                            >
-                                                {quote.award_winner.grant.name}
-                                            </span> */}
-                                            {/* <span
-                                                class={`border text-xs rounded-full ${styles.border} py-1 px-3`}
-                                            >
-
-                                            </span> */}
-                                        </div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
                     ))
             }
         </div>
