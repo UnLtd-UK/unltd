@@ -28,7 +28,7 @@
     "@fontsource-variable/montserrat": "^5.0.19",
     "@fontsource-variable/outfit": "^5.0.13",
     "@fontsource-variable/unbounded": "^5.0.20",
-    "@headlessui/react": "2.1.1",
+    "@headlessui/react": "2.1.2",
     "@heroicons/react": "^2.1.4",
     "@types/alpinejs": "^3.13.10",
     "@types/react": "^18.3.3",
@@ -53,7 +53,7 @@
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.13",
     "prettier-plugin-astro": "^0.14.0",
-    "rimraf": "^5.0.7",
+    "rimraf": "^5.0.8",
     "wrangler": "^3.63.1"
   },
   "packageManager": "pnpm@9.0.2+sha256.d6fc013639b81658ff175829ebb9435bcb89eff206769e460fd3ae27c2054df6"
