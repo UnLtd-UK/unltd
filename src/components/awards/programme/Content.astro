@@ -1,0 +1,95 @@
+---
+const { styles, programme } = Astro.props;
+import Container from "@components/Container.astro";
+
+import Image from "@components/awards/programme/content/Image.astro";
+import Video from "@components/awards/programme/content/Video.astro";
+import Quote from "@components/awards/programme/content/Quote.astro";
+import Post from "@components/awards/programme/content/Post.astro";
+
+const contents = [];
+
+// Extract and add images
+programme.images.forEach((image) => {
+    if (image.directus_files_id) {
+        contents.push({ id: image.directus_files_id, type: "image" });
+    }
+});
+
+// Extract and add videos
+programme.videos.forEach((video) => {
+    if (video.videos_id) {
+        contents.push({ id: video.videos_id, type: "video" });
+    }
+});
+
+// Extract and add quotes
+programme.quotes.forEach((quote) => {
+    if (quote.quotes_id) {
+        contents.push({ id: quote.quotes_id, type: "quote" });
+    }
+});
+
+// Extract and add posts
+programme.posts.forEach((post) => {
+    if (post.posts_id) {
+        contents.push({ id: post.posts_id, type: "post" });
+    }
+});
+---
+
+<div class={`flex overflow-x-scroll py-20 hide-scroll-bar ${styles.bg2}`}>
+    <div class="flex flex-nowrap mx-auto max-w-7xl">
+        {
+            contents.map((content) => (
+                <div class="inline-block px-3">
+                    <div
+                        class={`w-64 h-64 max-w-xs overflow-hidden rounded-lg shadow-md ${styles.bg} hover:shadow-xl transition ease-in-out delay-150 hover:-translate-y-2 duration-300`}
+                    >
+                        {(() => {
+                            switch (content.type) {
+                                case "image":
+                                    return (
+                                        <Image
+                                            image={content}
+                                            styles={styles}
+                                        />
+                                    );
+                                case "video":
+                                    return (
+                                        <Video
+                                            video={content}
+                                            styles={styles}
+                                        />
+                                    );
+                                case "quote":
+                                    return (
+                                        <Quote
+                                            quote={content}
+                                            styles={styles}
+                                        />
+                                    );
+                                case "post":
+                                    return (
+                                        <Post post={content} styles={styles} />
+                                    );
+                                default:
+                                    return null; // Or any fallback component
+                            }
+                        })()}
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+</div>
+
+<style>
+    .hide-scroll-bar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .hide-scroll-bar::-webkit-scrollbar {
+        display: none;
+    }
+</style>

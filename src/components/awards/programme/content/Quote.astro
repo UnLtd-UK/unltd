@@ -1,0 +1,48 @@
+---
+const { quote, styles } = Astro.props;
+---
+
+<div class={`overflow-hidden rounded-lg ${styles.bg} shadow`}>
+    <div class="px-4 py-5 sm:p-6">
+        <div
+            class={`flex flex-col px-10 py-8 sm:px-12 sm:py-10 lg:px-10 lg:py-8`}
+        >
+            <figure class="flex flex-auto flex-col justify-between">
+                <blockquote class={`text-lg leading-8 ${styles.text}`}>
+                    <p>
+                        <span class={`font-bold text-3xl ${styles.text2}`}>
+                            "
+                        </span>
+                        {quote.id.body}
+                        <span class={`font-bold text-3xl ${styles.text2}`}>
+                            "
+                        </span>
+                    </p>
+                </blockquote>
+                <figcaption class="mt-10 flex items-center gap-x-6">
+                    <div class="text-base flex flex-col gap-2">
+                        <div class="flex flex-col gap-1">
+                            <span class={`font-semibold ${styles.text}`}>
+                                {quote.id.award_winner.person.name}
+                            </span>
+
+                            <span class={`text-xs ${styles.text2}`}>
+                                Founder,{" "}
+                                {
+                                    quote.id.award_winner.social_venture[0]
+                                        .organisations_id.name
+                                }
+                            </span>
+                        </div>
+
+                        <div
+                            class={`flex flex-row gap-1 items-center text-sm ${styles.text2}`}
+                        >
+                        </div>
+                    </div>
+                </figcaption>
+            </figure>
+        </div>
+        <!-- Content goes here -->
+    </div>
+</div>

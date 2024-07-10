@@ -54,7 +54,7 @@ const { name, description, date_updated, body, breadcrumbs } = Astro.props;
     <Hero name={name} description={description} updated={date_updated} />
     <div
       set:html={marked.parse(body)}
-      class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
+      class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2 mb-20"
     />
   </Container>
 </Template>

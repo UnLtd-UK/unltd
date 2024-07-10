@@ -28,7 +28,7 @@ export async function getStaticPaths() {
                 },
                 {
                     name: name,
-                    slug: `/award/${slug}`,
+                    slug: `/awards/${slug}`,
                 },
             ];
 
@@ -87,7 +87,7 @@ const { name, date, programme, positions, breadcrumbs } = Astro.props;
                             Award Programme
                         </h3>
                         <a
-                            href={`/award/${slugify(programme.name, {
+                            href={`/awards/${slugify(programme.name, {
                                 lower: true,
                                 strict: false,
                                 locale: "en",
