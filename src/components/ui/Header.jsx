@@ -22,7 +22,7 @@ const data = {
             id: 1,
             name: "Awards",
             description: "For social entrepreneurs",
-            href: "/award",
+            href: "/awards",
             icon: "fa-solid fa-award"
           },
           {

@@ -1,31 +1,35 @@
 ---
-import Tooltip from "@components/Tooltip.astro";
 import Container from "@components/Container.astro";
 ---
 
 <Container bg="bg-violet-50 dark:bg-violet-950">
-  <div class="pt-8 pb-20 flex flex-col gap-4 items-center">
-    <div class="flex flex-col gap-2">
-      <div class="flex flex-col gap-1 items-center">
-        <p
-          class="text-2xl font-semibold leading-7 text-amber-500 dark:text-amber-500"
-        >
-          For social entrepreneurs
-        </p>
-        <h1
-          class="text-7xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-9xl"
-        >
-          Awards
-        </h1>
-      </div>
-      <p
-        class="text-lg max-w-xl text-center leading-8 text-violet-800 dark:text-violet-200"
-      >
-        You have an idea or are already making a difference and are looking for
-        support to develop your social venture. We combine funding and support
-        to help you get started or grow.
-      </p>
+  <div class="max-w-2xl mx-0 pt-10">
+    <p
+      class="text-base font-semibold leading-7 text-amber-500 dark:text-amber-500"
+    >
+      For social entrepreneurs
+    </p>
+    <h2 class="text-5xl font-bold tracking-tight text-white sm:text-7xl">
+      Awards
+    </h2>
+    <p class="mt-6 text-lg leading-8 text-violet-300">
+      You have an idea or are already making a difference and are looking for
+      support to develop your social venture. We combine funding and support to
+      help you get started or grow.
+    </p>
+  </div>
+  <div class="mt-10 max-w-2xl mx-0 lg:max-w-none">
+    <div
+      class="grid grid-cols-1 gap-x-8 gap-y-6 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10"
+    >
+      <a href="#funding">Funding <span aria-hidden="true">&rarr;</span></a>
+      <a href="#support">Support <span aria-hidden="true">&rarr;</span></a>
+      <a href="#apply">Apply <span aria-hidden="true">&rarr;</span></a>
+      <a href="#faq">FAQ <span aria-hidden="true">&rarr;</span></a>
     </div>
+  </div>
+
+  <div class="pb-20 pt-10 flex flex-col gap-4 items-center">
     <div class="flex flex-col gap-10 lg:flex-row items-center">
       <div class="mt-6 flex-grow-0 lg:flex-grow basis-3/4 max-w-3/4">
         <div class="aspect-[16/9] aspect-content">
