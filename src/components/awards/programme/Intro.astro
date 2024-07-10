@@ -10,9 +10,7 @@ import moment from "moment";
 let todayDate = moment();
 ---
 
-<div
-  class={`relative isolate overflow-hidden ${styles.bg} py-20 ${programme.videos.length > 0 && "xl:pb-96"}`}
->
+<div class={`relative isolate overflow-hidden ${styles.bg} py-20`}>
   <img
     src={`https://unltd.directus.app/assets/${programme.image.id}`}
     alt=""
@@ -93,6 +91,65 @@ let todayDate = moment();
           partners={programme.partners}
           styles={styles}
         />
+
+        {
+          programme.issue && programme.action && programme.outcome && (
+            <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+              <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+                <div class="flex flex-col">
+                  <dt
+                    class={`flex items-center gap-x-3 text-base font-semibold leading-7 ${styles.text}`}
+                  >
+                    <i
+                      class={`fa-solid fa-triangle-exclamation h-5 w-5 flex-none ${styles.text}`}
+                    />
+                    Issue
+                  </dt>
+                  <dd
+                    class={`mt-4 flex flex-auto flex-col text-base leading-7 ${styles.text2}`}
+                  >
+                    <p class="flex-auto">{programme.issue}</p>
+                  </dd>
+                </div>
+                <div class="flex flex-col">
+                  <dt
+                    class={`flex items-center gap-x-3 text-base font-semibold leading-7 ${styles.text}`}
+                  >
+                    <i
+                      class={`fa-solid fa-wrench h-5 w-5 flex-none ${styles.text}`}
+                    />
+                    Action
+                  </dt>
+                  <dd
+                    class={`mt-4 flex flex-auto flex-col text-base leading-7 ${styles.text2}`}
+                  >
+                    <p class="flex-auto">{programme.action}</p>
+                  </dd>
+                </div>
+                <div class="flex flex-col">
+                  <dt
+                    class={`flex items-center gap-x-3 text-base font-semibold leading-7 ${styles.text}`}
+                  >
+                    <i
+                      class={`fa-solid
+                fa-flag-checkered
+                h-5
+                w-5
+                flex-none
+                ${styles.text}`}
+                    ></i>
+                    Outcome
+                  </dt>
+                  <dd
+                    class={`mt-4 flex flex-auto flex-col text-base leading-7 ${styles.text2}`}
+                  >
+                    <p class="flex-auto">{programme.outcome}</p>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          )
+        }
       </div>
     </div>
   </div>
