@@ -3,15 +3,15 @@ import Template from "@layouts/Template.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Container from "@components/Container.astro";
 import { palette } from "@data/palette.js";
-import Icon from "@components/award/cards/Icon.astro";
-import Intro from "@components/award/programme/Intro.astro";
-import Content from "@components/award/programme/Content.astro";
-import Services from "@components/award/programme/Services.astro";
-import Quotes from "@components/award/programme/Quotes.astro";
-import Criteria from "@components/award/programme/Criteria.astro";
-import Videos from "@components/award/programme/Videos.astro";
-import Other from "@components/award/programme/Other.astro";
-import Banner from "@components/award/programme/Banner.astro";
+import Icon from "@components/awards/cards/Icon.astro";
+import Intro from "@components/awards/programme/Intro.astro";
+import Content from "@components/awards/programme/Content.astro";
+import Services from "@components/awards/programme/Services.astro";
+import Quotes from "@components/awards/programme/Quotes.astro";
+import Criteria from "@components/awards/programme/Criteria.astro";
+import Videos from "@components/awards/programme/Videos.astro";
+import Other from "@components/awards/programme/Other.astro";
+import Banner from "@components/awards/programme/Banner.astro";
 
 import { programmes } from "@data/programmes.js";
 
@@ -31,11 +31,11 @@ export async function getStaticPaths() {
     let breadcrumbs = [
       {
         name: "Awards",
-        slug: "/award",
+        slug: "/awards",
       },
       {
         name: programme.name,
-        slug: `/award/${slug}`,
+        slug: `/awards/${slug}`,
       },
     ];
 
