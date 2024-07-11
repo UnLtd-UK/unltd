@@ -51,7 +51,7 @@ import slugify from "slugify";
 <div
   class="w-full"
   x-init="checkUrl()"
-  x-data="{ activeTab: 'tab0', checkUrl: function() { window.addEventListener('popstate', function (event) { let element = window.location.hash ? document.getElementById(window.location.hash.substring(1)) : null; element && element.tagName === 'BUTTON' ? document.getElementById(window.location.hash.substring(1)).click() : null; })}, urlUpdater: function(slug) { history.pushState(null, null, `/award#${slug}`); const targetElement = document.getElementById(slug); if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); } }, selectHs: function(i) {document.getElementById('tabs').value = `tab${i}` }, tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-4 border-b-amber-500' : 'bg-violet-50'}}"
+  x-data="{ activeTab: 'tab0', checkUrl: function() { window.addEventListener('popstate', function (event) { let element = window.location.hash ? document.getElementById(window.location.hash.substring(1)) : null; element && element.tagName === 'BUTTON' ? document.getElementById(window.location.hash.substring(1)).click() : null; })}, urlUpdater: function(slug) { history.pushState(null, null, `/awards#${slug}`); const targetElement = document.getElementById(slug); if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); } }, selectHs: function(i) {document.getElementById('tabs').value = `tab${i}` }, tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-4 border-b-amber-500' : 'bg-violet-50'}}"
 >
   <div class="lg:hidden">
     <label for="tabs" class="sr-only">Select a tab</label>
