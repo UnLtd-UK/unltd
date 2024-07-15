@@ -1,0 +1,65 @@
+---
+const { programme, styles } = Astro.props;
+import Container from "@components/Container.astro";
+---
+
+<Container bg={styles.bg2}>
+    {
+        programme.issue && programme.action && programme.outcome && (
+            <div class="mx-auto py-20 max-w-2xl lg:max-w-none">
+                <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+                    <div class="flex flex-col">
+                        <dt
+                            class={`flex items-center gap-x-3 text-2xl font-semibold leading-7 ${styles.text}`}
+                        >
+                            <i
+                                class={`fa-solid fa-triangle-exclamation h-5 w-5 flex-none ${styles.text2}`}
+                            />
+                            Issue
+                        </dt>
+                        <dd
+                            class={`mt-4 flex flex-auto flex-col text-base leading-7 ${styles.text2}`}
+                        >
+                            <p class="flex-auto">{programme.issue}</p>
+                        </dd>
+                    </div>
+                    <div class="flex flex-col">
+                        <dt
+                            class={`flex items-center gap-x-3 text-2xl font-semibold leading-7 ${styles.text}`}
+                        >
+                            <i
+                                class={`fa-solid fa-wrench h-5 w-5 flex-none ${styles.text2}`}
+                            />
+                            Action
+                        </dt>
+                        <dd
+                            class={`mt-4 flex flex-auto flex-col text-base leading-7 ${styles.text2}`}
+                        >
+                            <p class="flex-auto">{programme.action}</p>
+                        </dd>
+                    </div>
+                    <div class="flex flex-col">
+                        <dt
+                            class={`flex items-center gap-x-3 text-2xl font-semibold leading-7 ${styles.text}`}
+                        >
+                            <i
+                                class={`fa-solid
+                fa-flag-checkered
+                h-5
+                w-5
+                flex-none
+                ${styles.text2}`}
+                            />
+                            Outcome
+                        </dt>
+                        <dd
+                            class={`mt-4 flex flex-auto flex-col text-base leading-7 ${styles.text2}`}
+                        >
+                            <p class="flex-auto">{programme.outcome}</p>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        )
+    }
+</Container>
