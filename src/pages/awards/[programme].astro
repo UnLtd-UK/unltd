@@ -12,6 +12,7 @@ import Criteria from "@components/awards/programme/Criteria.astro";
 import Videos from "@components/awards/programme/Videos.astro";
 import Other from "@components/awards/programme/Other.astro";
 import Banner from "@components/awards/programme/Banner.astro";
+import New from "@components/awards/programme/New.astro";
 
 import { programmes } from "@data/programmes.js";
 
@@ -64,6 +65,8 @@ const { programme } = Astro.props;
   theme={palette[programme.name]}
 >
   <Intro programme={programme} styles={palette[programme.name]} />
+
+  <New programme={programme} styles={palette[programme.name]} />
 
   <Services
     styles={palette[programme.name]}
