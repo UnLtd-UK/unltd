@@ -3,7 +3,7 @@ const { post, styles } = Astro.props;
 import slugify from "slugify";
 ---
 
-<article
+<!-- <article
     class={`relative isolate flex flex-col justify-end overflow-hidden rounded-2xl transition ease-in-out delay-150 hover:-translate-y-2 duration-300 ${styles.bg} px-8 pb-8 pt-80 sm:pt-48 lg:pt-80`}
 >
     <img
@@ -43,4 +43,13 @@ import slugify from "slugify";
             {post.id.title}
         </a>
     </h3>
-</article>
+</article> -->
+<div class="flex-none w-96 aspect-video bg-white rounded-lg shadow-lg">
+    <img
+        src={post.id.image !== null && post.id.image.id !== null
+            ? `https://unltd.directus.app/assets/${post.id.image.id}`
+            : `/img/blog/${slugify(post.tag, { lower: true, strict: true, locale: "en", trim: true })}.webp`}
+        alt=""
+        class="w-full h-full object-cover rounded-lg"
+    />
+</div>
