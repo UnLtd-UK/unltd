@@ -37,12 +37,19 @@ programme.posts.forEach((post) => {
         contents.push({ id: post.posts_id, type: "post" });
     }
 });
+
+// Sort contents by date_created or uploaded_on
+// contents.sort((a, b) => {
+//     const dateA = a.date_created || a.uploaded_on;
+//     const dateB = b.date_created || b.uploaded_on;
+//     return new Date(dateB) - new Date(dateA);
+// });
 ---
 
 <div
     class={`overflow-x-scroll hide-scroll-bar flex space-x-4 py-12 ${styles.bg2}`}
 >
-    <div class="flex gap-4 flex-nowrap mx-auto max-w-7xl">
+    <div class="flex gap-6 flex-nowrap mx-auto max-w-7xl sm:px-6 lg:px-8 px-3">
         {
             contents.map((content) => {
                 switch (content.type) {
@@ -51,15 +58,9 @@ programme.posts.forEach((post) => {
                     case "video":
                         return <Video video={content} styles={styles} />;
                     case "quote":
-                        return (
-                            // <div class="flex-none w-96 aspect-video bg-white rounded-lg shadow-lg p-4 flex items-center">
-                            //     <p class="text-gray-700">
-                            //         This is some text content inside a card. It
-                            //         maintains the 16:9 aspect ratio.
-                            //     </p>
-                            // </div>
-                            <Quote quote={content} styles={styles} />
-                        );
+                        return <Quote quote={content} styles={styles} />;
+                    case "post":
+                        return <Post post={content} styles={styles} />;
                     default:
                         return null; // Or any fallback component
                 }
@@ -67,37 +68,3 @@ programme.posts.forEach((post) => {
         }
     </div>
 </div>
-
-<!-- <div class={`flex overflow-x-scroll py-20 hide-scroll-bar ${styles.bg2}`}>
-    <div class="flex flex-nowrap mx-auto max-w-7xl">
-        {
-            contents.map((content) => (
-                <div class="inline-block px-3">
-                    {(() => {
-                        switch (content.type) {
-                            case "image":
-                                return (
-                                    <Image image={content} styles={styles} />
-                                );
-                            case "video":
-                                return (
-                                    <Video video={content} styles={styles} />
-                                );
-                            case "quote":
-                                return (
-                                    <Quote quote={content} styles={styles} />
-                                );
-                            case "post":
-                                return (
-                                    <Simple post={content} styles={styles} />
-                                );
-                            default:
-                                return null; // Or any fallback component
-                        }
-                    })()}
-                </div>
-            ))
-        }
-    </div>
-</div>
--->
