@@ -11,39 +11,39 @@ import Simple from "@components/awards/programme/content/Simple.astro";
 const contents = [];
 
 // Extract and add images
-programme.images.forEach((image) => {
-    if (image.directus_files_id) {
-        contents.push({ id: image.directus_files_id, type: "image" });
-    }
-});
+// programme.images.forEach((image) => {
+//     if (image.directus_files_id) {
+//         contents.push({ id: image.directus_files_id, type: "image" });
+//     }
+// });
 
 // Extract and add videos
 programme.videos.forEach((video) => {
-    if (video.videos_id) {
+    if (video.videos_id && video.videos_id.date_time) {
         contents.push({ id: video.videos_id, type: "video" });
     }
 });
 
 // Extract and add quotes
 programme.quotes.forEach((quote) => {
-    if (quote.quotes_id) {
+    if (quote.quotes_id && quote.quotes_id.date_time) {
         contents.push({ id: quote.quotes_id, type: "quote" });
     }
 });
 
 // Extract and add posts
 programme.posts.forEach((post) => {
-    if (post.posts_id) {
+    if (post.posts_id && post.posts_id.date_time) {
         contents.push({ id: post.posts_id, type: "post" });
     }
 });
 
-// Sort contents by date_created or uploaded_on
-// contents.sort((a, b) => {
-//     const dateA = a.date_created || a.uploaded_on;
-//     const dateB = b.date_created || b.uploaded_on;
-//     return new Date(dateB) - new Date(dateA);
-// });
+// Sort contents by date_time
+contents.sort((a, b) => {
+    const dateA = new Date(a.id.date_time);
+    const dateB = new Date(b.id.date_time);
+    return dateB - dateA;
+});
 ---
 
 <div class={`overflow-x-scroll hide-scroll-bar py-12 ${styles.bg2}`}>
@@ -53,8 +53,8 @@ programme.posts.forEach((post) => {
         {
             contents.map((content) => {
                 switch (content.type) {
-                    case "image":
-                        return <Image image={content} styles={styles} />;
+                    // case "image":
+                    //     return <Image image={content} styles={styles} />;
                     case "video":
                         return <Video video={content} styles={styles} />;
                     case "quote":
