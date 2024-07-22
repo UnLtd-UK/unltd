@@ -46,10 +46,10 @@ programme.posts.forEach((post) => {
 // });
 ---
 
-<div
-    class={`overflow-x-scroll hide-scroll-bar flex space-x-4 py-12 ${styles.bg2}`}
->
-    <div class="flex gap-6 flex-nowrap mx-auto max-w-7xl sm:px-6 lg:px-8 px-3">
+<div class={`overflow-x-scroll hide-scroll-bar py-12 ${styles.bg2}`}>
+    <div
+        class={`mx-auto max-w-7xl flex items-start gap-6 sm:px-6 lg:px-8 px-3`}
+    >
         {
             contents.map((content) => {
                 switch (content.type) {
