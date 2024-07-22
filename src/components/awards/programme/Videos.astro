@@ -25,7 +25,7 @@ import Container from "@components/Container.astro";
                     class="grid grid-cols-1 lg:grid-cols-2 gap-x-4 lg:gap-x-8 gap-y-4 lg:gap-y-0"
                 >
                     {videos.map((video) => (
-                        <li class="relative aspect-w-16 aspect-h-9 aspect-video block overflow-hidden rounded-lg shadow-2xl transition ease-in-out delay-150 hover:-translate-y-2 duration-300 lg:-top-28">
+                        <li class="relative aspect-video block overflow-hidden rounded-lg shadow-2xl transition ease-in-out delay-150 hover:-translate-y-2 duration-300 lg:-top-28">
                             <iframe
                                 src={video.videos_id.url}
                                 title={video.videos_id.title}

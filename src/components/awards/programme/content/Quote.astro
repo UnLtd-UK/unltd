@@ -3,35 +3,23 @@ const { quote, styles } = Astro.props;
 ---
 
 <figure
-    class={`${styles.bg} flex-none w-96 h-64 rounded-lg shadow-lg p-4 flex flex-col`}
+    class={`flex aspect-video h-44 lg:h-96 flex-none flex-col justify-end overflow-hidden rounded-2xl ${styles.bg} p-8 sm:inline-block text-sm leading-6`}
 >
-    <blockquote class={`text-xs leading-2 ${styles.text}`}>
-        <p>
-            <span class={`font-bold text-xl ${styles.text2}`}> " </span>
-            {quote.id.body}
-            <span class={`font-bold text-xl ${styles.text2}`}> " </span>
-        </p>
-    </blockquote>
-    <figcaption class="mt-10 flex items-center gap-x-6">
-        <div class="text-base flex flex-col gap-2">
-            <div class="flex flex-col gap-1">
-                <span class={`font-semibold ${styles.text}`}>
+    <div class="flex flex-col justify-center">
+        <blockquote class="text-white">
+            <p class="text-lg leading-8">
+                {quote.id.body}
+            </p>
+        </blockquote>
+        <figcaption class="mt-6 flex items-center gap-x-4">
+            <div>
+                <div class="font-semibold text-white">
                     {quote.id.award_winner.person.name}
-                </span>
-
-                <span class={`text-xs ${styles.text2}`}>
-                    Founder,
-                    {
-                        quote.id.award_winner.social_venture[0].organisations_id
-                            .name
-                    }
-                </span>
+                </div>
+                <div class="text-white">
+                    {quote.id.award_winner.person.name}
+                </div>
             </div>
-
-            <div
-                class={`flex flex-row gap-1 items-center text-sm ${styles.text2}`}
-            >
-            </div>
-        </div>
-    </figcaption>
+        </figcaption>
+    </div>
 </figure>
