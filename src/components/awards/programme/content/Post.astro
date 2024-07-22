@@ -4,7 +4,7 @@ import slugify from "slugify";
 ---
 
 <article
-    class="relative isolate flex aspect-video h-96 flex-none flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 p-8"
+    class={`relative isolate flex aspect-video h-44 lg:h-96 flex-none flex-col justify-end overflow-hidden rounded-2xl ${styles.bg} p-8`}
 >
     <img
         src={post.id.image !== null && post.id.image.id !== null
@@ -13,9 +13,7 @@ import slugify from "slugify";
         alt=""
         class="absolute inset-0 -z-10 h-full w-full object-cover"
     />
-    <div
-        class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/80"
-    >
+    <div class={`absolute inset-0 -z-10 bg-gradient-to-t ${styles.gradient}`}>
     </div>
     <div
         class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"
@@ -38,7 +36,7 @@ import slugify from "slugify";
             </div>
         </div>
     </div>
-    <h3 class="mt-1 text-sm font-semibold leading-6 text-white">
+    <h3 class="mt-1 text-lg font-semibold leading-6 text-white">
         <a href={`/blog/${post.id.slug}`}>
             <span class="absolute inset-0"></span>
             {post.id.title}
