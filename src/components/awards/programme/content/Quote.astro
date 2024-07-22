@@ -2,39 +2,8 @@
 const { quote, styles } = Astro.props;
 ---
 
-<!-- <figure
-    class={`${styles.bg} flex-none w-96 h-64 rounded-lg shadow-lg p-4 flex flex-col justify-items-center`}
->
-    <blockquote class={`text-xs leading-2 ${styles.text}`}>
-        <p>
-            {quote.id.body}
-        </p>
-    </blockquote>
-    <figcaption class="mt-10 flex items-center gap-x-6">
-        <div class="text-base flex flex-col gap-2">
-            <div class="flex flex-col gap-1">
-                <span class={`font-semibold ${styles.text}`}>
-                    {quote.id.award_winner.person.name}
-                </span>
-
-                <span class={`text-xs ${styles.text2}`}>
-                    Founder,
-                    {
-                        quote.id.award_winner.social_venture[0].organisations_id
-                            .name
-                    }
-                </span>
-            </div>
-
-            <div
-                class={`flex flex-row gap-1 items-center text-sm ${styles.text2}`}
-            >
-            </div>
-        </div>
-    </figcaption>
-</figure> -->
-<div
-    class="flex aspect-video h-96 flex-none flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 p-8 sm:inline-block text-sm leading-6"
+<figure
+    class={`flex aspect-video h-44 lg:h-96 flex-none flex-col justify-end overflow-hidden rounded-2xl ${styles.bg} p-8 sm:inline-block text-sm leading-6`}
 >
     <div class="flex flex-col justify-center">
         <blockquote class="text-white">
@@ -47,8 +16,10 @@ const { quote, styles } = Astro.props;
                 <div class="font-semibold text-white">
                     {quote.id.award_winner.person.name}
                 </div>
-                <div class="text-white">@lesliealexander</div>
+                <div class="text-white">
+                    {quote.id.award_winner.person.name}
+                </div>
             </div>
         </figcaption>
     </div>
-</div>
+</figure>
