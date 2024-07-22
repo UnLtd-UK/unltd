@@ -3,19 +3,45 @@ const { post, styles } = Astro.props;
 import slugify from "slugify";
 ---
 
-<div class="flex-none w-96 aspect-video bg-white rounded-lg shadow-lg">
-    <a href={`/blog/${post.id.slug}`} class="block relative w-96 aspect-video">
-        <img
-            src={post.id.image !== null && post.id.image.id !== null
-                ? `https://unltd.directus.app/assets/${post.id.image.id}?width=384&height=216`
-                : `/img/blog/${slugify(post.tag, { lower: true, strict: true, locale: "en", trim: true })}.webp`}
-            alt="Placeholder Image"
-            class="w-full h-full object-cover rounded-lg"
-        />
-        <div
-            class={`absolute bottom-0 left-0 right-0 ${styles.bg} text-white bg-opacity-50 p-4`}
-        >
-            <p>{post.id.title}</p>
+<article
+    class="relative isolate flex aspect-video h-96 flex-none flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 p-8"
+>
+    <img
+        src={post.id.image !== null && post.id.image.id !== null
+            ? `https://unltd.directus.app/assets/${post.id.image.id}?width=384&height=216`
+            : `/img/blog/${slugify(post.tag, { lower: true, strict: true, locale: "en", trim: true })}.webp`}
+        alt=""
+        class="absolute inset-0 -z-10 h-full w-full object-cover"
+    />
+    <div
+        class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/80"
+    >
+    </div>
+    <div
+        class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"
+    >
+    </div>
+
+    <div
+        class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300"
+    >
+        <time datetime="2020-03-16" class="mr-8">{post.id.date_time}</time>
+        <div class="-ml-4 flex items-center gap-x-4">
+            <svg
+                viewBox="0 0 2 2"
+                class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50"
+            >
+                <circle cx="1" cy="1" r="1"></circle>
+            </svg>
+            <div class="flex gap-x-2.5">
+                {post.id.author_name}
+            </div>
         </div>
-    </a>
-</div>
+    </div>
+    <h3 class="mt-1 text-sm font-semibold leading-6 text-white">
+        <a href={`/blog/${post.id.slug}`}>
+            <span class="absolute inset-0"></span>
+            {post.id.title}
+        </a>
+    </h3>
+</article>
