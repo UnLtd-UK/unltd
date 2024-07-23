@@ -74,8 +74,6 @@ const { programme } = Astro.props;
     programme={programme}
   />
 
-  <Content styles={palette[programme.name]} programme={programme} />
-
   <Criteria
     programme={programme}
     styles={palette[programme.name]}
@@ -86,6 +84,8 @@ const { programme } = Astro.props;
   />
 
   <Banner styles={palette[programme.name]} programme={programme} />
+
+  <Content styles={palette[programme.name]} programme={programme} />
 
   <Other
     current={programme}
