@@ -1,10 +1,11 @@
 ---
 const { post, styles } = Astro.props;
 import slugify from "slugify";
+import moment from "moment";
 ---
 
 <article
-    class={`relative isolate flex aspect-video h-44 lg:h-96 flex-none flex-col justify-end overflow-hidden rounded-2xl ${styles.bg} p-8`}
+    class={`relative isolate flex aspect-video h-44 lg:h-72 flex-none flex-col justify-end overflow-hidden rounded-2xl ${styles.bg} p-8 transition ease-in-out delay-150 hover:-translate-y-2 duration-300`}
 >
     <img
         src={post.id.image !== null && post.id.image.id !== null
@@ -15,15 +16,14 @@ import slugify from "slugify";
     />
     <div class={`absolute inset-0 -z-10 bg-gradient-to-t ${styles.gradient}`}>
     </div>
-    <div
-        class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10"
-    >
-    </div>
+    <div class={`absolute inset-0 -z-10 rounded-2xl`}></div>
 
     <div
-        class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300"
+        class={`flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 ${styles.text}`}
     >
-        <time datetime="2020-03-16" class="mr-8">{post.id.date_time}</time>
+        <time datetime="2020-03-16" class="mr-8">
+            {moment(post.id.date_time).format("ddd hh:mm, DD MMM YYYY")}
+        </time>
         <div class="-ml-4 flex items-center gap-x-4">
             <svg
                 viewBox="0 0 2 2"
