@@ -2,11 +2,13 @@
 import slugify from "slugify";
 
 import { programmes } from "@data/programmes.js";
+import { sessions } from "@data/sessions.js";
 import { palette } from "@data/palette.js";
 
 import Container from "@components/Container.astro";
 import ProgrammeBig from "@components/awards/programme/ProgrammeBig.astro";
 import ProgrammeSmall from "@components/awards//programme/ProgrammeSmall.astro";
+
 ---
 
 <Container bg="bg-violet-50 dark:bg-violet-950">
@@ -62,7 +64,6 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
           Considering your age, location, and the sectors in which you and your social venture operate, you will be assigned to one of our tailored programmes for support for up to a year. Our programmes are designed to provide specialised support that align with the needs of you and your social venture.
         </p>
       </div>
-      <!-- <div role="list" class="flex flex-col lg:flex-row gap-6"> -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {
           programmes.filter(programme => programme.name !== "Millennium Awards Trust").map((programme, i) => (
@@ -95,6 +96,62 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
           ))
         }
       </div>
+
+      <div class={`overflow-x-scroll hide-scroll-bar mt-20`}>
+    <div
+        class={`mx-auto max-w-7xl flex items-start gap-6`}
+    >
+        {
+            sessions.map((session) => {
+              const date = new Date(session.datetime);
+              
+              return (
+                <article class="flex max-w-xl flex-col items-start justify-between">
+        <div class="group relative flex gap-4">
+          <div>
+            <div class="flex flex-col bg-violet-200 rounded-full p-1 items-center justify-center w-14 h-14">
+              <span class="text-xl font-bold text-violet-950">{ date.getDate() }</span>
+              <span class="uppercase text-xs text-violet-950">{ date.toLocaleString('en-GB', { month: 'short' })}</span>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2">
+                          {
+                session.programme && (
+            <div class="flex items-center gap-x-4 text-xs">
+
+                  <span class={`relative rounded-full px-3 py-1.5 font-medium ${palette[session.programme.name].badge}`}>{session.programme.name}</span>
+            </div>
+                            )
+              }
+            <h3 class="mt-3 text-lg font-semibold leading-6 text-violet-200 group-hover:text-violet-300">
+              <a href={session.link}>
+                <span class="absolute inset-0"></span>
+                {session.name}
+              </a>
+            </h3>
+            <div class="flex flex-row gap-3">
+              <span class="flex flex-col gap-1">
+                <p class={`truncate text-xs flex gap-2 items-center`}>
+                  <i class={`fa-regular fa-wifi text-violet-100`}></i>
+                  <span class={`text-violet-100 uppercase`}> Online </span>
+                </p>
+              </span>
+              <span class="flex flex-col gap-1">
+                <p class={`truncate text-xs flex gap-2 items-center`}>
+                  <i class={`fa-regular fa-clock text-violet-100`}></i>
+                  <span class={`text-violet-100`}>{date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</span>
+                </p>
+              </span>
+            </div>
+            <p class="mt-5 line-clamp-3 text-sm leading-6 text-violet-400">Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.</p>
+          </div>
+        </div>
+      </article>
+            )})
+        }
+    </div>
+</div>
+
     </div>
   </div>
 </Container>
