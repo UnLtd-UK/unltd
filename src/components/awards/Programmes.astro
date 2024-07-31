@@ -115,21 +115,17 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
             </div>
           </div>
           <div class="flex flex-col gap-2">
-                          {
-                session.programme && (
-            <div class="flex items-center gap-x-4 text-xs">
-
-                  <span class={`relative rounded-full px-3 py-1.5 font-medium ${palette[session.programme.name].badge}`}>{session.programme.name}</span>
-            </div>
-                            )
-              }
-            <h3 class="mt-3 text-lg font-semibold leading-6 text-violet-200 group-hover:text-violet-300">
+            <h3 class="mt-3 text-base font-semibold leading-6 text-violet-200 group-hover:text-violet-300">
               <a href={session.link}>
                 <span class="absolute inset-0"></span>
                 {session.name}
               </a>
             </h3>
             <div class="flex flex-row gap-3">
+                                        {
+                session.programme && (
+              <span class={`inline-flex items-center rounded-md bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-400 ring-1 ring-inset ring-blue-400/30`}>{session.programme.name}</span>
+                                        )}
               <span class="flex flex-col gap-1">
                 <p class={`truncate text-xs flex gap-2 items-center`}>
                   <i class={`fa-regular fa-wifi text-violet-100`}></i>
@@ -143,7 +139,6 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
                 </p>
               </span>
             </div>
-            <p class="mt-5 line-clamp-3 text-sm leading-6 text-violet-400">Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.</p>
           </div>
         </div>
       </article>
