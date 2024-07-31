@@ -17,7 +17,7 @@
     "@astrojs/alpinejs": "^0.4.0",
     "@astrojs/db": "^0.12.0",
     "@astrojs/mdx": "^3.1.3",
-    "@astrojs/react": "^3.6.0",
+    "@astrojs/react": "^3.6.1",
     "@astrojs/svelte": "^5.7.0",
     "@astrojs/tailwind": "^5.1.0",
     "@daviddarnes/storage-form": "^2.0.1",
@@ -34,10 +34,10 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "alpinejs": "^3.14.1",
-    "astro": "^4.12.2",
+    "astro": "^4.12.3",
     "clsx": "^2.1.1",
     "jsdom": "^24.1.1",
-    "marked": "^13.0.2",
+    "marked": "^13.0.3",
     "marked-gfm-heading-id": "^4.0.0",
     "moment": "^2.30.1",
     "prettier-plugin-tailwindcss": "^0.6.5",
@@ -54,7 +54,7 @@
     "@tailwindcss/typography": "^0.5.13",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.0.1",
-    "wrangler": "^3.67.0"
+    "wrangler": "^3.67.1"
   },
   "packageManager": "pnpm@9.0.2+sha256.d6fc013639b81658ff175829ebb9435bcb89eff206769e460fd3ae27c2054df6"
 }
