@@ -31,10 +31,16 @@ import moment from "moment";
     <p class="text-2xl text-violet-600 dark:text-violet-400">
       {description}
     </p>
-    <img
-      class="aspect-video rounded-xl bg-gray-50 object-cover"
-      src={`https://unltd.directus.app/assets/${image}`}
-      alt=""
-    />
+    {
+      image && (
+        <div class="aspect-w-16 aspect-h-9">
+          <img
+            class="aspect-video rounded-xl bg-gray-50 object-cover"
+            src={`https://unltd.directus.app/assets/${image}`}
+            alt=""
+          />
+        </div>
+      )
+    }
   </div>
 </div>
