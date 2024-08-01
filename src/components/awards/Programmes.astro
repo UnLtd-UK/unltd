@@ -2,7 +2,6 @@
 import slugify from "slugify";
 
 import { programmes } from "@data/programmes.js";
-import { sessions } from "@data/sessions.js";
 import { palette } from "@data/palette.js";
 
 import Container from "@components/Container.astro";
@@ -94,43 +93,6 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
               code={programme.code}
             />
           ))
-        }
-      </div>
-        <div class={`mx-auto max-w-7xl flex flex-col lg:flex-row gap-6 my-20`}>
-        {
-            sessions.map((session) => {
-              const date = new Date(session.datetime);
-              
-              return (
-              <article class={`flex max-w-xl flex-row items-start justify-between flex-1 lg:basis-1/2 p-4 border-solid border-2 bg-violet-200 border-violet-300 rounded-xl group relative gap-4`}>
-
-                    <div class="basis-1/4 flex-none flex gap-2 flex-col bg-violet-200 rounded-lg p-2 items-center justify-center border-dashed border-2 border-violet-300">
-                      <span class="text-xs text-violet-950 font-bold">{ date.toLocaleString('en-GB', { weekday: 'long' })}</span>
-                      <div class="flex flex-col items-center gap-1">
-                      <span class="uppercase text-xs text-violet-950">{ date.toLocaleString('en-GB', { month: 'long' })}</span>
-                      <span class="text-xl font-bold text-violet-50 w-10 h-10 bg-violet-900 group-hover:bg-violet-700 rounded-full flex justify-center items-center">{ date.getDate() }</span>
-
-                      </div>
-                      <span class="uppercase text-sm text-violet-950">{date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</span>
-                    </div>
-  
-                  <div class="basis-3/4 flex flex-col gap-1 items-center">
-                    <p class={`truncate text-xs flex gap-2 items-center`}>
-                      <i class={`fa-regular fa-wifi text-violet-900`}></i>
-                      <span class={`text-violet-900 uppercase`}> Online </span>
-                    </p>
-                    <h3 class="text-base font-semibold leading-6 text-violet-800 group-hover:text-violet-700">
-                      <a href={session.link}>
-                        <span class="absolute inset-0"></span>
-                        {session.name}
-                      </a>
-                    </h3>
-                    <div class="flex flex-row gap-3">
-                      { session.programme && (<span class={`inline-flex items-center rounded-md bg-blue-400/10 px-2 py-1 text-xs font-medium text-blue-400 ring-1 ring-inset ring-blue-400/30`}>{session.programme.name}</span>)}
-                    </div>
-                </div>
-              </article>
-            )})
         }
       </div>
     </div>

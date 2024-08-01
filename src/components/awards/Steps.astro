@@ -1,6 +1,8 @@
 ---
 import { Code } from "astro:components";
 import { marked } from "marked";
+import { sessions } from "@data/sessions.js";
+import { palette } from "@data/palette.js";
 import Container from "@components/Container.astro"
 import { rounds } from "@data/rounds.js";
 import moment from "moment";
@@ -10,7 +12,7 @@ import slugify from "slugify";
 ---
 
 <Container bg="bg-violet-100 dark:bg-violet-900">
-<div class="py-20 flex flex-col gap-10">
+<div class="pt-20 flex flex-col gap-10">
   <div class="">
     <h2
       id="applynow"
@@ -32,10 +34,47 @@ import slugify from "slugify";
   </p>
 
 </div>
+        <div class={`flex flex-col lg:flex-row gap-6 py-4`}>
+        {
+            sessions.map((session) => {
+              const date = new Date(session.datetime);
+              
+              return (
+              <article class={`flex max-w-xl flex-row items-start justify-between flex-1 lg:basis-1/2 p-4 border-solid border-2 bg-violet-950 border-violet-600 rounded-xl group relative gap-4`}>
+
+                    <div class="basis-1/4 flex-none flex gap-2 flex-col bg-violet-200 rounded-lg p-2 items-center justify-center border-dashed border-2 border-violet-300">
+                      <span class="text-xs text-violet-950 font-bold">{ date.toLocaleString('en-GB', { weekday: 'long' })}</span>
+                      <div class="flex flex-col items-center gap-1">
+                      <span class="uppercase text-xs text-violet-950">{ date.toLocaleString('en-GB', { month: 'long' })}</span>
+                      <span class="text-xl font-bold text-violet-50 w-10 h-10 bg-violet-900 group-hover:bg-violet-700 rounded-full flex justify-center items-center">{ date.getDate() }</span>
+
+                      </div>
+                      <span class="uppercase text-sm text-violet-950">{date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</span>
+                    </div>
+  
+                  <div class="basis-3/4 flex flex-col gap-1 items-center">
+                    <p class={`truncate text-xs flex gap-2 items-center`}>
+                      <i class={`fa-regular fa-wifi text-violet-100`}></i>
+                      <span class={`text-violet-100 uppercase`}> Online </span>
+                    </p>
+                    <h3 class="text-base font-semibold leading-6 text-violet-200 group-hover:text-violet-300">
+                      <a href={session.link}>
+                        <span class="absolute inset-0"></span>
+                        {session.name}
+                      </a>
+                    </h3>
+                    <div class="flex flex-row gap-3">
+                      { session.programme && (<span class={`${palette[session.programme.name].badge} inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset`}>{session.programme.name}</span>)}
+                    </div>
+                </div>
+              </article>
+            )})
+        }
+      </div>
   <div class="rounded-md bg-violet-100 p-4">
   <div class="flex">
     <div class="flex-shrink-0">
-      <i class="fa-regular fa-universal-access text-violet-600 text-4xl" aria-hidden="true"></i>
+      <i class="fa-solid fa-universal-access text-violet-600 text-xl" aria-hidden="true"></i>
     </div>
     <div class="ml-3 flex-1 md:flex md:justify-between items-center">
       <p class="text-sm text-violet-600 font-semibold">For those with additional support needs and who may face barriers to applying, we can offer 1:1 assistance.</p>
@@ -51,13 +90,7 @@ import slugify from "slugify";
   <div class="rounded-md bg-violet-100 p-4 flex">
   <div class="flex">
     <div class="flex-shrink-0">
-      <div class="relative w-10 h-10 border border-black">
-        <div class="absolute inset-0 bg-white bottom-1/2"></div>
-        <div class="absolute inset-0 bg-green-600 top-1/2"></div>
-        <div class="absolute inset-0 flex items-center justify-center">
-          <i class="fa-sharp fa-solid fa-dragon text-red-600 text-2xl outline-1" aria-hidden="true"></i>
-        </div>
-      </div>
+      <img src="/svg/Wales.svg" class="h-6 rounded-sm" alt="Welsh flag">
     </div>
     </div>
         <div class="ml-3 flex-1 md:flex md:justify-between items-center">
@@ -72,7 +105,7 @@ import slugify from "slugify";
       </div>
 </div>
 <div
-  class="w-full"
+  class="w-full py-12"
   x-init="checkUrl()"
   x-data="{ activeTab: 'tab0', checkUrl: function() { window.addEventListener('popstate', function (event) { let element = window.location.hash ? document.getElementById(window.location.hash.substring(1)) : null; element && element.tagName === 'BUTTON' ? document.getElementById(window.location.hash.substring(1)).click() : null; })}, urlUpdater: function(slug) { history.pushState(null, null, `/awards#${slug}`); const targetElement = document.getElementById(slug); if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth' }); } }, selectHs: function(i) {document.getElementById('tabs').value = `tab${i}` }, tabClass: function(i) { return this.activeTab === `tab${i}` ? 'border-b-4 border-b-amber-500' : 'bg-violet-50'}}"
 >
