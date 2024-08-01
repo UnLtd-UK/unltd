@@ -16,16 +16,16 @@ importers:
         version: 0.12.0(@types/react@18.3.3)(react@18.3.1)
       '@astrojs/mdx':
         specifier: ^3.1.3
-        version: 3.1.3(astro@4.12.3(@types/node@22.0.0)(typescript@5.4.5))
+        version: 3.1.3(astro@4.13.0(@types/node@22.0.0)(typescript@5.4.5))
       '@astrojs/react':
         specifier: ^3.6.1
         version: 3.6.1(@types/react-dom@18.3.0)(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@5.3.5(@types/node@22.0.0))
       '@astrojs/svelte':
         specifier: ^5.7.0
-        version: 5.7.0(astro@4.12.3(@types/node@22.0.0)(typescript@5.4.5))(svelte@4.2.15)(typescript@5.4.5)(vite@5.3.5(@types/node@22.0.0))
+        version: 5.7.0(astro@4.13.0(@types/node@22.0.0)(typescript@5.4.5))(svelte@4.2.15)(typescript@5.4.5)(vite@5.3.5(@types/node@22.0.0))
       '@astrojs/tailwind':
         specifier: ^5.1.0
-        version: 5.1.0(astro@4.12.3(@types/node@22.0.0)(typescript@5.4.5))(tailwindcss@3.4.7)
+        version: 5.1.0(astro@4.13.0(@types/node@22.0.0)(typescript@5.4.5))(tailwindcss@3.4.7)
       '@daviddarnes/storage-form':
         specifier: ^2.0.1
         version: 2.0.1
@@ -36,8 +36,8 @@ importers:
         specifier: ^5.0.18
         version: 5.0.18
       '@fontsource-variable/inter':
-        specifier: ^5.0.19
-        version: 5.0.19
+        specifier: ^5.0.20
+        version: 5.0.20
       '@fontsource-variable/lexend':
         specifier: ^5.0.20
         version: 5.0.20
@@ -69,8 +69,8 @@ importers:
         specifier: ^3.14.1
         version: 3.14.1
       astro:
-        specifier: ^4.12.3
-        version: 4.12.3(@types/node@22.0.0)(typescript@5.4.5)
+        specifier: ^4.13.0
+        version: 4.13.0(@types/node@22.0.0)(typescript@5.4.5)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -262,6 +262,11 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
+  '@babel/parser@7.25.3':
+    resolution: {integrity: sha512-iLTJKDbJ4hMvFPgQwwsVoxtHyWpKKPBrxkANrSYewDPaPpT5py5yeVkgPIJ7XYXhndxJpaA3PyALSXQ7u8e/Dw==}
+    engines: {node: '>=6.0.0'}
+    hasBin: true
+
   '@babel/plugin-syntax-jsx@7.24.7':
     resolution: {integrity: sha512-6ddciUPe/mpMnOKv/U+RSd2vvVy+Yw/JfBB0ZHYjEZt9NLHmCUylNYlsbqCCS1Bffjlb0fCwC9Vqz+sBz6PsiQ==}
     engines: {node: '>=6.9.0'}
@@ -292,6 +297,10 @@ packages:
 
   '@babel/traverse@7.25.2':
     resolution: {integrity: sha512-s4/r+a7xTnny2O6FcZzqgT6nE4/GHEdcqj4qAeglbUOh0TeglEfmNJFAd/OLoVtGd6ZhAO8GCVvCNUO5t/VJVQ==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/traverse@7.25.3':
+    resolution: {integrity: sha512-HefgyP1x754oGCsKmV5reSmtV7IXj/kpaE1XYY+D9G5PvKKoFfSbiS4M77MdjuwlZKDIKFCffq9rPU+H/s3ZdQ==}
     engines: {node: '>=6.9.0'}
 
   '@babel/types@7.25.2':
@@ -657,8 +666,8 @@ packages:
   '@fontsource-variable/caveat@5.0.18':
     resolution: {integrity: sha512-V3xWhFURFfKRyXb5bm44Gt5eb1njrbuG/9dKVALliJI5zbOc/R4SOTqrdyZOOD3DsYzrZylVPwj99+S3eBNKzQ==}
 
-  '@fontsource-variable/inter@5.0.19':
-    resolution: {integrity: sha512-V5KPpF5o0sI1uNWAdFArC87NDOb/ZJDPXLomEiKmDCYMlDUCTn2flkuAZkyME2rtGOKO7vzCuDJAND0m/5PhDA==}
+  '@fontsource-variable/inter@5.0.20':
+    resolution: {integrity: sha512-dhzG4Zls/tIrf8h0FhTNi8jT/uFwNhdTY2vKe6DYqoXDYOfEcTVZDyh1hKml1rlLT44Y7OoKoGz8w7czDW7twQ==}
 
   '@fontsource-variable/lexend@5.0.20':
     resolution: {integrity: sha512-s3n41nSAqqVotQMgejaWfjQEcbH0oQ7gk9PUD5jKOEnqUgUB5F2cuqBzTEfwN9xOpvXz1RhRCsN2GmC992H+nw==}
@@ -1211,8 +1220,8 @@ packages:
     resolution: {integrity: sha512-ISvCdHdlTDlH5IpxQJIex7BWBywFWgjJSVdwst+/iQCoEYnyOaQ95+X1JGshuBjGp6nxKUy1jMgE3zPqN7fQdg==}
     hasBin: true
 
-  astro@4.12.3:
-    resolution: {integrity: sha512-rFcRktbZk8CsHufLOB51gYAia3RTuOyaBD8iZXRHP7Oqo6QviquNaa/5U6RoUqyF5KS8vyq/ldJ5jfboJzxuuw==}
+  astro@4.13.0:
+    resolution: {integrity: sha512-tExzJeK1rh7OdVipi1e8S6koVgjQyveSy5fNEc/4Tit4GKl/olMTUEHepZSAKR7VCyiEC/hi3rjaV3t4lxR3tA==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2009,7 +2018,6 @@ packages:
 
   libsql@0.3.19:
     resolution: {integrity: sha512-Aj5cQ5uk/6fHdmeW0TiXK42FqUlwx7ytmMLPSaUQPin5HKKKuUPD62MAbN4OEweGBBI7q1BekoEN4gPUEL6MZA==}
-    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lilconfig@2.1.0:
@@ -3311,12 +3319,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@3.1.3(astro@4.12.3(@types/node@22.0.0)(typescript@5.4.5))':
+  '@astrojs/mdx@3.1.3(astro@4.13.0(@types/node@22.0.0)(typescript@5.4.5))':
     dependencies:
       '@astrojs/markdown-remark': 5.2.0
       '@mdx-js/mdx': 3.0.1
       acorn: 8.12.1
-      astro: 4.12.3(@types/node@22.0.0)(typescript@5.4.5)
+      astro: 4.13.0(@types/node@22.0.0)(typescript@5.4.5)
       es-module-lexer: 1.5.4
       estree-util-visit: 2.0.0
       github-slugger: 2.0.0
@@ -3354,10 +3362,10 @@ snapshots:
       kleur: 4.1.5
       ora: 8.0.1
 
-  '@astrojs/svelte@5.7.0(astro@4.12.3(@types/node@22.0.0)(typescript@5.4.5))(svelte@4.2.15)(typescript@5.4.5)(vite@5.3.5(@types/node@22.0.0))':
+  '@astrojs/svelte@5.7.0(astro@4.13.0(@types/node@22.0.0)(typescript@5.4.5))(svelte@4.2.15)(typescript@5.4.5)(vite@5.3.5(@types/node@22.0.0))':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 3.1.1(svelte@4.2.15)(vite@5.3.5(@types/node@22.0.0))
-      astro: 4.12.3(@types/node@22.0.0)(typescript@5.4.5)
+      astro: 4.13.0(@types/node@22.0.0)(typescript@5.4.5)
       svelte: 4.2.15
       svelte2tsx: 0.7.15(svelte@4.2.15)(typescript@5.4.5)
       typescript: 5.4.5
@@ -3365,9 +3373,9 @@ snapshots:
       - supports-color
       - vite
 
-  '@astrojs/tailwind@5.1.0(astro@4.12.3(@types/node@22.0.0)(typescript@5.4.5))(tailwindcss@3.4.7)':
+  '@astrojs/tailwind@5.1.0(astro@4.13.0(@types/node@22.0.0)(typescript@5.4.5))(tailwindcss@3.4.7)':
     dependencies:
-      astro: 4.12.3(@types/node@22.0.0)(typescript@5.4.5)
+      astro: 4.13.0(@types/node@22.0.0)(typescript@5.4.5)
       autoprefixer: 10.4.19(postcss@8.4.40)
       postcss: 8.4.40
       postcss-load-config: 4.0.2(postcss@8.4.40)
@@ -3481,6 +3489,10 @@ snapshots:
     dependencies:
       '@babel/types': 7.25.2
 
+  '@babel/parser@7.25.3':
+    dependencies:
+      '@babel/types': 7.25.2
+
   '@babel/plugin-syntax-jsx@7.24.7(@babel/core@7.25.2)':
     dependencies:
       '@babel/core': 7.25.2
@@ -3518,6 +3530,18 @@ snapshots:
       '@babel/code-frame': 7.24.7
       '@babel/generator': 7.25.0
       '@babel/parser': 7.25.0
+      '@babel/template': 7.25.0
+      '@babel/types': 7.25.2
+      debug: 4.3.6
+      globals: 11.12.0
+    transitivePeerDependencies:
+      - supports-color
+
+  '@babel/traverse@7.25.3':
+    dependencies:
+      '@babel/code-frame': 7.24.7
+      '@babel/generator': 7.25.0
+      '@babel/parser': 7.25.3
       '@babel/template': 7.25.0
       '@babel/types': 7.25.2
       debug: 4.3.6
@@ -3741,7 +3765,7 @@ snapshots:
 
   '@fontsource-variable/caveat@5.0.18': {}
 
-  '@fontsource-variable/inter@5.0.19': {}
+  '@fontsource-variable/inter@5.0.20': {}
 
   '@fontsource-variable/lexend@5.0.20': {}
 
@@ -4283,7 +4307,7 @@ snapshots:
 
   astring@1.8.6: {}
 
-  astro@4.12.3(@types/node@22.0.0)(typescript@5.4.5):
+  astro@4.13.0(@types/node@22.0.0)(typescript@5.4.5):
     dependencies:
       '@astrojs/compiler': 2.10.0
       '@astrojs/internal-helpers': 0.4.1
@@ -4291,9 +4315,9 @@ snapshots:
       '@astrojs/telemetry': 3.1.0
       '@babel/core': 7.25.2
       '@babel/generator': 7.25.0
-      '@babel/parser': 7.25.0
+      '@babel/parser': 7.25.3
       '@babel/plugin-transform-react-jsx': 7.25.2(@babel/core@7.25.2)
-      '@babel/traverse': 7.25.2
+      '@babel/traverse': 7.25.3
       '@babel/types': 7.25.2
       '@types/babel__core': 7.20.5
       '@types/cookie': 0.6.0
