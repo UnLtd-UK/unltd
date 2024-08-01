@@ -1,21 +1,11 @@
 ---
 const { styles, programme } = Astro.props;
-import Container from "@components/Container.astro";
 
-import Image from "@components/awards/programme/content/Image.astro";
 import Video from "@components/awards/programme/content/Video.astro";
 import Quote from "@components/awards/programme/content/Quote.astro";
 import Post from "@components/awards/programme/content/Post.astro";
-import Simple from "@components/awards/programme/content/Simple.astro";
 
 const contents = [];
-
-// Extract and add images
-// programme.images.forEach((image) => {
-//     if (image.directus_files_id) {
-//         contents.push({ id: image.directus_files_id, type: "image" });
-//     }
-// });
 
 // Extract and add videos
 programme.videos.forEach((video) => {

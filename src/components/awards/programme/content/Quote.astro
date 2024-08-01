@@ -16,8 +16,10 @@ const { quote, styles } = Astro.props;
                 <div class={`font-semibold ${styles.text}`}>
                     {quote.id.award_winner.person.name}
                 </div>
-                <div class="text-white">
-                    {quote.id.award_winner.person.name}
+                <div class={`${styles.text2} text-xs`}>
+                    {quote.id.award_winner.grant.name} | {
+                        quote.id.award_winner.programme.name
+                    } | Award Winner
                 </div>
             </div>
         </figcaption>
