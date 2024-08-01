@@ -40,22 +40,22 @@ import slugify from "slugify";
               const date = new Date(session.datetime);
               
               return (
-              <article class={`flex max-w-xl flex-row items-start justify-between flex-1 lg:basis-1/2 p-4 border-solid border-2 bg-violet-950 border-violet-600 rounded-xl group relative gap-4`}>
+              <article class={`flex flex-row items-start justify-between flex-1 lg:basis-1/2 border-solid border-2 bg-violet-700 border-violet-800 rounded-xl group relative gap-4`}>
 
-                    <div class="basis-1/4 flex-none flex gap-2 flex-col bg-violet-200 rounded-lg p-2 items-center justify-center border-dashed border-2 border-violet-300">
-                      <span class="text-xs text-violet-950 font-bold">{ date.toLocaleString('en-GB', { weekday: 'long' })}</span>
+                    <div class="basis-1/4 flex-none flex gap-2 flex-col bg-violet-600 rounded-lg p-2 items-center justify-center border-dashed border-2 border-violet-500">
+                      <span class="text-xs text-violet-200 font-bold">{ date.toLocaleString('en-GB', { weekday: 'long' })}</span>
                       <div class="flex flex-col items-center gap-1">
-                      <span class="uppercase text-xs text-violet-950">{ date.toLocaleString('en-GB', { month: 'long' })}</span>
-                      <span class="text-xl font-bold text-violet-50 w-10 h-10 bg-violet-900 group-hover:bg-violet-700 rounded-full flex justify-center items-center">{ date.getDate() }</span>
+                      <span class="uppercase text-xs text-violet-200">{ date.toLocaleString('en-GB', { month: 'long' })}</span>
+                      <span class="text-xl font-bold text-violet-200 w-10 h-10 bg-violet-900 group-hover:bg-violet-700 rounded-full flex justify-center items-center">{ date.getDate() }</span>
 
                       </div>
-                      <span class="uppercase text-sm text-violet-950">{date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</span>
+                      <span class="uppercase text-sm text-violet-200">{date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</span>
                     </div>
   
-                  <div class="basis-3/4 flex flex-col gap-1 items-center">
+                  <div class="basis-3/4 flex flex-col gap-1 p-4">
                     <p class={`truncate text-xs flex gap-2 items-center`}>
-                      <i class={`fa-regular fa-wifi text-violet-100`}></i>
-                      <span class={`text-violet-100 uppercase`}> Online </span>
+                      <i class={`fa-regular fa-wifi text-violet-300`}></i>
+                      <span class={`text-violet-300 uppercase`}> Online </span>
                     </p>
                     <h3 class="text-base font-semibold leading-6 text-violet-200 group-hover:text-violet-300">
                       <a href={session.link}>
