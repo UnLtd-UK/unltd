@@ -3,8 +3,8 @@ const { styles, stage, age, geography, focus, programme } = Astro.props;
 import Container from "@components/Container.astro";
 ---
 
-<Container>
-    <div class="flex flex-col gap-8 my-24">
+<Container bg={styles.bg2}>
+    <div class="flex flex-col gap-8 py-10">
         <div class="max-w-3xl">
             <p
                 class={`mt-2 text-3xl font-bold tracking-tight ${styles.text} ${styles.font} sm:text-4xl`}
