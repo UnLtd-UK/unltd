@@ -95,13 +95,13 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
           ))
         }
       </div>
-              <div class={`flex flex-col lg:flex-row gap-6 py-4`}>
+              <div class={`flex flex-col lg:flex-row gap-6 pt-16`}>
         {
             sessions.map((session) => {
               const date = new Date(session.datetime);
               
               return (
-              <article class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].bg} ${palette[session.programme.name].border }` : ''} flex flex-row items-start justify-between flex-1 lg:basis-1/2 border-solid border-2  bg-violet-50 border-violet-100 rounded-xl group relative gap-4`}>
+              <article class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].bg} ${palette[session.programme.name].border }` : ''} flex flex-row items-start justify-between flex-1 lg:basis-1/2 border-solid border-2  bg-violet-50 border-violet-100 rounded-xl group relative gap-4 transition ease-in-out delay-150 hover:-translate-y-2 duration-300`}>
 
                     <div class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].bg2}` : ''} basis-1/4 flex-none flex gap-2 flex-col bg-violet-200 rounded-l-lg p-2 items-center justify-center`}>
                       <span class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} text-xs text-violet-900 font-bold`}>{ date.toLocaleString('en-GB', { weekday: 'long' })}</span>
