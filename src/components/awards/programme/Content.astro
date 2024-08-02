@@ -9,21 +9,33 @@ const contents = [];
 
 // Extract and add videos
 programme.videos.forEach((video) => {
-    if (video.videos_id && video.videos_id.date_time) {
+    if (
+        video.videos_id &&
+        video.videos_id.date_time &&
+        video.videos_id.status == "published"
+    ) {
         contents.push({ id: video.videos_id, type: "video" });
     }
 });
 
 // Extract and add quotes
 programme.quotes.forEach((quote) => {
-    if (quote.quotes_id && quote.quotes_id.date_time) {
+    if (
+        quote.quotes_id &&
+        quote.quotes_id.date_time &&
+        quote.quotes_id.status == "published"
+    ) {
         contents.push({ id: quote.quotes_id, type: "quote" });
     }
 });
 
 // Extract and add posts
 programme.posts.forEach((post) => {
-    if (post.posts_id && post.posts_id.date_time) {
+    if (
+        post.posts_id &&
+        post.posts_id.date_time &&
+        post.posts_id.status == "published"
+    ) {
         contents.push({ id: post.posts_id, type: "post" });
     }
 });
