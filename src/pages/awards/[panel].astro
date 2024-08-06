@@ -42,12 +42,11 @@ export async function getStaticPaths() {
                     programme: panel.programme,
                     positions: panel.positions,
                     breadcrumbs: breadcrumbs,
+                    description:
+                        "We’re a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients.",
                 },
             };
         });
-
-        const description =
-            "We’re a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients.";
     } catch (error) {
         console.error("🐛 ", error);
     }
