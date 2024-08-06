@@ -45,15 +45,19 @@ export async function getStaticPaths() {
                 },
             };
         });
+
+        const description =
+            "We’re a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients.";
     } catch (error) {
         console.error("🐛 ", error);
     }
 }
 
-const { name, date, programme, positions, breadcrumbs } = Astro.props;
+const { name, date, programme, positions, breadcrumbs, description } =
+    Astro.props;
 ---
 
-<Template name={name} breadcrumbs={breadcrumbs}>
+<Template name={name} breadcrumbs={breadcrumbs} description={description}>
     <Container>
         <div class="py-12">
             <div class="grid grid-cols-1 gap-x-8 gap-y-20 xl:grid-cols-5">
@@ -100,9 +104,7 @@ const { name, date, programme, positions, breadcrumbs } = Astro.props;
                         </a>
                     </div>
                     <p class="mt-6 text-lg leading-8 text-violet-300">
-                        We’re a dynamic group of individuals who are passionate
-                        about what we do and dedicated to delivering the best
-                        results for our clients.
+                        {description}
                     </p>
                 </div>
                 <ul
@@ -184,8 +186,14 @@ const { name, date, programme, positions, breadcrumbs } = Astro.props;
                                             <li>
                                                 <a
                                                     href={
-                                                        person.positions_id
-                                                            .person.website
+                                                        person.positions_id.person.website.startsWith(
+                                                            "https://",
+                                                        )
+                                                            ? person
+                                                                  .positions_id
+                                                                  .person
+                                                                  .website
+                                                            : `https://${person.positions_id.person.website}`
                                                     }
                                                     class="text-violet-200 hover:text-violet-400"
                                                 >
