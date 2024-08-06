@@ -155,11 +155,10 @@ const { name, date, programme, positions, breadcrumbs, description } =
                                         </div>
                                     </div>
                                     <p class="text-base leading-7 text-violet-300">
-                                        {person.positions_id.role.name} at
-                                        {
-                                            person.positions_id.role
-                                                .organisation.name
-                                        }
+                                        {person.positions_id.role.name}{" "}
+                                        {person.positions_id.role.organisation
+                                            ?.name &&
+                                            `at ${person.positions_id.role.organisation.name}`}
                                     </p>
                                     <p class="mt-6 text-base leading-7 text-violet-200">
                                         {person.positions_id.person.bio}
