@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "private": true,
   "engines": {
-    "node": "lts/*"
+    "node": "20.x"
   },
   "scripts": {
     "dev": "astro dev",
