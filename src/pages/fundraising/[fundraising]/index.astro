@@ -55,7 +55,7 @@ const { fundraiser } = Astro.props;
       <img
         src={`https://unltd.directus.app/assets/${fundraiser.image}`}
         alt=""
-        class="absolute inset-0 -z-10 h-full w-full object-cover opacity-20"
+        class="absolute inset-0 -z-10 h-full w-full object-cover opacity-30"
       />
       <div
         class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
@@ -121,7 +121,7 @@ const { fundraiser } = Astro.props;
             }
           }
           <div>
-            <p class="text-xs text-violet-400">
+            <p class="text-xs text-violet-100">
               {
                 !todayDate.isAfter(fundraiser.finish) ? (
                   <span>Closes</span>
@@ -136,18 +136,7 @@ const { fundraiser } = Astro.props;
 
         <div>
           {
-            todayDate.isAfter(fundraiser.finish) ? (
-              <div class="flex flex-col">
-                <span class="text-sm text-violet-500">Raised</span>
-                <span class="text-4xl text-violet-700">
-                  {new Intl.NumberFormat("en-GB", {
-                    maximumSignificantDigits: 6,
-                    style: "currency",
-                    currency: "GBP",
-                  }).format(fundraiser.raised)}
-                </span>
-              </div>
-            ) : (
+            (
               <div class="flex justify-between bg-violet-100 rounded-xl items-center border border-violet-200">
                 <div class="flex flex-col pl-5 p-2">
                   <span class="text-sm text-violet-500">Goal</span>
@@ -174,20 +163,15 @@ const { fundraiser } = Astro.props;
           }
         </div>
 
-        <div
-          class="text-violet-600"
-          set:html={marked.parse(`${fundraiser.description}`)}
-        />
-
         <div class="flex flex-col">
           {
             todayDate.isAfter(fundraiser.start) ? (
-              <span class="text-violet-500 text-xs">Started</span>
+              <span class="text-violet-100 text-xs">Started</span>
             ) : (
-              <span class="text-violet-500 text-xs">Starting</span>
+              <span class="text-violet-100 text-xs">Starting</span>
             )
           }
-          <span class="text-sm"
+          <span class="text-sm text-violet-100"
             >{
               moment(fundraiser.start).format("dddd hh:mma, MMMM Do YYYY")
             }</span
@@ -197,11 +181,11 @@ const { fundraiser } = Astro.props;
         {
           fundraiser.website && (
             <div class="flex flex-col">
-              <span class="text-violet-500 text-xs">Fundraiser website</span>
+              <span class="text-violet-200 text-xs">Fundraiser website</span>
               <a
                 href={`https://${fundraiser.website}`}
                 target="_blank"
-                class="text-sm text-amber-800 hover:underline"
+                class="text-sm text-violet-100 hover:underline"
               >
                 {fundraiser.website}
               </a>
@@ -212,11 +196,11 @@ const { fundraiser } = Astro.props;
         {
           fundraiser.link && (
             <div class="flex flex-col">
-              <span class="text-violet-500 text-xs">Donations website</span>
+              <span class="text-violet-200 text-xs">Donations website</span>
               <a
                 href={`https://${fundraiser.link}`}
                 target="_blank"
-                class="text-sm text-amber-800 hover:underline"
+                class="text-sm text-violet-100 hover:underline"
               >
                 {fundraiser.link}
               </a>
@@ -225,7 +209,7 @@ const { fundraiser } = Astro.props;
         }
 
         <div class="flex flex-col gap-2">
-          <span class="text-violet-500 text-xs"> Managed by</span>
+          <span class="text-violet-100 text-xs"> Managed by</span>
           <div class="flex items-center">
             <div>
               <img
@@ -236,12 +220,12 @@ const { fundraiser } = Astro.props;
             </div>
             <div class="ml-3">
               <p
-                class="text-sm font-medium text-violet-700 group-hover:text-violet-900"
+                class="text-sm font-medium text-violet-100 group-hover:text-violet-900"
               >
                 {fundraiser.manager.person.name}
               </p>
               <p
-                class="text-xs font-medium text-violet-500 group-hover:text-violet-700"
+                class="text-xs font-medium text-violet-100 group-hover:text-violet-700"
               >
                 {fundraiser.manager.role.name}
               </p>
@@ -250,69 +234,10 @@ const { fundraiser } = Astro.props;
         </div>
       </div>
       <div class="flex gap-5 flex-1 flex-col">
-        <div class="flex flex-col gap-3">
-          <p class="text-xl">Sponsors</p>
-          {
-            fundraiser.sponsors.length > 0 ? (
-              <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                {fundraiser.sponsors.map((supporter) => (
-                  <div class="relative flex items-center space-x-3 rounded-lg border-violet-300 bg-white px-4 py-4">
-                    <div class="flex-shrink-0">
-                      <img
-                        class="h-10 w-10 rounded-md drop-shadow-md"
-                        src={`https://unltd.directus.app/assets/${supporter.organisations_id.logo}`}
-                        alt=""
-                      />
-                    </div>
-                    <div class="min-w-0 flex-1">
-                      <span class="absolute inset-0" aria-hidden="true" />
-                      <p class="text-sm font-medium text-violet-900">
-                        {supporter.organisations_id.name}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-violet-400 bg-violet-50 rounded-md">
-                <i class="fa-solid fa-buildings text-lg" />
-                <p class="text-violet-500">No Sponsors</p>
-              </div>
-            )
-          }
-        </div>
-
-        <div class="flex flex-col gap-3">
-          <p class="text-xl">Supporters</p>
-          {
-            fundraiser.supporters.length > 0 ? (
-              <div class="grid grid-cols-1 sm:grid-cols-2">
-                {fundraiser.supporters.map((supporter) => (
-                  <div class="relative flex items-center space-x-3 rounded-lg border-violet-300 bg-white px-4 py-4">
-                    <div class="flex-shrink-0">
-                      <img
-                        class="h-10 w-10 rounded-md drop-shadow-md"
-                        src={`https://unltd.directus.app/assets/${supporter.organisations_id.logo}`}
-                        alt=""
-                      />
-                    </div>
-                    <div class="min-w-0 flex-1">
-                      <span class="absolute inset-0" aria-hidden="true" />
-                      <p class="text-xs font-medium text-violet-900">
-                        {supporter.organisations_id.name}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div class="flex flex-col gap-1 w-full p-10 items-center justify-center text-xs text-violet-400 bg-violet-50 rounded-md">
-                <i class="fa-solid fa-buildings text-lg" />
-                <p class="text-violet-500">No Supporters</p>
-              </div>
-            )
-          }
-        </div>
+        <div
+          class="text-violet-100 prose"
+          set:html={marked.parse(`${fundraiser.description}`)}
+        />
       </div>
     </div>
   </Container>
