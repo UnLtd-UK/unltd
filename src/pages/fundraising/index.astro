@@ -24,7 +24,7 @@ import moment from "moment";
     <Hero name={name} description={description} />
 
     <div
-      class="overflow-hidden bg-violet-50 dark:bg-violet-950 shadow sm:rounded-md"
+      class="overflow-hidden bg-violet-50 dark:bg-violet-900 shadow sm:rounded-md mb-10"
     >
       <ul role="list" class="divide-y divide-violet-200">
         {
@@ -32,7 +32,7 @@ import moment from "moment";
             <li>
               <a
                 href={`/fundraising/${fundraiser.slug}`}
-                class={`block hover:bg-violet-50 ${
+                class={`block hover:bg-violet-800 ${
                   todayDate.isAfter(fundraiser.finish) && "ring-violet-500/10"
                 }`}
               >
@@ -40,12 +40,12 @@ import moment from "moment";
                   <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
                     <div class="truncate">
                       <div class="flex text-sm gap-2 items-center">
-                        <p class="truncate font-medium text-amber-600">
+                        <p class="truncate font-medium text-violet-200">
                           {fundraiser.name}
                         </p>
                       </div>
                       <div class="mt-2 flex">
-                        <div class="flex gap-2 items-center text-sm text-violet-500">
+                        <div class="flex gap-2 items-center text-sm text-violet-300">
                           <i class="fa-regular fa-calendar text-violet-400" />
                           <span class="">
                             {() => {
