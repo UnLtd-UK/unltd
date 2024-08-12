@@ -89,7 +89,7 @@ const { fundraiser } = Astro.props;
       </div>
     </div>
 
-    <div class="flex flex-col md:flex-row gap-20 pt-10">
+    <div class="flex flex-col md:flex-row gap-20 py-10">
       <div class="flex flex-1 flex-col gap-10">
         <div
           class="flex flex-col lg:flex-row items-start lg:items-center lg:justify-between gap-2"
@@ -121,7 +121,7 @@ const { fundraiser } = Astro.props;
             }
           }
           <div>
-            <p class="text-xs text-violet-100">
+            <p class="text-sm text-violet-100">
               {
                 !todayDate.isAfter(fundraiser.finish) ? (
                   <span>Closes</span>
@@ -131,16 +131,22 @@ const { fundraiser } = Astro.props;
               }
               {moment(fundraiser.finish).format("dddd hh:mma, MMMM Do YYYY")}
             </p>
+            <span class="text-xs text-violet-300"
+              >{todayDate.isAfter(fundraiser.start) ? "Started" : "Starting"}
+              {
+                moment(fundraiser.start).format("dddd hh:mma, MMMM Do YYYY")
+              }</span
+            >
           </div>
         </div>
 
         <div>
           {
             (
-              <div class="flex justify-between bg-violet-100 rounded-xl items-center border border-violet-200">
+              <div class="flex justify-between bg-violet-900 rounded-xl items-center border border-violet-500">
                 <div class="flex flex-col pl-5 p-2">
-                  <span class="text-sm text-violet-500">Goal</span>
-                  <span class="text-4xl text-violet-700">
+                  <span class="text-sm text-violet-200">Goal</span>
+                  <span class="text-4xl text-violet-50">
                     {new Intl.NumberFormat("en-GB", {
                       maximumSignificantDigits: 6,
                       style: "currency",
@@ -149,9 +155,11 @@ const { fundraiser } = Astro.props;
                   </span>
                 </div>
                 <a
-                  href={`https://${fundraiser.link}`}
+                  href={`${
+                    fundraiser.link.startsWith("https://") ? "" : "https://"
+                  }${fundraiser.link}`}
                   target="_blank"
-                  class="p-7 flex gap-2 items-center rounded-r-xl bg-amber-600 text-sm font-semibold text-white shadow-sm 0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+                  class="p-7 flex gap-2 items-center rounded-r-xl bg-violet-100 text-sm font-semibold text-violet-950 shadow-sm 0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
                 >
                   <>
                     <span>Donate now</span>
@@ -161,21 +169,6 @@ const { fundraiser } = Astro.props;
               </div>
             )
           }
-        </div>
-
-        <div class="flex flex-col">
-          {
-            todayDate.isAfter(fundraiser.start) ? (
-              <span class="text-violet-100 text-xs">Started</span>
-            ) : (
-              <span class="text-violet-100 text-xs">Starting</span>
-            )
-          }
-          <span class="text-sm text-violet-100"
-            >{
-              moment(fundraiser.start).format("dddd hh:mma, MMMM Do YYYY")
-            }</span
-          >
         </div>
 
         {
@@ -189,7 +182,7 @@ const { fundraiser } = Astro.props;
                 target="_blank"
                 class="text-sm text-violet-100 hover:underline"
               >
-                {fundraiser.website}
+                {fundraiser.website.replace(/^(http:\/\/|https:\/\/)/, "")}
               </a>
             </div>
           )
@@ -206,7 +199,7 @@ const { fundraiser } = Astro.props;
                 target="_blank"
                 class="text-sm text-violet-100 hover:underline"
               >
-                {fundraiser.link}
+                {fundraiser.link.replace(/^(http:\/\/|https:\/\/)/, "")}
               </a>
             </div>
           )
@@ -239,7 +232,7 @@ const { fundraiser } = Astro.props;
       </div>
       <div class="flex gap-5 flex-1 flex-col">
         <div
-          class="text-violet-100 prose"
+          class="text-violet-100 prose prose-img:rounded-md"
           set:html={marked.parse(`${fundraiser.description}`)}
         />
       </div>
