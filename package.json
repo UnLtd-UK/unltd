@@ -37,7 +37,7 @@
     "@types/react": "^18.3.4",
     "@types/react-dom": "^18.3.0",
     "alpinejs": "^3.14.1",
-    "astro": "^4.14.3",
+    "astro": "^4.14.5",
     "clsx": "^2.1.1",
     "jsdom": "^24.1.1",
     "marked": "^14.0.0",
@@ -57,7 +57,7 @@
     "@tailwindcss/typography": "^0.5.14",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.0.1",
-    "wrangler": "^3.72.1"
+    "wrangler": "^3.72.2"
   },
-  "packageManager": "pnpm@9.7.1"
+  "packageManager": "pnpm@9.8.0"
 }
