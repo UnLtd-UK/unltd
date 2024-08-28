@@ -85,10 +85,14 @@ let todayDate = moment();
           partners={programme.partners}
           styles={styles}
         />
-        <div
-          class={`prose prose-strong:text-white prose-strong:bg-white/20 prose-strong:p-1 prose-strong:${styles.font} max-w-4xl text-xl leading-relaxed prose:${styles.text2} prose:${styles.font}`}
-          set:html={marked.parse(programme.description1)}
-        />
+        {
+          programme.description1 && (
+            <div
+              class={`prose prose-strong:text-white prose-strong:bg-white/20 prose-strong:p-1 prose-strong:${styles.font} max-w-4xl text-xl leading-relaxed prose:${styles.text2} prose:${styles.font}`}
+              set:html={marked.parse(programme.description1)}
+            />
+          )
+        }
       </div>
     </div>
   </div>
