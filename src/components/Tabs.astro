@@ -57,70 +57,70 @@ function openTab(element) {
 
 <div class="bg-amber-50 flex flex-col text-violet-700 rounded-xl px-10 py-10 lg:px-20 lg:py-10 gap-6">
 
-<div class="mt-3 sm:mt-4">
-  <!-- Mobile -->
-  <div class="lg:hidden">
-        <label for="current-tab" class="sr-only">Select a tab</label>
-        <select id="current-tab" name="current-tab" onchange="openTab(this)"
-            class="block w-full rounded-md border-violet-300 py-2 pl-3 pr-10 text-base focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm">
-            { parentItems.map((parentItem, parentItemIndex) => (
-            <option data-tabs={parentItemIndex === 0 ? `true` : `false`} id={`${parentItem.slug}`} value={parentItem.slug} {parentItemIndex === 0 && `selected`}>{ parentItem.name }</option>
-            ))}
-        </select>
+  <div class="mt-3 sm:mt-4">
+    <!-- Mobile -->
+    <div class="lg:hidden">
+      <label for="current-tab" class="sr-only">Select a tab</label>
+      <select id="current-tab" name="current-tab" onchange="openTab(this)"
+          class="block w-full rounded-md border-violet-300 py-2 pl-3 pr-10 text-base focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm">
+          { parentItems.map((parentItem, parentItemIndex) => (
+          <option data-tabs={parentItemIndex === 0 ? `true` : `false`} id={`${parentItem.slug}`} value={parentItem.slug} {parentItemIndex === 0 && `selected`}>{ parentItem.name }</option>
+          ))}
+      </select>
     </div>
 
-  <!-- Desktop -->
-  <div class="hidden lg:block border-b border-violet-300">
-    <nav class="-mb-px flex space-x-8">
-      {
-        parentItems.map((parentItem, parentItemIndex) => (
-          <button
-            id={`${parentItem.slug}`}
-            type="button"
-            data-tabs="text-amber-600"
-            onclick={`openTab(this)`}
-            class={`whitespace-nowrap pb-4 px-1 font-medium text-sm transition ease-in-out delay-50 duration-300 border-transparent text-violet-500 hover:text-violet-700 hover:border-violet-300 ${
-              parentItemIndex === 0 && `text-amber-600`
-            }`}
-            aria-selected={parentItemIndex === 0 ? `true` : `false`}
-          >
-            {parentItem.name}
-          </button>
-        ))
-      }
-    </nav>
+    <!-- Desktop -->
+    <div class="hidden lg:block border-b border-violet-300">
+      <nav class="-mb-px flex space-x-8">
+        {
+          parentItems.map((parentItem, parentItemIndex) => (
+            <button
+              id={`${parentItem.slug}`}
+              type="button"
+              data-tabs="text-amber-600"
+              onclick={`openTab(this)`}
+              class={`whitespace-nowrap pb-4 px-1 font-medium text-sm transition ease-in-out delay-50 duration-300 border-transparent text-violet-500 hover:text-violet-700 hover:border-violet-300 ${
+                parentItemIndex === 0 && `text-amber-600`
+              }`}
+              aria-selected={parentItemIndex === 0 ? `true` : `false`}
+            >
+              {parentItem.name}
+            </button>
+          ))
+        }
+      </nav>
+    </div>
   </div>
-</div>
 
-<div class="pt-5">
-  {
-    parentItems.map((parentItem, parentItemIndex) => (
-      <section
-        class={!(parentItemIndex === 0) && `hidden`}
-        aria-labelledby={`${parentItem.slug}`}
-        role="tabpanel"
-        data-tabs={parentItemIndex === 0 ? `true` : `false`}
-      >
-        <div class="flex flex-col flex-wrap lg:flex-row">
-          {relationships.map((relationship) => {
-            if (parentItem.id === relationship.category.id)
-              return (
-                <>
-                  {childrenItems.map(
-                    (topic) =>
-                      topic.id === relationship.topic.id && (
-                        <div class="p-4 text-sm border-2 border-amber-50 hover:border-amber-200 rounded-xl basis-1/4 transition ease-in-out delay-50 duration-300 bg-amber-50 hover:bg-amber-100 hover:-tranviolet-y-1 hover:scale-100 flex flex-col gap-1">
-                          <p class="font-bold text-violet-950">{topic.name}</p>
-                          <p class="text-violet-600">{topic.description}</p>
-                        </div>
-                      )
-                  )}
-                </>
-              );
-          })}
-        </div>
-      </section>
-    ))
-  }
-</div>
+  <div class="pt-5">
+    {
+      parentItems.map((parentItem, parentItemIndex) => (
+        <section
+          class={!(parentItemIndex === 0) && `hidden`}
+          aria-labelledby={`${parentItem.slug}`}
+          role="tabpanel"
+          data-tabs={parentItemIndex === 0 ? `true` : `false`}
+        >
+          <div class="flex flex-col flex-wrap lg:flex-row">
+            {relationships.map((relationship) => {
+              if (parentItem.id === relationship.category.id)
+                return (
+                  <>
+                    {childrenItems.map(
+                      (topic) =>
+                        topic.id === relationship.topic.id && (
+                          <div class="p-4 text-sm border-2 border-amber-50 hover:border-amber-200 rounded-xl basis-1/4 transition ease-in-out delay-50 duration-300 bg-amber-50 hover:bg-amber-100 hover:-tranviolet-y-1 hover:scale-100 flex flex-col gap-1">
+                            <p class="font-bold text-violet-950">{topic.name}</p>
+                            <p class="text-violet-600">{topic.description}</p>
+                          </div>
+                        )
+                    )}
+                  </>
+                );
+            })}
+          </div>
+        </section>
+      ))
+    }
+  </div>
 </div>
