@@ -31,7 +31,7 @@
     "@fontsource-variable/montserrat": "^5.0.20",
     "@fontsource-variable/outfit": "^5.0.14",
     "@fontsource-variable/unbounded": "^5.0.21",
-    "@headlessui/react": "2.1.4",
+    "@headlessui/react": "2.1.5",
     "@heroicons/react": "^2.1.5",
     "@types/alpinejs": "^3.13.10",
     "@types/react": "^18.3.5",
