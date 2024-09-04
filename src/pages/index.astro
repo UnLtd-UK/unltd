@@ -5,59 +5,225 @@ const description = "Home description";
 ---
 
 <Template name={name} description={description}>
-  <div class="relative bg-violet-50 dark:bg-violet-950">
-    <div class="mx-auto max-w-7xl lg:grid lg:grid-cols-12 lg:gap-x-8 lg:px-8">
-      <div
-        class="px-6 pb-24 pt-10 sm:pb-32 lg:col-span-7 lg:px-0 lg:pb-56 lg:pt-48 xl:col-span-6"
+  <div class="relative isolate overflow-hidden pt-14">
+    <img
+      src="/img/home.webp"
+      alt=""
+      class="absolute inset-0 -z-10 h-full w-full object-cover"
+    />
+    <div
+      class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+      aria-hidden="true"
+    >
+      <!-- <div
+        class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+        style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
       >
-        <div class="mx-auto max-w-2xl lg:mx-0">
-          <img
-            class="h-11"
-            src="https://tailwindui.com/img/logos/mark.svg?color=amber&shade=600"
-            alt="Your Company"
-          />
-          <div class="hidden sm:mt-32 sm:flex lg:mt-16">
-            <div
-              class="relative rounded-full px-3 py-1 text-sm leading-6 text-violet-500 ring-1 ring-violet-900/10 hover:ring-violet-900/20"
-            >
-              Anim aute id magna aliqua ad ad non deserunt sunt. <a
-                href="#"
-                class="whitespace-nowrap font-semibold text-amber-600"
-                ><span class="absolute inset-0" aria-hidden="true"></span>Read
-                more <span aria-hidden="true">&rarr;</span></a
-              >
-            </div>
-          </div>
-          <h1
-            class="mt-24 text-4xl font-bold tracking-tight text-violet-900 sm:mt-10 sm:text-6xl"
+      </div> -->
+    </div>
+    <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+      <div class="text-center">
+        <h1
+          class="text-4xl font-bold tracking-tight text-violet-100 sm:text-6xl"
+        >
+          You are unstoppable
+        </h1>
+        <p class="mt-6 text-lg leading-8 text-violet-300">
+          More people than ever are stepping up to tackle the world’s problems.
+          Could you be one of them?
+        </p>
+        <div class="mt-10 flex items-center justify-center gap-x-6">
+          <a
+            href="/awards"
+            class="rounded-full bg-orange-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400"
+            >Go to Awards</a
           >
-            Data to enrich your online social venture
-          </h1>
-          <p class="mt-6 text-lg leading-8 text-violet-600">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-            lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-            fugiat aliqua.
-          </p>
-          <div class="mt-10 flex items-center gap-x-6">
-            <a
-              href="#"
-              class="rounded-md bg-amber-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
-              >Get started</a
-            >
-            <a href="#" class="text-sm font-semibold leading-6 text-violet-900"
-              >Learn more <span aria-hidden="true">→</span></a
-            >
+          <a
+            href="/our-purpose"
+            class="text-sm font-semibold leading-6 text-white"
+            >Our purpose <span aria-hidden="true">→</span></a
+          >
+        </div>
+      </div>
+    </div>
+    <div
+      class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+      aria-hidden="true"
+    >
+      <div
+        class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+        style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+      >
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-white py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Our mission
+        </h2>
+        <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
+          <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
+            <p class="text-xl leading-8 text-gray-600">
+              We are UnLtd. We know social entrepreneurs offer some of the best
+              solutions to loneliness, community resilience and our nation’s
+              long term economic, social and cultural health.
+            </p>
+            <p class="mt-10 max-w-xl text-base leading-7 text-gray-700">
+              We are committed to 50% of our Awards going to Black, Asian and
+              minority ethnic social entrepreneurs, and/or disabled social
+              entrepreneurs across our funding programmes.
+            </p>
+          </div>
+          <div class="lg:flex lg:flex-auto lg:justify-center">
+            <dl class="w-64 space-y-8 xl:w-80">
+              <div class="flex flex-col-reverse gap-y-4">
+                <dt class="text-base leading-7 text-gray-600">
+                  Last year we backed 253 social entrepreneurs to develop their
+                  ideas and start up.
+                </dt>
+                <dd class="text-5xl font-semibold tracking-tight text-gray-900">
+                  253 Social Entrepreneurs
+                </dd>
+              </div>
+              <div class="flex flex-col-reverse gap-y-4">
+                <dt class="text-base leading-7 text-gray-600">
+                  Through every entrepreneur we supported, 832 people’s lives
+                  were positively impacted.
+                </dt>
+                <dd class="text-5xl font-semibold tracking-tight text-gray-900">
+                  832 lives impacted
+                </dd>
+              </div>
+              <div class="flex flex-col-reverse gap-y-4">
+                <dt class="text-base leading-7 text-gray-600">
+                  78% Of social entrepreneurs feel valued and understood for the
+                  change they create.
+                </dt>
+                <dd class="text-5xl font-semibold tracking-tight text-gray-900">
+                  78%
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div
-        class="relative lg:col-span-5 lg:-mr-8 xl:absolute xl:inset-0 xl:left-1/2 xl:mr-0"
+        class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
       >
-        <img
-          class="aspect-[3/2] w-full bg-violet-50 object-cover lg:absolute lg:inset-0 lg:aspect-auto lg:h-full"
-          src="https://images.unsplash.com/photo-1498758536662-35b82cd15e29?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2102&q=80"
-          alt=""
-        />
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          Stay on top of customer support
+        </h2>
+        <dl class="col-span-2 grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2">
+          <div>
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div
+                class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+              >
+                <i class="text-lg text-white fa-regular fa-money-bills-simple"
+                ></i>
+              </div>
+              Funding
+            </dt>
+            <dd class="mt-1 text-base leading-7 text-gray-600">
+              Get started or progress your social business to the next stage of
+              your journey. With up to £18,000 available to fund organisational
+              costs and help you grow your impact.
+            </dd>
+          </div>
+          <div>
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div
+                class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+              >
+                <i
+                  class="text-lg text-white fa-regular fa-arrows-up-down-left-right"
+                ></i>
+              </div>
+              Investment
+            </dt>
+            <dd class="mt-1 text-base leading-7 text-gray-600">
+              The Growth Impact Fund is a social investment fund, helping fast
+              growth early-stage social businesses to grow their impact. It is a
+              joint venture run in partnership with UnLtd, Big Issue Invest and
+              Shift. It exists to make social investment better for founders
+              from underrepresented backgrounds and their teams.
+            </dd>
+          </div>
+          <div>
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div
+                class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+              >
+                <i class="text-lg text-white fa-regular fa-handshake"></i>
+              </div>
+              One-to-one support
+            </dt>
+            <dd class="mt-1 text-base leading-7 text-gray-600">
+              You'll work with one of our support managers. They'll provide
+              support, offer coaching and advice, and act as your 'critical
+              friend' to help you achieve your goals and become a stronger
+              social leader.
+            </dd>
+          </div>
+          <div>
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div
+                class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+              >
+                <i class="text-lg text-white fa-regular fa-award"></i>
+              </div>
+              Business and specialist skills
+            </dt>
+            <dd class="mt-1 text-base leading-7 text-gray-600">
+              From marketing to finance, you’ll get the chance to build your
+              business skills thanks to our experts and partners. We run
+              workshops, learning sessions and accelerators to make sure you get
+              the knowledge you need.
+            </dd>
+          </div>
+          <div>
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div
+                class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+              >
+                <i class="text-lg text-white fa-regular fa-magnifying-glass"
+                ></i>
+              </div>
+              Understanding your impact
+            </dt>
+            <dd class="mt-1 text-base leading-7 text-gray-600">
+              UnLtd can work with you and give you the tools to help better
+              understand and measure the social impact you want to achieve.
+              We'll then work with you to help you grow your impact and make a
+              bigger difference.
+            </dd>
+          </div>
+          <div>
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div
+                class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
+              >
+                <i class="text-lg text-white fa-regular fa-people-roof"></i>
+              </div>
+              Mentoring and pro-bono experts
+            </dt>
+            <dd class="mt-1 text-base leading-7 text-gray-600">
+              We connect you with professionals who can provide specialist
+              advice and help you develop. Our network of mentors and volunteers
+              includes individuals across a range of industries as well as
+              organisations such as Hogan Lovells, PA Consulting, Herbert Smith
+              Freehills and Johnson & Johnson.
+            </dd>
+          </div>
+        </dl>
       </div>
     </div>
   </div>
