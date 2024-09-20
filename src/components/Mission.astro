@@ -1,26 +1,24 @@
+---
+const { data } = Astro.props;
+---
+
 <div class="bg-violet-900 py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
             <h2
                 class="text-3xl font-bold tracking-tight text-violet-100 sm:text-4xl"
             >
-                Our mission
+                {data.info_title}
             </h2>
             <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
                 <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
                     <p class="text-xl leading-8 text-violet-200">
-                        We are UnLtd. We know social entrepreneurs offer some of
-                        the best solutions to loneliness, community resilience
-                        and our nation’s long term economic, social and cultural
-                        health.
+                        {data.info_text}
                     </p>
                     <p
                         class="mt-10 max-w-xl text-base leading-7 text-violet-300"
                     >
-                        We are committed to 50% of our Awards going to Black,
-                        Asian and minority ethnic social entrepreneurs, and/or
-                        disabled social entrepreneurs across our funding
-                        programmes.
+                        {data.info_callout}
                     </p>
                 </div>
                 <div class="lg:flex lg:flex-auto lg:justify-center">
