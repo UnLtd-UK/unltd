@@ -5,14 +5,14 @@ import Posts from "@components/Posts.astro";
 import Mission from "@components/Mission.astro";
 import Things from "@components/Things.astro";
 import Testamonials from "@components/Testamonials.astro";
-import { posts } from "@data/posts.js";
+import { home } from "@data/home.js";
 const name = "Home";
 const description = "Home description";
 ---
 
 <Template name={name} description={description}>
-  <MainHero />
-  <Mission />
+  <MainHero data={home} />
+  <Mission data={home} />
   <Things />
   <Testamonials />
   <Posts />
