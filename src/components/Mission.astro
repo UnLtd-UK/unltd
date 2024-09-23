@@ -1,0 +1,64 @@
+---
+const { data } = Astro.props;
+---
+
+<div class="bg-violet-900 py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+            <h2
+                class="text-3xl font-bold tracking-tight text-violet-100 sm:text-4xl"
+            >
+                {data.info_title}
+            </h2>
+            <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
+                <div class="lg:w-full lg:max-w-2xl lg:flex-auto">
+                    <p class="text-xl leading-8 text-violet-200">
+                        {data.info_text}
+                    </p>
+                    <p
+                        class="mt-10 max-w-xl text-base leading-7 text-violet-300"
+                    >
+                        {data.info_callout}
+                    </p>
+                </div>
+                <div class="lg:flex lg:flex-auto lg:justify-center">
+                    <dl class="w-64 space-y-8 xl:w-80">
+                        <div class="flex flex-col-reverse gap-y-4">
+                            <dt class="text-base leading-7 text-violet-200">
+                                Last year we backed 253 social entrepreneurs to
+                                develop their ideas and start up.
+                            </dt>
+                            <dd
+                                class="text-5xl font-semibold tracking-tight text-violet-100"
+                            >
+                                253 Social Entrepreneurs
+                            </dd>
+                        </div>
+                        <div class="flex flex-col-reverse gap-y-4">
+                            <dt class="text-base leading-7 text-violet-200">
+                                Through every entrepreneur we supported, 832
+                                people’s lives were positively impacted.
+                            </dt>
+                            <dd
+                                class="text-5xl font-semibold tracking-tight text-violet-100"
+                            >
+                                832 lives impacted
+                            </dd>
+                        </div>
+                        <div class="flex flex-col-reverse gap-y-4">
+                            <dt class="text-base leading-7 text-violet-200">
+                                78% Of social entrepreneurs feel valued and
+                                understood for the change they create.
+                            </dt>
+                            <dd
+                                class="text-5xl font-semibold tracking-tight text-violet-100"
+                            >
+                                78%
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

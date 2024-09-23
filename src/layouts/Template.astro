@@ -85,7 +85,11 @@ import "@fontsource-variable/unbounded"; // ATE
       <Header styles={palette["UnLtd"]} client:load />
       <!-- OLD HEADER -->
       <!-- <Nav /> -->
-      <Breadcrumbs breadcrumbs={breadcrumbs} styles={theme} />
+      {
+        Astro.url.pathname !== "/" ? (
+          <Breadcrumbs breadcrumbs={breadcrumbs} styles={theme} />
+        ) : null
+      }
       <div class={theme.bg}>
         <slot />
       </div>

@@ -1,0 +1,38 @@
+---
+const { data } = Astro.props;
+---
+
+<div class="relative isolate overflow-hidden pt-14">
+    <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
+        <div class="text-center">
+            <h1
+                class="text-4xl font-bold tracking-tight text-violet-100 sm:text-6xl"
+            >
+                {data.hero_title}
+            </h1>
+            <p class="mt-6 text-lg leading-8 text-violet-300">
+                {data.hero_text}
+            </p>
+            <div class="mt-10 flex items-center justify-center gap-x-6">
+                <a
+                    href={data.hero_primary_button_url}
+                    class="rounded-full bg-orange-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-orange-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-400"
+                    >{data.hero_primary_button_text}</a
+                >
+                <a
+                    href={data.hero_primary_button_url}
+                    class="text-sm font-semibold leading-6 text-white"
+                    >{data.hero_primary_button_text}
+                    <span aria-hidden="true">→</span></a
+                >
+            </div>
+        </div>
+    </div>
+    <div class="bg-gray-900 opacity-50 blur-sm h-full">
+        <img
+            src={`https://unltd.directus.app/assets/${data.hero_image}`}
+            class="absolute h-full w-full object-cover object-right opacity-30"
+            alt="Tailwind Play"
+        />
+    </div>
+</div>

@@ -12,7 +12,9 @@ import Container from "@components/Container.astro";
                 Programme eligibility
             </p>
             <p class={`mt-6 text-lg leading-8 ${styles.text2} ${styles.font}`}>
-                To be considered for the {programme.name} programme you must be:
+                To be considered for the {programme.name}
+                {programme.name.endsWith("Programme") ? "" : "programme"} you must
+                be:
             </p>
         </div>
         <div class="flex flex-col lg:flex-row gap-8 lg:gap-24">
