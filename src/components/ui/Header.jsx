@@ -234,15 +234,15 @@ const data = {
             icon: ""
           },
           {
-            name: "Equity Report",
+            name: "Equity Audit 2021",
             link: "",
-            slug: "equity-report",
+            slug: "equity-audit-2021",
             icon: ""
           },
           {
-            name: "Equity Audit",
+            name: "Equity Report 2022",
             link: "",
-            slug: "equity-audit",
+            slug: "equity-report-2022",
             icon: ""
           },
           {
