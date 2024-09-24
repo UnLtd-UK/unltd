@@ -23,39 +23,18 @@ const { data } = Astro.props;
                 </div>
                 <div class="lg:flex lg:flex-auto lg:justify-center">
                     <dl class="w-64 space-y-8 xl:w-80">
-                        <div class="flex flex-col-reverse gap-y-4">
-                            <dt class="text-base leading-7 text-violet-200">
-                                Last year we backed 253 social entrepreneurs to
-                                develop their ideas and start up.
-                            </dt>
-                            <dd
-                                class="text-5xl font-semibold tracking-tight text-violet-100"
-                            >
-                                253 Social Entrepreneurs
-                            </dd>
-                        </div>
-                        <div class="flex flex-col-reverse gap-y-4">
-                            <dt class="text-base leading-7 text-violet-200">
-                                Through every entrepreneur we supported, 832
-                                people’s lives were positively impacted.
-                            </dt>
-                            <dd
-                                class="text-5xl font-semibold tracking-tight text-violet-100"
-                            >
-                                832 lives impacted
-                            </dd>
-                        </div>
-                        <div class="flex flex-col-reverse gap-y-4">
-                            <dt class="text-base leading-7 text-violet-200">
-                                78% Of social entrepreneurs feel valued and
-                                understood for the change they create.
-                            </dt>
-                            <dd
-                                class="text-5xl font-semibold tracking-tight text-violet-100"
-                            >
-                                78%
-                            </dd>
-                        </div>
+                        {
+                            data.statistics.map((stat) => (
+                                <div class="flex flex-col-reverse gap-y-4">
+                                    <dt class="text-base leading-7 text-violet-200">
+                                        {stat.text}
+                                    </dt>
+                                    <dd class="text-5xl font-semibold tracking-tight text-violet-100">
+                                        {stat.title}
+                                    </dd>
+                                </div>
+                            ))
+                        }
                     </dl>
                 </div>
             </div>
