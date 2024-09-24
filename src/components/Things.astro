@@ -1,3 +1,7 @@
+---
+const { data } = Astro.props;
+---
+
 <div class="bg-violet-950 py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div
@@ -11,119 +15,23 @@
             <dl
                 class="col-span-2 grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2"
             >
-                <div>
-                    <dt
-                        class="text-base font-semibold leading-7 text-violet-200"
-                    >
-                        <div
-                            class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100"
-                        >
-                            <i
-                                class="text-lg text-violet-600 fa-regular fa-money-bills-simple"
-                            ></i>
+                {
+                    data.support.map((sup) => (
+                        <div>
+                            <dt class="text-base font-semibold leading-7 text-violet-200">
+                                <div class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-violet-100">
+                                    <i
+                                        class={`text-lg text-violet-600 ${sup.icon}`}
+                                    />
+                                </div>
+                                {sup.title}
+                            </dt>
+                            <dd class="mt-1 text-base leading-7 text-violet-200">
+                                {sup.text}
+                            </dd>
                         </div>
-                        Funding
-                    </dt>
-                    <dd class="mt-1 text-base leading-7 text-violet-200">
-                        Get started or progress your social business to the next
-                        stage of your journey. With up to £18,000 available to
-                        fund organisational costs and help you grow your impact.
-                    </dd>
-                </div>
-                <div>
-                    <dt class="text-base font-semibold leading-7 text-gray-900">
-                        <div
-                            class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
-                        >
-                            <i
-                                class="text-lg text-white fa-regular fa-arrows-up-down-left-right"
-                            ></i>
-                        </div>
-                        Investment
-                    </dt>
-                    <dd class="mt-1 text-base leading-7 text-gray-600">
-                        The Growth Impact Fund is a social investment fund,
-                        helping fast growth early-stage social businesses to
-                        grow their impact. It is a joint venture run in
-                        partnership with UnLtd, Big Issue Invest and Shift. It
-                        exists to make social investment better for founders
-                        from underrepresented backgrounds and their teams.
-                    </dd>
-                </div>
-                <div>
-                    <dt class="text-base font-semibold leading-7 text-gray-900">
-                        <div
-                            class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
-                        >
-                            <i
-                                class="text-lg text-white fa-regular fa-handshake"
-                            ></i>
-                        </div>
-                        One-to-one support
-                    </dt>
-                    <dd class="mt-1 text-base leading-7 text-gray-600">
-                        You'll work with one of our support managers. They'll
-                        provide support, offer coaching and advice, and act as
-                        your 'critical friend' to help you achieve your goals
-                        and become a stronger social leader.
-                    </dd>
-                </div>
-                <div>
-                    <dt class="text-base font-semibold leading-7 text-gray-900">
-                        <div
-                            class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
-                        >
-                            <i class="text-lg text-white fa-regular fa-award"
-                            ></i>
-                        </div>
-                        Business and specialist skills
-                    </dt>
-                    <dd class="mt-1 text-base leading-7 text-gray-600">
-                        From marketing to finance, you’ll get the chance to
-                        build your business skills thanks to our experts and
-                        partners. We run workshops, learning sessions and
-                        accelerators to make sure you get the knowledge you
-                        need.
-                    </dd>
-                </div>
-                <div>
-                    <dt class="text-base font-semibold leading-7 text-gray-900">
-                        <div
-                            class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
-                        >
-                            <i
-                                class="text-lg text-white fa-regular fa-magnifying-glass"
-                            ></i>
-                        </div>
-                        Understanding your impact
-                    </dt>
-                    <dd class="mt-1 text-base leading-7 text-gray-600">
-                        UnLtd can work with you and give you the tools to help
-                        better understand and measure the social impact you want
-                        to achieve. We'll then work with you to help you grow
-                        your impact and make a bigger difference.
-                    </dd>
-                </div>
-                <div>
-                    <dt class="text-base font-semibold leading-7 text-gray-900">
-                        <div
-                            class="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600"
-                        >
-                            <i
-                                class="text-lg text-white fa-regular fa-people-roof"
-                            ></i>
-                        </div>
-                        Mentoring and pro-bono experts
-                    </dt>
-                    <dd class="mt-1 text-base leading-7 text-gray-600">
-                        We connect you with professionals who can provide
-                        specialist advice and help you develop. Our network of
-                        mentors and volunteers includes individuals across a
-                        range of industries as well as organisations such as
-                        Hogan Lovells, PA Consulting, Herbert Smith Freehills
-                        and Johnson & Johnson.
-                    </dd>
-                </div>
+                    ))
+                }
             </dl>
         </div>
     </div>
