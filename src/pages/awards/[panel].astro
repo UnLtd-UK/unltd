@@ -114,16 +114,10 @@ const { name, date, programme, positions, breadcrumbs, description } =
                         positions.map((person) => (
                             <li class="flex flex-col gap-50 pt-12 sm:flex-row">
                                 <div class="basis-1/3">
-                                    {person.positions_id.person.image ? (
+                                    {person.positions_id.person.image && (
                                         <img
                                             class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
                                             src={`https://unltd.directus.app/assets/${person.positions_id.person.image.id}`}
-                                            alt=""
-                                        />
-                                    ) : (
-                                        <img
-                                            class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
-                                            src={`https://source.boringavatars.com/marble/128/untapped-products-shopping-with-purpose?colors=220353,3a0883,ce620c&square`}
                                             alt=""
                                         />
                                     )}
