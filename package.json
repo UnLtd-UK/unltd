@@ -31,13 +31,13 @@
     "@fontsource-variable/montserrat": "^5.1.0",
     "@fontsource-variable/outfit": "^5.1.0",
     "@fontsource-variable/unbounded": "^5.1.0",
-    "@headlessui/react": "2.1.8",
+    "@headlessui/react": "2.1.9",
     "@heroicons/react": "^2.1.5",
     "@types/alpinejs": "^3.13.10",
-    "@types/react": "^18.3.10",
+    "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "alpinejs": "^3.14.1",
-    "astro": "^4.15.10",
+    "astro": "^4.15.11",
     "boring-avatars": "^1.11.2",
     "clsx": "^2.1.1",
     "jsdom": "^25.0.1",
@@ -58,7 +58,7 @@
     "@tailwindcss/typography": "^0.5.15",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.0.1",
-    "wrangler": "^3.78.12"
+    "wrangler": "^3.79.0"
   },
-  "packageManager": "pnpm@9.11.0"
+  "packageManager": "pnpm@9.12.0"
 }
