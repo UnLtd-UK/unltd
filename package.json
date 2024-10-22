@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.0",
-    "@astrojs/db": "^0.14.2",
+    "@astrojs/db": "^0.14.3",
     "@astrojs/mdx": "^3.1.8",
     "@astrojs/react": "^3.6.2",
     "@astrojs/svelte": "^5.7.2",
@@ -37,7 +37,7 @@
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "alpinejs": "^3.14.3",
-    "astro": "^4.16.6",
+    "astro": "^4.16.7",
     "boring-avatars": "^1.11.2",
     "clsx": "^2.1.1",
     "jsdom": "^25.0.1",
