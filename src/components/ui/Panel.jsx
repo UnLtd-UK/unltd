@@ -3,7 +3,7 @@ import { Popover } from '@headlessui/react'
 
 export default function PanelComp({ navs, styles }) {
     return (<Popover.Group className="hidden lg:flex lg:gap-x-12">
-        <a href="/learn" target="_blank" className={`text-sm font-semibold leading-6 ${styles.text}`}>
+        <a href="/learn" className={`text-sm font-semibold leading-6 ${styles.text}`}>
             Learn
         </a>
         {
