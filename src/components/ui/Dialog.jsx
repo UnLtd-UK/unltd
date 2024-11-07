@@ -24,7 +24,7 @@ export default function DialogComp({ nav, styles, mobileMenuOpen, setMobileMenuO
                     <div className="-my-6 divide-y divide-violet-500/10">
                         <div className="space-y-2 py-6">
                             <a
-                                href="https://unltd.notion.site" target="_blank"
+                                href="/learn"
                                 className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-violet-50 hover:bg-violet-900"
                             >
                                 Learn
