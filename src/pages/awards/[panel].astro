@@ -40,7 +40,9 @@ export async function getStaticPaths() {
                     name: name,
                     date: moment(panel.date).format("dddd, MMMM Do YYYY"),
                     programme: panel.programme,
-                    positions: panel.positions,
+                    social_entrepreneurs: panel.social_entrepreneurs,
+                    colleagues: panel.colleagues,
+                    panel_chair: panel.panel_chair,
                     breadcrumbs: breadcrumbs,
                     description:
                         "Hello! We are your panel members; we are looking forward to meeting you and hearing about your social venture.",
@@ -52,8 +54,16 @@ export async function getStaticPaths() {
     }
 }
 
-const { name, date, programme, positions, breadcrumbs, description } =
-    Astro.props;
+const {
+    name,
+    date,
+    programme,
+    social_entrepreneurs,
+    colleagues,
+    panel_chair,
+    breadcrumbs,
+    description,
+} = Astro.props;
 ---
 
 <Template name={name} breadcrumbs={breadcrumbs} description={description}>
@@ -100,36 +110,43 @@ const { name, date, programme, positions, breadcrumbs, description } =
                         {description}
                     </p>
                 </div>
-                <ul
-                    role="list"
-                    class="-mt-12 space-y-12 divide-y divide-violet-500 xl:col-span-3"
-                >
-                    {
-                        positions.map((person) => (
-                            <li class="flex flex-col gap-50 pt-12 sm:flex-row">
-                                <div class="basis-1/3">
-                                    {person.positions_id.person.image && (
+                <div class="xl:col-span-3 flex flex-col gap-24">
+                    <ul
+                        role="list"
+                        class="-mt-12 space-y-12 divide-y divide-violet-500"
+                    >
+                        <h2 class="text-xl text-violet-100 font-bold">
+                            Panel Chair
+                        </h2>
+                        <li class="flex flex-col gap-50 pt-12 sm:flex-row">
+                            <div class="basis-1/3">
+                                {
+                                    panel_chair.person.image && (
                                         <img
                                             class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
-                                            src={`https://unltd.directus.app/assets/${person.positions_id.person.image.id}`}
+                                            src={`https://unltd.directus.app/assets/${panel_chair.person.image.id}`}
                                             alt=""
                                         />
-                                    )}
-                                </div>
+                                    )
+                                }
+                            </div>
 
-                                <div class="basis-2/3 ">
-                                    <div>
-                                        <h3 class="text-lg font-semibold leading-8 tracking-tight text-violet-100">
-                                            {person.positions_id.person.name}
-                                        </h3>
-                                        <div class="flex items-center gap-1">
-                                            {person.positions_id.person
+                            <div class="basis-2/3">
+                                <div>
+                                    <h3
+                                        class="text-lg font-semibold leading-8 tracking-tight text-violet-100"
+                                    >
+                                        {panel_chair.person.name}
+                                    </h3>
+                                    <div class="flex items-center gap-1">
+                                        {
+                                            panel_chair.person
                                                 .gender_pronouns &&
-                                                person.positions_id.person
+                                                panel_chair.person
                                                     .gender_pronouns.length >
                                                     0 && (
                                                     <div class="flex gap-1">
-                                                        {person.positions_id.person.gender_pronouns?.map(
+                                                        {panel_chair.person.gender_pronouns?.map(
                                                             (item) => (
                                                                 <span class="text-xs text-violet-200">
                                                                     {item}
@@ -137,27 +154,31 @@ const { name, date, programme, positions, breadcrumbs, description } =
                                                             ),
                                                         )}
                                                     </div>
-                                                )}
-                                            <div />
-                                        </div>
+                                                )
+                                        }
+                                        <div></div>
                                     </div>
-                                    <p class="text-base leading-7 text-violet-300">
-                                        {person.positions_id.role.name}{" "}
-                                        {person.positions_id.role.organisation
-                                            ?.name &&
-                                            `at ${person.positions_id.role.organisation.name}`}
-                                    </p>
-                                    <p class="mt-6 text-base leading-7 text-violet-200">
-                                        {person.positions_id.person.bio}
-                                    </p>
-                                    <ul role="list" class="mt-6 flex gap-x-6">
-                                        {person.positions_id.person
-                                            .linkedin && (
+                                </div>
+                                <p class="text-base leading-7 text-violet-300">
+                                    {panel_chair.role.name}{" "}
+                                    {
+                                        panel_chair.role.organisation?.name &&
+                                            `at ${panel_chair.role.organisation.name}`
+                                    }
+                                </p>
+                                <p
+                                    class="mt-6 text-base leading-7 text-violet-200"
+                                >
+                                    {panel_chair.person.bio}
+                                </p>
+                                <ul role="list" class="mt-6 flex gap-x-6">
+                                    {
+                                        panel_chair.person.linkedin && (
                                             <li>
                                                 <a
                                                     href={
-                                                        person.positions_id
-                                                            .person.linkedin
+                                                        panel_chair.person
+                                                            .linkedin
                                                     }
                                                     class="text-violet-200 hover:text-violet-400"
                                                 >
@@ -167,19 +188,19 @@ const { name, date, programme, positions, breadcrumbs, description } =
                                                     <i class="fa-brands fa-linkedin text-xl" />
                                                 </a>
                                             </li>
-                                        )}
-                                        {person.positions_id.person.website && (
+                                        )
+                                    }
+                                    {
+                                        panel_chair.person.website && (
                                             <li>
                                                 <a
                                                     href={
-                                                        person.positions_id.person.website.startsWith(
+                                                        panel_chair.person.website.startsWith(
                                                             "https://",
                                                         )
-                                                            ? person
-                                                                  .positions_id
-                                                                  .person
+                                                            ? panel_chair.person
                                                                   .website
-                                                            : `https://${person.positions_id.person.website}`
+                                                            : `https://${panel_chair.person.website}`
                                                     }
                                                     class="text-violet-200 hover:text-violet-400"
                                                 >
@@ -189,13 +210,211 @@ const { name, date, programme, positions, breadcrumbs, description } =
                                                     <i class="fa-regular fa-globe text-xl" />
                                                 </a>
                                             </li>
+                                        )
+                                    }
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul
+                        role="list"
+                        class="-mt-12 space-y-12 divide-y divide-violet-500"
+                    >
+                        <h2 class="text-xl text-violet-100 font-bold">
+                            UnLtd employees
+                        </h2>
+                        {
+                            colleagues.map((colleague) => (
+                                <li class="flex flex-col gap-50 pt-12 sm:flex-row">
+                                    <div class="basis-1/3">
+                                        {colleague.person.image && (
+                                            <img
+                                                class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
+                                                src={`https://unltd.directus.app/assets/${colleague.person.image.id}`}
+                                                alt=""
+                                            />
                                         )}
-                                    </ul>
-                                </div>
-                            </li>
-                        ))
-                    }
-                </ul>
+                                    </div>
+
+                                    <div class="basis-2/3 ">
+                                        <div>
+                                            <h3 class="text-lg font-semibold leading-8 tracking-tight text-violet-100">
+                                                {colleague.person.name}
+                                            </h3>
+                                            <div class="flex items-center gap-1">
+                                                {colleague.person
+                                                    .gender_pronouns &&
+                                                    colleague.person
+                                                        .gender_pronouns
+                                                        .length > 0 && (
+                                                        <div class="flex gap-1">
+                                                            {colleague.person.gender_pronouns?.map(
+                                                                (item) => (
+                                                                    <span class="text-xs text-violet-200">
+                                                                        {item}
+                                                                    </span>
+                                                                ),
+                                                            )}
+                                                        </div>
+                                                    )}
+                                                <div />
+                                            </div>
+                                        </div>
+                                        <p class="text-base leading-7 text-violet-300">
+                                            {colleague.role.name}{" "}
+                                            {colleague.role.organisation
+                                                ?.name &&
+                                                `at ${colleague.role.organisation.name}`}
+                                        </p>
+                                        <p class="mt-6 text-base leading-7 text-violet-200">
+                                            {colleague.person.bio}
+                                        </p>
+                                        <ul
+                                            role="list"
+                                            class="mt-6 flex gap-x-6"
+                                        >
+                                            {colleague.person.linkedin && (
+                                                <li>
+                                                    <a
+                                                        href={
+                                                            colleague.person
+                                                                .linkedin
+                                                        }
+                                                        class="text-violet-200 hover:text-violet-400"
+                                                    >
+                                                        <span class="sr-only">
+                                                            LinkedIn
+                                                        </span>
+                                                        <i class="fa-brands fa-linkedin text-xl" />
+                                                    </a>
+                                                </li>
+                                            )}
+                                            {colleague.person.website && (
+                                                <li>
+                                                    <a
+                                                        href={
+                                                            colleague.person.website.startsWith(
+                                                                "https://",
+                                                            )
+                                                                ? colleague
+                                                                      .person
+                                                                      .website
+                                                                : `https://${colleague.person.website}`
+                                                        }
+                                                        class="text-violet-200 hover:text-violet-400"
+                                                    >
+                                                        <span class="sr-only">
+                                                            Website
+                                                        </span>
+                                                        <i class="fa-regular fa-globe text-xl" />
+                                                    </a>
+                                                </li>
+                                            )}
+                                        </ul>
+                                    </div>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                    <ul
+                        role="list"
+                        class="-mt-12 space-y-12 divide-y divide-violet-500"
+                    >
+                        <h2 class="text-xl text-violet-100 font-bold">
+                            Social Entrepreneurs
+                        </h2>
+                        {
+                            social_entrepreneurs.map((person) => (
+                                <li class="flex flex-col gap-50 pt-12 sm:flex-row">
+                                    <div class="basis-1/3">
+                                        {person.person.image && (
+                                            <img
+                                                class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
+                                                src={`https://unltd.directus.app/assets/${person.person.image.id}`}
+                                                alt=""
+                                            />
+                                        )}
+                                    </div>
+
+                                    <div class="basis-2/3 ">
+                                        <div>
+                                            <h3 class="text-lg font-semibold leading-8 tracking-tight text-violet-100">
+                                                {person.person.name}
+                                            </h3>
+                                            <div class="flex items-center gap-1">
+                                                {person.person
+                                                    .gender_pronouns &&
+                                                    person.person
+                                                        .gender_pronouns
+                                                        .length > 0 && (
+                                                        <div class="flex gap-1">
+                                                            {person.person.gender_pronouns?.map(
+                                                                (item) => (
+                                                                    <span class="text-xs text-violet-200">
+                                                                        {item}
+                                                                    </span>
+                                                                ),
+                                                            )}
+                                                        </div>
+                                                    )}
+                                                <div />
+                                            </div>
+                                        </div>
+                                        <p class="text-base leading-7 text-violet-300">
+                                            {person.role.name}{" "}
+                                            {person.role.organisation?.name &&
+                                                `at ${person.role.organisation.name}`}
+                                        </p>
+                                        <p class="mt-6 text-base leading-7 text-violet-200">
+                                            {person.person.bio}
+                                        </p>
+                                        <ul
+                                            role="list"
+                                            class="mt-6 flex gap-x-6"
+                                        >
+                                            {person.person.linkedin && (
+                                                <li>
+                                                    <a
+                                                        href={
+                                                            person.person
+                                                                .linkedin
+                                                        }
+                                                        class="text-violet-200 hover:text-violet-400"
+                                                    >
+                                                        <span class="sr-only">
+                                                            LinkedIn
+                                                        </span>
+                                                        <i class="fa-brands fa-linkedin text-xl" />
+                                                    </a>
+                                                </li>
+                                            )}
+                                            {person.person.website && (
+                                                <li>
+                                                    <a
+                                                        href={
+                                                            person.person.website.startsWith(
+                                                                "https://",
+                                                            )
+                                                                ? person.person
+                                                                      .website
+                                                                : `https://${person.person.website}`
+                                                        }
+                                                        class="text-violet-200 hover:text-violet-400"
+                                                    >
+                                                        <span class="sr-only">
+                                                            Website
+                                                        </span>
+                                                        <i class="fa-regular fa-globe text-xl" />
+                                                    </a>
+                                                </li>
+                                            )}
+                                        </ul>
+                                    </div>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
     </Container>
