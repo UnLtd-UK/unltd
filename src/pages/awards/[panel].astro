@@ -221,6 +221,104 @@ const {
                         class="-mt-12 space-y-12 divide-y divide-violet-500"
                     >
                         <h2 class="text-xl text-violet-100 font-bold">
+                            Social Entrepreneurs
+                        </h2>
+                        {
+                            social_entrepreneurs.map((person) => (
+                                <li class="flex flex-col gap-50 pt-12 sm:flex-row">
+                                    <div class="basis-1/3">
+                                        {person.person.image && (
+                                            <img
+                                                class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
+                                                src={`https://unltd.directus.app/assets/${person.person.image.id}`}
+                                                alt=""
+                                            />
+                                        )}
+                                    </div>
+
+                                    <div class="basis-2/3 ">
+                                        <div>
+                                            <h3 class="text-lg font-semibold leading-8 tracking-tight text-violet-100">
+                                                {person.person.name}
+                                            </h3>
+                                            <div class="flex items-center gap-1">
+                                                {person.person
+                                                    .gender_pronouns &&
+                                                    person.person
+                                                        .gender_pronouns
+                                                        .length > 0 && (
+                                                        <div class="flex gap-1">
+                                                            {person.person.gender_pronouns?.map(
+                                                                (item) => (
+                                                                    <span class="text-xs text-violet-200">
+                                                                        {item}
+                                                                    </span>
+                                                                ),
+                                                            )}
+                                                        </div>
+                                                    )}
+                                                <div />
+                                            </div>
+                                        </div>
+                                        <p class="text-base leading-7 text-violet-300">
+                                            {person.role.name}{" "}
+                                            {person.role.organisation?.name &&
+                                                `at ${person.role.organisation.name}`}
+                                        </p>
+                                        <p class="mt-6 text-base leading-7 text-violet-200">
+                                            {person.person.bio}
+                                        </p>
+                                        <ul
+                                            role="list"
+                                            class="mt-6 flex gap-x-6"
+                                        >
+                                            {person.person.linkedin && (
+                                                <li>
+                                                    <a
+                                                        href={
+                                                            person.person
+                                                                .linkedin
+                                                        }
+                                                        class="text-violet-200 hover:text-violet-400"
+                                                    >
+                                                        <span class="sr-only">
+                                                            LinkedIn
+                                                        </span>
+                                                        <i class="fa-brands fa-linkedin text-xl" />
+                                                    </a>
+                                                </li>
+                                            )}
+                                            {person.person.website && (
+                                                <li>
+                                                    <a
+                                                        href={
+                                                            person.person.website.startsWith(
+                                                                "https://",
+                                                            )
+                                                                ? person.person
+                                                                      .website
+                                                                : `https://${person.person.website}`
+                                                        }
+                                                        class="text-violet-200 hover:text-violet-400"
+                                                    >
+                                                        <span class="sr-only">
+                                                            Website
+                                                        </span>
+                                                        <i class="fa-regular fa-globe text-xl" />
+                                                    </a>
+                                                </li>
+                                            )}
+                                        </ul>
+                                    </div>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                    <ul
+                        role="list"
+                        class="-mt-12 space-y-12 divide-y divide-violet-500"
+                    >
+                        <h2 class="text-xl text-violet-100 font-bold">
                             UnLtd employees
                         </h2>
                         {
@@ -300,104 +398,6 @@ const {
                                                                       .person
                                                                       .website
                                                                 : `https://${colleague.person.website}`
-                                                        }
-                                                        class="text-violet-200 hover:text-violet-400"
-                                                    >
-                                                        <span class="sr-only">
-                                                            Website
-                                                        </span>
-                                                        <i class="fa-regular fa-globe text-xl" />
-                                                    </a>
-                                                </li>
-                                            )}
-                                        </ul>
-                                    </div>
-                                </li>
-                            ))
-                        }
-                    </ul>
-                    <ul
-                        role="list"
-                        class="-mt-12 space-y-12 divide-y divide-violet-500"
-                    >
-                        <h2 class="text-xl text-violet-100 font-bold">
-                            Social Entrepreneurs
-                        </h2>
-                        {
-                            social_entrepreneurs.map((person) => (
-                                <li class="flex flex-col gap-50 pt-12 sm:flex-row">
-                                    <div class="basis-1/3">
-                                        {person.person.image && (
-                                            <img
-                                                class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
-                                                src={`https://unltd.directus.app/assets/${person.person.image.id}`}
-                                                alt=""
-                                            />
-                                        )}
-                                    </div>
-
-                                    <div class="basis-2/3 ">
-                                        <div>
-                                            <h3 class="text-lg font-semibold leading-8 tracking-tight text-violet-100">
-                                                {person.person.name}
-                                            </h3>
-                                            <div class="flex items-center gap-1">
-                                                {person.person
-                                                    .gender_pronouns &&
-                                                    person.person
-                                                        .gender_pronouns
-                                                        .length > 0 && (
-                                                        <div class="flex gap-1">
-                                                            {person.person.gender_pronouns?.map(
-                                                                (item) => (
-                                                                    <span class="text-xs text-violet-200">
-                                                                        {item}
-                                                                    </span>
-                                                                ),
-                                                            )}
-                                                        </div>
-                                                    )}
-                                                <div />
-                                            </div>
-                                        </div>
-                                        <p class="text-base leading-7 text-violet-300">
-                                            {person.role.name}{" "}
-                                            {person.role.organisation?.name &&
-                                                `at ${person.role.organisation.name}`}
-                                        </p>
-                                        <p class="mt-6 text-base leading-7 text-violet-200">
-                                            {person.person.bio}
-                                        </p>
-                                        <ul
-                                            role="list"
-                                            class="mt-6 flex gap-x-6"
-                                        >
-                                            {person.person.linkedin && (
-                                                <li>
-                                                    <a
-                                                        href={
-                                                            person.person
-                                                                .linkedin
-                                                        }
-                                                        class="text-violet-200 hover:text-violet-400"
-                                                    >
-                                                        <span class="sr-only">
-                                                            LinkedIn
-                                                        </span>
-                                                        <i class="fa-brands fa-linkedin text-xl" />
-                                                    </a>
-                                                </li>
-                                            )}
-                                            {person.person.website && (
-                                                <li>
-                                                    <a
-                                                        href={
-                                                            person.person.website.startsWith(
-                                                                "https://",
-                                                            )
-                                                                ? person.person
-                                                                      .website
-                                                                : `https://${person.person.website}`
                                                         }
                                                         class="text-violet-200 hover:text-violet-400"
                                                     >
