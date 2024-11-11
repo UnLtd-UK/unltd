@@ -13,7 +13,7 @@ import { panels } from "@data/panels.js";
 export async function getStaticPaths() {
     try {
         return panels.map((panel) => {
-            const name = `${moment(panel.date).format("DD-MM-YYYY")}`;
+            const name = `${moment(panel.date_time).format("DD-MM-YYYY-HHmm")}`;
             const slug = slugify(name, {
                 lower: false,
                 strict: false,
@@ -38,10 +38,12 @@ export async function getStaticPaths() {
                 },
                 props: {
                     name: name,
-                    date: moment(panel.date).format("dddd, MMMM Do YYYY"),
+                    date_time: moment(panel.date_time).format(
+                        "dddd, MMMM Do YYYY, HH:mm",
+                    ),
                     programme: panel.programme,
                     social_entrepreneurs: panel.social_entrepreneurs,
-                    colleagues: panel.colleagues,
+                    unltd_colleagues: panel.unltd_colleagues,
                     panel_chair: panel.panel_chair,
                     breadcrumbs: breadcrumbs,
                     description:
@@ -56,10 +58,10 @@ export async function getStaticPaths() {
 
 const {
     name,
-    date,
+    date_time,
     programme,
     social_entrepreneurs,
-    colleagues,
+    unltd_colleagues,
     panel_chair,
     breadcrumbs,
     description,
@@ -81,17 +83,17 @@ const {
                     </div>
                     <div>
                         <h3 class="text-base tracking-tight text-violet-300">
-                            Date
+                            Date and time
                         </h3>
                         <p
                             class="text-xl font-bold tracking-tight text-violet-200"
                         >
-                            {date}
+                            {date_time}
                         </p>
                     </div>
                     <div>
                         <h3 class="text-base tracking-tight text-violet-300">
-                            Award Programme
+                            Award programme
                         </h3>
                         <a
                             href={`/awards/${slugify(programme.name, {
@@ -124,7 +126,7 @@ const {
                                     panel_chair.person.image && (
                                         <img
                                             class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
-                                            src={`https://unltd.directus.app/assets/${panel_chair.person.image.id}`}
+                                            src={`https://unltd.directus.app/assets/${panel_chair.person.image}`}
                                             alt=""
                                         />
                                     )
@@ -224,13 +226,14 @@ const {
                             Social Entrepreneurs
                         </h2>
                         {
-                            social_entrepreneurs.map((person) => (
+                            social_entrepreneurs.map((social_entrepreneur) => (
                                 <li class="flex flex-col gap-50 pt-12 sm:flex-row">
                                     <div class="basis-1/3">
-                                        {person.person.image && (
+                                        {social_entrepreneur.positions_id.person
+                                            .image && (
                                             <img
                                                 class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
-                                                src={`https://unltd.directus.app/assets/${person.person.image.id}`}
+                                                src={`https://unltd.directus.app/assets/${social_entrepreneur.positions_id.person.image}`}
                                                 alt=""
                                             />
                                         )}
@@ -239,16 +242,22 @@ const {
                                     <div class="basis-2/3 ">
                                         <div>
                                             <h3 class="text-lg font-semibold leading-8 tracking-tight text-violet-100">
-                                                {person.person.name}
+                                                {
+                                                    social_entrepreneur
+                                                        .positions_id.person
+                                                        .name
+                                                }
                                             </h3>
                                             <div class="flex items-center gap-1">
-                                                {person.person
+                                                {social_entrepreneur
+                                                    .positions_id.person
                                                     .gender_pronouns &&
-                                                    person.person
+                                                    social_entrepreneur
+                                                        .positions_id.person
                                                         .gender_pronouns
                                                         .length > 0 && (
                                                         <div class="flex gap-1">
-                                                            {person.person.gender_pronouns?.map(
+                                                            {social_entrepreneur.positions_id.person.gender_pronouns?.map(
                                                                 (item) => (
                                                                     <span class="text-xs text-violet-200">
                                                                         {item}
@@ -261,23 +270,36 @@ const {
                                             </div>
                                         </div>
                                         <p class="text-base leading-7 text-violet-300">
-                                            {person.role.name}{" "}
-                                            {person.role.organisation?.name &&
-                                                `at ${person.role.organisation.name}`}
+                                            {
+                                                social_entrepreneur.positions_id
+                                                    .role.name
+                                            }{" "}
+                                            {social_entrepreneur.positions_id
+                                                .role.organisation?.name &&
+                                                `at ${
+                                                    social_entrepreneur
+                                                        .positions_id.role
+                                                        .organisation.name
+                                                }`}
                                         </p>
                                         <p class="mt-6 text-base leading-7 text-violet-200">
-                                            {person.person.bio}
+                                            {
+                                                social_entrepreneur.positions_id
+                                                    .person.bio
+                                            }
                                         </p>
                                         <ul
                                             role="list"
                                             class="mt-6 flex gap-x-6"
                                         >
-                                            {person.person.linkedin && (
+                                            {social_entrepreneur.positions_id
+                                                .person.linkedin && (
                                                 <li>
                                                     <a
                                                         href={
-                                                            person.person
-                                                                .linkedin
+                                                            social_entrepreneur
+                                                                .positions_id
+                                                                .person.linkedin
                                                         }
                                                         class="text-violet-200 hover:text-violet-400"
                                                     >
@@ -288,16 +310,19 @@ const {
                                                     </a>
                                                 </li>
                                             )}
-                                            {person.person.website && (
+                                            {social_entrepreneur.positions_id
+                                                .person.website && (
                                                 <li>
                                                     <a
                                                         href={
-                                                            person.person.website.startsWith(
+                                                            social_entrepreneur.positions_id.person.website.startsWith(
                                                                 "https://",
                                                             )
-                                                                ? person.person
+                                                                ? social_entrepreneur
+                                                                      .positions_id
+                                                                      .person
                                                                       .website
-                                                                : `https://${person.person.website}`
+                                                                : `https://${social_entrepreneur.positions_id.person.website}`
                                                         }
                                                         class="text-violet-200 hover:text-violet-400"
                                                     >
@@ -322,13 +347,14 @@ const {
                             UnLtd employees
                         </h2>
                         {
-                            colleagues.map((colleague) => (
+                            unltd_colleagues.map((unltd_colleague) => (
                                 <li class="flex flex-col gap-50 pt-12 sm:flex-row">
                                     <div class="basis-1/3">
-                                        {colleague.person.image && (
+                                        {unltd_colleague.positions_id.person
+                                            .image && (
                                             <img
                                                 class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
-                                                src={`https://unltd.directus.app/assets/${colleague.person.image.id}`}
+                                                src={`https://unltd.directus.app/assets/${unltd_colleague.positions_id.person.image}`}
                                                 alt=""
                                             />
                                         )}
@@ -337,16 +363,19 @@ const {
                                     <div class="basis-2/3 ">
                                         <div>
                                             <h3 class="text-lg font-semibold leading-8 tracking-tight text-violet-100">
-                                                {colleague.person.name}
+                                                {
+                                                    unltd_colleague.positions_id
+                                                        .person.name
+                                                }
                                             </h3>
                                             <div class="flex items-center gap-1">
-                                                {colleague.person
-                                                    .gender_pronouns &&
-                                                    colleague.person
-                                                        .gender_pronouns
+                                                {unltd_colleague.positions_id
+                                                    .person.gender_pronouns &&
+                                                    unltd_colleague.positions_id
+                                                        .person.gender_pronouns
                                                         .length > 0 && (
                                                         <div class="flex gap-1">
-                                                            {colleague.person.gender_pronouns?.map(
+                                                            {unltd_colleague.positions_id.person.gender_pronouns?.map(
                                                                 (item) => (
                                                                     <span class="text-xs text-violet-200">
                                                                         {item}
@@ -359,24 +388,32 @@ const {
                                             </div>
                                         </div>
                                         <p class="text-base leading-7 text-violet-300">
-                                            {colleague.role.name}{" "}
-                                            {colleague.role.organisation
-                                                ?.name &&
-                                                `at ${colleague.role.organisation.name}`}
+                                            {
+                                                unltd_colleague.positions_id
+                                                    .role.name
+                                            }{" "}
+                                            {unltd_colleague.positions_id.role
+                                                .organisation?.name &&
+                                                `at ${unltd_colleague.positions_id.role.organisation.name}`}
                                         </p>
                                         <p class="mt-6 text-base leading-7 text-violet-200">
-                                            {colleague.person.bio}
+                                            {
+                                                unltd_colleague.positions_id
+                                                    .person.bio
+                                            }
                                         </p>
                                         <ul
                                             role="list"
                                             class="mt-6 flex gap-x-6"
                                         >
-                                            {colleague.person.linkedin && (
+                                            {unltd_colleague.positions_id.person
+                                                .linkedin && (
                                                 <li>
                                                     <a
                                                         href={
-                                                            colleague.person
-                                                                .linkedin
+                                                            unltd_colleague
+                                                                .positions_id
+                                                                .person.linkedin
                                                         }
                                                         class="text-violet-200 hover:text-violet-400"
                                                     >
@@ -387,17 +424,19 @@ const {
                                                     </a>
                                                 </li>
                                             )}
-                                            {colleague.person.website && (
+                                            {unltd_colleague.positions_id.person
+                                                .website && (
                                                 <li>
                                                     <a
                                                         href={
-                                                            colleague.person.website.startsWith(
+                                                            unltd_colleague.positions_id.person.website.startsWith(
                                                                 "https://",
                                                             )
-                                                                ? colleague
+                                                                ? unltd_colleague
+                                                                      .positions_id
                                                                       .person
                                                                       .website
-                                                                : `https://${colleague.person.website}`
+                                                                : `https://${unltd_colleague.positions_id.person.website}`
                                                         }
                                                         class="text-violet-200 hover:text-violet-400"
                                                     >
