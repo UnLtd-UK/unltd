@@ -13,13 +13,13 @@ import { panels } from "@data/panels.js";
 export async function getStaticPaths() {
     try {
         return panels.map((panel) => {
-            const name = `${moment(panel.date_time).format("DD-MM-YYYY-HHmm")}`;
-            const slug = slugify(name, {
+            const name = `${moment(panel.date).format("DD-MM-YYYY")}`;
+            const slug = `${panel.programme.code}-${slugify(name, {
                 lower: false,
                 strict: false,
                 locale: "en",
                 trim: true,
-            });
+            })}`;
 
             const breadcrumbs = [
                 {
@@ -38,9 +38,7 @@ export async function getStaticPaths() {
                 },
                 props: {
                     name: name,
-                    date_time: moment(panel.date_time).format(
-                        "dddd, MMMM Do YYYY, HH:mm",
-                    ),
+                    date: moment(panel.date).format("dddd, MMMM Do YYYY"),
                     programme: panel.programme,
                     social_entrepreneurs: panel.social_entrepreneurs,
                     unltd_colleagues: panel.unltd_colleagues,
@@ -58,7 +56,7 @@ export async function getStaticPaths() {
 
 const {
     name,
-    date_time,
+    date,
     programme,
     social_entrepreneurs,
     unltd_colleagues,
@@ -88,7 +86,7 @@ const {
                         <p
                             class="text-xl font-bold tracking-tight text-violet-200"
                         >
-                            {date_time}
+                            {date}
                         </p>
                     </div>
                     <div>
