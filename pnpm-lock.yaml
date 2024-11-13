@@ -16,16 +16,16 @@ importers:
         version: 0.14.3(@types/react@18.3.12)(react@18.3.1)
       '@astrojs/mdx':
         specifier: ^3.1.9
-        version: 3.1.9(astro@4.16.10(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5))
+        version: 3.1.9(astro@4.16.11(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5))
       '@astrojs/react':
         specifier: ^3.6.2
         version: 3.6.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(vite@5.4.11(@types/node@22.9.0))
       '@astrojs/svelte':
         specifier: ^5.7.3
-        version: 5.7.3(astro@4.16.10(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5))(svelte@4.2.15)(typescript@5.4.5)(vite@5.4.11(@types/node@22.9.0))
+        version: 5.7.3(astro@4.16.11(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5))(svelte@4.2.15)(typescript@5.4.5)(vite@5.4.11(@types/node@22.9.0))
       '@astrojs/tailwind':
         specifier: ^5.1.2
-        version: 5.1.2(astro@4.16.10(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5))(tailwindcss@3.4.14)
+        version: 5.1.2(astro@4.16.11(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5))(tailwindcss@3.4.14)
       '@daviddarnes/storage-form':
         specifier: ^2.0.1
         version: 2.0.1
@@ -69,8 +69,8 @@ importers:
         specifier: ^3.14.3
         version: 3.14.3
       astro:
-        specifier: ^4.16.10
-        version: 4.16.10(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5)
+        specifier: ^4.16.11
+        version: 4.16.11(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5)
       boring-avatars:
         specifier: ^1.11.2
         version: 1.11.2
@@ -1231,8 +1231,8 @@ packages:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
 
-  astro@4.16.10:
-    resolution: {integrity: sha512-a+nB4bZE50NXHLzVXUHtx/lYct2Aa8kbqZnWNrWqkU97RuhBuWJ5H5/LQbKRnBWGvqChKfJBiMWJe53TY9ieYQ==}
+  astro@4.16.11:
+    resolution: {integrity: sha512-Pm0ATut4f8kM2OKbSDbatO5Q/f2ynt1dbc5UGQN8I5bFnJvDbJj3R1NE513BOXXv4GQBKJZUshcZEMvlZpA61g==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2005,7 +2005,6 @@ packages:
 
   libsql@0.4.7:
     resolution: {integrity: sha512-T9eIRCs6b0J1SHKYIvD8+KCJMcWZ900iZyxdnSCdqxN12Z1ijzT+jY5nrk72Jw4B0HGzms2NgpryArlJqvc3Lw==}
-    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lilconfig@2.1.0:
@@ -3318,12 +3317,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@3.1.9(astro@4.16.10(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5))':
+  '@astrojs/mdx@3.1.9(astro@4.16.11(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5))':
     dependencies:
       '@astrojs/markdown-remark': 5.3.0
       '@mdx-js/mdx': 3.1.0(acorn@8.14.0)
       acorn: 8.14.0
-      astro: 4.16.10(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5)
+      astro: 4.16.11(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5)
       es-module-lexer: 1.5.4
       estree-util-visit: 2.0.0
       gray-matter: 4.0.3
@@ -3360,10 +3359,10 @@ snapshots:
       kleur: 4.1.5
       ora: 8.1.1
 
-  '@astrojs/svelte@5.7.3(astro@4.16.10(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5))(svelte@4.2.15)(typescript@5.4.5)(vite@5.4.11(@types/node@22.9.0))':
+  '@astrojs/svelte@5.7.3(astro@4.16.11(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5))(svelte@4.2.15)(typescript@5.4.5)(vite@5.4.11(@types/node@22.9.0))':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 3.1.2(svelte@4.2.15)(vite@5.4.11(@types/node@22.9.0))
-      astro: 4.16.10(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5)
+      astro: 4.16.11(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5)
       svelte: 4.2.15
       svelte2tsx: 0.7.24(svelte@4.2.15)(typescript@5.4.5)
       typescript: 5.4.5
@@ -3371,9 +3370,9 @@ snapshots:
       - supports-color
       - vite
 
-  '@astrojs/tailwind@5.1.2(astro@4.16.10(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5))(tailwindcss@3.4.14)':
+  '@astrojs/tailwind@5.1.2(astro@4.16.11(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5))(tailwindcss@3.4.14)':
     dependencies:
-      astro: 4.16.10(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5)
+      astro: 4.16.11(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5)
       autoprefixer: 10.4.20(postcss@8.4.48)
       postcss: 8.4.48
       postcss-load-config: 4.0.2(postcss@8.4.48)
@@ -4311,7 +4310,7 @@ snapshots:
 
   astring@1.9.0: {}
 
-  astro@4.16.10(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5):
+  astro@4.16.11(@types/node@22.9.0)(rollup@4.25.0)(typescript@5.4.5):
     dependencies:
       '@astrojs/compiler': 2.10.3
       '@astrojs/internal-helpers': 0.4.1
