@@ -9,7 +9,7 @@ const filterOptions = {
             _eq: 'published'
         }
     },
-    fields: ['date', 'programme.*', 'panel_chair.person.*', 'panel_chair.role.*', 'panel_chair.role.organisation.*', 'unltd_colleagues.positions_id.person.*', 'unltd_colleagues.positions_id.role.*', 'unltd_colleagues.positions_id.role.organisation.*', 'social_entrepreneurs.positions_id.person.*', 'social_entrepreneurs.positions_id.role.*', 'social_entrepreneurs.positions_id.role.organisation.*'],
+    fields: ['name', 'date', 'programme.*', 'panel_chair.person.*', 'panel_chair.role.*', 'panel_chair.role.organisation.*', 'unltd_colleagues.positions_id.person.*', 'unltd_colleagues.positions_id.role.*', 'unltd_colleagues.positions_id.role.organisation.*', 'social_entrepreneurs.positions_id.person.*', 'social_entrepreneurs.positions_id.role.*', 'social_entrepreneurs.positions_id.role.organisation.*'],
 }
 
 const attach = false;
