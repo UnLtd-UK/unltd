@@ -14,12 +14,7 @@ export async function getStaticPaths() {
     try {
         return panels.map((panel) => {
             const name = `${moment(panel.date).format("DD-MM-YYYY")}`;
-            const slug = `${panel.programme.code}-${slugify(name, {
-                lower: false,
-                strict: false,
-                locale: "en",
-                trim: true,
-            })}`;
+            const slug = panel.name;
 
             const breadcrumbs = [
                 {
