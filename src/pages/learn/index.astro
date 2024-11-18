@@ -14,6 +14,8 @@ const breadcrumbs = [
         slug: slug,
     },
 ];
+
+const uniqueUsers = [...new Set(learns.map((learn) => learn.user))];
 ---
 
 <Template name={name} description={description} breadcrumbs={breadcrumbs}>
@@ -35,27 +37,92 @@ const breadcrumbs = [
             </div>
         </div>
 
-        <!-- <Tabs client:load /> -->
-
-        <ul
-            role="list"
-            class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        <!-- Filter Links -->
+        <div class="flex flex-wrap gap-4 mb-8">
+            <a
+                href="/learn"
+                class="flex-none rounded-full bg-violet-800 border-violet-500 border px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
+            >
+                For all
+            </a>
             {
-                learns.map((learn) => (
+                uniqueUsers.map((user) => (
                     <a
-                        href={`/learn/${slugify(learn.name, {
+                        href={`/learn/${slugify(user, {
                             lower: true,
                             strict: true,
                             locale: "en",
                             trim: true,
                         })}`}
-                        class="flex-none rounded-md bg-violet-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
+                        class="flex-none rounded-full bg-violet-800 border-violet-500 border px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-violet-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
                     >
-                        {learn.name}
+                        {user}
                     </a>
                 ))
             }
-        </ul>
+        </div>
+
+        <div class="mx-auto max-w-7xl">
+            <div
+                class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+            >
+                {
+                    learns.map((learn) => (
+                        <article class="flex flex-col items-start justify-between">
+                            <div class="max-w-xl">
+                                <div class="mt-8 flex items-center gap-x-4 text-xs">
+                                    <a
+                                        href={`/learn/${slugify(learn.name, {
+                                            lower: true,
+                                            strict: true,
+                                            locale: "en",
+                                            trim: true,
+                                        })}`}
+                                        class="relative z-10 rounded-full bg-violet-800 border-violet-500 border px-3 py-1.5 font-medium text-violet-200 hover:bg-violet-700"
+                                    >
+                                        {(() => {
+                                            switch (learn.user.toLowerCase()) {
+                                                case "for volunteers":
+                                                    return (
+                                                        <i class="fa-solid fa-handshake-angle text-xl" />
+                                                    );
+                                                case "for entrepreneurs":
+                                                    return (
+                                                        <i class="fa-solid fa-head-side text-xl" />
+                                                    );
+                                                default:
+                                                    return null;
+                                            }
+                                        })()}
+                                        {learn.user}
+                                    </a>
+                                </div>
+                                <div class="group relative">
+                                    <h3 class="mt-3 text-lg/6 font-semibold text-violet-200 group-hover:text-violet-300">
+                                        <a
+                                            href={`/learn/${slugify(
+                                                learn.name,
+                                                {
+                                                    lower: true,
+                                                    strict: true,
+                                                    locale: "en",
+                                                    trim: true,
+                                                },
+                                            )}`}
+                                        >
+                                            <span class="absolute inset-0" />
+                                            {learn.name}
+                                        </a>
+                                    </h3>
+                                    <p class="mt-5 line-clamp-3 text-sm/6 text-violet-400">
+                                        {learn.description}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    ))
+                }
+            </div>
+        </div>
     </Container>
 </Template>
