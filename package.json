@@ -31,7 +31,7 @@
     "@fontsource-variable/outfit": "^5.1.0",
     "@fontsource-variable/unbounded": "^5.1.1",
     "@headlessui/react": "2.2.0",
-    "@heroicons/react": "^2.1.5",
+    "@heroicons/react": "^2.2.0",
     "@types/alpinejs": "^3.13.10",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
@@ -43,7 +43,7 @@
     "marked": "^15.0.1",
     "marked-gfm-heading-id": "^4.1.1",
     "moment": "^2.30.1",
-    "prettier-plugin-tailwindcss": "^0.6.8",
+    "prettier-plugin-tailwindcss": "^0.6.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
@@ -57,7 +57,7 @@
     "@tailwindcss/typography": "^0.5.15",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.0.1",
-    "wrangler": "^3.87.0"
+    "wrangler": "^3.88.0"
   },
   "packageManager": "pnpm@9.13.2"
 }
