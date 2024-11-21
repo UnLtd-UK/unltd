@@ -40,7 +40,7 @@
     "boring-avatars": "^1.11.2",
     "clsx": "^2.1.1",
     "jsdom": "^25.0.1",
-    "marked": "^15.0.1",
+    "marked": "^15.0.2",
     "marked-gfm-heading-id": "^4.1.1",
     "moment": "^2.30.1",
     "prettier-plugin-tailwindcss": "^0.6.9",
@@ -59,5 +59,5 @@
     "rimraf": "^6.0.1",
     "wrangler": "^3.88.0"
   },
-  "packageManager": "pnpm@9.13.2"
+  "packageManager": "pnpm@9.14.2"
 }
