@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import ReactRouterDom from 'react-router-dom';
-const { BrowserRouter, useLocation } = ReactRouterDom;
 
 // Real data we aren't using //////////////////////////////
 // import { navigation } from "@data/navigation.js"
