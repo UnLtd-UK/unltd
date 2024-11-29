@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@astrojs/alpinejs':
         specifier: ^0.4.0
-        version: 0.4.0(@types/alpinejs@3.13.11)(alpinejs@3.14.4)
+        version: 0.4.0(@types/alpinejs@3.13.11)(alpinejs@3.14.5)
       '@astrojs/db':
         specifier: ^0.14.3
         version: 0.14.3(@types/react@18.3.12)(react@18.3.1)
@@ -63,8 +63,8 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1
       alpinejs:
-        specifier: ^3.14.4
-        version: 3.14.4
+        specifier: ^3.14.5
+        version: 3.14.5
       astro:
         specifier: ^4.16.16
         version: 4.16.16(@types/node@22.10.1)(rollup@4.27.4)(typescript@5.4.5)
@@ -78,11 +78,11 @@ importers:
         specifier: ^25.0.1
         version: 25.0.1
       marked:
-        specifier: ^15.0.2
-        version: 15.0.2
+        specifier: ^15.0.3
+        version: 15.0.3
       marked-gfm-heading-id:
         specifier: ^4.1.1
-        version: 4.1.1(marked@15.0.2)
+        version: 4.1.1(marked@15.0.3)
       moment:
         specifier: ^2.30.1
         version: 2.30.1
@@ -1149,8 +1149,8 @@ packages:
     resolution: {integrity: sha512-H0TSyFNDMomMNJQBn8wFV5YC/2eJ+VXECwOadZJT554xP6cODZHPX3H9QMQECxvrgiSOP1pHjy1sMWQVYJOUOA==}
     engines: {node: '>= 14'}
 
-  alpinejs@3.14.4:
-    resolution: {integrity: sha512-fRRQaNO/CbY2jmMsu3xV38XmUlltxfoOZug7UwhX6Q6FcjloFcKdjzepeGhH2YC7LDbY6Nk1SMPOmnbZW2rOLA==}
+  alpinejs@3.14.5:
+    resolution: {integrity: sha512-S2Y9s15ONh9SiStZ8h7UYmCzMfM7chB4ddGHv2G1IXzAOrTVci01UcsafMgIOefjfiUXxPs3kPBzoYcyMZ2TZA==}
 
   ansi-align@3.0.1:
     resolution: {integrity: sha512-IOfwwBF5iczOjp/WeY4YxyjqAFMQoZufdQWDd19SEExbVLNXqvpzSJ/M7Za4/sCPmQ0+GRquoA7bGcINcxew6w==}
@@ -1561,8 +1561,8 @@ packages:
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
 
-  electron-to-chromium@1.5.66:
-    resolution: {integrity: sha512-pI2QF6+i+zjPbqRzJwkMvtvkdI7MjVbSh2g8dlMguDJIXEPw+kwasS1Jl+YGPEBfGVxsVgGUratAKymPdPo2vQ==}
+  electron-to-chromium@1.5.67:
+    resolution: {integrity: sha512-nz88NNBsD7kQSAGGJyp8hS6xSPtWwqNogA0mjtc2nUYeEf3nURK9qpV18TuBdDmEDgVWotS8Wkzf+V52dSQ/LQ==}
 
   emoji-regex-xs@1.0.0:
     resolution: {integrity: sha512-LRlerrMYoIDrT6jgpeZ2YYl/L8EulRTt5hQcYjy5AInh7HWXKimpqx68aknBFpGL2+/IcogTcaydJEgaTmOpDg==}
@@ -2042,8 +2042,8 @@ packages:
     peerDependencies:
       marked: '>=13 <16'
 
-  marked@15.0.2:
-    resolution: {integrity: sha512-85RUkoYKIVB21PbMKrnD6aCl9ws+XKEyhJNMbLn206NyD3jbBo7Ec7Wi4Jrsn4dV1a2ng7K/jfkmIN0DNoS41w==}
+  marked@15.0.3:
+    resolution: {integrity: sha512-Ai0cepvl2NHnTcO9jYDtcOEtVBNVYR31XnEA3BndO7f5As1wzpcOceSUM8FDkNLJNIODcLpDTWay/qQhqbuMvg==}
     engines: {node: '>= 18'}
     hasBin: true
 
@@ -2306,8 +2306,8 @@ packages:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
 
-  nwsapi@2.2.13:
-    resolution: {integrity: sha512-cTGB9ptp9dY9A5VbMSe7fQBcl/tt22Vcqdq8+eN93rblOuE0aCFu4aZ2vMwct/2t+lFnosm8RkQW1I0Omb1UtQ==}
+  nwsapi@2.2.14:
+    resolution: {integrity: sha512-5XcFrl8snuCQTJC2SYIW9yhhMnILdMw9dlGT+At11P7jqDuTafp6/uc3lAXsMOmftER3Ntb+T3cHiupOtj7Lgw==}
 
   object-assign@4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
@@ -3182,10 +3182,10 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.5
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@astrojs/alpinejs@0.4.0(@types/alpinejs@3.13.11)(alpinejs@3.14.4)':
+  '@astrojs/alpinejs@0.4.0(@types/alpinejs@3.13.11)(alpinejs@3.14.5)':
     dependencies:
       '@types/alpinejs': 3.13.11
-      alpinejs: 3.14.4
+      alpinejs: 3.14.5
 
   '@astrojs/compiler@2.10.3': {}
 
@@ -4182,7 +4182,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  alpinejs@3.14.4:
+  alpinejs@3.14.5:
     dependencies:
       '@vue/reactivity': 3.1.5
 
@@ -4354,7 +4354,7 @@ snapshots:
   browserslist@4.24.2:
     dependencies:
       caniuse-lite: 1.0.30001684
-      electron-to-chromium: 1.5.66
+      electron-to-chromium: 1.5.67
       node-releases: 2.0.18
       update-browserslist-db: 1.1.1(browserslist@4.24.2)
 
@@ -4534,7 +4534,7 @@ snapshots:
 
   eastasianwidth@0.2.0: {}
 
-  electron-to-chromium@1.5.66: {}
+  electron-to-chromium@1.5.67: {}
 
   emoji-regex-xs@1.0.0: {}
 
@@ -5034,7 +5034,7 @@ snapshots:
       http-proxy-agent: 7.0.2
       https-proxy-agent: 7.0.5
       is-potential-custom-element-name: 1.0.1
-      nwsapi: 2.2.13
+      nwsapi: 2.2.14
       parse5: 7.2.1
       rrweb-cssom: 0.7.1
       saxes: 6.0.0
@@ -5135,12 +5135,12 @@ snapshots:
 
   markdown-table@3.0.4: {}
 
-  marked-gfm-heading-id@4.1.1(marked@15.0.2):
+  marked-gfm-heading-id@4.1.1(marked@15.0.3):
     dependencies:
       github-slugger: 2.0.0
-      marked: 15.0.2
+      marked: 15.0.3
 
-  marked@15.0.2: {}
+  marked@15.0.3: {}
 
   mdast-util-definitions@6.0.0:
     dependencies:
@@ -5665,7 +5665,7 @@ snapshots:
 
   normalize-range@0.1.2: {}
 
-  nwsapi@2.2.13: {}
+  nwsapi@2.2.14: {}
 
   object-assign@4.1.1: {}
 
