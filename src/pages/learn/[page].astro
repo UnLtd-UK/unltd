@@ -3,6 +3,7 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Tabs from "@components/Tabs.jsx";
 import { learns } from "@data/learns.js";
+import { calculateReadTime } from "@data/functions/read-time.js";
 import slugify from "slugify";
 const uniqueUsers = [...new Set(learns.map((learn) => learn.user))];
 const name = "Learn";
@@ -106,65 +107,125 @@ export async function getStaticPaths() {
                                     trim: true,
                                 }) === Astro.url.pathname.split("/").pop(),
                         )
-                        .map((learn) => (
-                            <article class="flex flex-col items-start justify-between">
-                                <div class="max-w-xl">
-                                    <div class="mt-8 flex items-center gap-x-4 text-xs">
-                                        <a
-                                            href={`/learn/${slugify(
-                                                learn.name,
-                                                {
-                                                    lower: true,
-                                                    strict: true,
-                                                    locale: "en",
-                                                    trim: true,
-                                                },
-                                            )}`}
-                                            class="relative z-10 rounded-full bg-violet-800 border-violet-500 border px-3 py-1.5 font-medium text-violet-200 hover:bg-violet-700"
-                                        >
-                                            {(() => {
-                                                switch (
-                                                    learn.user.toLowerCase()
-                                                ) {
-                                                    case "for volunteers":
-                                                        return (
-                                                            <i class="fa-solid fa-handshake-angle text-xl" />
-                                                        );
-                                                    case "for entrepreneurs":
-                                                        return (
-                                                            <i class="fa-solid fa-head-side text-xl" />
-                                                        );
-                                                    default:
-                                                        return null;
-                                                }
-                                            })()}
-                                            {learn.user}
-                                        </a>
-                                    </div>
-                                    <div class="group relative">
-                                        <h3 class="mt-3 text-lg/6 font-semibold text-violet-200 group-hover:text-violet-300">
-                                            <a
-                                                href={`/learn/${slugify(
-                                                    learn.name,
-                                                    {
-                                                        lower: true,
-                                                        strict: true,
-                                                        locale: "en",
-                                                        trim: true,
-                                                    },
-                                                )}`}
-                                            >
-                                                <span class="absolute inset-0" />
-                                                {learn.name}
-                                            </a>
-                                        </h3>
-                                        <p class="mt-5 line-clamp-3 text-sm/6 text-violet-400">
-                                            {learn.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                        ))
+                        .map((learn) => {
+                            if (learn.type === "Resource") {
+                                return (
+                                    <article class="flex flex-col items-start justify-between hover:bg-violet-900 p-4 rounded-xl">
+                                        <div class="max-w-xl">
+                                            {/* <div class="mt-8 flex items-center gap-x-4 text-xs">
+                                                <a
+                                                    href={`/learn/${slugify(
+                                                        learn.name,
+                                                        {
+                                                            lower: true,
+                                                            strict: true,
+                                                            locale: "en",
+                                                            trim: true,
+                                                        },
+                                                    )}`}
+                                                    class="relative z-10 rounded-full bg-violet-800 border-violet-500 border px-3 py-1.5 font-medium text-violet-200 hover:bg-violet-700"
+                                                >
+                                                    {(() => {
+                                                        switch (
+                                                            learn.user.toLowerCase()
+                                                        ) {
+                                                            case "for volunteers":
+                                                                return (
+                                                                    <i class="fa-solid fa-handshake-angle text-xl" />
+                                                                );
+                                                            case "for entrepreneurs":
+                                                                return (
+                                                                    <i class="fa-solid fa-head-side text-xl" />
+                                                                );
+                                                            default:
+                                                                return null;
+                                                        }
+                                                    })()}
+                                                    {learn.user}
+                                                </a>
+                                            </div> */}
+                                            <div class="group relative">
+                                                <span class="text-xs text-violet-400">
+                                                    {`${calculateReadTime(
+                                                        learn.body,
+                                                    )} MINS`}
+                                                </span>
+                                                <h3 class="mt-3 text-lg/6 font-semibold text-violet-200 group-hover:text-violet-300">
+                                                    <a
+                                                        href={`/learn/${slugify(
+                                                            learn.name,
+                                                            {
+                                                                lower: true,
+                                                                strict: true,
+                                                                locale: "en",
+                                                                trim: true,
+                                                            },
+                                                        )}`}
+                                                    >
+                                                        <span class="absolute inset-0" />
+                                                        {learn.name}
+                                                    </a>
+                                                </h3>
+                                                <p class="mt-5 line-clamp-3 text-sm/6 text-violet-400">
+                                                    {learn.description}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+                                );
+                            } else if (learn.type === "Subject") {
+                                return (
+                                    // <article class="flex flex-row gap-4 hover:bg-violet-900 p-4 rounded-xl">
+                                    //     <a>
+                                    //         <div>
+                                    //             <span class="bg-violet-200 p-4 rounded-full">
+                                    //                 <i class="fa-sharp fa-solid fa-cart-shopping text-violet-100" />
+                                    //             </span>
+                                    //         </div>
+                                    //         <div>
+                                    //             <p class="font-bold text-violet-50 text-sm">
+                                    //                 {learn.name}
+                                    //             </p>
+                                    //             <p class="text-xs text-violet-200 leading-5">
+                                    //                 {learn.description}
+                                    //             </p>
+                                    //         </div>
+                                    //     </a>
+                                    // </article>
+
+                                    <article class="flex flex-col items-start justify-between hover:bg-violet-900 p-4 rounded-xl">
+                                        <div class="max-w-xl group relative flex flex-col gap-6">
+                                            <div class="flex flex-row gap-4">
+                                                <div>
+                                                    <span class="bg-violet-200 p-3 rounded-full">
+                                                        <i class="fa-sharp fa-solid fa-cart-shopping text-violet-800" />
+                                                    </span>
+                                                </div>
+                                                <h3 class=" text-lg/6 font-semibold text-violet-200 group-hover:text-violet-300">
+                                                    <a
+                                                        href={`/learn/${slugify(
+                                                            learn.name,
+                                                            {
+                                                                lower: true,
+                                                                strict: true,
+                                                                locale: "en",
+                                                                trim: true,
+                                                            },
+                                                        )}`}
+                                                    >
+                                                        <span class="absolute inset-0" />
+                                                        {learn.name}
+                                                    </a>
+                                                </h3>
+                                            </div>
+                                            <p class=" line-clamp-3 text-sm/6 text-violet-400">
+                                                {learn.description}
+                                            </p>
+                                        </div>
+                                    </article>
+                                );
+                            }
+                        })
                 }
             </div>
         </div>
