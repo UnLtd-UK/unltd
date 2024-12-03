@@ -1,19 +1,19 @@
 ---
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
-import Breadcrumbs from "@components/Breadcrumbs.astro";
-import Hero from "@components/Hero.astro";
-import { marked } from "marked";
 import slugify from "slugify";
-
-import Faqmd from "@components/Faqmd.astro";
-import Note from "@components/Note.astro";
-
+import Hero from "@components/Hero.astro";
 import { learns } from "@data/learns.js";
+import { markdocRenderer } from "@utils/markdocRenderer.js";
+
+// MARKDOC
+// Dropdown
+import Dropdown from "@components/markdoc/Dropdown.astro";
+import Tip from "@components/markdoc/Tip.astro";
 
 export async function getStaticPaths() {
   return learns.map((learn) => {
-    let breadcrumbs = [
+    const breadcrumbs = [
       {
         name: learn.name,
         slug: `/${slugify(learn.name, {
@@ -27,7 +27,12 @@ export async function getStaticPaths() {
 
     learn.breadcrumbs = breadcrumbs;
 
-    let item = {
+    const html = markdocRenderer(learn.body, {
+      Dropdown,
+      Tip,
+    });
+
+    return {
       params: {
         learn: slugify(learn.name, {
           lower: true,
@@ -37,15 +42,14 @@ export async function getStaticPaths() {
         }),
       },
       props: {
-        learn: learn,
+        learn,
+        html,
       },
     };
-
-    return item;
   });
 }
 
-const { learn } = Astro.props;
+const { learn, html } = Astro.props;
 ---
 
 <Template
@@ -56,8 +60,8 @@ const { learn } = Astro.props;
   <Container>
     <Hero name={learn.name} description={learn.description} />
     <div
-      set:html={marked.parse(learn.body)}
       class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
+      set:html={html}
     />
   </Container>
 </Template>
