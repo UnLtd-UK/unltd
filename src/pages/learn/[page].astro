@@ -112,38 +112,6 @@ export async function getStaticPaths() {
                                 return (
                                     <article class="flex flex-col items-start justify-between hover:bg-violet-900 p-4 rounded-xl">
                                         <div class="max-w-xl">
-                                            {/* <div class="mt-8 flex items-center gap-x-4 text-xs">
-                                                <a
-                                                    href={`/learn/${slugify(
-                                                        learn.name,
-                                                        {
-                                                            lower: true,
-                                                            strict: true,
-                                                            locale: "en",
-                                                            trim: true,
-                                                        },
-                                                    )}`}
-                                                    class="relative z-10 rounded-full bg-violet-800 border-violet-500 border px-3 py-1.5 font-medium text-violet-200 hover:bg-violet-700"
-                                                >
-                                                    {(() => {
-                                                        switch (
-                                                            learn.user.toLowerCase()
-                                                        ) {
-                                                            case "for volunteers":
-                                                                return (
-                                                                    <i class="fa-solid fa-handshake-angle text-xl" />
-                                                                );
-                                                            case "for entrepreneurs":
-                                                                return (
-                                                                    <i class="fa-solid fa-head-side text-xl" />
-                                                                );
-                                                            default:
-                                                                return null;
-                                                        }
-                                                    })()}
-                                                    {learn.user}
-                                                </a>
-                                            </div> */}
                                             <div class="group relative">
                                                 <span class="text-xs text-violet-400">
                                                     {`${calculateReadTime(
@@ -175,24 +143,6 @@ export async function getStaticPaths() {
                                 );
                             } else if (learn.type === "Subject") {
                                 return (
-                                    // <article class="flex flex-row gap-4 hover:bg-violet-900 p-4 rounded-xl">
-                                    //     <a>
-                                    //         <div>
-                                    //             <span class="bg-violet-200 p-4 rounded-full">
-                                    //                 <i class="fa-sharp fa-solid fa-cart-shopping text-violet-100" />
-                                    //             </span>
-                                    //         </div>
-                                    //         <div>
-                                    //             <p class="font-bold text-violet-50 text-sm">
-                                    //                 {learn.name}
-                                    //             </p>
-                                    //             <p class="text-xs text-violet-200 leading-5">
-                                    //                 {learn.description}
-                                    //             </p>
-                                    //         </div>
-                                    //     </a>
-                                    // </article>
-
                                     <article class="flex flex-col items-start justify-between hover:bg-violet-900 p-4 rounded-xl">
                                         <div class="max-w-xl group relative flex flex-col gap-6">
                                             <div class="flex flex-row gap-4">
