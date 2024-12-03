@@ -1,6 +1,5 @@
 ---
-import { marked } from "marked";
-const { question } = Astro.props;
+const { name } = Astro.props;
 ---
 
 <div class="pt-6" x-data="{ open: false }">
@@ -15,7 +14,7 @@ const { question } = Astro.props;
     >
       <span
         class="text-xl font-semibold leading-7 text-violet-600 dark:text-violet-400"
-        >{question}</span
+        >{name}</span
       >
       <span class="ml-6 flex h-7 items-center">
         <i class="fa-solid fa-chevron-down" x-show="!open" aria-hidden="true"
