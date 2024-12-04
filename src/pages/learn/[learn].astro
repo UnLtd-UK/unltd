@@ -4,7 +4,7 @@ import Container from "@components/Container.astro";
 import slugify from "slugify";
 import Hero from "@components/Hero.astro";
 import { learns } from "@data/learns.js";
-import { markdocRenderer } from "@utils/markdocRenderer.js";
+import markdocRenderer from "@utils/markdocRenderer.mjs";
 
 // MARKDOC
 // Dropdown
@@ -12,41 +12,35 @@ import Dropdown from "@components/markdoc/Dropdown.astro";
 import Tip from "@components/markdoc/Tip.astro";
 
 export async function getStaticPaths() {
-  return learns.map((learn) => {
-    const breadcrumbs = [
-      {
-        name: learn.name,
-        slug: `/${slugify(learn.name, {
-          lower: true,
-          strict: true,
-          locale: "en",
-          trim: true,
-        })}`,
-      },
-    ];
+  return learns
+    .filter((learn) => learn.body)
+    .map((learn) => {
+      const slug = slugify(learn.name, {
+        lower: true,
+        strict: true,
+        locale: "en",
+        trim: true,
+      });
 
-    learn.breadcrumbs = breadcrumbs;
+      learn.breadcrumbs = [
+        {
+          name: learn.name,
+          slug: slug,
+        },
+      ];
 
-    const html = markdocRenderer(learn.body, {
-      Dropdown,
-      Tip,
+      const html = markdocRenderer(learn.body);
+
+      return {
+        params: {
+          learn: slug,
+        },
+        props: {
+          learn,
+          html,
+        },
+      };
     });
-
-    return {
-      params: {
-        learn: slugify(learn.name, {
-          lower: true,
-          strict: true,
-          locale: "en",
-          trim: true,
-        }),
-      },
-      props: {
-        learn,
-        html,
-      },
-    };
-  });
 }
 
 const { learn, html } = Astro.props;
