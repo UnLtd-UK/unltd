@@ -1,9 +1,10 @@
 ---
 import moment from "moment";
+import BlogAvatar from "./BlogAvatar";
 const { post } = Astro.props;
 ---
 
-<li class="col-span-1 divide-y divide-gray-200 rounded-lg shadow" key={post.id}>
+<li class="col-span-1 divide-y divide-gray-200 rounded-lg shadow">
     <a href={`/blog/${post.slug}`}>
         <article
             class="flex flex-col items-start justify-between transition hover:bg-violet-100 dark:hover:bg-violet-900 hover:outline-violet-200 hover:dark:outline-violet-800 p-6 rounded-2xl"
@@ -17,11 +18,9 @@ const { post } = Astro.props;
                             class="absolute inset-0 w-full h-full object-cover rounded-2xl"
                         />
                     ) : (
-                        <img
-                            src={`https://source.boringavatars.com/marble/128/${encodeURI(post.slug)}?colors=220353,3a0883,ce620c&square`}
-                            alt=""
-                            class="absolute inset-0 w-full h-full object-cover rounded-2xl"
-                        />
+                        <div class="error-boundary rounded-2xl">
+                            <BlogAvatar title={post.title} client:only="react" />
+                        </div>
                     )
                 }
             </div>
