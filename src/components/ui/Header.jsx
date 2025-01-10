@@ -41,7 +41,7 @@ const data = {
           {
             id: 1,
             name: "Fundraising",
-            description: "Give money",
+            description: "Explore our initiatives and ways to get involved",
             href: "/fundraising",
             icon: "fa-solid fa-piggy-bank"
           },
@@ -280,7 +280,7 @@ const data = {
             icon: ""
           },
           {
-            name: "Brand assets",
+            name: "Brand Assets",
             link: "",
             slug: "brand-assets",
             icon: ""
