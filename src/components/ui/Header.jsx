@@ -280,7 +280,7 @@ const data = {
             icon: ""
           },
           {
-            name: "Brand assets",
+            name: "Brand Assets",
             link: "",
             slug: "brand-assets",
             icon: ""
