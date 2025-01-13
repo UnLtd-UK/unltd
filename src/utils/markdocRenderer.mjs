@@ -2,6 +2,9 @@ import Markdoc from '@markdoc/markdoc';
 import { slugify } from './slugify';
 import config from '@utils/markdoc.config.mjs';
 
+// Keep track of heading occurrences
+const headingCounts = new Map();
+
 const updatedConfig = {
   ...config,
   nodes: {
@@ -10,7 +13,14 @@ const updatedConfig = {
       transform(node, config) {
         const children = node.transformChildren(config);
         const text = children.join('');
-        const id = slugify(text);
+        const baseId = slugify(text);
+        
+        // Get and increment the count for this heading
+        const count = (headingCounts.get(baseId) || 0) + 1;
+        headingCounts.set(baseId, count);
+        
+        // Always include the number prefix for consistency
+        const id = `${count}-${baseId}`;
         const level = node.attributes['level'];
         
         return new Markdoc.Tag(
@@ -39,6 +49,9 @@ const updatedConfig = {
 
 export default function markdocRenderer(content) {
   try {
+    // Reset the heading counts for each new document
+    headingCounts.clear();
+    
     const ast = Markdoc.parse(content);
     const transformed = Markdoc.transform(ast, updatedConfig);
     return Markdoc.renderers.html(transformed);
