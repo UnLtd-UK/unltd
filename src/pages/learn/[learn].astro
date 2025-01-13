@@ -6,10 +6,10 @@ import Hero from "@components/Hero.astro";
 import { learns } from "@data/learns.js";
 import markdocRenderer from "@utils/markdocRenderer.mjs";
 
-// MARKDOC
-// Dropdown
+// MARKDOC Components
 import Dropdown from "@components/markdoc/Dropdown.astro";
 import Tip from "@components/markdoc/Tip.astro";
+import Heading from "@components/markdoc/Heading.astro";
 
 export async function getStaticPaths() {
   return learns
@@ -54,7 +54,7 @@ const { learn, html } = Astro.props;
   <Container>
     <Hero name={learn.name} description={learn.description} />
     <div
-      class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
+      class="scroll-smooth prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
       set:html={html}
     />
   </Container>
