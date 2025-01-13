@@ -74,8 +74,8 @@ export async function getStaticPaths() {
           const count = (headingCounts.get(baseId) || 0) + 1;
           headingCounts.set(baseId, count);
           
-          const id = duplicateHeadings.has(baseId) 
-            ? `${count}-${baseId}` 
+          const id = duplicateHeadings.has(baseId) && count > 1
+            ? `${baseId}-${count - 1}`  // Subtract 1 so second occurrence is "baseId-1"
             : baseId;
           
           headings.push({ level, text, id });
