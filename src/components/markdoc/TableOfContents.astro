@@ -1,0 +1,83 @@
+---
+interface Props {
+  headings: {
+    id: string;
+    level: number;
+    text: string;
+  }[];
+}
+
+const { headings } = Astro.props;
+const filteredHeadings = headings.filter(heading => heading.level <= 2);
+---
+
+<div class="hidden lg:block w-64 shrink-0">
+  <div class="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
+    <nav class="space-y-4 bg-violet-950/50 rounded-xl backdrop-blur-sm">
+      <h2 class="font-semibold text-violet-200 mb-4">Table of Contents</h2>
+      <div class="inset-0 flex items-center" aria-hidden="true">
+        <div class="w-full border-t border-violet-800"></div>
+      </div>
+
+      <ul class="space-y-3">
+        {
+          filteredHeadings.map((heading) => (
+            <li
+              class={`text-sm ${
+                heading.level === 1
+                  ? "font-semibold text-violet-50 text-sm"
+                  : "font-normal text-violet-300 text-xs pl-4"
+              } hover:bg-violet-900 border-1 border-violet-700 rounded p-1`}
+            >
+              <a
+                href={`#${heading.id}`}
+                class=" hover:text-violet-100 block transition-colors duration-200"
+              >
+                {heading.text}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<button
+  id="backToTop"
+  class="fixed bottom-8 right-8 bg-violet-800 hover:bg-violet-700 text-white p-3 rounded-full shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none"
+  aria-label="Back to top"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+  </svg>
+</button>
+
+<script>
+  // Handle back to top button visibility
+  const backToTop = document.getElementById("backToTop");
+
+  if (backToTop) {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        backToTop.classList.remove("opacity-0", "pointer-events-none");
+      } else {
+        backToTop.classList.add("opacity-0", "pointer-events-none");
+      }
+    });
+
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+</script>

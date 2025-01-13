@@ -1,0 +1,15 @@
+---
+const { level, id } = Astro.props;
+const Tag = `h${level}`;
+---
+
+<Tag id={id} class="group flex whitespace-pre-wrap">
+  <slot />
+  <a
+    href={`#${id}`}
+    class="ml-2 opacity-0 group-hover:opacity-100 transition-opacity"
+    aria-label="Link to this section"
+  >
+    🔗
+  </a>
+</Tag> 

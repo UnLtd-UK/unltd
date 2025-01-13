@@ -5,11 +5,12 @@ import slugify from "slugify";
 import Hero from "@components/Hero.astro";
 import { learns } from "@data/learns.js";
 import markdocRenderer from "@utils/markdocRenderer.mjs";
+import TableOfContents from "@components/markdoc/TableOfContents.astro";
 
-// MARKDOC
-// Dropdown
+// MARKDOC Components
 import Dropdown from "@components/markdoc/Dropdown.astro";
 import Tip from "@components/markdoc/Tip.astro";
+import Heading from "@components/markdoc/Heading.astro";
 
 export async function getStaticPaths() {
   return learns
@@ -29,6 +30,59 @@ export async function getStaticPaths() {
         },
       ];
 
+      // Extract headings from the content
+      const headings = [];
+      const headingCounts = new Map();
+      const duplicateHeadings = new Set();
+
+      // First pass to identify duplicates
+      const lines = learn.body.split("\n");
+      lines.forEach((line) => {
+        const match = line.match(/^(#{1,6})\s+(.+)$/);
+        if (match) {
+          const text = match[2];
+          const baseId = slugify(text, {
+            lower: true,
+            strict: true,
+            locale: "en",
+            trim: true,
+          });
+          const count = (headingCounts.get(baseId) || 0) + 1;
+          headingCounts.set(baseId, count);
+          if (count === 2) {
+            duplicateHeadings.add(baseId);
+          }
+        }
+      });
+
+      // Reset counts for second pass
+      headingCounts.clear();
+
+      // Second pass to generate final IDs
+      lines.forEach((line) => {
+        const match = line.match(/^(#{1,6})\s+(.+)$/);
+        if (match) {
+          const level = match[1].length;
+          const text = match[2];
+          const baseId = slugify(text, {
+            lower: true,
+            strict: true,
+            locale: "en",
+            trim: true,
+          });
+
+          const count = (headingCounts.get(baseId) || 0) + 1;
+          headingCounts.set(baseId, count);
+
+          const id =
+            duplicateHeadings.has(baseId) && count > 1
+              ? `${baseId}-${count - 1}` // Subtract 1 so second occurrence is "baseId-1"
+              : baseId;
+
+          headings.push({ level, text, id });
+        }
+      });
+
       const html = markdocRenderer(learn.body);
 
       return {
@@ -38,12 +92,13 @@ export async function getStaticPaths() {
         props: {
           learn,
           html,
+          headings,
         },
       };
     });
 }
 
-const { learn, html } = Astro.props;
+const { learn, html, headings } = Astro.props;
 ---
 
 <Template
@@ -52,10 +107,15 @@ const { learn, html } = Astro.props;
   breadcrumbs={learn.breadcrumbs}
 >
   <Container>
-    <Hero name={learn.name} description={learn.description} />
-    <div
-      class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
-      set:html={html}
-    />
+    <div class="relative flex flex-col lg:flex-row gap-8">
+      <TableOfContents headings={headings} />
+      <div class="flex-1">
+        <Hero name={learn.name} description={learn.description} />
+        <div
+          class="scroll-smooth prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
+          set:html={html}
+        />
+      </div>
+    </div>
   </Container>
 </Template>
