@@ -36,7 +36,7 @@ const updatedConfig = {
           `h${level}`,
           { 
             id,
-            class: 'group flex whitespace-pre-wrap'
+            class: 'group flex whitespace-pre-wrap scroll-mt-12'
           },
           [
             ...children,

@@ -36,8 +36,8 @@ export async function getStaticPaths() {
       const duplicateHeadings = new Set();
 
       // First pass to identify duplicates
-      const lines = learn.body.split('\n');
-      lines.forEach(line => {
+      const lines = learn.body.split("\n");
+      lines.forEach((line) => {
         const match = line.match(/^(#{1,6})\s+(.+)$/);
         if (match) {
           const text = match[2];
@@ -59,7 +59,7 @@ export async function getStaticPaths() {
       headingCounts.clear();
 
       // Second pass to generate final IDs
-      lines.forEach(line => {
+      lines.forEach((line) => {
         const match = line.match(/^(#{1,6})\s+(.+)$/);
         if (match) {
           const level = match[1].length;
@@ -70,14 +70,15 @@ export async function getStaticPaths() {
             locale: "en",
             trim: true,
           });
-          
+
           const count = (headingCounts.get(baseId) || 0) + 1;
           headingCounts.set(baseId, count);
-          
-          const id = duplicateHeadings.has(baseId) && count > 1
-            ? `${baseId}-${count - 1}`  // Subtract 1 so second occurrence is "baseId-1"
-            : baseId;
-          
+
+          const id =
+            duplicateHeadings.has(baseId) && count > 1
+              ? `${baseId}-${count - 1}` // Subtract 1 so second occurrence is "baseId-1"
+              : baseId;
+
           headings.push({ level, text, id });
         }
       });
@@ -106,7 +107,8 @@ const { learn, html, headings } = Astro.props;
   breadcrumbs={learn.breadcrumbs}
 >
   <Container>
-    <div class="relative flex gap-8">
+    <div class="relative flex flex-col lg:flex-row gap-8">
+      <TableOfContents headings={headings} />
       <div class="flex-1">
         <Hero name={learn.name} description={learn.description} />
         <div
@@ -114,7 +116,6 @@ const { learn, html, headings } = Astro.props;
           set:html={html}
         />
       </div>
-      <TableOfContents headings={headings} />
     </div>
   </Container>
 </Template>
