@@ -2,8 +2,9 @@ import Markdoc from '@markdoc/markdoc';
 import { slugify } from './slugify';
 import config from '@utils/markdoc.config.mjs';
 
-// Keep track of heading occurrences
+// Keep track of heading occurrences and which ones are duplicates
 const headingCounts = new Map();
+const duplicateHeadings = new Set();
 
 const updatedConfig = {
   ...config,
@@ -19,8 +20,16 @@ const updatedConfig = {
         const count = (headingCounts.get(baseId) || 0) + 1;
         headingCounts.set(baseId, count);
         
-        // Always include the number prefix for consistency
-        const id = `${count}-${baseId}`;
+        // If this is the second occurrence, mark it as a duplicate
+        if (count === 2) {
+          duplicateHeadings.add(baseId);
+        }
+        
+        // Only add numbers if this heading is in our duplicates set
+        const id = duplicateHeadings.has(baseId) 
+          ? `${count}-${baseId}` 
+          : baseId;
+        
         const level = node.attributes['level'];
         
         return new Markdoc.Tag(
@@ -49,10 +58,28 @@ const updatedConfig = {
 
 export default function markdocRenderer(content) {
   try {
-    // Reset the heading counts for each new document
+    // Reset the tracking for each new document
+    headingCounts.clear();
+    duplicateHeadings.clear();
+    
+    // Pre-scan to identify duplicates
+    const ast = Markdoc.parse(content);
+    const headings = ast.walk(node => {
+      if (node.type === 'heading') {
+        const text = node.children[0]?.children?.[0] || '';
+        const baseId = slugify(text);
+        const count = (headingCounts.get(baseId) || 0) + 1;
+        headingCounts.set(baseId, count);
+        if (count === 2) {
+          duplicateHeadings.add(baseId);
+        }
+      }
+    });
+    
+    // Reset counts for the actual transform
     headingCounts.clear();
     
-    const ast = Markdoc.parse(content);
+    // Now do the actual transform
     const transformed = Markdoc.transform(ast, updatedConfig);
     return Markdoc.renderers.html(transformed);
   } catch (error) {
