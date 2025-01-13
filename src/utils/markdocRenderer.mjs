@@ -25,9 +25,9 @@ const updatedConfig = {
           duplicateHeadings.add(baseId);
         }
         
-        // Only add numbers if this heading is in our duplicates set
-        const id = duplicateHeadings.has(baseId) 
-          ? `${count}-${baseId}` 
+        // Only add numbers to subsequent occurrences of duplicates
+        const id = duplicateHeadings.has(baseId) && count > 1
+          ? `${baseId}-${count - 1}`  // Subtract 1 so second occurrence is "baseId-1"
           : baseId;
         
         const level = node.attributes['level'];
@@ -64,7 +64,7 @@ export default function markdocRenderer(content) {
     
     // Pre-scan to identify duplicates
     const ast = Markdoc.parse(content);
-    const headings = ast.walk(node => {
+    ast.walk(node => {
       if (node.type === 'heading') {
         const text = node.children[0]?.children?.[0] || '';
         const baseId = slugify(text);
