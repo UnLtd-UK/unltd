@@ -6,11 +6,11 @@ import { collections } from "@data/eventCollections";
 export function getStaticPaths() {
   return Object.entries(collections).map(([slug, collection]) => ({
     params: { collection: slug },
-    props: { collection }
+    props: { collection, slug }
   }));
 }
 
-const { collection } = Astro.props;
+const { collection, slug } = Astro.props;
 ---
 
 <Template name={collection.name} description={collection.description}>
@@ -19,5 +19,5 @@ const { collection } = Astro.props;
     <h1 class="text-violet-100 text-3xl font-bold mb-4">{collection.name}</h1>
     <p class="text-violet-200 max-w-2xl mx-auto leading-relaxed">{collection.description}</p>
   </div>
-  <Events collectionId={collection.id} />
+  <Events collectionId={collection.id} collectionSlug={slug} />
 </Template>

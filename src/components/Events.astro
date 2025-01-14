@@ -1,112 +1,28 @@
 ---
-// EventbriteEvents.astro
+import { allEvents, formatDate, isPastEvent, sortEvents } from "@data/eventCollections";
+
 interface Props {
   collectionId: string;
+  collectionSlug: string;
 }
 
-const { collectionId } = Astro.props;
-
-interface Event {
-  name: { text: string };
-  description: { text: string };
-  start: { local: string };
-  end: { local: string };
-  venue?: { name: string };
-  url: string;
-  logo?: { url: string };
-  is_series: boolean;
-  series_id?: string;
-  series?: {
-    end_date: string;
-    start_date: string;
-  };
-}
-
-const EVENTBRITE_API_TOKEN = import.meta.env.EVENTBRITE_API_TOKEN;
-
-// Fetch events at build time
-async function getEvents(collectionId: string) {
-  try {
-    if (!EVENTBRITE_API_TOKEN) {
-      throw new Error('Eventbrite API token is not configured');
-    }
-
-    const response = await fetch(
-      `https://www.eventbriteapi.com/v3/collections/${collectionId}/events/?expand=series,venue`,
-      {
-        headers: {
-          'Authorization': `Bearer ${EVENTBRITE_API_TOKEN}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch events');
-    }
-
-    const data = await response.json();
-    return data.events;
-  } catch (error) {
-    console.error('Error fetching events:', error);
-    return [];
-  }
-}
-
-function formatDate(dateString: string) {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-GB', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
-}
-
-function isPastEvent(event: Event): boolean {
-  const now = new Date();
-  
-  // If it's a series, check if the series end date is in the future
-  if (event.series?.end_date) {
-    return new Date(event.series.end_date) < now;
-  }
-  
-  // For non-series events, check the event end date
-  return new Date(event.end.local) < now;
-}
-
-const events = await getEvents(collectionId);
-
-// Sort events: future events first (newest to oldest), then past events (newest to oldest)
-const sortedEvents = [...events].sort((a, b) => {
-  const aIsPast = isPastEvent(a);
-  const bIsPast = isPastEvent(b);
-  
-  if (aIsPast === bIsPast) {
-    // If both are past or both are future, sort by date (newest first)
-    return new Date(b.start.local).getTime() - new Date(a.start.local).getTime();
-  }
-  // Put future events first
-  return aIsPast ? 1 : -1;
-});
-
+const { collectionSlug } = Astro.props;
+const events = sortEvents(allEvents[collectionSlug] || []);
 ---
 
 <div class="max-w-7xl mx-auto px-4">
-  {sortedEvents.length === 0 ? (
+  {events.length === 0 ? (
     <p>No events found.</p>
   ) : (
     <div>
       {/* Future Events Section */}
       <h2 class="mt-8 mb-4 pb-2 text-2xl font-bold text-violet-100 border-b-2 border-amber-500">Upcoming Events</h2>
-      {sortedEvents.filter(event => !isPastEvent(event)).length === 0 ? (
+      {events.filter(event => !isPastEvent(event)).length === 0 ? (
         <p class="text-violet-200">No upcoming events at the moment.</p>
       ) : (
-        sortedEvents
+        events
           .filter(event => !isPastEvent(event))
-          .map((event: Event) => (
+          .map((event) => (
             <div class="flex flex-col md:flex-row gap-4 p-4 mb-4 bg-white rounded-lg border border-gray-200">
               <img 
                 src={event.logo?.url || '/placeholder-image.jpg'} 
@@ -147,9 +63,9 @@ const sortedEvents = [...events].sort((a, b) => {
 
       {/* Past Events Section */}
       <h2 class="mt-12 mb-4 pb-2 text-2xl font-bold text-violet-100 border-b-2 border-gray-600">Past Events</h2>
-      {sortedEvents
+      {events
         .filter(event => isPastEvent(event))
-        .map((event: Event) => (
+        .map((event) => (
           <div class="flex flex-col md:flex-row gap-4 p-4 mb-4 bg-gray-50 rounded-lg border border-gray-200 opacity-70">
             <img 
               src={event.logo?.url || '/placeholder-image.jpg'} 
