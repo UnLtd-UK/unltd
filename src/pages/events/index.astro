@@ -1,0 +1,22 @@
+---
+import Template from "@layouts/Template.astro";
+import { collections } from "@data/eventCollections";
+
+const collectionsArray = Object.values(collections);
+const name = "Events";
+const description = "Browse our various event collections";
+---
+
+<Template name={name} description={description}>
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-center text-3xl font-bold text-violet-100 mb-8">Event Collections</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {collectionsArray.map(collection => (
+        <a href={`/events/${collection.slug}`} class="block bg-white border border-gray-200 rounded-lg p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
+          <h2 class="text-xl font-semibold text-amber-500 mb-4">{collection.name}</h2>
+          <p class="text-gray-600 leading-relaxed">{collection.description}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</Template>

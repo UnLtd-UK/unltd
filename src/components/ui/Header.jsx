@@ -15,6 +15,34 @@ const data = {
     main: [
       {
         id: 1,
+        name: "Our support",
+        items: [
+          {
+            id: 1,
+            name: "Resources",
+            description: "...",
+            href: "/learn",
+            icon: "fa-solid fa-files"
+          },
+          {
+            id: 2,
+            name: "Video Courses",
+            description: "...",
+            href: "/courses",
+            icon: "fa-solid fa-play"
+          },
+          {
+            id: 2,
+            name: "Events",
+            description: "...",
+            href: "/events",
+            icon: "fa-solid fa-calendar"
+          }
+        ],
+        actions: []
+      },
+      {
+        id: 1,
         name: "Our funding",
         items: [
           {
@@ -29,7 +57,7 @@ const data = {
             name: "Investment",
             description: "For organisations",
             href: "https://growthimpactfund.org.uk",
-            icon: "fa-solid fa-shop"
+            icon: "fa-solid fa-trophy"
           }
         ],
         actions: []
