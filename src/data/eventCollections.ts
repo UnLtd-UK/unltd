@@ -14,8 +14,8 @@ interface Event {
   };
 }
 
-const EVENTBRITE_API_TOKEN = process.env.ENV === 'cloudflare' 
-  ?  process.env.EVENTBRITE_API_TOKEN
+const EVENTBRITE_API_TOKEN = context.env.ENV === 'cloudflare' 
+  ?  context.env.EVENTBRITE_API_TOKEN
   : import.meta.env.EVENTBRITE_API_TOKEN
 
 async function fetchCollectionEvents(collectionId: string): Promise<Event[]> {
