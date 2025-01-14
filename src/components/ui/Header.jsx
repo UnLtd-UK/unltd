@@ -22,14 +22,14 @@ const data = {
             name: "Resources",
             description: "...",
             href: "/learn",
-            icon: "fa-solid fa-books"
+            icon: "fa-solid fa-files"
           },
           {
             id: 2,
-            name: "Courses",
+            name: "Video Courses",
             description: "...",
             href: "/courses",
-            icon: "fa-solid fa-graduation-cap"
+            icon: "fa-solid fa-play"
           },
           {
             id: 2,
