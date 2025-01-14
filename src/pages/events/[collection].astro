@@ -1,0 +1,23 @@
+---
+import Template from "@layouts/Template.astro";
+import Events from "@components/Events.astro";
+import { collections } from "@data/eventCollections";
+
+export function getStaticPaths() {
+  return Object.entries(collections).map(([slug, collection]) => ({
+    params: { collection: slug },
+    props: { collection }
+  }));
+}
+
+const { collection } = Astro.props;
+---
+
+<Template name={collection.name} description={collection.description}>
+  <div class="max-w-7xl mx-auto px-4 py-8 text-center">
+    <a href="/events" class="inline-block text-violet-400 hover:text-violet-50 transition-colors duration-200 mb-4">← All Collections</a>
+    <h1 class="text-violet-100 text-3xl font-bold mb-4">{collection.name}</h1>
+    <p class="text-violet-200 max-w-2xl mx-auto leading-relaxed">{collection.description}</p>
+  </div>
+  <Events collectionId={collection.id} />
+</Template>
