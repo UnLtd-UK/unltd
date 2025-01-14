@@ -25,7 +25,7 @@ const events = sortEvents(allEvents[collectionSlug] || []);
           .map((event) => (
             <div class="flex flex-col md:flex-row gap-4 p-4 mb-4 bg-white rounded-lg border border-gray-200">
               <img 
-                src={event.logo?.url || '/placeholder-image.jpg'} 
+                src={event.logo?.url} 
                 alt={event.name.text} 
                 class="w-full md:w-48 h-48 object-cover rounded-md"
               />
@@ -68,7 +68,7 @@ const events = sortEvents(allEvents[collectionSlug] || []);
         .map((event) => (
           <div class="flex flex-col md:flex-row gap-4 p-4 mb-4 bg-gray-50 rounded-lg border border-gray-200 opacity-70">
             <img 
-              src={event.logo?.url || '/placeholder-image.jpg'} 
+              src={event.logo?.url } 
               alt={event.name.text} 
               class="w-full md:w-48 h-48 object-cover rounded-md"
             />
