@@ -9,7 +9,7 @@ import { useState } from 'react'
 const data = {
   header: {
     action: {
-      name: "Log in",
+      name: "Application Portal",
       link: "https://unltd.microsoftcrmportals.com/applications",
       enabled: true
     },
@@ -353,7 +353,7 @@ export default function HeaderComp({ styles }) {
         <PanelComp navs={navigations} styles={styles} />
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <a href="https://unltd.microsoftcrmportals.com/applications" className={`text-sm font-semibold leading-6 ${styles.text}`}>
-            Log in <span aria-hidden="true" className={styles.text2}>&rarr;</span>
+            Application Portal <span aria-hidden="true" className={styles.text2}>&rarr;</span>
           </a>
         </div>
       </nav>
