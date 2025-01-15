@@ -44,7 +44,7 @@ export default function DialogComp({ nav, styles, mobileMenuOpen, setMobileMenuO
                                 href="https://unltd.microsoftcrmportals.com/applications"
                                 className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-violet-50 hover:bg-violet-900"
                             >
-                                Log in
+                                Application Portal
                             </a>
                         </div>
                     </div>

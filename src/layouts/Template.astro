@@ -14,6 +14,9 @@ import Footer from "@components/Footer.astro";
 // NEW HEADER
 import Header from "@components/ui/Header.jsx";
 
+import Banner from "@components/Banner.astro";
+import { banner } from "@data/banner";
+
 // OLD HEADER
 // import Nav from "@components/old-nav/Nav.astro";
 
@@ -88,7 +91,10 @@ import "@fontsource-variable/unbounded"; // ATE
     ></script>
   </head>
   <body class={`dark ${palette["UnLtd"].bg}`}>
-    <div class="flex flex-col justify-between h-full">
+    <div class="flex flex-col justify-between h-full"> 
+
+      {banner.status === 'published' && <Banner banner={banner} />}
+
       <!-- NEW HEADER -->
       <Header styles={palette["UnLtd"]} client:load />
       <!-- OLD HEADER -->
