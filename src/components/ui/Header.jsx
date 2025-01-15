@@ -10,26 +10,28 @@ const data = {
   header: {
     action: {
       name: "Log in",
-      link: "https://unltd.microsoftcrmportals.com/applications"
+      link: "https://unltd.microsoftcrmportals.com/applications",
+      enabled: true
     },
     main: [
       {
         id: 1,
         name: "Our support",
+        enabled: true,
         items: [
           {
             id: 1,
             name: "Resources",
             description: "...",
-            href: "/learn",
+            href: "/resources",
             icon: "fa-solid fa-files"
           },
           {
             id: 2,
-            name: "Video Courses",
+            name: "Topics",
             description: "...",
-            href: "/courses",
-            icon: "fa-solid fa-play"
+            href: "/topics",
+            icon: "fa-solid fa-graduation-cap"
           },
           {
             id: 2,
@@ -44,6 +46,7 @@ const data = {
       {
         id: 1,
         name: "Our funding",
+        enabled: true,
         items: [
           {
             id: 1,
@@ -65,6 +68,7 @@ const data = {
       {
         id: 2,
         name: "Join us",
+        enabled: true,
         items: [
           {
             id: 1,
@@ -93,6 +97,7 @@ const data = {
       {
         id: 3,
         name: "About us",
+        enabled: true,
         items: [
           {
             id: 1,
@@ -122,7 +127,7 @@ const data = {
             description: "The change we are having",
             badge: "2021 - 2022",
             href: "https://unltd.directus.app/assets/9e2fdbbe-de2d-4f0f-a1e3-2b5a28fcc75e.pdf",
-            icon: "fa-solid fa-explosion"
+            icon: "fa-solid fa-earth-europe"
           }
         ],
         actions: []
@@ -132,10 +137,10 @@ const data = {
   footer: {
     socials: [
       {
-        name: "X",
-        link: "https://twitter.com/UnLtd",
+        name: "BlueSky",
+        link: "https://bsky.app/profile/unltduk.bsky.social",
         slug: "",
-        icon: "fa-brands fa-x-twitter"
+        icon: "fa-brands fa-x-bluesky"
       },
       {
         name: "Instagram",
