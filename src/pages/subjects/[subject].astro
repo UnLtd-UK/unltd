@@ -3,7 +3,7 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import slugify from "slugify";
 import Hero from "@components/Hero.astro";
-import { learns } from "@data/learns.js";
+import { subjects } from "@data/subjects.js";
 import markdocRenderer from "@utils/markdocRenderer.mjs";
 import TableOfContents from "@components/markdoc/TableOfContents.astro";
 
@@ -13,19 +13,19 @@ import Tip from "@components/markdoc/Tip.astro";
 import Heading from "@components/markdoc/Heading.astro";
 
 export async function getStaticPaths() {
-  return learns
-    .filter((learn) => learn.body)
-    .map((learn) => {
-      const slug = slugify(learn.name, {
+  return subjects
+    .filter((subject) => subject.body)
+    .map((subject) => {
+      const slug = slugify(subject.name, {
         lower: true,
         strict: true,
         locale: "en",
         trim: true,
       });
 
-      learn.breadcrumbs = [
+      subject.breadcrumbs = [
         {
-          name: learn.name,
+          name: subject.name,
           slug: slug,
         },
       ];
@@ -36,7 +36,7 @@ export async function getStaticPaths() {
       const duplicateHeadings = new Set();
 
       // First pass to identify duplicates
-      const lines = learn.body.split("\n");
+      const lines = subject.body.split("\n");
       lines.forEach((line) => {
         const match = line.match(/^(#{1,6})\s+(.+)$/);
         if (match) {
@@ -83,14 +83,14 @@ export async function getStaticPaths() {
         }
       });
 
-      const html = markdocRenderer(learn.body);
+      const html = markdocRenderer(subject.body);
 
       return {
         params: {
-          learn: slug,
+          subject: slug,
         },
         props: {
-          learn,
+          subject,
           html,
           headings,
         },
@@ -98,19 +98,19 @@ export async function getStaticPaths() {
     });
 }
 
-const { learn, html, headings } = Astro.props;
+const { subject, html, headings } = Astro.props;
 ---
 
 <Template
-  name={learn.name}
-  description={learn.description}
-  breadcrumbs={learn.breadcrumbs}
+  name={subject.name}
+  description={subject.description}
+  breadcrumbs={subject.breadcrumbs}
 >
   <Container>
     <div class="relative flex flex-col lg:flex-row gap-8">
       <TableOfContents headings={headings} />
       <div class="flex-1">
-        <Hero name={learn.name} description={learn.description} />
+        <Hero name={subject.name} description={subject.description} />
         <div
           class="scroll-smooth prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
           set:html={html}

@@ -28,9 +28,9 @@ const data = {
           },
           {
             id: 2,
-            name: "Topics",
+            name: "Subjects",
             description: "...",
-            href: "/topics",
+            href: "/subjects",
             icon: "fa-solid fa-graduation-cap"
           },
           {
