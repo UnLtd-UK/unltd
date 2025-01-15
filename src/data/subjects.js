@@ -1,7 +1,7 @@
 import { getCollection } from './load.js';
 
-const collection = "learn";
-const name = "learn";
+const collection = "subjects";
+const name = "subjects";
 
 const filterOptions = {
     sort: ['sort'],
@@ -14,6 +14,6 @@ const filterOptions = {
 
 const attach = false;
 
-const learns = await getCollection(collection, name, filterOptions, attach);
+const subjects = await getCollection(collection, name, filterOptions, attach);
 
-export { learns }
+export { subjects }

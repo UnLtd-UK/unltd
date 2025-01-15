@@ -2,13 +2,13 @@
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Tabs from "@components/Tabs.jsx";
-import { learns } from "@data/learns.js";
+import { subjects } from "@data/subjects.js";
 import slugify from "slugify";
 import { calculateReadTime } from "@data/functions/read-time.js";
 
-const name = "Learn";
-const slug = "learn";
-const description = "Read our resources";
+const name = "Subjects";
+const slug = "subject";
+const description = "Read our subjects";
 const breadcrumbs = [
     {
         name: name,
@@ -16,7 +16,8 @@ const breadcrumbs = [
     },
 ];
 
-const uniqueUsers = [...new Set(learns.map((learn) => learn.user))];
+const uniqueUsers = [...new Set(subjects.map((subject) => subject.user))];
+console.log(uniqueUsers);
 ---
 
 <Template name={name} description={description} breadcrumbs={breadcrumbs}>
@@ -27,7 +28,7 @@ const uniqueUsers = [...new Set(learns.map((learn) => learn.user))];
                     <h2
                         class="mt-2 text-4xl font-bold tracking-tight text-violet-200 sm:text-6xl"
                     >
-                        Learn
+                        Subjects
                     </h2>
                     <p class="mt-6 text-lg leading-8 text-violet-400">
                         Anim aute id magna aliqua ad ad non deserunt sunt. Qui
@@ -41,10 +42,10 @@ const uniqueUsers = [...new Set(learns.map((learn) => learn.user))];
         <!-- Filter Links -->
         <div class="flex flex-wrap gap-4 mb-8">
             <a
-                href="/learn"
+                href="/subjects"
                 class={`flex-none rounded-full px-3.5 py-2.5 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 text-violet-100 border border-violet-500 ${
-                    Astro.url.pathname === `/learn` ||
-                    Astro.url.pathname === `/learn/`
+                    Astro.url.pathname === `/subjects` ||
+                    Astro.url.pathname === `/subjects/`
                         ? "bg-violet-950 hover:bg-violet-900"
                         : "bg-violet-800 hover:bg-violet-700 focus-visible:outline-violet-600"
                 }`}
@@ -54,7 +55,7 @@ const uniqueUsers = [...new Set(learns.map((learn) => learn.user))];
             {
                 uniqueUsers.map((user) => (
                     <a
-                        href={`/learn/${slugify(user, {
+                        href={`/subjects/${slugify(user, {
                             lower: true,
                             strict: true,
                             locale: "en",
@@ -62,7 +63,7 @@ const uniqueUsers = [...new Set(learns.map((learn) => learn.user))];
                         })}`}
                         class={`flex-none rounded-full px-3.5 py-2.5 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 text-violet-100 border border-violet-500 ${
                             Astro.url.pathname ===
-                            `/learn/${slugify(user, { lower: true, strict: true, locale: "en", trim: true })}`
+                            `/subjects/${slugify(user, { lower: true, strict: true, locale: "en", trim: true })}`
                                 ? "bg-violet-950  hover:bg-violet-900"
                                 : "bg-violet-800  hover:bg-violet-700 focus-visible:outline-violet-600"
                         }`}
@@ -78,41 +79,7 @@ const uniqueUsers = [...new Set(learns.map((learn) => learn.user))];
                 class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
             >
                 {
-                    learns.map((learn) => {
-                        if (learn.type === "Resource") {
-                            return (
-                                <article class="flex flex-col items-start justify-between hover:bg-violet-900 p-4 rounded-xl">
-                                    <div class="max-w-xl">
-                                        <div class="group relative">
-                                            <span class="text-xs text-violet-400">
-                                                {`${calculateReadTime(
-                                                    learn.body,
-                                                )} MINS`}
-                                            </span>
-                                            <h3 class="mt-3 text-lg/6 font-semibold text-violet-200 group-hover:text-violet-300">
-                                                <a
-                                                    href={`/learn/${slugify(
-                                                        learn.name,
-                                                        {
-                                                            lower: true,
-                                                            strict: true,
-                                                            locale: "en",
-                                                            trim: true,
-                                                        },
-                                                    )}`}
-                                                >
-                                                    <span class="absolute inset-0" />
-                                                    {learn.name}
-                                                </a>
-                                            </h3>
-                                            <p class="mt-5 line-clamp-3 text-sm/6 text-violet-400">
-                                                {learn.description}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </article>
-                            );
-                        } else if (learn.type === "Subject") {
+                    subjects.map((subject) => {
                             return (
                                 <article class="flex flex-col items-start justify-between hover:bg-violet-900 p-4 rounded-xl">
                                     <div class="max-w-xl group relative flex flex-col gap-6">
@@ -124,8 +91,8 @@ const uniqueUsers = [...new Set(learns.map((learn) => learn.user))];
                                             </div>
                                             <h3 class=" text-lg/6 font-semibold text-violet-200 group-hover:text-violet-300">
                                                 <a
-                                                    href={`/learn/${slugify(
-                                                        learn.name,
+                                                    href={`/subjects/${slugify(
+                                                        subject.name,
                                                         {
                                                             lower: true,
                                                             strict: true,
@@ -135,17 +102,16 @@ const uniqueUsers = [...new Set(learns.map((learn) => learn.user))];
                                                     )}`}
                                                 >
                                                     <span class="absolute inset-0" />
-                                                    {learn.name}
+                                                    {subject.name}
                                                 </a>
                                             </h3>
                                         </div>
                                         <p class=" line-clamp-3 text-sm/6 text-violet-400">
-                                            {learn.description}
+                                            {subject.description}
                                         </p>
                                     </div>
                                 </article>
-                            );
-                        }
+                        );
                     })
                 }
             </div>
