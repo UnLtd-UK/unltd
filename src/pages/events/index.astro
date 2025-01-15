@@ -1,15 +1,38 @@
 ---
 import Template from "@layouts/Template.astro";
 import { collections } from "@data/eventCollections";
-
+import Container from "@components/Container.astro";
 const collectionsArray = Object.values(collections);
 const name = "Events";
 const description = "Browse our various event collections";
+const slug = "Events";
+
+const breadcrumbs = [
+    {
+        name: name,
+        slug: slug,
+    },
+];
 ---
 
-<Template name={name} description={description}>
-  <div class="max-w-7xl mx-auto px-4 py-8">
-    <h1 class="text-center text-3xl font-bold text-violet-100 mb-8">Event Collections</h1>
+<Template name={name} description={description} breadcrumbs={breadcrumbs}>
+  <Container>
+    <div class="py-12 sm:py-12">
+        <div class="mx-auto max-w-7xl flex flex-col gap-2">
+            <div class="mx-auto max-w-2xl lg:mx-0">
+                <h2
+                    class="mt-2 text-4xl font-bold tracking-tight text-violet-200 sm:text-6xl"
+                >
+                    Events
+                </h2>
+                <p class="mt-6 text-lg leading-8 text-violet-400">
+                    Anim aute id magna aliqua ad ad non deserunt sunt. Qui
+                    irure qui lorem cupidatat commodo. Elit sunt amet fugiat
+                    veniam occaecat fugiat aliqua.
+                </p>
+            </div>
+        </div>
+    </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       {collectionsArray.map(collection => (
         <a href={`/events/${collection.slug}`} class="block bg-white border border-gray-200 rounded-lg p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
@@ -18,5 +41,5 @@ const description = "Browse our various event collections";
         </a>
       ))}
     </div>
-  </div>
+  </Container>
 </Template>

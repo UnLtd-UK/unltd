@@ -24,7 +24,7 @@ export default function PopoverComp({ nav, styles }) {
                             className={`group relative flex gap-x-6 rounded-lg p-4 text-sm leading-6 ${styles.hover}`}
                         >
                             <div className={`mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg ${styles.bg2} group-hover:bg-violet-50 dark:group-hover:bg-violet-950`}>
-                                <i className={`${child.icon} h-6 w-6 ${styles.text} group-hover:text-amber-600 dark:group-hover:text-amber-700 flex justify-center items-center`} aria-hidden="true" />
+                                <i className={`${child.icon} h-6 w-6 ${styles.text} group-hover:text-amber-500 dark:group-hover:text-amber-500 flex justify-center items-center`} aria-hidden="true" />
                             </div>
                             <div className="flex-auto">
                                 <a href={child.href} className="block font-semibold text-violet-900 dark:text-violet-100">

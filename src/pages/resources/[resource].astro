@@ -1,0 +1,121 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import slugify from "slugify";
+import Hero from "@components/Hero.astro";
+import { resources } from "@data/resources.js";
+import markdocRenderer from "@utils/markdocRenderer.mjs";
+import TableOfContents from "@components/markdoc/TableOfContents.astro";
+
+// MARKDOC Components
+import Dropdown from "@components/markdoc/Dropdown.astro";
+import Tip from "@components/markdoc/Tip.astro";
+import Heading from "@components/markdoc/Heading.astro";
+
+export async function getStaticPaths() {
+  return resources
+    .filter((resource) => resource.body)
+    .map((resource) => {
+      const slug = slugify(resource.name, {
+        lower: true,
+        strict: true,
+        locale: "en",
+        trim: true,
+      });
+
+      resource.breadcrumbs = [
+        {
+          name: resource.name,
+          slug: slug,
+        },
+      ];
+
+      // Extract headings from the content
+      const headings = [];
+      const headingCounts = new Map();
+      const duplicateHeadings = new Set();
+
+      // First pass to identify duplicates
+      const lines = resource.body.split("\n");
+      lines.forEach((line) => {
+        const match = line.match(/^(#{1,6})\s+(.+)$/);
+        if (match) {
+          const text = match[2];
+          const baseId = slugify(text, {
+            lower: true,
+            strict: true,
+            locale: "en",
+            trim: true,
+          });
+          const count = (headingCounts.get(baseId) || 0) + 1;
+          headingCounts.set(baseId, count);
+          if (count === 2) {
+            duplicateHeadings.add(baseId);
+          }
+        }
+      });
+
+      // Reset counts for second pass
+      headingCounts.clear();
+
+      // Second pass to generate final IDs
+      lines.forEach((line) => {
+        const match = line.match(/^(#{1,6})\s+(.+)$/);
+        if (match) {
+          const level = match[1].length;
+          const text = match[2];
+          const baseId = slugify(text, {
+            lower: true,
+            strict: true,
+            locale: "en",
+            trim: true,
+          });
+
+          const count = (headingCounts.get(baseId) || 0) + 1;
+          headingCounts.set(baseId, count);
+
+          const id =
+            duplicateHeadings.has(baseId) && count > 1
+              ? `${baseId}-${count - 1}` // Subtract 1 so second occurrence is "baseId-1"
+              : baseId;
+
+          headings.push({ level, text, id });
+        }
+      });
+
+      const html = markdocRenderer(resource.body);
+
+      return {
+        params: {
+          resource: slug,
+        },
+        props: {
+          resource,
+          html,
+          headings,
+        },
+      };
+    });
+}
+
+const { resource, html, headings } = Astro.props;
+---
+
+<Template
+  name={resource.name}
+  description={resource.description}
+  breadcrumbs={resource.breadcrumbs}
+>
+  <Container>
+    <div class="relative flex flex-col lg:flex-row gap-8">
+      <TableOfContents headings={headings} />
+      <div class="flex-1">
+        <Hero name={resource.name} description={resource.description} />
+        <div
+          class="scroll-smooth prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
+          set:html={html}
+        />
+      </div>
+    </div>
+  </Container>
+</Template>
