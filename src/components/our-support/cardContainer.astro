@@ -1,0 +1,18 @@
+---
+const { items, slug } = Astro.props;
+import Card from "@components/our-support/Card.astro";
+---
+
+<div class="mx-auto max-w-7xl">
+    <div
+        class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
+    >
+        {
+            items.map((item) => {
+                    return (
+                        <Card item={item} slug={slug} />
+                    );
+            })
+        }
+    </div>
+</div>

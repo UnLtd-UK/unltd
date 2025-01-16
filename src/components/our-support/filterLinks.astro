@@ -1,0 +1,38 @@
+---
+const { links, slug } = Astro.props;
+import slugify from "slugify";
+---
+
+<div class="flex flex-wrap gap-4 mb-8">
+    <a
+        href={`/${slug}`}
+        class={`flex-none rounded-full px-3.5 py-2.5 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 text-violet-100 border border-violet-500 ${
+            Astro.url.pathname === `/${slug}` ||
+            Astro.url.pathname === `/${slug}/`
+                ? "bg-violet-950 hover:bg-violet-900"
+                : "bg-violet-800 hover:bg-violet-700 focus-visible:outline-violet-600"
+        }`}
+    >
+        For all
+    </a>
+    {
+        links.map((user) => (
+            <a
+                href={`/${slug}/${slugify(user, {
+                    lower: true,
+                    strict: true,
+                    locale: "en",
+                    trim: true,
+                })}`}
+                class={`flex-none rounded-full px-3.5 py-2.5 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 text-violet-100 border border-violet-500 ${
+                    Astro.url.pathname ===
+                    `/${slug}/${slugify(user, { lower: true, strict: true, locale: "en", trim: true })}`
+                        ? "bg-violet-950  hover:bg-violet-900"
+                        : "bg-violet-800  hover:bg-violet-700 focus-visible:outline-violet-600"
+                }`}
+            >
+                {user}
+            </a>
+        ))
+    }
+</div>
