@@ -1,0 +1,88 @@
+---
+import { subjects } from "@data/subjects.js";
+import slugify from "slugify";
+
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import HeaderSection from "@components/our-support/headerSection.astro";
+import FilterLinks from "@components/our-support/filterLinks.astro";
+import CardContainer from "@components/our-support/cardContainer.astro";
+
+const { name, slug, description, breadcrumbs, links, items } = Astro.props;
+
+export async function getStaticPaths() {
+    const name = "Subjects";
+    const slug = "subjects";
+    const data = {
+        name,
+        description: "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.",
+        slug,
+        breadcrumbs: [
+            {
+                name,
+                slug,
+            },
+        ],
+    };
+
+    const links = [...new Set(subjects.map((item) => item.user as string))] as string[];
+
+    const indexPage = {
+        params: { page: undefined },
+        props: {
+            name: data.name,
+            description: data.description,
+            slug: data.slug,
+            breadcrumbs: data.breadcrumbs,
+            links: links,
+            items: subjects
+        }
+    };
+
+    const customPages = links.map((link) => {
+        const linkSlug = slugify(link, {
+            lower: true,
+            strict: true,
+            locale: "en",
+            trim: true,
+        });
+
+        const customBreadcrumbs = [...data.breadcrumbs];
+        if (link) {
+            customBreadcrumbs.push({
+                name: link,
+                slug: `${data.slug}/${linkSlug}`,
+            });
+        }
+
+        const customItems = subjects.filter((item) => item.user === link);
+
+        return {
+            params: {
+                page: linkSlug,
+            },
+            props: {
+                name: data.name,
+                description: data.description,
+                slug: slug,
+                breadcrumbs: customBreadcrumbs,
+                links: links,
+                items: customItems
+            },
+        };
+    });
+
+    // Return a single flat array containing all pages
+    return [indexPage, ...customPages];
+}
+---
+
+<Template name={name} description={description} breadcrumbs={breadcrumbs}>
+    <Container>
+        <HeaderSection title={name} description={description} />
+
+        <FilterLinks links={links} slug={slug} />
+
+        <CardContainer items={items} slug={slug} />
+    </Container>
+</Template>

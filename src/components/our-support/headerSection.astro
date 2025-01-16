@@ -1,0 +1,17 @@
+---
+const { title, description } = Astro.props;
+---
+<div class="py-12 sm:py-12">
+    <div class="mx-auto max-w-7xl flex flex-col gap-2">
+        <div class="mx-auto max-w-2xl lg:mx-0">
+            <h2
+                class="mt-2 text-4xl font-bold tracking-tight text-violet-200 sm:text-6xl"
+            >
+                {title}
+            </h2>
+            <p class="mt-6 text-lg leading-8 text-violet-400">
+                {description}
+            </p>
+        </div>
+    </div>
+</div>
