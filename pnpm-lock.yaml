@@ -27,14 +27,14 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(astro@5.1.7(@types/node@22.10.7)(jiti@1.21.7)(rollup@4.30.1)(typescript@5.7.3)(yaml@2.7.0))(tailwindcss@3.4.17)
       '@clerk/astro':
-        specifier: ^2.1.8
-        version: 2.1.8(astro@5.1.7(@types/node@22.10.7)(jiti@1.21.7)(rollup@4.30.1)(typescript@5.7.3)(yaml@2.7.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: ^2.1.10
+        version: 2.1.10(astro@5.1.7(@types/node@22.10.7)(jiti@1.21.7)(rollup@4.30.1)(typescript@5.7.3)(yaml@2.7.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@daviddarnes/storage-form':
         specifier: ^2.0.1
         version: 2.0.1
       '@directus/sdk':
-        specifier: ^18.0.3
-        version: 18.0.3
+        specifier: ^19.0.0
+        version: 19.0.0
       '@fontsource-variable/caveat':
         specifier: ^5.1.1
         version: 5.1.1
@@ -102,7 +102,7 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
       react-router-dom:
-        specifier: ^7.1.1
+        specifier: ^7.1.2
         version: 7.1.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       slugify:
         specifier: ^1.6.6
@@ -133,8 +133,8 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1
       wrangler:
-        specifier: ^3.103.0
-        version: 3.103.0
+        specifier: ^3.103.2
+        version: 3.103.2
 
 packages:
 
@@ -289,18 +289,18 @@ packages:
     resolution: {integrity: sha512-L6mZmwFDK6Cjh1nRCLXpa6no13ZIioJDz7mdkzHv399pThrTa/k0nUlNaenOeh2kWu/iaOQYElEpKPUswUa9Vg==}
     engines: {node: '>=6.9.0'}
 
-  '@clerk/astro@2.1.8':
-    resolution: {integrity: sha512-97rEq5Kk2wDp62lmVY72modmpyv0F7N1864c9OeEGKBNI70giDUd67IC9REtsTFTYkMyQ4bZWY+AFZs+06f/ng==}
+  '@clerk/astro@2.1.10':
+    resolution: {integrity: sha512-oymFRCwR55HJ736aTZTKJSZWpis7u3WIJsDeCHaZBa8PVslvO+xK9kRMFyKCQsZqtpaRW7mE5HXo+zoNYH5PXg==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       astro: ^4.15.0 || ^5.0.0
 
-  '@clerk/backend@1.23.0':
-    resolution: {integrity: sha512-AcXO0Xs6e5HpU3coSPmnvsMysfuTPtfxv7Zgg+uaLYLD2/3E8OOMyLzPyiRmayacOxP6To1i8ETUJzpA08nRcA==}
+  '@clerk/backend@1.23.2':
+    resolution: {integrity: sha512-0Gx2yMyXHNDHtgXp5ciR09sqq/Cdv9jJH2MolNLG/sfxzP5T0VC1BH0fmPWQBIBeRa+OnVZUd+4aIFN8jl2iiA==}
     engines: {node: '>=18.17.0'}
 
-  '@clerk/shared@2.20.7':
-    resolution: {integrity: sha512-59EbMhqAi1331ovs5botm+OVVw3NHVLllO4X9/zBUb64PVtx1W7RSBYf+NxTFjWIalHp0kfVzpcm+jK3JkfXCw==}
+  '@clerk/shared@2.20.9':
+    resolution: {integrity: sha512-w9FosWjJnOx8F2pr786tjEQ2Bjs1nCg2Nh6zuNOevjEtRTDuW5BZKhFCs3J7qSB8ByX2LbBxRsrVD7Gj3qu2wg==}
     engines: {node: '>=18.17.0'}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-0
@@ -311,22 +311,13 @@ packages:
       react-dom:
         optional: true
 
-  '@clerk/types@4.40.3':
-    resolution: {integrity: sha512-gPCL9thu3haTWFGTSX0Dn4rqHPAc+v2J30JIQvHciSgCtrWbhDlYGh0yND3UqAZC0B0FsA2BpGAu7ClfvqDH/A==}
+  '@clerk/types@4.41.1':
+    resolution: {integrity: sha512-Vz1jkHPUzJCVqR/Vmnjpab6hTsfV/Gt2y5W88Pv22xCyeFgmXwxqwu9dLyxMio32ekajRKI9S9hX5LxO0Vsx/Q==}
     engines: {node: '>=18.17.0'}
 
   '@cloudflare/kv-asset-handler@0.3.4':
     resolution: {integrity: sha512-YLPHc8yASwjNkmcDMQMY35yiWjoKAKnhUbPRszBRS0YgH+IXtsMp61j+yTcnCE3oO2DgP0U3iejLC8FTtKDC8Q==}
     engines: {node: '>=16.13'}
-
-  '@cloudflare/unenv-preset@1.0.0':
-    resolution: {integrity: sha512-rnihjY4xUsBmlqp0eM2tQXm+40aj3C7WhdH4eGHkLaoBKr3+LwuENByYm5mf65WEeA5NE6BolTnjkiJUts3RuA==}
-    peerDependencies:
-      unenv: npm:unenv-nightly@*
-      workerd: ^1.20241230.0
-    peerDependenciesMeta:
-      workerd:
-        optional: true
 
   '@cloudflare/workerd-darwin-64@1.20241230.0':
     resolution: {integrity: sha512-BZHLg4bbhNQoaY1Uan81O3FV/zcmWueC55juhnaI7NAobiQth9RppadPNpxNAmS9fK2mR5z8xrwMQSQrHmztyQ==}
@@ -393,9 +384,9 @@ packages:
   '@daviddarnes/storage-form@2.0.1':
     resolution: {integrity: sha512-CReUSwSUrnZa6YYlUZU58l4X/zInpbxjvezgJXU/vbAiLEah9XjJKs+LBtt2/mJwIsN5nbDIrAm2pj6JtOYaZg==}
 
-  '@directus/sdk@18.0.3':
-    resolution: {integrity: sha512-PnEDRDqr2x/DG3HZ3qxU7nFp2nW6zqJqswjii57NhriXgTz4TBUI8NmSdzQvnyHuTL9J0nedYfQGfW4v8odS1A==}
-    engines: {node: '>=18.0.0'}
+  '@directus/sdk@19.0.0':
+    resolution: {integrity: sha512-PSp9ddJvR5Ty3dd6zB9iZ92mI26TnI/LqvhxjJsQgcWfSP3ev+UnS0ng+xkO8RKJWN9+5O62frWvyimH8oDd8Q==}
+    engines: {node: '>=22'}
 
   '@emnapi/runtime@1.3.1':
     resolution: {integrity: sha512-kEBmG8KyqtxJZv+ygbEim+KCGtIq1fC22Ms3S4ziXmYKm8uyoLX0MHONVKwp+9opg390VaKRNt4a7A9NwmpNhw==}
@@ -2114,7 +2105,6 @@ packages:
 
   libsql@0.4.7:
     resolution: {integrity: sha512-T9eIRCs6b0J1SHKYIvD8+KCJMcWZ900iZyxdnSCdqxN12Z1ijzT+jY5nrk72Jw4B0HGzms2NgpryArlJqvc3Lw==}
-    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lilconfig@3.1.3:
@@ -3335,8 +3325,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  wrangler@3.103.0:
-    resolution: {integrity: sha512-DK1wLHwiELI5jmHolf7ZCWji+CkSgSZdD/ccrCtDWr5r9vJSb6gpPG9Dc7E68Z/yMFub9+r2XuwKLHEABMLZWw==}
+  wrangler@3.103.2:
+    resolution: {integrity: sha512-eYcnubPhPBU1QMZYTam+vfCLpaQx+x1EWA6nFbLhid1eqNDAk1dNwNlbo+ZryrOHDEX3XlOxn2Z3Fx8vVv3hKw==}
     engines: {node: '>=16.17.0'}
     hasBin: true
     peerDependencies:
@@ -3726,11 +3716,11 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@clerk/astro@2.1.8(astro@5.1.7(@types/node@22.10.7)(jiti@1.21.7)(rollup@4.30.1)(typescript@5.7.3)(yaml@2.7.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@clerk/astro@2.1.10(astro@5.1.7(@types/node@22.10.7)(jiti@1.21.7)(rollup@4.30.1)(typescript@5.7.3)(yaml@2.7.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@clerk/backend': 1.23.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@clerk/shared': 2.20.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@clerk/types': 4.40.3
+      '@clerk/backend': 1.23.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@clerk/shared': 2.20.9(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@clerk/types': 4.41.1
       astro: 5.1.7(@types/node@22.10.7)(jiti@1.21.7)(rollup@4.30.1)(typescript@5.7.3)(yaml@2.7.0)
       nanoid: 5.0.9
       nanostores: 0.11.3
@@ -3738,10 +3728,10 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/backend@1.23.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@clerk/backend@1.23.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@clerk/shared': 2.20.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@clerk/types': 4.40.3
+      '@clerk/shared': 2.20.9(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@clerk/types': 4.41.1
       cookie: 1.0.2
       snakecase-keys: 8.0.1
       tslib: 2.4.1
@@ -3749,9 +3739,9 @@ snapshots:
       - react
       - react-dom
 
-  '@clerk/shared@2.20.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@clerk/shared@2.20.9(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@clerk/types': 4.40.3
+      '@clerk/types': 4.41.1
       dequal: 2.0.3
       glob-to-regexp: 0.4.1
       js-cookie: 3.0.5
@@ -3761,19 +3751,13 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  '@clerk/types@4.40.3':
+  '@clerk/types@4.41.1':
     dependencies:
       csstype: 3.1.1
 
   '@cloudflare/kv-asset-handler@0.3.4':
     dependencies:
       mime: 3.0.0
-
-  '@cloudflare/unenv-preset@1.0.0(unenv-nightly@2.0.0-20250109-100802-88ad671)(workerd@1.20241230.0)':
-    dependencies:
-      unenv: unenv-nightly@2.0.0-20250109-100802-88ad671
-    optionalDependencies:
-      workerd: 1.20241230.0
 
   '@cloudflare/workerd-darwin-64@1.20241230.0':
     optional: true
@@ -3816,7 +3800,7 @@ snapshots:
 
   '@daviddarnes/storage-form@2.0.1': {}
 
-  '@directus/sdk@18.0.3': {}
+  '@directus/sdk@19.0.0': {}
 
   '@emnapi/runtime@1.3.1':
     dependencies:
@@ -4921,7 +4905,7 @@ snapshots:
   dot-case@3.0.4:
     dependencies:
       no-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.8.1
 
   drizzle-orm@0.31.4(@libsql/client@0.14.0)(@types/react@19.0.7)(react@19.0.0):
     optionalDependencies:
@@ -5522,7 +5506,7 @@ snapshots:
 
   lower-case@2.0.2:
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.8.1
 
   lru-cache@10.4.3: {}
 
@@ -6076,7 +6060,7 @@ snapshots:
   no-case@3.0.4:
     dependencies:
       lower-case: 2.0.2
-      tslib: 2.4.1
+      tslib: 2.8.1
 
   node-domexception@1.0.0: {}
 
@@ -6637,7 +6621,7 @@ snapshots:
   snake-case@3.0.4:
     dependencies:
       dot-case: 3.0.4
-      tslib: 2.4.1
+      tslib: 2.8.1
 
   snakecase-keys@8.0.1:
     dependencies:
@@ -6990,10 +6974,9 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20241230.0
       '@cloudflare/workerd-windows-64': 1.20241230.0
 
-  wrangler@3.103.0:
+  wrangler@3.103.2:
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
-      '@cloudflare/unenv-preset': 1.0.0(unenv-nightly@2.0.0-20250109-100802-88ad671)(workerd@1.20241230.0)
       '@esbuild-plugins/node-globals-polyfill': 0.2.3(esbuild@0.17.19)
       '@esbuild-plugins/node-modules-polyfill': 0.2.2(esbuild@0.17.19)
       blake3-wasm: 2.1.5
