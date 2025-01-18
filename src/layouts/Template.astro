@@ -1,5 +1,6 @@
 ---
 import { palette } from "@data/palette.js";
+import { navigation } from "@data/navigation.js";
 
 const {
   name = "UnLtd",
@@ -10,21 +11,10 @@ const {
 
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Footer from "@components/Footer.astro";
-
-// NEW HEADER
 import Header from "@components/ui/Header.jsx";
-
 import Banner from "@components/Banner.astro";
 import { banner } from "@data/banner";
 
-// OLD HEADER
-// import Nav from "@components/old-nav/Nav.astro";
-
-import "@fontsource-variable/montserrat";
-import "@fontsource-variable/inter"; // FF
-import "@fontsource-variable/caveat"; // HA
-import "@fontsource-variable/outfit"; // MFC
-import "@fontsource-variable/unbounded"; // ATE
 ---
 
 <!doctype html>
@@ -96,7 +86,7 @@ import "@fontsource-variable/unbounded"; // ATE
       {banner.status === 'published' && <Banner banner={banner} />}
 
       <!-- NEW HEADER -->
-      <Header styles={palette["UnLtd"]} client:load />
+      {navigation && <Header styles={palette["UnLtd"]} navigation={navigation} client:load />}
       <!-- OLD HEADER -->
       <!-- <Nav /> -->
       {

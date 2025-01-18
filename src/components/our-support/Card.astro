@@ -1,0 +1,36 @@
+---
+const { item, slug } = Astro.props;
+import slugify from "slugify";
+import { calculateReadTime } from "@data/functions/read-time.js";
+---
+
+<article class="flex flex-col items-start justify-between hover:bg-violet-900 p-4 rounded-xl">
+    <div class="max-w-xl">
+        <div class="group relative">
+            <span class="text-xs text-violet-400">
+                {`${calculateReadTime(
+                    item.body,
+                )} MINS`}
+            </span>
+            <h3 class="mt-3 text-lg/6 font-semibold text-violet-200 group-hover:text-violet-300">
+                <a
+                    href={`/${slug}/${slugify(
+                        item.name,
+                        {
+                            lower: true,
+                            strict: true,
+                            locale: "en",
+                            trim: true,
+                        },
+                    )}`}
+                >
+                    <span class="absolute inset-0" />
+                    {item.name}
+                </a>
+            </h3>
+            <p class="mt-5 line-clamp-3 text-sm/6 text-violet-400">
+                {item.description}
+            </p>
+        </div>
+    </div>
+</article>
