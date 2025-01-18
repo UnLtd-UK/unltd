@@ -6,7 +6,7 @@ import DialogComp from './Dialog.jsx';
 
 export default function HeaderComp({ styles, navigation }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const navigations = navigation?.code?.header?.main || [];
+  const navigations = navigation?.code?.header?.enabled ? navigation?.code?.header?.main || [] : [];
 
   return (
     <header className={styles.bg}>
@@ -28,7 +28,7 @@ export default function HeaderComp({ styles, navigation }) {
         </div>
         <PanelComp navs={navigations} styles={styles} />
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          {navigation?.code?.header?.action && (
+          {navigation?.code?.header?.enabled && navigation?.code?.header?.action?.enabled && (
             <a href={navigation.code.header.action.link} className={`text-sm font-semibold leading-6 ${styles.text}`}>
               {navigation.code.header.action.name} <span aria-hidden="true" className={styles.text2}>&rarr;</span>
             </a>

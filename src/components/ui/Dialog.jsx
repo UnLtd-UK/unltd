@@ -3,8 +3,9 @@ import DisclosureComp from '@components/ui/Disclosure.jsx';
 import Logo from "@components/Logo.jsx";
 
 export default function DialogComp({ nav, styles, mobileMenuOpen, setMobileMenuOpen, navigation }) {
-    // Helper function to determine if an item is a standard link
-    const isStandardLink = (item) => item.name && item.href && (!item.items || item.items.length === 0);
+    // Helper function to determine if an item is a standard link and is enabled
+    const isStandardLink = (item) => item.enabled && item.name && item.href && (!item.items || item.items.length === 0);
+    const isEnabled = (item) => item.enabled;
 
     return (
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -26,7 +27,7 @@ export default function DialogComp({ nav, styles, mobileMenuOpen, setMobileMenuO
                 <div className="mt-6 flow-root">
                     <div className="-my-6 divide-y divide-violet-500/10">
                         <div className="space-y-2 py-6">
-                            {nav.map((item) => (
+                            {navigation?.code?.header?.enabled && nav.filter(isEnabled).map((item) => (
                                 isStandardLink(item) ? (
                                     <a
                                         key={item.id}
@@ -36,11 +37,11 @@ export default function DialogComp({ nav, styles, mobileMenuOpen, setMobileMenuO
                                         {item.name}
                                     </a>
                                 ) : (
-                                    <DisclosureComp key={item.id} item={item} />
+                                    item.enabled && <DisclosureComp key={item.id} item={item} />
                                 )
                             ))}
                         </div>
-                        {navigation?.code?.header?.action && (
+                        {navigation?.code?.header?.enabled && navigation?.code?.header?.action?.enabled && (
                             <div className="py-6">
                                 <a
                                     href={navigation.code.header.action.link}
