@@ -4,23 +4,19 @@ import BlogAvatar from "./BlogAvatar";
 const { post } = Astro.props;
 ---
 
-<li class="col-span-1 divide-y divide-gray-200 rounded-lg shadow">
+<li class="col-span-1 divide-y divide-gray-200 rounded-lg">
     <a href={`/blog/${post.slug}`}>
         <article
             class="flex flex-col items-start justify-between transition hover:bg-violet-100 dark:hover:bg-violet-900 hover:outline-violet-200 hover:dark:outline-violet-800 p-6 rounded-2xl"
         >
             <div class="relative w-full h-64">
                 {
-                    post.image !== null ? (
+                    post.image !== null && (
                         <img
                             src={`https://unltd.directus.app/assets/${post.image}`}
                             alt=""
                             class="absolute inset-0 w-full h-full object-cover rounded-2xl"
                         />
-                    ) : (
-                        <div class="error-boundary rounded-2xl">
-                            <BlogAvatar title={post.title} client:only="react" />
-                        </div>
                     )
                 }
             </div>
