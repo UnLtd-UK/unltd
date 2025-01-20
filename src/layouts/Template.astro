@@ -12,9 +12,9 @@ const {
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/ui/Header.jsx";
+// import Nav from "@components/old-nav/Nav.astro";
 import Banner from "@components/Banner.astro";
 import { banner } from "@data/banner";
-
 ---
 
 <!doctype html>
@@ -81,14 +81,23 @@ import { banner } from "@data/banner";
     ></script>
   </head>
   <body class={`dark ${palette["UnLtd"].bg}`}>
-    <div class="flex flex-col justify-between h-full"> 
-
-      {banner.status === 'published' && <Banner banner={banner} />}
+    <div class="flex flex-col justify-between h-full">
+      {banner.status === "published" && <Banner banner={banner} />}
 
       <!-- NEW HEADER -->
-      {navigation && <Header styles={palette["UnLtd"]} navigation={navigation} client:load />}
+      {
+        navigation && (
+          <Header
+            styles={palette["UnLtd"]}
+            navigation={navigation}
+            client:load
+          />
+        )
+      }
+
       <!-- OLD HEADER -->
       <!-- <Nav /> -->
+
       {
         Astro.url.pathname !== "/" ? (
           <Breadcrumbs breadcrumbs={breadcrumbs} styles={theme} />
