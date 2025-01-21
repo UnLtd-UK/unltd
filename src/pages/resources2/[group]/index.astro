@@ -1,0 +1,132 @@
+---
+import { resources } from "@data/resources.js";
+import slugify from "slugify";
+
+export function getStaticPaths() {
+    let groups: { name: string; slug: string }[] = [];
+    let subGroups: { name: string; slug: string; parentGroup: string }[] = [];
+
+    // Populate groups and subgroups lists
+    resources.map((resource) => {
+        // Handle main groups
+        resource.groups.map((group) => {
+            if (!groups.some((g) => g.name === group)) {
+                groups.push({
+                    name: group,
+                    slug: slugify(group, {
+                        lower: true,
+                        strict: true,
+                        locale: "en",
+                        trim: true,
+                    }),
+                });
+            }
+        });
+
+        // Handle sub_groups
+        if (resource.sub_groups && resource.sub_groups.length > 0) {
+            const parentGroup = resource.groups[0]; // Assuming first group is parent
+            resource.sub_groups.forEach((subGroup) => {
+                if (!subGroups.some((sg) => sg.name === subGroup)) {
+                    subGroups.push({
+                        name: subGroup,
+                        slug: slugify(subGroup, {
+                            lower: true,
+                            strict: true,
+                            locale: "en",
+                            trim: true,
+                        }),
+                        parentGroup: parentGroup,
+                    });
+                }
+            });
+        }
+    });
+
+    // Return the paths and props
+    return groups.map((group) => {
+        // Filter resources for this group (only those without sub_groups and specific_groups)
+        const groupResources = resources.filter(
+            (resource) =>
+                resource.groups.includes(group.name) &&
+                (!resource.sub_groups || resource.sub_groups.length === 0) &&
+                (!resource.specific_groups ||
+                    resource.specific_groups.length === 0),
+        );
+
+        // Get sub-groups for this group
+        const groupSubGroups = subGroups.filter(
+            (subGroup) => subGroup.parentGroup === group.name,
+        );
+
+        return {
+            params: {
+                group: group.slug,
+            },
+            props: {
+                group: group,
+                resources: groupResources,
+                subGroups: groupSubGroups,
+            },
+        };
+    });
+}
+
+const { group, resources, subGroups } = Astro.props;
+---
+
+<div>
+    <section>
+        <h2 class="text-xl font-bold">Resources for {group.name}</h2>
+
+        {/* Sub-groups Navigation */}
+        {
+            subGroups.length > 0 && (
+                <div class="mt-4">
+                    <h3 class="text-lg font-semibold">Groups</h3>
+                    <ul class="list-none pl-4">
+                        {subGroups.map((subGroup) => (
+                            <li class="mt-2">
+                                <a
+                                    href={`/resources2/${group.slug}/${subGroup.slug}`}
+                                    class="text-blue-600 hover:underline"
+                                >
+                                    {subGroup.name}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )
+        }
+
+        {/* Resources List */}
+        {
+            resources.length > 0 && (
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold">Resources</h3>
+                    <ul class="list-disc pl-4 mt-2">
+                        {resources.map((resource) => (
+                            <li>
+                                <a
+                                    href={`/resources2/${group.slug}/${slugify(
+                                        resource.name,
+                                        {
+                                            lower: true,
+                                            strict: true,
+                                            locale: "en",
+                                            trim: true,
+                                        },
+                                    )}`}
+                                    class="text-blue-600 hover:underline"
+                                >
+                                    {resource.name}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )
+        }
+    </section>
+</div>
