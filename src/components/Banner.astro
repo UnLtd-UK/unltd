@@ -3,19 +3,26 @@ const { banner } = Astro.props;
 ---
 
 <div
-  class="inset-x-0 bottom-0 flex flex-col justify-between gap-x-8 gap-y-4 bg-violet-50 p-6 ring-1 ring-violet-900/10 md:flex-row md:items-center lg:px-8"
+  class="inset-x-0 bottom-0 bg-violet-50 p-6 ring-1 ring-violet-900/10 md:flex-row md:items-center lg:px-8"
 >
-  <p class="max-w-4xl text-sm/6 text-violet-950">
-    {banner.body}
-    <a href={banner.link_url} class="font-semibold text-violet-600"
-      >{banner.link_text}</a
-    >.
-  </p>
-  <div class="flex flex-none items-center gap-x-5">
-    <a
-      href={banner.link_url}
-      class="rounded-md bg-violet-900 px-3 py-2 text-sm font-semibold text-violet-50 shadow-xs hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-900"
-      >{banner.link_text}</a
-    >
+  <div
+    class="gap-x-8 gap-y-4 mx-auto max-w-7xl sm:px-6 lg:px-8 flex lg:flex-row flex-col justify-between"
+  >
+    <div class="flex flex-col gap-y-2">
+      <p class="max-w-3xl text-md/6 text-violet-950 font-semibold">
+        Our application portal will be closed from March 24th to late April 2025
+        for important upgrades
+      </p>
+      <p class="max-w-2xl text-sm/6 text-violet-800">
+        {banner.body}
+      </p>
+    </div>
+    <div class="flex flex-none items-center gap-x-5">
+      <a
+        href={banner.link_url}
+        class="rounded-md bg-violet-900 px-3 py-2 text-sm font-semibold text-violet-50 shadow-xs hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-900"
+        >{banner.link_text}</a
+      >
+    </div>
   </div>
 </div>
