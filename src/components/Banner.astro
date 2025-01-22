@@ -11,14 +11,11 @@ const { banner } = Astro.props;
       >{banner.link_text}</a
     >.
   </p>
-  <!-- <div class="flex flex-none items-center gap-x-5">
-    <button
-      type="button"
+  <div class="flex flex-none items-center gap-x-5">
+    <a
+      href={banner.link_url}
       class="rounded-md bg-violet-900 px-3 py-2 text-sm font-semibold text-violet-50 shadow-xs hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-900"
-      >Accept all</button
+      >{banner.link_text}</a
     >
-    <button type="button" class="text-sm/6 font-semibold text-violet-900"
-      >Reject all</button
-    >
-  </div> -->
+  </div>
 </div>
