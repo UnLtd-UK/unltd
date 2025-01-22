@@ -1,0 +1,160 @@
+---
+import { resources } from "@data/resources.js";
+import slugify from "slugify";
+
+export function getStaticPaths() {
+    let allPaths: {
+        group: string;
+        groupSlug: string;
+        subGroup: string;
+        subGroupSlug: string;
+    }[] = [];
+
+    // Build all valid group/subgroup combinations
+    resources.forEach((resource) => {
+        if (resource.sub_groups && resource.sub_groups.length > 0) {
+            const group = resource.groups[0]; // Assuming first group is parent
+            const groupSlug = slugify(group, {
+                lower: true,
+                strict: true,
+                locale: "en",
+                trim: true,
+            });
+
+            resource.sub_groups.forEach((subGroup) => {
+                // Only add unique group/subgroup combinations
+                const existingPath = allPaths.some(
+                    (path) =>
+                        path.group === group && path.subGroup === subGroup,
+                );
+
+                if (!existingPath) {
+                    allPaths.push({
+                        group: group,
+                        groupSlug: groupSlug,
+                        subGroup: subGroup,
+                        subGroupSlug: slugify(subGroup, {
+                            lower: true,
+                            strict: true,
+                            locale: "en",
+                            trim: true,
+                        }),
+                    });
+                }
+            });
+        }
+    });
+
+    return allPaths.map(({ group, groupSlug, subGroup, subGroupSlug }) => {
+        // Get resources for this sub-group (only those without specific_groups)
+        const subGroupResources = resources.filter(
+            (resource) =>
+                resource.groups.includes(group) &&
+                resource.sub_groups?.includes(subGroup) &&
+                (!resource.specific_groups ||
+                    resource.specific_groups.length === 0),
+        );
+
+        // Get specific groups for this sub-group
+        const specificGroups = resources
+            .filter(
+                (resource) =>
+                    resource.groups.includes(group) &&
+                    resource.sub_groups?.includes(subGroup) &&
+                    resource.specific_groups &&
+                    resource.specific_groups.length > 0,
+            )
+            .flatMap((resource) => resource.specific_groups)
+            .filter((value, index, self) => self.indexOf(value) === index) // Remove duplicates
+            .map((specificGroup) => ({
+                name: specificGroup,
+                slug: slugify(specificGroup, {
+                    lower: true,
+                    strict: true,
+                    locale: "en",
+                    trim: true,
+                }),
+            }));
+
+        return {
+            params: {
+                group: groupSlug,
+                subgroup: subGroupSlug, // Changed from sub-group to subgroup
+            },
+            props: {
+                groupName: group,
+                subGroupName: subGroup,
+                resources: subGroupResources,
+                specificGroups: specificGroups,
+            },
+        };
+    });
+}
+
+const { groupName, subGroupName, resources, specificGroups } = Astro.props;
+---
+
+<div>
+    <ul>
+        <li>
+            <a href="/resources2" class="text-blue-600 hover:underline"
+                >Back to Resources</a
+            >
+        </li>
+        <li>
+            <a
+                href={`/resources2/${Astro.params.group}`}
+                class="text-blue-600 hover:underline">Back to {groupName}</a
+            >
+        </li>
+    </ul>
+
+    {/* Specific Groups Navigation */}
+    {
+        specificGroups.length > 0 && (
+            <div class="mt-4">
+                <h3 class="text-lg font-semibold">Groups</h3>
+                <ul class="list-none pl-4">
+                    {specificGroups.map((specificGroup) => (
+                        <li class="mt-2">
+                            <a
+                                href={`/resources2/${Astro.params.group}/${Astro.params.subgroup}/${specificGroup.slug}`}
+                                class="text-blue-600 hover:underline"
+                            >
+                                {specificGroup.name}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        )
+    }
+
+    {/* Resources List */}
+    {
+        resources.length > 0 && (
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold">Resources</h3>
+                <ul class="list-disc pl-4 mt-2">
+                    {resources.map((resource) => (
+                        <li>
+                            <a
+                                href={`/resources2/${Astro.params.group}/${
+                                    Astro.params.subgroup
+                                }/${slugify(resource.name, {
+                                    lower: true,
+                                    strict: true,
+                                    locale: "en",
+                                    trim: true,
+                                })}`}
+                                class="text-blue-600 hover:underline"
+                            >
+                                {resource.name}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        )
+    }
+</div>
