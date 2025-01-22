@@ -19,10 +19,15 @@ const { banner } = Astro.props;
     </div>
     <div class="flex flex-none items-center gap-x-5">
       <a
-        href={banner.link_url}
+        href={banner.primary_button_url}
         class="rounded-md bg-violet-900 px-3 py-2 text-sm font-semibold text-violet-50 shadow-xs hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-900"
-        >{banner.link_text}</a
+        >{banner.primary_button_text}</a
       >
+      <a
+        href={banner.secondary_button_url}
+        class="text-sm/6 font-semibold text-violet-950"
+        >{banner.secondary_button_text} <i class="fa-solid fa-arrow-right"></i>
+      </a>
     </div>
   </div>
 </div>
