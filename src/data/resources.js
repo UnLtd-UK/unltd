@@ -4,7 +4,7 @@ const collection = "resources";
 const name = "resources";
 
 const filterOptions = {
-    sort: ['sort'],
+    sort: ['title'],
     filter: {
         status: {
             _eq: 'published'
