@@ -73,19 +73,20 @@ const { post } = Astro.props;
             {post.title}
           </h3>
         </div>
-        <p class="mt-5 text-2xl leading-6 text-violet-600 dark:text-violet-200">
+        <p class="mt-5 text-2xl leading-8 text-violet-600 dark:text-violet-200">
           {post.description}
         </p>
       </div>
-      <div class="relative flex gap-x-4 text-sm leading-6 flex-col">
+      <div class="relative flex gap-x-4 text-sm leading-6 flex-col gap-2">
         <p class="text-violet-300">Written by</p>
-        <p class="font-semibold text-violet-700 dark:text-violet-300">
-          <span class="absolute inset-0"></span>
-          {post.author_name}
-        </p>
-        <p class="text-violet-600 dark:text-violet-400">
-          {post.author_position}
-        </p>
+        <div class="">
+          <p class="font-semibold text-sm text-violet-700 dark:text-violet-300">
+            {post.author_name}
+          </p>
+          <p class="text-violet-600 text-xs dark:text-violet-400">
+            {post.author_position}
+          </p>
+        </div>
       </div>
       <div class="prose">
         {
@@ -100,7 +101,37 @@ const { post } = Astro.props;
       </div>
       <div
         set:html={marked.parse(post.body)}
-        class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2 prose-p:text-violet-200 prose-li:text-violet-200 prose-h1:text-violet-100 prose-h2:text-violet-100 prose-h3:text-violet-100 prose-h4:text-violet-100 prose-blockquote:border-l-violet-500 prose-blockquote:bg-violet-950/30 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-r-lg prose-blockquote:text-violet-200 prose-blockquote:not-italic prose-blockquote:font-normal prose-blockquote:relative prose-blockquote:before:content-['"'] prose-blockquote:before:absolute prose-blockquote:before:-left-1 prose-blockquote:before:-top-4 prose-blockquote:before:text-5xl prose-blockquote:before:text-violet-500 prose-blockquote:after:content-['"'] prose-blockquote:after:absolute prose-blockquote:after:-right-2 prose-blockquote:after:-bottom-8 prose-blockquote:after:text-5xl prose-blockquote:after:text-violet-500"
+        class="prose prose-slate dark:prose-invert lg:prose-lg
+          
+          /* Image styles */
+          prose-img:rounded-md
+          prose-img:shadow-sm
+          prose-img:w-full
+          
+          /* Link styles */
+          prose-a:font-bold
+          prose-a:underline-offset-4
+          prose-a:decoration-amber-500
+          prose-a:decoration-1
+          hover:prose-a:decoration-2
+          
+          /* Text styles */
+          prose-p:text-violet-200
+          prose-li:text-violet-200
+          prose-h1:text-violet-100
+          prose-h2:text-violet-100
+          prose-h3:text-violet-100
+          prose-h4:text-violet-100
+          
+          /* Blockquote styles */
+          prose-blockquote:border-l-violet-400
+          prose-blockquote:px-6
+          [&>blockquote>p]:!text-violet-100
+          prose-blockquote:not-italic
+          prose-blockquote:font-semibold
+          prose-blockquote:text-xl
+          prose-blockquote:relative
+          prose-blockquote:leading-8"
       />
     </article>
   </Container>
