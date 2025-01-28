@@ -3,7 +3,6 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Hero from "@components/Hero.astro";
 import { marked } from "marked";
-
 import { posts } from "@data/posts.js";
 import moment from "moment";
 
@@ -13,6 +12,7 @@ import Note from "@components/Note.astro";
 
 export async function getStaticPaths() {
   return posts.map((post) => {
+    const slug = post.slug || "";
     let breadcrumbs = [
       {
         name: "Blog",
@@ -20,7 +20,7 @@ export async function getStaticPaths() {
       },
       {
         name: post.title,
-        slug: `/blog/${post.slug}`,
+        slug: `/blog/${slug}`,
       },
     ];
 
@@ -28,7 +28,7 @@ export async function getStaticPaths() {
 
     let item = {
       params: {
-        post: post.slug,
+        post: slug,
       },
       props: {
         post: post,
@@ -51,7 +51,7 @@ const { post } = Astro.props;
     <article
       class="flex flex-col items-start justify-between mb-10 flex flex-col gap-4"
     >
-      <div class="max-w-xl">
+      <div class="max-w-4xl">
         <div class="mt-8 flex items-center gap-x-4 text-xs">
           <time
             dateTime={post.date_time}
@@ -60,7 +60,7 @@ const { post } = Astro.props;
             Published {moment(post.date_time).format("ddd hh:mm, DD MMM YYYY")}
           </time>
           <span
-            class="relative z-10 rounded-full bg-violet-100 dark:bg-violet-900 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-400"
+            class="relative z-10 rounded-full bg-violet-100 dark:bg-violet-800 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-300"
           >
             {post.tag}
           </span>
@@ -88,14 +88,21 @@ const { post } = Astro.props;
           </p>
         </div>
       </div>
-      <div class="prose">
+      <div class="my-10">
         {
           post.image !== null && (
-            <img
-              src={`https://unltd.directus.app/assets/${post.image}`}
-              alt=""
-              class=" rounded-2xl"
-            />
+            <figure class="flex flex-col gap-2">
+              <img
+                src={`https://unltd.directus.app/assets/${post.image}`}
+                alt={post.image_alt ? post.image_alt : ""}
+                class=" rounded-2xl"
+              />
+              {post.image_caption && (
+                <figcaption class="text-xs text-violet-300">
+                  {post.image_caption}
+                </figcaption>
+              )}
+            </figure>
           )
         }
       </div>
@@ -107,6 +114,8 @@ const { post } = Astro.props;
           prose-img:rounded-md
           prose-img:shadow-sm
           prose-img:w-full
+        prose-figcaption:text-violet-300
+        prose-figcaption:text-xs
           
           /* Link styles */
           prose-a:font-bold
