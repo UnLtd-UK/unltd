@@ -73,9 +73,7 @@ const { post } = Astro.props;
             {post.title}
           </h3>
         </div>
-        <p
-          class="mt-5 text-2xl leading-6 text-violet-600 dark:text-violet-400"
-        >
+        <p class="mt-5 text-2xl leading-6 text-violet-600 dark:text-violet-400">
           {post.description}
         </p>
       </div>
@@ -104,7 +102,7 @@ const { post } = Astro.props;
 
     <div
       set:html={marked.parse(post.body)}
-      class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
+      class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2 prose-p:text-violet-100 prose-li:text-violet-100 prose-h1:text-violet-100 prose-h2:text-violet-100 prose-h3:text-violet-100 prose-h4:text-violet-100"
     />
   </Container>
 </Template>
