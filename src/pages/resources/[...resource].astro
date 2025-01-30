@@ -2,8 +2,8 @@
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import slugify from "slugify";
-import Hero from "@components/Hero.astro";
-import { subjects } from "@data/subjects.js";
+import Default from "@components/heroes/Default.astro";
+import { resources } from "@data/resources.js";
 import markdocRenderer from "@utils/markdocRenderer.mjs";
 import TableOfContents from "@components/markdoc/TableOfContents.astro";
 
@@ -13,19 +13,19 @@ import Tip from "@components/markdoc/Tip.astro";
 import Heading from "@components/markdoc/Heading.astro";
 
 export async function getStaticPaths() {
-  return subjects
-    .filter((subject) => subject.body)
-    .map((subject) => {
-      const slug = slugify(subject.name, {
+  return resources
+    .filter((resource) => resource.body)
+    .map((resource) => {
+      const slug = slugify(resource.name, {
         lower: true,
         strict: true,
         locale: "en",
         trim: true,
       });
 
-      subject.breadcrumbs = [
+      resource.breadcrumbs = [
         {
-          name: subject.name,
+          name: resource.name,
           slug: slug,
         },
       ];
@@ -36,7 +36,7 @@ export async function getStaticPaths() {
       const duplicateHeadings = new Set();
 
       // First pass to identify duplicates
-      const lines = subject.body.split("\n");
+      const lines = resource.body.split("\n");
       lines.forEach((line) => {
         const match = line.match(/^(#{1,6})\s+(.+)$/);
         if (match) {
@@ -83,14 +83,14 @@ export async function getStaticPaths() {
         }
       });
 
-      const html = markdocRenderer(subject.body);
+      const html = markdocRenderer(resource.body);
 
       return {
         params: {
-          subject: slug,
+          resource: slug,
         },
         props: {
-          subject,
+          resource,
           html,
           headings,
         },
@@ -98,19 +98,19 @@ export async function getStaticPaths() {
     });
 }
 
-const { subject, html, headings } = Astro.props;
+const { resource, html, headings } = Astro.props;
 ---
 
 <Template
-  name={subject.name}
-  description={subject.description}
-  breadcrumbs={subject.breadcrumbs}
+  name={resource.name}
+  description={resource.description}
+  breadcrumbs={resource.breadcrumbs}
 >
   <Container>
     <div class="relative flex flex-col lg:flex-row gap-8">
       <TableOfContents headings={headings} />
       <div class="flex-1">
-        <Hero name={subject.name} description={subject.description} />
+        <Default name={resource.name} description={resource.description} />
         <div
           class="scroll-smooth prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
           set:html={html}

@@ -1,0 +1,17 @@
+---
+import Template from "@layouts/Template.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Container from "@components/Container.astro";
+
+const { title, slug, path, description, updated, reviewed, review, toc, body } =
+    Astro.props.frontmatter || Astro.props;
+---
+
+<Template>
+    <Container>
+        <Breadcrumbs />
+        <!-- Resource Hero -->
+        <!-- Aside - TOC -->
+        <!-- Main - Body -->
+    </Container>
+</Template>

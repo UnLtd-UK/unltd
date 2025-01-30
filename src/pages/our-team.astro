@@ -2,9 +2,10 @@
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
-import Hero from "@components/Hero.astro";
+import Default from "@components/heroes/Default.astro";
 import Team from "@components/Team.astro";
 import { positions } from "@data/positions.js";
+import slugify from "slugify";
 
 const name = "Our team";
 const description =
@@ -13,14 +14,19 @@ const description =
 const breadcrumbs = [
   {
     name: "Our team",
-    slug: "our-team",
+    slug: slugify(name, {
+      lower: true,
+      strict: true,
+      locale: "en",
+      trim: true,
+    }),
   },
 ];
 ---
 
 <Template name={name} description={description} breadcrumbs={breadcrumbs}>
   <Container>
-    <Hero name={name} description={description} />
+    <Default name={name} description={description} />
     <Team
       name="Leadership"
       description="Our Executive Team are committed to delivering on our Breaking Down Barriers ambitions, leading and shaping UnLtd so we're best able to meet the needs of social entrepreneurs alongside our valued partners and supporters."

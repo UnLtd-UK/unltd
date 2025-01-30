@@ -2,12 +2,11 @@
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
-import Hero from "@components/Hero.astro";
+import Default from "@components/heroes/Default.astro";
+import Content from "@components/Content.astro";
+
 import { marked } from "marked";
 import slugify from "slugify";
-
-import Faqmd from "@components/Faqmd.astro";
-import Note from "@components/Note.astro";
 
 import { pages } from "@data/pages.js";
 
@@ -45,15 +44,12 @@ export async function getStaticPaths() {
   });
 }
 
-const { name, description, date_updated, body, breadcrumbs } = Astro.props;
+const { name, description, body, breadcrumbs } = Astro.props;
 ---
 
 <Template name={name} description={description} breadcrumbs={breadcrumbs}>
   <Container>
-    <Hero name={name} description={description} updated={date_updated} />
-    <div
-      set:html={marked.parse(body)}
-      class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2 mb-20"
-    />
+    <Default name={name} description={description} />
+    <Content body={body} />
   </Container>
 </Template>

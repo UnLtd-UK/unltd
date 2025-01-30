@@ -1,0 +1,47 @@
+---
+import Faqtemplate from "@components/Faqtemplate.astro";
+import Faq from "@components/Faq.astro";
+import Note from "@components/Note.astro";
+
+// Convert markdown to html
+import { marked } from "marked";
+
+const { body } = Astro.props;
+---
+
+<div
+  set:html={marked.parse(body)}
+  class="prose prose-slate dark:prose-invert lg:prose-lg
+          
+          /* Image styles */
+          prose-img:rounded-md
+          prose-img:shadow-sm
+          prose-img:w-full
+        prose-figcaption:text-violet-300
+        prose-figcaption:text-xs
+          
+          /* Link styles */
+          prose-a:font-bold
+          prose-a:underline-offset-4
+          prose-a:decoration-amber-500
+          prose-a:decoration-1
+          hover:prose-a:decoration-2
+          
+          /* Text styles */
+          prose-p:text-violet-200
+          prose-li:text-violet-200
+          prose-h1:text-violet-100
+          prose-h2:text-violet-100
+          prose-h3:text-violet-100
+          prose-h4:text-violet-100
+          
+          /* Blockquote styles */
+          prose-blockquote:border-l-violet-400
+          prose-blockquote:px-6
+          [&>blockquote>p]:!text-violet-100
+          prose-blockquote:not-italic
+          prose-blockquote:font-semibold
+          prose-blockquote:text-xl
+          prose-blockquote:relative
+          prose-blockquote:leading-8"
+/>
