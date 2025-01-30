@@ -1,18 +1,36 @@
 ---
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
-import Hero from "@components/Hero.astro";
-import { marked } from "marked";
-import { posts } from "@data/posts.js";
-import moment from "moment";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import HeroPost from "@components/heroes/Post.astro";
+import Content from "@components/Content.astro";
 
-import Faqtemplate from "@components/Faqtemplate.astro";
-import Faq from "@components/Faq.astro";
-import Note from "@components/Note.astro";
+import slugify from "slugify";
+import { posts } from "@data/posts.js";
+
+interface Post {
+  title: string;
+  description: string;
+  tag: string;
+  image: string;
+  image_alt: string;
+  image_caption: string;
+  author_name: string;
+  author_position: string;
+  body: string;
+  date_time: string;
+  breadcrumbs: Array<{ name: string; slug: string }>;
+}
 
 export async function getStaticPaths() {
   return posts.map((post) => {
-    const slug = post.slug || "";
+    const slug = slugify(post.title, {
+      lower: true,
+      strict: true,
+      locale: "en",
+      trim: true,
+    });
+
     let breadcrumbs = [
       {
         name: "Blog",
@@ -39,7 +57,7 @@ export async function getStaticPaths() {
   });
 }
 
-const { post } = Astro.props;
+const { post } = Astro.props as { post: Post };
 ---
 
 <Template
@@ -48,100 +66,19 @@ const { post } = Astro.props;
   breadcrumbs={post.breadcrumbs}
 >
   <Container>
-    <article
-      class="flex flex-col items-start justify-between mb-10 flex flex-col gap-4"
-    >
-      <div class="max-w-4xl">
-        <div class="mt-8 flex items-center gap-x-4 text-xs">
-          <time
-            dateTime={post.date_time}
-            class="text-violet-600 dark:text-violet-400"
-          >
-            Published {moment(post.date_time).format("ddd hh:mm, DD MMM YYYY")}
-          </time>
-          <span
-            class="relative z-10 rounded-full bg-violet-100 dark:bg-violet-800 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-300"
-          >
-            {post.tag}
-          </span>
-        </div>
-        <div class="group relative">
-          <h3
-            class="mt-3 text-4xl font-semibold text-violet-700 dark:text-violet-100"
-          >
-            <span class="absolute inset-0"></span>
-            {post.title}
-          </h3>
-        </div>
-        <p class="mt-5 text-2xl leading-8 text-violet-600 dark:text-violet-200">
-          {post.description}
-        </p>
-      </div>
-      <div class="relative flex gap-x-4 text-sm leading-6 flex-col gap-2">
-        <p class="text-violet-300">Written by</p>
-        <div class="">
-          <p class="font-semibold text-sm text-violet-700 dark:text-violet-300">
-            {post.author_name}
-          </p>
-          <p class="text-violet-600 text-xs dark:text-violet-400">
-            {post.author_position}
-          </p>
-        </div>
-      </div>
-      <div class="my-10">
-        {
-          post.image !== null && (
-            <figure class="flex flex-col gap-2">
-              <img
-                src={`https://unltd.directus.app/assets/${post.image}`}
-                alt={post.image_alt ? post.image_alt : ""}
-                class=" rounded-2xl"
-              />
-              {post.image_caption && (
-                <figcaption class="text-xs text-violet-300">
-                  {post.image_caption}
-                </figcaption>
-              )}
-            </figure>
-          )
-        }
-      </div>
-      <div
-        set:html={marked.parse(post.body)}
-        class="prose prose-slate dark:prose-invert lg:prose-lg
-          
-          /* Image styles */
-          prose-img:rounded-md
-          prose-img:shadow-sm
-          prose-img:w-full
-        prose-figcaption:text-violet-300
-        prose-figcaption:text-xs
-          
-          /* Link styles */
-          prose-a:font-bold
-          prose-a:underline-offset-4
-          prose-a:decoration-amber-500
-          prose-a:decoration-1
-          hover:prose-a:decoration-2
-          
-          /* Text styles */
-          prose-p:text-violet-200
-          prose-li:text-violet-200
-          prose-h1:text-violet-100
-          prose-h2:text-violet-100
-          prose-h3:text-violet-100
-          prose-h4:text-violet-100
-          
-          /* Blockquote styles */
-          prose-blockquote:border-l-violet-400
-          prose-blockquote:px-6
-          [&>blockquote>p]:!text-violet-100
-          prose-blockquote:not-italic
-          prose-blockquote:font-semibold
-          prose-blockquote:text-xl
-          prose-blockquote:relative
-          prose-blockquote:leading-8"
-      />
-    </article>
+    <HeroPost
+      name={post.title}
+      description={post.description}
+      tag={post.tag}
+      image={{
+        url: post.image,
+        alt: post.image_alt,
+        caption: post.image_caption,
+      }}
+      published={post.date_time}
+      author={{ name: post.author_name, position: post.author_position }}
+    />
+
+    <Content body={post.body} />
   </Container>
 </Template>

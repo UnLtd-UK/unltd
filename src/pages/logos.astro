@@ -2,7 +2,7 @@
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
-import Hero from "@components/Hero.astro";
+import Default from "@components/heroes/Default.astro";
 
 const name = "Logo";
 const description = "Blah blah blah";
@@ -170,7 +170,7 @@ const partnersDark = [
     <Container>
         <!-- light bg -->
         <div class="flex flex-col gap-2 mt-40">
-            <Hero name="Light + Colour" />
+            <Default name="Light + Colour" />
             <div class={`dark:bg-gray-100 dark:text-gray-900 py-24 sm:py-32`}>
                 <div class="mx-auto max-w-7xl px-6 lg:px-8">
                     <h2 class={`uppercase text-lg font-semibold leading-8`}>
@@ -197,7 +197,7 @@ const partnersDark = [
 
         <!-- dark bg -->
         <div class="flex flex-col gap-2 mt-40">
-            <Hero name="Dark + Colour" />
+            <Default name="Dark + Colour" />
             <div class={`dark:bg-gray-900 dark:text-gray-100 py-24 sm:py-32`}>
                 <div class="mx-auto max-w-7xl px-6 lg:px-8">
                     <h2 class={`uppercase text-lg font-semibold leading-8`}>
@@ -224,7 +224,7 @@ const partnersDark = [
 
         <!-- light bg -->
         <div class="flex flex-col gap-2 mt-40">
-            <Hero name="Light" />
+            <Default name="Light" />
             <div class={`dark:bg-gray-100 dark:text-gray-900 py-24 sm:py-32`}>
                 <div class="mx-auto max-w-7xl px-6 lg:px-8">
                     <h2 class={`uppercase text-lg font-semibold leading-8`}>
@@ -251,7 +251,7 @@ const partnersDark = [
 
         <!-- dark bg -->
         <div class="flex flex-col gap-2 mt-40">
-            <Hero name="Dark" />
+            <Default name="Dark" />
             <div class={`dark:bg-gray-900 dark:text-gray-100 py-24 sm:py-32`}>
                 <div class="mx-auto max-w-7xl px-6 lg:px-8">
                     <h2 class={`uppercase text-lg font-semibold leading-8`}>

@@ -10,38 +10,6 @@ const { frontmatter } = Astro.props;
   <Container>
     <Breadcrumbs breadcrumbs={frontmatter.breadcrumbs} />
     <Hero name={frontmatter.name} description={frontmatter.description} />
-    <!-- <div class="py-14 flex flex-col gap-12">
-      {
-        frontmatter.primaryButton && (
-          <div class="flex flex-row">
-            <div class="inline-flex rounded-md shadow">
-              {frontmatter.primaryButton && (
-                <a
-                  target={
-                    frontmatter.primaryButton.url.startsWith("https://") &&
-                    "_blank"
-                  }
-                  href={frontmatter.primaryButton.url}
-                  class="inline-flex items-center justify-center rounded-full border border-transparent bg-violet-100 px-5 py-3 text-base font-medium text-violet hover:bg-amber-700"
-                >
-                  {frontmatter.primaryButton.text}
-                </a>
-              )}
-            </div>
-            <div class="ml-3 inline-flex">
-              {frontmatter.secondaryButton && (
-                <a
-                  href={frontmatter.secondaryButton.url}
-                  class="inline-flex items-center justify-center rounded-full border border-transparent bg-violet-100 px-5 py-3 text-base font-medium text-violet-700 hover:bg-amber-200"
-                >
-                  {frontmatter.secondaryButton.text}
-                </a>
-              )}
-            </div>
-          </div>
-        )
-      }
-    </div> -->
     <div
       class="prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
     >

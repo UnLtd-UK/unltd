@@ -28,7 +28,7 @@ const { breadcrumbs, styles } = Astro.props;
                     class={`fa-solid fa-chevron-right ${styles.breadcrumb} text-xs`}
                   />
                   <a
-                    href={`${crumb.slug}`}
+                    href={`${crumb.path}`}
                     class={`ml-4 text-xs font-medium ${styles.breadcrumb} transition`}
                   >
                     {crumb.name}

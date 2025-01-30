@@ -1,6 +1,6 @@
 ---
 import Template from "@layouts/Template.astro";
-import Hero from "@components/Hero.astro";
+import Default from "@components/heroes/Default.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 
@@ -21,7 +21,7 @@ import moment from "moment";
 
 <Template name={name} description={description} breadcrumbs={breadcrumbs}>
   <Container>
-    <Hero name={name} description={description} />
+    <Default name={name} description={description} />
 
     <div
       class="overflow-hidden bg-violet-50 dark:bg-violet-900 shadow sm:rounded-md mb-10"
