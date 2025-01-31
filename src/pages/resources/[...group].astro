@@ -149,7 +149,7 @@ const { name, description, slug, breadcrumbs, children, resources } =
                                 Astro.params.group === child.slug;
                             const isRootPage =
                                 !Astro.params.group &&
-                                child.path === "/resources/all";
+                                child.path === "/resources";
                             const isSelected = isCurrentPage || isRootPage;
 
                             return (
@@ -187,15 +187,7 @@ const { name, description, slug, breadcrumbs, children, resources } =
                                             </span>
                                             <h3 class="mt-3 text-lg/6 font-semibold text-violet-200 group-hover:text-violet-300">
                                                 <a
-                                                    href={`${breadcrumbs[breadcrumbs.length - 1].path}/${slugify(
-                                                        resource.name,
-                                                        {
-                                                            lower: true,
-                                                            strict: true,
-                                                            locale: "en",
-                                                            trim: true,
-                                                        },
-                                                    )}`}
+                                                    href={`/resources/${slugify(resource.name, { lower: true, strict: true, locale: "en", trim: true })}`}
                                                 >
                                                     <span class="absolute inset-0" />
                                                     {resource.name}
