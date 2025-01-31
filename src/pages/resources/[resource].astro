@@ -1,0 +1,61 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Default from "@components/heroes/Default.astro";
+import Content from "@components/markdoc/Content.astro";
+import TableOfContents from "@components/TableOfContents.astro";
+
+import slugify from "slugify";
+import { allResources } from "@data/resources.js";
+
+import { prepareMarkdown } from "@data/functions/prepareMarkdown.ts"; // returns a string of cleaned up markdown, still as a string, which has h1's removed, adds anchor links to every h2 and h3 and ensures their anchor id is unquie
+import { prepareToc } from "@data/functions/prepareToc.js"; // returns an array of objects which detial the table of content (using h2's and h3's) of the body
+
+export async function getStaticPaths() {
+  return allResources.map((resource) => {
+    const slug = slugify(resource.name, {
+      lower: true,
+      strict: true,
+      locale: "en",
+      trim: true,
+    });
+
+    return {
+      params: {
+        resource: slug,
+      },
+      props: {
+        name: resource.name,
+        slug: slug,
+        description: resource.description,
+        breadcrumbs: [
+          {
+            text: "Resources",
+            value: "resources",
+            path: "/resources",
+          },
+          {
+            text: resource.name,
+            value: slug,
+            path: `/resources/${slug}`,
+          },
+        ],
+        body: prepareMarkdown(resource.body),
+        toc: [],
+      },
+    };
+  });
+}
+
+const { name, description, breadcrumbs, body, toc } = Astro.props;
+---
+
+<Template name={name} description={description} breadcrumbs={breadcrumbs}>
+  <Container>
+    <Default name={name} description={description} />
+    <div>
+      <!-- <TableOfContents headings={toc} /> -->
+      <Content body={body} />
+    </div>
+  </Container>
+</Template>
