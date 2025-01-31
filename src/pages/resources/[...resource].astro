@@ -3,7 +3,7 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import slugify from "slugify";
 import Default from "@components/heroes/Default.astro";
-import { resources } from "@data/resources.js";
+import { allResources } from "@data/resources.js";
 import markdocRenderer from "@utils/markdocRenderer.mjs";
 import TableOfContents from "@components/markdoc/TableOfContents.astro";
 
@@ -13,7 +13,7 @@ import Tip from "@components/markdoc/Tip.astro";
 import Heading from "@components/markdoc/Heading.astro";
 
 export async function getStaticPaths() {
-  return resources
+  return allResources
     .filter((resource) => resource.body)
     .map((resource) => {
       const slug = slugify(resource.name, {
