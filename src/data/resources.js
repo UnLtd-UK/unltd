@@ -14,6 +14,6 @@ const filterOptions = {
 
 const attach = false;
 
-const resources = await getCollection(collection, name, filterOptions, attach);
+const allResources = await getCollection(collection, name, filterOptions, attach);
 
-export { resources }
+export { allResources }
