@@ -13,6 +13,8 @@ const componentMap = {
 };
 ---
 
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer
+></script>
 <div class="relative isolate">
   <div class="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
     <div class="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
@@ -76,9 +78,8 @@ const componentMap = {
             })
           }
         </div>
+        <div class="cf-turnstile" data-sitekey="0x4AAAAAAA7WX5YoqLQOPiIW"></div>
         <div class="mt-8 flex justify-end">
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAAA7WX5YoqLQOPiIW">
-          </div>
           <button
             type="submit"
             class="rounded-md bg-amber-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
