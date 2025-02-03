@@ -34,9 +34,8 @@ const {
     <div class="mt-2 flex flex-col gap-1 sm:items-start sm:justify-between">
       <div class="text-sm text-violet-700">
         <p>
-          Once you are ready to start
-          your application, sign-up to an account and click 'Start a new
-          application'.
+          Once you are ready to start your application, sign-up to an account
+          and click 'Start a new application'.
         </p>
       </div>
       <div class="mt-4">
@@ -44,7 +43,7 @@ const {
           <a
             href="https://unltd.microsoftcrmportals.com/applications"
             target="_blank"
-            class="rounded-md bg-violet-50 px-4 py-2 text-sm font-medium text-violet-800 transition hover:bg-violet-200 focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 focus:ring-offset-violet-50"
+            class="rounded-md bg-violet-50 px-4 py-2 text-sm font-medium text-violet-800 transition hover:bg-violet-200 focus:outline-hidden focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 focus:ring-offset-violet-50"
             >Application Portal</a
           >
         </div>
@@ -73,7 +72,7 @@ const {
 
               {section.sections_id.description && (
                 <div
-                  class="bg-violet-100 px-10 pt-5 pb-10 border-b border-violet-200 shadow-sm text-sm text-violet-500 leading-relaxed prose"
+                  class="bg-violet-100 px-10 pt-5 pb-10 border-b border-violet-200 shadow-xs text-sm text-violet-500 leading-relaxed prose"
                   id={`${section.sections_id.slug}-description}`}
                   set:html={marked.parse(section.sections_id.description)}
                 />
