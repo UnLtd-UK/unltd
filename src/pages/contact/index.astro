@@ -1,0 +1,61 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Default from "@components/heroes/Default.astro";
+import { forms } from "@data/forms.js";
+
+const name = "Contact Us";
+const slug = "contact";
+
+const top = {
+  name,
+  slug,
+  description: "Get in touch, we're here to help",
+  breadcrumbs: [
+    {
+      name,
+      slug,
+    },
+  ],
+};
+---
+
+<Template name={top.name} description={top.description}>
+  <Container>
+    <Default name={top.name} description={top.description} />
+    <ul
+      role="list"
+      class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+    >
+      {
+        forms.map((form) => (
+          <li class="col-span-1 divide-y p-10 divide-violet-200 rounded-lg border border-violet-700 bg-violet-900 shadow-xs">
+            <div class="flex h-full flex-col justify-between">
+              <div class="flex flex-col gap-4">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg outline outline-offset-2 outline-violet-300 dark:outline-violet-700 bg-violet-950">
+                  <i
+                    class={`text-violet-800 dark:text-violet-200 fa-solid ${form.icon}`}
+                  />
+                </div>
+                <h3 class="text-base font-semibold leading-7 text-violet-800 dark:text-violet-200">
+                  {form.name}
+                </h3>
+                <p class="leading-5 text-xs text-violet-700 dark:text-violet-400">
+                  {form.description}
+                </p>
+              </div>
+              <p class="mt-4">
+                <a
+                  href={`/contact/${form.slug}`}
+                  class="text-sm font-semibold leading-6 text-amber-600"
+                >
+                  Go to form <span aria-hidden="true">&rarr;</span>
+                </a>
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Template>

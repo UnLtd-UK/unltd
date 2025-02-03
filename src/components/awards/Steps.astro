@@ -115,22 +115,22 @@ import slugify from "slugify";
   </div>
 {
   steps.map((step, i) => (
-    <div id={`tab${i}`} x-show={`activeTab === 'tab${i}'`} class={`bg-violet-100 dark:bg-violet-950 rounded-b-md border-2 border-violet-300 dark:border-violet-700 shadow-sm`} x-cloak>
+    <div id={`tab${i}`} x-show={`activeTab === 'tab${i}'`} class={`bg-violet-100 dark:bg-violet-950 rounded-b-md border-2 border-violet-300 dark:border-violet-700 shadow-xs`} x-cloak>
       <div
         class={`px-10 py-6 ${i === 0 && "rounded-tr-md"} ${i === 4 && "rounded-tl-md"}`}
       >
 
         {/* If the step is called Timeframe then don't use body. Generate it using  */}
-        <div class={`prose prose-slate dark:prose-invert prose-sm prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2`} set:html={marked.parse(step.body)}></div>
+        <div class={`prose prose-slate dark:prose-invert prose-sm prose-img:rounded-md prose-img:shadow-xs prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2`} set:html={marked.parse(step.body)}></div>
       </div>
       <div class="rounded-b-md border-t border-violet-100 dark:border-violet-900 px-10 py-6 flex justify-between items-center">
         {step.next !== null && step.next_link === null ? (
-          <button type="button" @click={`activeTab = 'tab${i+1}', selectHs('${i+1}'), urlUpdater('${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}')`} class="rounded-full bg-amber-600 px-4 py-2.5 font-semibold text-violet-50 shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center">
+          <button type="button" @click={`activeTab = 'tab${i+1}', selectHs('${i+1}'), urlUpdater('${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}')`} class="rounded-full bg-amber-600 px-4 py-2.5 font-semibold text-violet-50 shadow-xs hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center">
             <i class="fa-regular fa-circle-check text-base"></i>
             <span class="text-sm">{step.next}</span>
           </button>
         ) : (
-          <a class="rounded-full bg-amber-600 px-4 py-2.5 font-semibold text-violet-50 shadow-sm hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center" href={step.next_link }>
+          <a class="rounded-full bg-amber-600 px-4 py-2.5 font-semibold text-violet-50 shadow-xs hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center" href={step.next_link }>
             <i class="fa-regular fa-circle-check text-base"></i>
             <span class="text-sm">{step.next}</span>
           </a>

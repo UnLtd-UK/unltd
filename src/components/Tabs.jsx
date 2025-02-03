@@ -36,7 +36,7 @@ export default function TabComponent(props) {
                             <TabPanel key={i}>
                                 <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                                     {posts.filter(post => post.tag === type).map((post) => (
-                                        <li className="col-span-1 divide-y divide-gray-200 rounded-lg shadow" key={post.id}>
+                                        <li className="col-span-1 divide-y divide-gray-200 rounded-lg shadow-sm" key={post.id}>
                                             <a href={`/blog/${post.slug}`}>
                                                 <article className="flex flex-col items-start justify-between transition hover:bg-violet-100 dark:hover:bg-violet-900 hover:outline-violet-200 hover:dark:outline-violet-800 p-6 rounded-2xl">
                                                     <div className="relative w-full h-64">

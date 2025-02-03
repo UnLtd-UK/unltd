@@ -8,12 +8,12 @@ interface Props {
 }
 
 const { headings } = Astro.props;
-const filteredHeadings = headings.filter(heading => heading.level <= 2);
+const filteredHeadings = headings.filter((heading) => heading.level <= 2);
 ---
 
 <div class="hidden lg:block w-64 shrink-0">
   <div class="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
-    <nav class="space-y-4 bg-violet-950/50 rounded-xl backdrop-blur-sm">
+    <nav class="space-y-4 bg-violet-950/50 rounded-xl backdrop-blur-xs">
       <h2 class="font-semibold text-violet-200 mb-4">Table of Contents</h2>
       <div class="inset-0 flex items-center" aria-hidden="true">
         <div class="w-full border-t border-violet-800"></div>
@@ -27,7 +27,7 @@ const filteredHeadings = headings.filter(heading => heading.level <= 2);
                 heading.level === 1
                   ? "font-semibold text-violet-50 text-sm"
                   : "font-normal text-violet-300 text-xs pl-4"
-              } hover:bg-violet-900 border-1 border-violet-700 rounded p-1`}
+              } hover:bg-violet-900 border-1 border-violet-700 rounded-sm p-1`}
             >
               <a
                 href={`#${heading.id}`}
