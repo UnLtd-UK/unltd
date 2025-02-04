@@ -19,7 +19,7 @@
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.3",
     "@astrojs/db": "^0.14.6",
-    "@astrojs/markdoc": "^0.12.8",
+    "@astrojs/markdoc": "^0.12.9",
     "@astrojs/mdx": "^4.0.8",
     "@astrojs/react": "^4.2.0",
     "@clerk/astro": "^2.1.19",
@@ -38,7 +38,7 @@
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "alpinejs": "^3.14.8",
-    "astro": "^5.2.3",
+    "astro": "^5.2.4",
     "boring-avatars": "^1.11.2",
     "clsx": "^2.1.1",
     "jsdom": "^26.0.0",
@@ -60,6 +60,6 @@
     "@tailwindcss/typography": "^0.5.16",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.0.1",
-    "wrangler": "^3.107.2"
+    "wrangler": "^3.107.3"
   }
 }

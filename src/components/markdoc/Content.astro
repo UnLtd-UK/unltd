@@ -39,10 +39,16 @@ const html = marked.parse(preparedBody);
     prose-h4:text-violet-100
     prose-blockquote:border-l-violet-400
     prose-blockquote:px-6
-    [&>blockquote>p]:!text-violet-100
     prose-blockquote:not-italic
     prose-blockquote:font-semibold
     prose-blockquote:text-xl
     prose-blockquote:relative
-    prose-blockquote:leading-8"
+    prose-blockquote:leading-8
+    [&>figure>blockquote]:border-l-violet-400
+    [&>figure>blockquote]:px-6
+    [&>figure>blockquote]:not-italic
+    [&>figure>blockquote]:font-semibold
+    [&>figure>blockquote]:text-xl
+    [&>figure>blockquote]:relative
+    [&>figure>blockquote]:leading-8"
 />
