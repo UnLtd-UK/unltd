@@ -1,6 +1,6 @@
 export const forms = [
     {
-        name: "General",
+        name: "General Enquiries",
         description:
             "Got questions or need further information? Fill out our General Enquiries form, and we'll get back to you with all the answers you need to keep moving forward.",
         icon: "fa-messages",
@@ -21,7 +21,7 @@ export const forms = [
         ],
     },
     {
-        name: "Awards",
+        name: "Awards Enquiries",
         description:
             "Interested in an Award or need specifics on the nomination process? Our Award Enquiries form is the first step to all the details and support you need for our accolades.",
         icon: "fa-award",
@@ -52,7 +52,7 @@ export const forms = [
         ],
     },
     {
-        name: "Fundraising",
+        name: "Fundraising Enquiries",
         description: "...",
         icon: "fa-piggy-bank",
         slug: "fundraising",
@@ -74,7 +74,7 @@ export const forms = [
         ],
     },
     {
-        name: "Partnering",
+        name: "Partnering Enquiries",
         description: "...",
         icon: "fa-handshake",
         slug: "partnering",
@@ -94,7 +94,7 @@ export const forms = [
         ],
     },
     {
-        name: "Volunteering",
+        name: "Volunteering Enquiries",
         description: "...",
         icon: "fa-street-view",
         slug: "volunteering",
@@ -114,7 +114,7 @@ export const forms = [
         ],
     },
     {
-        name: "Press & Media",
+        name: "Press & Media Enquiries",
         description:
             "Got questions or need further information? Fill out our General Enquiries form, and we'll get back to you with all the answers you need to keep moving forward.",
         icon: "fa-newspaper",
