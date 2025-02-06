@@ -50,5 +50,26 @@ const html = marked.parse(preparedBody);
     [&>figure>blockquote]:font-semibold
     [&>figure>blockquote]:text-xl
     [&>figure>blockquote]:relative
-    [&>figure>blockquote]:leading-8"
+    [&>figure>blockquote]:leading-8
+    [&_details]:border
+    [&_details]:border-violet-700/30
+    [&_details]:rounded-lg
+    [&_details]:p-4
+    [&_details]:mb-4
+    [&_details_summary]:cursor-pointer
+    [&_details_summary]:font-semibold
+    [&_details_summary]:text-violet-100
+    [&_details_summary]:select-none
+    [&_details_summary]:flex
+    [&_details_summary]:items-center
+    [&_details_summary]:gap-2
+    [&_details_summary]:transition-colors
+    [&_details_summary:hover]:text-violet-300
+    [&_details_summary::after]:content-['+']
+    [&_details_summary::after]:ml-auto
+    [&_details_summary::after]:text-xl
+    [&_details_summary::after]:font-normal
+    [&_details_summary::after]:text-violet-400
+    [&_details[open]_summary::after]:content-['-']
+    [&_details>*:not(summary)]:mt-4"
 />
