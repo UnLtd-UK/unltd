@@ -19,6 +19,10 @@ export function prepareMarkdown(content: string): string {
 
     // Only process h2 and h3
     if (level === 2 || level === 3) {
+      // Check if the header already contains a markdown link
+      const hasExistingLink = /\[.*\]\(.*\)/.test(text);
+      if (hasExistingLink) return line;
+
       const baseId = slugify(text, {
         lower: true,
         strict: true,
