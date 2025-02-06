@@ -53,11 +53,11 @@ export const forms = [
     },
     {
         name: "Fundraising Enquiries",
-        description: "...",
+        description: "Have questions about our initiatives or how to get involved? Fill out our form for more details.",
         icon: "fa-piggy-bank",
         slug: "fundraising",
         email: "fundraising@unltd.org.uk",
-        formspree: "https://formspree.io/f/myyrrqnj",
+        formspree: "https://formspree.io/f/xeoezavq",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
             { component: "Input", name: "Email", type: "email", required: true },
@@ -75,11 +75,11 @@ export const forms = [
     },
     {
         name: "Partnering Enquiries",
-        description: "...",
+        description: "Interested in partnering with us? Use out Partnering Enquiries page if you have any queries.",
         icon: "fa-handshake",
         slug: "partnering",
         email: "partnerships@unltd.org.uk",
-        formspree: "",
+        formspree: "https://formspree.io/f/xzzdveyp",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
             { component: "Input", name: "Email", type: "email", required: true },
@@ -89,16 +89,22 @@ export const forms = [
                 type: "tel",
                 required: false,
             },
+            {
+                component: "Input",
+                name: "Organisation",
+                type: "text",
+                required: true,
+            },
             { component: "Input", name: "Subject", type: "text", required: true },
             { component: "Textarea", name: "Message", rows: "4", required: true },
         ],
     },
     {
         name: "Volunteering Enquiries",
-        description: "...",
+        description: "Have questions about volunteering? Our Volunteering Enquiries page is your first step to getting involved and making a difference.",
         icon: "fa-street-view",
         slug: "volunteering",
-        email: "mentoring@unltd.org.uk",
+        email: "https://formspree.io/f/xldgljoy",
         formspree: "",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
@@ -120,7 +126,7 @@ export const forms = [
         icon: "fa-newspaper",
         slug: "press-and-media",
         email: "press@unltd.org.uk",
-        formspree: "",
+        formspree: "https://formspree.io/f/myyrrqnj",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
             { component: "Input", name: "Email", type: "email", required: true },
