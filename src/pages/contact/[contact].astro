@@ -33,6 +33,7 @@ const { name, description, icon, slug, email, formspree, fields, breadcrumbs } =
 
 <Template name={name} description={description}>
   <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Form
       endpoint={formspree}
       name={name}

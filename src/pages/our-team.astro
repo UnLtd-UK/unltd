@@ -14,7 +14,7 @@ const description =
 const breadcrumbs = [
   {
     name: "Our team",
-    slug: slugify(name, {
+    path: slugify(name, {
       lower: true,
       strict: true,
       locale: "en",
@@ -24,8 +24,9 @@ const breadcrumbs = [
 ];
 ---
 
-<Template name={name} description={description} breadcrumbs={breadcrumbs}>
+<Template name={name} description={description}>
   <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Default name={name} description={description} />
     <Team
       name="Leadership"

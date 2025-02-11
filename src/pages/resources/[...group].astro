@@ -8,6 +8,7 @@ import { calculateReadTime } from "@data/functions/read-time.js";
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import HeaderSection from "@components/our-support/headerSection.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
 
 export async function getStaticPaths() {
     const name = "Resources";
@@ -111,8 +112,9 @@ const { name, description, slug, breadcrumbs, children, resources } =
     Astro.props;
 ---
 
-<Template name={name} description={description} breadcrumbs={breadcrumbs}>
+<Template name={name} description={description}>
     <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
         <HeaderSection title={name} description={description} />
 
         <div>

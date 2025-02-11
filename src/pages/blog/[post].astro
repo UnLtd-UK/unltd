@@ -34,11 +34,11 @@ export async function getStaticPaths() {
     let breadcrumbs = [
       {
         name: "Blog",
-        slug: "/blog",
+        path: "/blog",
       },
       {
         name: post.title,
-        slug: `/blog/${slug}`,
+        path: `/blog/${slug}`,
       },
     ];
 
@@ -63,9 +63,9 @@ const { post } = Astro.props as { post: Post };
 <Template
   name={post.title}
   description={post.description}
-  breadcrumbs={post.breadcrumbs}
 >
   <Container>
+    <Breadcrumbs breadcrumbs={post.breadcrumbs} />
     <HeroPost
       name={post.title}
       description={post.description}

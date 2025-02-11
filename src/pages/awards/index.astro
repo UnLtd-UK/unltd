@@ -7,6 +7,13 @@ const props = {
     "We offer packages of funding and support to social entrepreneurs who have an idea, or are the founder of a social venture which is making a positive difference in the UK",
 };
 
+const breadcrumbs = [
+  {
+    name: "Awards",
+    path: "/awards",
+  }
+];
+
 // LAYOUT
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
@@ -22,7 +29,6 @@ import Questions from "@components/awards/Questions.astro";
 // OTHER
 import moment from "moment";
 let todayDate = moment();
-const breadcrumbs = [props];
 
 // let activeGrants = rounds.filter((round) => {
 //   let date = new Date();
@@ -45,8 +51,10 @@ const breadcrumbs = [props];
 <Template
   name={props.name}
   description={props.description}
-  breadcrumbs={breadcrumbs}
 >
+<Container>
+  <Breadcrumbs breadcrumbs={breadcrumbs} />
+  </Container>
   <Header />
   <Grants />
   <Programmes />

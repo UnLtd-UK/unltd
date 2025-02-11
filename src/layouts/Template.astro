@@ -6,8 +6,7 @@ import { navigation } from "@data/navigation.js";
 const {
   name = "UnLtd",
   description = "No description",
-  theme = palette["UnLtd"],
-  breadcrumbs = [],
+  theme = palette["UnLtd"]
 } = Astro.props.frontmatter || Astro.props;
 
 import Breadcrumbs from "@components/Breadcrumbs.astro";
@@ -56,27 +55,10 @@ import { banner } from "@data/banner";
     />
     <meta property="og:image" content="" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="" />
-    <meta property="twitter:url" content="" />
-    <meta
-      property="twitter:title"
-      content={name ? `${name} | UnLtd` : `No page description | UnLtd`}
-    />
-    <meta
-      property="twitter:description"
-      content={description ? description : "No page description"}
-    />
-    <meta property="twitter:image" content="" />
-
     <!-- Fontawesome Icons -->
     <script
       src="https://kit.fontawesome.com/0ff725f684.js"
       crossorigin="anonymous"></script>
-
-    <!-- Feedback Fish -->
-    <script defer src="https://feedback.fish/ff.js?pid=d6a5d5d8f20c00"></script>
-
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"
@@ -99,12 +81,6 @@ import { banner } from "@data/banner";
 
       <!-- OLD HEADER -->
       <!-- <Nav /> -->
-
-      {
-        Astro.url.pathname !== "/" ? (
-          <Breadcrumbs breadcrumbs={breadcrumbs} styles={theme} />
-        ) : null
-      }
       <div class={`${theme.bg} mb-20`}>
         <slot />
       </div>

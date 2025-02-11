@@ -19,11 +19,11 @@ export async function getStaticPaths() {
             const breadcrumbs = [
                 {
                     name: "Awards",
-                    slug: `/awards`,
+                    path: `/awards`,
                 },
                 {
-                    name: name,
-                    slug: `/awards/${slug}`,
+                    name: slug,
+                    path: `/awards/${slug}`,
                 },
             ];
 
@@ -63,6 +63,7 @@ const {
 
 <Template name={name} breadcrumbs={breadcrumbs} description={description}>
     <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
         <div class="py-12">
             <div class="grid grid-cols-1 gap-x-10 gap-y-20 xl:grid-cols-5">
                 <div class="max-w-2xl xl:col-span-2 flex flex-col gap-3">

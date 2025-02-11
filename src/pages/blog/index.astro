@@ -5,6 +5,7 @@ import Default from "@components/heroes/Default.astro";
 import Post from "@components/Post.astro";
 import { posts } from "@data/posts.js";
 import slugify from "slugify";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
 
 const name = "Blog";
 const description = "Read our posts.";
@@ -26,13 +27,14 @@ const buttons = [
 const breadcrumbs = [
   {
     name: name,
-    slug: slug,
+    path: slug,
   },
 ];
 ---
 
-<Template name={name} description={description} breadcrumbs={breadcrumbs}>
+<Template name={name} description={description}>
   <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Default name={name} description={description} buttons={buttons} />
     <ul
       role="list"

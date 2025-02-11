@@ -15,7 +15,7 @@ export async function getStaticPaths() {
     let breadcrumbs = [
       {
         name: page.name,
-        slug: `/${slugify(page.name, {
+        path: `/${slugify(page.name, {
           lower: true,
           strict: true,
           locale: "en",
@@ -47,8 +47,9 @@ export async function getStaticPaths() {
 const { name, description, body, breadcrumbs } = Astro.props;
 ---
 
-<Template name={name} description={description} breadcrumbs={breadcrumbs}>
+<Template name={name} description={description}>
   <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Default name={name} description={description} />
     <Content body={body} />
   </Container>
