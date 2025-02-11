@@ -3,6 +3,7 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Default from "@components/heroes/Default.astro";
 import Content from "@components/markdoc/Content.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
 import TableOfContents from "@components/TableOfContents.astro";
 
 import slugify from "slugify";
@@ -30,13 +31,11 @@ export async function getStaticPaths() {
         description: resource.description,
         breadcrumbs: [
           {
-            text: "Resources",
-            value: "resources",
+            name: "Resources",
             path: "/resources",
           },
           {
-            text: resource.name,
-            value: slug,
+            name: resource.name,
             path: `/resources/${slug}`,
           },
         ],
@@ -50,8 +49,9 @@ export async function getStaticPaths() {
 const { name, description, breadcrumbs, body, toc } = Astro.props;
 ---
 
-<Template name={name} description={description} breadcrumbs={breadcrumbs}>
+<Template name={name} description={description}>
   <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Default name={name} description={description} />
     <div>
       <!-- <TableOfContents headings={toc} /> -->

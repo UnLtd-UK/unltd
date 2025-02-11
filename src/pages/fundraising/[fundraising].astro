@@ -14,11 +14,11 @@ export async function getStaticPaths() {
     let breadcrumbs = [
       {
         name: "Fundraising",
-        slug: "/fundraising",
+        path: "/fundraising",
       },
       {
         name: fundraiser.name,
-        slug: `/fundraising/${fundraiser.slug}`,
+        path: `/fundraising/${fundraiser.slug}`,
       },
     ];
 
@@ -45,9 +45,9 @@ const { fundraiser } = Astro.props;
 <Template
   name={fundraiser.name}
   description={fundraiser.description}
-  breadcrumbs={fundraiser.breadcrumbs}
 >
   <Container>
+    <Breadcrumbs breadcrumbs={fundraiser.breadcrumbs} />
     <div
       class="relative isolate overflow-hidden bg-violet-900 py-24 sm:py-32 rounded-lg"
     >

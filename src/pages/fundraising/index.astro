@@ -12,15 +12,16 @@ const description = "Explore our initiatives and ways to get involved";
 const breadcrumbs = [
   {
     name: name,
-    slug: slug,
+    path: slug,
   },
 ];
 let todayDate = moment();
 import moment from "moment";
 ---
 
-<Template name={name} description={description} breadcrumbs={breadcrumbs}>
+<Template name={name} description={description}>
   <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Default name={name} description={description} />
 
     <div
