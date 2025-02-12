@@ -1,0 +1,15 @@
+---
+import Template from "@layouts/Template.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Container from "@components/Container.astro";
+const { title, slug, description, path, body } =
+    Astro.props.frontmatter || Astro.props;
+---
+
+<Template>
+    <Container>
+        <Breadcrumbs />
+        <!-- Page Hero -->
+        <!-- Main - Body -->
+    </Container>
+</Template>

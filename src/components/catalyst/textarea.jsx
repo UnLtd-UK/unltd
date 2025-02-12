@@ -41,7 +41,7 @@ export const Textarea = forwardRef(function Textarea({ className, resizable = tr
           'bg-transparent dark:bg-white/5',
 
           // Hide default focus styles
-          'focus:outline-none',
+          'focus:outline-hidden',
 
           // Invalid state
           'data-[invalid]:border-red-500 data-[invalid]:data-[hover]:border-red-500 data-[invalid]:dark:border-red-600 data-[invalid]:data-[hover]:dark:border-red-600',

@@ -4,7 +4,7 @@ const collection = "resources";
 const name = "resources";
 
 const filterOptions = {
-    sort: ['sort'],
+    sort: ['name'],
     filter: {
         status: {
             _eq: 'published'
@@ -14,6 +14,6 @@ const filterOptions = {
 
 const attach = false;
 
-const resources = await getCollection(collection, name, filterOptions, attach);
+const allResources = await getCollection(collection, name, filterOptions, attach);
 
-export { resources }
+export { allResources }

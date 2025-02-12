@@ -35,20 +35,20 @@ export const Input = forwardRef(function Input({ className, ...props }, ref) {
         className={clsx([
           // Date classes
           props.type &&
-            dateTypes.includes(props.type) && [
-              '[&::-webkit-datetime-edit-fields-wrapper]:p-0',
-              '[&::-webkit-date-and-time-value]:min-h-[1.5em]',
-              '[&::-webkit-datetime-edit]:inline-flex',
-              '[&::-webkit-datetime-edit]:p-0',
-              '[&::-webkit-datetime-edit-year-field]:p-0',
-              '[&::-webkit-datetime-edit-month-field]:p-0',
-              '[&::-webkit-datetime-edit-day-field]:p-0',
-              '[&::-webkit-datetime-edit-hour-field]:p-0',
-              '[&::-webkit-datetime-edit-minute-field]:p-0',
-              '[&::-webkit-datetime-edit-second-field]:p-0',
-              '[&::-webkit-datetime-edit-millisecond-field]:p-0',
-              '[&::-webkit-datetime-edit-meridiem-field]:p-0',
-            ],
+          dateTypes.includes(props.type) && [
+            '[&::-webkit-datetime-edit-fields-wrapper]:p-0',
+            '[&::-webkit-date-and-time-value]:min-h-[1.5em]',
+            '[&::-webkit-datetime-edit]:inline-flex',
+            '[&::-webkit-datetime-edit]:p-0',
+            '[&::-webkit-datetime-edit-year-field]:p-0',
+            '[&::-webkit-datetime-edit-month-field]:p-0',
+            '[&::-webkit-datetime-edit-day-field]:p-0',
+            '[&::-webkit-datetime-edit-hour-field]:p-0',
+            '[&::-webkit-datetime-edit-minute-field]:p-0',
+            '[&::-webkit-datetime-edit-second-field]:p-0',
+            '[&::-webkit-datetime-edit-millisecond-field]:p-0',
+            '[&::-webkit-datetime-edit-meridiem-field]:p-0',
+          ],
 
           // Basic layout
           'relative block w-full appearance-none rounded-lg px-[calc(theme(spacing[3.5])-1px)] py-[calc(theme(spacing[2.5])-1px)] sm:px-[calc(theme(spacing[3])-1px)] sm:py-[calc(theme(spacing[1.5])-1px)]',
@@ -63,7 +63,7 @@ export const Input = forwardRef(function Input({ className, ...props }, ref) {
           'bg-transparent dark:bg-white/5',
 
           // Hide default focus styles
-          'focus:outline-none',
+          'focus:outline-hidden',
 
           // Invalid state
           'data-[invalid]:border-red-500 data-[invalid]:data-[hover]:border-red-500 data-[invalid]:dark:border-red-500 data-[invalid]:data-[hover]:dark:border-red-500',

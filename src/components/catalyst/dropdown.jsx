@@ -46,7 +46,7 @@ export function DropdownMenu({ anchor = 'bottom', ...props }) {
           'isolate w-max rounded-xl p-1',
 
           // Invisible border that is only visible in `forced-colors` mode for accessibility purposes
-          'outline outline-1 outline-transparent focus:outline-none',
+          'outline outline-1 outline-transparent focus:outline-hidden',
 
           // Handle scrolling when menu won't fit in viewport
           'overflow-y-auto',
@@ -75,7 +75,7 @@ export function DropdownItem(props) {
         props.className,
 
         // Base styles
-        'group cursor-default rounded-lg px-3.5 py-2.5 focus:outline-none sm:px-3 sm:py-1.5',
+        'group cursor-default rounded-lg px-3.5 py-2.5 focus:outline-hidden sm:px-3 sm:py-1.5',
 
         // Text styles
         'text-left text-base/6 text-zinc-950 sm:text-sm/6 dark:text-white forced-colors:text-[CanvasText]',

@@ -128,7 +128,7 @@ const colors = {
 
 export function Radio({ color = 'dark/zinc', className, ...props }) {
   return (
-    <HeadlessRadio data-slot="control" {...props} className={clsx(className, 'group inline-flex focus:outline-none')}>
+    <HeadlessRadio data-slot="control" {...props} className={clsx(className, 'group inline-flex focus:outline-hidden')}>
       <span className={clsx([base, colors[color]])}>
         <span
           className={clsx(

@@ -128,7 +128,7 @@ export function Checkbox({ color = 'dark/zinc', className, ...props }) {
   return (
     <HeadlessCheckbox
       data-slot="control"
-      className={clsx(className, 'group inline-flex focus:outline-none')}
+      className={clsx(className, 'group inline-flex focus:outline-hidden')}
       {...props}
     >
       <span className={clsx([base, colors[color]])}>

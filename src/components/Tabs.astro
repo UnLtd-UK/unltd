@@ -62,7 +62,7 @@ function openTab(element) {
     <div class="lg:hidden">
       <label for="current-tab" class="sr-only">Select a tab</label>
       <select id="current-tab" name="current-tab" onchange="openTab(this)"
-          class="block w-full rounded-md border-violet-300 py-2 pl-3 pr-10 text-base focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm">
+          class="block w-full rounded-md border-violet-300 py-2 pl-3 pr-10 text-base focus:border-amber-500 focus:outline-hidden focus:ring-amber-500 sm:text-sm">
           { parentItems.map((parentItem, parentItemIndex) => (
           <option data-tabs={parentItemIndex === 0 ? `true` : `false`} id={`${parentItem.slug}`} value={parentItem.slug} {parentItemIndex === 0 && `selected`}>{ parentItem.name }</option>
           ))}

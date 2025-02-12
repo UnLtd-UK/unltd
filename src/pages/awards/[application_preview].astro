@@ -13,7 +13,7 @@ export function getStaticPaths() {
   const breadcrumbs = [
     {
       name: "Awards",
-      slug: "/awards",
+      path: "/awards",
     },
   ];
   const pages = [];
@@ -24,7 +24,7 @@ export function getStaticPaths() {
 
     copyBreadcrumb.push({
       name: app.name,
-      slug: `/awards/application-preview/${app.slug}`,
+      path: `/awards/${app.slug}`,
     });
 
     pages.push({
@@ -65,8 +65,9 @@ const {
 } = Astro.props;
 ---
 
-<Template name={name} description={description} breadcrumbs={breadcrumbs}>
+<Template name={name} description={description}>
   <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
     <div class="flex flex-col gap-2">
       <div class="flex flex-col sm:flex-row gap-10">
         <div

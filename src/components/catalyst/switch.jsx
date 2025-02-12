@@ -160,7 +160,7 @@ export function Switch({ color = 'dark/zinc', className, children, ...props }) {
         'data-[checked]:bg-[--switch-bg] data-[checked]:ring-[--switch-bg-ring] dark:data-[checked]:bg-[--switch-bg] dark:data-[checked]:ring-[--switch-bg-ring]',
 
         // Focus
-        'focus:outline-none data-[focus]:outline data-[focus]:outline-2 data-[focus]:outline-offset-2 data-[focus]:outline-blue-500',
+        'focus:outline-hidden data-[focus]:outline data-[focus]:outline-2 data-[focus]:outline-offset-2 data-[focus]:outline-blue-500',
 
         // Hover
         'data-[hover]:data-[checked]:ring-[--switch-bg-ring] data-[hover]:ring-black/15',
@@ -188,7 +188,7 @@ export function Switch({ color = 'dark/zinc', className, children, ...props }) {
           'border border-transparent',
 
           // Unchecked
-          'bg-white shadow ring-1 ring-black/5',
+          'bg-white shadow-sm ring-1 ring-black/5',
 
           // Checked
           'group-data-[checked]:bg-[--switch] group-data-[checked]:shadow-[--switch-shadow] group-data-[checked]:ring-[--switch-ring]',
