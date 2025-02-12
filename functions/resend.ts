@@ -25,9 +25,9 @@ async function fetchHandler(request, env) {
 
     // Parse the form data
     const formData = await request.formData();
-    const data = {};
+    const data: { [key: string]: string } = {};
     for (const [key, value] of formData.entries()) {
-      data[key] = value;
+      data[key] = value as string;
     }
 
     // Required fields validation
