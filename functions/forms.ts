@@ -1,10 +1,6 @@
-export function onRequest(context) {
-  return fetchHandler(context.request, context.env);
-}
-
-async function fetchHandler(request, env) {
+export async function onRequest(context) {
   // Handle CORS
-  if (request.method === "OPTIONS") {
+  if (context.request.method === "OPTIONS") {
     return new Response(null, {
       headers: {
         "Access-Control-Allow-Origin": "*",
@@ -16,15 +12,15 @@ async function fetchHandler(request, env) {
 
   try {
     // Validate environment variables
-    if (!env.RESEND_API_KEY) {
+    if (!context.env.RESEND_API_KEY) {
       throw new Error('RESEND_API_KEY environment variable is not set');
     }
-    if (!env.ADMIN_EMAIL) {
+    if (!context.env.ADMIN_EMAIL) {
       throw new Error('ADMIN_EMAIL environment variable is not set');
     }
 
     // Parse the form data
-    const formData = await request.formData();
+    const formData = await context.request.formData();
     const data: { [key: string]: string } = {};
     for (const [key, value] of formData.entries()) {
       data[key] = value as string;
