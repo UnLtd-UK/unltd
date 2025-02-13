@@ -1,4 +1,7 @@
 export async function onRequest(context) {
+  // Debug log to print environment variables
+  console.log('Environment Variables:', context.env);
+
   // Handle CORS
   if (context.request.method === "OPTIONS") {
     return new Response(null, {
@@ -46,7 +49,7 @@ export async function onRequest(context) {
     const userEmailResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+        'Authorization': `Bearer ${context.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -66,12 +69,12 @@ export async function onRequest(context) {
     const adminEmailResponse = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+        'Authorization': `Bearer ${context.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         from: SENDER_EMAIL,
-        to: env.ADMIN_EMAIL,
+        to: context.env.ADMIN_EMAIL,
         subject: `New Form Submission from ${data.name}`,
         text: Object.entries(data)
           .map(([key, value]) => `${key}: ${value}`)
