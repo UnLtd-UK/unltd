@@ -9,14 +9,18 @@ import Container from "@components/Container.astro";
     >
         <div>
             <h2
-                class={`text-3xl font-bold tracking-tight sm:text-4xl ${styles.text} ${styles.font}`}
-            >
-                Tailored support
-            </h2>
+            id="funding"
+            class={`text-base font-semibold leading-7 ${styles.text2}`}
+          >
+            Support
+          </h2>
+          <p
+            class={`mt-2 text-2xl font-bold tracking-tight ${styles.text} sm:text-5xl`}
+          >
+            Tailored Services
+          </p>
             <p class={`mt-6 text-lg leading-8 ${styles.text2} ${styles.font}`}>
-                As an Award Winner on the {programme.name}
-                {programme.name.endsWith("Programme") ? "" : "programme"} you will
-                be able to access tailored support including:
+                You will be able to access tailored services for one year to help you and grow your social venture.
             </p>
         </div>
         <dl class="col-span-2 grid grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2">

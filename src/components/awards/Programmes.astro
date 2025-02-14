@@ -27,45 +27,14 @@ import ProgrammeSmall from "@components/awards//programme/ProgrammeSmall.astro";
       <p
         class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
       >
-As an Award Winner you will have access to the advice, guidance and expertise needed to build on the foundations of your social venture and grow your impact.
+As an Award Winner you will have access to the advice, guidance and expertise needed to build on the foundations of your social venture and grow your impact. Considering your age, location, and the sectors in which you and your social venture operate, you will be assigned to one of our tailored programmes for support for up to a year. Our programmes are designed to provide specialised support that align with the needs of you and your social venture.
       </p>
     </div>
 
-    <div class="mx-auto max-w-7xl">
-                  <ProgrammeBig
-              image={
-                programmes[0].image && programmes[0].image.id
-                  ? programmes[0].image.id
-                  : false
-              }
-              icon={programmes[0].icon}
-              styles={palette[programmes[0].name]}
-              name={programmes[0].name}
-              stage={programmes[0].stage}
-              age={programmes[0].age}
-              geography={programmes[0].geography}
-              focus={programmes[0].focus}
-              slogan={programmes[0].slogan}
-              description={programmes[0].description}
-              slug={slugify(programmes[0].name, {lower: true, strict: true, locale: "en", trim: true,})},
-              services={programmes[0].services}
-              eligibilities={programmes[0].eligibilities}
-              code={programmes[0].code}
-              partners={programmes[0].partners}
-              />
-    </div>
-
     <div>
-      <div class="mx-auto max-w-4xl text-center">
-        <p
-          class="mx-auto mb-14 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
-        >
-          Considering your age, location, and the sectors in which you and your social venture operate, you will be assigned to one of our tailored programmes for support for up to a year. Our programmes are designed to provide specialised support that align with the needs of you and your social venture.
-        </p>
-      </div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {
-          programmes.filter(programme => programme.name !== "Millennium Awards Trust").map((programme, i) => (
+          programmes.map((programme, i) => (
             <ProgrammeSmall
               key={i}
               image={
@@ -87,7 +56,7 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
               focus={programme.focus}
               slogan={programme.slogan}
               description={programme.description}
-              slug={slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})},
+              slug={slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})}
               services={programme.services}
               eligibilities={programme.eligibilities}
               code={programme.code}
@@ -95,7 +64,26 @@ As an Award Winner you will have access to the advice, guidance and expertise ne
           ))
         }
       </div>
-              <div class={`flex flex-col lg:flex-row gap-6 pt-16`}>
+      
+      <div class="mx-auto max-w-4xl text-center">
+        <h2
+          id="support"
+          class="text-base font-semibold leading-7 text-amber-500 dark:text-amber-500"
+        >
+          Support
+        </h2>
+        <p
+          class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
+        >
+          Programmes
+        </p>
+        <p
+          class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
+        >
+  As an Award Winner you will have access to the advice, guidance and expertise needed to build on the foundations of your social venture and grow your impact. Considering your age, location, and the sectors in which you and your social venture operate, you will be assigned to one of our tailored programmes for support for up to a year. Our programmes are designed to provide specialised support that align with the needs of you and your social venture.
+        </p>
+      </div>
+      <div class={`flex flex-col lg:flex-row gap-6 pt-16`}>
         {
             sessions.map((session) => {
               const date = new Date(session.datetime);
