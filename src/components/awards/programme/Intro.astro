@@ -6,7 +6,7 @@ marked.use({ mangle: false, headerIds: false });
 import IconBig from "@components/awards/cards/IconBig.astro";
 import Container from "@components/Container.astro";
 import Status from "@components/awards/programme/Status.astro";
-import Partners from "@components/awards//programme/Partners.astro";
+import Partners from "@components/awards/programme/Partners.astro";
 
 import moment from "moment";
 let todayDate = moment();
@@ -74,10 +74,6 @@ let todayDate = moment();
                 </h1>
               )
             }
-
-            <!-- <h1 class={`text-6xl font-bold ${styles.text} ${styles.font}`}>
-              {programme.name}
-            </h1> -->
           </div>
         </div>
         <Partners
@@ -86,11 +82,11 @@ let todayDate = moment();
           styles={styles}
         />
         {
-          programme.description1 && (
+          programme.description && (
             <div
-              class={`prose prose-strong:text-white prose-strong:bg-white/20 prose-strong:p-1 prose-strong:${styles.font} max-w-4xl text-xl leading-relaxed prose:${styles.text2} prose:${styles.font}`}
-              set:html={marked.parse(programme.description1)}
-            />
+              class={` max-w-4xl text-xl leading-relaxed prose:${styles.text2} prose:${styles.font}`}
+              
+            >{programme.description}</div>
           )
         }
       </div>
