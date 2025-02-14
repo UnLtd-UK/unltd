@@ -1,6 +1,5 @@
 export async function onRequest(context) {
   // Debug log to print environment variables
-  console.log('Environment Variables:', context.env);
 
   // Handle CORS
   if (context.request.method === "OPTIONS") {
