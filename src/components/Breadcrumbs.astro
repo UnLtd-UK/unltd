@@ -1,6 +1,9 @@
 ---
 import FeedbackWidget from "@components/FeedbackWidget.astro";
-const { breadcrumbs, styles } = Astro.props;
+import { palette } from "@data/palette";
+
+
+const { breadcrumbs, styles = palette['UnLtd'] } = Astro.props;
 ---
 
 
