@@ -14,7 +14,8 @@
     "astro": "astro",
     "clear": "rimraf ./src/data/cache/*.json",
     "check": "npx npm-check-updates -u",
-    "up": "npm install && npm update && npm upgrade"
+    "up": "npm install && npm update && npm upgrade",
+    "wrangler": "npx wrangler pages dev"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.3",

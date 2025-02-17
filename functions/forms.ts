@@ -1,6 +1,42 @@
 export async function onRequest(context) {
   // Debug log to print environment variables
 
+    const recipient: Array<{ title: string, path: string, email: string }> = [
+    {
+    title: "Awards form",
+    path: "/contact/awards",
+    email: "digital@unltd.org.uk" // "awardapplications@unltd.org.uk"
+  },
+  {
+    title: "Fundraising form",
+    path: "/contact/fundraising",
+    email: "digital@unltd.org.uk" // "fundraising@unltd.org.uk"
+  },
+  {
+    title: "Partnering form",
+    path: "/contact/partnering",
+    email: "digital@unltd.org.uk" // "partnering@unltd.org.uk"
+  },
+  {
+    title: "Volunteering form",
+    path: "/contact/volunteering",
+    email: "digital@unltd.org.uk" // "mentoring@unltd.org.uk"
+  },
+  {
+    title: "Press & Media form",
+    path: "/contact/press-and-media",
+    email: "digital@unltd.org.uk" // "press@unltd.org.uk"
+  },
+  {
+    title: "General form",
+    path: "/contact/general",
+    email: "digital@unltd.org.uk" // "comms@unltd.org.uk"
+  }
+  ]
+  
+  let recipientEmail = context.env.ADMIN_EMAIL; // Default to admin email
+
+
   // Handle CORS
   if (context.request.method === "OPTIONS") {
     return new Response(null, {
@@ -21,6 +57,30 @@ export async function onRequest(context) {
       throw new Error('ADMIN_EMAIL environment variable is not set');
     }
 
+    // Check the Referer header
+    const referer = context.request.headers.get('Referer');
+    const domain = context.env.DOMAIN;
+    if (!referer || !referer.startsWith(domain)) {
+      return new Response(JSON.stringify({
+        success: false,
+        error: "Invalid referer"
+      }), { 
+        status: 403,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        }
+      });
+    }
+
+    // Determine the recipient email based on the referer
+    for (const entry of recipient) {
+      if (referer.includes(entry.path)) {
+        recipientEmail = entry.email;
+        break;
+      }
+    }
+
     // Parse the form data
     const formData = await context.request.formData();
     const data: { [key: string]: string } = {};
@@ -29,10 +89,10 @@ export async function onRequest(context) {
     }
 
     // Required fields validation
-    if (!data.email || !data.name) {
+    if (!data.email) {
       return new Response(JSON.stringify({
         success: false,
-        error: "Email and name are required"
+        error: "Email is required"
       }), { 
         status: 400,
         headers: {
@@ -41,8 +101,6 @@ export async function onRequest(context) {
         }
       });
     }
-
-    const SENDER_EMAIL = 'forms@unltd.org.uk';  // Your verified domain email
     
     // Send confirmation email to user
     const userEmailResponse = await fetch('https://api.resend.com/emails', {
@@ -52,7 +110,7 @@ export async function onRequest(context) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: SENDER_EMAIL,
+        from: recipientEmail,
         to: data.email,
         subject: 'Thank you for your submission',
         text: `Dear ${data.name},\n\nThank you for your submission. We have received your information and will get back to you soon.\n\nBest regards,\nUnLtd Team`
@@ -72,9 +130,9 @@ export async function onRequest(context) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: SENDER_EMAIL,
-        to: context.env.ADMIN_EMAIL,
-        subject: `New Form Submission from ${data.name}`,
+        from: context.env.ADMIN_EMAIL,
+        to: recipientEmail,
+        subject: `New Form Submission from ${data.email}`,
         text: Object.entries(data)
           .map(([key, value]) => `${key}: ${value}`)
           .join('\n')
