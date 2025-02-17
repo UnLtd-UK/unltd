@@ -13,11 +13,11 @@ EVENTBRITE_API_TOKEN = "${EVENTBRITE_API_TOKEN}"
 RESEND_API_KEY = "${RESEND_API_KEY}"
 DOMAIN = "${DOMAIN}"
 
-[env.staging]
+[env.preview]
 compatibility_date = "2024-04-03"
 
-[env.staging.vars]
-ENV = "development"
+[env.preview.vars]
+ENV = "preview"
 ADMIN_EMAIL = "${ADMIN_EMAIL}"
 EVENTBRITE_API_TOKEN = "${EVENTBRITE_API_TOKEN}"
 RESEND_API_KEY = "${RESEND_API_KEY}"
