@@ -11,114 +11,105 @@ import ProgrammeSmall from "@components/awards//programme/ProgrammeSmall.astro";
 ---
 
 <Container bg="bg-violet-50 dark:bg-violet-950">
-  <div class="py-20 flex flex-col gap-20">
-    <div class="mx-auto max-w-4xl text-center">
-      <h2
-        id="support"
-        class="text-base font-semibold leading-7 text-amber-500 dark:text-amber-500"
-      >
-        Support
-      </h2>
-      <p
-        class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
-      >
-        Programmes
-      </p>
-      <p
-        class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
-      >
-As an Award Winner you will have access to the advice, guidance and expertise needed to build on the foundations of your social venture and grow your impact. Considering your age, location, and the sectors in which you and your social venture operate, you will be assigned to one of our tailored programmes for support for up to a year. Our programmes are designed to provide specialised support that align with the needs of you and your social venture.
-      </p>
-    </div>
 
-    <div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {
-          programmes.map((programme, i) => (
-            <ProgrammeSmall
-              key={i}
-              image={
-                programme.image && programme.image.id
-                  ? programme.image.id
-                  : false
-              }
-              icon={programme.icon}
-              styles={palette[programme.name]}
-              name={programme.name}
-              logo={
-                programme.logo && programme.logo.id
-                  ? programme.logo.id
-                  : false
-              }
-              stage={programme.stage}
-              age={programme.age}
-              geography={programme.geography}
-              focus={programme.focus}
-              slogan={programme.slogan}
-              description={programme.description}
-              slug={slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})}
-              services={programme.services}
-              eligibilities={programme.eligibilities}
-              code={programme.code}
-            />
-          ))
-        }
-      </div>
-      
-      <div class="mx-auto max-w-4xl text-center">
+    <div class="flex flex-col gap-10 py-10">
+      <div class=" max-w-4xl">
         <h2
-          id="support"
-          class="text-base font-semibold leading-7 text-amber-500 dark:text-amber-500"
-        >
-          Support
-        </h2>
-        <p
+        id="programmes"
           class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
         >
           Programmes
-        </p>
+        </h2>
         <p
-          class="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-violet-800 dark:text-violet-200"
+          class=" mt-6 max-w-2xl text-lg leading-8 text-violet-800 dark:text-violet-300"
         >
-  As an Award Winner you will have access to the advice, guidance and expertise needed to build on the foundations of your social venture and grow your impact. Considering your age, location, and the sectors in which you and your social venture operate, you will be assigned to one of our tailored programmes for support for up to a year. Our programmes are designed to provide specialised support that align with the needs of you and your social venture.
+          As an Award Winner you will have access to the advice, guidance and expertise needed to build on the foundations of your social venture and grow your impact. Considering your age, location, and the sectors in which you and your social venture operate, you will be assigned to one of our tailored programmes for support for up to a year. Our programmes are designed to provide specialised support that align with the needs of you and your social venture.
         </p>
       </div>
-      <div class={`flex flex-col lg:flex-row gap-6 pt-16`}>
-        {
-            sessions.map((session) => {
-              const date = new Date(session.datetime);
-              
-              return (
-              <article class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].bg} ${palette[session.programme.name].border }` : ''} flex flex-row items-start justify-between flex-1 lg:basis-1/2 border-solid border-2  bg-violet-50 border-violet-100 rounded-xl group relative transition ease-in-out delay-150 hover:-translate-y-2 duration-300`}>
-
-                    <div class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].bg2}` : ''} basis-1/4 flex-none flex gap-2 flex-col bg-violet-200 rounded-l-lg p-2 items-center justify-center h-full`}>
-                      <span class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} text-xs text-violet-900 font-bold`}>{ date.toLocaleString('en-GB', { weekday: 'long' })}</span>
-                      <div class={`flex flex-col items-center gap-1`}>
-                        <span class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} uppercase text-xs text-violet-900`}>{ date.toLocaleString('en-GB', { month: 'long' })}</span>
-                        <span class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].bg} ${palette[session.programme.name].text2}` : ''} text-xl font-bold text-violet-50 w-10 h-10 bg-violet-900 rounded-full flex justify-center items-center`}>{ date.getDate() }</span>
-                      </div>
-                      <span class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} uppercase text-sm text-violet-900`}>{date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</span>
-                    </div>
-  
-                  <div class={`basis-3/4 flex flex-col gap-1 py-3 px-6`}>
-                    <p class={`truncate text-xs flex gap-2 items-center`}>
-                      <i class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} fa-regular fa-wifi text-violet-900`}></i>
-                      <span class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} text-violet-900 uppercase`}> Online </span>
-                    </p>
-                    <h3 class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} text-sm font-semibold leading-6 text-violet-900`}>
-                      <a href={session.link}>
-                        <span class={`absolute inset-0`}></span>
-                        {session.name}
-                      </a>
-                    </h3>
-                    <div class={`flex flex-row gap-3`}>
-                      { session.programme && (<span class={`${palette[session.programme.name].badge} inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset`}>{session.programme.name}</span>)}
-                    </div>
-                </div>
-              </article>
-            )})
-        }
-      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {
+            programmes.map((programme, i) => (
+              <ProgrammeSmall
+                key={i}
+                image={
+                  programme.image && programme.image.id
+                    ? programme.image.id
+                    : false
+                }
+                icon={programme.icon}
+                styles={palette[programme.name]}
+                name={programme.name}
+                logo={
+                  programme.logo && programme.logo.id
+                    ? programme.logo.id
+                    : false
+                }
+                stage={programme.stage}
+                age={programme.age}
+                geography={programme.geography}
+                focus={programme.focus}
+                slogan={programme.slogan}
+                description={programme.description}
+                slug={slugify(programme.name, {lower: true, strict: true, locale: "en", trim: true,})}
+                services={programme.services}
+                eligibilities={programme.eligibilities}
+                code={programme.code}
+              />
+            ))
+          }
+        </div>
     </div>
-  </div>
+      
+      <div  class="flex flex-col gap-10 py-20">
+        <div class="max-w-4xl">
+          <h2
+          id="sessions"
+            class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
+          >
+            Sessions
+        </h2>
+          <p
+            class="mt-6 max-w-2xl  text-lg leading-8 text-violet-800 dark:text-violet-300"
+          >
+        We run regular information sessions on our programmes. Here we will give you an overview of what to expect from the programme, the support available, and the application process. You will also have the opportunity to ask any questions you may have.
+          </p>
+        </div>
+        <div class={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4`}>
+          {
+              sessions.map((session) => {
+                const date = new Date(session.datetime);
+                
+                return (
+                <article class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].bg} ${palette[session.programme.name].border }` : ''} flex flex-row justify-between flex-1 lg:basis-1/2 border-solid border-2  bg-violet-50 border-violet-100 rounded-xl group relative transition ease-in-out delay-150 hover:-translate-y-2 duration-300`}>
+
+                      <div class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].bg}` : ''} basis-1/4 flex-none flex gap-2 flex-col bg-violet-200 rounded-l-lg p-2 items-center justify-center h-full`}>
+                        <span class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} text-xs text-violet-900 font-bold`}>{ date.toLocaleString('en-GB', { weekday: 'long' })}</span>
+                        <div class={`flex flex-col items-center gap-1`}>
+                          <span class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} uppercase text-xs text-violet-900`}>{ date.toLocaleString('en-GB', { month: 'long' })}</span>
+                          <span class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].bg2} ${palette[session.programme.name].text2}` : ''} text-xl font-bold text-violet-50 w-10 h-10 bg-violet-900 rounded-full flex justify-center items-center`}>{ date.getDate() }</span>
+                        </div>
+                        <span class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} uppercase text-sm text-violet-900`}>{date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</span>
+                      </div>
+    
+                    <div class={`basis-3/4 flex flex-col gap-1 py-3 px-6`}>
+                      <p class={`truncate text-xs flex gap-2 items-center`}>
+                        <i class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} fa-regular fa-wifi text-violet-900`}></i>
+                        <span class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} text-violet-900 uppercase`}> Online </span>
+                      </p>
+                      <h3 class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ''} text-sm font-semibold leading-6 text-violet-900`}>
+                        <a href={session.link}>
+                          <span class={`absolute inset-0`}></span>
+                          {session.name}
+                        </a>
+                      </h3>
+                      <div class={`flex flex-row gap-3`}>
+                        { session.programme && (<span class={`${palette[session.programme.name].badge} inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset`}>{session.programme.name}</span>)}
+                      </div>
+                  </div>
+                </article>
+              )})
+          }
+        </div>
+    </div>
+
 </Container>
