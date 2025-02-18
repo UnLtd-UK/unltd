@@ -1,6 +1,5 @@
 import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import Gif from '@components/Gif.astro';
 
 export default function PopoverComp({ nav, styles }) {
     return <Popover className="relative">
