@@ -179,7 +179,6 @@ const { name, description, slug, breadcrumbs, children, resources } =
         {
             resources && (
                 <div class="mx-auto max-w-7xl">
-                    {console.log(resources)}
                     <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
                         {resources.filter(resource => !resource.visibility.includes('hidden')).map((resource) => {
                             const resourceSlug = slugify(resource.name, { lower: true, strict: true, locale: "en", trim: true });
