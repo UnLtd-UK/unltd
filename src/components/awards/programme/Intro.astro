@@ -81,12 +81,64 @@ let todayDate = moment();
           partners={programme.partners}
           styles={styles}
         />
+
         {
-          programme.description && (
+          programme.issue && programme.action && programme.outcome ? (
+            <div class="mx-auto  max-w-2xl lg:max-w-none">
+              <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+                <div class="flex flex-col">
+                  <dt
+                    class={`flex items-center gap-x-3 text-2xl font-semibold leading-7 ${styles.text}`}
+                  >
+                    <i
+                      class={`fa-light fa-triangle-exclamation flex-none ${styles.text2}`}
+                    />
+                    Issue
+                  </dt>
+                  <dd
+                    class={`mt-4 flex flex-auto flex-col text-sm leading-6 ${styles.text2}`}
+                  >
+                    <p class="flex-auto">{programme.issue}</p>
+                  </dd>
+                </div>
+                <div class="flex flex-col">
+                  <dt
+                    class={`flex items-center gap-x-3 text-2xl font-semibold leading-7 ${styles.text}`}
+                  >
+                    <i
+                      class={`fa-light fa-wrench flex-none ${styles.text2}`}
+                    />
+                    Action
+                  </dt>
+                  <dd
+                    class={`mt-4 flex flex-auto flex-col text-sm leading-6 ${styles.text2}`}
+                  >
+                    <p class="flex-auto">{programme.action}</p>
+                  </dd>
+                </div>
+                <div class="flex flex-col">
+                  <dt
+                    class={`flex items-center gap-x-3 text-2xl font-semibold leading-7 ${styles.text}`}
+                  >
+                    <i
+                      class={`fa-light fa-flag-checkered flex-none ${styles.text2}`}
+                      />
+                    Outcome
+                  </dt>
+                  <dd
+                    class={`mt-4 flex flex-auto flex-col text-sm leading-6 ${styles.text2}`}
+                  >
+                    <p class="flex-auto">{programme.outcome}</p>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          ) : (
             <div
               class={` max-w-4xl text-xl leading-relaxed prose:${styles.text2} prose:${styles.font}`}
-              
-            >{programme.description}</div>
+            >
+              {programme.description}
+            </div>
           )
         }
       </div>
