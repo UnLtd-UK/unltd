@@ -9,6 +9,27 @@ import { marked } from "marked";
 
 const { body } = Astro.props;
 const preparedBody = prepareMarkdown(body);
+const renderer = new marked.Renderer();
+
+renderer.heading = function ({ tokens, depth, text }) {
+  const idMatch = tokens[0].raw.match(/\(#(.*?)\)/);
+  const id = idMatch ? idMatch[1] : text.toLowerCase().replace(/\s+/g, '-');
+
+  let h = {
+    level: depth,
+    id: id,
+    text: tokens[0].text,
+    href: tokens[0].href}
+
+  if ((depth === 2 || depth === 3) && h.href.startsWith('#')) {
+      return `\n<h${h.level} id="${h.id}">${h.text}<a href="${h.href}"><i class="pl-2 text-sm fa-solid fa-link text-violet-300 hover:text-violet-100" aria-hidden="true"></i></a></h${h.level}>\n`;
+  } else if ((depth === 2 || depth === 3) && !h.href.startsWith('#')) {
+      return `\n<a href="${h.href}" target=${h.href.startsWith('/') ? "" : "_blank"}><h${h.level}">${h.text}</h${h.level}></a>\n`;
+  }
+  return `<h${h.level}>${h.text}</h${h.level}>`;
+};
+
+marked.use({ renderer });
 const html = marked.parse(preparedBody);
 ---
 
@@ -29,7 +50,7 @@ const html = marked.parse(preparedBody);
     prose-a:underline-offset-4
     prose-a:decoration-amber-500
     prose-a:decoration-1
-    hover:prose-a:decoration-2
+    prose-a:hover:decoration-2
     [&_a[href^='#']]:scroll-mt-20
     prose-p:text-violet-200
     prose-li:text-violet-200
