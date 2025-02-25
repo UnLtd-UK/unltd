@@ -10,7 +10,7 @@ import slugify from "slugify";
 import { allResources } from "@data/resources.js";
 
 import { prepareMarkdown } from "@data/functions/prepareMarkdown.ts"; // returns a string of cleaned up markdown, still as a string, which has h1's removed, adds anchor links to every h2 and h3 and ensures their anchor id is unquie
-import { prepareToc } from "@data/functions/prepareToc.js"; // returns an array of objects which detial the table of content (using h2's and h3's) of the body
+import { prepareToc } from "@data/functions/prepareToc.ts"; // returns an array of objects which detial the table of content (using h2's and h3's) of the body
 
 export async function getStaticPaths() {
   return allResources.map((resource) => {
@@ -20,6 +20,9 @@ export async function getStaticPaths() {
       locale: "en",
       trim: true,
     });
+
+    const body = prepareMarkdown(resource.body);
+    const toc = prepareToc(body); // Retrieve all h2's and h3's
 
     return {
       params: {
@@ -39,8 +42,8 @@ export async function getStaticPaths() {
             path: `/resources/${slug}`,
           },
         ],
-        body: prepareMarkdown(resource.body),
-        toc: [],
+        body,
+        toc, // Pass toc to props
       },
     };
   });
@@ -53,9 +56,11 @@ const { name, description, breadcrumbs, body, toc } = Astro.props;
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Default name={name} description={description} />
-    <div>
-      <!-- <TableOfContents headings={toc} /> -->
-      <Content body={body} />
+    <div class="grid grid-cols-3 gap-2">
+        <TableOfContents headings={toc} />
+      <div class="col-span-2">
+        <Content body={body} />
+      </div>
     </div>
   </Container>
 </Template>
