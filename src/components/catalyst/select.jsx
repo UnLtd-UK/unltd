@@ -51,7 +51,7 @@ export const Select = forwardRef(function Select({ className, multiple, ...props
           'bg-transparent dark:bg-white/5 dark:*:bg-zinc-800',
 
           // Hide default focus styles
-          'focus:outline-none',
+          'focus:outline-hidden',
 
           // Invalid state
           'data-[invalid]:border-red-500 data-[invalid]:data-[hover]:border-red-500 data-[invalid]:dark:border-red-600 data-[invalid]:data-[hover]:dark:border-red-600',

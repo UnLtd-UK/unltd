@@ -1,15 +1,14 @@
 ---
+import "../styles/global.css";
 import { palette } from "@data/palette.js";
 import { navigation } from "@data/navigation.js";
 
 const {
   name = "UnLtd",
   description = "No description",
-  theme = palette["UnLtd"],
-  breadcrumbs = [],
+  theme = palette["UnLtd"]
 } = Astro.props.frontmatter || Astro.props;
 
-import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Footer from "@components/Footer.astro";
 import Header from "@components/ui/Header.jsx";
 // import Nav from "@components/old-nav/Nav.astro";
@@ -18,12 +17,13 @@ import { banner } from "@data/banner";
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth h-full">
+<html lang="en" class="h-full scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" type="image/jpg" href="/favicon.ico" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
 
     <script
       defer
@@ -54,31 +54,10 @@ import { banner } from "@data/banner";
     />
     <meta property="og:image" content="" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="" />
-    <meta property="twitter:url" content="" />
-    <meta
-      property="twitter:title"
-      content={name ? `${name} | UnLtd` : `No page description | UnLtd`}
-    />
-    <meta
-      property="twitter:description"
-      content={description ? description : "No page description"}
-    />
-    <meta property="twitter:image" content="" />
-
     <!-- Fontawesome Icons -->
     <script
       src="https://kit.fontawesome.com/0ff725f684.js"
       crossorigin="anonymous"></script>
-
-    <!-- Feedback Fish -->
-    <script defer src="https://feedback.fish/ff.js?pid=d6a5d5d8f20c00"></script>
-
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"
-    ></script>
   </head>
   <body class={`dark ${palette["UnLtd"].bg}`}>
     <div class="flex flex-col justify-between h-full">
@@ -97,13 +76,7 @@ import { banner } from "@data/banner";
 
       <!-- OLD HEADER -->
       <!-- <Nav /> -->
-
-      {
-        Astro.url.pathname !== "/" ? (
-          <Breadcrumbs breadcrumbs={breadcrumbs} styles={theme} />
-        ) : null
-      }
-      <div class={theme.bg}>
+      <div class={`${theme.bg}`}>
         <slot />
       </div>
       <Footer />

@@ -31,7 +31,7 @@ export function Listbox({ className, placeholder, autoFocus, 'aria-label': ariaL
           'dark:before:hidden',
 
           // Hide default focus styles
-          'focus:outline-none',
+          'focus:outline-hidden',
 
           // Focus ring
           'after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-inset after:ring-transparent sm:after:data-[focus]:ring-2 sm:after:data-[focus]:ring-blue-500',
@@ -103,7 +103,7 @@ export function Listbox({ className, placeholder, autoFocus, 'aria-label': ariaL
             'isolate w-max min-w-[calc(var(--button-width)+1.75rem)] select-none scroll-py-1 rounded-xl p-1',
 
             // Invisible border that is only visible in `forced-colors` mode for accessibility purposes
-            'outline outline-1 outline-transparent focus:outline-none',
+            'outline outline-1 outline-transparent focus:outline-hidden',
 
             // Handle scrolling when menu won't fit in viewport
             'overflow-y-scroll overscroll-contain',
@@ -151,7 +151,7 @@ export function ListboxOption({ children, className, ...props }) {
               'text-base/6 text-zinc-950 sm:text-sm/6 dark:text-white forced-colors:text-[CanvasText]',
 
               // Focus
-              'outline-none data-[focus]:bg-blue-500 data-[focus]:text-white',
+              'outline-hidden data-[focus]:bg-blue-500 data-[focus]:text-white',
 
               // Forced colors mode
               'forced-color-adjust-none forced-colors:data-[focus]:bg-[Highlight] forced-colors:data-[focus]:text-[HighlightText]',

@@ -1,120 +1,65 @@
 ---
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
-import slugify from "slugify";
-import Hero from "@components/Hero.astro";
-import { resources } from "@data/resources.js";
-import markdocRenderer from "@utils/markdocRenderer.mjs";
-import TableOfContents from "@components/markdoc/TableOfContents.astro";
+import Default from "@components/heroes/Default.astro";
+import Content from "@components/markdoc/Content.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import TableOfContents from "@components/TableOfContents.astro";
 
-// MARKDOC Components
-import Dropdown from "@components/markdoc/Dropdown.astro";
-import Tip from "@components/markdoc/Tip.astro";
-import Heading from "@components/markdoc/Heading.astro";
+import slugify from "slugify";
+import { allResources } from "@data/resources.js";
+
+import { prepareMarkdown } from "@data/functions/prepareMarkdown.ts"; // returns a string of cleaned up markdown, still as a string, which has h1's removed, adds anchor links to every h2 and h3 and ensures their anchor id is unquie
+import { prepareToc } from "@data/functions/prepareToc.ts"; // returns an array of objects which detial the table of content (using h2's and h3's) of the body
 
 export async function getStaticPaths() {
-  return resources
-    .filter((resource) => resource.body)
-    .map((resource) => {
-      const slug = slugify(resource.name, {
-        lower: true,
-        strict: true,
-        locale: "en",
-        trim: true,
-      });
-
-      resource.breadcrumbs = [
-        {
-          name: resource.name,
-          slug: slug,
-        },
-      ];
-
-      // Extract headings from the content
-      const headings = [];
-      const headingCounts = new Map();
-      const duplicateHeadings = new Set();
-
-      // First pass to identify duplicates
-      const lines = resource.body.split("\n");
-      lines.forEach((line) => {
-        const match = line.match(/^(#{1,6})\s+(.+)$/);
-        if (match) {
-          const text = match[2];
-          const baseId = slugify(text, {
-            lower: true,
-            strict: true,
-            locale: "en",
-            trim: true,
-          });
-          const count = (headingCounts.get(baseId) || 0) + 1;
-          headingCounts.set(baseId, count);
-          if (count === 2) {
-            duplicateHeadings.add(baseId);
-          }
-        }
-      });
-
-      // Reset counts for second pass
-      headingCounts.clear();
-
-      // Second pass to generate final IDs
-      lines.forEach((line) => {
-        const match = line.match(/^(#{1,6})\s+(.+)$/);
-        if (match) {
-          const level = match[1].length;
-          const text = match[2];
-          const baseId = slugify(text, {
-            lower: true,
-            strict: true,
-            locale: "en",
-            trim: true,
-          });
-
-          const count = (headingCounts.get(baseId) || 0) + 1;
-          headingCounts.set(baseId, count);
-
-          const id =
-            duplicateHeadings.has(baseId) && count > 1
-              ? `${baseId}-${count - 1}` // Subtract 1 so second occurrence is "baseId-1"
-              : baseId;
-
-          headings.push({ level, text, id });
-        }
-      });
-
-      const html = markdocRenderer(resource.body);
-
-      return {
-        params: {
-          resource: slug,
-        },
-        props: {
-          resource,
-          html,
-          headings,
-        },
-      };
+  return allResources.map((resource) => {
+    const slug = slugify(resource.name, {
+      lower: true,
+      strict: true,
+      locale: "en",
+      trim: true,
     });
+
+    const body = prepareMarkdown(resource.body);
+    const toc = prepareToc(body); // Retrieve all h2's and h3's
+
+    return {
+      params: {
+        resource: slug,
+      },
+      props: {
+        name: resource.name,
+        slug: slug,
+        description: resource.description,
+        breadcrumbs: [
+          {
+            name: "Resources",
+            path: "/resources",
+          },
+          {
+            name: resource.name,
+            path: `/resources/${slug}`,
+          },
+        ],
+        body,
+        toc, // Pass toc to props
+      },
+    };
+  });
 }
 
-const { resource, html, headings } = Astro.props;
+const { name, description, breadcrumbs, body, toc } = Astro.props;
 ---
 
-<Template
-  name={resource.name}
-  description={resource.description}
-  breadcrumbs={resource.breadcrumbs}
->
+<Template name={name} description={description}>
   <Container>
-    <div class="relative flex flex-col lg:flex-row gap-8">
-      <TableOfContents headings={headings} />
-      <div class="flex-1">
-        <Hero name={resource.name} description={resource.description} />
-        <div
-          class="scroll-smooth prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-sm prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
-          set:html={html}
-        />
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+    <Default name={name} description={description} />
+    <div class="grid grid-cols-3 gap-2">
+        <TableOfContents headings={toc} />
+      <div class="col-span-2">
+        <Content body={body} />
       </div>
     </div>
   </Container>

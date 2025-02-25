@@ -13,7 +13,92 @@ const description = "Home description";
 <Template name={name} description={description}>
   <MainHero data={home} />
   <Mission data={home} />
-  <Things data={home} />
-  <Testamonials />
+  <div class="bg-violet-950 py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col gap-10">
+      <div>
+        <h2 class=" font-semibold text-violet-100 text-6xl">Awards</h2>
+        <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-violet-300 sm:text-xl sm:text-balance">You have an idea or are already making a difference and are looking for support to develop your social venture. We combine funding and support specificially tailored to you to help get you started or to grow.</p>
+      </div>
+      <div class="flex flex-col gap-10 sm:flex-row">
+        <div class="">
+          <div class="mx-auto max-w-2xl">
+            <h3 class="text-base/7 font-semibold text-violet-400">Funding</h3>
+            <p
+              class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-violet-100 sm:text-4xl lg:text-balance"
+            >
+              Bespoke grants
+            </p>
+            <p class="mt-6 text-lg/8 text-violet-300">
+              Quis tellus eget adipiscing convallis sit sit eget aliquet quis.
+              Suspendisse eget egestas a elementum pulvinar et feugiat blandit at.
+              In mi viverra elit nunc.
+            </p>
+          </div>
+          <div class="mx-auto mt-8 max-w-2xl sm:mt-10 lg:mt-12 lg:max-w-4xl">
+            <dl
+              class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
+            >
+              <div class="relative pl-16">
+                <dt class="text-base/7 font-semibold text-violet-100">
+                  <div
+                    class="absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-violet-200"
+                  >
+                    <i class="fa-solid fa-fingerprint text-violet-900"></i>
+                  </div>
+                  The grant amount you get is unique to you
+                </dt>
+              </div>
+              <div class="relative pl-16">
+                <dt class="text-base/7 font-semibold text-violet-100">
+                  <div
+                    class="absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-violet-200"
+                  >
+                    <i class="fa-regular fa-lightbulb text-violet-900"></i>
+                  </div>
+                  An idea is good enough
+                </dt>
+              </div>
+            </dl>
+          </div>
+      </div>
+      <div class="">
+        <div class="mx-auto max-w-2xl">
+          <h3 class="text-base/7 font-semibold text-violet-400">Support</h3>
+          <p
+            class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-violet-100 sm:text-4xl lg:text-balance"
+          >
+            Tailored services
+          </p>
+          <p class="mt-6 text-lg/8 text-violet-300">
+            Quis tellus eget adipiscing convallis sit sit eget aliquet quis.
+            Suspendisse eget egestas a elementum pulvinar et feugiat blandit at.
+            In mi viverra elit nunc.
+          </p>
+        </div>
+        <div class="mx-auto mt-8 max-w-2xl sm:mt-10 lg:mt-12 lg:max-w-4xl">
+          <dl
+            class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
+          >
+          {
+            home.support.map((service) => (
+              <div class="relative pl-16">
+                <dt class="text-base/7 font-semibold text-violet-100">
+                  <div
+                    class="absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-violet-200"
+                  >
+                    <i class={`text-lg text-violet-600 ${service.icon}`}></i>
+                  </div>
+                  {service.title}
+                </dt>
+              </div>
+            ))
+          }
+          </dl>
+        </div>
+      </div>
+  </div>
+  </div>
+</div>
+
   <Posts />
 </Template>

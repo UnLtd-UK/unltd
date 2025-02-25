@@ -3,7 +3,8 @@ const { styles, programme } = Astro.props;
 import Container from "@components/Container.astro";
 ---
 
-<Container>
+<Container bg={styles.bg2}>
+    <div class="py-1">
     <div
         class={`relative isolate overflow-hidden ${styles.bg2} px-6 py-24 my-24 text-center shadow-2xl rounded-3xl sm:px-16 bg-gradient-to-b ${styles.gradient2}`}
     >
@@ -20,11 +21,11 @@ import Container from "@components/Container.astro";
         <div class="mt-10 flex items-center justify-center gap-x-6">
             <a
                 href="/awards#applynow"
-                class={`rounded-md px-3.5 py-2.5 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300 ${styles.bg3} ${styles.text} ${styles.font}`}
+                class={`rounded-md px-3.5 py-2.5 text-sm font-semibold shadow-xs focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105 duration-300 ${styles.bg3} ${styles.text} ${styles.font}`}
                 >How to apply</a
             >
             <a
-                href="/enquiries/award-enquiry"
+                href="/contact/awards"
                 class={`text-sm font-semibold leading-6 ${styles.text2} ${styles.font}`}
                 >Help <i
                     aria-hidden="true"
@@ -32,4 +33,5 @@ import Container from "@components/Container.astro";
             >
         </div>
     </div>
+</div>
 </Container>

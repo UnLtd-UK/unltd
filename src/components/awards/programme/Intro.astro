@@ -6,7 +6,7 @@ marked.use({ mangle: false, headerIds: false });
 import IconBig from "@components/awards/cards/IconBig.astro";
 import Container from "@components/Container.astro";
 import Status from "@components/awards/programme/Status.astro";
-import Partners from "@components/awards//programme/Partners.astro";
+import Partners from "@components/awards/programme/Partners.astro";
 
 import moment from "moment";
 let todayDate = moment();
@@ -16,7 +16,7 @@ let todayDate = moment();
   <img
     src={`https://unltd.directus.app/assets/${programme.image.id}`}
     alt=""
-    class="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center brightness-50 blur-sm opacity-30"
+    class="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center brightness-50 blur-xs opacity-30"
   />
   <div
     class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
@@ -74,10 +74,6 @@ let todayDate = moment();
                 </h1>
               )
             }
-
-            <!-- <h1 class={`text-6xl font-bold ${styles.text} ${styles.font}`}>
-              {programme.name}
-            </h1> -->
           </div>
         </div>
         <Partners
@@ -85,12 +81,64 @@ let todayDate = moment();
           partners={programme.partners}
           styles={styles}
         />
+
         {
-          programme.description1 && (
+          programme.issue && programme.action && programme.outcome ? (
+            <div class="mx-auto  max-w-2xl lg:max-w-none">
+              <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
+                <div class="flex flex-col">
+                  <dt
+                    class={`flex items-center gap-x-3 text-2xl font-semibold leading-7 ${styles.text}`}
+                  >
+                    <i
+                      class={`fa-light fa-triangle-exclamation flex-none ${styles.text2}`}
+                    />
+                    Issue
+                  </dt>
+                  <dd
+                    class={`mt-4 flex flex-auto flex-col text-sm leading-6 ${styles.text2}`}
+                  >
+                    <p class="flex-auto">{programme.issue}</p>
+                  </dd>
+                </div>
+                <div class="flex flex-col">
+                  <dt
+                    class={`flex items-center gap-x-3 text-2xl font-semibold leading-7 ${styles.text}`}
+                  >
+                    <i
+                      class={`fa-light fa-wrench flex-none ${styles.text2}`}
+                    />
+                    Action
+                  </dt>
+                  <dd
+                    class={`mt-4 flex flex-auto flex-col text-sm leading-6 ${styles.text2}`}
+                  >
+                    <p class="flex-auto">{programme.action}</p>
+                  </dd>
+                </div>
+                <div class="flex flex-col">
+                  <dt
+                    class={`flex items-center gap-x-3 text-2xl font-semibold leading-7 ${styles.text}`}
+                  >
+                    <i
+                      class={`fa-light fa-flag-checkered flex-none ${styles.text2}`}
+                      />
+                    Outcome
+                  </dt>
+                  <dd
+                    class={`mt-4 flex flex-auto flex-col text-sm leading-6 ${styles.text2}`}
+                  >
+                    <p class="flex-auto">{programme.outcome}</p>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          ) : (
             <div
-              class={`prose prose-strong:text-white prose-strong:bg-white/20 prose-strong:p-1 prose-strong:${styles.font} max-w-4xl text-xl leading-relaxed prose:${styles.text2} prose:${styles.font}`}
-              set:html={marked.parse(programme.description1)}
-            />
+              class={` max-w-4xl text-xl leading-relaxed prose:${styles.text2} prose:${styles.font}`}
+            >
+              {programme.description}
+            </div>
           )
         }
       </div>

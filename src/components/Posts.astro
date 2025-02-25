@@ -1,10 +1,11 @@
 ---
 import { posts } from "@data/posts.js";
 import Post from "@components/Post.astro";
+import slugify from "slugify";
 const slicedPosts = posts.slice(0, 3);
 ---
 
-<div class="bg-violet-950 py-24 sm:py-32">
+<div class="bg-violet-900 py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div class="mx-auto max-w-2xl text-center">
             <h2
@@ -19,7 +20,31 @@ const slicedPosts = posts.slice(0, 3);
         <ul
             class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3"
         >
-            {slicedPosts.map((post) => <Post post={post} />)}
+            {
+                slicedPosts.map((post) => (
+                    <Post
+                        slug={slugify(post.title, {
+                            lower: true,
+                            strict: true,
+                            locale: "en",
+                            trim: true,
+                        })}
+                        title={post.title}
+                        description={post.description}
+                        image={{
+                            url: post.image,
+                            alt: post.image_alt,
+                            caption: post.image_caption,
+                        }}
+                        author={{
+                            name: post.author_name,
+                            position: post.author_position,
+                        }}
+                        published={post.date_time}
+                        tag={post.tag}
+                    />
+                ))
+            }
         </ul>
     </div>
 </div>

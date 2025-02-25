@@ -1,0 +1,96 @@
+---
+import Note from "@components/markdoc/Note.astro";
+import Dropdown from "@components/markdoc/Dropdown.astro";
+import Tip from "@components/markdoc/Tip.astro";
+import Heading from "@components/markdoc/Heading.astro";
+import { prepareMarkdown } from "@data/functions/prepareMarkdown.js";
+
+import { marked } from "marked";
+
+const { body } = Astro.props;
+const preparedBody = prepareMarkdown(body);
+const renderer = new marked.Renderer();
+
+renderer.heading = function ({ tokens, depth, text }) {
+  const idMatch = tokens[0].raw.match(/\(#(.*?)\)/);
+  const id = idMatch ? idMatch[1] : text.toLowerCase().replace(/\s+/g, '-');
+
+  let h = {
+    level: depth,
+    id: id,
+    text: tokens[0].text,
+    href: tokens[0].href}
+
+  if ((depth === 2 || depth === 3) && h.href.startsWith('#')) {
+      return `\n<h${h.level} id="${h.id}">${h.text}<a href="${h.href}"><i class="pl-2 text-sm fa-solid fa-link text-violet-300 hover:text-violet-100" aria-hidden="true"></i></a></h${h.level}>\n`;
+  } else if ((depth === 2 || depth === 3) && !h.href.startsWith('#')) {
+      return `\n<a href="${h.href}" target=${h.href.startsWith('/') ? "" : "_blank"}><h${h.level}">${h.text}</h${h.level}></a>\n`;
+  }
+  return `<h${h.level}>${h.text}</h${h.level}>`;
+};
+
+marked.use({ renderer });
+const html = marked.parse(preparedBody);
+---
+
+<div
+  set:html={html}
+  class="prose
+    prose-slate
+    dark:prose-invert
+    lg:prose-lg
+    prose-img:rounded-md
+    prose-img:shadow-xs
+    prose-img:w-full
+    prose-figcaption:text-violet-300
+    prose-figcaption:text-xs
+    prose-ul:list-disc
+    prose-ul:marker:bg-violet-400
+    prose-a:font-bold
+    prose-a:underline-offset-4
+    prose-a:decoration-amber-500
+    prose-a:decoration-1
+    prose-a:hover:decoration-2
+    [&_a[href^='#']]:scroll-mt-20
+    prose-p:text-violet-200
+    prose-li:text-violet-200
+    prose-h1:text-violet-100
+    prose-h2:text-violet-100
+    prose-h3:text-violet-100
+    prose-h4:text-violet-100
+    prose-blockquote:border-l-violet-400
+    prose-blockquote:px-6
+    prose-blockquote:not-italic
+    prose-blockquote:font-semibold
+    prose-blockquote:text-xl
+    prose-blockquote:relative
+    prose-blockquote:leading-8
+    [&>figure>blockquote]:border-l-violet-400
+    [&>figure>blockquote]:px-6
+    [&>figure>blockquote]:not-italic
+    [&>figure>blockquote]:font-semibold
+    [&>figure>blockquote]:text-xl
+    [&>figure>blockquote]:relative
+    [&>figure>blockquote]:leading-8
+    [&_details]:border
+    [&_details]:border-violet-700/30
+    [&_details]:rounded-lg
+    [&_details]:p-4
+    [&_details]:mb-4
+    [&_details_summary]:cursor-pointer
+    [&_details_summary]:font-semibold
+    [&_details_summary]:text-violet-100
+    [&_details_summary]:select-none
+    [&_details_summary]:flex
+    [&_details_summary]:items-center
+    [&_details_summary]:gap-2
+    [&_details_summary]:transition-colors
+    [&_details_summary:hover]:text-violet-300
+    [&_details_summary::after]:content-['+']
+    [&_details_summary::after]:ml-auto
+    [&_details_summary::after]:text-xl
+    [&_details_summary::after]:font-normal
+    [&_details_summary::after]:text-violet-400
+    [&_details[open]_summary::after]:content-['-']
+    [&_details>*:not(summary)]:mt-4"
+/>

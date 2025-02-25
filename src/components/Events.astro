@@ -1,5 +1,10 @@
 ---
-import { allEvents, formatDate, isPastEvent, sortEvents } from "@data/eventCollections";
+import {
+  allEvents,
+  formatDate,
+  isPastEvent,
+  sortEvents,
+} from "@data/eventCollections";
 
 interface Props {
   collectionId: string;
@@ -11,31 +16,89 @@ const events = sortEvents(allEvents[collectionSlug] || []);
 ---
 
 <div class="max-w-7xl mx-auto px-4">
-  {events.length === 0 ? (
-    <p>No events found.</p>
-  ) : (
-    <div>
-      {/* Future Events Section */}
-      <h2 class="mt-8 mb-4 pb-2 text-2xl font-bold text-violet-100 border-b-2 border-amber-500">Upcoming Events</h2>
-      {events.filter(event => !isPastEvent(event)).length === 0 ? (
-        <p class="text-violet-200">No upcoming events at the moment.</p>
-      ) : (
-        events
-          .filter(event => !isPastEvent(event))
+  {
+    events.length === 0 ? (
+      <p>No events found.</p>
+    ) : (
+      <div>
+        {/* Future Events Section */}
+        <h2 class="mt-8 mb-4 pb-2 text-2xl font-bold text-violet-100 border-b-2 border-amber-500">
+          Upcoming Events
+        </h2>
+        {events.filter((event) => !isPastEvent(event)).length === 0 ? (
+          <p class="text-violet-200">No upcoming events at the moment.</p>
+        ) : (
+          events
+            .filter((event) => !isPastEvent(event))
+            .map((event) => (
+              <div class="flex flex-col md:flex-row gap-4 p-4 mb-4 bg-white rounded-lg border border-gray-200">
+                <img
+                  src={event.logo?.url}
+                  alt={event.name.text}
+                  class="w-full md:w-48 h-48 object-cover rounded-md"
+                />
+                <div class="flex-1">
+                  <h2 class="text-xl font-semibold text-gray-900">
+                    {event.name.text}
+                  </h2>
+                  {event.series && (
+                    <div class="my-2">
+                      <span class="inline-block px-2 py-1 text-sm text-white bg-green-500 rounded-sm">
+                        Recurring Event
+                      </span>
+                      <p class="mt-2 text-sm text-gray-600">
+                        Series runs from {formatDate(event.series.start_date)}{" "}
+                        to {formatDate(event.series.end_date)}
+                      </p>
+                    </div>
+                  )}
+                  <p class="my-4 text-gray-600">
+                    {event.description.text.substring(0, 200)}...
+                  </p>
+                  <p class="text-gray-700">
+                    <strong>Start:</strong> {formatDate(event.start.local)}
+                  </p>
+                  <p class="text-gray-700">
+                    <strong>Venue:</strong> {event.venue?.name || "TBA"}
+                  </p>
+                  <a
+                    href={event.url}
+                    class="inline-block px-4 py-2 mt-4 text-white bg-amber-500 hover:bg-amber-600 rounded-sm transition-colors duration-200"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Get Ticket
+                  </a>
+                </div>
+              </div>
+            ))
+        )}
+
+        {/* Past Events Section */}
+        <h2 class="mt-12 mb-4 pb-2 text-2xl font-bold text-violet-100 border-b-2 border-gray-600">
+          Past Events
+        </h2>
+        {events
+          .filter((event) => isPastEvent(event))
           .map((event) => (
-            <div class="flex flex-col md:flex-row gap-4 p-4 mb-4 bg-white rounded-lg border border-gray-200">
-              <img 
-                src={event.logo?.url} 
-                alt={event.name.text} 
+            <div class="flex flex-col md:flex-row gap-4 p-4 mb-4 bg-gray-50 rounded-lg border border-gray-200 opacity-70">
+              <img
+                src={event.logo?.url}
+                alt={event.name.text}
                 class="w-full md:w-48 h-48 object-cover rounded-md"
               />
               <div class="flex-1">
-                <h2 class="text-xl font-semibold text-gray-900">{event.name.text}</h2>
+                <h2 class="text-xl font-semibold text-gray-900">
+                  {event.name.text}
+                </h2>
                 {event.series && (
                   <div class="my-2">
-                    <span class="inline-block px-2 py-1 text-sm text-white bg-green-500 rounded">Recurring Event</span>
+                    <span class="inline-block px-2 py-1 text-sm text-white bg-gray-500 rounded-sm">
+                      Series Ended
+                    </span>
                     <p class="mt-2 text-sm text-gray-600">
-                      Series runs from {formatDate(event.series.start_date)} to {formatDate(event.series.end_date)}
+                      Series ran from {formatDate(event.series.start_date)} to{" "}
+                      {formatDate(event.series.end_date)}
                     </p>
                   </div>
                 )}
@@ -43,59 +106,18 @@ const events = sortEvents(allEvents[collectionSlug] || []);
                   {event.description.text.substring(0, 200)}...
                 </p>
                 <p class="text-gray-700">
-                  <strong>Start:</strong> {formatDate(event.start.local)}
+                  <strong>Date:</strong> {formatDate(event.start.local)}
                 </p>
                 <p class="text-gray-700">
-                  <strong>Venue:</strong> {event.venue?.name || 'TBA'}
+                  <strong>Venue:</strong> {event.venue?.name || "TBA"}
                 </p>
-                <a 
-                  href={event.url} 
-                  class="inline-block px-4 py-2 mt-4 text-white bg-amber-500 hover:bg-amber-600 rounded transition-colors duration-200"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Get Ticket
-                </a>
+                <span class="inline-block px-4 py-2 mt-4 text-sm text-white bg-gray-500 rounded-sm">
+                  Event Completed
+                </span>
               </div>
             </div>
-          ))
-      )}
-
-      {/* Past Events Section */}
-      <h2 class="mt-12 mb-4 pb-2 text-2xl font-bold text-violet-100 border-b-2 border-gray-600">Past Events</h2>
-      {events
-        .filter(event => isPastEvent(event))
-        .map((event) => (
-          <div class="flex flex-col md:flex-row gap-4 p-4 mb-4 bg-gray-50 rounded-lg border border-gray-200 opacity-70">
-            <img 
-              src={event.logo?.url } 
-              alt={event.name.text} 
-              class="w-full md:w-48 h-48 object-cover rounded-md"
-            />
-            <div class="flex-1">
-              <h2 class="text-xl font-semibold text-gray-900">{event.name.text}</h2>
-              {event.series && (
-                <div class="my-2">
-                  <span class="inline-block px-2 py-1 text-sm text-white bg-gray-500 rounded">Series Ended</span>
-                  <p class="mt-2 text-sm text-gray-600">
-                    Series ran from {formatDate(event.series.start_date)} to {formatDate(event.series.end_date)}
-                  </p>
-                </div>
-              )}
-              <p class="my-4 text-gray-600">
-                {event.description.text.substring(0, 200)}...
-              </p>
-              <p class="text-gray-700">
-                <strong>Date:</strong> {formatDate(event.start.local)}
-              </p>
-              <p class="text-gray-700">
-                <strong>Venue:</strong> {event.venue?.name || 'TBA'}
-              </p>
-              <span class="inline-block px-4 py-2 mt-4 text-sm text-white bg-gray-500 rounded">Event Completed</span>
-            </div>
-          </div>
-        ))
-      }
-    </div>
-  )}
+          ))}
+      </div>
+    )
+  }
 </div>

@@ -26,24 +26,27 @@ const { data } = Astro.props;
                 >
                     {
                         data.statistics.map((stat) => (
-                            <div class="flex flex-col bg-violet-950 p-8">
+                            <div class="flex flex-col bg-violet-950 gap-4 p-8">
+                                <i class={`${stat.icon} text-6xl text-violet-200`}></i>
+                                <div>
+                                <dd class="text-lg font-semibold tracking-tight text-violet-100">
+                                    {stat.title}
+                                </dd>
                                 <dt class="text-sm font-semibold leading-6 text-violet-300">
                                     {stat.text}
                                 </dt>
-                                <dd class="order-first text-2xl font-semibold tracking-tight text-violet-100">
-                                    {stat.title}
-                                </dd>
+                            </div>
                             </div>
                         ))
                     }
                 </dl>
-                <p class="text-violet-200 text-xs">
+                <!-- <p class="text-violet-200 text-xs">
                     Read our <a
                         href="https://unltd.directus.app/assets/9e2fdbbe-de2d-4f0f-a1e3-2b5a28fcc75e.pdf"
                         class="underline font-bold underline-offset-4 decoration-amber-500 decoration-1 hover:decoration-2"
                         >2021 - 2022 Impact Report</a
                     > to learn more.
-                </p>
+                </p> -->
             </div>
         </div>
     </div>

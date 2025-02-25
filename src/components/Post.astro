@@ -1,66 +1,66 @@
 ---
-import moment from "moment";
-import BlogAvatar from "./BlogAvatar";
-const { post } = Astro.props;
+const { title, slug, image, published, tag, description, author } = Astro.props;
 ---
 
 <li class="col-span-1 divide-y divide-gray-200 rounded-lg">
-    <a href={`/blog/${post.slug}`}>
+    <a href={`/blog/${slug}`}>
         <article
             class="flex flex-col items-start justify-between transition hover:bg-violet-100 dark:hover:bg-violet-900 hover:outline-violet-200 hover:dark:outline-violet-800 p-6 rounded-2xl"
         >
-            <div class="relative w-full h-64">
+            <div class="relative w-full h-64 bg-violet-800 rounded-2xl border border-violet-600">
                 {
-                    post.image !== null && (
+                    image.url !== null ? (
                         <img
-                            src={`https://unltd.directus.app/assets/${post.image}`}
+                            src={`https://unltd.directus.app/assets/${image.url}`}
                             alt=""
                             class="absolute inset-0 w-full h-full object-cover rounded-2xl"
                         />
-                    )
+                    ) : <div class="flex justify-center items-center h-64"><i class="fa-solid fa-image-slash text-4xl text-violet-400"></i></div>
                 }
             </div>
             <div class="max-w-xl">
                 <div class="mt-8 flex items-center gap-x-4 text-xs">
                     <time
-                        datetime={post.date_time}
+                        datetime={published}
                         class="text-violet-600 dark:text-violet-400"
                     >
                         {
-                            moment(post.date_time).format(
-                                "ddd hh:mm, DD MMM YYYY",
-                            )
+                            new Date(published).toLocaleDateString("en-US", {
+                                weekday: "short",
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                day: "2-digit",
+                                month: "short",
+                                year: "numeric",
+                            })
                         }
                     </time>
                     <span
-                        class="relative z-10 rounded-full bg-violet-100 dark:bg-violet-900 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-400"
+                        class="relative z-10 rounded-full bg-violet-100 dark:bg-violet-900 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-300"
                     >
-                        {post.tag}
+                        {tag}
                     </span>
+                    
                 </div>
-                <div class="group relative">
+
+                <div class="group relative flex flex-col gap-1">
                     <h3
-                        class="mt-3 text-lg font-semibold leading-6 text-violet-700 dark:text-violet-300"
+                        class="mt-3 text-lg font-semibold leading-6 text-violet-700 dark:text-violet-200"
                     >
                         <span class="absolute inset-0"></span>
-                        {post.title}
+                        {title}
                     </h3>
+                    <p class="text-xs text-violet-700 dark:text-violet-300">
+                        By {author.name}, <span class="text-violet-600 dark:text-violet-400">{author.position}</span>
+                    </p>
                 </div>
                 <p
                     class="mt-5 text-sm leading-6 text-violet-600 dark:text-violet-400"
                 >
-                    {post.description}
+                    {description}
                 </p>
             </div>
-            <div class="relative mt-8 flex gap-x-4 text-sm leading-6 flex-col">
-                <p class="font-semibold text-violet-700 dark:text-violet-300">
-                    <span class="absolute inset-0"></span>
-                    {post.author_name}
-                </p>
-                <p class="text-violet-600 dark:text-violet-400">
-                    {post.author_position}
-                </p>
-            </div>
+
         </article>
     </a>
 </li>

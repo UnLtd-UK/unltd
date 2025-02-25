@@ -1,0 +1,213 @@
+---
+import slugify from "slugify";
+import { structure } from "@data/resourceVisibilityOptions.js";
+import { allResources } from "@data/resources.js";
+import { organiseResources } from "@data/functions/organiseResources.js";
+import { calculateReadTime } from "@data/functions/read-time.js";
+
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import HeaderSection from "@components/our-support/headerSection.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+
+export async function getStaticPaths() {
+    const name = "Resources";
+    const description =
+        "A library of useful resources to help you navigate the social enterprise space.";
+    const slug = slugify(name, {
+        lower: true,
+        strict: true,
+        locale: "en",
+        trim: true,
+    });
+
+    const paths = [];
+
+    const structureData = await structure();
+
+    const enrichedStructure = organiseResources(structureData, allResources);
+
+    paths.push({
+        params: { group: undefined },
+        props: {
+            name,
+            description,
+            slug,
+            resources: [],
+            children: enrichedStructure.map((node) => ({
+                name: node.text,
+                slug: node.value,
+                path: `/resources/${node.value}`,
+            })),
+            breadcrumbs: [
+                {
+                    name,
+                    slug,
+                    path: `/resources`,
+                },
+            ],
+        },
+    });
+
+    function processNode(node, parentBreadcrumbs = []) {
+        const currentBreadcrumbs = [
+            ...parentBreadcrumbs,
+            {
+                name: node.text,
+                slug: node.value,
+                path:
+                    parentBreadcrumbs.length > 0
+                        ? `${parentBreadcrumbs[parentBreadcrumbs.length - 1].path}/${node.value}`
+                        : `/resources/${node.value}`,
+            },
+        ];
+
+        paths.push({
+            params: {
+                group: currentBreadcrumbs
+                    .slice(1)
+                    .map((b) => b.slug)
+                    .join("/"),
+            },
+            props: {
+                name: `${node.text} Resources`,
+                description,
+                slug: node.value,
+                resources: node.resources || [],
+                children:
+                    node.children?.map((child) => ({
+                        name: child.text,
+                        slug: child.value,
+                        path: `${currentBreadcrumbs[currentBreadcrumbs.length - 1].path}/${child.value}`,
+                    })) || [],
+                breadcrumbs: currentBreadcrumbs,
+            },
+        });
+
+        // Process children if they exist
+        if (node.children && node.children.length > 0) {
+            node.children.forEach((child) => {
+                processNode(child, currentBreadcrumbs);
+            });
+        }
+    }
+
+    // Process each top-level node
+    enrichedStructure.forEach((node) => {
+        processNode(node, [
+            {
+                name,
+                slug,
+                path: `/resources`,
+            },
+        ]);
+    });
+
+    // inside the props of each path in paths I need to return the immediate children
+
+    return paths;
+}
+
+const { name, description, slug, breadcrumbs, children, resources } =
+    Astro.props;
+---
+
+<Template name={name} description={description}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <HeaderSection title={name} description={description} />
+
+        <div>
+            <!-- <div class="grid grid-cols-1 sm:hidden"> -->
+            <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+            <!-- <select
+                    aria-label="Select a tab"
+                    class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-violet-50 py-2 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600"
+                >
+                    <option>My Account</option>
+                    <option>Company</option>
+                    <option selected>Team Members</option>
+                    <option>Billing</option>
+                </select>
+                <svg
+                    class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500"
+                    viewBox="0 0 16 16"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    data-slot="icon"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+                        clip-rule="evenodd"></path>
+                </svg>
+            </div> -->
+            <div class="hidden sm:block">
+                <nav class="flex space-x-4" aria-label="Tabs">
+                    {
+                        children
+                            .filter((child) => child.name !== 'Hidden')
+                            .map((child) => {
+                                const isCurrentPage =
+                                    Astro.params.group === child.slug;
+                                const isRootPage =
+                                    !Astro.params.group &&
+                                    child.path === "/resources";
+                                const isSelected = isCurrentPage || isRootPage;
+
+                                return (
+                                    <a
+                                        href={`${child.path}`}
+                                        class={`rounded-md px-3 py-2 text-sm font-medium ${
+                                            isSelected
+                                                ? "bg-violet-100 text-violet-700 ring-2 ring-violet-500 ring-offset-2"
+                                                : "text-violet-200 hover:text-violet-300 hover:bg-violet-900/50"
+                                        }`}
+                                        aria-current={
+                                            isSelected ? "page" : undefined
+                                        }
+                                    >
+                                        {child.name}
+                                    </a>
+                                );
+                            })
+                    }
+                </nav>
+            </div>
+        </div>
+
+        {
+            resources && (
+                <div class="mx-auto max-w-7xl">
+                    <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+                        {resources.filter(resource => !resource.visibility.includes('hidden')).map((resource) => {
+                            const resourceSlug = slugify(resource.name, { lower: true, strict: true, locale: "en", trim: true });
+                            return (
+                                <article class="flex flex-col items-start justify-between hover:bg-violet-900 p-4 rounded-xl">
+                                    <div class="max-w-xl">
+                                        <div class="group relative">
+                                            <span class="text-xs text-violet-400">
+                                                {`${calculateReadTime(resource.body)} MINS`}
+                                            </span>
+                                            <h3 class="mt-3 text-lg/6 font-semibold text-violet-200 group-hover:text-violet-300">
+                                                <a
+                                                    href={`/resources/${resourceSlug}`}
+                                                >
+                                                    <span class="absolute inset-0" />
+                                                    {resource.name}
+                                                </a>
+                                            </h3>
+                                            <p class="mt-5 line-clamp-3 text-sm/6 text-violet-400">
+                                                {resource.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </article>
+                            );
+                        })}
+                    </div>
+                </div>
+            )
+        }
+    </Container>
+</Template>
