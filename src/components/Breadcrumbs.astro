@@ -1,8 +1,6 @@
 ---
-import FeedbackWidget from "@components/FeedbackWidget.astro";
 import { palette } from "@data/palette";
-
-
+import Popover from "@components/Popover.jsx";
 const { breadcrumbs, styles = palette['UnLtd'] } = Astro.props;
 ---
 
@@ -42,6 +40,6 @@ const { breadcrumbs, styles = palette['UnLtd'] } = Astro.props;
           }
         </ol>
       </nav>
-      <FeedbackWidget />
+      <Popover client:load/>
     </div>
   </div>

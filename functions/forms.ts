@@ -31,6 +31,16 @@ export async function onRequest(context) {
     title: "General form",
     path: "/contact/general",
     email: "digital@unltd.org.uk" // "comms@unltd.org.uk"
+  },
+  {
+    title: "Feedback",
+    path: "",
+    email: "digital@unltd.org.uk" // "digital@unltd.org.uk"
+  },
+  {
+    title: "Request",
+    path: "/request",
+    email: "digital@unltd.org.uk" // "digital@unltd.org.uk"
   }
   ]
   
