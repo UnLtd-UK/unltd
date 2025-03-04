@@ -17,6 +17,11 @@ const slug = slugify(name, {
   trim: true,
 });
 
+// Generate an array which has years in it. Loop through posts and get the year of each post. If the year is already in the array, skip it. If it's not, add it to the array.
+const years = [...new Set(posts.map(post => new Date(post.date_time).getFullYear()))].sort((a, b) => b - a);
+
+console.log(years);
+
 const buttons = [
   {
     name: "Subscribe",
@@ -35,8 +40,35 @@ const breadcrumbs = [
 <Template name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <Default name={name} description={description} buttons={buttons} />
-    <ul
+    <Default name={name} description={description} />
+    <div>
+      <div class="grid grid-cols-1 sm:hidden">
+        <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+        <select aria-label="Select a tab" class="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pr-8 pl-3 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600">
+          <option>My Account</option>
+          <option>Company</option>
+          <option selected>Team Members</option>
+          <option>Billing</option>
+        </select>
+        <svg class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-violet-500" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+          <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+        </svg>
+      </div>
+      <div class="hidden sm:block">
+        <div class="border-b border-violet-800">
+          <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+            <a href={`/blog`} class={`border-b-2 border-transparent px-1 py-4 text-sm font-medium whitespace-nowrap text-violet-400 hover:border-violet-300 hover:text-violet-300 ${(Astro.url.pathname === "/blog" || Astro.url.pathname === "/blog/") && "text-violet-200 border-violet-400" }`}>All</a>
+            {
+              years.map((year) => (
+                <a href={`/blog/${year}`} class={`border-b-2 border-transparent px-1 py-4 text-sm font-medium whitespace-nowrap text-violet-400 hover:border-violet-300 hover:text-violet-300 ${(Astro.url.pathname === `/blog/${year}` || Astro.url.pathname === `/blog/${year}/`) && "text-violet-200 border-violet-400" }`}>{year}</a>
+              ))
+            }
+          </nav>
+        </div>
+      </div>
+    </div>
+    
+        <ul
       role="list"
       class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
     >
