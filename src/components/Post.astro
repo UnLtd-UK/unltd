@@ -25,7 +25,7 @@ const { title, slug, image, published, tag, description, author } = Astro.props;
                         class="text-violet-600 dark:text-violet-400"
                     >
                         {
-                            new Date(published).toLocaleDateString("en-US", {
+                            new Date(published).toLocaleDateString("en-GB", {
                                 weekday: "short",
                                 hour: "2-digit",
                                 minute: "2-digit",
