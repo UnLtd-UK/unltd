@@ -12,9 +12,23 @@ export default function FeedbackPopover() {
         setIsError(false);
 
         try {
-            // Simulate form submission
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+            const response = await fetch('/forms', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                type: event.target.type.value,
+                email: event.target.email.value,
+                message: event.target.message.value,
+            }),
+            });
+
+            if (response.ok) {
             setIsSubmitted(true);
+            } else {
+            throw new Error('Network response was not ok');
+            }
         } catch (error) {
             setIsError(true);
         } finally {

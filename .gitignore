@@ -25,3 +25,6 @@ pnpm-debug.log*
 .DS_Store
 
 src/data/cache/
+
+.env.vars
+*.local

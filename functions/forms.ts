@@ -1,102 +1,70 @@
 export async function onRequest(context) {
-  // Debug log to print environment variables
-
-    const recipient: Array<{ title: string, path: string, email: string }> = [
-    {
-    title: "Awards form",
-    path: "/contact/awards",
-    email: "digital@unltd.org.uk" // "awardapplications@unltd.org.uk"
-  },
-  {
-    title: "Fundraising form",
-    path: "/contact/fundraising",
-    email: "digital@unltd.org.uk" // "fundraising@unltd.org.uk"
-  },
-  {
-    title: "Partnering form",
-    path: "/contact/partnering",
-    email: "digital@unltd.org.uk" // "partnering@unltd.org.uk"
-  },
-  {
-    title: "Volunteering form",
-    path: "/contact/volunteering",
-    email: "digital@unltd.org.uk" // "mentoring@unltd.org.uk"
-  },
-  {
-    title: "Press & Media form",
-    path: "/contact/press-and-media",
-    email: "digital@unltd.org.uk" // "press@unltd.org.uk"
-  },
-  {
-    title: "General form",
-    path: "/contact/general",
-    email: "digital@unltd.org.uk" // "comms@unltd.org.uk"
-  },
-  {
-    title: "Feedback",
-    path: "",
-    email: "digital@unltd.org.uk" // "digital@unltd.org.uk"
-  },
-  {
-    title: "Request",
-    path: "/request",
-    email: "digital@unltd.org.uk" // "digital@unltd.org.uk"
-  }
-  ]
-  
-  let recipientEmail = context.env.ADMIN_EMAIL; // Default to admin email
-
-
-  // Handle CORS
-  if (context.request.method === "OPTIONS") {
-    return new Response(null, {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "POST",
-        "Access-Control-Allow-Headers": "Content-Type",
-      },
-    });
-  }
-
   try {
-    // Validate environment variables
-    if (!context.env.RESEND_API_KEY) {
-      throw new Error('RESEND_API_KEY environment variable is not set');
-    }
-    if (!context.env.ADMIN_EMAIL) {
-      throw new Error('ADMIN_EMAIL environment variable is not set');
+    // Unified environment variable access
+    const env = context.env || context.locals?.env;
+    
+    if (!env) {
+      throw new Error('No environment configuration found');
     }
 
-    // Check the Referer header
-    const referer = context.request.headers.get('Referer');
-    const domain = context.env.DOMAIN;
-    if (!referer || !referer.startsWith(domain)) {
-      return new Response(JSON.stringify({
-        success: false,
-        error: "Invalid referer"
-      }), { 
-        status: 403,
+    // Destructure environment variables with default fallbacks
+    const {
+      DEV = 'false',
+      ADMIN_EMAIL = '',
+      RESEND_EMAIL = '',
+      EVENTBRITE_API_TOKEN = '',
+      RESEND_API_KEY = '',
+      DOMAIN = ''
+    } = env;
+
+    // Logging with environment-specific prefix
+    const ENV = DEV === 'true' ? 'DEV' : 'PROD';
+    console.log(`${ENV}-ADMIN_EMAIL: ${ADMIN_EMAIL}`);
+    console.log(`${ENV}-RESEND_EMAIL: ${RESEND_EMAIL}`);
+    console.log(`${ENV}-EVENTBRITE_API_TOKEN: ${EVENTBRITE_API_TOKEN}`);
+    console.log(`${ENV}-RESEND_API_KEY: ${RESEND_API_KEY}`);
+    console.log(`${ENV}-DOMAIN: ${DOMAIN}`);
+
+    // CORS handling for preflight requests
+    if (context.request.method === "OPTIONS") {
+      return new Response(null, {
         headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
       });
     }
 
-    // Determine the recipient email based on the referer
-    for (const entry of recipient) {
-      if (referer.includes(entry.path)) {
-        recipientEmail = entry.email;
-        break;
+    console.log("Checked CORS");
+
+    // Came from website
+    const host = context.request.headers.get('host')
+
+    if (!host || !host.startsWith(DOMAIN)) {
+      return new Response(JSON.stringify({
+      success: false,
+      error: "Invalid referer",
+      message: "The request did not originate from a valid domain."
+      }), { 
+      status: 403,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       }
+      });
     }
 
-    // Parse the form data
+    console.log("Checked Domain");
+
+    // Get data from form
     const formData = await context.request.formData();
     const data: { [key: string]: string } = {};
     for (const [key, value] of formData.entries()) {
       data[key] = value as string;
     }
+
+    console.log("Got data from form");
 
     // Required fields validation
     if (!data.email) {
@@ -111,68 +79,75 @@ export async function onRequest(context) {
         }
       });
     }
-    
-    // Send confirmation email to user
-    const userEmailResponse = await fetch('https://api.resend.com/emails', {
+
+    console.log("Checked there was an Email");
+
+    // Email sent to Admin
+    try {
+      await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${context.env.RESEND_API_KEY}`,
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: recipientEmail,
+        from: `UnLtd <${RESEND_EMAIL}>`,
+        to: ADMIN_EMAIL,
+        subject: `Submission from ${data.email}`,
+        text: Object.entries(data).map(([key, value]) => `${key}: ${value}`).join('\n')
+      })
+      });
+    } catch (error) {
+      throw new Error(`Failed to send confirmation email: ${error.message}`);
+    }
+
+    console.log("Email sent to Admin");
+
+    // Send email to sender
+    try {
+      await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: `UnLtd <${RESEND_EMAIL}>`,
         to: data.email,
-        subject: 'Thank you for your submission',
-        text: `Dear ${data.name},\n\nThank you for your submission. We have received your information and will get back to you soon.\n\nBest regards,\nUnLtd Team`
+        subject: 'Thank you for your feedback',
+        text: `Thank you ${data.email},\n\nWe have received your feedback:\n\n"${data.message}".\n\nBest regards,\nUnLtd Team`
       })
-    });
-
-    if (!userEmailResponse.ok) {
-      const errorText = await userEmailResponse.text();
-      throw new Error(`Failed to send confirmation email: ${errorText}`);
+      });
+    } catch (error) {
+      throw new Error(`Failed to send confirmation email: ${error.message}`);
     }
 
-    // Send notification to admin
-    const adminEmailResponse = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${context.env.RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: context.env.ADMIN_EMAIL,
-        to: recipientEmail,
-        subject: `New Form Submission from ${data.email}`,
-        text: Object.entries(data)
-          .map(([key, value]) => `${key}: ${value}`)
-          .join('\n')
-      })
-    });
+    console.log("Email sent to sender");
 
-    if (!adminEmailResponse.ok) {
-      const errorText = await adminEmailResponse.text();
-      throw new Error(`Failed to send admin notification: ${errorText}`);
-    }
-
-    return new Response(JSON.stringify({ 
+    return new Response(JSON.stringify({
       success: true,
-      message: 'Form submission received and confirmation sent'
-    }), {
+      message: "Email recieved and confirmation email sent"
+    }), { 
+      status: 200,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
-      },
+      }
     });
+
+
+
 
   } catch (error) {
+    // Enhanced error logging
     console.error('Error details:', {
-      message: error.message,
-      stack: error.stack,
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : 'No stack trace',
     });
 
-    return new Response(JSON.stringify({ 
-      success: false, 
-      error: error.message,
+    return new Response(JSON.stringify({
+      success: false,
+      error: error instanceof Error ? error.message : 'An unexpected error occurred',
       timestamp: new Date().toISOString()
     }), {
       status: 500,
