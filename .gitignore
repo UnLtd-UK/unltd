@@ -27,4 +27,3 @@ pnpm-debug.log*
 src/data/cache/
 
 .dev.vars
-*.local
