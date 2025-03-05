@@ -1,7 +1,13 @@
 export async function onRequest(context) {
   try {
     // Unified environment variable access
-    const env = context.env || context.locals?.env;
+    const env = context.env || context.locals?.env || {
+      DEV: process.env.DEV || 'false',
+      DOMAIN: process.env.DOMAIN || '',
+      ADMIN_EMAIL: process.env.ADMIN_EMAIL || '',
+      RESEND_EMAIL: process.env.RESEND_EMAIL || '',
+      // Add other non-secret vars here
+    };
     
     if (!env) {
       throw new Error('No environment configuration found');

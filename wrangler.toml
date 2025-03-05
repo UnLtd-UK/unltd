@@ -1,2 +1,20 @@
 name = "unltd"
 pages_build_output_dir = "dist"
+
+[vars]
+DEV = "true"
+DOMAIN = "localhost:8788"
+ADMIN_EMAIL = "tomsheppard@unltd.org.uk"
+RESEND_EMAIL = "noreply@unltd.org.uk"
+
+[env.production.vars]
+DEV = "false"
+ADMIN_EMAIL = "tomsheppard@unltd.org.uk"
+RESEND_EMAIL = "noreply@unltd.org.uk"
+DOMAIN = "unltd.pages.dev"
+
+[env.preview.vars]
+DEV = "false"
+ADMIN_EMAIL = "tomsheppard@unltd.org.uk"
+RESEND_EMAIL = "noreply@unltd.org.uk"
+DOMAIN = "dev.unltd.pages.dev"
