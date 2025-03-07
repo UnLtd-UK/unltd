@@ -23,7 +23,7 @@ export const forms = [
     {
         name: "Award Enquiries",
         description:
-            "Interested in an Award or need specifics on the nomination process? Our Award Enquiries form is the first step to all the details and support you need for our accolades.",
+            "Have a question about Award which isn't answered in or FAQ? Use our Award Enquiries page to get in touch with us.",
         icon: "fa-award",
         slug: "award",
         email: "awardapplications@unltd.org.uk",
@@ -53,7 +53,7 @@ export const forms = [
     },
     {
         name: "Fundraising Enquiries",
-        description: "Have questions about our initiatives or how to get involved? Fill out our form for more details.",
+        description: "Interested in making a donation or have a question about the process.",
         icon: "fa-piggy-bank",
         slug: "fundraising",
         email: "fundraising@unltd.org.uk",
@@ -119,6 +119,12 @@ export const forms = [
                 name: "Phone number",
                 type: "tel",
                 required: false,
+            },
+            {
+                component: "Input",
+                name: "Organisation",
+                type: "text",
+                required: true,
             },
             { component: "Input", name: "Subject", type: "text", required: true },
             { component: "Textarea", name: "Message", rows: "4", required: true },
