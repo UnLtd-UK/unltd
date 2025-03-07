@@ -20,7 +20,7 @@ export async function onRequest(context) {
       RESEND_EMAIL = '',
       EVENTBRITE_API_TOKEN = '',
       RESEND_API_KEY = '',
-      GITHUB_FINEGRAINED_PERSONAL_ACCESS_TOKENS = ''
+      GITHUB_FINEGRAINED_PERSONAL_ACCESS_TOKENS = '',
       DOMAIN = ''
     } = env;
 
