@@ -20,8 +20,8 @@ export async function onRequest(context) {
       RESEND_EMAIL = '',
       EVENTBRITE_API_TOKEN = '',
       RESEND_API_KEY = '',
-      DOMAIN = '',
       GITHUB_FINEGRAINED_PERSONAL_ACCESS_TOKENS = ''
+      DOMAIN = ''
     } = env;
 
     // Logging with environment-specific prefix
@@ -141,8 +141,7 @@ export async function onRequest(context) {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       }
-    });
-
+    })
   } catch (error) {
     // Enhanced error logging
     console.error('Error details:', {
