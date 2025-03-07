@@ -20,7 +20,8 @@ export async function onRequest(context) {
       RESEND_EMAIL = '',
       EVENTBRITE_API_TOKEN = '',
       RESEND_API_KEY = '',
-      DOMAIN = ''
+      DOMAIN = '',
+      GITHUB_FINEGRAINED_PERSONAL_ACCESS_TOKENS = ''
     } = env;
 
     // Logging with environment-specific prefix
@@ -30,6 +31,7 @@ export async function onRequest(context) {
     console.log(`${ENV}-EVENTBRITE_API_TOKEN: ${EVENTBRITE_API_TOKEN}`);
     console.log(`${ENV}-RESEND_API_KEY: ${RESEND_API_KEY}`);
     console.log(`${ENV}-DOMAIN: ${DOMAIN}`);
+    console.log(`${ENV}-GITHUB_FINEGRAINED_PERSONAL_ACCESS_TOKENS: ${GITHUB_FINEGRAINED_PERSONAL_ACCESS_TOKENS}`);
 
     // CORS handling for preflight requests
     if (context.request.method === "OPTIONS") {
@@ -133,16 +135,13 @@ export async function onRequest(context) {
     return new Response(JSON.stringify({
       success: true,
       message: "Email recieved and confirmation email sent"
-    }), { 
+    }), {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
       }
     });
-
-
-
 
   } catch (error) {
     // Enhanced error logging

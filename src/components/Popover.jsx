@@ -51,11 +51,11 @@ export default function FeedbackPopover() {
             peer-focus/option1:border-dashed peer-focus/option1:border-yellow-700 
             hover:bg-yellow-100 transition"><i className="fa-solid fa-triangle-exclamation text-yellow-800"></i><span className="text-yellow-900">Issue</span></label>
 
-                                    <input type="radio" id="feature" name="type" disabled={isSubmitting} value="feature" className="hidden peer/option2" />
-                                    <label for="feature" className="flex gap-1 items-center cursor-pointer bg-white px-4 py-2 text-xs font-sans border-2 border-gray-700 rounded-full 
+                                    <input type="radio" id="improvement" name="type" disabled={isSubmitting} value="improvement" className="hidden peer/option2" />
+                                    <label for="improvement" className="flex gap-1 items-center cursor-pointer bg-white px-4 py-2 text-xs font-sans border-2 border-gray-700 rounded-full 
             peer-checked/option2:bg-blue-200 peer-checked/option2:border-blue-600 
             peer-focus/option2:border-dashed peer-focus/option2:border-blue-700 
-            hover:bg-blue-100 transition"><i className="fa-solid fa-lightbulb text-blue-800"></i><span className="text-blue-900">Feature</span></label>
+            hover:bg-blue-100 transition"><i className="fa-solid fa-lightbulb text-blue-800"></i><span className="text-blue-900">Improvement</span></label>
 
                                     <input type="radio" id="other" name="type" disabled={isSubmitting} value="other" className="hidden peer/option3" />
                                     <label for="other" className="flex gap-1 items-center cursor-pointer bg-white px-4 py-2 text-xs font-sans border-2 border-gray-700 rounded-full 
