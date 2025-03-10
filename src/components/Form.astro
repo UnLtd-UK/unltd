@@ -4,17 +4,17 @@ const { endpoint, name, description, email, icon, fields } = Astro.props;
 import Input from "@components/newfields/Input.astro";
 import Textarea from "@components/newfields/Textarea.astro";
 import Select from "@components/newfields/Select.astro";
+import Cloudflare from "@components/newfields/Cloudflare.astro";
 
 const componentMap = {
   Input: Input,
   Textarea: Textarea,
   Select: Select,
+  Cloudflare: Cloudflare,
   // Add other component mappings as needed
 };
 ---
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer
-></script>
 <div class="relative isolate">
   <div class="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
     <div class="relative px-6 pb-20 pt-24 sm:pt-32 lg:static lg:px-8 lg:py-48">
@@ -78,7 +78,6 @@ const componentMap = {
             })
           }
         </div>
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAAA7WX5YoqLQOPiIW"></div>
         <div class="mt-8 flex justify-end">
           <button
             type="submit"

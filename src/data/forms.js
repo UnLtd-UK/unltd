@@ -18,6 +18,7 @@ export const forms = [
             },
             { component: "Input", name: "Subject", type: "text", required: true },
             { component: "Textarea", name: "Message", rows: "4", required: true },
+            { component: "Cloudflare" },
         ],
     },
     {
@@ -49,6 +50,7 @@ export const forms = [
                 ],
             },
             { component: "Textarea", name: "Message", rows: "4", required: true },
+            { component: "Cloudflare" },
         ],
     },
     {
@@ -70,13 +72,14 @@ export const forms = [
             },
             { component: "Input", name: "Subject", type: "text", required: true },
             { component: "Textarea", name: "Message", rows: "4", required: true },
+            { component: "Cloudflare" },
         ],
     },
     {
-        name: "Partnerships Enquiries",
+        name: "Partnership Enquiries",
         description: "Interested in partnering with us? Use out Partnering Enquiries page if you have any queries.",
         icon: "fa-handshake",
-        slug: "partnerships",
+        slug: "partnership",
         email: "partnerships@unltd.org.uk",
         formspree: "https://formspree.io/f/xzzdveyp",
         fields: [
@@ -102,6 +105,7 @@ export const forms = [
             },
             { component: "Input", name: "Subject", type: "text", required: true },
             { component: "Textarea", name: "Message", rows: "4", required: true },
+            { component: "Cloudflare" },
         ],
     },
     {
@@ -128,6 +132,7 @@ export const forms = [
             },
             { component: "Input", name: "Subject", type: "text", required: true },
             { component: "Textarea", name: "Message", rows: "4", required: true },
+            { component: "Cloudflare" },
         ],
     },
     {
@@ -151,6 +156,7 @@ export const forms = [
             { component: "Input", name: "Subject", type: "text", required: true },
             { component: "Textarea", name: "Message", rows: "4", required: true },
             { component: "Input", name: "Deadline", type: "date", required: true },
+            { component: "Cloudflare" },
         ],
     },
 ];
