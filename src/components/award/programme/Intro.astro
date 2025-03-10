@@ -3,10 +3,10 @@ const { programme, styles } = Astro.props;
 import { marked } from "marked";
 marked.use({ mangle: false, headerIds: false });
 
-import IconBig from "@components/awards/cards/IconBig.astro";
+import IconBig from "@components/award/cards/IconBig.astro";
 import Container from "@components/Container.astro";
-import Status from "@components/awards/programme/Status.astro";
-import Partners from "@components/awards/programme/Partners.astro";
+import Status from "@components/award/programme/Status.astro";
+import Partners from "@components/award/programme/Partners.astro";
 
 import moment from "moment";
 let todayDate = moment();

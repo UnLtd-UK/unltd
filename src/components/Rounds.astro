@@ -91,7 +91,7 @@ import slugify from "slugify";
                         <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-xs font-medium sm:pr-0">
                             {round.panels && round.panels.length > 0 && (
                                 <a
-                                    href={`/awards/${slugify(round.name, {
+                                    href={`/award/${slugify(round.name, {
                                         lower: true,
                                         strict: true,
                                         locale: "en",
