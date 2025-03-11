@@ -76,10 +76,10 @@ export const forms = [
         ],
     },
     {
-        name: "Partnership Enquiries",
+        name: "Partnerships Enquiries",
         description: "Interested in partnering with us? Use out Partnering Enquiries page if you have any queries.",
         icon: "fa-handshake",
-        slug: "partnership",
+        slug: "partnerships",
         email: "partnerships@unltd.org.uk",
         formspree: "https://formspree.io/f/xzzdveyp",
         fields: [
