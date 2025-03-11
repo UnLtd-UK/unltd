@@ -18,12 +18,12 @@ export async function getStaticPaths() {
 
             const breadcrumbs = [
                 {
-                    name: "Awards",
-                    path: `/awards`,
+                    name: "Award",
+                    path: `/award`,
                 },
                 {
                     name: slug,
-                    path: `/awards/${slug}`,
+                    path: `/award/${slug}`,
                 },
             ];
 
@@ -89,7 +89,7 @@ const {
                             Award programme
                         </h3>
                         <a
-                            href={`/awards/${slugify(programme.name, {
+                            href={`/award/${slugify(programme.name, {
                                 lower: true,
                                 strict: false,
                                 locale: "en",

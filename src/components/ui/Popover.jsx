@@ -18,7 +18,7 @@ export default function PopoverComp({ nav, styles }) {
         >
             <Popover.Panel className={`absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl ${styles.bg} shadow-lg ring-1 ${styles.ring}`}>
                 <div className="p-4">
-                    {nav.items.map((child) => (
+                    {nav.items.filter(item => item.enabled !== false).map((child) => (
                         <div
                             key={child.id}
                             className={`group relative flex gap-x-6 rounded-lg p-4 text-sm leading-6 ${styles.hover} ${child.href === 'https://growthimpactfund.org.uk' ? 'dark:bg-slate-950 hover:dark:bg-slate-900' : ''}`}

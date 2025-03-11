@@ -1,6 +1,6 @@
 ---
-import Badge from "@components/awards/cards/Badge.astro";
-import Icon from "@components/awards/cards/Icon.astro";
+import Badge from "@components/award/cards/Badge.astro";
+import Icon from "@components/award/cards/Icon.astro";
 
 function isValidUrl(string) {
   try {
@@ -26,7 +26,7 @@ const {
 ---
 
 <a
-  href={`/awards/${slug}`}
+  href={`/award/${slug}`}
   class={`flex-1 flex flex-col divide-y-2 shadow-md hover:shadow-xl rounded-2xl border-2 transition ease-in-out delay-150 hover:-translate-y-2 duration-300 ${styles.divide} ${styles.bg2} ${styles.border}`}
 >
   <article

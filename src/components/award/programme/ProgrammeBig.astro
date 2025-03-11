@@ -1,8 +1,8 @@
 ---
 import { Image } from "astro:assets";
 import { sesm } from "@data/sesm.js";
-import Icon from "@components/awards/cards/Icon.astro";
-import Partners from "@components/awards/programme/Partners.astro";
+import Icon from "@components/award/cards/Icon.astro";
+import Partners from "@components/award/programme/Partners.astro";
 
 function isValidUrl(string) {
   try {
@@ -31,7 +31,7 @@ const {
 ---
 
 <a
-  href=`/awards/${slug}`
+  href=`/award/${slug}`
   class={`grid lg:grid-flow-col shadow-md rounded-2xl border-2 transition ease-in-out delay-150 hover:-translate-y-2 duration-300 ${styles.divide} ${styles.bg2} ${styles.border}`}
 >
   <div

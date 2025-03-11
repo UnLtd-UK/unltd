@@ -51,6 +51,8 @@ const { name, description, body, breadcrumbs } = Astro.props;
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Default name={name} description={description} />
+    <div class="pb-20">
     <Content body={body} />
+  </div>
   </Container>
 </Template>
