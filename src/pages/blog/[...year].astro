@@ -7,24 +7,17 @@ import { posts } from "@data/posts.js";
 import slugify from "slugify";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 
-const name = "Blog";
-const description = "Read our posts.";
-
-const slug = slugify(name, {
-  lower: true,
-  strict: true,
-  locale: "en",
-  trim: true,
-});
-
-const breadcrumbs = [
-  {
-    name: name,
-    path: slug,
-  },
-];
-
 export function getStaticPaths() {
+  const title = "Blog";
+  const description = "Read our posts.";
+
+  const slug = slugify(title, {
+    lower: true,
+    strict: true,
+    locale: "en",
+    trim: true,
+  });
+
   const yearsArray = [
     ...new Set(posts.map((post) => new Date(post.date_time).getFullYear())),
   ].sort((a, b) => b - a);
@@ -32,23 +25,45 @@ export function getStaticPaths() {
   const years = yearsArray.map((year) => ({
     params: { year: year.toString() },
     props: {
+      name: title,
+      description: description,
       posts: posts.filter(
         (post) => new Date(post.date_time).getFullYear() === year,
       ),
       years: yearsArray,
+      breadcrumbs: [
+        {
+          name: title,
+          path: `/${slug}`,
+        },
+        {
+          name: year,
+          path: year,
+        },
+      ],
     },
   }));
 
   years.push({
     params: { year: undefined },
-    props: { posts: posts, years: yearsArray },
+    props: {
+      name: title,
+      description: description,
+      posts: posts,
+      years: yearsArray,
+      breadcrumbs: [
+        {
+          name: title,
+          path: slug,
+        },
+      ],
+    },
   });
-  
+
   return years;
 }
 
-// All paginated data is passed on the "page" prop
-const { posts, years } = Astro.props;
+const { name, description, posts, years, breadcrumbs } = Astro.props;
 ---
 
 <Template name={name} description={description}>
