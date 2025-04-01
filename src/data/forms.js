@@ -24,7 +24,7 @@ export const forms = [
     {
         name: "Award Enquiries",
         description:
-            "Have a question about Award which isn't answered in or FAQ? Use our Award Enquiries page to get in touch with us.",
+            "Are you interested in our funding and support offer? Our Award Enquiries form is your first step to all the details.",
         icon: "fa-award",
         slug: "award",
         email: "awardapplications@unltd.org.uk",
@@ -110,7 +110,7 @@ export const forms = [
     },
     {
         name: "Volunteering Enquiries",
-        description: "Have questions about volunteering? Our Volunteering Enquiries page is your first step to getting involved and making a difference.",
+        description: "Do you have business skills or commercial expertise you'd like to share? Our Volunteering Enquiries page is your first step to getting involved and making a difference.",
         icon: "fa-street-view",
         slug: "volunteering",
         email: "volunteering@unltd.org.uk",
