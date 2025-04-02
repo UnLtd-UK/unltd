@@ -23,7 +23,7 @@ const name = "posts";
 // }
 
 const filterOptions = {
-    sort: ['sort', '-date_time'],
+    sort: ['-date_time'],
     limit: -1,
     filter: {
         status: {

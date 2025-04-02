@@ -4,7 +4,7 @@ const collection = "sessions";
 const name = "sessions";
 
 const filterOptions = {
-    sort: ['sort', 'datetime'],
+    sort: ['datetime'],
     filter: {
         status: {
             _eq: 'published'

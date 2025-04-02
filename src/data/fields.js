@@ -13,7 +13,7 @@ export { applications }
 // const collection = "applications";
 
 // const filterOptions = {
-//     sort: ['sort', 'sections.sections_id.sort'],
+//     sort: ['sections.sections_id.sort'],
 //     filter: {
 //         status: {
 //             _eq: 'published'

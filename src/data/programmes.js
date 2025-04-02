@@ -4,7 +4,7 @@ const collection = "programmes";
 const name = "programmes";
 
 const filterOptions = {
-    sort: ['sort', 'name'],
+    sort: ['name'],
     filter: {
         status: {
             _in: ['published', 'archived']

@@ -4,7 +4,7 @@ const collection = "positions";
 const name = "positions";
 
 const filterOptions = {
-    sort: ['sort', 'person.name'],
+    sort: ['person.name'],
     filter: {
         status: {
             _eq: 'published'
