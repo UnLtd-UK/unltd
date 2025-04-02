@@ -9,7 +9,8 @@ const filterOptions = {
             _eq: 'published'
         }
     },
-    fields: ['*', 'funds.funds_id.*', 'sponsors.organisations_id.*', 'supporters.organisations_id.*', 'manager.person.*', 'manager.role.*']
+    fields: ['*', 'funds.funds_id.*', 'sponsors.organisations_id.*', 'supporters.organisations_id.*', 'manager.person.*', 'manager.role.*'],
+    limit: 200
 }
 
 const attach = false;
