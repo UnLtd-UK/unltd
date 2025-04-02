@@ -8,6 +8,8 @@ import Container from "@components/Container.astro";
 import ProgrammeBig from "@components/award/programme/ProgrammeBig.astro";
 import ProgrammeSmall from "@components/award//programme/ProgrammeSmall.astro";
 
+// Filter programmes to only show those with 'published' status
+const publishedProgrammes = programmes.filter(programme => programme.status === 'published');
 ---
 
 <Container bg="bg-violet-50 dark:bg-violet-950">
@@ -28,7 +30,7 @@ import ProgrammeSmall from "@components/award//programme/ProgrammeSmall.astro";
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {
-            programmes.map((programme, i) => (
+            publishedProgrammes.map((programme, i) => (
               <ProgrammeSmall
                 key={i}
                 image={

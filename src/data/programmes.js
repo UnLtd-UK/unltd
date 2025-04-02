@@ -7,7 +7,7 @@ const filterOptions = {
     sort: ['sort', 'name'],
     filter: {
         status: {
-            _eq: 'published'
+            _in: ['published', 'archived']
         }
     },
     fields: ['*.*.*.*.*'],
