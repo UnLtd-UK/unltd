@@ -9,7 +9,8 @@ const filterOptions = {
         status: {
             _eq: 'published'
         }
-    }
+    },
+    limit: 200
 }
 
 const attach = false;

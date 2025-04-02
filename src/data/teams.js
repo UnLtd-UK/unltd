@@ -4,7 +4,7 @@ const collection = "our-team";
 const name = "our-team";
 
 const filterOptions = {
-    sort: ['sort', 'name'],
+    sort: ['name'],
     filter: {
         status: {
             _eq: 'published'

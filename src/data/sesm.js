@@ -4,7 +4,7 @@ const client = createDirectus('https://unltd.directus.app').with(rest());
 
 const sesm = await client.request(
     readItems('positions', {
-        sort: ['sort', 'person.name'],
+        sort: ['person.name'],
         filter: {
             status: {
                 _eq: 'published'

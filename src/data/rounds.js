@@ -11,6 +11,7 @@ const filterOptions = {
         }
     },
     fields: ['*.*.*.*'],
+    limit: 200
 }
 
 const attach = false;
