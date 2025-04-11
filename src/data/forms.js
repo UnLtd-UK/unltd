@@ -6,7 +6,7 @@ export const forms = [
         icon: "fa-messages",
         slug: "general",
         email: "general@unltd.org.uk",
-        formspree: "https://unltd.pages.dev/forms",
+        worker: "/forms",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
             { component: "Input", name: "Email", type: "email", required: true },
@@ -28,7 +28,7 @@ export const forms = [
         icon: "fa-award",
         slug: "award",
         email: "awardapplications@unltd.org.uk",
-        formspree: "https://formspree.io/f/xdoqqrwk",
+        worker: "/forms",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
             { component: "Input", name: "Email", type: "email", required: true },
@@ -59,7 +59,7 @@ export const forms = [
         icon: "fa-piggy-bank",
         slug: "fundraising",
         email: "fundraising@unltd.org.uk",
-        formspree: "https://formspree.io/f/xeoezavq",
+        worker: "/forms",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
             { component: "Input", name: "Email", type: "email", required: true },
@@ -81,7 +81,7 @@ export const forms = [
         icon: "fa-handshake",
         slug: "partnerships",
         email: "partnerships@unltd.org.uk",
-        formspree: "https://formspree.io/f/xzzdveyp",
+        worker: "/forms",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
             { component: "Input", name: "Email", type: "email", required: true },
@@ -114,7 +114,7 @@ export const forms = [
         icon: "fa-street-view",
         slug: "volunteering",
         email: "volunteering@unltd.org.uk",
-        formspree: "https://formspree.io/f/xldgljoy",
+        worker: "/forms",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
             { component: "Input", name: "Email", type: "email", required: true },
@@ -142,7 +142,7 @@ export const forms = [
         icon: "fa-newspaper",
         slug: "press-and-media",
         email: "press@unltd.org.uk",
-        formspree: "https://unltd.pages.dev/forms",
+        worker: "/forms",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
             { component: "Input", name: "Email", type: "email", required: true },
