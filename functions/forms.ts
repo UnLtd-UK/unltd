@@ -23,7 +23,6 @@ export async function onRequest(context) {
 
     // Logging with environment-specific prefix
     const ENV = DEV === 'true' ? 'DEV' : 'PROD';
-    console.log(`${ENV}-ADMIN_EMAIL: ${ADMIN_EMAIL}`);
     console.log(`${ENV}-RESEND_EMAIL: ${RESEND_EMAIL}`);
     console.log(`${ENV}-RESEND_API_KEY: ${RESEND_API_KEY}`);
     console.log(`${ENV}-DOMAIN: ${DOMAIN}`);
@@ -70,7 +69,7 @@ export async function onRequest(context) {
 
     console.log("Got data from form");
 
-    let ADMIN_EMAIL = env.ADMIN_EMAIL;
+    let ADMIN_EMAIL = context.env || context.locals?.env || { ADMIN_EMAIL: process.env.ADMIN_EMAIL || '' }
 
     const path = context.request.url.split('/').pop();
     switch (path) {
