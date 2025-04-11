@@ -189,6 +189,11 @@ export async function onRequest(context) {
     console.log(`${ENV}-RESEND_API_KEY: ${RESEND_API_KEY}`);
     console.log(`${ENV}-DOMAIN: ${DOMAIN}`);
 
+    // Get the referer for return URL base
+    const referer = context.request.headers.get('referer');
+    const refererUrl = new URL(referer || '');
+    const baseUrl = `${refererUrl.protocol}//${refererUrl.host}`;
+
     checkSourceCors(context, DOMAIN);
 
     const data = await getFormData(context);
@@ -201,16 +206,14 @@ export async function onRequest(context) {
 
     await sendUser(RESEND_API_KEY, RESEND_EMAIL, data);
 
-    return new Response(JSON.stringify({
-      success: true,
-      message: "Email received and confirmation email sent"
-    }), {
-      status: 200,
+    // Redirect to success page
+    return new Response(null, {
+      status: 302,
       headers: {
-        'Content-Type': 'application/json',
+        'Location': `${baseUrl}/successfully`,
         'Access-Control-Allow-Origin': '*',
       }
-    })
+    });
 
   } catch (error) {
     // Enhanced error logging
@@ -219,16 +222,18 @@ export async function onRequest(context) {
       stack: error instanceof Error ? error.stack : 'No stack trace',
     });
 
-    return new Response(JSON.stringify({
-      success: false,
-      error: error instanceof Error ? error.message : 'An unexpected error occurred',
-      timestamp: new Date().toISOString()
-    }), {
-      status: 500,
+    // Get the referer for return URL base
+    const referer = context.request.headers.get('referer');
+    const refererUrl = new URL(referer || '');
+    const baseUrl = `${refererUrl.protocol}//${refererUrl.host}`;
+
+    // Redirect to error page
+    return new Response(null, {
+      status: 302,
       headers: {
-        'Content-Type': 'application/json',
+        'Location': `${baseUrl}/failed-to`,
         'Access-Control-Allow-Origin': '*',
-      },
+      }
     });
   }
 }
