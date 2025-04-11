@@ -4,7 +4,7 @@ import Container from "@components/Container.astro";
 import Template from "@layouts/Template.astro";
 const name = "Page not found";
 const description =
-  "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia dolores corrupti labore tempora, rem quidem maximead asperiores eveniet maiores nobis assumenda facilis quisquam fugiat accusamus nulla similique tenetur hic?";
+  "The page you are looking for does not exist. Please check the URL in the address bar and try again.";
 ---
 
 <Template name={name} description={description}>
@@ -14,7 +14,8 @@ const description =
         {
           name: name,
           path: "/404",
-        },]}
+        },
+      ]}
     />
   </Container>
   <div
@@ -32,10 +33,10 @@ const description =
             <h1
               class="text-4xl font-bold tracking-tight text-violet-200 sm:text-5xl"
             >
-              Page not found
+              {name}
             </h1>
             <p class="mt-1 text-base text-violet-300">
-              Please check the URL in the address bar and try again.
+              {description}
             </p>
           </div>
           <div
