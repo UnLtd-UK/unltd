@@ -8,7 +8,7 @@ export async function onRequest(context) {
       RESEND_EMAIL: process.env.RESEND_EMAIL || '',
       // Add other non-secret vars here
     };
-
+    
     if (!env) {
       throw new Error('No environment configuration found');
     }
@@ -16,8 +16,11 @@ export async function onRequest(context) {
     // Destructure environment variables with default fallbacks
     const {
       DEV = 'false',
+      ADMIN_EMAIL = '',
       RESEND_EMAIL = '',
+      EVENTBRITE_API_TOKEN = '',
       RESEND_API_KEY = '',
+      GITHUB_FINEGRAINED_PERSONAL_ACCESS_TOKENS = '',
       DOMAIN = ''
     } = env;
 
@@ -25,8 +28,10 @@ export async function onRequest(context) {
     const ENV = DEV === 'true' ? 'DEV' : 'PROD';
     console.log(`${ENV}-ADMIN_EMAIL: ${ADMIN_EMAIL}`);
     console.log(`${ENV}-RESEND_EMAIL: ${RESEND_EMAIL}`);
+    console.log(`${ENV}-EVENTBRITE_API_TOKEN: ${EVENTBRITE_API_TOKEN}`);
     console.log(`${ENV}-RESEND_API_KEY: ${RESEND_API_KEY}`);
     console.log(`${ENV}-DOMAIN: ${DOMAIN}`);
+    console.log(`${ENV}-GITHUB_FINEGRAINED_PERSONAL_ACCESS_TOKENS: ${GITHUB_FINEGRAINED_PERSONAL_ACCESS_TOKENS}`);
 
     // CORS handling for preflight requests
     if (context.request.method === "OPTIONS") {
@@ -46,20 +51,19 @@ export async function onRequest(context) {
 
     if (!host || !host.startsWith(DOMAIN)) {
       return new Response(JSON.stringify({
-        success: false,
-        error: "Invalid referer",
-        message: "The request did not originate from a valid domain."
-      }), {
-        status: 403,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        }
+      success: false,
+      error: "Invalid referer",
+      message: "The request did not originate from a valid domain."
+      }), { 
+      status: 403,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      }
       });
     }
 
     console.log("Checked Domain");
-
 
     // Get data from form
     const formData = await context.request.formData();
@@ -70,38 +74,12 @@ export async function onRequest(context) {
 
     console.log("Got data from form");
 
-    let ADMIN_EMAIL = env.ADMIN_EMAIL;
-
-    const path = context.request.url.split('/').pop();
-    switch (path) {
-      case 'general':
-        ADMIN_EMAIL = 'general@unltd.org.uk';
-        break;
-      case 'award':
-        ADMIN_EMAIL = 'awardapplications@unltd.org.uk';
-        break;
-      case 'fundraising':
-        ADMIN_EMAIL = 'fundraising@unltd.org.uk';
-        break;
-      case 'partnerships':
-        ADMIN_EMAIL = 'partnerships@unltd.org.uk';
-        break;
-      case 'volunteering':
-        ADMIN_EMAIL = 'mentoring@unltd.org.uk';
-        break;
-      case 'press-and-media':
-        ADMIN_EMAIL = 'press@unltd.org.uk';
-        break;
-    }
-
-    console.log(`${ENV}-ADMIN_EMAIL: ${ADMIN_EMAIL}`);
-
     // Required fields validation
     if (!data.email) {
       return new Response(JSON.stringify({
         success: false,
         error: "Email is required"
-      }), {
+      }), { 
         status: 400,
         headers: {
           'Content-Type': 'application/json',
@@ -115,17 +93,17 @@ export async function onRequest(context) {
     // Email sent to Admin
     try {
       await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${RESEND_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: `UnLtd <${RESEND_EMAIL}>`,
-          to: ADMIN_EMAIL,
-          subject: `Submission from ${data.email}`,
-          text: Object.entries(data).map(([key, value]) => `${key}: ${value}`).join('\n')
-        })
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: `UnLtd <${RESEND_EMAIL}>`,
+        to: ADMIN_EMAIL,
+        subject: `Submission from ${data.email}`,
+        text: Object.entries(data).map(([key, value]) => `${key}: ${value}`).join('\n')
+      })
       });
     } catch (error) {
       throw new Error(`Failed to send confirmation email: ${error.message}`);
@@ -136,17 +114,17 @@ export async function onRequest(context) {
     // Send email to sender
     try {
       await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${RESEND_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: `UnLtd <${RESEND_EMAIL}>`,
-          to: data.email,
-          subject: 'Thank you for your feedback',
-          text: `Thank you ${data.email},\n\nWe have received your feedback:\n\n"${data.message}".\n\nBest regards,\nUnLtd Team`
-        })
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: `UnLtd <${RESEND_EMAIL}>`,
+        to: data.email,
+        subject: 'Thank you for your feedback',
+        text: `Thank you ${data.email},\n\nWe have received your feedback:\n\n"${data.message}".\n\nBest regards,\nUnLtd Team`
+      })
       });
     } catch (error) {
       throw new Error(`Failed to send confirmation email: ${error.message}`);
