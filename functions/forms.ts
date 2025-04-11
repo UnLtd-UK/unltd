@@ -71,24 +71,26 @@ export async function onRequest(context) {
 
     let ADMIN_EMAIL = context.env || context.locals?.env || { ADMIN_EMAIL: process.env.ADMIN_EMAIL || '' }
 
-    const path = context.request.url.split('/').pop();
+    const path = context.request.url
+
+    console.log(path);
     switch (path) {
-      case 'general':
+      case '/contact/general':
         ADMIN_EMAIL = 'general@unltd.org.uk';
         break;
-      case 'award':
+      case '/contact/award':
         ADMIN_EMAIL = 'awardapplications@unltd.org.uk';
         break;
-      case 'fundraising':
+      case '/contact/fundraising':
         ADMIN_EMAIL = 'fundraising@unltd.org.uk';
         break;
-      case 'partnerships':
+      case '/contact/partnerships':
         ADMIN_EMAIL = 'partnerships@unltd.org.uk';
         break;
-      case 'volunteering':
+      case '/contact/volunteering':
         ADMIN_EMAIL = 'mentoring@unltd.org.uk';
         break;
-      case 'press-and-media':
+      case '/contact/press-and-media':
         ADMIN_EMAIL = 'press@unltd.org.uk';
         break;
     }
@@ -111,45 +113,45 @@ export async function onRequest(context) {
 
     console.log("Checked there was an Email");
 
-    // Email sent to Admin
-    try {
-      await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${RESEND_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: `UnLtd <${RESEND_EMAIL}>`,
-          to: ADMIN_EMAIL,
-          subject: `Submission from ${data.email}`,
-          text: Object.entries(data).map(([key, value]) => `${key}: ${value}`).join('\n')
-        })
-      });
-    } catch (error) {
-      throw new Error(`Failed to send confirmation email: ${error.message}`);
-    }
+    // // Email sent to Admin
+    // try {
+    //   await fetch('https://api.resend.com/emails', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Authorization': `Bearer ${RESEND_API_KEY}`,
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       from: `UnLtd <${RESEND_EMAIL}>`,
+    //       to: ADMIN_EMAIL,
+    //       subject: `Submission from ${data.email}`,
+    //       text: Object.entries(data).map(([key, value]) => `${key}: ${value}`).join('\n')
+    //     })
+    //   });
+    // } catch (error) {
+    //   throw new Error(`Failed to send confirmation email: ${error.message}`);
+    // }
 
-    console.log("Email sent to Admin");
+    // console.log("Email sent to Admin");
 
-    // Send email to sender
-    try {
-      await fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${RESEND_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          from: `UnLtd <${RESEND_EMAIL}>`,
-          to: data.email,
-          subject: 'Thank you for your feedback',
-          text: `Thank you ${data.email},\n\nWe have received your feedback:\n\n"${data.message}".\n\nBest regards,\nUnLtd Team`
-        })
-      });
-    } catch (error) {
-      throw new Error(`Failed to send confirmation email: ${error.message}`);
-    }
+    // // Send email to sender
+    // try {
+    //   await fetch('https://api.resend.com/emails', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Authorization': `Bearer ${RESEND_API_KEY}`,
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       from: `UnLtd <${RESEND_EMAIL}>`,
+    //       to: data.email,
+    //       subject: 'Thank you for your feedback',
+    //       text: `Thank you ${data.email},\n\nWe have received your feedback:\n\n"${data.message}".\n\nBest regards,\nUnLtd Team`
+    //     })
+    //   });
+    // } catch (error) {
+    //   throw new Error(`Failed to send confirmation email: ${error.message}`);
+    // }
 
     console.log("Email sent to sender");
 
