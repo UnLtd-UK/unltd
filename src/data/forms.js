@@ -5,8 +5,8 @@ export const forms = [
             "Got questions or need further information? Fill out our General Enquiries form, and we'll get back to you with all the answers you need to keep moving forward.",
         icon: "fa-messages",
         slug: "general",
-        email: "comms@unltd.org.uk",
-        formspree: "https://formspree.io/f/mqkrrvyp",
+        email: "general@unltd.org.uk",
+        formspree: "https://unltd.pages.dev/forms",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
             { component: "Input", name: "Email", type: "email", required: true },
@@ -142,7 +142,7 @@ export const forms = [
         icon: "fa-newspaper",
         slug: "press-and-media",
         email: "press@unltd.org.uk",
-        formspree: "https://formspree.io/f/myyrrqnj",
+        formspree: "https://unltd.pages.dev/forms",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
             { component: "Input", name: "Email", type: "email", required: true },
