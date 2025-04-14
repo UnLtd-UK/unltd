@@ -91,7 +91,7 @@ function getAdminEmail(referer) {
 
     switch (path) {
       case '/contact/general':
-        adminEmail = 'general@unltd.org.uk';
+        adminEmail = 'generalenquiries@unltd.org.uk';
         break;
       case '/contact/award':
         adminEmail = 'awardapplications@unltd.org.uk';
