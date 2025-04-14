@@ -13,7 +13,7 @@ export default function FeedbackPopover() {
 
         try {
             const formData = new FormData(event.target);
-            const response = await fetch('/forms', {
+            const response = await fetch('/feedback', {
                 method: 'POST',
                 body: formData,
             });
@@ -21,10 +21,12 @@ export default function FeedbackPopover() {
             if (response.ok) {
                 setIsSubmitted(true);
             } else {
-                throw new Error('Network response was not ok');
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Network response was not ok');
             }
         } catch (error) {
             setIsError(true);
+            console.error('Submission error:', error);
         } finally {
             setIsSubmitting(false);
         }
