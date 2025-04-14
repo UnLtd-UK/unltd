@@ -4,14 +4,18 @@ pages_build_output_dir = "dist"
 [vars]
 DEV = "true"
 DOMAIN = "localhost:8788"
-RESEND_EMAIL = "digital@unltd.org.uk"
+RESEND_FROM_EMAIL = "digital@unltd.org.uk"
+FEEDBACK_EMAIL = "tomsheppard@unltd.org.uk"
 
 [env.production.vars]
 DEV = "false"
-RESEND_EMAIL = "digital@unltd.org.uk"
 DOMAIN = "unltd.pages.dev"
+RESEND_FROM_EMAIL = "digital@unltd.org.uk"
+FEEDBACK_EMAIL = "tomsheppard@unltd.org.uk"
+
 
 [env.preview.vars]
 DEV = "false"
-RESEND_EMAIL = "digital@unltd.org.uk"
 DOMAIN = "dev.unltd.pages.dev"
+RESEND_FROM_EMAIL = "digital@unltd.org.uk"
+FEEDBACK_EMAIL = "tomsheppard@unltd.org.uk"

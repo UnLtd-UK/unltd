@@ -8,52 +8,61 @@ import {
   createRedirectResponse
 } from './utils/form-utils';
 
-function getAdminEmail(referer) {
+function getEnquiriesContact(referer) {
   try {
-    let adminEmail = '';
+    let enquiriesContact = { email: '', name: '' };
 
     const path = getPathFromUrl(referer);
     console.log('Path:', path);
 
     switch (path) {
       case '/contact/general':
-        adminEmail = 'generalenquiries@unltd.org.uk';
+        enquiriesContact.email = 'generalenquiries@unltd.org.uk';
+        enquiriesContact.name = 'General Enquiries';
         break;
       case '/contact/award':
-        adminEmail = 'awardapplications@unltd.org.uk';
+        enquiriesContact.email = 'awardapplications@unltd.org.uk';
+        enquiriesContact.name = 'Award Application Enquiries';
         break;
       case '/contact/fundraising':
-        adminEmail = 'fundraising@unltd.org.uk';
+        enquiriesContact.email = 'fundraising@unltd.org.uk';
+        enquiriesContact.name = 'Fundraising Enquiries';
         break;
       case '/contact/partnerships':
-        adminEmail = 'partnerships@unltd.org.uk';
+        enquiriesContact.email = 'partnerships@unltd.org.uk';
+        enquiriesContact.name = 'Partnerships Enquiries';
         break;
       case '/contact/volunteering':
-        adminEmail = 'mentoring@unltd.org.uk';
+        enquiriesContact.email = 'mentoring@unltd.org.uk';
+        enquiriesContact.name = 'Volunteering Enquiries';
         break;
       case '/contact/press-and-media':
-        adminEmail = 'press@unltd.org.uk';
+        enquiriesContact.email = 'press@unltd.org.uk';
+        enquiriesContact.name = 'Press and Media Enquiries';
         break;
     }
 
-    console.log('Admin email:', adminEmail);
-    return adminEmail;
+    console.log('Admin name:', enquiriesContact.name);
+    console.log('Admin email:', enquiriesContact.email);
+    return enquiriesContact;
   } catch (error) {
     console.error('Error getting admin email:', error);
     throw new Error('Failed to get admin email');
   }
 }
 
-async function sendAdmin(RESEND_API_KEY, RESEND_EMAIL, adminEmail, data) {
+async function sendContact(RESEND_API_KEY, RESEND_FROM_EMAIL, enquiriesContact, data) {
   const subject = `Submission from ${data.email}`;
+  // const preview = `<p>HTML preview text</p>`;
   const text = Object.entries(data).map(([key, value]) => `${key}: ${value}`).join('\n');
-  await sendEmail(RESEND_API_KEY, `UnLtd <${RESEND_EMAIL}>`, adminEmail, subject, text, data.subject);
+  await sendEmail(RESEND_API_KEY, `UnLtd ${enquiriesContact.name} <${RESEND_FROM_EMAIL}>`, enquiriesContact.email, subject, text);
 }
 
-async function sendUser(RESEND_API_KEY, RESEND_EMAIL, data) {
+async function sendUser(RESEND_API_KEY, RESEND_FROM_EMAIL, enquiriesContact, data) {
   const subject = 'Thank you for your feedback';
+  // const preview = `<p>HTML preview text</p>`;
   const text = `Thank you ${data.email},\n\nWe have received your feedback:\n\n"${data.message}".\n\nBest regards,\nUnLtd Team`;
-  await sendEmail(RESEND_API_KEY, `UnLtd <${RESEND_EMAIL}>`, data.email, subject, text, "User feedback");
+  await sendEmail(RESEND_API_KEY, `UnLtd ${enquiriesContact.name} <${enquiriesContact.email}>`, data.email, subject, text);
 }
 
 export async function onRequest(context) {
@@ -62,8 +71,8 @@ export async function onRequest(context) {
     const env = context.env || context.locals?.env || {
       DEV: process.env.DEV || 'false',
       DOMAIN: process.env.DOMAIN || '',
-      ADMIN_EMAIL: process.env.ADMIN_EMAIL || '',
-      RESEND_EMAIL: process.env.RESEND_EMAIL || '',
+      RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL || '',
+      RESEND_API_KEY: process.env.RESEND_API_KEY || ''
     };
 
     if (!env) {
@@ -73,17 +82,18 @@ export async function onRequest(context) {
     // Destructure environment variables with default fallbacks
     const {
       DEV = 'false',
-      RESEND_EMAIL = '',
+      DOMAIN = '',
+      RESEND_FROM_EMAIL = '',
       RESEND_API_KEY = '',
-      DOMAIN = ''
     } = env;
 
     // Logging with environment-specific prefix
     const ENV = DEV === 'true' ? 'DEV' : 'PROD';
 
-    console.log(`${ENV}-RESEND_EMAIL: ${RESEND_EMAIL}`);
-    console.log(`${ENV}-RESEND_API_KEY: ${RESEND_API_KEY}`);
+    console.log(`${ENV}-DEV: ${DEV}`);
     console.log(`${ENV}-DOMAIN: ${DOMAIN}`);
+    console.log(`${ENV}-RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL}`);
+    console.log(`${ENV}-RESEND_API_KEY: ${RESEND_API_KEY}`);
 
     // Get the referer for return URL base
     const baseUrl = getBaseUrl(context.request);
@@ -94,11 +104,11 @@ export async function onRequest(context) {
 
     checkFields(data);
 
-    const adminEmail = getAdminEmail(context.request.headers.get('referer'));
+    const enquiriesContact = getEnquiriesContact(context.request.headers.get('referer'));
 
-    await sendAdmin(RESEND_API_KEY, RESEND_EMAIL, adminEmail, data);
+    await sendContact(RESEND_API_KEY, RESEND_FROM_EMAIL, enquiriesContact, data);
 
-    await sendUser(RESEND_API_KEY, RESEND_EMAIL, data);
+    await sendUser(RESEND_API_KEY, RESEND_FROM_EMAIL, enquiriesContact, data);
 
     // Redirect to success page
     return createRedirectResponse(`${baseUrl}/sent`);
@@ -114,6 +124,6 @@ export async function onRequest(context) {
     const baseUrl = getBaseUrl(context.request);
 
     // Redirect to error page
-    return createRedirectResponse(`${baseUrl}/error`);
+    return createRedirectResponse(`${baseUrl}/failed`);
   }
 }

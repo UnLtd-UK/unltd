@@ -8,52 +8,18 @@ import {
   createRedirectResponse
 } from './utils/form-utils';
 
-function getAdminEmail(referer) {
-  try {
-    let adminEmail = '';
-
-    const path = getPathFromUrl(referer);
-    console.log('Path:', path);
-
-    switch (path) {
-      case '/contact/general':
-        adminEmail = 'generalenquiries@unltd.org.uk';
-        break;
-      case '/contact/award':
-        adminEmail = 'awardapplications@unltd.org.uk';
-        break;
-      case '/contact/fundraising':
-        adminEmail = 'fundraising@unltd.org.uk';
-        break;
-      case '/contact/partnerships':
-        adminEmail = 'partnerships@unltd.org.uk';
-        break;
-      case '/contact/volunteering':
-        adminEmail = 'mentoring@unltd.org.uk';
-        break;
-      case '/contact/press-and-media':
-        adminEmail = 'press@unltd.org.uk';
-        break;
-    }
-
-    console.log('Admin email:', adminEmail);
-    return adminEmail;
-  } catch (error) {
-    console.error('Error getting admin email:', error);
-    throw new Error('Failed to get admin email');
-  }
-}
-
-async function sendAdmin(RESEND_API_KEY, RESEND_EMAIL, ADMIN_EMAIL, data) {
+async function sendContact(RESEND_API_KEY, RESEND_FROM_EMAIL, FEEDBACK_EMAIL, data) {
   const subject = `Submission from ${data.email}`;
+  // const preview = `<p>HTML preview text</p>`;
   const text = Object.entries(data).map(([key, value]) => `${key}: ${value}`).join('\n');
-  await sendEmail(RESEND_API_KEY, `UnLtd <${RESEND_EMAIL}>`, ADMIN_EMAIL, subject, text, "Feedback widget");
+  await sendEmail(RESEND_API_KEY, `UnLtd <${RESEND_FROM_EMAIL}>`, FEEDBACK_EMAIL, subject, text);
 }
 
-async function sendUser(RESEND_API_KEY, RESEND_EMAIL, data) {
+async function sendUser(RESEND_API_KEY, RESEND_FROM_EMAIL, data) {
   const subject = 'Thank you for your feedback';
+  // const preview = `<p>HTML preview text</p>`;
   const text = `Thank you ${data.email},\n\nWe have received your feedback:\n\n"${data.message}".\n\nBest regards,\nUnLtd Team`;
-  await sendEmail(RESEND_API_KEY, `UnLtd <${RESEND_EMAIL}>`, data.email, subject, text, "User feedback");
+  await sendEmail(RESEND_API_KEY, `UnLtd <${RESEND_FROM_EMAIL}>`, data.email, subject, text);
 }
 
 export async function onRequest(context) {
@@ -62,8 +28,9 @@ export async function onRequest(context) {
     const env = context.env || context.locals?.env || {
       DEV: process.env.DEV || 'false',
       DOMAIN: process.env.DOMAIN || '',
-      ADMIN_EMAIL: process.env.ADMIN_EMAIL || '',
-      RESEND_EMAIL: process.env.RESEND_EMAIL || '',
+      RESEND_FROM_EMAIL: process.env.RESEND_FROM_EMAIL || '',
+      RESEND_API_KEY: process.env.RESEND_API_KEY || '',
+      FEEDBACK_EMAIL: process.env.FEEDBACK_EMAIL || '',
     };
 
     if (!env) {
@@ -73,37 +40,38 @@ export async function onRequest(context) {
     // Destructure environment variables with default fallbacks
     const {
       DEV = 'false',
-      RESEND_EMAIL = '',
+      DOMAIN = '',
+      RESEND_FROM_EMAIL = '',
       RESEND_API_KEY = '',
-      ADMIN_EMAIL = '',
-      DOMAIN = ''
+      FEEDBACK_EMAIL = '',
     } = env;
 
     // Logging with environment-specific prefix
     const ENV = DEV === 'true' ? 'DEV' : 'PROD';
 
-    console.log(`${ENV}-RESEND_EMAIL: ${RESEND_EMAIL}`);
-    console.log(`${ENV}-RESEND_API_KEY: ${RESEND_API_KEY}`);
+    console.log(`${ENV}-DEV: ${DEV}`);
     console.log(`${ENV}-DOMAIN: ${DOMAIN}`);
-    console.log(`${ENV}-ADMIN_EMAIL: ${ADMIN_EMAIL}`);
+    console.log(`${ENV}-RESEND_FROM_EMAIL: ${RESEND_FROM_EMAIL}`);
+    console.log(`${ENV}-RESEND_API_KEY: ${RESEND_API_KEY}`);
+    console.log(`${ENV}-FEEDBACK_EMAIL: ${FEEDBACK_EMAIL}`);
 
     // Get the referer for return URL base
     const baseUrl = getBaseUrl(context.request);
 
     checkSourceCors(context, DOMAIN);
 
-    const data = await getFormData(context);
+    const data: { [key: string]: string } = await getFormData(context);
+
+    data.path = getPathFromUrl(context.request.headers.get('referer') || '');
 
     checkFields(data);
 
-    const adminEmail = getAdminEmail(context.request.headers.get('referer'));
+    await sendContact(RESEND_API_KEY, RESEND_FROM_EMAIL, FEEDBACK_EMAIL, data);
 
-    await sendAdmin(RESEND_API_KEY, RESEND_EMAIL, ADMIN_EMAIL, data);
-
-    await sendUser(RESEND_API_KEY, RESEND_EMAIL, data);
+    await sendUser(RESEND_API_KEY, RESEND_FROM_EMAIL, data);
 
     // Redirect to success page
-    return createRedirectResponse(`${baseUrl}/successfully`);
+    return createRedirectResponse(`${baseUrl}/sent`);
 
   } catch (error) {
     // Enhanced error logging
@@ -116,6 +84,6 @@ export async function onRequest(context) {
     const baseUrl = getBaseUrl(context.request);
 
     // Redirect to error page
-    return createRedirectResponse(`${baseUrl}/failed-to`);
+    return createRedirectResponse(`${baseUrl}/failed`);
   }
 }

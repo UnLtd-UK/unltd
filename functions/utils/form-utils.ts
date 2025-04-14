@@ -51,6 +51,7 @@ export async function getFormData(context) {
         for (const [key, value] of formData.entries()) {
             data[key] = value;
         }
+        delete data["cf-turnstile-response"];
         console.log('Form data retrieved successfully');
         return data;
     } catch (error) {
@@ -82,7 +83,7 @@ export function checkFields(data, requiredFields = ['email', 'message']) {
     }
 }
 
-export async function sendEmail(RESEND_API_KEY, from, to, subject, text, preview) {
+export async function sendEmail(RESEND_API_KEY, from, to, subject, text) {
     try {
         await fetch('https://api.resend.com/emails', {
             method: 'POST',
@@ -90,9 +91,10 @@ export async function sendEmail(RESEND_API_KEY, from, to, subject, text, preview
                 'Authorization': `Bearer ${RESEND_API_KEY}`,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ from, to, subject, text, preview })
+            body: JSON.stringify({ from, to, subject, text })
         });
     } catch (error) {
+        console.error('Error sending email:', error);
         throw new Error(`Failed to send email: ${error.message}`);
     }
 }
