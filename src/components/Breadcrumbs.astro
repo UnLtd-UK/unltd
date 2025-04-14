@@ -1,45 +1,46 @@
 ---
 import { palette } from "@data/palette";
 import Popover from "@components/Popover.jsx";
-const { breadcrumbs, styles = palette['UnLtd'] } = Astro.props;
+const { breadcrumbs, styles = palette["UnLtd"] } = Astro.props;
 ---
 
+<div
+  class={`py-5 flex flex-col gap-12 ${styles.bg} border-y border-dashed ${styles.border}`}
+>
+  <div class="flex flex-row gap-5 justify-between">
+    <nav class="flex" aria-label="Breadcrumb">
+      <ol role="list" class="flex flex-col gap-4 md:flex-row md:items-center">
+        <li>
+          <div>
+            <a
+              href="/"
+              class={`${styles.text} hover:text-violet-900 dark:hover:text-violet-100 transition`}
+            >
+              <i class={`fa-solid fa-house text-xs ${styles.breadcrumbs}`}></i>
+              <span class="sr-only">UnLtd</span>
+            </a>
+          </div>
+        </li>
 
-  <div class={`py-5 flex flex-col gap-12 ${styles.bg} border-y border-dashed ${styles.border}`}>
-    <div class="flex flex-row gap-5 justify-between">
-      <nav class="flex" aria-label="Breadcrumb">
-        <ol role="list" class="flex flex-col gap-4 md:flex-row md:items-center">
-          <li>
-            <div>
-              <a
-                href="/"
-                class={`${styles.text} hover:text-violet-900 dark:hover:text-violet-100 transition`}
-              >
-                <i class={`fa-solid fa-house text-xs ${styles.breadcrumbs}`}></i>
-                <span class="sr-only">UnLtd</span>
-              </a>
-            </div>
-          </li>
-
-          {
-            breadcrumbs.map((crumb) => (
-              <li>
-                <div class="flex items-center">
-                  <i
-                    class={`fa-solid fa-chevron-right hover:text-violet-900 ${styles.breadcrumb} text-xs`}
-                  />
-                  <a
-                    href={`${crumb.path}`}
-                    class={`ml-4 text-xs font-medium hover:text-violet-900 ${styles.breadcrumb} transition`}
-                  >
-                    {crumb.name}
-                  </a>
-                </div>
-              </li>
-            ))
-          }
-        </ol>
-      </nav>
-      <Popover client:load/>
-    </div>
+        {
+          breadcrumbs.map((crumb) => (
+            <li>
+              <div class="flex items-center">
+                <i
+                  class={`fa-solid fa-chevron-right hover:text-violet-900 ${styles.breadcrumb} text-xs`}
+                />
+                <a
+                  href={`${crumb.path}`}
+                  class={`ml-4 text-xs font-medium hover:text-violet-900 ${styles.breadcrumb} transition`}
+                >
+                  {crumb.name}
+                </a>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+    {Astro.url.pathname.startsWith("/contact") ? null : <Popover client:load />}
   </div>
+</div>
