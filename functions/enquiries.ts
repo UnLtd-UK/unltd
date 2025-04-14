@@ -58,10 +58,10 @@ async function sendContact(RESEND_API_KEY, RESEND_FROM_EMAIL, enquiriesContact, 
   await sendEmail(RESEND_API_KEY, `UnLtd ${enquiriesContact.name} <${RESEND_FROM_EMAIL}>`, enquiriesContact.email, subject, text);
 }
 
-async function sendUser(RESEND_API_KEY, RESEND_FROM_EMAIL, enquiriesContact, data) {
+async function sendUser(RESEND_API_KEY, enquiriesContact, data) {
   const subject = 'Thank you for your feedback';
   // const preview = `<p>HTML preview text</p>`;
-  const text = `Thank you ${data.email},\n\nWe have received your feedback:\n\n"${data.message}".\n\nBest regards,\nUnLtd Team`;
+  const text = `Thank you ${data.email},\n\n"We have received your feedback - \n\n"${data.subject}"\n\n"${data.message}"\n\nBest regards,\nUnLtd Team`;
   await sendEmail(RESEND_API_KEY, `UnLtd ${enquiriesContact.name} <${enquiriesContact.email}>`, data.email, subject, text);
 }
 
@@ -108,7 +108,7 @@ export async function onRequest(context) {
 
     await sendContact(RESEND_API_KEY, RESEND_FROM_EMAIL, enquiriesContact, data);
 
-    await sendUser(RESEND_API_KEY, RESEND_FROM_EMAIL, enquiriesContact, data);
+    await sendUser(RESEND_API_KEY, enquiriesContact, data);
 
     // Redirect to success page
     return createRedirectResponse(`${baseUrl}/sent`);
