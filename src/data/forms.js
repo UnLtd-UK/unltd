@@ -5,7 +5,7 @@ export const forms = [
             "Got questions or need further information? Fill out our General Enquiries form, and we'll get back to you with all the answers you need to keep moving forward.",
         icon: "fa-messages",
         slug: "general",
-        email: "general@unltd.org.uk",
+        email: "generalenquiries@unltd.org.uk",
         worker: "/forms",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
