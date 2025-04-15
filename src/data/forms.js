@@ -113,7 +113,7 @@ export const forms = [
         description: "Do you have business skills or commercial expertise you'd like to share? Our Volunteering Enquiries page is your first step to getting involved and making a difference.",
         icon: "fa-street-view",
         slug: "volunteering",
-        email: "mentoring@unltd.org.uk",
+        email: "mentors@unltd.org.uk",
         worker: "/enquiries",
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
