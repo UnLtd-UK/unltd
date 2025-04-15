@@ -61,7 +61,7 @@ async function sendUser(RESEND_API_KEY, enquiriesContact, data) {
   const subject = `Your ${enquiriesContact.name}`;
   // const preview = `<p>HTML preview text</p>`;
   const copy = Object.entries(data).map(([key, value]) => `${key}: ${value}`).join('\n');
-  const message = `Thank you ${data.name} for your ${enquiriesContact.name}. We will be in contact with you shortly.\n\n${copy}`;
+  const message = `Thank you ${data["full-name"]} for your ${enquiriesContact.name}. We will be in contact with you shortly.\n\n${copy}`;
   await sendEmail(RESEND_API_KEY, `UnLtd ${enquiriesContact.name} <${enquiriesContact.email}>`, data.email, subject, message);
 }
 
