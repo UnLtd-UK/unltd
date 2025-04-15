@@ -8,37 +8,35 @@ import {
   createRedirectResponse
 } from './utils/form-utils';
 
-function getEnquiriesContact(referer) {
+function getEnquiriesContact(path) {
   try {
     let enquiriesContact = { email: '', name: '' };
-
-    const path = getPathFromUrl(referer);
     console.log('Path:', path);
 
     switch (path) {
       case '/contact/general':
         enquiriesContact.email = 'generalenquiries@unltd.org.uk';
-        enquiriesContact.name = 'General Enquiries';
+        enquiriesContact.name = 'General Enquiry';
         break;
       case '/contact/award':
         enquiriesContact.email = 'awardapplications@unltd.org.uk';
-        enquiriesContact.name = 'Award Application Enquiries';
+        enquiriesContact.name = 'Award Application Enquiry';
         break;
       case '/contact/fundraising':
         enquiriesContact.email = 'fundraising@unltd.org.uk';
-        enquiriesContact.name = 'Fundraising Enquiries';
+        enquiriesContact.name = 'Fundraising Enquiry';
         break;
       case '/contact/partnerships':
         enquiriesContact.email = 'partnerships@unltd.org.uk';
-        enquiriesContact.name = 'Partnerships Enquiries';
+        enquiriesContact.name = 'Partnerships Enquiry';
         break;
       case '/contact/volunteering':
         enquiriesContact.email = 'mentors@unltd.org.uk';
-        enquiriesContact.name = 'Volunteering Enquiries';
+        enquiriesContact.name = 'Volunteering Enquiry';
         break;
       case '/contact/press-and-media':
         enquiriesContact.email = 'press@unltd.org.uk';
-        enquiriesContact.name = 'Press and Media Enquiries';
+        enquiriesContact.name = 'Press and Media Enquiry';
         break;
     }
 
@@ -51,18 +49,20 @@ function getEnquiriesContact(referer) {
   }
 }
 
-async function sendContact(RESEND_API_KEY, RESEND_FROM_EMAIL, enquiriesContact, data) {
-  const subject = `Submission from ${data.email}`;
+async function sendContact(RESEND_API_KEY, RESEND_FROM_EMAIL, enquiriesContact, data, path) {
+  const subject = `Enquiry from ${data["full-name"]}`;
   // const preview = `<p>HTML preview text</p>`;
-  const text = Object.entries(data).map(([key, value]) => `${key}: ${value}`).join('\n');
-  await sendEmail(RESEND_API_KEY, `UnLtd ${enquiriesContact.name} <${RESEND_FROM_EMAIL}>`, enquiriesContact.email, subject, text);
+  const copy = Object.entries(data).map(([key, value]) => `${key}: ${value}`).join('\n');
+  const message = `${copy}\n\npath: ${path}`;
+  await sendEmail(RESEND_API_KEY, `UnLtd ${enquiriesContact.name} <${RESEND_FROM_EMAIL}>`, enquiriesContact.email, subject, message);
 }
 
 async function sendUser(RESEND_API_KEY, enquiriesContact, data) {
-  const subject = 'Thank you for your feedback';
+  const subject = `Your ${enquiriesContact.name}`;
   // const preview = `<p>HTML preview text</p>`;
-  const text = `Thank you ${data.email},\n\n"We have received your feedback - \n\n"${data.subject}"\n\n"${data.message}"\n\nBest regards,\nUnLtd Team`;
-  await sendEmail(RESEND_API_KEY, `UnLtd ${enquiriesContact.name} <${enquiriesContact.email}>`, data.email, subject, text);
+  const copy = Object.entries(data).map(([key, value]) => `${key}: ${value}`).join('\n');
+  const message = `Thank you ${data.name} for your ${enquiriesContact.name}. We will be in contact with you shortly.\n\n${copy}`;
+  await sendEmail(RESEND_API_KEY, `UnLtd ${enquiriesContact.name} <${enquiriesContact.email}>`, data.email, subject, message);
 }
 
 export async function onRequest(context) {
@@ -104,9 +104,11 @@ export async function onRequest(context) {
 
     checkFields(data);
 
-    const enquiriesContact = getEnquiriesContact(context.request.headers.get('referer'));
+    const path = getPathFromUrl(context.request.headers.get('referer'));
 
-    await sendContact(RESEND_API_KEY, RESEND_FROM_EMAIL, enquiriesContact, data);
+    const enquiriesContact = getEnquiriesContact(path);
+
+    await sendContact(RESEND_API_KEY, RESEND_FROM_EMAIL, enquiriesContact, data, path);
 
     await sendUser(RESEND_API_KEY, enquiriesContact, data);
 
