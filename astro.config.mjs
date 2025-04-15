@@ -12,8 +12,5 @@ export default defineConfig({
   trailingSlash: 'never',
   vite: {
     plugins: [tailwindcss()],
-  },
-  experimental: {
-      svg: true,
-    },
+  }
 });
