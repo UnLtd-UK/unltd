@@ -33,7 +33,7 @@ function getEnquiriesContact(referer) {
         enquiriesContact.name = 'Partnerships Enquiries';
         break;
       case '/contact/volunteering':
-        enquiriesContact.email = 'mentoring@unltd.org.uk';
+        enquiriesContact.email = 'mentors@unltd.org.uk';
         enquiriesContact.name = 'Volunteering Enquiries';
         break;
       case '/contact/press-and-media':
