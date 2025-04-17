@@ -54,28 +54,6 @@ export const forms = [
         ],
     },
     {
-        name: "Fundraising Enquiries",
-        description: "Interested in making a donation or have a question about the process.",
-        icon: "fa-piggy-bank",
-        slug: "fundraising",
-        email: "fundraising@unltd.org.uk",
-        worker: "/enquiries",
-        fields: [
-            { component: "Input", name: "Full name", type: "text", required: true },
-            { component: "Input", name: "Email", type: "email", required: true },
-            { component: "Input", name: "Phone number", type: "tel", required: true },
-            {
-                component: "Input",
-                name: "Organisation",
-                type: "text",
-                required: true,
-            },
-            { component: "Input", name: "Subject", type: "text", required: true },
-            { component: "Textarea", name: "Message", rows: "4", required: true },
-            { component: "Cloudflare" },
-        ],
-    },
-    {
         name: "Partnerships Enquiries",
         description: "Interested in partnering with us? Use out Partnering Enquiries page if you have any queries.",
         icon: "fa-handshake",
