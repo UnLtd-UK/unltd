@@ -1,5 +1,5 @@
 ---
-const { name, image, description, published, author, tag } =
+const { name, image, description, published, author, tag, status } =
     Astro.props.frontmatter || Astro.props;
 ---
 
@@ -32,6 +32,13 @@ const { name, image, description, published, author, tag } =
             >
                 {tag}
             </span>
+            {
+                status === "draft" && (
+                    <span class="ml-2 relative z-10 rounded-full bg-red-100 dark:bg-red-900 px-3 py-1.5 font-medium text-red-600 dark:text-red-300">
+                        DRAFT
+                    </span>
+                )
+            }
         </div>
         <div class="group">
             <h3
