@@ -6,7 +6,7 @@ const branch = process.env.CF_PAGES_BRANCH || 'local';
 
 console.log(`Branch: ${branch}`);
 
-const isProd = branch === 'main' && false;
+const isProd = branch === 'main' && true || false;
 
 console.log(`Production: ${isProd}`)
 

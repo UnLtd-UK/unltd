@@ -22,7 +22,8 @@ import ProgrammeSmall from "@components/award/programme/ProgrammeSmall.astro";
                 (programmei) =>
                   !(programmei.name === current.name) &&
                   todayDate.isBefore(programmei.till) &&
-                  todayDate.isAfter(programmei.from),
+                  todayDate.isAfter(programmei.from) &&
+                  programmei.status === 'published',
               )
               .map((programme, i) =>             <ProgrammeSmall
         key={i}
