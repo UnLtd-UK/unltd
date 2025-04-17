@@ -10,6 +10,9 @@ const isProd = branch === 'main' && true || false;
 
 console.log(`Production: ${isProd}`)
 
+// Get current date in ISO format for comparison
+const currentDate = new Date().toISOString();
+
 const filterOptions = {
     sort: ['-date_time'],
     limit: -1,
@@ -17,6 +20,9 @@ const filterOptions = {
         {
             status: {
                 _eq: "published"
+            },
+            date_time: {
+                _lte: currentDate // Only show posts with dates in the past or present
             }
         } :
         {

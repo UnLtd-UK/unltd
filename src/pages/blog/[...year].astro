@@ -152,6 +152,7 @@ const { name, description, posts, years, breadcrumbs } = Astro.props;
             author={{ name: post.author_name, position: post.author_position }}
             published={post.date_time}
             tag={post.tag}
+            status={post.status}
           />
         ))
       }
