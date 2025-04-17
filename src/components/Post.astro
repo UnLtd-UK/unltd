@@ -1,5 +1,6 @@
 ---
-const { title, slug, image, published, tag, description, author } = Astro.props;
+const { title, slug, image, published, tag, description, author, status } =
+    Astro.props;
 ---
 
 <li class="col-span-1 divide-y divide-gray-200 rounded-lg">
@@ -7,7 +8,9 @@ const { title, slug, image, published, tag, description, author } = Astro.props;
         <article
             class="flex flex-col items-start justify-between transition hover:bg-violet-100 dark:hover:bg-violet-900 hover:outline-violet-200 hover:dark:outline-violet-800 p-6 rounded-2xl"
         >
-            <div class="relative w-full h-64 bg-violet-800 rounded-2xl border border-violet-600">
+            <div
+                class="relative w-full h-64 bg-violet-800 rounded-2xl border border-violet-600"
+            >
                 {
                     image.url !== null ? (
                         <img
@@ -15,7 +18,11 @@ const { title, slug, image, published, tag, description, author } = Astro.props;
                             alt=""
                             class="absolute inset-0 w-full h-full object-cover rounded-2xl"
                         />
-                    ) : <div class="flex justify-center items-center h-64"><i class="fa-solid fa-image-slash text-4xl text-violet-400"></i></div>
+                    ) : (
+                        <div class="flex justify-center items-center h-64">
+                            <i class="fa-solid fa-image-slash text-4xl text-violet-400" />
+                        </div>
+                    )
                 }
             </div>
             <div class="max-w-xl">
@@ -40,7 +47,13 @@ const { title, slug, image, published, tag, description, author } = Astro.props;
                     >
                         {tag}
                     </span>
-                    
+                    {
+                        status === "draft" && (
+                            <span class="relative z-10 rounded-full bg-red-100 dark:bg-red-900 px-3 py-1.5 font-medium text-red-600 dark:text-red-300">
+                                DRAFT
+                            </span>
+                        )
+                    }
                 </div>
 
                 <div class="group relative flex flex-col gap-1">
@@ -51,7 +64,10 @@ const { title, slug, image, published, tag, description, author } = Astro.props;
                         {title}
                     </h3>
                     <p class="text-xs text-violet-700 dark:text-violet-300">
-                        By {author.name}, <span class="text-violet-600 dark:text-violet-400">{author.position}</span>
+                        By {author.name}, <span
+                            class="text-violet-600 dark:text-violet-400"
+                            >{author.position}</span
+                        >
                     </p>
                 </div>
                 <p
@@ -60,7 +76,6 @@ const { title, slug, image, published, tag, description, author } = Astro.props;
                     {description}
                 </p>
             </div>
-
         </article>
     </a>
 </li>
