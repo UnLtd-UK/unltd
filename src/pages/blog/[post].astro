@@ -7,6 +7,7 @@ import Content from "@components/markdoc/Content.astro";
 
 import slugify from "slugify";
 import { posts } from "@data/posts.js";
+import { string } from "astro:schema";
 
 interface Post {
   title: string;
@@ -19,6 +20,7 @@ interface Post {
   author_position: string;
   body: string;
   date_time: string;
+  status: string;
   breadcrumbs: Array<{ name: string; slug: string }>;
 }
 
@@ -60,10 +62,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props as { post: Post };
 ---
 
-<Template
-  name={post.title}
-  description={post.description}
->
+<Template name={post.title} description={post.description}>
   <Container>
     <Breadcrumbs breadcrumbs={post.breadcrumbs} />
     <HeroPost
@@ -77,9 +76,10 @@ const { post } = Astro.props as { post: Post };
       }}
       published={post.date_time}
       author={{ name: post.author_name, position: post.author_position }}
+      status={post.status}
     />
-      <div class="py-12">
-        <Content body={post.body} />
-      </div>
+    <div class="py-12">
+      <Content body={post.body} />
+    </div>
   </Container>
 </Template>
