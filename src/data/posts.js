@@ -10,18 +10,19 @@ const isProd = branch === 'main' && true || false;
 
 console.log(`Production: ${isProd}`)
 
-// Get current date with proper timezone handling
+// Get current date with simplified handling that works in all environments
 const now = new Date();
 // ISO string is always in UTC (Z)
 const currentDateUTC = now.toISOString();
-// Create date string in local timezone (YYYY-MM-DD format)
-const localDate = new Date(now.getTime() - (now.getTimezoneOffset() * 60000))
-    .toISOString().split('T')[0];
-const currentDateLocal = `${localDate}T00:00:00.000Z`; // End of day in local timezone
+
+// Get just the date part (YYYY-MM-DD)
+const todayDate = currentDateUTC.split('T')[0];
+// Set to end of today in UTC
+const endOfTodayUTC = `${todayDate}T23:59:59.999Z`;
 
 console.log(`Current UTC Date: ${currentDateUTC}`);
-console.log(`Current Local Date (for comparison): ${currentDateLocal}`);
-console.log(`Local Time: ${now.toString()}`);
+console.log(`End of Today UTC (for comparison): ${endOfTodayUTC}`);
+console.log(`Environment Time: ${now.toString()}`);
 
 const filterOptions = {
     sort: ['-date_time'],
@@ -32,7 +33,7 @@ const filterOptions = {
                 _eq: "published"
             },
             date_time: {
-                _lte: currentDateLocal // Use local date to ensure entire current day is included
+                _lte: endOfTodayUTC // Use end of today in UTC to include all today's posts
             }
         } :
         {
