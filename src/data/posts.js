@@ -17,12 +17,17 @@ const currentDateUTC = now.toISOString();
 
 // Get just the date part (YYYY-MM-DD)
 const todayDate = currentDateUTC.split('T')[0];
-// Set to end of today in UTC
-const endOfTodayUTC = `${todayDate}T23:59:59.999Z`;
+// Instead of end of day, use current exact time to ensure we catch everything
+// This ensures we're getting posts up to the current minute
+const currentExactTime = currentDateUTC;
 
 console.log(`Current UTC Date: ${currentDateUTC}`);
-console.log(`End of Today UTC (for comparison): ${endOfTodayUTC}`);
+console.log(`Using exact current time for comparison: ${currentExactTime}`);
 console.log(`Environment Time: ${now.toString()}`);
+
+// Add 5 minutes buffer to account for small time differences/clock skew
+const fiveMinutesFromNow = new Date(now.getTime() + 5 * 60000).toISOString();
+console.log(`With 5min buffer: ${fiveMinutesFromNow}`);
 
 const filterOptions = {
     sort: ['-date_time'],
@@ -33,12 +38,15 @@ const filterOptions = {
                 _eq: "published"
             },
             date_time: {
-                _lte: endOfTodayUTC // Use end of today in UTC to include all today's posts
+                _lte: fiveMinutesFromNow // Use current time + 5min buffer to ensure all posts are included
             }
         } :
         {
             status: {
                 _in: ["published", "draft"]
+            },
+            date_time: {
+                _lte: fiveMinutesFromNow // Use current time + 5min buffer to ensure all posts are included
             }
         }
 }
@@ -46,5 +54,15 @@ const filterOptions = {
 const attach = false;
 
 const posts = await getCollection(collection, name, filterOptions, attach);
+
+// Debug output - show what posts we have and their dates
+if (isProd) {
+    console.log(`DEBUG: Found ${posts.length} posts`);
+    posts.forEach((post, i) => {
+        if (i < 5) { // Just show the first few posts to avoid log spam
+            console.log(`Post: ${post.title || post.id}, Date: ${post.date_time}, Status: ${post.status}`);
+        }
+    });
+}
 
 export { posts }
