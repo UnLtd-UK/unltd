@@ -38,8 +38,8 @@ function getBritishTime() {
     // Format as ISO-like string for date comparison (YYYY-MM-DD)
     const britishDate = `${britishDateObj.year}-${britishDateObj.month}-${britishDateObj.day}`;
 
-    // Create both the specific time and end-of-day time for filtering
-    const britishCurrentTime = now.toISOString();
+    // Create properly formatted ISO strings that represent British local time
+    const britishCurrentTime = `${britishDate}T${britishDateObj.hour}:${britishDateObj.minute}:${britishDateObj.second}.000Z`;
     const britishEndOfDay = `${britishDate}T23:59:59.999Z`;
 
     return {
@@ -56,7 +56,7 @@ const britishTime = getBritishTime();
 console.log(`UTC Time: ${new Date().toISOString()}`);
 console.log(`British Date: ${britishTime.isoDate}`);
 console.log(`British Formatted Time: ${britishTime.formatted}`);
-console.log(`British End of Day: ${britishTime.endOfDay}`);
+console.log(`British Current Time: ${britishTime.currentTime}`);
 
 const filterOptions = {
     sort: ['-date_time'],
@@ -67,7 +67,7 @@ const filterOptions = {
                 _eq: "published"
             },
             date_time: {
-                _lte: britishTime.endOfDay // Use British end-of-day for post filtering
+                _lte: britishTime.currentTime // Use current time instead of end-of-day
             }
         } :
         {
