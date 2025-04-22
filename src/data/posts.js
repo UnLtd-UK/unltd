@@ -73,6 +73,9 @@ const filterOptions = {
         {
             status: {
                 _in: ["published", "draft"]
+            },
+            date_time: {
+                _lte: britishTime.endOfDay // Use British end-of-day for post filtering
             }
         }
 }
