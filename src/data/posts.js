@@ -10,24 +10,53 @@ const isProd = branch === 'main' && true || false;
 
 console.log(`Production: ${isProd}`)
 
-// Get current date with simplified handling that works in all environments
-const now = new Date();
-// ISO string is always in UTC (Z)
-const currentDateUTC = now.toISOString();
+// Function to get current time in British timezone (either GMT or BST depending on DST)
+function getBritishTime() {
+    const now = new Date();
 
-// Get just the date part (YYYY-MM-DD)
-const todayDate = currentDateUTC.split('T')[0];
-// Instead of end of day, use current exact time to ensure we catch everything
-// This ensures we're getting posts up to the current minute
-const currentExactTime = currentDateUTC;
+    // Format in British timezone (en-GB locale with Europe/London timezone)
+    const britishFormatter = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/London',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
 
-console.log(`Current UTC Date: ${currentDateUTC}`);
-console.log(`Using exact current time for comparison: ${currentExactTime}`);
-console.log(`Environment Time: ${now.toString()}`);
+    // Get formatted parts
+    const parts = britishFormatter.formatToParts(now);
+    const britishDateObj = {};
 
-// Add 5 minutes buffer to account for small time differences/clock skew
-const fiveMinutesFromNow = new Date(now.getTime() + 5 * 60000).toISOString();
-console.log(`With 5min buffer: ${fiveMinutesFromNow}`);
+    // Convert parts to an object for easy access
+    parts.forEach(part => {
+        britishDateObj[part.type] = part.value;
+    });
+
+    // Format as ISO-like string for date comparison (YYYY-MM-DD)
+    const britishDate = `${britishDateObj.year}-${britishDateObj.month}-${britishDateObj.day}`;
+
+    // Create both the specific time and end-of-day time for filtering
+    const britishCurrentTime = now.toISOString();
+    const britishEndOfDay = `${britishDate}T23:59:59.999Z`;
+
+    return {
+        now: now,
+        isoDate: britishDate,
+        endOfDay: britishEndOfDay,
+        currentTime: britishCurrentTime,
+        formatted: `${britishDate} ${britishDateObj.hour}:${britishDateObj.minute}:${britishDateObj.second}`
+    };
+}
+
+const britishTime = getBritishTime();
+
+console.log(`UTC Time: ${new Date().toISOString()}`);
+console.log(`British Date: ${britishTime.isoDate}`);
+console.log(`British Formatted Time: ${britishTime.formatted}`);
+console.log(`British End of Day: ${britishTime.endOfDay}`);
 
 const filterOptions = {
     sort: ['-date_time'],
@@ -38,15 +67,12 @@ const filterOptions = {
                 _eq: "published"
             },
             date_time: {
-                _lte: fiveMinutesFromNow // Use current time + 5min buffer to ensure all posts are included
+                _lte: britishTime.endOfDay // Use British end-of-day for post filtering
             }
         } :
         {
             status: {
                 _in: ["published", "draft"]
-            },
-            date_time: {
-                _lte: fiveMinutesFromNow // Use current time + 5min buffer to ensure all posts are included
             }
         }
 }
