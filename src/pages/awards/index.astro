@@ -1,17 +1,17 @@
 ---
 // PROPS
 const props = {
-  name: "Award",
-  slug: "/award",
+  name: "Awards",
+  slug: "/awards",
   description:
     "You have an idea, or you are already creating a positive social impact with your venture and are looking to develop. We combine funding and support specifically tailored to you. We'll help get you started or to grow.",
 };
 
 const breadcrumbs = [
   {
-    name: "Award",
-    path: "/award",
-  }
+    name: "Awards",
+    path: "/awards",
+  },
 ];
 
 // LAYOUT
@@ -20,10 +20,10 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 
 // COMPONENTS
-import Header from "@components/award/Header.astro";
-import Programmes from "@components/award/Programmes.astro";
-import Steps from "@components/award/Steps.astro";
-import Questions from "@components/award/Questions.astro";
+import Header from "@components/awards/Header.astro";
+import Programmes from "@components/awards/Programmes.astro";
+import Steps from "@components/awards/Steps.astro";
+import Questions from "@components/awards/Questions.astro";
 
 // OTHER
 import moment from "moment";
@@ -47,12 +47,9 @@ let todayDate = moment();
 // });
 ---
 
-<Template
-  name={props.name}
-  description={props.description}
->
-<Container>
-  <Breadcrumbs breadcrumbs={breadcrumbs}/>
+<Template name={props.name} description={props.description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
   </Container>
   <Header />
   <Programmes />

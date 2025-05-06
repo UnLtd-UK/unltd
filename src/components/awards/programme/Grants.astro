@@ -1,12 +1,11 @@
 ---
 import Container from "@components/Container.astro";
-import Grant from "@components/award/programme/Grant.astro";
+import Grant from "@components/awards/programme/Grant.astro";
 
 const { programme, styles } = Astro.props;
 ---
 
 <Container bg={styles.bg2}>
-
   <div class="py-20 flex flex-col gap-20">
     <div class="max-w-4xl">
       <h2
@@ -20,19 +19,16 @@ const { programme, styles } = Astro.props;
       >
         Tailored grants
       </p>
-      <p class={`mt-6 text-lg max-w-xl leading-8 ${styles.text2} ${styles.font}`}>
-        Our grants are designed around you, helping you to meet your unique goals.
-    </p>
+      <p
+        class={`mt-6 text-lg max-w-xl leading-8 ${styles.text2} ${styles.font}`}
+      >
+        Our grants are designed around you, helping you to meet your unique
+        goals.
+      </p>
     </div>
 
     <ul class="flex flex-col lg:flex-row gap-6">
-      {
-        programme.grants.map((grant) => (
-          <Grant
-            grant={grant} styles={styles}
-          />
-        ))
-      }
+      {programme.grants.map((grant) => <Grant grant={grant} styles={styles} />)}
     </ul>
   </div>
 </Container>

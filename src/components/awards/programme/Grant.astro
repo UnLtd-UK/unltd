@@ -1,5 +1,5 @@
 ---
-import Badge from "@components/award/cards/Badge.astro";
+import Badge from "@components/awards/cards/Badge.astro";
 
 import { palette } from "@data/palette.js";
 import { programmes } from "@data/programmes.js";
@@ -10,7 +10,7 @@ const { grant, styles } = Astro.props;
 <div
   class={`flex flex-col flex-1 grow divide-y ${styles.divide} ${styles.bg2}`}
 >
-  <div class=" rounded-t-2xl px-8 py-6">
+  <div class="rounded-t-2xl px-8 py-6">
     <h2 class={`text-2xl font-semibold ${styles.text}`}>
       {grant.grants_id.name}
     </h2>
@@ -20,14 +20,10 @@ const { grant, styles } = Astro.props;
     <div class="flex gap-10">
       <div class="flex flex-1 flex-col gap-4">
         <p class="flex flex-col items-baseline gap-x-1">
-          <span
-            class={`text-sm font-semibold leading-6 ${styles.text2}`}
-          >
+          <span class={`text-sm font-semibold leading-6 ${styles.text2}`}>
             Up to
           </span>
-          <span
-            class={`text-4xl font-bold tracking-tight ${styles.text}`}
-          >
+          <span class={`text-4xl font-bold tracking-tight ${styles.text}`}>
             {
               new Intl.NumberFormat("en-GB", {
                 maximumSignificantDigits: 3,
@@ -43,9 +39,7 @@ const { grant, styles } = Astro.props;
           </p>
           <div class="flex-1 flex flex-col gap-3">
             <p class={`truncate text-xs font-medium flex gap-2 items-center`}>
-              <i
-                class={`fa-light fa-check ${styles.text2}`}
-              ></i>
+              <i class={`fa-light fa-check ${styles.text2}`}></i>
               <span class={`${styles.text}`}>
                 {grant.grants_id.feature_1}
               </span>
@@ -55,9 +49,7 @@ const { grant, styles } = Astro.props;
                 <p
                   class={`truncate text-xs font-medium flex gap-2 items-center`}
                 >
-                  <i
-                    class={`fa-light fa-check ${styles.text2}`}
-                  />
+                  <i class={`fa-light fa-check ${styles.text2}`} />
                   <span class={`${styles.text}`}>
                     {grant.grants_id.feature_2}
                   </span>
@@ -70,9 +62,7 @@ const { grant, styles } = Astro.props;
     </div>
   </div>
 
-  <div
-    class={`flex flex-col gap-5 rounded-b-2xl p-8`}
-  >
+  <div class={`flex flex-col gap-5 rounded-b-2xl p-8`}>
     <div class="flex flex-col gap-1">
       <h3 class={`text-xs font-semibold ${styles.text}`}>
         Social venture eligibility
@@ -81,30 +71,21 @@ const { grant, styles } = Astro.props;
     <ul class="flex flex-row gap-10">
       <li class="flex flex-col gap-1">
         <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-          <i class={`fa-light fa-pen-nib ${styles.text2}`}
-          ></i>
-          <span class={`text-xs ${styles.text2}`}>
-            Incorporated
-          </span>
+          <i class={`fa-light fa-pen-nib ${styles.text2}`}></i>
+          <span class={`text-xs ${styles.text2}`}> Incorporated </span>
         </p>
-        <p
-          class={`text-xs font-medium tracking-tight ${styles.text}`}
-        >
+        <p class={`text-xs font-medium tracking-tight ${styles.text}`}>
           {grant.grants_id.incorporated}
         </p>
       </li>
       <li class="flex flex-col gap-1">
         <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
-          <i
-            class={`fa-light fa-bag-shopping ${styles.text2}`}
-          ></i>
+          <i class={`fa-light fa-bag-shopping ${styles.text2}`}></i>
           <span class={`text-xs ${styles.text2}`}>
             Selling goods and services
           </span>
         </p>
-        <p
-          class={`text-xs font-medium tracking-tight ${styles.text}`}
-        >
+        <p class={`text-xs font-medium tracking-tight ${styles.text}`}>
           {grant.grants_id.selling_goods_and_services}
         </p>
       </li>

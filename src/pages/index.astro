@@ -16,8 +16,15 @@ const description = "Home description";
   <div class="bg-violet-950 py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col gap-10">
       <div>
-        <h2 class=" font-semibold text-violet-100 text-6xl">Award</h2>
-        <p class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-violet-300 sm:text-xl sm:text-balance">You have an idea, or you are already creating a positive social impact with your venture and are looking to develop. We combine funding and support specifically tailored to you. We'll help get you started or to grow.</p>
+        <h2 class="font-semibold text-violet-100 text-6xl">Awards</h2>
+        <p
+          class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-violet-300 sm:text-xl sm:text-balance"
+        >
+          You have an idea, or you are already creating a positive social impact
+          with your venture and are looking to develop. We combine funding and
+          support specifically tailored to you. We'll help get you started or to
+          grow.
+        </p>
       </div>
       <div class="flex flex-col gap-10 sm:flex-row">
         <div class="">
@@ -29,7 +36,8 @@ const description = "Home description";
               Tailored grants
             </p>
             <p class="mt-6 text-lg/8 text-violet-300">
-              Our grants are designed around you, helping you to meet your unique goals.
+              Our grants are designed around you, helping you to meet your
+              unique goals.
             </p>
           </div>
           <div class="mx-auto mt-8 max-w-2xl sm:mt-10 lg:mt-12 lg:max-w-4xl">
@@ -58,43 +66,42 @@ const description = "Home description";
               </div>
             </dl>
           </div>
-      </div>
-      <div class="">
-        <div class="mx-auto max-w-2xl">
-          <h3 class="text-base/7 font-semibold text-violet-400">Support</h3>
-          <p
-            class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-violet-100 sm:text-4xl lg:text-balance"
-          >
-            Tailored services
-          </p>
-          <p class="mt-6 text-lg/8 text-violet-300">
-            Our support is personalised, ensuring you get practical help to overcome your specific challenges and to grow efficiently.
-          </p>
         </div>
-        <div class="mx-auto mt-8 max-w-2xl sm:mt-10 lg:mt-12 lg:max-w-4xl">
-          <dl
-            class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
-          >
-          {
-            home.support.map((service) => (
-              <div class="relative pl-16">
-                <dt class="text-base/7 font-semibold text-violet-100">
-                  <div
-                    class="absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-violet-200"
-                  >
-                    <i class={`text-lg text-violet-600 ${service.icon}`}></i>
+        <div class="">
+          <div class="mx-auto max-w-2xl">
+            <h3 class="text-base/7 font-semibold text-violet-400">Support</h3>
+            <p
+              class="mt-2 text-4xl font-semibold tracking-tight text-pretty text-violet-100 sm:text-4xl lg:text-balance"
+            >
+              Tailored services
+            </p>
+            <p class="mt-6 text-lg/8 text-violet-300">
+              Our support is personalised, ensuring you get practical help to
+              overcome your specific challenges and to grow efficiently.
+            </p>
+          </div>
+          <div class="mx-auto mt-8 max-w-2xl sm:mt-10 lg:mt-12 lg:max-w-4xl">
+            <dl
+              class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16"
+            >
+              {
+                home.support.map((service) => (
+                  <div class="relative pl-16">
+                    <dt class="text-base/7 font-semibold text-violet-100">
+                      <div class="absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-violet-200">
+                        <i class={`text-lg text-violet-600 ${service.icon}`} />
+                      </div>
+                      {service.title}
+                    </dt>
                   </div>
-                  {service.title}
-                </dt>
-              </div>
-            ))
-          }
-          </dl>
+                ))
+              }
+            </dl>
+          </div>
         </div>
       </div>
+    </div>
   </div>
-  </div>
-</div>
 
   <Posts />
 </Template>

@@ -3,10 +3,10 @@ const { programme, styles } = Astro.props;
 import { marked } from "marked";
 marked.use({ mangle: false, headerIds: false });
 
-import IconBig from "@components/award/cards/IconBig.astro";
+import IconBig from "@components/awards/cards/IconBig.astro";
 import Container from "@components/Container.astro";
-import Status from "@components/award/programme/Status.astro";
-import Partners from "@components/award/programme/Partners.astro";
+import Status from "@components/awards/programme/Status.astro";
+import Partners from "@components/awards/programme/Partners.astro";
 
 import moment from "moment";
 let todayDate = moment();
@@ -86,26 +86,36 @@ let todayDate = moment();
             <div class="mx-auto  max-w-2xl lg:max-w-none flex flex-col gap-10">
               <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
                 <div class="flex flex-col">
-                    <p class={`flex-auto ${styles.text2}`}>{programme.issue}</p>
+                  <p class={`flex-auto ${styles.text2}`}>{programme.issue}</p>
                 </div>
                 <div class="flex flex-col">
-                    <p class={`flex-auto ${styles.text2}`}>{programme.action}</p>
+                  <p class={`flex-auto ${styles.text2}`}>{programme.action}</p>
                 </div>
                 <div class="flex flex-col">
-                    <p class={`flex-auto ${styles.text2}`}>{programme.outcome}</p>
+                  <p class={`flex-auto ${styles.text2}`}>{programme.outcome}</p>
                 </div>
               </dl>
-              <a href="/how-unltd-is-funded" class={`text-xs ${styles.text2} ${styles.font} underline-1 underline`}>Find out where our funding comes from.</a>
+              <a
+                href="/how-unltd-is-funded"
+                class={`text-xs ${styles.text2} ${styles.font} underline-1 underline`}
+              >
+                Find out where our funding comes from.
+              </a>
             </div>
-
           ) : (
-            <div
-              class="flex flex-col gap-6"
-            >
-              <p class={`max-w-4xl text-xl leading-relaxed prose:${styles.text2} prose:${styles.font}`}>{programme.description}</p>
-              <a href="/how-unltd-is-funded" class={`${styles.text2} ${styles.font} text-xs underline-1 underline`}>Find out where this funding comes from.</a>
+            <div class="flex flex-col gap-6">
+              <p
+                class={`max-w-4xl text-xl leading-relaxed prose:${styles.text2} prose:${styles.font}`}
+              >
+                {programme.description}
+              </p>
+              <a
+                href="/how-unltd-is-funded"
+                class={`${styles.text2} ${styles.font} text-xs underline-1 underline`}
+              >
+                Find out where this funding comes from.
+              </a>
             </div>
-            
           )
         }
       </div>
