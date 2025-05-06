@@ -3,15 +3,15 @@ import Template from "@layouts/Template.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Container from "@components/Container.astro";
 import { palette } from "@data/palette.js";
-import Icon from "@components/award/cards/Icon.astro";
-import Intro from "@components/award/programme/Intro.astro";
-import Content from "@components/award/programme/Content.astro";
-import Services from "@components/award/programme/Services.astro";
-import Criteria from "@components/award/programme/Criteria.astro";
-import Videos from "@components/award/programme/Videos.astro";
-import Other from "@components/award/programme/Other.astro";
-import Banner from "@components/award/programme/Banner.astro";
-import Grants from "@components/award/programme/Grants.astro";
+import Icon from "@components/awards/cards/Icon.astro";
+import Intro from "@components/awards/programme/Intro.astro";
+import Content from "@components/awards/programme/Content.astro";
+import Services from "@components/awards/programme/Services.astro";
+import Criteria from "@components/awards/programme/Criteria.astro";
+import Videos from "@components/awards/programme/Videos.astro";
+import Other from "@components/awards/programme/Other.astro";
+import Banner from "@components/awards/programme/Banner.astro";
+import Grants from "@components/awards/programme/Grants.astro";
 
 import { programmes } from "@data/programmes.js";
 
@@ -30,12 +30,12 @@ export async function getStaticPaths() {
 
     let breadcrumbs = [
       {
-        name: "Award",
-        path: "/award",
+        name: "Awards",
+        path: "/awards",
       },
       {
         name: programme.name,
-        path: `/award/${slug}`,
+        path: `/awards/${slug}`,
       },
     ];
 
@@ -63,18 +63,21 @@ const { programme } = Astro.props;
   theme={palette[programme.name]}
 >
   <Container bg={palette[programme.name].bg}>
-    <Breadcrumbs breadcrumbs={programme.breadcrumbs} styles={palette[programme.name]} />
+    <Breadcrumbs
+      breadcrumbs={programme.breadcrumbs}
+      styles={palette[programme.name]}
+    />
   </Container>
   <Intro programme={programme} styles={palette[programme.name]} />
 
   <Criteria
-  programme={programme}
-  styles={palette[programme.name]}
-  age={programme.age}
-  geography={programme.geography}
-  focus={programme.focus}
-  stage={programme.stage}
-/>
+    programme={programme}
+    styles={palette[programme.name]}
+    age={programme.age}
+    geography={programme.geography}
+    focus={programme.focus}
+    stage={programme.stage}
+  />
 
   <Grants styles={palette[programme.name]} programme={programme} />
 
@@ -86,9 +89,13 @@ const { programme } = Astro.props;
 
   <Banner styles={palette[programme.name]} programme={programme} />
 
-  {(programme.videos.length > 0 || programme.posts.length > 0 || programme.quotes.length > 0) && (
-    <Content styles={palette[programme.name]} programme={programme} />
-  )}
+  {
+    (programme.videos.length > 0 ||
+      programme.posts.length > 0 ||
+      programme.quotes.length > 0) && (
+      <Content styles={palette[programme.name]} programme={programme} />
+    )
+  }
 
   <Other
     current={programme}

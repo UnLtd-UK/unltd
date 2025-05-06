@@ -18,12 +18,12 @@ export async function getStaticPaths() {
 
             const breadcrumbs = [
                 {
-                    name: "Award",
-                    path: `/award`,
+                    name: "Awards",
+                    path: `/awards`,
                 },
                 {
                     name: slug,
-                    path: `/award/${slug}`,
+                    path: `/awards/${slug}`,
                 },
             ];
 
@@ -89,7 +89,7 @@ const {
                             Award programme
                         </h3>
                         <a
-                            href={`/award/${slugify(programme.name, {
+                            href={`/awards/${slugify(programme.name, {
                                 lower: true,
                                 strict: false,
                                 locale: "en",
@@ -115,19 +115,22 @@ const {
                     </p>
                 </div>
                 <div class="xl:col-span-3 flex flex-col gap-24">
-                    <ul
-                        role="list"
-                        class="space-y-12"
-                    >
-
+                    <ul role="list" class="space-y-12">
                         <div class="relative">
-                            <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                              <div class="w-full border-t border-violet-300"></div>
+                            <div
+                                class="absolute inset-0 flex items-center"
+                                aria-hidden="true"
+                            >
+                                <div class="w-full border-t border-violet-300">
+                                </div>
                             </div>
                             <div class="relative flex justify-start">
-                              <span class="bg-violet-950 pr-3 text-3xl font-semibold text-violet-100">Panel Chair</span>
+                                <span
+                                    class="bg-violet-950 pr-3 text-3xl font-semibold text-violet-100"
+                                    >Panel Chair</span
+                                >
                             </div>
-                          </div>
+                        </div>
                         <li class="flex flex-col gap-5 sm:flex-row">
                             <div class="basis-1/3">
                                 {
@@ -226,18 +229,22 @@ const {
                             </div>
                         </li>
                     </ul>
-                    <ul
-                        role="list"
-                        class=" space-y-12"
-                    >
+                    <ul role="list" class="space-y-12">
                         <div class="relative">
-                            <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                              <div class="w-full border-t border-violet-300"></div>
+                            <div
+                                class="absolute inset-0 flex items-center"
+                                aria-hidden="true"
+                            >
+                                <div class="w-full border-t border-violet-300">
+                                </div>
                             </div>
                             <div class="relative flex justify-start">
-                              <span class="bg-violet-950 pr-3 text-3xl font-semibold text-violet-100">Social Entrepreneurs</span>
+                                <span
+                                    class="bg-violet-950 pr-3 text-3xl font-semibold text-violet-100"
+                                    >Social Entrepreneurs</span
+                                >
                             </div>
-                          </div>
+                        </div>
 
                         {
                             social_entrepreneurs.map((social_entrepreneur) => (
@@ -353,18 +360,22 @@ const {
                             ))
                         }
                     </ul>
-                    <ul
-                        role="list"
-                        class="space-y-12"
-                    >
+                    <ul role="list" class="space-y-12">
                         <div class="relative">
-                            <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                              <div class="w-full border-t border-violet-300"></div>
+                            <div
+                                class="absolute inset-0 flex items-center"
+                                aria-hidden="true"
+                            >
+                                <div class="w-full border-t border-violet-300">
+                                </div>
                             </div>
                             <div class="relative flex justify-start">
-                              <span class="bg-violet-950 pr-3 text-3xl font-semibold text-violet-100">UnLtd Colleagues</span>
+                                <span
+                                    class="bg-violet-950 pr-3 text-3xl font-semibold text-violet-100"
+                                    >UnLtd Colleagues</span
+                                >
                             </div>
-                          </div>
+                        </div>
                         {
                             unltd_colleagues.map((unltd_colleague) => (
                                 <li class="flex flex-col gap-5 sm:flex-row">
