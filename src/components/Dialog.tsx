@@ -39,13 +39,13 @@ export default function DialogComponent() {
               <button
                 type="button"
                 onClick={() => setOpen(false)}
+                data-autofocus
                 className="cursor-pointer inline-flex w-full justify-center rounded-md bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
               >Preview application form
               </button>
               <a
                 href="https://unltd.microsoftcrmportals.com/applications"
                 target="_blank"
-                data-autofocus
                 className="mt-3 inline-flex w-full justify-center rounded-md bg-violet-50 px-3 py-2 text-sm font-semibold text-violet-900 shadow-xs ring-1 ring-violet-300 ring-inset hover:bg-violet-100 sm:mt-0 items-center gap-1"
               >
                 <span>Go to application portal</span><i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>
