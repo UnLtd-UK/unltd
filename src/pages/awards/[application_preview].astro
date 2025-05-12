@@ -4,6 +4,7 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Main from "@components/application-preview/Main.astro";
 import AsideRight from "@components/application-preview/AsideRight.astro";
+import DialogComponent from "@components/Dialog.tsx";
 
 import { applications } from "@data/applications.js";
 
@@ -68,6 +69,7 @@ const {
 <Template name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
+    <DialogComponent client:load />
     <div class="flex flex-col gap-2 mt-10">
       <div class="flex flex-col sm:flex-row gap-10">
         <div
