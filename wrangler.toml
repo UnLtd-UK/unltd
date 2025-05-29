@@ -1,6 +1,6 @@
 name = "unltd"
-pages_build_output_dir = "dist"
 compatibility_date = "2025-05-29"
+main = "./dist/worker/index.js"
 
 [vars]
 DEV = "true"
@@ -22,4 +22,4 @@ RESEND_FROM_EMAIL = "digital@unltd.org.uk"
 FEEDBACK_EMAIL = "tomsheppard@unltd.org.uk"
 
 [assets]
-directory = "./dist"
+directory = "./dist"    
