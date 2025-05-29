@@ -1,5 +1,6 @@
 name = "unltd"
 pages_build_output_dir = "dist"
+compatibility_date = "2025-05-29"
 
 [vars]
 DEV = "true"
@@ -19,3 +20,6 @@ DEV = "false"
 DOMAIN = "dev.unltd.pages.dev"
 RESEND_FROM_EMAIL = "digital@unltd.org.uk"
 FEEDBACK_EMAIL = "tomsheppard@unltd.org.uk"
+
+[assets]
+directory = "./dist"
