@@ -24,7 +24,7 @@ export const forms = [
     {
         name: "Award Enquiries",
         description:
-            "Are you interested in our funding and support offer? Our Award Enquiries form is your first step to all the details.",
+            "If you haven’t been able to find the answer to your question on our website, you can email us",
         icon: "fa-award",
         slug: "award",
         email: "awardapplications@unltd.org.uk",
