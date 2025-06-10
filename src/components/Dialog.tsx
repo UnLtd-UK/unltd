@@ -36,20 +36,37 @@ export default function DialogComponent({ title, description, primaryButton, sec
               </div>
             </div>
             <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                data-autofocus
-                className="cursor-pointer inline-flex w-full justify-center rounded-md bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
-              >{primaryButton.text}
-              </button>
-              <a
-                href={secondaryButton.href}
-                target={secondaryButton.href.startsWith('http') ? '_blank' : '_self'}
-                className="mt-3 inline-flex w-full justify-center rounded-md bg-violet-50 px-3 py-2 text-sm font-semibold text-violet-900 shadow-xs ring-1 ring-violet-300 ring-inset hover:bg-violet-100 sm:mt-0 items-center gap-1"
+              {primaryButton.href ? <a
+                href={primaryButton.href}
+                target={primaryButton.href.startsWith('http') ? '_blank' : '_self'}
+                className="mt-3 inline-flex w-full justify-center rounded-md bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-xs ring-1 ring-violet-300 ring-inset hover:bg-violet-700 sm:mt-0 items-center gap-1"
               >
-                <span>{secondaryButton.text}</span><i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-              </a>
+                <span>{primaryButton.text}</span><i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              </a> :
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  data-autofocus
+                  className="cursor-pointer inline-flex w-full justify-center rounded-md bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
+                >{primaryButton.text}
+                </button>
+              }
+
+              {secondaryButton.href ?
+                <a
+                  href={secondaryButton.href}
+                  target={secondaryButton.href.startsWith('http') ? '_blank' : '_self'}
+                  className="mt-3 inline-flex w-full justify-center rounded-md bg-violet-50 px-3 py-2 text-sm font-semibold text-violet-900 shadow-xs ring-1 ring-violet-300 ring-inset hover:bg-violet-100 sm:mt-0 items-center gap-1"
+                >
+                  <span>{secondaryButton.text}</span><i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </a>
+                : <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  data-autofocus
+                  className="cursor-pointer inline-flex w-full justify-center rounded-md bg-violet-50 px-3 py-2 text-sm font-semibold text-violet-900 ring-1 ring-violet-300 ring-inset shadow-xs hover:bg-violet-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
+                >{secondaryButton.text}
+                </button>}
             </div>
           </DialogPanel>
         </div>

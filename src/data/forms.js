@@ -31,15 +31,14 @@ export const forms = [
         worker: "/enquiries",
         dialog: {
             icon: "fa-solid fa-envelope",
-            title: "Want to email us about Awards?",
+            title: "Before contacting us, please first ensure you've read the information contained on our Awards page",
             description: "If you haven’t been able to find the answer to your question on our website, you can email us.",
             primaryButton: {
-                text: "Email us",
-                href: "mailto:awardapplications@unltd.org.uk"
+                text: "Go to our Awards page",
+                href: "/awards"
             },
             secondaryButton: {
-                text: "Go to our FAQs",
-                href: "/awards#faq",
+                text: "Email us",
             },
         },
         fields: [
