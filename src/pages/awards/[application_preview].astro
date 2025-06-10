@@ -69,7 +69,19 @@ const {
 <Template name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <DialogComponent client:load />
+    <DialogComponent
+      icon="fa-solid fa-magnifying-glass"
+      title="You cannot fill out an application from this page"
+      description="This is a preview of our application form to help you get started. Once you are ready to start your application, go to the application portal where you can start a new application."
+      primaryButton={{
+        text: "Preview application form",
+      }}
+      secondaryButton={{
+        text: "Go to application portal",
+        href: "https://unltd.microsoftcrmportals.com/applications",
+      }}
+      client:load
+    />
     <div class="flex flex-col gap-2 mt-10">
       <div class="flex flex-col sm:flex-row gap-10">
         <div

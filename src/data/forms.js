@@ -22,13 +22,26 @@ export const forms = [
         ],
     },
     {
-        name: "Award Enquiries",
+        name: "Awards Enquiries",
         description:
             "If you haven’t been able to find the answer to your question on our website, you can email us",
         icon: "fa-award",
-        slug: "award",
+        slug: "awards",
         email: "awardapplications@unltd.org.uk",
         worker: "/enquiries",
+        dialog: {
+            icon: "fa-solid fa-envelope",
+            title: "Want to email us about Awards?",
+            description: "If you haven’t been able to find the answer to your question on our website, you can email us.",
+            primaryButton: {
+                text: "Email us",
+                href: "mailto:awardapplications@unltd.org.uk"
+            },
+            secondaryButton: {
+                text: "Go to our FAQs",
+                href: "/awards#faq",
+            },
+        },
         fields: [
             { component: "Input", name: "Full name", type: "text", required: true },
             { component: "Input", name: "Email", type: "email", required: true },
