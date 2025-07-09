@@ -113,6 +113,15 @@ import { banner } from "@data/banner";
       crossorigin="anonymous"></script>
   </head>
   <body class={`dark ${palette["UnLtd"].bg}`}>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-PJPL5LBR"
+        height="0"
+        width="0"
+        style="display:none;visibility:hidden"></iframe></noscript
+    >
+    <!-- End Google Tag Manager (noscript) -->
     <div class="flex flex-col justify-between h-full">
       {banner.status === "published" && <Banner banner={banner} />}
 
