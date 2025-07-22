@@ -12,15 +12,21 @@ import { pages } from "@data/pages.js";
 
 export async function getStaticPaths() {
   return pages.map((page) => {
+    // Use the slug field if it exists and is not empty, otherwise use the page name
+    const pageSlug =
+      page.slug && page.slug.trim() !== ""
+        ? page.slug
+        : slugify(page.name, {
+            lower: true,
+            strict: true,
+            locale: "en",
+            trim: true,
+          });
+
     let breadcrumbs = [
       {
         name: page.name,
-        path: `/${slugify(page.name, {
-          lower: true,
-          strict: true,
-          locale: "en",
-          trim: true,
-        })}`,
+        path: `/${pageSlug}`,
       },
     ];
 
@@ -28,12 +34,7 @@ export async function getStaticPaths() {
 
     let item = {
       params: {
-        page: slugify(page.name, {
-          lower: true,
-          strict: true,
-          locale: "en",
-          trim: true,
-        }),
+        page: pageSlug,
       },
       props: {
         ...page,
@@ -52,7 +53,7 @@ const { name, description, body, breadcrumbs } = Astro.props;
     <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Default name={name} description={description} />
     <div class="pb-20">
-    <Content body={body} />
-  </div>
+      <Content body={body} />
+    </div>
   </Container>
 </Template>
