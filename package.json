@@ -24,7 +24,7 @@
     "@astrojs/mdx": "^4.3.1",
     "@astrojs/react": "^4.3.0",
     "@astrojs/sitemap": "^3.4.1",
-    "@clerk/astro": "^2.10.8",
+    "@clerk/astro": "^2.10.10",
     "@daviddarnes/storage-form": "^2.0.1",
     "@directus/sdk": "^20.0.0",
     "@fontsource-variable/caveat": "^5.2.6",
@@ -33,7 +33,7 @@
     "@fontsource-variable/montserrat": "^5.2.6",
     "@fontsource-variable/outfit": "^5.2.6",
     "@fontsource-variable/unbounded": "^5.2.6",
-    "@headlessui/react": "2.2.4",
+    "@headlessui/react": "2.2.5",
     "@heroicons/react": "^2.2.0",
     "@react-email/components": "^0.3.2",
     "@tailwindcss/vite": "^4.1.11",
@@ -41,7 +41,7 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "alpinejs": "^3.14.9",
-    "astro": "^5.12.1",
+    "astro": "^5.12.3",
     "boring-avatars": "^2.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -70,6 +70,6 @@
     "@tailwindcss/typography": "^0.5.16",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.0.1",
-    "wrangler": "^4.25.0"
+    "wrangler": "^4.26.0"
   }
 }
