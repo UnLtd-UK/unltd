@@ -117,6 +117,13 @@ const styles = {
               })
           }
         </div>
+        <a
+          class="text-sm font-semibold leading-6 text-slate-900 dark:text-slate-300"
+          href="#"
+          onclick="localStorage.removeItem('_zaraz_consent'); location.reload(); return false;"
+        >
+          Cookie Settings
+        </a>
         <div class="md:grid md:grid-cols-2 md:gap-8">
           {
             nav.footer.links &&
