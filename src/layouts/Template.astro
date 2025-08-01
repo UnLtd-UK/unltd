@@ -18,6 +18,24 @@ import { banner } from "@data/banner";
 <!doctype html>
 <html lang="en" class="h-full scroll-smooth">
   <head>
+    <script data-cookieconsent="ignore">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("consent", "default", {
+        ad_personalization: "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        analytics_storage: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "granted",
+        wait_for_update: 500,
+      });
+      gtag("set", "ads_data_redaction", true);
+      gtag("set", "url_passthrough", false);
+    </script>
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
@@ -83,6 +101,12 @@ import { banner } from "@data/banner";
         style="display:none;visibility:hidden"></iframe></noscript
     >
     <!-- End Google Tag Manager (noscript) -->
+
+    <script
+      id="CookieDeclaration"
+      src="https://consent.cookiebot.com/7ba79abb-42fc-4170-a281-32026e91ffa9/cd.js"
+      type="text/javascript"
+      async></script>
 
     <div class="flex flex-col justify-between h-full">
       {banner.status === "published" && <Banner banner={banner} />}
