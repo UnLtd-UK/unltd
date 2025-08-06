@@ -7,6 +7,13 @@
     "binding": "ASSETS",
     "not_found_handling": "404-page"
   },
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "worker.unltd.org.uk/*",
+      "zone_name": "worker.unltd.org.uk"
+    }
+  ],
   "vars": {
     "DEV": "true",
     "DOMAIN": "localhost:8788",
@@ -17,18 +24,30 @@
     "production": {
       "vars": {
         "DEV": "false",
-        "DOMAIN": "unltd.pages.dev",
+        "DOMAIN": "worker.unltd.org.uk",
         "RESEND_FROM_EMAIL": "digital@unltd.org.uk",
         "FEEDBACK_EMAIL": "tomsheppard@unltd.org.uk"
-      }
+      },
+      "routes": [
+        {
+          "pattern": "unltd.org.uk/*",
+          "zone_name": "unltd.org.uk"
+        }
+      ]
     },
     "preview": {
       "vars": {
         "DEV": "false",
-        "DOMAIN": "dev.unltd.pages.dev",
+        "DOMAIN": "workerdev.unltd.org.uk",
         "RESEND_FROM_EMAIL": "digital@unltd.org.uk",
         "FEEDBACK_EMAIL": "tomsheppard@unltd.org.uk"
-      }
+      },
+      "routes": [
+        {
+          "pattern": "workerdev.unltd.org.uk/*",
+          "zone_name": "worker.unltd.org.uk"
+        }
+      ]
     }
   }
 }
