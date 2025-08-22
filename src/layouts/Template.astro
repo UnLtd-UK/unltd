@@ -57,6 +57,11 @@ import { banner } from "@data/banner";
       crossorigin="anonymous"></script>
   </head>
   <body class={`dark ${palette["UnLtd"].bg}`}>
+    <elevenlabs-convai agent-id="agent_3101k39xmckgfc9s1dgqzrzjwzv9"
+    ></elevenlabs-convai><script
+      src="https://unpkg.com/@elevenlabs/convai-widget-embed"
+      async
+      type="text/javascript"></script>
     <div class="flex flex-col justify-between h-full">
       {banner.status === "published" && <Banner banner={banner} />}
 
