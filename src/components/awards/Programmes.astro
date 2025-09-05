@@ -137,7 +137,7 @@ const publishedProgrammes = programmes.filter(
                   <h3
                     class={`${session.programme?.name && palette[session.programme.name] ? `${palette[session.programme.name].text2}` : ""} text-sm font-semibold leading-6 text-violet-900`}
                   >
-                    <a href={session.link}>
+                    <a href={session.link} target="_blank">
                       <span class={`absolute inset-0`} />
                       {session.name}
                     </a>
