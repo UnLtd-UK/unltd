@@ -7,11 +7,15 @@
     "binding": "ASSETS",
     "not_found_handling": "404-page"
   },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  },
   "workers_dev": false,
   "routes": [
     {
-      "pattern": "worker.unltd.org.uk/*",
-      "zone_name": "worker.unltd.org.uk"
+      "pattern": "worker.unltd.org.uk",
+      "custom_domain": true
     }
   ],
   "vars": {
@@ -30,8 +34,8 @@
       },
       "routes": [
         {
-          "pattern": "unltd.org.uk/*",
-          "zone_name": "unltd.org.uk"
+          "pattern": "unltd.org.uk",
+          "custom_domain": true
         }
       ]
     },
@@ -44,8 +48,8 @@
       },
       "routes": [
         {
-          "pattern": "workerdev.unltd.org.uk/*",
-          "zone_name": "worker.unltd.org.uk"
+          "pattern": "workerdev.unltd.org.uk",
+          "custom_domain": true
         }
       ]
     }
