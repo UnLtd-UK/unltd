@@ -2,69 +2,118 @@
 import moment from "moment";
 let todayDate = moment();
 
-const { from, till, styles } = Astro.props;
+const { from, till, styles, label } = Astro.props;
+
+// Helper function to determine label-based colors
+const getLabelColors = (labelText) => {
+    // Set colors based on specific label content
+    if (labelText?.includes("Open")) {
+        return {
+            bgColor: "bg-green-100",
+            textColor: "text-green-700",
+            iconColor: "text-green-700",
+        };
+    } else if (labelText?.includes("Nearly Full")) {
+        return {
+            bgColor: "bg-yellow-100",
+            textColor: "text-yellow-700",
+            iconColor: "text-yellow-700",
+        };
+    } else if (labelText?.includes("Closed")) {
+        return {
+            bgColor: "bg-red-100",
+            textColor: "text-red-700",
+            iconColor: "text-red-700",
+        };
+    } else {
+        // Default if the label doesn't match any known pattern
+        return {
+            bgColor: "bg-blue-100",
+            textColor: "text-blue-700",
+            iconColor: "text-blue-700",
+        };
+    }
+};
+
+// Helper function to determine the status and classes if no label is provided
+const getDefaultStatus = () => {
+    if (todayDate.isBefore(from)) {
+        return {
+            text: "Opens soon",
+            bgColor: "bg-blue-100",
+            textColor: "text-blue-700",
+            iconColor: "text-blue-700",
+            message: `Programme opens ${moment(from).format("dddd hh:mma, MMMM Do YYYY")}`,
+        };
+    } else if (
+        todayDate.isAfter(from) &&
+        todayDate.isBefore(till) &&
+        moment().diff(till, "days") < -90
+    ) {
+        return {
+            text: "Open",
+            bgColor: "bg-green-100",
+            textColor: "text-green-700",
+            iconColor: "text-green-700",
+            message: "",
+        };
+    } else if (
+        todayDate.isAfter(from) &&
+        todayDate.isBefore(till) &&
+        moment().diff(till, "days") > -90
+    ) {
+        return {
+            text: "Closes soon",
+            bgColor: "bg-yellow-100",
+            textColor: "text-yellow-700",
+            iconColor: "text-yellow-700",
+            message: `Programme closes ${moment(till).format("dddd hh:mma, MMMM Do YYYY")}`,
+        };
+    } else {
+        return {
+            text: "Closed",
+            bgColor: "bg-red-100",
+            textColor: "text-red-700",
+            iconColor: "text-red-700",
+            message: `Programme closed ${moment(till).format("dddd hh:mma, MMMM Do YYYY")}`,
+        };
+    }
+};
 ---
 
 <div>
     {
         () => {
-            if (todayDate.isBefore(from)) {
-                return (
-                    <div class="flex items-center gap-2">
-                        <span class="inline-flex items-center rounded-full gap-1 bg-blue-100 px-3 py-0.5 text-sm font-medium text-blue-700">
-                            <i class="fa-solid fa-circle text-blue-700 text-xs" />
-                            Opens soon
-                        </span>
-                        <p class={`text-xs ${styles.text2}`}>
-                            Programme opens
-                            {moment(from).format("dddd hh:mma, MMMM Do YYYY")}
-                        </p>
-                    </div>
-                );
-            } else if (
-                todayDate.isAfter(from) &&
-                todayDate.isBefore(till) &&
-                moment().diff(till, "days") < -90
-            ) {
-                return (
-                    <div class="flex items-center gap-2">
-                        <span class="inline-flex items-center rounded-full gap-1 bg-green-100 px-3 py-0.5 text-xs font-medium text-green-700">
-                            <i class="fa-solid fa-circle text-green-700 text-xs" />
-                            Open
-                        </span>
-                    </div>
-                );
-            } else if (
-                todayDate.isAfter(from) &&
-                todayDate.isBefore(till) &&
-                moment().diff(till, "days") > -90
-            ) {
-                return (
-                    <div class="flex items-center gap-2">
-                        <span class="inline-flex items-center rounded-full gap-1 bg-yellow-100 px-3 py-0.5 text-xs font-medium text-yellow-700">
-                            <i class="fa-solid fa-circle text-yellow-700 text-xs" />
-                            Closes soon
-                        </span>
+            // If a label is provided, use it; otherwise, calculate the status
+            const status = label
+                ? {
+                      text: label,
+                      ...getLabelColors(label),
+                      message: todayDate.isBefore(from)
+                          ? `Programme opens ${moment(from).format("dddd hh:mma, MMMM Do YYYY")}`
+                          : todayDate.isAfter(till)
+                            ? `Programme closed ${moment(till).format("dddd hh:mma, MMMM Do YYYY")}`
+                            : "",
+                  }
+                : getDefaultStatus();
+
+            return (
+                <div class="flex items-center gap-2">
+                    <span
+                        class={`inline-flex items-center rounded-full gap-1 ${status.bgColor} px-3 py-0.5 text-xs font-medium ${status.textColor}`}
+                    >
+                        <i
+                            class={`fa-solid fa-circle ${status.iconColor} text-xs`}
+                        />
+                        {status.text}
+                    </span>
+                    {status.message && (
                         <p class={`text-xs ${styles.font} ${styles.text2}`}>
-                            Programme closes
-                            {moment(till).format("dddd hh:mma, MMMM Do YYYY")}
+                            {status.message}
                         </p>
-                    </div>
-                );
-            } else {
-                return (
-                    <div class="flex items-center gap-2">
-                        <span class="inline-flex items-center rounded-full gap-1 bg-red-100 px-3 py-0.5 text-sm font-medium text-red-700">
-                            <i class="fa-solid fa-circle text-red-700 text-xs" />
-                            Closed
-                        </span>
-                        <p class={`text-xs ${styles.font} ${styles.text2}`}>
-                            Programme closed
-                            {moment(till).format("dddd hh:mma, MMMM Do YYYY")}
-                        </p>
-                    </div>
-                );
-            }
+                    )}
+                </div>
+            );
         }
     }
 </div>
