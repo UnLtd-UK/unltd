@@ -67,7 +67,7 @@ export const forms = [
     },
     {
         name: "Partnerships Enquiries",
-        description: "Interested in partnering with us? Use out Partnering Enquiries page if you have any queries.",
+        description: "Interested in partnering with us?  We would love to hear from you.",
         icon: "fa-handshake",
         slug: "partnerships",
         email: "partnerships@unltd.org.uk",
