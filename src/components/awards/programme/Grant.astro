@@ -89,6 +89,21 @@ const { grant, styles } = Astro.props;
           {grant.grants_id.selling_goods_and_services}
         </p>
       </li>
+      {
+        grant.grants_id.minimum_trading_income && (
+          <li class="flex flex-col gap-1">
+            <p class={`truncate text-xs uppercase flex gap-2 items-center`}>
+              <i class={`fa-light fa-display-chart-up ${styles.text2}`} />
+              <span class={`text-xs ${styles.text2}`}>
+                Minimum trading income
+              </span>
+            </p>
+            <p class={`text-xs font-medium tracking-tight ${styles.text}`}>
+              {grant.grants_id.minimum_trading_income}
+            </p>
+          </li>
+        )
+      }
     </ul>
   </div>
 </div>
