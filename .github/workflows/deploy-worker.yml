@@ -1,0 +1,71 @@
+name: Deploy Cloudflare Worker
+
+on:
+    push:
+        branches:
+            - main
+            - dev
+    workflow_dispatch: {}
+    # 09:00 UTC every day.
+    # If you want 09:00 London specifically, remember BST/UTC shifts.
+    schedule:
+        - cron: "0 9 * * *"
+
+jobs:
+    deploy-preview:
+        name: Deploy preview (preview.unltd.org.uk)
+        runs-on: ubuntu-latest
+        # Only run this job when we push to dev
+        if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
+        env:
+            CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+            CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "22"
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build site
+              run: npm run build
+
+            - name: Deploy preview worker
+              run: npx wrangler deploy --env preview
+
+    deploy-production:
+        name: Deploy production (production.unltd.org.uk)
+        runs-on: ubuntu-latest
+        # Run when:
+        # - pushing to main
+        # - OR on the daily schedule
+        # - OR when manually triggered
+        if: >
+            github.ref == 'refs/heads/main'
+            || github.event_name == 'schedule'
+            || github.event_name == 'workflow_dispatch'
+        env:
+            CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+            CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "22"
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build site
+              run: npm run build
+
+            - name: Deploy production worker
+              run: npx wrangler deploy --env production

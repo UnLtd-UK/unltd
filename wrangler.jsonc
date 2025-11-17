@@ -14,10 +14,7 @@
   "workers_dev": false,
   "env": {
     "production": {
-      "vars": {
-        "DEV": "false",
-        "DOMAIN": "production.unltd.org.uk"
-      },
+      "vars": {},
       "routes": [
         {
           "pattern": "production.unltd.org.uk",
@@ -26,10 +23,7 @@
       ]
     },
     "preview": {
-      "vars": {
-        "DEV": "false",
-        "DOMAIN": "preview.unltd.org.uk"
-      },
+      "vars": {},
       "routes": [
         {
           "pattern": "preview.unltd.org.uk",
