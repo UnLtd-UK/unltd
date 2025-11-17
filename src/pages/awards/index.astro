@@ -27,6 +27,9 @@ import Questions from "@components/awards/Questions.astro";
 
 // OTHER
 import moment from "moment";
+import Typeform from "@components/awards/Typeform.astro";
+import Awards from "@components/awards/Awards.astro";
+import Sessions from "@components/awards/Sessions.astro";
 let todayDate = moment();
 
 // let activeGrants = rounds.filter((round) => {
@@ -52,7 +55,10 @@ let todayDate = moment();
     <Breadcrumbs breadcrumbs={breadcrumbs} />
   </Container>
   <Header />
-  <Programmes />
-  <Steps />
-  <Questions />
+  <Awards />
+  <!-- <Programmes /> -->
+  <Typeform />
+  <Sessions />
+  <!-- <Steps /> -->
+  <!-- <Questions /> -->
 </Template>
