@@ -13,7 +13,7 @@ on:
 
 jobs:
   deploy-preview:
-    name: Deploy preview (workerdev.unltd.org.uk)
+    name: Deploy preview (preview.unltd.org.uk)
     runs-on: ubuntu-latest
     # Only run this job when we push to dev
     if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
@@ -39,7 +39,7 @@ jobs:
         run: npx wrangler deploy --env preview
 
   deploy-production:
-    name: Deploy production (unltd.org.uk)
+    name: Deploy production (production.unltd.org.uk)
     runs-on: ubuntu-latest
     # Run when:
     # - pushing to main

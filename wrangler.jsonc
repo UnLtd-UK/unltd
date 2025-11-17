@@ -1,6 +1,6 @@
 {
   "name": "unltd",
-  "compatibility_date": "2025-05-29",
+  "compatibility_date": "2025-11-17",
   "main": "./dist/worker/index.js",
   "assets": {
     "directory": "./dist",
@@ -12,43 +12,21 @@
     "head_sampling_rate": 1
   },
   "workers_dev": false,
-  "routes": [
-    {
-      "pattern": "worker.unltd.org.uk",
-      "custom_domain": true
-    }
-  ],
-  "vars": {
-    "DEV": "true",
-    "DOMAIN": "localhost:8788",
-    "RESEND_FROM_EMAIL": "digital@unltd.org.uk",
-    "FEEDBACK_EMAIL": "tomsheppard@unltd.org.uk"
-  },
   "env": {
     "production": {
-      "vars": {
-        "DEV": "false",
-        "DOMAIN": "worker.unltd.org.uk",
-        "RESEND_FROM_EMAIL": "digital@unltd.org.uk",
-        "FEEDBACK_EMAIL": "tomsheppard@unltd.org.uk"
-      },
+      "vars": {},
       "routes": [
         {
-          "pattern": "unltd.org.uk",
+          "pattern": "production.unltd.org.uk",
           "custom_domain": true
         }
       ]
     },
     "preview": {
-      "vars": {
-        "DEV": "false",
-        "DOMAIN": "workerdev.unltd.org.uk",
-        "RESEND_FROM_EMAIL": "digital@unltd.org.uk",
-        "FEEDBACK_EMAIL": "tomsheppard@unltd.org.uk"
-      },
+      "vars": {},
       "routes": [
         {
-          "pattern": "workerdev.unltd.org.uk",
+          "pattern": "preview.unltd.org.uk",
           "custom_domain": true
         }
       ]

@@ -15,10 +15,8 @@
     "clear": "rimraf ./src/data/cache/*.json",
     "check": "npx npm-check-updates -u",
     "up": "npm install && npm update && npm upgrade",
-    "wrangler": "npx wrangler dev --local",
-    "deploy": "npx wrangler deploy --env=\"\"",
-    "deploy:prod": "npx wrangler deploy --env=production",
-    "deploy:preview": "npx wrangler deploy --env=preview"
+    "deploy:preview": "npm run build && wrangler deploy --env preview",
+    "deploy:prod": "npm run build && wrangler deploy --env production"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.9",

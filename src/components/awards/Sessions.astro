@@ -1,0 +1,231 @@
+---
+import slugify from "slugify";
+
+import { programmes } from "@data/programmes.js";
+import {
+    programmeEvents as fetchedProgrammeEvents,
+    isPastEvent,
+    sortEvents,
+} from "@data/eventCollections";
+import Container from "@components/Container.astro";
+
+// Filter programmes to only show those with 'published' status
+const publishedProgrammes = programmes.filter(
+    (programme) => programme.status === "published",
+);
+
+const EVENTBRITE_PROGRAMMES_COLLECTION_URL =
+    typeof process !== "undefined" &&
+    process.env.EVENTBRITE_PROGRAMMES_COLLECTION_URL
+        ? process.env.EVENTBRITE_PROGRAMMES_COLLECTION_URL
+        : (import.meta.env.EVENTBRITE_PROGRAMMES_COLLECTION_URL ??
+          "https://www.eventbrite.com/cc/for-social-entrepreneurs-4794111");
+
+const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
+    (event) => event.start?.local && !isPastEvent(event),
+);
+---
+
+<Container bg="bg-violet-50 dark:bg-violet-900">
+    <div class="flex flex-col gap-10 py-10">
+        <div class="flex flex-col gap-10 py-20">
+            <div class="max-w-4xl">
+                <h2
+                    id="sessions"
+                    class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
+                >
+                    Sessions
+                </h2>
+                <p
+                    class="mt-6 max-w-2xl text-lg leading-8 text-violet-800 dark:text-violet-300"
+                >
+                    We run regular information sessions on our programmes, where
+                    you will get an overview of what to expect, the support
+                    available, and the application process. You will also have
+                    the chance to ask any questions. In addition, we host
+                    Connect and Share sessions, an opportunity to meet existing
+                    Award Winners, hear about their experiences, and learn
+                    directly from their journeys.
+                </p>
+            </div>
+            {
+                programmeEvents.length > 0 ? (
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+                        {programmeEvents.map((event) => {
+                            const startDate = new Date(event.start.local);
+                            const endDate = event.end?.local
+                                ? new Date(event.end.local)
+                                : null;
+                            const description =
+                                event.summary ?? event.description?.text ?? "";
+                            const truncatedDescription =
+                                description.length > 160
+                                    ? `${description.substring(0, 157).trimEnd()}...`
+                                    : description;
+                            const locationLabel = event.online_event
+                                ? "Online"
+                                : (event.venue?.name ??
+                                  "Venue to be confirmed");
+                            const statusLabel = event.status
+                                ? event.status.replace(/_/g, " ")
+                                : "Event";
+                            const dateLabel = startDate.toLocaleDateString(
+                                "en-GB",
+                                {
+                                    weekday: "long",
+                                    day: "numeric",
+                                    month: "long",
+                                    year: "numeric",
+                                },
+                            );
+                            const startTime = startDate.toLocaleTimeString(
+                                "en-GB",
+                                {
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                },
+                            );
+                            const endTime = endDate
+                                ? endDate.toLocaleTimeString("en-GB", {
+                                      hour: "2-digit",
+                                      minute: "2-digit",
+                                  })
+                                : null;
+                            const timeLabel = endTime
+                                ? `${startTime} – ${endTime}`
+                                : startTime;
+                            const timezoneLabel = event.start?.timezone
+                                ? ` ${event.start.timezone}`
+                                : "";
+                            const locationIconClass = event.online_event
+                                ? "fa-solid fa-video"
+                                : "fa-solid fa-location-dot";
+                            const attendanceIconClass = event.online_event
+                                ? "fa-solid fa-laptop"
+                                : "fa-solid fa-people-group";
+                            const attendanceLabel = event.online_event
+                                ? "Virtual session"
+                                : "In-person session";
+                            const headerWeekday = startDate.toLocaleDateString(
+                                "en-GB",
+                                {
+                                    weekday: "short",
+                                },
+                            );
+                            const headerMonth = startDate.toLocaleDateString(
+                                "en-GB",
+                                {
+                                    month: "short",
+                                },
+                            );
+
+                            return (
+                                <article class="group relative flex flex-col overflow-hidden rounded-2xl border border-violet-200 bg-white/90 shadow-sm transition duration-500 hover:-translate-y-2 hover:shadow-2xl dark:border-violet-900/60 dark:bg-violet-950/80">
+                                    <div class="relative flex items-center gap-4 bg-linear-to-r from-violet-900 to-amber-900 p-6 text-violet-50">
+                                        <div class="flex h-16 w-16 flex-col items-center justify-center rounded-xl bg-violet-950/40 text-xs font-semibold uppercase tracking-wide">
+                                            <span>{headerWeekday}</span>
+                                            <span class="text-2xl font-bold leading-none">
+                                                {startDate.getDate()}
+                                            </span>
+                                            <span>{headerMonth}</span>
+                                        </div>
+                                        <div class="flex flex-1 flex-col gap-1">
+                                            <span class="text-xs font-semibold uppercase tracking-[0.18em] text-violet-100/70">
+                                                {statusLabel}
+                                            </span>
+                                            <h3 class="text-md font-semibold leading-tight">
+                                                <a
+                                                    href={event.url}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    class="relative inline-flex items-start gap-2 pr-8 text-violet-50 transition-colors duration-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                                                >
+                                                    <span class="absolute inset-0" />
+                                                    {event.name.text}
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        <span
+                                            class="pointer-events-none absolute -right-10 top-1/2 hidden h-32 w-32 -translate-y-1/2 rounded-full bg-white/20 blur-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 md:block"
+                                            aria-hidden="true"
+                                        />
+                                    </div>
+                                    <div class="flex flex-1 flex-col gap-5 p-6">
+                                        {truncatedDescription && (
+                                            <p class="text-sm leading-relaxed text-violet-800 dark:text-violet-200">
+                                                {truncatedDescription}
+                                            </p>
+                                        )}
+                                        <dl class="grid gap-3 text-sm text-violet-700 dark:text-violet-200">
+                                            <div class="flex items-center gap-2">
+                                                <i
+                                                    class="fa-regular fa-calendar-days text-violet-500"
+                                                    aria-hidden="true"
+                                                />
+                                                <span>{dateLabel}</span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <i
+                                                    class="fa-regular fa-clock text-violet-500"
+                                                    aria-hidden="true"
+                                                />
+                                                <span>
+                                                    {timeLabel}
+                                                    {timezoneLabel}
+                                                </span>
+                                            </div>
+                                            <div class="flex items-center gap-2">
+                                                <i
+                                                    class={`${locationIconClass} text-violet-500`}
+                                                    aria-hidden="true"
+                                                />
+                                                <span>{locationLabel}</span>
+                                            </div>
+                                        </dl>
+                                        <div class="mt-auto flex items-center justify-between gap-3 border-t border-violet-100 pt-4 text-xs font-semibold uppercase tracking-[0.24em] text-violet-600 dark:border-violet-900/60 dark:text-violet-300">
+                                            <span class="flex items-center gap-2">
+                                                <i
+                                                    class={`${attendanceIconClass} text-violet-500`}
+                                                    aria-hidden="true"
+                                                />
+                                                {attendanceLabel}
+                                            </span>
+                                            <a
+                                                href={event.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="inline-flex items-center gap-2 rounded-full bg-violet-900 px-4 py-2 text-xs text-violet-50 transition duration-300 hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500 dark:bg-violet-700 dark:hover:bg-violet-500 whitespace-nowrap tracking-normal normal-case"
+                                            >
+                                                Reserve spot
+                                                <i
+                                                    class="fa-solid fa-arrow-up-right-from-square text-xs"
+                                                    aria-hidden="true"
+                                                />
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                            );
+                        })}
+                    </div>
+                ) : (
+                    <div class="rounded-xl border border-violet-200 bg-violet-50 p-6 text-violet-900">
+                        <p>
+                            We do not have any upcoming sessions scheduled right
+                            now. Please check our Eventbrite collection for the
+                            latest dates.
+                        </p>
+                        <a
+                            href={EVENTBRITE_PROGRAMMES_COLLECTION_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-violet-900 hover:text-violet-700 transition-colors duration-200"
+                        >
+                            Browse events on Eventbrite >
+                        </a>
+                    </div>
+                )
+            }
+        </div>
+    </div>
+</Container>
