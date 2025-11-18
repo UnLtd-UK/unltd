@@ -6,16 +6,13 @@ on:
       - main
       - dev
   workflow_dispatch: {}
-  # 09:00 UTC every day.
-  # If you want 09:00 London specifically, remember BST/UTC shifts.
+  # 09:00 UTC (09:00 GMT year-round)
   schedule:
-    # - cron: "0 9 * * *"
-    - cron: "25 0 * * *" # winter
-    - cron: "25 23 * * *" # summer
+    - cron: "0 9 * * *"
 
 jobs:
   deploy-preview:
-    name: Deploy preview (preview.unltd.org.uk)
+    name: Deploy preview.unltd.org.uk
     runs-on: ubuntu-latest
     # Only run this job when we push to dev
     if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
@@ -41,7 +38,7 @@ jobs:
         run: npx wrangler deploy --env preview
 
   deploy-production:
-    name: Deploy production (production.unltd.org.uk)
+    name: Deploy production.unltd.org.uk
     runs-on: ubuntu-latest
     # Run when:
     # - pushing to main
