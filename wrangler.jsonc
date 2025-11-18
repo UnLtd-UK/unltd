@@ -32,9 +32,9 @@
       ]
     },
     "preview": {
-  "vars": {
-    "DEV": "true"
-  },
+    "vars": {
+      "DEV": "true"
+    },
       "routes": [
         {
           "pattern": "preview.unltd.org.uk",
