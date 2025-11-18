@@ -88,7 +88,7 @@ function extractValueFromEnvFile(contents: string, key: string): string | undefi
 }
 
 async function resolveEventbriteToken(env: RuntimeEnv): Promise<string | undefined> {
-  const tokenKeys = ["EVENTBRITE_PRIVATE_TOKEN", "EVENTBRITE_API_TOKEN"];
+  const tokenKeys = ["EVENTBRITE_PRIVATE_TOKEN"];
 
   for (const key of tokenKeys) {
     const value = env[key];
