@@ -38,7 +38,7 @@ jobs:
         run: npx wrangler deploy --env preview
 
   deploy-production:
-    name: Deploy production.unltd.org.uk
+    name: Deploy unltd.org.uk
     runs-on: ubuntu-latest
     # Run when:
     # - pushing to main

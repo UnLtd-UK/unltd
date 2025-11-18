@@ -11,14 +11,18 @@
     "enabled": true,
     "head_sampling_rate": 1
   },
-  "workers_dev": false,
+  "workers_dev": true,
   "env": {
     "production": {
       "vars": {},
       "routes": [
         {
-          "pattern": "production.unltd.org.uk",
+          "pattern": "unltd.org.uk",
           "custom_domain": true
+        },
+        { 
+          "pattern": "www.unltd.org.uk",
+          "custom_domain": true 
         }
       ]
     },
