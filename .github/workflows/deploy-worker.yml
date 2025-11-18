@@ -9,7 +9,9 @@ on:
   # 09:00 UTC every day.
   # If you want 09:00 London specifically, remember BST/UTC shifts.
   schedule:
-    - cron: "0 9 * * *"
+    # - cron: "0 9 * * *"
+    - cron: "10 0 * * *" # winter
+    - cron: "10 23 * * *" # summer
 
 jobs:
   deploy-preview:
@@ -27,7 +29,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
 
       - name: Install dependencies
         run: npm ci
@@ -59,7 +61,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
 
       - name: Install dependencies
         run: npm ci
