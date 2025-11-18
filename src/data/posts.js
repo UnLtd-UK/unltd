@@ -2,13 +2,48 @@ import { getCollection } from './load.js';
 
 const collection = "posts";
 const name = "posts";
-const branch = process.env.CF_PAGES_BRANCH || 'local';
+function getRuntimeEnv() {
+    const globalContext = globalThis;
 
-console.log(`Branch: ${branch}`);
+    if (globalContext?.context?.env) {
+        return globalContext.context.env;
+    }
 
-const isProd = branch === 'main' && true || false;
+    if (globalContext?.context?.locals?.env) {
+        return globalContext.context.locals.env;
+    }
 
-console.log(`Production: ${isProd}`)
+    if (typeof process !== "undefined" && typeof process.env !== "undefined") {
+        return process.env;
+    }
+
+    if (typeof import.meta !== "undefined" && typeof import.meta.env !== "undefined") {
+        return import.meta.env;
+    }
+
+    return {};
+}
+
+function isTruthy(value) {
+    if (typeof value !== "string") {
+        return Boolean(value);
+    }
+
+    switch (value.trim().toLowerCase()) {
+        case "1":
+        case "true":
+        case "yes":
+        case "on":
+            return true;
+        default:
+            return false;
+    }
+}
+
+const runtimeEnv = getRuntimeEnv();
+const isDev = isTruthy(runtimeEnv.DEV);
+
+console.log(`DEV mode: ${isDev}`);
 
 // Function to get current time in British timezone (either GMT or BST depending on DST)
 function getBritishTime() {
@@ -61,28 +96,28 @@ console.log(`British Current Time: ${britishTime.currentTime}`);
 const filterOptions = {
     sort: ['-date_time'],
     limit: -1,
-    filter: isProd ?
+    filter: isDev ?
+        {
+            status: {
+                _in: ["published", "draft"]
+            }
+        } :
         {
             status: {
                 _eq: "published"
             },
             date_time: {
-                _lte: britishTime.currentTime // Use current time instead of end-of-day
-            }
-        } :
-        {
-            status: {
-                _in: ["published", "draft"]
+                _lte: britishTime.currentTime
             }
         }
-}
+};
 
 const attach = false;
 
 const posts = await getCollection(collection, name, filterOptions, attach);
 
 // Debug output - show what posts we have and their dates
-if (isProd) {
+if (!isDev) {
     console.log(`DEBUG: Found ${posts.length} posts`);
     posts.forEach((post, i) => {
         if (i < 5) { // Just show the first few posts to avoid log spam

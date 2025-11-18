@@ -12,9 +12,14 @@
     "head_sampling_rate": 1
   },
   "workers_dev": true,
+  "vars": {
+    "DEV": "true"
+  },
   "env": {
     "production": {
-      "vars": {},
+  "vars": {
+    "DEV": "false"
+  },
       "routes": [
         {
           "pattern": "unltd.org.uk",
@@ -27,7 +32,9 @@
       ]
     },
     "preview": {
-      "vars": {},
+  "vars": {
+    "DEV": "true"
+  },
       "routes": [
         {
           "pattern": "preview.unltd.org.uk",
