@@ -1,7 +1,6 @@
 import { getCollection } from './load.js';
 
-console.log("NAME: ", env.BRANCH_NAME);
-console.log("NAME2: ", process.env.BRANCH_NAME);
+console.log("NAME: ", process.env.BRANCH_NAME);
 
 const collection = "posts";
 const name = "posts";
