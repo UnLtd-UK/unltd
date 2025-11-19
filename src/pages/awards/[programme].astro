@@ -70,16 +70,16 @@ const { programme } = Astro.props;
   </Container>
   <Intro programme={programme} styles={palette[programme.name]} />
 
-  <!-- <Criteria
+  <Criteria
     programme={programme}
     styles={palette[programme.name]}
     age={programme.age}
     geography={programme.geography}
     focus={programme.focus}
     stage={programme.stage}
-  /> -->
+  />
 
-  <!-- <Grants styles={palette[programme.name]} programme={programme} /> -->
+  <Grants styles={palette[programme.name]} programme={programme} />
 
   {
     (programme.videos.length > 0 ||
@@ -95,12 +95,12 @@ const { programme } = Astro.props;
     programme={programme}
   />
 
-  <!-- <Banner styles={palette[programme.name]} programme={programme} /> -->
+  <Banner styles={palette[programme.name]} programme={programme} />
 
-  <!-- <Other
+  <Other
     current={programme}
     programmes={programmes}
     styles={palette[programme.name]}
     name={programme.name}
-  /> -->
+  />
 </Template>
