@@ -13,10 +13,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "clear": "rimraf ./src/data/cache/*.json",
-    "check": "npx npm-check-updates -u",
-    "up": "npm install && npm update && npm upgrade",
-    "deploy:preview": "npm run build && wrangler deploy --env preview",
-    "deploy:prod": "npm run build && wrangler deploy --env production"
+    "update": "npx npm-check-updates -u",
+    "deploy:preview": "astro build && wrangler deploy --env preview",
+    "deploy:prod": "astro build && wrangler deploy --env production"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.9",
@@ -58,7 +57,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.6",
-    "resend": "^6.5.0",
+    "resend": "^6.5.1",
     "slugify": "^1.6.6",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.17",

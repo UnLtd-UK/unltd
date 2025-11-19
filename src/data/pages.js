@@ -3,18 +3,20 @@ import { getCollection } from './load.js';
 const collection = "pages";
 const name = "pages";
 
-const branch = process.env.CF_PAGES_BRANCH || 'local';
-const isProd = branch === 'main';
+const branch = process.env.BRANCH_NAME || 'local';
+console.log(`Branch: ${branch}`);
+const isMainBranch = branch === 'main';
+const statusFilter = isMainBranch
+    ? { _eq: 'published' }
+    : {
+        _in: branch === 'dev'
+            ? ['published', 'draft']
+            : ['published', 'draft', 'archived']
+    };
 
 const filterOptions = {
     filter: {
-        status: isProd
-            ? {
-                _eq: 'published'
-            }
-            : {
-                _in: ['published', 'draft']
-            }
+        status: statusFilter
     },
     fields: ['*'],
 }

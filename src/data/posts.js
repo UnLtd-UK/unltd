@@ -2,48 +2,17 @@ import { getCollection } from './load.js';
 
 const collection = "posts";
 const name = "posts";
-function getRuntimeEnv() {
-    const globalContext = globalThis;
-
-    if (globalContext?.context?.env) {
-        return globalContext.context.env;
-    }
-
-    if (globalContext?.context?.locals?.env) {
-        return globalContext.context.locals.env;
-    }
-
-    if (typeof process !== "undefined" && typeof process.env !== "undefined") {
-        return process.env;
-    }
-
-    if (typeof import.meta !== "undefined" && typeof import.meta.env !== "undefined") {
-        return import.meta.env;
-    }
-
-    return {};
-}
-
-function isTruthy(value) {
-    if (typeof value !== "string") {
-        return Boolean(value);
-    }
-
-    switch (value.trim().toLowerCase()) {
-        case "1":
-        case "true":
-        case "yes":
-        case "on":
-            return true;
-        default:
-            return false;
-    }
-}
-
-const runtimeEnv = getRuntimeEnv();
-const isDev = isTruthy(runtimeEnv.DEV);
-
-console.log(`DEV mode: ${isDev}`);
+const branch = process.env.BRANCH_NAME || 'local';
+console.log(`Branch: ${branch}`);
+const isMainBranch = branch === 'main';
+const isDevBranch = branch === 'dev';
+const statusFilter = isMainBranch
+    ? { _eq: 'published' }
+    : {
+        _in: isDevBranch
+            ? ['published', 'draft']
+            : ['published', 'draft', 'archived']
+    };
 
 // Function to get current time in British timezone (either GMT or BST depending on DST)
 function getBritishTime() {
@@ -96,28 +65,24 @@ console.log(`British Current Time: ${britishTime.currentTime}`);
 const filterOptions = {
     sort: ['-date_time'],
     limit: -1,
-    filter: isDev ?
-        {
-            status: {
-                _in: ["published", "draft"]
-            }
-        } :
-        {
-            status: {
-                _eq: "published"
-            },
+    filter: isMainBranch
+        ? {
+            status: statusFilter,
             date_time: {
-                _lte: britishTime.currentTime
+                _lte: britishTime.currentTime // Use current time instead of end-of-day
             }
         }
-};
+        : {
+            status: statusFilter
+        }
+}
 
 const attach = false;
 
 const posts = await getCollection(collection, name, filterOptions, attach);
 
 // Debug output - show what posts we have and their dates
-if (!isDev) {
+if (isMainBranch) {
     console.log(`DEBUG: Found ${posts.length} posts`);
     posts.forEach((post, i) => {
         if (i < 5) { // Just show the first few posts to avoid log spam
