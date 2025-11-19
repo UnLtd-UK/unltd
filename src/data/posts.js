@@ -1,16 +1,18 @@
 import { getCollection } from './load.js';
 
-console.log("NAME: ", process.env.BRANCH_NAME);
-
 const collection = "posts";
 const name = "posts";
-const branch = process.env.CF_PAGES_BRANCH || 'local';
-
+const branch = process.env.BRANCH_NAME || 'local';
 console.log(`Branch: ${branch}`);
-
-const isProd = branch === 'main' && true || false;
-
-console.log(`Production: ${isProd}`)
+const isMainBranch = branch === 'main';
+const isDevBranch = branch === 'dev';
+const statusFilter = isMainBranch
+    ? { _eq: 'published' }
+    : {
+        _in: isDevBranch
+            ? ['published', 'draft']
+            : ['published', 'draft', 'archived']
+    };
 
 // Function to get current time in British timezone (either GMT or BST depending on DST)
 function getBritishTime() {
@@ -63,19 +65,15 @@ console.log(`British Current Time: ${britishTime.currentTime}`);
 const filterOptions = {
     sort: ['-date_time'],
     limit: -1,
-    filter: isProd ?
-        {
-            status: {
-                _eq: "published"
-            },
+    filter: isMainBranch
+        ? {
+            status: statusFilter,
             date_time: {
                 _lte: britishTime.currentTime // Use current time instead of end-of-day
             }
-        } :
-        {
-            status: {
-                _in: ["published", "draft"]
-            }
+        }
+        : {
+            status: statusFilter
         }
 }
 
@@ -84,7 +82,7 @@ const attach = false;
 const posts = await getCollection(collection, name, filterOptions, attach);
 
 // Debug output - show what posts we have and their dates
-if (isProd) {
+if (isMainBranch) {
     console.log(`DEBUG: Found ${posts.length} posts`);
     posts.forEach((post, i) => {
         if (i < 5) { // Just show the first few posts to avoid log spam
