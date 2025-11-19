@@ -1,6 +1,9 @@
 ---
 const { name, image, description, published, author, tag, status } =
     Astro.props.frontmatter || Astro.props;
+
+const isScheduled =
+    status === "published" && new Date(published).getTime() > Date.now();
 ---
 
 <section
@@ -28,7 +31,7 @@ const { name, image, description, published, author, tag, status } =
     <div class="flex flex-col gap-4 basis-1/2">
         <div class="flex items-center">
             <span
-                class="rounded-full text-xs bg-violet-100 dark:bg-violet-800 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-300 border-1 border-violet-600"
+                class="rounded-full text-xs bg-violet-100 dark:bg-violet-800 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-300 border border-violet-600"
             >
                 {tag}
             </span>
@@ -36,6 +39,13 @@ const { name, image, description, published, author, tag, status } =
                 status === "draft" && (
                     <span class="ml-2 relative z-10 rounded-full bg-red-100 dark:bg-red-900 px-3 py-1.5 font-medium text-red-600 dark:text-red-300">
                         DRAFT
+                    </span>
+                )
+            }
+            {
+                isScheduled && (
+                    <span class="ml-2 relative z-10 rounded-full bg-blue-100 dark:bg-blue-900 px-3 py-1.5 font-medium text-blue-600 dark:text-blue-300">
+                        SCHEDULED
                     </span>
                 )
             }

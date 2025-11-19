@@ -1,6 +1,9 @@
 ---
 const { title, slug, image, published, tag, description, author, status } =
     Astro.props;
+
+const isScheduled =
+    status === "published" && new Date(published).getTime() > Date.now();
 ---
 
 <li class="col-span-1 divide-y divide-gray-200 rounded-lg">
@@ -51,6 +54,13 @@ const { title, slug, image, published, tag, description, author, status } =
                         status === "draft" && (
                             <span class="relative z-10 rounded-full bg-red-100 dark:bg-red-900 px-3 py-1.5 font-medium text-red-600 dark:text-red-300">
                                 DRAFT
+                            </span>
+                        )
+                    }
+                    {
+                        isScheduled && (
+                            <span class="relative z-10 rounded-full bg-blue-100 dark:bg-blue-900 px-3 py-1.5 font-medium text-blue-600 dark:text-blue-300">
+                                SCHEDULED
                             </span>
                         )
                     }
