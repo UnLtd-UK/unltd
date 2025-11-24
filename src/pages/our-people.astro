@@ -4,7 +4,8 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Default from "@components/heroes/Default.astro";
 import Team from "@components/Team.astro";
-import { positions } from "@data/positions.js";
+import { people } from "@data/people.js";
+import { teams } from "@data/teams.js";
 import slugify from "slugify";
 
 const name = "Our People";
@@ -22,52 +23,83 @@ const breadcrumbs = [
     }),
   },
 ];
+
+const parseSortValue = (value) => {
+  if (typeof value === "number") return value;
+  const numericValue = Number(value);
+  return Number.isFinite(numericValue) ? numericValue : Number.MAX_SAFE_INTEGER;
+};
+
+const getTeamId = (team) => {
+  if (!team) return null;
+  if (typeof team === "string" || typeof team === "number") return `${team}`;
+  if (typeof team === "object" && "id" in team && team.id) return `${team.id}`;
+  return null;
+};
+
+const getRoleName = (role) => {
+  if (!role) return "";
+  if (typeof role === "string") return role;
+  if (typeof role === "object") {
+    if ("name" in role && role.name) return role.name;
+    if ("title" in role && role.title) return role.title;
+  }
+  return "";
+};
+
+const peopleList = Array.isArray(people) ? people : [];
+const teamList = Array.isArray(teams) ? teams : [];
+
+const teamSections = teamList
+  .slice()
+  .sort((a, b) => {
+    const sortA = parseSortValue(a?.sort);
+    const sortB = parseSortValue(b?.sort);
+
+    if (sortA !== sortB) {
+      return sortA - sortB;
+    }
+    return 0;
+  })
+  .map((team) => {
+    const teamId = getTeamId(team);
+    const members = peopleList.filter((person) => {
+      const personTeamId = getTeamId(person?.team);
+      return Boolean(teamId && personTeamId && personTeamId === teamId);
+    });
+
+    const memberSet = new Set(members);
+
+    if ((team?.name || "").toLowerCase() === "executive team") {
+      const directorMembers = peopleList.filter((person) => {
+        const roleName = getRoleName(person?.role).trim();
+        return roleName.toLowerCase().startsWith("director of ");
+      });
+
+      directorMembers.forEach((person) => {
+        if (!memberSet.has(person)) {
+          memberSet.add(person);
+          members.push(person);
+        }
+      });
+    }
+
+    return {
+      team,
+      members,
+    };
+  })
+  .filter(({ team }) => Boolean(team?.name));
 ---
 
 <Template name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Default name={name} description={description} />
-    <Team
-      name="Executive Team"
-      description="Our Executive Team are committed to delivering on our mission, values and strategic ambitions, leading UnLtd so we're offering outstanding support to the most impactful social entrepreneurs alongside our valued partners and supporters."
-      positions={positions}
-    />
-
-    <Team
-      name="Trustees"
-      description="We have a richly diverse, talented and committed Board of Trustees, ensuring our governance and strategic oversight have a breadth and depth of lived and learned expertise. Half of our board are social entrepreneurs and former UnLtd award winners."
-      positions={positions}
-    />
-
-    <Team
-      name="Social Entrepreneur Support Directorate"
-      description="We find, fund and support social entrepreneurs dedicated to addressing some of society's most pressing challenges across England, Wales, Scotland, and Northern Ireland. Empowering them through targeted funding, expert guidance, and a network of peer support, we provide the resources and connections needed to amplify their impact. Committed to fostering equity, diversity, inclusion, and belonging, we are actively working to dismantle the barriers faced by those who are most marginalised."
-      positions={positions}
-    />
-
-    <Team
-      name="Delivery and Investment Directorate"
-      description="We are focussed on breaking down the barriers that social entrepreneurs face. We do this by working with a community of partners; from funders and supporters - enabling us to deliver greater support and funding to social entrepreneurs - through to specialist connectors, individual mentors and pro bono partners. We also enable social entrepreneurs to access the right investment through the Growth Impact Fund, a social investment fund we run in partnership with Big Issue Invest."
-      positions={positions}
-    />
-
-    <Team
-      name="Corporate Services Directorate"
-      description="We look after our systems and finances to ensure a well governed organisation to always deliver value for money support to social entrepreneurs by maximising the impact of available financial resources."
-      positions={positions}
-    />
-
-    <Team
-      name="Impact and Influence Directorate"
-      description="We exist to understand and champion the changes social entrepreneurs need to flourish and positively impact their communities and wider society. We conduct rigorous research and tell powerful stories, giving us the knowledge to evolve and improve our support, whilst amplifying the voices of social entrepreneurs. We're driven by a commitment to create a more just and equitable society, with social entrepreneurs driving positive social impact."
-      positions={positions}
-    />
-
-    <Team
-      name="People and Culture Directorate"
-      description="Our ambition is for UnLtd to become an employer of choice. We are committed to making UnLtd a great place for everyone to work. We focus on all aspects of People and Culture including HR, Learning and Development, EDIB, Well-being, Remuneration and Recruitment. We create opportunities for staff in UnLtd to connect with each other and seek to listen to and engage with everyone employed by UnLtd."
-      positions={positions}
-    />
+    {
+      teamSections.map(({ team, members }, index) => (
+        <Team team={team} members={members} key={team?.id || index} />
+      ))
+    }
   </Container>
 </Template>

@@ -42,10 +42,7 @@ let todayDate = moment();
 const { fundraiser } = Astro.props;
 ---
 
-<Template
-  name={fundraiser.name}
-  description={fundraiser.description}
->
+<Template name={fundraiser.name} description={fundraiser.description}>
   <Container>
     <Breadcrumbs breadcrumbs={fundraiser.breadcrumbs} />
     <div
@@ -207,23 +204,16 @@ const { fundraiser } = Astro.props;
         <div class="flex flex-col gap-2">
           <span class="text-violet-100 text-xs"> Managed by</span>
           <div class="flex items-center">
-            <div>
-              <img
-                class="inline-block h-9 w-9 rounded-full"
-                src={`https://unltd.directus.app/assets/${fundraiser.manager.person.image}`}
-                alt=""
-              />
-            </div>
             <div class="ml-3">
               <p
                 class="text-sm font-medium text-violet-100 group-hover:text-violet-900"
               >
-                {fundraiser.manager.person.name}
+                {fundraiser.manager_name}
               </p>
               <p
                 class="text-xs font-medium text-violet-100 group-hover:text-violet-700"
               >
-                {fundraiser.manager.role.name}
+                {fundraiser.manager_role}
               </p>
             </div>
           </div>

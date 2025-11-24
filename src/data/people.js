@@ -1,7 +1,7 @@
 import { getCollection } from './load.js';
 
-const collection = 'teams';
-const name = 'teams';
+const collection = 'People';
+const name = 'people';
 
 const branch = process.env.BRANCH_NAME || 'local';
 const isMainBranch = branch === 'main';
@@ -15,20 +15,20 @@ const statusFilter = isMainBranch
     };
 
 const filterOptions = {
-    sort: ['sort'],
+    sort: ['sort', 'full_name'],
     filter: {
         status: statusFilter
     },
     fields: [
         '*',
-        'owner.*',
-        'owner.image.*'
+        'image.*',
+        'team.*'
     ],
-    limit: 200
+    limit: 500
 };
 
 const attach = false;
 
-const teams = await getCollection(collection, name, filterOptions, attach);
+const people = await getCollection(collection, name, filterOptions, attach);
 
-export { teams };
+export { people };
