@@ -1,92 +1,281 @@
 ---
-const { name, description, positions } = Astro.props;
+const { team, members = [] } = Astro.props;
+
+const toPronounArray = (value) => {
+  if (!value) return [];
+  if (Array.isArray(value)) {
+    return value.map((item) => `${item}`.trim()).filter(Boolean);
+  }
+  if (typeof value === "string") {
+    return [`${value}`.trim()].filter(Boolean);
+  }
+  return [];
+};
+
+const resolveRoleName = (role) => {
+  if (!role) return "";
+  if (typeof role === "string") return role;
+  if (typeof role === "object") {
+    if ("name" in role && role.name) return role.name;
+    if ("title" in role && role.title) return role.title;
+  }
+  return "";
+};
+
+const resolveRoleStatus = (status) => {
+  if (!status) return null;
+  const label =
+    typeof status === "string"
+      ? status
+      : typeof status === "object" && "name" in status && status.name
+        ? status.name
+        : typeof status === "object" && "label" in status && status.label
+          ? status.label
+          : "";
+
+  if (!label) {
+    return null;
+  }
+
+  return label.toLowerCase() === "active" ? null : label;
+};
+
+const resolveImageId = (image) => {
+  if (!image) return null;
+  if (typeof image === "string") return image;
+  if (typeof image === "object") {
+    if ("id" in image && image.id) return `${image.id}`;
+    if ("image" in image && image.image) return `${image.image}`;
+    if ("url" in image && image.url) return `${image.url}`;
+  }
+  return null;
+};
+
+const buildAssetUrl = (id, height = 128) => {
+  if (!id) return null;
+  const assetId = `${id}`;
+  if (assetId.startsWith("http")) return assetId;
+  return `https://unltd.directus.app/assets/${assetId}?height=${height}`;
+};
+
+const parseSortValue = (value) => {
+  if (typeof value === "number") return value;
+  const numericValue = Number(value);
+  return Number.isFinite(numericValue) ? numericValue : Number.MAX_SAFE_INTEGER;
+};
+
+const collator = new Intl.Collator("en", { sensitivity: "base" });
+
+const getPersonId = (person) => {
+  if (!person) return null;
+  if (typeof person === "string" || typeof person === "number") {
+    return `${person}`;
+  }
+  if (typeof person === "object" && "id" in person && person.id) {
+    return `${person.id}`;
+  }
+  return null;
+};
+
+const owner = team?.owner;
+const ownerId = getPersonId(owner);
+
+const sortedMembers = [...members]
+  .filter((member) => {
+    if (!member) return false;
+    if (!ownerId) return true;
+    return getPersonId(member) !== ownerId;
+  })
+  .sort((a, b) => {
+    const sortA = parseSortValue(a?.sort);
+    const sortB = parseSortValue(b?.sort);
+
+    if (sortA !== sortB) {
+      return sortA - sortB;
+    }
+
+    const nameA = `${a?.full_name || a?.name || ""}`;
+    const nameB = `${b?.full_name || b?.name || ""}`;
+    return collator.compare(nameA, nameB);
+  });
+
+const toMemberDisplay = (member) => {
+  if (!member) return null;
+
+  return {
+    id: getPersonId(member) || null,
+    name: member?.full_name || member?.name || "",
+    pronouns: toPronounArray(member?.pronouns),
+    roleName: resolveRoleName(member?.role),
+    roleStatus: resolveRoleStatus(member?.role_status),
+    avatarSrc: buildAssetUrl(resolveImageId(member?.image), 128),
+    imageAlt:
+      member?.image?.description || member?.full_name || member?.name || "",
+    linkedin: member?.linkedin || null,
+  };
+};
+
+const ownerDisplay = owner ? toMemberDisplay(owner) : null;
+const memberDisplays = sortedMembers
+  .map((member) => toMemberDisplay(member))
+  .filter(Boolean);
 ---
 
 <div class="py-5 sm:py-10">
   <div
     class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 bg-violet-100 dark:bg-violet-900 p-28 rounded-3xl"
   >
-    <div class="max-w-2xl">
+    <div class="max-w-2xl flex flex-col gap-8">
       <h2
         class="text-3xl font-bold tracking-tight text-violet-600 dark:text-violet-200 sm:text-4xl"
       >
-        {name}
+        {team?.name}
       </h2>
-      <p class="mt-6 text-lg leading-8 text-violet-500 dark:text-violet-400">
-        {description}
-      </p>
-    </div>
-    <ul
-      role="list"
-      class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
-    >
-      {
-        positions
-          .filter((position) => position.role.team === name)
-          .map((position) => (
-            <li>
+      <div class="xl:col-span-2 flex flex-col gap-12">
+        {
+          ownerDisplay && (
+            <div class="flex flex-col gap-6">
               <div class="flex items-center gap-x-6">
-                {position.person.image !== null ? (
+                {ownerDisplay.avatarSrc ? (
                   <img
-                    class="h-16 w-16 rounded-full"
-                    src={`https://unltd.directus.app/assets/${position.person.image}?height=128`}
-                    alt=""
+                    class="h-16 w-16 rounded-full object-cover"
+                    src={ownerDisplay.avatarSrc}
+                    alt={ownerDisplay.imageAlt}
+                    loading="lazy"
                   />
                 ) : (
                   <img
-                    class="h-16 w-16 rounded-full"
-                    src={`/img/profile.webp`}
-                    alt=""
+                    class="h-16 w-16 rounded-full object-cover"
+                    src="/img/profile.webp"
+                    alt="Default profile"
+                    loading="lazy"
                   />
                 )}
                 <div class="flex flex-col gap-1">
                   <div class="flex flex-col gap-1">
-                    <div class="flex gap-2 items-center">
-                      <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-300 items-center">
-                        {position.person.name}
+                    <div class="flex flex-col items-start gap-2">
+                      <div>
+                        <span class="rounded-full bg-violet-200/70 dark:bg-violet-700 px-2 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide text-violet-700 dark:text-violet-200">
+                          Lead
+                        </span>
+                      </div>
+                      <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-300 dark:text-violet-200">
+                        {ownerDisplay.linkedin ? (
+                          <a
+                            href={ownerDisplay.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 text-inherit transition-colors duration-150 hover:text-violet-500 dark:hover:text-violet-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
+                          >
+                            {ownerDisplay.name}
+                            <i
+                              class="text-sm fa-brands fa-linkedin transition-colors duration-150"
+                              aria-hidden="true"
+                            />
+                          </a>
+                        ) : (
+                          ownerDisplay.name
+                        )}
+                      </h3>
+                      {ownerDisplay.roleStatus && (
+                        <span class="rounded-full bg-blue-100 dark:bg-blue-900 px-2 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide text-blue-700 dark:text-blue-300">
+                          {ownerDisplay.roleStatus}
+                        </span>
+                      )}
+                    </div>
+                    {ownerDisplay.pronouns.length > 0 && (
+                      <div class="flex flex-wrap gap-1">
+                        {ownerDisplay.pronouns.map((item) => (
+                          <span class="text-xs text-violet-400 dark:text-violet-300">
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <div class="flex flex-col flex-start gap-1">
+                      {ownerDisplay.roleName && (
+                        <p class="text-sm leading-5 text-violet-300 dark:text-violet-200">
+                          {ownerDisplay.roleName}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )
+        }
+      </div>
+      {
+        team?.description && (
+          <p class="text-lg leading-8 text-violet-500 dark:text-violet-400">
+            {team.description}
+          </p>
+        )
+      }
+    </div>
+    <div class="xl:col-span-2 flex flex-col gap-12">
+      <ul role="list" class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16">
+        {
+          memberDisplays.map((display) => (
+            <li>
+              <div class="flex items-center gap-x-6">
+                {display.avatarSrc ? (
+                  <img
+                    class="h-16 w-16 rounded-full object-cover"
+                    src={display.avatarSrc}
+                    alt={display.imageAlt}
+                    loading="lazy"
+                  />
+                ) : (
+                  <img
+                    class="h-16 w-16 rounded-full object-cover"
+                    src="/img/profile.webp"
+                    alt="Default profile"
+                    loading="lazy"
+                  />
+                )}
+                <div class="flex flex-col gap-1">
+                  <div class="flex flex-col gap-1">
+                    <div class="flex flex-wrap items-center gap-2">
+                      <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-300 dark:text-violet-200">
+                        {display.linkedin ? (
+                          <a
+                            href={display.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-2 text-inherit transition-colors duration-150 hover:text-violet-500 dark:hover:text-violet-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
+                          >
+                            {display.name}
+                            <i
+                              class="text-sm fa-brands fa-linkedin transition-colors duration-150"
+                              aria-hidden="true"
+                            />
+                          </a>
+                        ) : (
+                          display.name
+                        )}
                       </h3>
                     </div>
-                    <div class="flex items-center gap-1">
-                      {position.person.gender_pronouns &&
-                        position.person.gender_pronouns.length > 0 && (
-                          <div class="flex gap-1">
-                            {position.person.gender_pronouns?.map((item) => (
-                              <span class="text-xs text-violet-400">
-                                {item}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      <div>
-                        {position.person.lgbtqia_plus && (
-                          <div>
-                            <span
-                              role="img"
-                              class="text-xl"
-                              aria-label="rainbow flag"
-                            >
-                              &#x1F3F3;&#xFE0F;&#x200D;&#x1F308;
-                            </span>
-                            <span class="sr-only">
-                              Member of the LGBTQ+ community
-                            </span>
-                          </div>
-                        )}
+                    {display.pronouns.length > 0 && (
+                      <div class="flex flex-wrap gap-1">
+                        {display.pronouns.map((item) => (
+                          <span class="text-xs text-violet-400 dark:text-violet-300">
+                            {item}
+                          </span>
+                        ))}
                       </div>
-                    </div>
-                    <div>
-                      <p class="text-sm leading-5 text-violet-300">
-                        {position.role.name}
-                      </p>
-                      {position.person.linkedin && (
-                        <a
-                          href={position.person.linkedin}
-                          target="_blank"
-                          class="text-violet-400"
-                        >
-                          <span class="sr-only">LinkedIn</span>
-                          <i class="text-sm fa-brands fa-linkedin" />
-                        </a>
+                    )}
+                    <div class="flex flex-col flex-start gap-1">
+                      {display.roleName && (
+                        <p class="text-sm leading-5 text-violet-300 dark:text-violet-200">
+                          {display.roleName}{" "}
+                          {display.roleStatus && (
+                            <span class="rounded-full bg-blue-100 dark:bg-blue-900 px-2 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide text-blue-700 dark:text-blue-300">
+                              {display.roleStatus}
+                            </span>
+                          )}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -94,7 +283,8 @@ const { name, description, positions } = Astro.props;
               </div>
             </li>
           ))
-      }
-    </ul>
+        }
+      </ul>
+    </div>
   </div>
 </div>
