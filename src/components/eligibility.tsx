@@ -82,27 +82,90 @@ const eligibility = [
   {
     name: 'Social venture',
     criteria: [
-      { name: 'Does it involve political, or religious campaigning?', awards: { STMAT: false, STFFP: false, SCMAT: false, SCFFP: false } },
       { name: 'Is it clearly driven by its social purpose?', awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true } },
       { name: 'Can you demonstrate a clear need for it?', awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true } },
       { name: 'Does it mainly benefit people or places within the UK?', awards: { STMAT: false, STFFP: false, SCMAT: false, SCFFP: false } },
-      { name: 'Does it involve activities outside of the law, against public policy or anything which encourages ethnic, religious, or commercial disharmony?', awards: { STMAT: false, STFFP: false, SCMAT: false, SCFFP: false } },
-      { name: 'Does it have the potential to be financially sustainable with our support?', awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true } },
-      { name: 'Does it do more than just raise awareness of a social issue?', awards: { STMAT: false, STFFP: false, SCMAT: false, SCFFP: false } },
-      { name: 'Sectors', awards: { STMAT: false, STFFP: "Access to employment, </br>Financial services and financial inclusion, </br>Poverty reduction, </br>Skills and training", SCMAT: false, SCFFP: "Access to employment, </br>Financial services and financial inclusion, </br>Poverty reduction, </br>Skills and training" } },
       { name: 'Is it continuing activities that have already been running for more than four years?', awards: { STMAT: false, STFFP: false, SCMAT: false, SCFFP: false } },
-      { name: 'Has your idea or social venture started trading?', awards: { STMAT: "Trading for under one year", STFFP: "Trading for under one year", SCMAT: "Trading for over one year", SCFFP: "Trading for over one year" } },
+      { name: 'Does it involve activities outside of the law, against public policy or anything which encourages ethnic, religious, or commercial disharmony?', awards: { STMAT: false, STFFP: false, SCMAT: false, SCFFP: false } },
+      { name: 'Does it involve political, or religious campaigning?', awards: { STMAT: false, STFFP: false, SCMAT: false, SCFFP: false } },
+      { name: 'Does it do more than just raise awareness of a social issue?', awards: { STMAT: false, STFFP: false, SCMAT: false, SCFFP: false } },
+      { name: 'Does it have the potential to be financially sustainable with our support?', awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true } },
       { name: 'How long has your idea or social venture been incorporated?', awards: { STMAT: "Not yet or less than 4 years", STFFP: "Not yet or less than 4 years", SCMAT: "Less than 4 years", SCFFP: "Less than 4 years" } },
-      { name: 'What was your social ventures turnover in its last financial year?', awards: { STMAT: "Less than £250,000", STFFP: "Less than £250,000", SCMAT: "Less than £250,000", SCFFP: "Less than £250,000" } },
-      { name: 'Are you able to provide financial data which covers the last 12 months, along with financial projections for the next 12 months?', awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true } },
-      { name: 'In the last 12 months, has your social venture earned over £18,000 in traded income?', awards: { STMAT: "£18,000 or more", STFFP: "£18,000 or more", SCMAT: "£18,000 or more", SCFFP: "£18,000 or more" } },
+      { name: 'Has your idea or social venture started trading?', awards: { STMAT: "Trading for under one year", STFFP: "Trading for under one year", SCMAT: "Trading for over one year", SCFFP: "Trading for over one year" } },
+      {
+        name: 'What sectors are you in?', awards: {
+          STMAT: [
+            "Access to education",
+            "Access to employment",
+            "Access to legal services",
+            "Business support",
+            "Climate change and energy",
+            "Care in the community",
+            "Conservation",
+            "Creative industries",
+            "Criminal justice",
+            "Digital products or services",
+            "Environmental sustainability",
+            "Equity, diversity, and inclusion",
+            "Financial services and financial inclusion",
+            "Food, nutrition, or agriculture",
+            "Healthy ageing",
+            "Housing and/or homelessness",
+            "Loneliness and/or social isolation",
+            "Manufacturing",
+            "Mental health and wellbeing",
+            "Poverty reduction",
+            "Quality of life",
+            "Skills and training",
+            "Social care",
+            "Sport and physical health",
+            "Technology",
+            "Urban environments/community",
+            "Water and sanitation",
+            "Youth",
+          ], STFFP: ["Access to employment", "Financial services and financial inclusion", "Poverty reduction", "Skills and training"], SCMAT: [
+            "Access to education",
+            "Access to employment",
+            "Access to legal services",
+            "Business support",
+            "Climate change and energy",
+            "Care in the community",
+            "Conservation",
+            "Creative industries",
+            "Criminal justice",
+            "Digital products or services",
+            "Environmental sustainability",
+            "Equity, diversity, and inclusion",
+            "Financial services and financial inclusion",
+            "Food, nutrition, or agriculture",
+            "Healthy ageing",
+            "Housing and/or homelessness",
+            "Loneliness and/or social isolation",
+            "Manufacturing",
+            "Mental health and wellbeing",
+            "Poverty reduction",
+            "Quality of life",
+            "Skills and training",
+            "Social care",
+            "Sport and physical health",
+            "Technology",
+            "Urban environments/community",
+            "Water and sanitation",
+            "Youth",
+            "Other (please specify)"
+          ], SCFFP: ["Access to employment", "Financial services and financial inclusion", "Poverty reduction", "Skills and training"]
+        }
+      },
+      { name: 'What was your social ventures turnover in its last financial year?', awards: { STMAT: null, STFFP: "Less than £250,000", SCMAT: null, SCFFP: "Less than £250,000" } },
+      { name: 'In the last 12 months, has your social venture earned over £18,000 in traded income?', awards: { STMAT: null, STFFP: "£18,000 or more", SCMAT: null, SCFFP: "£18,000 or more" } },
+      { name: 'Are you able to provide financial data which covers the last 12 months, along with financial projections for the next 12 months?', awards: { STMAT: null, STFFP: true, SCMAT: null, SCFFP: true } },
     ],
   },
 ]
 
 export default function Example() {
   return (
-    <div className="bg-white py-24 sm:py-32 dark:bg-gray-900">
+    <div className="bg-white py-24 sm:py-32 dark:bg-violet-950">
       <div className="mx-auto max-w-2xl px-6 pt-16 sm:pt-24 lg:max-w-7xl lg:px-8">
         <table className="w-full text-left max-sm:hidden">
           <caption className="sr-only">Awards eligibility comparison</caption>
@@ -117,7 +180,7 @@ export default function Example() {
               <td className="p-0" />
               {awards.map((award) => (
                 <th key={award.code} scope="col" className="p-0">
-                  <div className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">
+                  <div className="text-sm font-semibold text-violet-600 dark:text-violet-400">
                     {award.name} <span className="sr-only">plan</span>
                   </div>
                 </th>
@@ -128,40 +191,40 @@ export default function Example() {
             <tbody key={eligibiliti.name} className="group">
               <tr>
                 <th scope="colgroup" colSpan={awards.length + 1} className="px-0 pt-10 pb-0 group-first-of-type:pt-5">
-                  <div className="-mx-4 rounded-lg bg-gray-50 px-4 py-3 text-sm/6 font-semibold text-gray-950 dark:bg-gray-800/50 dark:text-white">
+                  <div className="-mx-4 rounded-lg bg-violet-50 px-4 py-3 text-sm/6 font-semibold text-violet-950 dark:bg-violet-800/50 dark:text-violet-100">
                     {eligibiliti.name}
                   </div>
                 </th>
               </tr>
               {eligibiliti.criteria.map((feature) => (
-                <tr key={feature.name} className="border-b border-gray-100 last:border-none dark:border-white/10">
-                  <th scope="row" className="px-0 py-4 text-sm/6 font-normal text-gray-600 dark:text-gray-300">
+                <tr key={feature.name} className="border-b border-violet-100 last:border-none dark:border-white/10">
+                  <th scope="row" className="px-0 py-4 text-sm/6 font-normal text-violet-600 dark:text-violet-300">
                     {feature.name}
                   </th>
                   {awards.map((award) => {
                     const value = feature.awards[award.code as keyof typeof feature.awards]
                     return (
                       <td key={award.code} className="p-4 max-sm:text-center">
-                        {typeof value === 'string' ? (
+                        {Array.isArray(value) ? (
+                          <ul className="space-y-1 text-sm/6 text-violet-950 dark:text-violet-100">
+                            {value.map((entry) => (
+                              <li key={entry}>{entry}</li>
+                            ))}
+                          </ul>
+                        ) : typeof value === 'string' ? (
                           <>
                             <span className="sr-only">{award.name} includes:</span>
-                            <span className="text-sm/6 text-gray-950 dark:text-white">{value}</span>
+                            <span className="text-sm/6 text-violet-950 dark:text-violet-100">{value}</span>
                           </>
                         ) : value === true ? (
                           <>
-                            <CheckIcon
-                              aria-hidden="true"
-                              className="inline-block size-4 fill-green-600 dark:fill-green-500"
-                            />
-                            <span className="sr-only">Included in {award.name}</span>
+                            <i aria-hidden="true" className="fa-sharp fa-solid fa-circle-check size-4 fill-green-600 dark:fill-green-500 text-green-500"></i>
+                            <span className="sr-only">Yes</span>
                           </>
                         ) : (
                           <>
-                            <MinusIcon
-                              aria-hidden="true"
-                              className="inline-block size-4 fill-gray-400 dark:fill-gray-500"
-                            />
-                            <span className="sr-only">Not included in {award.name}</span>
+                            <i aria-hidden="true" className="fa-sharp fa-solid fa-xmark size-4 fill-violet-400 dark:fill-violet-500 text-violet-500"></i>
+                            <span className="sr-only">No</span>
                           </>
                         )}
                       </td>
@@ -177,7 +240,7 @@ export default function Example() {
             {awards.map((award) => (
               <Tab
                 key={award.code}
-                className="w-1/4 border-b border-gray-100 py-4 text-base/8 font-medium text-indigo-600 not-focus-visible:focus:outline-none data-selected:border-indigo-600 dark:border-white/10 dark:text-indigo-400 dark:data-selected:border-indigo-400"
+                className="w-1/4 border-b border-violet-100 py-4 text-base/8 font-medium text-violet-600 not-focus-visible:focus:outline-none data-selected:border-violet-600 dark:border-white/10 dark:text-violet-400 dark:data-selected:border-violet-400"
               >
                 {award.name}
               </Tab>
@@ -188,32 +251,39 @@ export default function Example() {
               <TabPanel key={award.code} className="focus:outline-none">
                 {eligibility.map((eligibiliti) => (
                   <Fragment key={eligibiliti.name}>
-                    <div className="-mx-6 mt-10 rounded-lg bg-gray-50 px-6 py-3 text-sm/6 font-semibold text-gray-950 group-first-of-type:mt-5 dark:bg-gray-800/50 dark:text-white">
+                    <div className="-mx-6 mt-10 rounded-lg bg-violet-50 px-6 py-3 text-sm/6 font-semibold text-violet-950 group-first-of-type:mt-5 dark:bg-violet-800/50 dark:text-violet-100">
                       {eligibiliti.name}
                     </div>
                     <dl>
                       {eligibiliti.criteria.map((feature) => (
                         <div
                           key={feature.name}
-                          className="grid grid-cols-2 border-b border-gray-100 py-4 last:border-none dark:border-white/10"
+                          className="grid grid-cols-2 border-b border-violet-100 py-4 last:border-none dark:border-white/10"
                         >
-                          <dt className="text-sm/6 font-normal text-gray-600 dark:text-gray-300">{feature.name}</dt>
+                          <dt className="text-sm/6 font-normal text-violet-600 dark:text-violet-300">{feature.name}</dt>
                           <dd className="text-center">
                             {(() => {
                               const value = feature.awards[award.code as keyof typeof feature.awards]
+                              if (Array.isArray(value)) {
+                                return (
+                                  <ul className="space-y-1 text-sm/6 text-violet-950 dark:text-violet-100">
+                                    {value.map((entry) => (
+                                      <li key={entry}>{entry}</li>
+                                    ))}
+                                  </ul>
+                                )
+                              }
+
                               if (typeof value === 'string') {
                                 return (
-                                  <span className="text-sm/6 text-gray-950 dark:text-white">{value}</span>
+                                  <span className="text-sm/6 text-violet-950 dark:text-violet-100">{value}</span>
                                 )
                               }
 
                               if (value === true) {
                                 return (
                                   <>
-                                    <CheckIcon
-                                      aria-hidden="true"
-                                      className="inline-block size-4 fill-green-600 dark:fill-green-500"
-                                    />
+                                    <i aria-hidden="true" className="fa-sharp fa-solid fa-circle-check size-4 fill-green-600 dark:fill-green-500 text-green-500"></i>
                                     <span className="sr-only">Yes</span>
                                   </>
                                 )
@@ -221,10 +291,7 @@ export default function Example() {
 
                               return (
                                 <>
-                                  <MinusIcon
-                                    aria-hidden="true"
-                                    className="inline-block size-4 fill-gray-400 dark:fill-gray-500"
-                                  />
+                                  <i aria-hidden="true" className="fa-sharp fa-solid fa-xmark size-4 fill-violet-400 dark:fill-violet-500 text-violet-500"></i>
                                   <span className="sr-only">No</span>
                                 </>
                               )
