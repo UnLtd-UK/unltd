@@ -123,6 +123,7 @@ const eligibility = [
             "Urban environments/community",
             "Water and sanitation",
             "Youth",
+            "Other"
           ], STFFP: ["Access to employment", "Financial services and financial inclusion", "Poverty reduction", "Skills and training"], SCMAT: [
             "Access to education",
             "Access to employment",
@@ -152,7 +153,7 @@ const eligibility = [
             "Urban environments/community",
             "Water and sanitation",
             "Youth",
-            "Other (please specify)"
+            "Other"
           ], SCFFP: ["Access to employment", "Financial services and financial inclusion", "Poverty reduction", "Skills and training"]
         }
       },
