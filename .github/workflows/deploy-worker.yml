@@ -31,6 +31,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          # Use dev for scheduled runs so preview deploy always builds from dev
+          ref: ${{ github.event_name == 'schedule' && 'dev' || github.ref_name }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -69,6 +72,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          # Ensure scheduled runs build main before deploying to production
+          ref: ${{ github.event_name == 'schedule' && 'main' || github.ref_name }}
 
       - name: Setup Node
         uses: actions/setup-node@v4
