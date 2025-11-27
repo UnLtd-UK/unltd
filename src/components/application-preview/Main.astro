@@ -1,6 +1,6 @@
 ---
 import Fields from "@components/fields/Fields.astro";
-import Grant from "@components/GrantCard2.astro";
+// import Grant from "@components/GrantCard2.astro";
 import { marked } from "marked";
 marked.use({ mangle: false, headerIds: false });
 
@@ -16,14 +16,14 @@ const {
 ---
 
 <main class="flex flex-col gap-5">
-  <Grant
+  <!-- <Grant
     slug={slug}
     name={name}
     description={description}
     grant_title={grant_title}
     grant_amount={grant_amount}
     grant_description={grant_description}
-  />
+  /> -->
 
   {
     sections.map((section, index) => {
