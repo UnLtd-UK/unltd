@@ -1,5 +1,6 @@
 ---
 import Container from "@components/Container.astro";
+import YoutubeConsent from "@components/YoutubeConsent.astro";
 ---
 
 <Container bg="bg-violet-50 dark:bg-violet-950">
@@ -42,7 +43,13 @@ import Container from "@components/Container.astro";
 
   <div class="pb-20 pt-10 flex flex-col gap-4 items-center">
     <div class="flex flex-col gap-10 lg:flex-row items-center">
-      <div class="mt-6 flex-grow-0 lg:flex-grow basis-3/4 max-w-3/4">
+      <div class="mt-6 grow-0 lg:grow basis-3/4 max-w-3/4">
+        <!-- <YoutubeConsent
+          url="https://www.youtube-nocookie.com/embed/leYUo0Wy5SE?si=KH0xrqM98xB3x9jm"
+          title="Award"
+          aspectClass="aspect-video"
+          iframeClass="w-full h-full rounded-xl"
+        /> -->
         <div class="aspect-video">
           <iframe
             class="w-full h-full rounded-xl"

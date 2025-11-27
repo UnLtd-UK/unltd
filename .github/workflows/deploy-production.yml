@@ -1,0 +1,40 @@
+name: Deploy Production
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+    schedule:
+        # 09:00 UTC daily - builds main and deploys to production
+        - cron: "0 9 * * *"
+
+jobs:
+    deploy-production:
+        name: Deploy unltd.org.uk
+        runs-on: ubuntu-latest
+        env:
+            CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+            CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+            EVENTBRITE_PRIVATE_TOKEN: ${{ secrets.EVENTBRITE_PRIVATE_TOKEN }}
+            BRANCH_NAME: main
+            DEPLOY_ENVIRONMENT: production
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+              with:
+                  ref: main
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "22"
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build site
+              run: npm run build
+
+            - name: Deploy production worker
+              run: npx wrangler deploy --env production
