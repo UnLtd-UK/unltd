@@ -70,7 +70,7 @@ let portal_value = null;
 let portal_text = null;
 let stage_text = null;
 
-if (slug === "At+idea+stage+or+not+yet+trading") {
+if (slug === "Idea+stage+or+not+yet+trading") {
   portal_value = "forming-i-have-an-idea";
   portal_text = "Forming: I have an idea";
   stage_text = "is at idea stage or not yet trading";
@@ -87,7 +87,7 @@ if (slug === "At+idea+stage+or+not+yet+trading") {
 const selectedStageDisplay = stage_text;
 
 // Build dialog description
-let dialogDescription = `Our application form is dynamic meaning it changes based off the information you give it.`;
+let dialogDescription = `Our application form is dynamic changes it's questions based off your social venture's stage which is asked in question 4.1.`;
 if (selectedStageDisplay) {
   dialogDescription += ` Because your social venture ${selectedStageDisplay}, you will need to select "${portal_text}" for question 4.1 to get this application form.`;
 }
