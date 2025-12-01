@@ -12,18 +12,53 @@ const {
   grant_amount,
   grant_description,
   sections,
+  portal_value,
+  portal_text,
+  stage_text,
 } = Astro.props;
+
+const selectedStage = portal_value;
+const selectedStageDisplay = portal_text;
 ---
 
 <main class="flex flex-col gap-5">
-  <!-- <Grant
-    slug={slug}
-    name={name}
-    description={description}
-    grant_title={grant_title}
-    grant_amount={grant_amount}
-    grant_description={grant_description}
-  /> -->
+  {
+    selectedStage && (
+      <div class="bg-amber-50 border border-amber-200 rounded-md p-6 shadow-sm">
+        <div class="flex gap-3">
+          <div class="flex-shrink-0">
+            <svg
+              class="h-5 w-5 text-amber-600"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+          <div class="flex-1">
+            <h3 class="text-sm font-medium text-amber-800">
+              Application Preview
+            </h3>
+            <div class="mt-2 text-sm text-amber-700">
+              <p>
+                This application preview is based on your social venture which{" "}
+                <strong>{stage_text}</strong>.
+              </p>
+              <p class="mt-2">
+                When you fill out the actual application form, you will need to
+                select <strong>"{portal_text}"</strong> for question 4.1.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   {
     sections.map((section, index) => {
@@ -55,6 +90,17 @@ const {
             </div>
             <div class="flex flex-col gap-10 pb-10 px-7 md:px-10">
               {section.sections_id.fields.map((field, index) => {
+                // Check if this is the stage selection field and we have a selected stage
+                const isStageField =
+                  field.fields_id.slug ===
+                  "please-tell-us-the-stage-your-social-venture-is-at  ";
+                const shouldDisable =
+                  isStageField && selectedStage
+                    ? true
+                    : field.fields_id.disabled;
+                const preselectedValue =
+                  isStageField && selectedStage ? selectedStage : slug;
+
                 return (
                   <Fields
                     name={field.fields_id.name}
@@ -63,12 +109,12 @@ const {
                     type={field.fields_id.type}
                     input_type={field.fields_id.input_type}
                     required={field.fields_id.required}
-                    disabled={field.fields_id.disabled}
+                    disabled={shouldDisable}
                     options={field.fields_id.select_options}
                     max_length={field.fields_id.max_length}
                     prefix={field.fields_id.prefix}
                     suffix={field.fields_id.suffix}
-                    alias={slug}
+                    alias={preselectedValue}
                     number={index + 1}
                   />
                 );

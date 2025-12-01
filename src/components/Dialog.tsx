@@ -7,6 +7,20 @@ import { CheckIcon } from '@heroicons/react/24/outline'
 export default function DialogComponent({ title, description, primaryButton, secondaryButton, icon }) {
   const [open, setOpen] = useState(true)
 
+  const handleSecondaryClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (secondaryButton.href && secondaryButton.href.startsWith('#')) {
+      e.preventDefault()
+      setOpen(false)
+      // Small delay to allow dialog close animation
+      setTimeout(() => {
+        const element = document.querySelector(secondaryButton.href)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 100)
+    }
+  }
+
   return (
     <Dialog open={open} onClose={() => { }} className="relative z-10">
       <DialogBackdrop
@@ -55,10 +69,12 @@ export default function DialogComponent({ title, description, primaryButton, sec
               {secondaryButton.href ?
                 <a
                   href={secondaryButton.href}
+                  onClick={handleSecondaryClick}
                   target={secondaryButton.href.startsWith('http') ? '_blank' : '_self'}
                   className="mt-3 inline-flex w-full justify-center rounded-md bg-violet-50 px-3 py-2 text-sm font-semibold text-violet-900 shadow-xs ring-1 ring-violet-300 ring-inset hover:bg-violet-100 sm:mt-0 items-center gap-1"
                 >
-                  <span>{secondaryButton.text}</span><i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                  <span>{secondaryButton.text}</span>
+                  {!secondaryButton.href.startsWith('#') && <i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>}
                 </a>
                 : <button
                   type="button"
