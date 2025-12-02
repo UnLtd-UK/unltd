@@ -87,9 +87,10 @@ if (slug === "Idea+stage+or+not+yet+trading") {
 const selectedStageDisplay = stage_text;
 
 // Build dialog description
-let dialogDescription = `Our application form is dynamic changes it's questions based off your social venture's stage which is asked in question 4.1.`;
+let dialogDescription = `Question 4.1 is the only answer that changes which follow-up questions you see.`;
 if (selectedStageDisplay) {
-  dialogDescription += ` Because your social venture ${selectedStageDisplay}, you will need to select "${portal_text}" for question 4.1 to get this application form.`;
+  dialogDescription += ` In this preview we have locked the answer to "${portal_text}" so you can explore the matching questions.`;
+  dialogDescription += ` When you complete the application in the portal, please choose "${portal_text}" at question 4.1 to receive the same set of questions.`;
 }
 
 // Build dialog title
