@@ -50,7 +50,6 @@ export function getStaticPaths() {
   return pages;
 }
 
-const { application_preview } = Astro.params;
 const {
   slug,
   name,
@@ -73,7 +72,7 @@ let stage_text = null;
 if (slug === "Idea+stage+or+not+yet+trading") {
   portal_value = "forming-i-have-an-idea";
   portal_text = "Forming: I have an idea";
-  stage_text = "is at idea stage or not yet trading";
+  stage_text = "is an idea or not yet trading";
 } else if (slug === "Trading+for+less+than+1+year") {
   portal_value = "i-ve-been-trading-for-less-than-1-year";
   portal_text = "I've been trading for less than 1 year";
@@ -84,17 +83,11 @@ if (slug === "Idea+stage+or+not+yet+trading") {
   stage_text = "has been trading for more than 1 year";
 }
 
-const selectedStageDisplay = stage_text;
-
 // Build dialog title
-const dialogTitle = selectedStageDisplay
-  ? `This is a preview of the form you’ll get after choosing the ${selectedStageDisplay} stage`
-  : "This is a preview of our application form";
+const dialogTitle = `This preview of the application is specific to you as your social venture ${stage_text}`;
 
 // Build dialog description
-let dialogDescription = selectedStageDisplay
-  ? "Question 4.1 decides which version of the application you receive. Pick the trading stage that matches your venture when you complete the form in the portal."
-  : `This preview shows the questions you will see if you select the ${portal_text} trading stage on the real application. When you start your actual application in the portal, choose "${portal_text}" at question 4.1 so you continue with the same set of questions.`;
+let dialogDescription = `When you start your actual application in the portal, choose "${portal_text}" at question 4.1 so you the application reflects this one.`;
 ---
 
 <Template name={name} description={description}>
@@ -126,7 +119,7 @@ let dialogDescription = selectedStageDisplay
                     href={`#${section.sections_id.slug}`}
                     class={`hover:text-violet-800 active:text-violet-800 active:bg-violet-800 hover:bg-violet-100 rounded-md flex items-center text-xs font-medium transition py-3 pl-3 flex-row gap-2 group`}
                   >
-                    <span class="text-violet-400 group-hover:bg-violet-200 border-full h-5 w-5 bg-violet-100 group-hover:text-violet-600 bg-opacity-10 flex justify-center items-center rounded-full group-hover:scale-125 group-hover:bg-transparent">
+                    <span class="text-violet-400 group-hover:bg-violet-200 border-full h-5 w-5 bg-violet-100 group-hover:text-violet-600 bg-opacity-10 flex justify-center items-center rounded-full group-hover:scale-125">
                       {index + 1}
                     </span>
                     <span class="text-violet-200 truncate active:text-white group-hover:text-violet-800">
