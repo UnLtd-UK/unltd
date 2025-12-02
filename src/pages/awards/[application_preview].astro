@@ -64,24 +64,56 @@ const {
   sections,
   breadcrumbs,
 } = Astro.props;
+
+// Match URL paths (Astro decodes %2B to +) and assign portal values
+let portal_value = null;
+let portal_text = null;
+let stage_text = null;
+
+if (slug === "Idea+stage+or+not+yet+trading") {
+  portal_value = "forming-i-have-an-idea";
+  portal_text = "Forming: I have an idea";
+  stage_text = "is at idea stage or not yet trading";
+} else if (slug === "Trading+for+less+than+1+year") {
+  portal_value = "i-ve-been-trading-for-less-than-1-year";
+  portal_text = "I've been trading for less than 1 year";
+  stage_text = "has been trading for less than 1 year";
+} else if (slug === "Trading+for+more+than+1+year") {
+  portal_value = "i-ve-been-trading-for-1-year";
+  portal_text = "I've been trading for 1 year";
+  stage_text = "has been trading for more than 1 year";
+}
+
+const selectedStageDisplay = stage_text;
+
+// Build dialog description
+let dialogDescription = `Our application form is dynamic changes it's questions based off your social venture's stage which is asked in question 4.1.`;
+if (selectedStageDisplay) {
+  dialogDescription += ` Because your social venture ${selectedStageDisplay}, you will need to select "${portal_text}" for question 4.1 to get this application form.`;
+}
+
+// Build dialog title
+const dialogTitle = selectedStageDisplay
+  ? `This is preview of our application form for if your social venture ${selectedStageDisplay}`
+  : "This is preview of our application form for a social venture";
 ---
 
 <Template name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <DialogComponent
-      icon="fa-solid fa-magnifying-glass"
-      title="You cannot fill out an application from this page"
-      description="This is a preview of our application form to help you get started. Once you are ready to start your application, go to the application portal where you can start a new application."
+    <!-- <DialogComponent
+      icon="fa-solid fa-circle-info"
+      title={dialogTitle}
+      description={dialogDescription}
       primaryButton={{
-        text: "Preview application form",
+        text: "I understand",
       }}
       secondaryButton={{
-        text: "Go to application portal",
-        href: "https://unltd.microsoftcrmportals.com/applications",
+        text: "Go to question 4.1",
+        href: `#social-venture-stage-and-programme`,
       }}
       client:load
-    />
+    /> -->
     <div class="flex flex-col gap-2 mt-10">
       <div class="flex flex-col sm:flex-row gap-10">
         <div
@@ -122,6 +154,9 @@ const {
               grant_amount={grant_amount}
               grant_description={grant_description}
               sections={sections}
+              portal_value={portal_value}
+              portal_text={portal_text}
+              stage_text={stage_text}
             />
           </div>
           <div

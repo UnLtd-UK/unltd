@@ -24,10 +24,6 @@
         {
           "pattern": "unltd.org.uk",
           "custom_domain": true
-        },
-        { 
-          "pattern": "www.unltd.org.uk",
-          "custom_domain": true 
         }
       ]
     },
