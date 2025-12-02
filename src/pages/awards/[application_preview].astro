@@ -83,11 +83,8 @@ if (slug === "Idea+stage+or+not+yet+trading") {
   stage_text = "has been trading for more than 1 year";
 }
 
-// Build dialog title
-const dialogTitle = `We have pre-selected "${portal_text}" for question 4.1. as your social venture ${stage_text}`;
-
-// Build dialog description
-let dialogDescription = `We dynamically adapt the questions after question 4.1. so they're appropriate for your social venture. For your application in the Application Portal, when you get to question 4.1., choose "${portal_text}" to ensure your application is correct and reflects this one.`;
+const dialogTitle = `You are previewing the application form for a social venture which ${stage_text}.`;
+const dialogDescription = `When you complete your application in the portal, ensure for question "Please tell us the stage your social venture is at", choose "${portal_text}".`;
 ---
 
 <Template name={name} description={description}>
@@ -99,10 +96,6 @@ let dialogDescription = `We dynamically adapt the questions after question 4.1. 
       description={dialogDescription}
       primaryButton={{
         text: "I understand",
-      }}
-      secondaryButton={{
-        text: "Go to question 4.1.",
-        href: `#social-venture-stage-and-programme`,
       }}
       client:load
     />
