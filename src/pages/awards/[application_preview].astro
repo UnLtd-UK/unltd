@@ -86,17 +86,15 @@ if (slug === "Idea+stage+or+not+yet+trading") {
 
 const selectedStageDisplay = stage_text;
 
-// Build dialog description
-let dialogDescription = `Question 4.1 is the only answer that changes which follow-up questions you see.`;
-if (selectedStageDisplay) {
-  dialogDescription += ` In this preview we have locked the answer to "${portal_text}" so you can explore the matching questions.`;
-  dialogDescription += ` When you complete the application in the portal, please choose "${portal_text}" at question 4.1 to receive the same set of questions.`;
-}
-
 // Build dialog title
 const dialogTitle = selectedStageDisplay
-  ? `This is preview of our application form for if your social venture ${selectedStageDisplay}`
-  : "This is preview of our application form for a social venture";
+  ? `This is a preview of the form you’ll get after choosing the ${selectedStageDisplay} stage`
+  : "This is a preview of our application form";
+
+// Build dialog description
+let dialogDescription = selectedStageDisplay
+  ? "Question 4.1 decides which version of the application you receive. Pick the trading stage that matches your venture when you complete the form in the portal."
+  : `This preview shows the questions you will see if you select the ${portal_text} trading stage on the real application. When you start your actual application in the portal, choose "${portal_text}" at question 4.1 so you continue with the same set of questions.`;
 ---
 
 <Template name={name} description={description}>
