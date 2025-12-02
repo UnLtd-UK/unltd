@@ -18,7 +18,7 @@ function getEnquiriesContact(path) {
         enquiriesContact.email = 'generalenquiries@unltd.org.uk';
         enquiriesContact.name = 'General Enquiry';
         break;
-      case '/contact/award':
+      case '/contact/awards':
         enquiriesContact.email = 'awardapplications@unltd.org.uk';
         enquiriesContact.name = 'Award Application Enquiry';
         break;

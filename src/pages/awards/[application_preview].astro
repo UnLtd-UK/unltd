@@ -50,7 +50,6 @@ export function getStaticPaths() {
   return pages;
 }
 
-const { application_preview } = Astro.params;
 const {
   slug,
   name,
@@ -73,7 +72,7 @@ let stage_text = null;
 if (slug === "Idea+stage+or+not+yet+trading") {
   portal_value = "forming-i-have-an-idea";
   portal_text = "Forming: I have an idea";
-  stage_text = "is at idea stage or not yet trading";
+  stage_text = "is an idea or not yet trading";
 } else if (slug === "Trading+for+less+than+1+year") {
   portal_value = "i-ve-been-trading-for-less-than-1-year";
   portal_text = "I've been trading for less than 1 year";
@@ -84,36 +83,22 @@ if (slug === "Idea+stage+or+not+yet+trading") {
   stage_text = "has been trading for more than 1 year";
 }
 
-const selectedStageDisplay = stage_text;
-
-// Build dialog description
-let dialogDescription = `Our application form is dynamic changes it's questions based off your social venture's stage which is asked in question 4.1.`;
-if (selectedStageDisplay) {
-  dialogDescription += ` Because your social venture ${selectedStageDisplay}, you will need to select "${portal_text}" for question 4.1 to get this application form.`;
-}
-
-// Build dialog title
-const dialogTitle = selectedStageDisplay
-  ? `This is preview of our application form for if your social venture ${selectedStageDisplay}`
-  : "This is preview of our application form for a social venture";
+const dialogTitle = `You are previewing the application form for a social venture which ${stage_text}.`;
+const dialogDescription = `When you complete your application in the portal, in section 'Social venture stage and programme', question 'Please tell us the stage your social venture is at', choose '${portal_text}'.`;
 ---
 
 <Template name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <!-- <DialogComponent
+    <DialogComponent
       icon="fa-solid fa-circle-info"
       title={dialogTitle}
       description={dialogDescription}
       primaryButton={{
         text: "I understand",
       }}
-      secondaryButton={{
-        text: "Go to question 4.1",
-        href: `#social-venture-stage-and-programme`,
-      }}
       client:load
-    /> -->
+    />
     <div class="flex flex-col gap-2 mt-10">
       <div class="flex flex-col sm:flex-row gap-10">
         <div
@@ -127,7 +112,7 @@ const dialogTitle = selectedStageDisplay
                     href={`#${section.sections_id.slug}`}
                     class={`hover:text-violet-800 active:text-violet-800 active:bg-violet-800 hover:bg-violet-100 rounded-md flex items-center text-xs font-medium transition py-3 pl-3 flex-row gap-2 group`}
                   >
-                    <span class="text-violet-400 group-hover:bg-violet-200 border-full h-5 w-5 bg-violet-100 group-hover:text-violet-600 bg-opacity-10 flex justify-center items-center rounded-full group-hover:scale-125 group-hover:bg-transparent">
+                    <span class="text-violet-400 group-hover:bg-violet-200 border-full h-5 w-5 bg-violet-100 group-hover:text-violet-600 bg-opacity-10 flex justify-center items-center rounded-full group-hover:scale-125">
                       {index + 1}
                     </span>
                     <span class="text-violet-200 truncate active:text-white group-hover:text-violet-800">

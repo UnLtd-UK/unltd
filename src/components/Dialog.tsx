@@ -1,28 +1,117 @@
 'use client'
 
-import { useState } from 'react'
+import { type MouseEventHandler, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { CheckIcon } from '@heroicons/react/24/outline'
 
-export default function DialogComponent({ title, description, primaryButton, secondaryButton, icon }) {
+type DialogButton = {
+  text: string
+  href?: string
+  autoFocus?: boolean
+  onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
+}
+
+interface DialogComponentProps {
+  title: string
+  description: string
+  primaryButton?: DialogButton
+  secondaryButton?: DialogButton
+  icon: string
+}
+
+export default function DialogComponent({ title, description, primaryButton, secondaryButton, icon }: DialogComponentProps) {
   const [open, setOpen] = useState(true)
 
-  const handleSecondaryClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (secondaryButton.href && secondaryButton.href.startsWith('#')) {
-      e.preventDefault()
-      setOpen(false)
-      // Small delay to allow dialog close animation
-      setTimeout(() => {
-        const element = document.querySelector(secondaryButton.href)
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' })
-        }
-      }, 100)
+  const scrollToAnchor = (hash: string) => {
+    const element = document.querySelector(hash)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
     }
   }
 
+  const renderButton = (button: DialogButton, variant: 'primary' | 'secondary', extraClasses = '') => {
+    const baseClasses =
+      variant === 'primary'
+        ? 'inline-flex w-full justify-center rounded-md bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 items-center gap-1'
+        : 'cursor-pointer inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-violet-900 shadow-xs ring-1 ring-violet-200 ring-inset hover:bg-violet-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600'
+
+    const className = `${baseClasses}${extraClasses ? ` ${extraClasses}` : ''}`
+
+    if (button.href) {
+      const isAnchor = button.href.startsWith('#')
+      const isExternal = button.href.startsWith('http')
+
+      const handleClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
+        button.onClick?.(event)
+        setOpen(false)
+
+        if (isAnchor) {
+          event.preventDefault()
+          setTimeout(() => scrollToAnchor(button.href!), 120)
+        }
+      }
+
+      return (
+        <a
+          href={button.href}
+          onClick={handleClick}
+          target={isExternal ? '_blank' : '_self'}
+          rel={isExternal ? 'noreferrer noopener' : undefined}
+          className={className}
+          autoFocus={button.autoFocus}
+        >
+          <span>{button.text}</span>
+          {variant === 'primary' && isExternal && <i className="fa-solid fa-arrow-up-right-from-square text-xs" />}
+        </a>
+      )
+    }
+
+    const handleClick: MouseEventHandler<HTMLButtonElement> = (event) => {
+      button.onClick?.(event)
+      setOpen(false)
+    }
+
+    return (
+      <button
+        type="button"
+        onClick={handleClick}
+        className={className}
+        autoFocus={button.autoFocus}
+      >
+        {button.text}
+      </button>
+    )
+  }
+
+  const renderButtons = () => {
+    const hasPrimary = Boolean(primaryButton)
+    const hasSecondary = Boolean(secondaryButton)
+
+    if (!hasPrimary && !hasSecondary) {
+      return (
+        <div className="mt-5 sm:mt-6">
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="inline-flex w-full justify-center rounded-md bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
+          >
+            Close
+          </button>
+        </div>
+      )
+    }
+
+    const wrapperClasses = `mt-5 sm:mt-6${hasPrimary && hasSecondary ? ' sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3' : ''}`
+
+    return (
+      <div className={wrapperClasses}>
+        {hasPrimary && renderButton(primaryButton!, 'primary', hasSecondary ? 'sm:col-start-2' : '')}
+        {hasSecondary && renderButton(secondaryButton!, 'secondary', hasPrimary ? 'mt-3 sm:mt-0 sm:col-start-1' : '')}
+      </div>
+    )
+  }
+
   return (
-    <Dialog open={open} onClose={() => { }} className="relative z-10">
+    <Dialog open={open} onClose={() => setOpen(false)} className="relative z-10">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in backdrop-blur-xs "
@@ -49,41 +138,7 @@ export default function DialogComponent({ title, description, primaryButton, sec
                 </div>
               </div>
             </div>
-            <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-              {primaryButton.href ? <a
-                href={primaryButton.href}
-                target={primaryButton.href.startsWith('http') ? '_blank' : '_self'}
-                className="mt-3 inline-flex w-full justify-center rounded-md bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-xs ring-1 ring-violet-300 ring-inset hover:bg-violet-700 sm:mt-0 items-center gap-1"
-              >
-                <span>{primaryButton.text}</span><i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-              </a> :
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  data-autofocus
-                  className="cursor-pointer inline-flex w-full justify-center rounded-md bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
-                >{primaryButton.text}
-                </button>
-              }
-
-              {secondaryButton.href ?
-                <a
-                  href={secondaryButton.href}
-                  onClick={handleSecondaryClick}
-                  target={secondaryButton.href.startsWith('http') ? '_blank' : '_self'}
-                  className="mt-3 inline-flex w-full justify-center rounded-md bg-violet-50 px-3 py-2 text-sm font-semibold text-violet-900 shadow-xs ring-1 ring-violet-300 ring-inset hover:bg-violet-100 sm:mt-0 items-center gap-1"
-                >
-                  <span>{secondaryButton.text}</span>
-                  {!secondaryButton.href.startsWith('#') && <i className="fa-solid fa-arrow-up-right-from-square text-xs"></i>}
-                </a>
-                : <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  data-autofocus
-                  className="cursor-pointer inline-flex w-full justify-center rounded-md bg-violet-50 px-3 py-2 text-sm font-semibold text-violet-900 ring-1 ring-violet-300 ring-inset shadow-xs hover:bg-violet-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
-                >{secondaryButton.text}
-                </button>}
-            </div>
+            {renderButtons()}
           </DialogPanel>
         </div>
       </div>
