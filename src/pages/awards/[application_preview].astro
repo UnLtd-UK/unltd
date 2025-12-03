@@ -4,7 +4,7 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Main from "@components/application-preview/Main.astro";
 import AsideRight from "@components/application-preview/AsideRight.astro";
-import DialogComponent from "@components/Dialog.tsx";
+// import DialogComponent from "@components/Dialog.tsx";
 
 import { applications } from "@data/applications.js";
 
@@ -90,7 +90,7 @@ const dialogDescription = `When you complete your application in the portal, in 
 <Template name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <DialogComponent
+    <!-- <DialogComponent
       icon="fa-solid fa-circle-info"
       title={dialogTitle}
       description={dialogDescription}
@@ -98,7 +98,7 @@ const dialogDescription = `When you complete your application in the portal, in 
         text: "I understand",
       }}
       client:load
-    />
+    /> -->
     <div class="flex flex-col gap-2 mt-10">
       <div class="flex flex-col sm:flex-row gap-10">
         <div
