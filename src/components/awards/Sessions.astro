@@ -26,30 +26,29 @@ const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
 );
 ---
 
-<Container bg="bg-violet-50 dark:bg-violet-950">
-    <div class="flex flex-col gap-10 py-10">
-        <div class="flex flex-col gap-10 py-20">
-            <div class="max-w-4xl">
-                <h2
-                    id="sessions"
-                    class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
-                >
-                    Sessions
-                </h2>
-                <p
-                    class="mt-6 max-w-2xl text-lg leading-8 text-violet-800 dark:text-violet-300"
-                >
-                    We run regular information sessions on our programmes, where
-                    you will get an overview of what to expect, the support
-                    available, and the application process. You will also have
-                    the chance to ask any questions. In addition, we host
-                    Connect and Share sessions, an opportunity to meet existing
-                    Award Winners, hear about their experiences, and learn
-                    directly from their journeys.
-                </p>
-            </div>
-            {
-                programmeEvents.length > 0 ? (
+{
+    programmeEvents.length > 0 && (
+        <Container bg="bg-violet-50 dark:bg-violet-950">
+            <div class="flex flex-col gap-10 py-10">
+                <div class="flex flex-col gap-10 py-20">
+                    <div class="max-w-4xl">
+                        <h2
+                            id="sessions"
+                            class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
+                        >
+                            Sessions
+                        </h2>
+                        <p class="mt-6 max-w-2xl text-lg leading-8 text-violet-800 dark:text-violet-300">
+                            We run regular information sessions on our
+                            programmes, where you will get an overview of what
+                            to expect, the support available, and the
+                            application process. You will also have the chance
+                            to ask any questions. In addition, we host Connect
+                            and Share sessions, an opportunity to meet existing
+                            Award Winners, hear about their experiences, and
+                            learn directly from their journeys.
+                        </p>
+                    </div>
                     <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                         {programmeEvents.map((event) => {
                             const startDate = new Date(event.start.local);
@@ -208,24 +207,8 @@ const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
                             );
                         })}
                     </div>
-                ) : (
-                    <div class="rounded-xl border border-violet-200 bg-violet-50 p-6 text-violet-900">
-                        <p>
-                            We do not have any upcoming sessions scheduled right
-                            now. Please check our Eventbrite collection for the
-                            latest dates.
-                        </p>
-                        <a
-                            href={EVENTBRITE_PROGRAMMES_COLLECTION_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-violet-900 hover:text-violet-700 transition-colors duration-200"
-                        >
-                            Browse events on Eventbrite >
-                        </a>
-                    </div>
-                )
-            }
-        </div>
-    </div>
-</Container>
+                </div>
+            </div>
+        </Container>
+    )
+}
