@@ -1,0 +1,39 @@
+---
+// PROPS
+const props = {
+    name: "Eligibility Criteria",
+    slug: "/awards",
+    description:
+        "You have an idea, or you are already creating a positive social impact with your venture and are looking to develop. We combine funding and support specifically tailored to you. We'll help get you started or to grow.",
+};
+
+const breadcrumbs = [
+    {
+        name: "Awards",
+        path: "/awards",
+    },
+    {
+        name: "Eligibility Criteria",
+        path: "/awards1/eligibility-criteria",
+    },
+];
+
+// LAYOUT
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+
+// COMPONENTS
+import EligibilityCriteria from "@components/awards/EligibilityCriteria.astro";
+
+// OTHER
+import moment from "moment";
+---
+
+<Template name={props.name} description={props.description}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+    </Container>
+
+    <EligibilityCriteria />
+</Template>
