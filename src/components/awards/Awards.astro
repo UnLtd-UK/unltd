@@ -2,9 +2,8 @@
 import Award from "@components/awards/Award.astro";
 const awards = [
     {
-        name: "Starting Up Millennium Awards Trust, Award",
+        name: "Starting up",
         backgroundColour: "bg-slate-100",
-        description: "Everything you need to get started.",
         grant: 8000,
         programme: {
             icon: "fa-solid fa-universal-access",
@@ -31,42 +30,12 @@ const awards = [
         ],
     },
     {
-        name: "Scaling Up Millennium Awards Trust, Award",
-        backgroundColour: "bg-slate-900",
-        description: "Everything you need to get started.",
-        grant: 18000,
-        programme: {
-            icon: "fa-solid fa-universal-access",
-            name: "Millennium Awards Trust",
-            path: "/awards/millennium-awards-trust",
-            colour: "amber",
-        },
-        grantUsability: {
-            "For social venture costs": true,
-            "For social entrepreneur living costs": true,
-        },
-        programmeServices: [
-            { name: "12 months of enrollment", icon: "fa-light fa-timer" },
-            { name: "Support manager", icon: "fa-light fa-user-headset" },
-            {
-                name: "Upskill with your peers",
-                icon: "fa-light fa-people-group",
-            },
-            { name: "Business mentoring", icon: "fa-light fa-handshake" },
-            {
-                name: "Legal advisor consultancy",
-                icon: "fa-light fa-rectangle-pro",
-            },
-        ],
-    },
-    {
-        name: "Starting Up Funding Futures Programme, Award",
+        name: "Starting up",
         backgroundColour: "bg-slate-100",
-        description: "Everything you need to get started.",
         grant: 8000,
         programme: {
             icon: "fa-solid fa-rocket",
-            name: "Funding Futures",
+            name: "Funding Futures Programme",
             path: "/awards/funding-futures-programme",
             colour: "purple",
         },
@@ -93,13 +62,40 @@ const awards = [
         ],
     },
     {
-        name: "Scaling Up Funding Futures Programme, Award",
+        name: "Scaling up",
         backgroundColour: "bg-slate-900",
-        description: "Everything you need to get started.",
+        grant: 18000,
+        programme: {
+            icon: "fa-solid fa-universal-access",
+            name: "Millennium Awards Trust",
+            path: "/awards/millennium-awards-trust",
+            colour: "amber",
+        },
+        grantUsability: {
+            "For social venture costs": true,
+            "For social entrepreneur living costs": true,
+        },
+        programmeServices: [
+            { name: "12 months of enrollment", icon: "fa-light fa-timer" },
+            { name: "Support manager", icon: "fa-light fa-user-headset" },
+            {
+                name: "Upskill with your peers",
+                icon: "fa-light fa-people-group",
+            },
+            { name: "Business mentoring", icon: "fa-light fa-handshake" },
+            {
+                name: "Legal advisor consultancy",
+                icon: "fa-light fa-rectangle-pro",
+            },
+        ],
+    },
+    {
+        name: "Scaling up",
+        backgroundColour: "bg-slate-900",
         grant: 18000,
         programme: {
             icon: "fa-solid fa-rocket",
-            name: "Funding Futures",
+            name: "Funding Futures Programme",
             path: "/awards/funding-futures-programme",
             colour: "purple",
         },
@@ -129,22 +125,8 @@ const awards = [
 ---
 
 <!-- Include this script tag or install `@tailwindplus/elements` via npm: --><!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
-<div id="awards" class="bg-white pt-20 dark:bg-violet-900">
-    <div class="mx-auto max-w-4xl px-6 max-lg:text-center lg:max-w-7xl lg:px-8">
-        <h1
-            class="text-5xl font-semibold tracking-tight text-balance text-violet-900 sm:text-6xl lg:text-pretty dark:text-violet-100"
-        >
-            Our Awards
-        </h1>
-        <p
-            class="mt-6 max-w-2xl text-lg font-medium text-pretty text-violet-600 max-lg:mx-auto sm:text-xl/8 dark:text-violet-300"
-        >
-            We offer two award levels across our programmes. When you apply,
-            we'll assess your social venture and match you with the right award
-            and programme.
-        </p>
-    </div>
-    <div class="relative pt-16 sm:pt-24">
+<div id="awards" class="bg-white dark:bg-violet-950">
+    <div class="relative py-18">
         <div
             class="absolute inset-x-0 top-48 bottom-0 bg-[radial-gradient(circle_at_center_center,#7775D6,#592E71,#030712_70%)] lg:bg-[radial-gradient(circle_at_center_150%,#7775D6,#592E71,#030712_70%)] dark:bg-[radial-gradient(circle_at_center_center,#7775D680,#592E7180,transparent_70%)] dark:lg:bg-[radial-gradient(circle_at_center_150%,#7775D680,#592E7180,transparent_70%)]"
         >
