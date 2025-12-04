@@ -1,0 +1,640 @@
+---
+interface Props {
+    showCTA?: boolean;
+}
+
+const { showCTA = true } = Astro.props;
+
+const awardCodes = {
+    STMAT: "Starting Up — Millennium Awards Trust",
+    STFFP: "Starting Up — Funding Futures",
+    SCMAT: "Scaling Up — Millennium Awards Trust",
+    SCFFP: "Scaling Up — Funding Futures",
+} as const;
+
+type AwardCode = keyof typeof awardCodes;
+
+interface EligibilityCriterion {
+    name: string;
+    awards: Record<AwardCode, boolean | string | string[] | null>;
+}
+
+interface EligibilityCategory {
+    name: string;
+    criteria: EligibilityCriterion[];
+}
+
+const eligibilityData: EligibilityCategory[] = [
+    {
+        name: "Social entrepreneur",
+        criteria: [
+            {
+                name: "How old are you?",
+                awards: {
+                    STMAT: "16 years old or older",
+                    STFFP: "16 to 30 years old",
+                    SCMAT: "16 years old or older",
+                    SCFFP: "16 to 30 years old",
+                },
+            },
+            {
+                name: "Are you currently living in the United Kingdom?",
+                awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true },
+            },
+            {
+                name: "Are you the founder or leader of the social venture?",
+                awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true },
+            },
+            {
+                name: "Why are you looking for funding?",
+                awards: {
+                    STMAT: "To create long term social impact",
+                    STFFP: "To create long term social impact",
+                    SCMAT: "To create long term social impact",
+                    SCFFP: "To create long term social impact",
+                },
+            },
+            {
+                name: "Are you applying primarily to fund academic qualifications?",
+                awards: {
+                    STMAT: false,
+                    STFFP: false,
+                    SCMAT: false,
+                    SCFFP: false,
+                },
+            },
+            {
+                name: "Are you applying primarily to fund overseas travel?",
+                awards: {
+                    STMAT: false,
+                    STFFP: false,
+                    SCMAT: false,
+                    SCFFP: false,
+                },
+            },
+            {
+                name: "Are you applying primarily to pay others to deliver the work on your behalf?",
+                awards: {
+                    STMAT: false,
+                    STFFP: false,
+                    SCMAT: false,
+                    SCFFP: false,
+                },
+            },
+            {
+                name: "Do you need both UnLtd's financial and non-financial support?",
+                awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true },
+            },
+        ],
+    },
+    {
+        name: "Social venture",
+        criteria: [
+            {
+                name: "Is it clearly driven by its social purpose?",
+                awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true },
+            },
+            {
+                name: "Can you demonstrate a clear need for it?",
+                awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true },
+            },
+            {
+                name: "Does it mainly benefit people or places within the UK?",
+                awards: {
+                    STMAT: false,
+                    STFFP: false,
+                    SCMAT: false,
+                    SCFFP: false,
+                },
+            },
+            {
+                name: "Is it continuing activities that have already been running for more than four years?",
+                awards: {
+                    STMAT: false,
+                    STFFP: false,
+                    SCMAT: false,
+                    SCFFP: false,
+                },
+            },
+            {
+                name: "Does it involve activities outside of the law, against public policy or anything which encourages ethnic, religious, or commercial disharmony?",
+                awards: {
+                    STMAT: false,
+                    STFFP: false,
+                    SCMAT: false,
+                    SCFFP: false,
+                },
+            },
+            {
+                name: "Does it involve political, or religious campaigning?",
+                awards: {
+                    STMAT: false,
+                    STFFP: false,
+                    SCMAT: false,
+                    SCFFP: false,
+                },
+            },
+            {
+                name: "Does it do more than just raise awareness of a social issue?",
+                awards: {
+                    STMAT: false,
+                    STFFP: false,
+                    SCMAT: false,
+                    SCFFP: false,
+                },
+            },
+            {
+                name: "Does it have the potential to be financially sustainable with our support?",
+                awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true },
+            },
+            {
+                name: "How long has your idea or social venture been incorporated?",
+                awards: {
+                    STMAT: "Not yet or less than 4 years",
+                    STFFP: "Not yet or less than 4 years",
+                    SCMAT: "Less than 4 years",
+                    SCFFP: "Less than 4 years",
+                },
+            },
+            {
+                name: "Has your idea or social venture started trading?",
+                awards: {
+                    STMAT: "Trading for under one year",
+                    STFFP: "Trading for under one year",
+                    SCMAT: "Trading for over one year",
+                    SCFFP: "Trading for over one year",
+                },
+            },
+            {
+                name: "What sectors are you in?",
+                awards: {
+                    STMAT: [
+                        "Access to education",
+                        "Access to employment",
+                        "Access to legal services",
+                        "Business support",
+                        "Climate change and energy",
+                        "Care in the community",
+                        "Conservation",
+                        "Creative industries",
+                        "Criminal justice",
+                        "Digital products or services",
+                        "Environmental sustainability",
+                        "Equity, diversity, and inclusion",
+                        "Financial services and financial inclusion",
+                        "Food, nutrition, or agriculture",
+                        "Healthy ageing",
+                        "Housing and/or homelessness",
+                        "Loneliness and/or social isolation",
+                        "Manufacturing",
+                        "Mental health and wellbeing",
+                        "Poverty reduction",
+                        "Quality of life",
+                        "Skills and training",
+                        "Social care",
+                        "Sport and physical health",
+                        "Technology",
+                        "Urban environments/community",
+                        "Water and sanitation",
+                        "Youth",
+                        "Other",
+                    ],
+                    STFFP: [
+                        "Access to employment",
+                        "Financial services and financial inclusion",
+                        "Poverty reduction",
+                        "Skills and training",
+                    ],
+                    SCMAT: [
+                        "Access to education",
+                        "Access to employment",
+                        "Access to legal services",
+                        "Business support",
+                        "Climate change and energy",
+                        "Care in the community",
+                        "Conservation",
+                        "Creative industries",
+                        "Criminal justice",
+                        "Digital products or services",
+                        "Environmental sustainability",
+                        "Equity, diversity, and inclusion",
+                        "Financial services and financial inclusion",
+                        "Food, nutrition, or agriculture",
+                        "Healthy ageing",
+                        "Housing and/or homelessness",
+                        "Loneliness and/or social isolation",
+                        "Manufacturing",
+                        "Mental health and wellbeing",
+                        "Poverty reduction",
+                        "Quality of life",
+                        "Skills and training",
+                        "Social care",
+                        "Sport and physical health",
+                        "Technology",
+                        "Urban environments/community",
+                        "Water and sanitation",
+                        "Youth",
+                        "Other",
+                    ],
+                    SCFFP: [
+                        "Access to employment",
+                        "Financial services and financial inclusion",
+                        "Poverty reduction",
+                        "Skills and training",
+                    ],
+                },
+            },
+            {
+                name: "What was your social ventures turnover in its last financial year?",
+                awards: {
+                    STMAT: null,
+                    STFFP: "Less than £250,000",
+                    SCMAT: null,
+                    SCFFP: "Less than £250,000",
+                },
+            },
+            {
+                name: "In the last 12 months, has your social venture earned over £18,000 in traded income?",
+                awards: {
+                    STMAT: null,
+                    STFFP: "£18,000 or more",
+                    SCMAT: null,
+                    SCFFP: "£18,000 or more",
+                },
+            },
+            {
+                name: "Are you able to provide financial data which covers the last 12 months, along with financial projections for the next 12 months?",
+                awards: {
+                    STMAT: null,
+                    STFFP: true,
+                    SCMAT: null,
+                    SCFFP: true,
+                },
+            },
+        ],
+    },
+];
+
+const awardKeys = Object.keys(awardCodes) as AwardCode[];
+
+function renderCriterionValue(value: boolean | string | string[] | null): {
+    type: "null" | "true" | "false" | "array" | "string";
+    text?: string;
+    count?: number;
+} {
+    if (value === null) return { type: "null" };
+    if (value === true) return { type: "true" };
+    if (value === false) return { type: "false" };
+    if (Array.isArray(value)) return { type: "array", count: value.length };
+    return { type: "string", text: value };
+}
+---
+
+<section id="eligibility-criteria" class="py-20 md:py-28 bg-violet-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <span
+                class="inline-flex items-center rounded-full bg-violet-100 text-violet-700 px-3 py-0.5 text-sm font-medium mb-4"
+            >
+                Reference
+            </span>
+            <h2
+                class="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance text-violet-50"
+            >
+                Full Eligibility Criteria
+            </h2>
+            <p
+                class="text-lg text-muted-foreground max-w-2xl mx-auto text-violet-50"
+            >
+                Prefer to check manually? Here's a detailed breakdown of all
+                eligibility requirements for each award type.
+            </p>
+        </div>
+
+        <!-- Eligibility Tables -->
+        <div class="space-y-12 mb-16">
+            {
+                eligibilityData.map((category, categoryIdx) => (
+                    <div class="bg-white rounded-2xl border border-violet-200 overflow-hidden shadow-sm">
+                        <div class="bg-violet-50 border-b border-violet-200 px-6 py-4 flex items-center gap-3">
+                            {category.name === "Social entrepreneur" ? (
+                                <i
+                                    class="fa-solid fa-user h-5 w-5 text-violet-600"
+                                    aria-hidden="true"
+                                />
+                            ) : (
+                                <i
+                                    class="fa-solid fa-building h-5 w-5 text-violet-600"
+                                    aria-hidden="true"
+                                />
+                            )}
+                            <h3 class="font-semibold text-foreground">
+                                {category.name} requirements
+                            </h3>
+                        </div>
+                        <div class="p-4 md:p-6">
+                            <div class="overflow-x-auto -mx-4 sm:mx-0">
+                                <table class="w-full min-w-[800px]">
+                                    <thead>
+                                        <tr class="border-b border-slate-200">
+                                            <th class="text-left py-4 px-4 font-semibold text-slate-900 w-[40%]">
+                                                Criteria
+                                            </th>
+                                            {awardKeys.map((code) => (
+                                                <th class="text-center py-4 px-2 font-medium text-slate-700 text-xs">
+                                                    <div class="flex flex-col items-center gap-1">
+                                                        <span
+                                                            class:list={[
+                                                                "px-2 py-0.5 rounded text-[10px] uppercase tracking-wide",
+                                                                code.startsWith(
+                                                                    "ST",
+                                                                )
+                                                                    ? "bg-teal-100 text-teal-700"
+                                                                    : "bg-slate-800 text-white",
+                                                            ]}
+                                                        >
+                                                            {code.startsWith(
+                                                                "ST",
+                                                            )
+                                                                ? "Starting Up"
+                                                                : "Scaling Up"}
+                                                        </span>
+                                                        <span class="text-slate-500">
+                                                            {code.includes(
+                                                                "MAT",
+                                                            )
+                                                                ? "MAT"
+                                                                : "FFP"}
+                                                        </span>
+                                                    </div>
+                                                </th>
+                                            ))}
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {category.criteria.map(
+                                            (criterion, criterionIdx) => {
+                                                const isSectorRow =
+                                                    criterion.name ===
+                                                    "What sectors are you in?";
+                                                return (
+                                                    <tr
+                                                        class:list={[
+                                                            "border-b border-slate-100",
+                                                            criterionIdx % 2 ===
+                                                            0
+                                                                ? "bg-white"
+                                                                : "bg-slate-50/50",
+                                                        ]}
+                                                    >
+                                                        <td class="py-4 px-4 text-sm text-slate-700">
+                                                            {criterion.name}
+                                                        </td>
+                                                        {awardKeys.map(
+                                                            (code) => {
+                                                                const value =
+                                                                    criterion
+                                                                        .awards[
+                                                                        code
+                                                                    ];
+                                                                const rendered =
+                                                                    renderCriterionValue(
+                                                                        value,
+                                                                    );
+                                                                return (
+                                                                    <td class="py-4 px-2 text-center">
+                                                                        {isSectorRow &&
+                                                                        Array.isArray(
+                                                                            value,
+                                                                        ) ? (
+                                                                            <div
+                                                                                class="text-left"
+                                                                                x-data="{ expanded: false }"
+                                                                            >
+                                                                                <button
+                                                                                    x-on:click="expanded = !expanded"
+                                                                                    class="text-xs text-teal-600 hover:text-teal-700 font-medium flex items-center gap-1 mx-auto"
+                                                                                >
+                                                                                    <span>
+                                                                                        {
+                                                                                            value.length
+                                                                                        }{" "}
+                                                                                        sectors
+                                                                                    </span>
+                                                                                    <i
+                                                                                        class="fa-solid fa-chevron-down text-[10px]"
+                                                                                        x-show="!expanded"
+                                                                                        aria-hidden="true"
+                                                                                    />
+                                                                                    <i
+                                                                                        class="fa-solid fa-chevron-up text-[10px]"
+                                                                                        x-show="expanded"
+                                                                                        x-cloak
+                                                                                        aria-hidden="true"
+                                                                                    />
+                                                                                </button>
+                                                                                <div
+                                                                                    x-show="expanded"
+                                                                                    x-transition
+                                                                                    x-cloak
+                                                                                    class="mt-2 text-left"
+                                                                                >
+                                                                                    <div x-data="{ showAll: false }">
+                                                                                        <div class="flex flex-wrap gap-1.5">
+                                                                                            {value
+                                                                                                .slice(
+                                                                                                    0,
+                                                                                                    6,
+                                                                                                )
+                                                                                                .map(
+                                                                                                    (
+                                                                                                        sector,
+                                                                                                    ) => (
+                                                                                                        <span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-md">
+                                                                                                            {
+                                                                                                                sector
+                                                                                                            }
+                                                                                                        </span>
+                                                                                                    ),
+                                                                                                )}
+                                                                                        </div>
+                                                                                        <div
+                                                                                            x-show="showAll"
+                                                                                            x-cloak
+                                                                                            class="flex flex-wrap gap-1.5 mt-1.5"
+                                                                                        >
+                                                                                            {value
+                                                                                                .slice(
+                                                                                                    6,
+                                                                                                )
+                                                                                                .map(
+                                                                                                    (
+                                                                                                        sector,
+                                                                                                    ) => (
+                                                                                                        <span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-md">
+                                                                                                            {
+                                                                                                                sector
+                                                                                                            }
+                                                                                                        </span>
+                                                                                                    ),
+                                                                                                )}
+                                                                                        </div>
+                                                                                        {value.length >
+                                                                                            6 && (
+                                                                                            <button
+                                                                                                x-on:click="showAll = !showAll"
+                                                                                                class="mt-2 text-xs text-teal-600 hover:text-teal-700 font-medium flex items-center gap-1"
+                                                                                            >
+                                                                                                <span x-show="!showAll">
+                                                                                                    +
+                                                                                                    {value.length -
+                                                                                                        6}{" "}
+                                                                                                    more
+                                                                                                </span>
+                                                                                                <i
+                                                                                                    class="fa-solid fa-chevron-down text-[10px]"
+                                                                                                    x-show="!showAll"
+                                                                                                    aria-hidden="true"
+                                                                                                />
+                                                                                                <span
+                                                                                                    x-show="showAll"
+                                                                                                    x-cloak
+                                                                                                >
+                                                                                                    Show
+                                                                                                    less
+                                                                                                </span>
+                                                                                                <i
+                                                                                                    class="fa-solid fa-chevron-up text-[10px]"
+                                                                                                    x-show="showAll"
+                                                                                                    x-cloak
+                                                                                                    aria-hidden="true"
+                                                                                                />
+                                                                                            </button>
+                                                                                        )}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        ) : rendered.type ===
+                                                                          "null" ? (
+                                                                            <span class="inline-flex items-center gap-1.5 text-slate-400">
+                                                                                <i
+                                                                                    class="fa-solid fa-minus h-4 w-4"
+                                                                                    aria-hidden="true"
+                                                                                />
+                                                                                <span class="text-xs">
+                                                                                    N/A
+                                                                                </span>
+                                                                            </span>
+                                                                        ) : rendered.type ===
+                                                                          "true" ? (
+                                                                            <span class="inline-flex items-center gap-1.5 text-emerald-600">
+                                                                                <i
+                                                                                    class="fa-solid fa-check h-4 w-4"
+                                                                                    aria-hidden="true"
+                                                                                />
+                                                                                <span class="text-xs font-medium">
+                                                                                    Yes
+                                                                                </span>
+                                                                            </span>
+                                                                        ) : rendered.type ===
+                                                                          "false" ? (
+                                                                            <span class="inline-flex items-center gap-1.5 text-red-500">
+                                                                                <i
+                                                                                    class="fa-solid fa-xmark h-4 w-4"
+                                                                                    aria-hidden="true"
+                                                                                />
+                                                                                <span class="text-xs font-medium">
+                                                                                    No
+                                                                                </span>
+                                                                            </span>
+                                                                        ) : rendered.type ===
+                                                                          "array" ? (
+                                                                            <div class="text-xs text-slate-600">
+                                                                                <span class="font-medium text-emerald-600">
+                                                                                    {
+                                                                                        rendered.count
+                                                                                    }{" "}
+                                                                                    sectors
+                                                                                </span>
+                                                                            </div>
+                                                                        ) : (
+                                                                            <span class="text-xs text-slate-700 font-medium">
+                                                                                {
+                                                                                    rendered.text
+                                                                                }
+                                                                            </span>
+                                                                        )}
+                                                                    </td>
+                                                                );
+                                                            },
+                                                        )}
+                                                    </tr>
+                                                );
+                                            },
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+
+        <!-- Legend -->
+        <div class="bg-white rounded-xl border border-violet-200 p-4 mb-16">
+            <h4 class="text-sm font-medium text-foreground mb-3">
+                Understanding the table
+            </h4>
+            <div class="flex flex-wrap gap-6 text-sm">
+                <div class="flex items-center gap-2">
+                    <i
+                        class="fa-solid fa-check h-4 w-4 text-emerald-600"
+                        aria-hidden="true"></i>
+                    <span class="text-muted-foreground"
+                        >Required / Must answer Yes</span
+                    >
+                </div>
+                <div class="flex items-center gap-2">
+                    <i
+                        class="fa-solid fa-xmark h-4 w-4 text-red-500"
+                        aria-hidden="true"></i>
+                    <span class="text-muted-foreground">Must answer No</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i
+                        class="fa-solid fa-minus h-4 w-4 text-violet-400"
+                        aria-hidden="true"></i>
+                    <span class="text-muted-foreground"
+                        >Not applicable for this award</span
+                    >
+                </div>
+                <div class="flex items-center gap-2">
+                    <span
+                        class="px-2 py-0.5 bg-violet-100 text-violet-700 text-xs rounded"
+                        >Starting Up</span
+                    >
+                    <span class="text-muted-foreground"
+                        >Early-stage ventures</span
+                    >
+                </div>
+                <div class="flex items-center gap-2">
+                    <span
+                        class="px-2 py-0.5 bg-violet-900 text-white text-xs rounded"
+                        >Scaling Up</span
+                    >
+                    <span class="text-muted-foreground"
+                        >Established ventures</span
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    [x-cloak] {
+        display: none !important;
+    }
+</style>
