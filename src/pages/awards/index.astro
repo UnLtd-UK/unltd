@@ -24,7 +24,8 @@ import Header from "@components/awards/Header.astro";
 import Programmes from "@components/awards/Programmes.astro";
 import Steps from "@components/awards/Steps.astro";
 import Questions from "@components/awards/Questions.astro";
-import Eligibility from "@components/eligibility";
+import Eligibility from "@components/awards/Eligibility.astro";
+import EligibilityCriteria from "@components/awards/EligibilityCriteria.astro";
 
 // OTHER
 import moment from "moment";
@@ -32,23 +33,6 @@ import Typeform from "@components/awards/Typeform.astro";
 import Awards from "@components/awards/Awards.astro";
 import Sessions from "@components/awards/Sessions.astro";
 let todayDate = moment();
-
-// let activeGrants = rounds.filter((round) => {
-//   let date = new Date();
-//   let roundopen = new Date(round.open);
-//   let roundclose = new Date(round.close);
-//   let fundopen = new Date(round.open);
-//   let fundclose = new Date(round.close);
-
-//   if (
-//     roundopen < date &&
-//     roundclose > date &&
-//     fundopen < date &&
-//     fundclose > date
-//   ) {
-//     return activeGrant;
-//   }
-// });
 ---
 
 <Template name={props.name} description={props.description}>
@@ -56,11 +40,11 @@ let todayDate = moment();
     <Breadcrumbs breadcrumbs={breadcrumbs} />
   </Container>
   <Header />
-  <!-- <Awards /> -->
-  <!-- <Typeform /> -->
-  <Sessions />
-  <!-- <Eligibility client:load /> -->
+  <Awards />
   <Programmes />
-  <Steps />
+  <Sessions />
+  <Eligibility />
+  <EligibilityCriteria />
+  <!-- <Steps /> -->
   <Questions />
 </Template>
