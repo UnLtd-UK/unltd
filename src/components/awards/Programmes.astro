@@ -11,6 +11,7 @@ import { palette } from "@data/palette.js";
 import Container from "@components/Container.astro";
 import ProgrammeBig from "@components/awards/programme/ProgrammeBig.astro";
 import ProgrammeSmall from "@components/awards//programme/ProgrammeSmall.astro";
+import ProgrammeDetails from "@components/awards/programme/ProgrammeDetails.astro";
 
 // Filter programmes to only show those with 'published' status
 const publishedProgrammes = programmes.filter(
@@ -27,13 +28,24 @@ const EVENTBRITE_PROGRAMMES_COLLECTION_URL =
 const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
   (event) => event.start?.local && !isPastEvent(event),
 );
+
+const slugOptions = {
+  lower: true,
+  strict: true,
+  locale: "en",
+  trim: true,
+};
+
+const enrichedProgrammes = publishedProgrammes.map((programme) => ({
+  ...programme,
+  slug: slugify(programme.name, slugOptions),
+}));
 ---
 
 <Container bg="bg-violet-50 dark:bg-violet-950">
-  <div class="flex flex-col gap-10 py-10">
+  <div id="programmes" class="flex flex-col gap-10 py-10">
     <div class="max-w-4xl">
       <h2
-        id="programmes"
         class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
       >
         Programmes
@@ -41,16 +53,16 @@ const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
       <p
         class="mt-6 max-w-2xl text-lg leading-8 text-violet-800 dark:text-violet-300"
       >
-        Depending on your age, location, and the sectors in which you and your
-        social venture operate, you will be assigned to one of our programmes
-        for funding and up to a year of support. Our programmes are designed to
-        provide specialised support that align with the needs of you and your
-        social venture.
+        Depending on your age and the sectors in which your social venture
+        operates in, you will be assigned to one of our programmes for funding
+        and up to a year of support. Our programmes are designed to provide
+        specialised support that align with the needs of you and your social
+        venture.
       </p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {
-        publishedProgrammes.map((programme, i) => (
+        enrichedProgrammes.map((programme, i) => (
           <ProgrammeSmall
             key={i}
             image={
@@ -68,12 +80,7 @@ const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
             focus={programme.focus}
             slogan={programme.slogan}
             description={programme.description}
-            slug={slugify(programme.name, {
-              lower: true,
-              strict: true,
-              locale: "en",
-              trim: true,
-            })}
+            slug={programme.slug}
             services={programme.services}
             eligibilities={programme.eligibilities}
             code={programme.code}
@@ -81,6 +88,51 @@ const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
             till={programme.till}
             label={programme.label}
           />
+        ))
+      }
+    </div>
+
+    <div aria-live="polite">
+      {
+        enrichedProgrammes.map((programme) => (
+          <section
+            class="programme-drawer"
+            data-programme-drawer={programme.slug}
+            aria-hidden="true"
+            hidden
+          >
+            <div class="programme-drawer__backdrop" data-programme-dismiss />
+            <div
+              class="programme-drawer__panel"
+              role="dialog"
+              aria-modal="true"
+              aria-label={`${programme.name} programme details`}
+            >
+              <div class="programme-drawer__panel-inner">
+                <div class="programme-drawer__panel-header">
+                  <p class="text-sm uppercase tracking-[0.3em] text-violet-200">
+                    Programme overview
+                  </p>
+                  <button
+                    type="button"
+                    class="programme-drawer__close"
+                    data-programme-dismiss
+                  >
+                    <span class="sr-only">Close programme drawer</span>
+                    <i class="fa-regular fa-circle-xmark text-2xl" />
+                  </button>
+                </div>
+                <div class="programme-drawer__content">
+                  <ProgrammeDetails
+                    programme={programme}
+                    programmesList={publishedProgrammes}
+                    styles={palette[programme.name]}
+                    includeOther={false}
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
         ))
       }
     </div>
@@ -270,3 +322,219 @@ const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
     </div> -->
   </div>
 </Container>
+
+<style is:inline>
+  :global(html.programme-drawer-open) {
+    overflow: hidden;
+  }
+
+  .programme-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: none;
+  }
+
+  .programme-drawer.programme-drawer--visible {
+    display: block;
+  }
+
+  .programme-drawer__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(9, 9, 11, 0.65);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+
+  .programme-drawer--active .programme-drawer__backdrop {
+    opacity: 1;
+  }
+
+  .programme-drawer__panel {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(100%, 56rem);
+    max-width: 100%;
+    transform: translateX(100%);
+    transition: transform 320ms ease;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .programme-drawer--active .programme-drawer__panel {
+    transform: translateX(0);
+  }
+
+  .programme-drawer__panel-inner {
+    width: 100%;
+    background: #f5f3ff;
+    height: 100%;
+    overflow-y: auto;
+    box-shadow: -25px 0 45px rgba(15, 23, 42, 0.35);
+    padding: 2rem 1rem;
+  }
+
+  .programme-drawer__panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(79, 70, 229, 0.2);
+    margin-bottom: 1.5rem;
+  }
+
+  .programme-drawer__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .programme-drawer__close {
+    border-radius: 9999px;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.8);
+    color: #4c1d95;
+    transition:
+      background 200ms ease,
+      transform 200ms ease;
+  }
+
+  .programme-drawer__close:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.05);
+  }
+
+  .programme-drawer__close:focus-visible {
+    outline: 2px solid #7c3aed;
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .programme-drawer__panel-inner {
+      padding: 1.5rem 1rem 3rem;
+    }
+  }
+</style>
+
+<script>
+  (() => {
+    if (typeof window === "undefined") return;
+
+    const drawerClassVisible = "programme-drawer--visible";
+    const drawerClassActive = "programme-drawer--active";
+    const rootLockClass = "programme-drawer-open";
+
+    const drawers = new Map();
+    document.querySelectorAll("[data-programme-drawer]").forEach((drawer) => {
+      const slug = drawer.getAttribute("data-programme-drawer");
+      if (slug) {
+        drawers.set(slug, drawer);
+      }
+    });
+
+    let activeDrawer = null;
+
+    const openDrawer = (slug) => {
+      const drawer = drawers.get(slug);
+      if (!drawer) return;
+
+      if (activeDrawer && activeDrawer !== drawer) {
+        closeDrawer(activeDrawer, false);
+      }
+
+      drawer.hidden = false;
+      drawer.setAttribute("aria-hidden", "false");
+      drawer.classList.add(drawerClassVisible);
+
+      requestAnimationFrame(() => {
+        drawer.classList.add(drawerClassActive);
+      });
+
+      document.documentElement.classList.add(rootLockClass);
+      activeDrawer = drawer;
+    };
+
+    const finishClose = (drawer) => {
+      drawer.classList.remove(drawerClassVisible);
+      drawer.hidden = true;
+    };
+
+    const closeDrawer = (drawer, unlockRoot = true) => {
+      if (!drawer) return;
+
+      drawer.classList.remove(drawerClassActive);
+      drawer.setAttribute("aria-hidden", "true");
+
+      const panel = drawer.querySelector(".programme-drawer__panel");
+      if (panel) {
+        let handled = false;
+        const onTransitionEnd = () => {
+          handled = true;
+          finishClose(drawer);
+          panel.removeEventListener("transitionend", onTransitionEnd);
+        };
+
+        panel.addEventListener("transitionend", onTransitionEnd, {
+          once: true,
+        });
+        window.setTimeout(() => {
+          if (!handled) {
+            finishClose(drawer);
+            panel.removeEventListener("transitionend", onTransitionEnd);
+          }
+        }, 400);
+      } else {
+        finishClose(drawer);
+      }
+
+      if (unlockRoot) {
+        document.documentElement.classList.remove(rootLockClass);
+      }
+
+      activeDrawer = null;
+    };
+
+    document.querySelectorAll("[data-programme-trigger]").forEach((trigger) => {
+      trigger.addEventListener("click", (event) => {
+        if (
+          event.defaultPrevented ||
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
+
+        const slug = trigger.getAttribute("data-programme-trigger");
+        if (!slug) return;
+
+        event.preventDefault();
+        openDrawer(slug);
+      });
+    });
+
+    document.querySelectorAll("[data-programme-dismiss]").forEach((element) => {
+      element.addEventListener("click", () => {
+        if (activeDrawer) {
+          closeDrawer(activeDrawer);
+        }
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && activeDrawer) {
+        closeDrawer(activeDrawer);
+        document.documentElement.classList.remove(rootLockClass);
+      }
+    });
+  })();
+</script>
