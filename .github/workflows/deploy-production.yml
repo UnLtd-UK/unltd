@@ -31,6 +31,12 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Configure npm for Font Awesome Pro
+        run: |
+          echo "@awesome.me:registry=https://npm.fontawesome.com/" >> .npmrc
+          echo "@fortawesome:registry=https://npm.fontawesome.com/" >> .npmrc
+          echo "//npm.fontawesome.com/:_authToken=${FONTAWESOME_NPM_AUTH_TOKEN}" >> .npmrc
+
       - name: Install dependencies
         run: npm ci
 
