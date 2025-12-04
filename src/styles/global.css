@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "@fortawesome/fontawesome-pro/css/all.css";
 
 @utility prose {
     blockquote {
