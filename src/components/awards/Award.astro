@@ -70,6 +70,43 @@ const grantFormatted = new Intl.NumberFormat("en-GB", {
 
 const grantUsabilityEntries = Object.entries(grantUsability ?? {});
 const services = programmeServices ?? [];
+
+// Determine if this is a Starting Up award (lighter) or Scaling Up award (darker)
+const isStartingUp = name.toLowerCase().includes("starting up");
+
+// Card background and text classes based on award type
+const cardBg = isStartingUp
+    ? "bg-white dark:bg-slate-200"
+    : "bg-white dark:bg-slate-800";
+const cardRing = isStartingUp
+    ? "ring-1 ring-black/5 dark:ring-slate-300"
+    : "ring-1 ring-black/5 dark:ring-white/10";
+const cardShadow = isStartingUp
+    ? "shadow-2xl dark:shadow-lg"
+    : "shadow-2xl dark:shadow-none";
+
+// Text classes for Starting Up (dark text on light bg) vs Scaling Up (light text on dark bg)
+const titleText = isStartingUp
+    ? "text-violet-600 dark:text-violet-700"
+    : "text-violet-600 dark:text-violet-400";
+const descText = isStartingUp
+    ? "text-gray-600 dark:text-gray-700"
+    : "text-gray-600 dark:text-gray-300";
+const labelText = isStartingUp
+    ? "text-gray-600 dark:text-gray-600"
+    : "text-gray-600 dark:text-gray-400";
+const grantText = isStartingUp
+    ? "text-violet-950 dark:text-violet-900"
+    : "text-violet-950 dark:text-violet-200";
+const headingText = isStartingUp
+    ? "text-gray-950 dark:text-gray-900"
+    : "text-gray-950 dark:text-white";
+const listText = isStartingUp
+    ? "text-gray-600 data-disabled:text-gray-400 dark:text-gray-700 dark:data-disabled:text-gray-400"
+    : "text-gray-600 data-disabled:text-gray-400 dark:text-gray-300 dark:data-disabled:text-gray-500";
+const dividerBorder = isStartingUp
+    ? "border-gray-300 dark:border-gray-400"
+    : "border-gray-300 dark:border-white/15";
 ---
 
 <div
@@ -78,33 +115,19 @@ const services = programmeServices ?? [];
     <div
         class="grid grid-cols-1 rounded-4xl p-2 shadow-md shadow-black/5 dark:shadow-none"
     >
-        <div
-            class="rounded-3xl bg-white shadow-2xl ring-1 ring-black/5 dark:bg-gray-800 dark:shadow-none dark:ring-white/10"
-        >
+        <div class:list={["rounded-3xl", cardBg, cardShadow, cardRing]}>
             <div class="p-10 pb-0">
-                <h2
-                    class="flex flex-col gap-1 text-sm font-semibold text-violet-600 dark:text-violet-400"
-                >
-                    {name}
-                </h2>
-                <p
-                    class="mt-2 text-sm/6 text-pretty text-gray-600 dark:text-gray-300"
-                >
-                    {description}
-                </p>
-                <div class="mt-8 flex flex-col gap-1">
-                    <div class="text-sm text-gray-600 dark:text-gray-400">
-                        <p>Grant of up to</p>
+                <div class="flex flex-col gap-1">
+                    <div class:list={["text-sm", labelText]}>
+                        <h2>{name} grant of up to</h2>
                     </div>
-                    <div
-                        class="text-5xl font-semibold text-violet-950 dark:text-violet-200"
-                    >
+                    <div class:list={["text-5xl font-semibold", grantText]}>
                         {grantFormatted}
                     </div>
                 </div>
                 <div class="mt-8 flex flex-col gap-1">
-                    <div class="text-sm text-gray-600 dark:text-gray-400">
-                        <p>Programme enrollment of</p>
+                    <div class:list={["text-sm", labelText]}>
+                        <p>Enrollment onto</p>
                     </div>
                     <!-- <div
                                     class="text-4xl font-semibold text-violet-950 dark:text-violet-200"
@@ -140,14 +163,12 @@ const services = programmeServices ?? [];
                 <div class="flex items-center py-8">
                     <div
                         aria-hidden="true"
-                        class="w-full border-t border-gray-300 dark:border-white/15"
+                        class:list={["w-full border-t", dividerBorder]}
                     >
                     </div>
                 </div>
                 <div class="">
-                    <h3
-                        class="text-sm/6 font-medium text-gray-950 dark:text-white"
-                    >
+                    <h3 class:list={["text-sm/6 font-medium", headingText]}>
                         Your grant usability:
                     </h3>
 
@@ -158,7 +179,10 @@ const services = programmeServices ?? [];
                                     data-disabled={
                                         !isIncluded ? "true" : undefined
                                     }
-                                    class="group flex items-start gap-2 text-xs/6 text-gray-600 data-disabled:text-gray-400 dark:text-gray-300 dark:data-disabled:text-gray-500"
+                                    class:list={[
+                                        "group flex items-start gap-2 text-xs/6",
+                                        listText,
+                                    ]}
                                 >
                                     <span class="inline-flex h-6 items-center">
                                         <i
@@ -186,9 +210,7 @@ const services = programmeServices ?? [];
 
             <div class="p-5 pb-4">
                 <div class="pb-4">
-                    <h3
-                        class="text-sm/6 font-medium text-gray-950 dark:text-white"
-                    >
+                    <h3 class:list={["text-sm/6 font-medium", headingText]}>
                         Your programme services:
                     </h3>
                 </div>

@@ -1,10 +1,4 @@
 ---
-interface Props {
-    showCTA?: boolean;
-}
-
-const { showCTA = true } = Astro.props;
-
 const awardCodes = {
     STMAT: "Starting Up — Millennium Awards Trust",
     STFFP: "Starting Up — Funding Futures",
@@ -290,7 +284,7 @@ function renderCriterionValue(value: boolean | string | string[] | null): {
 }
 ---
 
-<section id="eligibility-criteria" class="py-20 md:py-28 bg-violet-900">
+<section id="eligibility-criteria" class="py-20 md:py-28 bg-violet-950">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="text-center mb-12">
