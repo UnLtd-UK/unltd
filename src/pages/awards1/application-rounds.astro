@@ -1,7 +1,7 @@
 ---
 // PROPS
 const props = {
-    name: "Application Process",
+    name: "Application Rounds",
     slug: "/awards",
     description:
         "You have an idea, or you are already creating a positive social impact with your venture and are looking to develop. We combine funding and support specifically tailored to you. We'll help get you started or to grow.",
@@ -13,8 +13,8 @@ const breadcrumbs = [
         path: "/awards",
     },
     {
-        name: "Application Process",
-        path: "/awards1/application-process",
+        name: "Application Rounds",
+        path: "/awards1/application-rounds",
     },
 ];
 
@@ -23,7 +23,7 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 
-const applicationWindows = [
+const applicationRounds = [
     {
         opensDate: "1 October 2025",
         closesDate: "15 December 2025",
@@ -77,7 +77,7 @@ const beforeSteps = [
         step: "4",
         title: "Submit Application",
         description:
-            "Complete and submit through our online portal before the window closes.",
+            "Complete and submit through our online portal before the round closes.",
     },
 ];
 
@@ -119,24 +119,23 @@ const successList = [
 const unsuccessfulList = [
     "Feedback on your application to help you improve",
     "Resources to continue developing your venture",
-    "Encouragement to reapply in a future window",
+    "Encouragement to reapply in a future round",
 ];
 
 const parseDate = (dateString) =>
     new Date(dateString.replace(/(\d+)\s+(\w+)\s+(\d+)/, "$2 $1, $3"));
 
-const getWindowStatus = (window) => {
+const getRoundStatus = (round) => {
     const now = new Date();
-    const opensDate = parseDate(window.opensDate);
-    const closesDate = parseDate(window.closesDate);
-    const percentage = window.capacityPercentage;
-
+    const opensDate = parseDate(round.opensDate);
+    const closesDate = parseDate(round.closesDate);
+    const percentage = round.capacityPercentage;
     if (percentage === 100) {
         return {
             status: "full",
-            label: "Window Full",
+            label: "Round Full",
             description:
-                "This window has reached capacity. Your application will be assessed in the next window.",
+                "This round has reached capacity. Your application will be assessed in the next round.",
             badgeClass: "bg-slate-100 text-slate-600 border-slate-200",
             indicatorClass: "bg-slate-400",
             percentage: 100,
@@ -149,7 +148,7 @@ const getWindowStatus = (window) => {
                 status: "almost-full",
                 label: "Almost Full",
                 description:
-                    "Very limited spots remaining. Apply now to be assessed in this window.",
+                    "Very limited spots remaining. Apply now to be assessed in this round.",
                 badgeClass: "bg-red-100 text-red-700 border-red-200",
                 indicatorClass: "bg-red-500",
                 percentage,
@@ -161,7 +160,7 @@ const getWindowStatus = (window) => {
                 status: "filling-up",
                 label: "Filling Up",
                 description:
-                    "Limited spots remaining. Apply soon to secure your place in this window.",
+                    "Limited spots remaining. Apply soon to secure your place in this round.",
                 badgeClass: "bg-amber-100 text-amber-700 border-amber-200",
                 indicatorClass: "bg-amber-500",
                 percentage,
@@ -171,7 +170,7 @@ const getWindowStatus = (window) => {
         return {
             status: "open",
             label: "Accepting Applications",
-            description: "Plenty of spots available in this window.",
+            description: "Plenty of spots available in this round.",
             badgeClass: "bg-emerald-100 text-emerald-700 border-emerald-200",
             indicatorClass: "bg-emerald-500",
             percentage,
@@ -182,7 +181,7 @@ const getWindowStatus = (window) => {
         return {
             status: "upcoming",
             label: "Upcoming",
-            description: `Opens ${window.opensDate}.`,
+            description: `Opens ${round.opensDate}.`,
             badgeClass: "bg-violet-100 text-violet-700 border-violet-200",
             indicatorClass: "bg-violet-400",
             percentage: 0,
@@ -192,7 +191,7 @@ const getWindowStatus = (window) => {
     return {
         status: "closed",
         label: "Closed",
-        description: "This application window has closed.",
+        description: "This application round has closed.",
         badgeClass: "bg-slate-100 text-slate-600 border-slate-200",
         indicatorClass: "bg-slate-400",
         percentage: 100,
@@ -207,7 +206,7 @@ const getCapacityLabel = (percentage) => {
 
 const progressThresholds = [20, 40, 60, 80, 100];
 
-const currentWindowStatus = getWindowStatus(applicationWindows[0]);
+const currentRoundStatus = getRoundStatus(applicationRounds[0]);
 ---
 
 <Template name={props.name} description={props.description}>
@@ -230,7 +229,7 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                 >
                     We assess applications in terms. When you submit affects
                     when you'll receive a decision. Plan your application around
-                    these windows.
+                    these rounds.
                 </p>
             </div>
 
@@ -240,13 +239,13 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                 <i class="fa-solid fa-users h-5 w-5 text-violet-800 mt-0.5"></i>
                 <div>
                     <p class="font-semibold text-violet-900">
-                        Each application window is limited to 650 applications
+                        Each application round is limited to 650 applications
                     </p>
                     <p class="text-sm text-violet-700 mt-1">
-                        Once a window reaches capacity, any new applications
-                        will automatically be placed into the next available
-                        window. Apply early to secure your spot in your
-                        preferred assessment period.
+                        Once a round reaches capacity, any new applications will
+                        automatically be placed into the next available round.
+                        Apply early to secure your spot in your preferred
+                        assessment period.
                     </p>
                 </div>
             </div>
@@ -259,27 +258,27 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                         <div class="flex-1">
                             <span
                                 class="inline-flex items-center rounded-full bg-violet-500 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white mb-4"
-                                >Current Window</span
+                                >Current Round</span
                             >
                             <h3 class="text-2xl font-bold mb-2">
-                                October 2025 Application Window
+                                October 2025 Application Round
                             </h3>
                             <p class="text-violet-300">
                                 Applications are open now. Submit your
                                 application before 15 December 2025 to be
-                                assessed in this window.
+                                assessed in this round.
                             </p>
                         </div>
 
                         <div class="lg:w-72 shrink-0">
                             <div
                                 class={`rounded-xl p-4 ${
-                                    currentWindowStatus.status === "full"
+                                    currentRoundStatus.status === "full"
                                         ? "bg-slate-500/20 border border-slate-400/30"
-                                        : currentWindowStatus.status ===
+                                        : currentRoundStatus.status ===
                                             "almost-full"
                                           ? "bg-red-500/20 border border-red-400/30"
-                                          : currentWindowStatus.status ===
+                                          : currentRoundStatus.status ===
                                               "filling-up"
                                             ? "bg-amber-500/20 border border-amber-400/30"
                                             : "bg-emerald-500/20 border border-emerald-400/30"
@@ -287,33 +286,32 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                             >
                                 <div class="flex items-center gap-2 mb-3">
                                     <span
-                                        class={`h-3 w-3 rounded-full ${currentWindowStatus.status !== "full" ? "animate-pulse" : ""} ${currentWindowStatus.indicatorClass}`}
+                                        class={`h-3 w-3 rounded-full ${currentRoundStatus.status !== "full" ? "animate-pulse" : ""} ${currentRoundStatus.indicatorClass}`}
                                     ></span>
                                     <span
                                         class={`text-sm font-semibold ${
-                                            currentWindowStatus.status ===
-                                            "full"
+                                            currentRoundStatus.status === "full"
                                                 ? "text-slate-300"
-                                                : currentWindowStatus.status ===
+                                                : currentRoundStatus.status ===
                                                     "almost-full"
                                                   ? "text-red-300"
-                                                  : currentWindowStatus.status ===
+                                                  : currentRoundStatus.status ===
                                                       "filling-up"
                                                     ? "text-amber-300"
                                                     : "text-emerald-300"
                                         }`}
                                     >
-                                        {currentWindowStatus.label}
+                                        {currentRoundStatus.label}
                                     </span>
                                 </div>
 
                                 {
-                                    currentWindowStatus.status !== "full" ? (
+                                    currentRoundStatus.status !== "full" ? (
                                         <div class="space-y-2">
                                             <div class="flex items-baseline gap-1">
                                                 <span class="text-3xl font-bold text-white">
                                                     {
-                                                        currentWindowStatus.percentage
+                                                        currentRoundStatus.percentage
                                                     }
                                                     %
                                                 </span>
@@ -326,7 +324,7 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                                                     (threshold) => (
                                                         <div
                                                             class={`h-2 flex-1 rounded-sm ${
-                                                                currentWindowStatus.percentage >=
+                                                                currentRoundStatus.percentage >=
                                                                 threshold
                                                                     ? threshold <=
                                                                       40
@@ -342,9 +340,7 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                                                 )}
                                             </div>
                                             <p class="text-xs text-violet-300">
-                                                {
-                                                    currentWindowStatus.description
-                                                }
+                                                {currentRoundStatus.description}
                                             </p>
                                         </div>
                                     ) : (
@@ -353,7 +349,7 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                                             <p class="text-sm text-slate-200">
                                                 Applications submitted now will
                                                 be assessed in the January 2026
-                                                window.
+                                                round.
                                             </p>
                                         </div>
                                     )
@@ -549,8 +545,8 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                     </thead>
                     <tbody>
                         {
-                            applicationWindows.map((window, index) => {
-                                const windowStatus = getWindowStatus(window);
+                            applicationRounds.map((round, index) => {
+                                const roundStatus = getRoundStatus(round);
                                 return (
                                     <tr
                                         class={`border-b border-violet-100 ${index === 0 ? "bg-violet-50" : ""}`}
@@ -558,19 +554,19 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                                         <td class="py-4 px-3">
                                             <div class="flex flex-col gap-1.5">
                                                 <span
-                                                    class={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-semibold ${windowStatus.badgeClass}`}
+                                                    class={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-semibold ${roundStatus.badgeClass}`}
                                                 >
                                                     <span
-                                                        class={`h-2 w-2 rounded-full mr-1.5 ${windowStatus.indicatorClass}`}
+                                                        class={`h-2 w-2 rounded-full mr-1.5 ${roundStatus.indicatorClass}`}
                                                     />
-                                                    {windowStatus.label}
+                                                    {roundStatus.label}
                                                 </span>
                                                 <div class="flex gap-0.5 w-24">
                                                     {progressThresholds.map(
                                                         (threshold) => (
                                                             <div
                                                                 class={`h-1.5 flex-1 rounded-sm ${
-                                                                    windowStatus.percentage >=
+                                                                    roundStatus.percentage >=
                                                                     threshold
                                                                         ? threshold <=
                                                                           40
@@ -590,7 +586,7 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                                                 </div>
                                                 <span class="text-xs text-muted-foreground">
                                                     {getCapacityLabel(
-                                                        windowStatus.percentage,
+                                                        roundStatus.percentage,
                                                     )}
                                                 </span>
                                             </div>
@@ -599,23 +595,23 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                                             <span
                                                 class={`font-medium ${index === 0 ? "text-violet-700" : "text-foreground"}`}
                                             >
-                                                {window.opensDate}
+                                                {round.opensDate}
                                             </span>
                                         </td>
                                         <td class="py-4 px-3 text-muted-foreground">
-                                            {window.closesDate}
+                                            {round.closesDate}
                                         </td>
                                         <td class="py-4 px-3 text-muted-foreground">
-                                            {window.assessmentStart}
+                                            {round.assessmentStart}
                                         </td>
                                         <td class="py-4 px-3 text-muted-foreground">
-                                            {window.assessmentEnd}
+                                            {round.assessmentEnd}
                                         </td>
                                         <td class="py-4 px-3 text-muted-foreground">
-                                            {window.resultsStart}
+                                            {round.resultsStart}
                                         </td>
                                         <td class="py-4 px-3 text-muted-foreground">
-                                            {window.resultsEnd}
+                                            {round.resultsEnd}
                                         </td>
                                     </tr>
                                 );
@@ -629,7 +625,7 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                 <h3
                     class="text-2xl font-bold text-foreground mb-4 text-center text-violet-50"
                 >
-                    The Application Process
+                    The Application Rounds
                 </h3>
                 <p
                     class="text-muted-foreground text-center max-w-2xl mx-auto mb-12 text-violet-50"
@@ -670,8 +666,8 @@ const currentWindowStatus = getWindowStatus(applicationWindows[0]);
                             Before You Apply
                         </h4>
                         <p class="text-sm text-violet-700 mb-6">
-                            Complete these steps during the application window
-                            (1 Oct 2025 – 15 Dec 2025)
+                            Complete these steps during the application round (1
+                            Oct 2025 – 15 Dec 2025)
                         </p>
 
                         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
