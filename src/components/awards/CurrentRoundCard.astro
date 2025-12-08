@@ -1,0 +1,697 @@
+---
+/**
+ * CurrentRoundCard Component
+ * Displays the current application round with status, capacity, and timeline
+ *
+ * Communicates:
+ * - Whether we're accepting applications
+ * - How much capacity is left (in 20% increments)
+ * - How many days left to apply
+ * - When closed (by capacity OR date), shows assessment status and next round info
+ */
+
+interface Props {
+    currentRound: any;
+    nextOpenRound?: any;
+    allRounds?: any[];
+}
+
+const { currentRound, nextOpenRound, allRounds = [] } = Astro.props;
+
+const progressThresholds = [20, 40, 60, 80, 100];
+
+// Determine if round is accepting applications
+// Closed if: capacity is 100% OR close date has passed
+const isCapacityFull = currentRound.capacityPercentage >= 100;
+const isDatePassed = !currentRound.isOpen && !currentRound.isUpcoming;
+const isAcceptingApplications = currentRound.isOpen && !isCapacityFull;
+const isClosedByCapacity = currentRound.isOpen && isCapacityFull;
+const isClosedByDate = isDatePassed;
+const isClosed = isClosedByCapacity || isClosedByDate;
+
+// Calculate remaining capacity
+const capacityRemaining = 100 - currentRound.capacityPercentage;
+const capacityLabel =
+    capacityRemaining === 0
+        ? "Full"
+        : capacityRemaining <= 20
+          ? "Almost full – very limited spots"
+          : capacityRemaining <= 40
+            ? "Filling up – limited spots remaining"
+            : "Spaces available";
+
+// Get the round name based on results months
+const getResultsMonthName = (round: any) => {
+    const resultsStart = new Date(round.resultsStart);
+    const resultsEnd = new Date(round.resultsEnd);
+    const startMonth = resultsStart.toLocaleDateString("en-GB", {
+        month: "long",
+    });
+    const endMonth = resultsEnd.toLocaleDateString("en-GB", { month: "long" });
+    const year = resultsStart.getFullYear();
+
+    if (startMonth === endMonth) {
+        return `${startMonth} ${year}`;
+    }
+    return `${startMonth}–${endMonth} ${year}`;
+};
+
+// Format time from ISO date string (24-hour clock)
+const formatTime = (isoString: string) => {
+    const date = new Date(isoString);
+    return date.toLocaleTimeString("en-GB", {
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: false,
+    });
+};
+
+const roundName = getResultsMonthName(currentRound);
+const nextRoundName = nextOpenRound ? getResultsMonthName(nextOpenRound) : null;
+
+// Helper for capacity label in table
+const getCapacityLabel = (percentage: number) => {
+    if (percentage === 0) return "Empty";
+    if (percentage === 100) return "Full";
+    return `${percentage}% Full`;
+};
+
+// Status badge styling based on phase - using your colour scheme
+const getStatusBadgeClass = (round: any) => {
+    if (round.isUpcoming)
+        return "bg-indigo-500/80 text-white border border-indigo-400/50"; // Coming soon
+    if (round.isOpen)
+        return "bg-emerald-500/80 text-white border border-emerald-400/50"; // Open now
+    if (round.phase === "closed")
+        return "bg-slate-600/80 text-white border border-slate-500/50"; // Closed
+    if (round.isInAssessment)
+        return "bg-amber-500/80 text-white border border-amber-400/50"; // Assessing
+    if (round.phase === "awaiting-results")
+        return "bg-sky-500/80 text-white border border-sky-400/50"; // Assessments complete
+    if (round.isInResults)
+        return "bg-violet-500/80 text-white border border-violet-400/50"; // Emailing results
+    if (round.phase === "completed")
+        return "bg-slate-600/80 text-white border border-slate-500/50"; // Complete
+    return "bg-slate-500/80 text-white border border-slate-400/50";
+};
+
+const getStatusLabel = (round: any) => {
+    if (round.isUpcoming) return "Coming soon";
+    if (round.isOpen) return "Open now";
+    if (round.phase === "closed") return "Closed";
+    if (round.isInAssessment) return "Assessing";
+    if (round.phase === "awaiting-results") return "Assessments complete";
+    if (round.isInResults) return "Emailing results";
+    if (round.phase === "completed") return "Complete";
+    return round.phaseInfo?.shortLabel || "Unknown";
+};
+
+// Row styling based on status
+const getRowClass = (round: any) => {
+    if (round.id === currentRound.id)
+        return "bg-violet-800/40 border-l-4 border-l-violet-400"; // Current/active
+    if (round.isOpen) return "bg-emerald-900/20"; // Open
+    if (round.isUpcoming) return "bg-indigo-900/10"; // Upcoming
+    if (round.phase === "completed") return "opacity-60"; // Completed - faded
+    return ""; // Other phases
+};
+
+// Filter to upcoming/future rounds (exclude current if it's past)
+const upcomingRounds = allRounds.filter(
+    (round) => round.isUpcoming || round.isOpen,
+);
+---
+
+<div class="bg-violet-900 text-white rounded-2xl p-8 mb-12">
+    <div class="flex flex-col gap-6">
+        <div
+            class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4"
+        >
+            <div class="flex-1">
+                {/* Status Badge */}
+                <span
+                    class={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide mb-4 ${
+                        isAcceptingApplications
+                            ? "bg-emerald-500 text-white"
+                            : isClosed
+                              ? "bg-slate-500 text-white"
+                              : currentRound.isUpcoming
+                                ? "bg-violet-500 text-white"
+                                : "bg-amber-500 text-white"
+                    }`}
+                >
+                    {
+                        isAcceptingApplications
+                            ? "Now Accepting Applications"
+                            : isClosed
+                              ? "Applications Closed"
+                              : currentRound.isUpcoming
+                                ? "Opens Soon"
+                                : currentRound.isInAssessment
+                                  ? "In Assessment"
+                                  : currentRound.phaseInfo.shortLabel
+                    }
+                </span>
+
+                <h3 class="text-2xl font-bold mb-2">
+                    {roundName} Application Round
+                </h3>
+
+                <p class="text-violet-300">
+                    {
+                        isAcceptingApplications ? (
+                            <>
+                                We're accepting applications until{" "}
+                                <strong>{currentRound.dates.closes}</strong> or
+                                until we reach capacity, whichever comes first.
+                                {currentRound.timing.daysRemaining > 0 && (
+                                    <>
+                                        {" "}
+                                        You have{" "}
+                                        <strong>
+                                            {currentRound.timing.daysRemaining}{" "}
+                                            {currentRound.timing
+                                                .daysRemaining === 1
+                                                ? "day"
+                                                : "days"}
+                                        </strong>{" "}
+                                        left to apply.
+                                    </>
+                                )}
+                                {currentRound.timing.daysRemaining === 0 && (
+                                    <>
+                                        {" "}
+                                        <strong>Last day to apply!</strong>
+                                    </>
+                                )}
+                            </>
+                        ) : isClosedByCapacity ? (
+                            <>
+                                This round has reached capacity. Applications
+                                submitted now will be placed in the{" "}
+                                {nextRoundName || "next"} round.
+                            </>
+                        ) : isClosed ? (
+                            <>
+                                Applications for this round have closed.
+                                Submitted applications are now being assessed.
+                                {nextOpenRound && (
+                                    <>
+                                        {" "}
+                                        The next application round opens{" "}
+                                        <strong>
+                                            {nextOpenRound.dates.opens}
+                                        </strong>
+                                        .
+                                    </>
+                                )}
+                            </>
+                        ) : currentRound.isUpcoming ? (
+                            <>
+                                Applications open{" "}
+                                <strong>{currentRound.dates.opens}</strong>.
+                                {currentRound.timing.daysUntilOpen > 0 && (
+                                    <>
+                                        {" "}
+                                        That's in{" "}
+                                        <strong>
+                                            {currentRound.timing.daysUntilOpen}{" "}
+                                            {currentRound.timing
+                                                .daysUntilOpen === 1
+                                                ? "day"
+                                                : "days"}
+                                        </strong>
+                                        .
+                                    </>
+                                )}
+                            </>
+                        ) : currentRound.isInAssessment ? (
+                            <>
+                                Applications are being assessed. Results will be
+                                sent from{" "}
+                                <strong>
+                                    {currentRound.dates.resultsStart}
+                                </strong>
+                                .
+                                {nextOpenRound && (
+                                    <>
+                                        {" "}
+                                        The next application round opens{" "}
+                                        <strong>
+                                            {nextOpenRound.dates.opens}
+                                        </strong>
+                                        .
+                                    </>
+                                )}
+                            </>
+                        ) : (
+                            <>{currentRound.phaseInfo.description}</>
+                        )
+                    }
+                </p>
+            </div>
+
+            {/* Capacity/Status Card */}
+            <div class="lg:w-72 shrink-0">
+                <div
+                    class={`rounded-xl p-4 ${
+                        isClosed
+                            ? "bg-slate-500/20 border border-slate-400/30"
+                            : isAcceptingApplications &&
+                                currentRound.capacityPercentage >= 80
+                              ? "bg-red-500/20 border border-red-400/30"
+                              : isAcceptingApplications &&
+                                  currentRound.capacityPercentage >= 60
+                                ? "bg-amber-500/20 border border-amber-400/30"
+                                : isAcceptingApplications
+                                  ? "bg-emerald-500/20 border border-emerald-400/30"
+                                  : "bg-violet-500/20 border border-violet-400/30"
+                    }`}
+                >
+                    {
+                        isAcceptingApplications ? (
+                            <>
+                                {/* Open - Show capacity and days remaining */}
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span
+                                        class={`h-3 w-3 rounded-full animate-pulse ${
+                                            currentRound.capacityPercentage >=
+                                            80
+                                                ? "bg-red-500"
+                                                : currentRound.capacityPercentage >=
+                                                    60
+                                                  ? "bg-amber-500"
+                                                  : "bg-emerald-500"
+                                        }`}
+                                    />
+                                    <span
+                                        class={`text-sm font-semibold ${
+                                            currentRound.capacityPercentage >=
+                                            80
+                                                ? "text-red-300"
+                                                : currentRound.capacityPercentage >=
+                                                    60
+                                                  ? "text-amber-300"
+                                                  : "text-emerald-300"
+                                        }`}
+                                    >
+                                        {capacityLabel}
+                                    </span>
+                                </div>
+
+                                <div class="space-y-3">
+                                    {/* Capacity percentage */}
+                                    <div>
+                                        <div class="flex items-baseline gap-1 mb-1">
+                                            <span class="text-3xl font-bold text-white">
+                                                {
+                                                    currentRound.capacityPercentage
+                                                }
+                                                %
+                                            </span>
+                                            <span class="text-violet-300 text-sm">
+                                                capacity filled
+                                            </span>
+                                        </div>
+                                        <div class="flex gap-1">
+                                            {progressThresholds.map(
+                                                (threshold) => (
+                                                    <div
+                                                        class={`h-2 flex-1 rounded-sm ${
+                                                            currentRound.capacityPercentage >=
+                                                            threshold
+                                                                ? threshold <=
+                                                                  40
+                                                                    ? "bg-emerald-400"
+                                                                    : threshold ===
+                                                                        60
+                                                                      ? "bg-amber-400"
+                                                                      : "bg-red-400"
+                                                                : "bg-white/20"
+                                                        }`}
+                                                    />
+                                                ),
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Days remaining */}
+                                    <div class="pt-2 border-t border-white/10">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fa-regular fa-clock text-violet-300" />
+                                            <span class="text-sm text-violet-300">
+                                                <strong class="text-white">
+                                                    {
+                                                        currentRound.timing
+                                                            .daysRemaining
+                                                    }
+                                                </strong>{" "}
+                                                {currentRound.timing
+                                                    .daysRemaining === 1
+                                                    ? "day"
+                                                    : "days"}{" "}
+                                                left to apply
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </>
+                        ) : isClosed ? (
+                            <>
+                                {/* Closed - Show closed status and next round */}
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="h-3 w-3 rounded-full bg-slate-400" />
+                                    <span class="text-sm font-semibold text-slate-300">
+                                        {isClosedByCapacity
+                                            ? "Capacity Reached"
+                                            : "Round Closed"}
+                                    </span>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <div class="flex items-start gap-2">
+                                        <i class="fa-solid fa-magnifying-glass-chart text-slate-300 mt-0.5" />
+                                        <p class="text-sm text-slate-200">
+                                            Applications are now being assessed
+                                        </p>
+                                    </div>
+
+                                    {nextOpenRound && (
+                                        <div class="pt-2 border-t border-white/10">
+                                            <div class="flex items-start gap-2">
+                                                <i class="fa-solid fa-calendar-day text-violet-300 mt-0.5" />
+                                                <p class="text-sm text-violet-200">
+                                                    Next round:{" "}
+                                                    <strong>
+                                                        {nextRoundName}
+                                                    </strong>
+                                                    {nextOpenRound.timing
+                                                        .daysUntilOpen > 0 && (
+                                                        <span class="block text-xs text-violet-300 mt-1">
+                                                            Opens in{" "}
+                                                            {
+                                                                nextOpenRound
+                                                                    .timing
+                                                                    .daysUntilOpen
+                                                            }{" "}
+                                                            {nextOpenRound
+                                                                .timing
+                                                                .daysUntilOpen ===
+                                                            1
+                                                                ? "day"
+                                                                : "days"}
+                                                        </span>
+                                                    )}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </>
+                        ) : currentRound.isUpcoming ? (
+                            <>
+                                {/* Upcoming - Show when it opens */}
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span class="h-3 w-3 rounded-full bg-violet-400 animate-pulse" />
+                                    <span class="text-sm font-semibold text-violet-300">
+                                        Coming Soon
+                                    </span>
+                                </div>
+
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-calendar-day text-violet-300" />
+                                    <p class="text-sm text-violet-200">
+                                        Opens in{" "}
+                                        <strong class="text-white">
+                                            {currentRound.timing.daysUntilOpen}
+                                        </strong>{" "}
+                                        {currentRound.timing.daysUntilOpen === 1
+                                            ? "day"
+                                            : "days"}
+                                    </p>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                {/* Other phases */}
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span
+                                        class={`h-3 w-3 rounded-full ${currentRound.phaseInfo.indicatorClass}`}
+                                    />
+                                    <span class="text-sm font-semibold text-violet-300">
+                                        {currentRound.phaseInfo.shortLabel}
+                                    </span>
+                                </div>
+                                <p class="text-sm text-violet-200">
+                                    {currentRound.phaseInfo.description}
+                                </p>
+                            </>
+                        )
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline dates grid -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mt-4">
+            <div
+                class={`text-center px-3 py-4 rounded-lg border ${
+                    currentRound.isOpen || currentRound.isUpcoming
+                        ? "bg-violet-500/30 border-violet-400/30"
+                        : "bg-white/5 border-white/10"
+                }`}
+            >
+                <i
+                    class="fa-solid fa-calendar-day h-5 w-5 mx-auto mb-2 text-violet-300"
+                ></i>
+                <p class="text-violet-400 text-xs uppercase tracking-wide">
+                    Opens
+                </p>
+                <p class="font-semibold text-sm mt-1">
+                    {currentRound.dates.opensShort}
+                </p>
+                <p class="text-xs text-violet-400 mt-0.5">
+                    {formatTime(currentRound.opensDate)}
+                </p>
+            </div>
+            <div
+                class={`text-center px-3 py-4 rounded-lg ${
+                    currentRound.isOpen
+                        ? "bg-violet-500/30 border border-violet-400/30"
+                        : "bg-white/10"
+                }`}
+            >
+                <i
+                    class="fa-regular fa-clock h-5 w-5 mx-auto mb-2 text-violet-300"
+                ></i>
+                <p class="text-violet-400 text-xs uppercase tracking-wide">
+                    Closes
+                </p>
+                <p class="font-semibold text-sm mt-1">
+                    {currentRound.dates.closesShort}
+                </p>
+                <p class="text-xs text-violet-400 mt-0.5">
+                    {formatTime(currentRound.closesDate)}
+                </p>
+            </div>
+            <div
+                class={`text-center px-3 py-4 rounded-lg ${
+                    currentRound.isInAssessment
+                        ? "bg-amber-500/20 border border-amber-400/30"
+                        : "bg-white/10"
+                }`}
+            >
+                <i
+                    class="fa-solid fa-magnifying-glass-chart h-5 w-5 mx-auto mb-2 text-violet-300"
+                ></i>
+                <p class="text-violet-400 text-xs uppercase tracking-wide">
+                    Assessment Starts
+                </p>
+                <p class="font-semibold text-sm mt-1">
+                    {currentRound.dates.assessmentStartShort}
+                </p>
+                <p class="text-xs text-violet-400 mt-0.5">
+                    {formatTime(currentRound.assessmentStart)}
+                </p>
+            </div>
+            <div
+                class={`text-center px-3 py-4 rounded-lg ${
+                    currentRound.isInAssessment
+                        ? "bg-amber-500/20 border border-amber-400/30"
+                        : "bg-white/10"
+                }`}
+            >
+                <i
+                    class="fa-solid fa-clipboard-check h-5 w-5 mx-auto mb-2 text-violet-300"
+                ></i>
+                <p class="text-violet-400 text-xs uppercase tracking-wide">
+                    Assessment Ends
+                </p>
+                <p class="font-semibold text-sm mt-1">
+                    {currentRound.dates.assessmentEndShort}
+                </p>
+                <p class="text-xs text-violet-400 mt-0.5">
+                    {formatTime(currentRound.assessmentEnd)}
+                </p>
+            </div>
+            <div
+                class={`text-center px-3 py-4 rounded-lg ${
+                    currentRound.isInResults
+                        ? "bg-purple-500/20 border border-purple-400/30"
+                        : "bg-white/10"
+                }`}
+            >
+                <i
+                    class="fa-regular fa-envelope h-5 w-5 mx-auto mb-2 text-violet-300"
+                ></i>
+                <p class="text-violet-400 text-xs uppercase tracking-wide">
+                    Results Start
+                </p>
+                <p class="font-semibold text-sm mt-1">
+                    {currentRound.dates.resultsStartShort}
+                </p>
+                <p class="text-xs text-violet-400 mt-0.5">
+                    {formatTime(currentRound.resultsStart)}
+                </p>
+            </div>
+            <div
+                class={`text-center px-3 py-4 rounded-lg ${
+                    currentRound.isInResults
+                        ? "bg-purple-500/20 border border-purple-400/30"
+                        : "bg-white/10"
+                }`}
+            >
+                <i
+                    class="fa-regular fa-circle-check h-5 w-5 mx-auto mb-2 text-violet-300"
+                ></i>
+                <p class="text-violet-400 text-xs uppercase tracking-wide">
+                    Results End
+                </p>
+                <p class="font-semibold text-sm mt-1">
+                    {currentRound.dates.resultsEndShort}
+                </p>
+                <p class="text-xs text-violet-400 mt-0.5">
+                    {formatTime(currentRound.resultsEnd)}
+                </p>
+            </div>
+        </div>
+
+        <!-- All Rounds Table -->
+        {
+            allRounds.length > 1 && (
+                <div class="mt-6 pt-6 border-t border-violet-700/50">
+                    <h4 class="text-lg font-semibold mb-4 text-violet-100">
+                        <i class="fa-solid fa-calendar-days mr-2 text-violet-300" />
+                        All Application Rounds
+                    </h4>
+                    <div class="overflow-x-auto -mx-2">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b border-violet-700/50">
+                                    <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide">
+                                        Status
+                                    </th>
+                                    <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide">
+                                        Opens
+                                    </th>
+                                    <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide">
+                                        Closes
+                                    </th>
+                                    <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide hidden md:table-cell">
+                                        Assessment
+                                    </th>
+                                    <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide hidden lg:table-cell">
+                                        Results
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {allRounds.map((round) => (
+                                    <tr
+                                        class={`border-b border-violet-800/30 ${getRowClass(round)}`}
+                                    >
+                                        <td class="py-3 px-2">
+                                            <div class="flex flex-col gap-1.5">
+                                                <span
+                                                    class={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold w-fit ${getStatusBadgeClass(round)}`}
+                                                >
+                                                    {getStatusLabel(round)}
+                                                </span>
+                                                {round.isOpen && (
+                                                    <div class="flex flex-col gap-1">
+                                                        <div class="flex gap-0.5 w-20">
+                                                            {progressThresholds.map(
+                                                                (threshold) => (
+                                                                    <div
+                                                                        class={`h-1.5 flex-1 rounded-sm ${
+                                                                            round.capacityPercentage >=
+                                                                            threshold
+                                                                                ? threshold <=
+                                                                                  40
+                                                                                    ? "bg-emerald-400"
+                                                                                    : threshold ===
+                                                                                        60
+                                                                                      ? "bg-amber-400"
+                                                                                      : "bg-red-400"
+                                                                                : "bg-violet-700"
+                                                                        }`}
+                                                                    />
+                                                                ),
+                                                            )}
+                                                        </div>
+                                                        <div class="flex items-center gap-2 text-xs text-violet-300">
+                                                            <span>
+                                                                {
+                                                                    round.capacityPercentage
+                                                                }
+                                                                % filled
+                                                            </span>
+                                                            <span class="text-violet-500">
+                                                                •
+                                                            </span>
+                                                            <span>
+                                                                {round.timing
+                                                                    .daysRemaining ===
+                                                                0
+                                                                    ? "Last day!"
+                                                                    : `${round.timing.daysRemaining} ${round.timing.daysRemaining === 1 ? "day" : "days"} left`}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-2">
+                                            <span
+                                                class={`font-medium ${round.id === currentRound.id ? "text-white" : round.phase === "completed" ? "text-violet-400" : "text-violet-200"}`}
+                                            >
+                                                {round.dates.opensShort}
+                                            </span>
+                                        </td>
+                                        <td
+                                            class={`py-3 px-2 ${round.phase === "completed" ? "text-violet-500" : "text-violet-300"}`}
+                                        >
+                                            {round.dates.closesShort}
+                                        </td>
+                                        <td
+                                            class={`py-3 px-2 hidden md:table-cell ${round.phase === "completed" ? "text-violet-500" : "text-violet-300"}`}
+                                        >
+                                            {round.dates.assessmentStartShort} –{" "}
+                                            {round.dates.assessmentEndShort}
+                                        </td>
+                                        <td
+                                            class={`py-3 px-2 hidden lg:table-cell ${round.phase === "completed" ? "text-violet-500" : "text-violet-300"}`}
+                                        >
+                                            {round.dates.resultsStartShort} –{" "}
+                                            {round.dates.resultsEndShort}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            )
+        }
+    </div>
+</div>

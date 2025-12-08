@@ -4,13 +4,13 @@ const collection = "rounds";
 const name = "rounds";
 
 const filterOptions = {
-    sort: 'applications_start',
+    sort: 'opens',
     filter: {
         status: {
             _eq: 'published'
         }
     },
-    fields: ['*.*.*.*'],
+    fields: ['*'],
     limit: 200
 }
 
