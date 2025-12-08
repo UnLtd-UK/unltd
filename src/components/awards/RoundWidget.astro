@@ -1,0 +1,198 @@
+---
+/**
+ * RoundWidget Component
+ * A compact widget showing the current or next application round status
+ * Used on the Awards hero and other places where a quick summary is needed
+ */
+
+interface Props {
+    currentRound: any;
+    nextOpenRound?: any;
+}
+
+const { currentRound, nextOpenRound } = Astro.props;
+
+// Determine if round is accepting applications
+const isCapacityFull = currentRound.capacityPercentage >= 100;
+const isDatePassed = !currentRound.isOpen && !currentRound.isUpcoming;
+const isAcceptingApplications = currentRound.isOpen && !isCapacityFull;
+const isClosed = isCapacityFull || isDatePassed;
+
+// When closed, focus on the next upcoming round
+const shouldShowNextRound = isClosed && nextOpenRound;
+const displayRound = shouldShowNextRound ? nextOpenRound : currentRound;
+
+// Get the round name based on results months
+const getResultsMonthName = (round: any) => {
+    const resultsStart = new Date(round.resultsStart);
+    const resultsEnd = new Date(round.resultsEnd);
+    const startMonth = resultsStart.toLocaleDateString("en-GB", {
+        month: "long",
+    });
+    const endMonth = resultsEnd.toLocaleDateString("en-GB", { month: "long" });
+    const year = resultsStart.getFullYear();
+
+    if (startMonth === endMonth) {
+        return `${startMonth} ${year}`;
+    }
+    return `${startMonth}–${endMonth} ${year}`;
+};
+
+const roundName = getResultsMonthName(displayRound);
+---
+
+<a
+    href="/awards1/application-rounds"
+    class="group block bg-violet-900/50 rounded-xl p-5 border border-violet-700 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+>
+    <div
+        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+    >
+        <!-- Left side: Status and round info -->
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+                <h3 class="font-semibold text-white flex items-center gap-2">
+                    <i
+                        class="fa-regular fa-calendar-clock h-5 w-5 text-violet-400 group-hover:text-amber-400 transition-colors"
+                        aria-hidden="true"></i>
+                    Application Rounds
+                </h3>
+                {
+                    isAcceptingApplications ? (
+                        <span class="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2 py-0.5 text-xs font-semibold text-emerald-400 border border-emerald-500/30">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                            </span>
+                            Open now
+                        </span>
+                    ) : shouldShowNextRound || displayRound.isUpcoming ? (
+                        <span class="inline-flex items-center gap-1 rounded-full bg-indigo-500/20 px-2 py-0.5 text-xs font-semibold text-indigo-400 border border-indigo-500/30">
+                            <i
+                                class="fa-regular fa-clock h-3 w-3"
+                                aria-hidden="true"
+                            />
+                            Coming soon
+                        </span>
+                    ) : (
+                        <span class="inline-flex items-center gap-1 rounded-full bg-amber-500/20 px-2 py-0.5 text-xs font-semibold text-amber-400 border border-amber-500/30">
+                            <i
+                                class="fa-solid fa-magnifying-glass h-3 w-3"
+                                aria-hidden="true"
+                            />
+                            Assessing
+                        </span>
+                    )
+                }
+            </div>
+
+            <div class="space-y-1">
+                <p class="text-violet-200 text-sm font-medium">
+                    {roundName} Application Round
+                </p>
+                {
+                    isAcceptingApplications ? (
+                        <p class="text-violet-300 text-xs">
+                            <span class="text-violet-400">Closes:</span>{" "}
+                            {displayRound.dates.closes}
+                            {displayRound.timing.daysRemaining > 0 && (
+                                <span class="text-violet-500 ml-1">
+                                    ({displayRound.timing.daysRemaining}{" "}
+                                    {displayRound.timing.daysRemaining === 1
+                                        ? "day"
+                                        : "days"}{" "}
+                                    left)
+                                </span>
+                            )}
+                            {displayRound.timing.daysRemaining === 0 && (
+                                <span class="text-red-400 ml-1 font-semibold">
+                                    (Last day!)
+                                </span>
+                            )}
+                        </p>
+                    ) : shouldShowNextRound || displayRound.isUpcoming ? (
+                        <p class="text-violet-300 text-xs">
+                            <span class="text-violet-400">Opens:</span>{" "}
+                            {displayRound.dates.opens}
+                            {displayRound.timing.daysUntilOpen > 0 && (
+                                <span class="text-violet-500 ml-1">
+                                    (in {displayRound.timing.daysUntilOpen}{" "}
+                                    {displayRound.timing.daysUntilOpen === 1
+                                        ? "day"
+                                        : "days"}
+                                    )
+                                </span>
+                            )}
+                        </p>
+                    ) : displayRound.isInAssessment ? (
+                        <p class="text-violet-300 text-xs">
+                            <span class="text-violet-400">Results from:</span>{" "}
+                            {displayRound.dates.resultsStart}
+                        </p>
+                    ) : (
+                        <p class="text-violet-300 text-xs">
+                            {displayRound.phaseInfo?.description}
+                        </p>
+                    )
+                }
+            </div>
+        </div>
+
+        <!-- Right side: Capacity (when open) or CTA -->
+        <div class="flex items-center gap-4">
+            {
+                isAcceptingApplications && (
+                    <div class="text-right hidden sm:block">
+                        <div class="flex items-center gap-2 justify-end mb-1">
+                            <span
+                                class={`h-2 w-2 rounded-full ${
+                                    displayRound.capacityPercentage >= 80
+                                        ? "bg-red-500 animate-pulse"
+                                        : displayRound.capacityPercentage >= 60
+                                          ? "bg-amber-500"
+                                          : "bg-emerald-500"
+                                }`}
+                            />
+                            <span
+                                class={`text-xs font-semibold ${
+                                    displayRound.capacityPercentage >= 80
+                                        ? "text-red-400"
+                                        : displayRound.capacityPercentage >= 60
+                                          ? "text-amber-400"
+                                          : "text-emerald-400"
+                                }`}
+                            >
+                                {displayRound.capacityPercentage}% full
+                            </span>
+                        </div>
+                        <div class="flex gap-0.5">
+                            {[20, 40, 60, 80, 100].map((threshold) => (
+                                <div
+                                    class={`h-1.5 w-4 rounded-sm ${
+                                        displayRound.capacityPercentage >=
+                                        threshold
+                                            ? threshold <= 40
+                                                ? "bg-emerald-400"
+                                                : threshold === 60
+                                                  ? "bg-amber-400"
+                                                  : "bg-red-400"
+                                            : "bg-white/20"
+                                    }`}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+
+            <span
+                class="inline-flex items-center gap-1 text-sm font-medium text-amber-400 group-hover:text-amber-300 whitespace-nowrap"
+            >
+                View details
+                <i
+                    class="fa-solid fa-arrow-right h-3 w-3 transition-transform group-hover:translate-x-1"
+                    aria-hidden="true"></i>
+            </span>
+        </div>
+    </div>
+</a>
