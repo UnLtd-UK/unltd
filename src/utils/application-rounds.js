@@ -415,6 +415,133 @@ export const processAllRounds = (directusRounds, applicationLimit = 650) => {
     };
 };
 
+/**
+ * Get the round name based on results months (e.g., "March 2026" or "March–April 2026")
+ * @param {Object} round - Processed round object
+ * @returns {string} Human-readable round name
+ */
+export const getRoundName = (round) => {
+    if (!round?.resultsStart || !round?.resultsEnd) return 'Application Round';
+
+    const resultsStart = new Date(round.resultsStart);
+    const resultsEnd = new Date(round.resultsEnd);
+    const startMonth = resultsStart.toLocaleDateString('en-GB', { month: 'long' });
+    const endMonth = resultsEnd.toLocaleDateString('en-GB', { month: 'long' });
+    const year = resultsStart.getFullYear();
+
+    if (startMonth === endMonth) {
+        return `${startMonth} ${year}`;
+    }
+    return `${startMonth}–${endMonth} ${year}`;
+};
+
+/**
+ * Check if a round is closing today
+ * @param {Object} round - Processed round object
+ * @returns {boolean} True if the round closes today
+ */
+export const isClosingToday = (round) => {
+    if (!round?.closesDate) return false;
+    const closeDate = new Date(round.closesDate);
+    const today = new Date();
+    return closeDate.toDateString() === today.toDateString();
+};
+
+/**
+ * Check if a round is closing within 24 hours
+ * @param {Object} round - Processed round object
+ * @returns {boolean} True if closing within 24 hours
+ */
+export const isClosingWithin24Hours = (round) => {
+    if (!round?.closesDate) return false;
+    const closeDate = new Date(round.closesDate);
+    const now = new Date();
+    const hoursRemaining = (closeDate - now) / (1000 * 60 * 60);
+    return hoursRemaining > 0 && hoursRemaining <= 24;
+};
+
+/**
+ * Get time remaining until close
+ * @param {Object} round - Processed round object
+ * @returns {Object} Time remaining breakdown
+ */
+export const getTimeUntilClose = (round) => {
+    if (!round?.closesDate) return null;
+
+    const closeDate = new Date(round.closesDate);
+    const now = new Date();
+    const difference = closeDate - now;
+
+    if (difference <= 0) {
+        return { expired: true, hours: 0, minutes: 0, seconds: 0, totalHours: 0 };
+    }
+
+    const totalHours = difference / (1000 * 60 * 60);
+    const hours = Math.floor(totalHours);
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+    return { expired: false, hours, minutes, seconds, totalHours };
+};
+
+/**
+ * Get widget display data for a round (used by RoundWidget)
+ * @param {Object} currentRound - Current processed round
+ * @param {Object} nextOpenRound - Next upcoming round (optional)
+ * @returns {Object} Widget display data
+ */
+export const getWidgetDisplayData = (currentRound, nextOpenRound = null) => {
+    if (!currentRound) return null;
+
+    const isCapacityFull = currentRound.capacityPercentage >= 100;
+    const isDatePassed = !currentRound.isOpen && !currentRound.isUpcoming;
+    const isAcceptingApplications = currentRound.isOpen && !isCapacityFull;
+    const isClosed = isCapacityFull || isDatePassed;
+
+    // When closed, focus on the next upcoming round
+    const shouldShowNextRound = isClosed && nextOpenRound;
+    const displayRound = shouldShowNextRound ? nextOpenRound : currentRound;
+
+    // Determine status
+    let status = 'upcoming';
+    if (isAcceptingApplications) {
+        status = 'open';
+    } else if (shouldShowNextRound || displayRound.isUpcoming) {
+        status = 'upcoming';
+    } else if (displayRound.isInAssessment) {
+        status = 'assessing';
+    } else if (isClosed) {
+        status = 'closed';
+    }
+
+    // Capacity urgency level
+    let capacityUrgency = 'low';
+    if (displayRound.capacityPercentage >= 80) {
+        capacityUrgency = 'critical';
+    } else if (displayRound.capacityPercentage >= 60) {
+        capacityUrgency = 'high';
+    } else if (displayRound.capacityPercentage >= 40) {
+        capacityUrgency = 'medium';
+    }
+
+    return {
+        displayRound,
+        roundName: getRoundName(displayRound),
+        status,
+        isAcceptingApplications,
+        shouldShowNextRound,
+        isClosingToday: isClosingToday(displayRound),
+        isClosingSoon: isClosingWithin24Hours(displayRound),
+        capacityPercentage: displayRound.capacityPercentage,
+        capacityUrgency,
+        daysRemaining: displayRound.timing?.daysRemaining ?? 0,
+        daysUntilOpen: displayRound.timing?.daysUntilOpen ?? 0,
+        closesDate: displayRound.closesDate,
+        opensDate: displayRound.opensDate,
+        dates: displayRound.dates
+    };
+};
+
 export default {
     formatDate,
     formatShortDate,
@@ -425,5 +552,10 @@ export default {
     getRoundTiming,
     getCapacityStatus,
     processRound,
-    processAllRounds
+    processAllRounds,
+    getRoundName,
+    isClosingToday,
+    isClosingWithin24Hours,
+    getTimeUntilClose,
+    getWidgetDisplayData
 };
