@@ -1,9 +1,9 @@
 ---
 const awardCodes = {
-    STMAT: "Starting Up — Millennium Awards Trust",
-    STFFP: "Starting Up — Funding Futures",
-    SCMAT: "Scaling Up — Millennium Awards Trust",
-    SCFFP: "Scaling Up — Funding Futures",
+    STMAT: "Starting Up Millennium Awards Trust Award",
+    STFFP: "Starting Up Funding Futures Programme Award",
+    SCMAT: "Scaling Up Millennium Awards Trust Award",
+    SCFFP: "Scaling Up Funding Futures Programme Award",
 } as const;
 
 type AwardCode = keyof typeof awardCodes;
@@ -344,22 +344,31 @@ function renderCriterionValue(value: boolean | string | string[] | null): {
                                                                 code.startsWith(
                                                                     "ST",
                                                                 )
-                                                                    ? "bg-teal-100 text-teal-700"
+                                                                    ? "bg-white text-slate-700 ring-1 ring-slate-200"
                                                                     : "bg-slate-800 text-white",
                                                             ]}
                                                         >
                                                             {code.startsWith(
                                                                 "ST",
                                                             )
-                                                                ? "Starting Up"
-                                                                : "Scaling Up"}
+                                                                ? "Starting up"
+                                                                : "Scaling up"}
                                                         </span>
-                                                        <span class="text-slate-500">
+                                                        <span
+                                                            class:list={[
+                                                                "text-xs font-medium",
+                                                                code.includes(
+                                                                    "MAT",
+                                                                )
+                                                                    ? "text-amber-600"
+                                                                    : "text-purple-600",
+                                                            ]}
+                                                        >
                                                             {code.includes(
                                                                 "MAT",
                                                             )
-                                                                ? "MAT"
-                                                                : "FFP"}
+                                                                ? "Millennium Awards Trust"
+                                                                : "Funding Futures Programme"}
                                                         </span>
                                                     </div>
                                                 </th>
