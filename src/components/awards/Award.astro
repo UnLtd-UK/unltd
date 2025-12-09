@@ -198,7 +198,9 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
                     href={programme?.path ?? "#"}
                     class={`group block mb-4 -mx-2 px-2 py-2 rounded-xl transition-colors ${theme.hoverBg}`}
                 >
-                    <p class:list={["text-sm", labelText]}>Enrollment onto</p>
+                    <p class:list={["text-sm", labelText]}>
+                        Programme enrollment to
+                    </p>
                     <div class="flex items-center gap-2 mt-2">
                         <span
                             class={`inline-flex items-center gap-2 rounded-md px-2.5 py-1 text-xs font-medium ${theme.badgeBg} ${theme.badgeText} ${theme.badgeRing}`}
@@ -219,9 +221,11 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
                 </a>
 
                 <div class="pt-2">
-                    <h4 class:list={["text-sm mb-3", labelText]}>
-                        Programme services:
-                    </h4>
+                    <h3
+                        class:list={["text-sm/6 font-medium pb-2", headingText]}
+                    >
+                        Your programme services:
+                    </h3>
                     <ul class="space-y-2">
                         {
                             services.map((service) => (
