@@ -20,11 +20,12 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 
 // COMPONENTS
-import Header from "@components/awards/Header.astro";
+import Header from "@components/awards/Header1.astro";
 import Programmes from "@components/awards/Programmes.astro";
 import Steps from "@components/awards/Steps.astro";
 import Questions from "@components/awards/Questions.astro";
-import Eligibility from "@components/awards/Eligibility.astro";
+import Eligibility from "@components/awards/Eligibility1.astro";
+import HeroWithChecker from "@components/awards/HeroWithChecker.astro";
 import EligibilityCriteria from "@components/awards/EligibilityCriteria.astro";
 
 // OTHER
@@ -32,6 +33,7 @@ import moment from "moment";
 import Typeform from "@components/awards/Typeform.astro";
 import Awards from "@components/awards/Awards.astro";
 import Sessions from "@components/awards/Sessions.astro";
+import Testimonials from "@components/awards/Testimonials.astro";
 let todayDate = moment();
 ---
 
@@ -39,12 +41,16 @@ let todayDate = moment();
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
   </Container>
-  <Header />
-  <!-- <Awards /> -->
-  <Programmes />
+
+  <HeroWithChecker />
+  <!-- <Header /> -->
+  <Awards />
+
+  <!-- <Testimonials /> -->
+  <!-- <Programmes /> -->
   <Sessions />
-  <Eligibility />
   <EligibilityCriteria />
+  <Eligibility />
   <!-- <Steps /> -->
   <Questions />
 </Template>
