@@ -7,12 +7,14 @@ const {
   name = "UnLtd",
   description = "No description",
   theme = palette["UnLtd"],
+  noindex = false,
 } = Astro.props.frontmatter || Astro.props;
 
 import Footer from "@components/Footer.astro";
 import Header from "@components/ui/Header.jsx";
 import Banner from "@components/Banner.astro";
 import { banner } from "@data/banner";
+import RoundBanner from "@components/awards/RoundBanner.astro";
 ---
 
 <!doctype html>
@@ -48,6 +50,8 @@ import { banner } from "@data/banner";
     />
     <meta property="og:image" content="" />
 
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
     <script src="https://embed.typeform.com/next/embed.js" defer></script>
 
     <!-- <script src="https://hub.unltd.org.uk/~gitbook/embed/script.js"></script>
@@ -57,7 +61,8 @@ import { banner } from "@data/banner";
   </head>
   <body class={`dark ${palette["UnLtd"].bg}`}>
     <div class="flex flex-col justify-between h-full">
-      {banner.status === "published" && <Banner banner={banner} />}
+      <!-- {banner.status === "published" && <Banner banner={banner} />} -->
+      <RoundBanner />
 
       <!-- NEW HEADER -->
       {

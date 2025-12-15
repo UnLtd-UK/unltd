@@ -61,7 +61,12 @@ const {
 } = Astro.props;
 ---
 
-<Template name={name} breadcrumbs={breadcrumbs} description={description}>
+<Template
+    name={name}
+    breadcrumbs={breadcrumbs}
+    description={description}
+    noindex={true}
+>
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
         <div class="py-12">
