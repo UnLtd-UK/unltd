@@ -50,67 +50,67 @@ export interface EligibilityPage {
 export const eligibilityPages: EligibilityPage[] = [
     // Starting Up - MAT only - Idea stage
     {
-        slug: "stmat0",
+        slug: "stmat-0",
         title: "You're Eligible for a Starting Up Award",
         description: "You're eligible to apply for a Starting Up Millennium Awards Trust Award.",
         tradingStatus: "idea",
         tradingDescription: "You have an idea that's not yet trading",
-        awardCodes: ["st-mat"],
+        awardCodes: ["stmat"],
         stage: "starting-up",
     },
 
     // Starting Up - MAT only - Trading under 1 year
     {
-        slug: "stmatl1",
+        slug: "stmat-l1",
         title: "You're Eligible for a Starting Up Award",
         description: "You're eligible to apply for a Starting Up Millennium Awards Trust Award.",
         tradingStatus: "under-1-year",
         tradingDescription: "You've been trading for less than 1 year",
-        awardCodes: ["st-mat"],
+        awardCodes: ["stmat"],
         stage: "starting-up",
     },
 
     // Starting Up - MAT + FFP - Idea stage
     {
-        slug: "stmatstffp0",
+        slug: "stmatstffp-0",
         title: "You're Eligible for Starting Up Awards",
         description: "You're eligible to apply for Starting Up Awards from both our programmes.",
         tradingStatus: "idea",
         tradingDescription: "You have an idea that's not yet trading",
-        awardCodes: ["st-mat", "st-ffp"],
+        awardCodes: ["stmat", "stffp"],
         stage: "starting-up",
     },
 
     // Starting Up - MAT + FFP - Trading under 1 year
     {
-        slug: "stmatstffpl1",
+        slug: "stmatstffp-l1",
         title: "You're Eligible for Starting Up Awards",
         description: "You're eligible to apply for Starting Up Awards from both our programmes.",
         tradingStatus: "under-1-year",
         tradingDescription: "You've been trading for less than 1 year",
-        awardCodes: ["st-mat", "st-ffp"],
+        awardCodes: ["stmat", "stffp"],
         stage: "starting-up",
     },
 
     // Scaling Up - MAT only - Trading under 4 years
     {
-        slug: "scmatu4",
+        slug: "scmat-u4",
         title: "You're Eligible for a Scaling Up Award",
         description: "You're eligible to apply for a Scaling Up Millennium Awards Trust Award.",
         tradingStatus: "under-4-years",
         tradingDescription: "You've been trading for between 1 and 4 years",
-        awardCodes: ["sc-mat"],
+        awardCodes: ["scmat"],
         stage: "scaling-up",
     },
 
     // Scaling Up - MAT + FFP - Trading under 4 years
     {
-        slug: "scmatscffpu4",
+        slug: "scmatscffp-u4",
         title: "You're Eligible for Scaling Up Awards",
         description: "You're eligible to apply for Scaling Up Awards from both our programmes.",
         tradingStatus: "under-4-years",
         tradingDescription: "You've been trading for between 1 and 4 years",
-        awardCodes: ["sc-mat", "sc-ffp"],
+        awardCodes: ["scmat", "scffp"],
         stage: "scaling-up",
     },
 ];

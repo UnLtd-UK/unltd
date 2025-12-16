@@ -39,7 +39,7 @@ export interface Award {
 
 export const awards: Award[] = [
     {
-        code: "st-mat",
+        code: "stmat",
         name: "Starting Up Millennium Awards Trust Award",
         shortName: "Starting Up – MAT",
         stage: "starting-up",
@@ -67,7 +67,7 @@ export const awards: Award[] = [
         ],
     },
     {
-        code: "st-ffp",
+        code: "stffp",
         name: "Starting Up Funding Futures Programme Award",
         shortName: "Starting Up – FFP",
         stage: "starting-up",
@@ -96,7 +96,7 @@ export const awards: Award[] = [
         ],
     },
     {
-        code: "sc-mat",
+        code: "scmat",
         name: "Scaling Up Millennium Awards Trust Award",
         shortName: "Scaling Up – MAT",
         stage: "scaling-up",
@@ -124,7 +124,7 @@ export const awards: Award[] = [
         ],
     },
     {
-        code: "sc-ffp",
+        code: "scffp",
         name: "Scaling Up Funding Futures Programme Award",
         shortName: "Scaling Up – FFP",
         stage: "scaling-up",
