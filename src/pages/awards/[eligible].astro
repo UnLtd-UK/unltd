@@ -1,0 +1,282 @@
+---
+/**
+ * Dynamic Eligibility Page
+ *
+ * Renders a personalized page for users who pass the eligibility checker.
+ * Typeform redirects users to /eligible/{slug} based on their answers.
+ *
+ * Not indexable (noindex) - only accessible via eligibility checker redirect.
+ */
+
+import type { GetStaticPaths } from "astro";
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Award from "@components/awards/Award.astro";
+import ApplicationRoundsProcess from "@components/awards/ApplicationRoundsProcess.astro";
+import SupportResources from "@components/awards/SupportResources.astro";
+import ApplicationTimeline from "@components/awards/ApplicationTimeline.astro";
+import Questions from "@components/awards/Questions.astro";
+
+import {
+    eligibilityPages,
+    getEligibilityPageWithAwards,
+    type EligibilityPage,
+} from "@data/eligibilityPages";
+import type { Award as AwardType } from "@data/awards";
+import { rounds } from "@data/rounds.js";
+import { processAllRounds } from "@utils/application-rounds.js";
+
+// Generate static paths for all eligibility slugs
+export const getStaticPaths: GetStaticPaths = () => {
+    return eligibilityPages.map((page) => ({
+        params: { eligible: page.slug },
+        props: { pageData: page },
+    }));
+};
+
+// Get the page data from params
+const { eligible } = Astro.params;
+const result = getEligibilityPageWithAwards(eligible as string);
+
+// 404 if no matching eligibility page
+if (!result) {
+    return Astro.redirect("/404");
+}
+
+const { page, awards } = result;
+
+// Process rounds for Apply button state
+const { currentRound } = processAllRounds(rounds);
+const isRoundOpen =
+    currentRound?.isOpen && currentRound?.capacityPercentage < 100;
+
+// Page metadata
+const breadcrumbs = [
+    { name: "Awards", path: "/awards" },
+    { name: "Eligible", path: `/eligible/${page.slug}` },
+];
+
+// Determine singular or plural messaging
+const isMultipleAwards = awards.length > 1;
+const awardText = isMultipleAwards ? "Awards" : "Award";
+const programmeNames = awards.map((a) => a.programme.name);
+const uniqueProgrammes = [...new Set(programmeNames)];
+---
+
+<Template name={page.title} description={page.description} noindex={true}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+    </Container>
+
+    <!-- Success Hero -->
+    <section
+        class="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 text-white py-12 lg:py-16"
+    >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div
+                class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8"
+            >
+                <div class="flex-1">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center"
+                        >
+                            <i
+                                class="fa-solid fa-circle-check text-3xl"
+                                aria-hidden="true"></i>
+                        </div>
+                        <span
+                            class="inline-flex items-center rounded-full bg-white/20 px-3 py-1 text-sm font-semibold ring-1 ring-white/30"
+                        >
+                            <i
+                                class="fa-solid fa-sparkles mr-1.5 text-xs"
+                                aria-hidden="true"></i>
+                            Eligibility Confirmed
+                        </span>
+                    </div>
+
+                    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                        You're eligible to apply for {
+                            isMultipleAwards ? awards.length : "a"
+                        }
+                        {awardText}
+                    </h1>
+
+                    <p class="text-lg text-emerald-100 mb-2">
+                        {page.tradingDescription}, which means you can apply
+                        for:
+                    </p>
+
+                    <ul class="space-y-2 mb-6">
+                        {
+                            awards.map((award) => (
+                                <li class="flex items-center gap-2 text-white">
+                                    <i
+                                        class={`${award.programme.icon} text-lg`}
+                                        aria-hidden="true"
+                                    />
+                                    <span class="font-semibold">
+                                        {award.shortName}
+                                    </span>
+                                    <span class="text-emerald-200">
+                                        – Up to £{award.grant.toLocaleString()}
+                                    </span>
+                                </li>
+                            ))
+                        }
+                    </ul>
+
+                    {
+                        isMultipleAwards && (
+                            <p class="text-sm text-emerald-200 bg-white/10 rounded-lg px-4 py-2 inline-block">
+                                <i
+                                    class="fa-solid fa-info-circle mr-1.5"
+                                    aria-hidden="true"
+                                />
+                                You can only apply for one Award at a time.
+                                Choose the programme that best fits your needs.
+                            </p>
+                        )
+                    }
+                </div>
+
+                <div class="lg:w-auto shrink-0">
+                    {
+                        isRoundOpen ? (
+                            <a
+                                href="https://portal.unltd.org.uk/apply"
+                                class="inline-flex items-center gap-3 px-8 py-4 bg-white text-emerald-700 font-bold rounded-xl text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105"
+                            >
+                                <i
+                                    class="fa-solid fa-rocket"
+                                    aria-hidden="true"
+                                />
+                                Apply Now
+                                <i
+                                    class="fa-solid fa-arrow-right"
+                                    aria-hidden="true"
+                                />
+                            </a>
+                        ) : (
+                            <div class="text-center">
+                                <div class="inline-flex items-center gap-2 px-6 py-3 bg-white/20 text-white font-semibold rounded-xl text-lg ring-1 ring-white/30">
+                                    <i
+                                        class="fa-solid fa-clock"
+                                        aria-hidden="true"
+                                    />
+                                    Applications open{" "}
+                                    {currentRound?.dates?.opens || "soon"}
+                                </div>
+                                <p class="text-emerald-200 text-sm mt-2">
+                                    Bookmark this page and come back when
+                                    applications open
+                                </p>
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exclusive Content Notice -->
+    <section
+        class="bg-amber-50 dark:bg-amber-950/50 border-b border-amber-200 dark:border-amber-800"
+    >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-start gap-3">
+                <i
+                    class="fa-solid fa-bookmark text-amber-600 dark:text-amber-400 mt-0.5"
+                    aria-hidden="true"></i>
+                <div>
+                    <p
+                        class="text-sm font-semibold text-amber-800 dark:text-amber-200"
+                    >
+                        This page is exclusive to eligible applicants
+                    </p>
+                    <p class="text-sm text-amber-700 dark:text-amber-300">
+                        Bookmark this page to return later. It contains
+                        resources and guidance to help you prepare your
+                        application.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Award Cards -->
+    <section class="bg-white dark:bg-violet-950 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mb-10">
+                <h2
+                    class="text-3xl font-bold text-violet-900 dark:text-violet-100 mb-4"
+                >
+                    Your Eligible {awardText}
+                </h2>
+                <p class="text-lg text-violet-700 dark:text-violet-300">
+                    {
+                        isMultipleAwards
+                            ? "Based on your eligibility, you can apply for either of these Awards. Review the details below to choose the best fit for you."
+                            : "Based on your eligibility, this is the Award you can apply for. Review the details below to prepare your application."
+                    }
+                </p>
+            </div>
+
+            <div
+                class={`grid gap-8 ${isMultipleAwards ? "lg:grid-cols-2" : "lg:grid-cols-1 max-w-2xl"}`}
+            >
+                {awards.map((award) => <Award {...award} />)}
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Rounds Process -->
+    <div id="application-rounds">
+        <ApplicationRoundsProcess showLinks={true} showApplyButton={true} />
+    </div>
+
+    <!-- Support Resources -->
+    <SupportResources />
+
+    <!-- Timeline -->
+    <!-- <ApplicationTimeline /> -->
+
+    <!-- FAQ -->
+    <Questions />
+
+    <!-- Final CTA -->
+    <section class="bg-violet-950 text-white py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-4">Ready to apply?</h2>
+            <p class="text-violet-200 text-lg mb-8 max-w-2xl mx-auto">
+                You've got everything you need. If the round is open, submit
+                your application through our portal.
+            </p>
+            {
+                isRoundOpen ? (
+                    <a
+                        href="https://portal.unltd.org.uk/apply"
+                        class="inline-flex items-center gap-2 px-8 py-4 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold rounded-xl text-lg transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
+                    >
+                        <i class="fa-solid fa-rocket" aria-hidden="true" />
+                        Start Your Application
+                        <i class="fa-solid fa-arrow-right" aria-hidden="true" />
+                    </a>
+                ) : (
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center gap-2 px-8 py-4 bg-violet-800 text-violet-300 font-semibold rounded-xl text-lg">
+                            <i class="fa-solid fa-clock" aria-hidden="true" />
+                            Applications open{" "}
+                            {currentRound?.dates?.opens || "soon"}
+                        </div>
+                        <p class="text-violet-400 text-sm">
+                            Use this time to prepare your application using the
+                            resources above.
+                        </p>
+                    </div>
+                )
+            }
+        </div>
+    </section>
+</Template>
