@@ -4,7 +4,7 @@ import { awards } from "@data/awards";
 ---
 
 <!-- Include this script tag or install `@tailwindplus/elements` via npm: --><!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script> -->
-<div id="awards" class="bg-white dark:bg-violet-950">
+<div id="our-awards" class="bg-white dark:bg-violet-950">
     <div class="relative py-18">
         <div
             class="absolute inset-x-0 top-48 bottom-0 bg-[radial-gradient(circle_at_center_center,#7775D6,#592E71,#030712_70%)] lg:bg-[radial-gradient(circle_at_center_150%,#7775D6,#592E71,#030712_70%)] dark:bg-[radial-gradient(circle_at_center_center,#7775D680,#592E7180,transparent_70%)] dark:lg:bg-[radial-gradient(circle_at_center_150%,#7775D680,#592E7180,transparent_70%)]"
@@ -12,15 +12,14 @@ import { awards } from "@data/awards";
         </div>
 
         <div class="relative mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-            <div class="max-w-4xl pb-10">
+            <div class="text-center mb-16">
                 <h2
-                    id="programmes"
-                    class="mt-2 text-4xl font-bold tracking-tight text-violet-900 dark:text-violet-100 sm:text-5xl"
+                    class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4"
                 >
                     Our Awards
                 </h2>
                 <p
-                    class="mt-6 max-w-2xl text-lg leading-8 text-violet-800 dark:text-violet-300"
+                    class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
                 >
                     The right Award will help you to get started or grow, with a
                     Starting Up Award for early-stage social entrepreneurs, or a
@@ -33,6 +32,7 @@ import { awards } from "@data/awards";
                     align with the needs of you and your social venture.
                 </p>
             </div>
+
             <div class="grid grid-cols-1 gap-10 lg:grid-cols-4">
                 {awards.map((award) => <Award {...award} />)}
             </div>
