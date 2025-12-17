@@ -1,21 +1,10 @@
 ---
-const benefits = [
-    { text: "No account required", icon: "fa-regular fa-circle-check" },
-    { text: "Instant results", icon: "fa-regular fa-sparkles" },
-    { text: "Email confirmation", icon: "fa-regular fa-envelope" },
-];
-
-const checkerUrl = "https://unltduk.typeform.com/awards-checker";
+import { benefits, checkerUrl, typeformLiveId } from "@data/eligibilityChecker";
 ---
 
 <section id="check-your-eligibility" class="py-18 bg-violet-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-            <span
-                class="inline-flex items-center rounded-full bg-violet-100 text-violet-700 px-3 py-0.5 text-sm font-medium mb-4"
-            >
-                Required First Step
-            </span>
             <h2
                 id="eligibility"
                 class="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance text-violet-50"
@@ -25,11 +14,9 @@ const checkerUrl = "https://unltduk.typeform.com/awards-checker";
             <p class="text-lg text-violet-300 max-w-2xl mx-auto mb-4">
                 Everyone must complete the eligibility checker to begin their
                 application process. It&apos;s the fastest way to find out which
-                awards you qualify for.
-            </p>
-            <p class="text-violet-400 text-sm max-w-xl mx-auto mb-8">
-                If you&apos;re eligible, you&apos;ll receive an email with your
-                personalised next steps, including access to our portal and
+                awards you qualify for. <br />
+                <br />If you&apos;re eligible, you&apos;ll receive an email with
+                your personalised next steps, including access to our portal and
                 resources to help you apply.
             </p>
 
@@ -70,31 +57,13 @@ const checkerUrl = "https://unltduk.typeform.com/awards-checker";
 
             <div class="relative bg-violet-950">
                 <div
-                    data-tf-live="01KA7RWQS22SHZE07GHDBWDV37"
+                    data-tf-live={typeformLiveId}
                     title="Eligibility Checker"
                     class="w-full border-0"
                     loading="lazy"
                 >
                 </div>
             </div>
-        </div>
-
-        <div
-            class="mt-12 bg-violet-950 rounded-xl p-6 border border-violet-950"
-        >
-            <h3 class="font-semibold text-white mb-2 flex items-center gap-2">
-                <i
-                    class="fa-regular fa-envelope h-5 w-5 text-violet-400"
-                    aria-hidden="true"></i>
-                What happens next?
-            </h3>
-            <p class="text-violet-300 text-sm leading-relaxed">
-                Once you complete the checker, eligible applicants will be asked
-                for their email address. You&apos;ll then receive an email
-                containing your eligibility results, a link to our application
-                portal, and curated resources to help you prepare a strong
-                application.
-            </p>
         </div>
     </div>
 </section>
