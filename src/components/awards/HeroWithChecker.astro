@@ -1,19 +1,11 @@
 ---
-import Container from "@components/Container.astro";
-import RoundWidget from "@components/awards/RoundWidget.astro";
-import { rounds } from "@data/rounds.js";
-import { processAllRounds } from "@utils/application-rounds.js";
-
 const benefits = [
     { text: "No account required", icon: "fa-regular fa-circle-check" },
     { text: "Instant results", icon: "fa-regular fa-sparkles" },
-    { text: "Next steps sent via email", icon: "fa-regular fa-envelope" },
+    { text: "Email confirmation", icon: "fa-regular fa-envelope" },
 ];
 
 const checkerUrl = "https://unltduk.typeform.com/awards-checker";
-
-// Process rounds using the utility
-const { currentRound, nextOpenRound } = processAllRounds(rounds || []);
 ---
 
 <section class="bg-violet-950 pt-16 lg:pt-20">
@@ -31,65 +23,32 @@ const { currentRound, nextOpenRound } = processAllRounds(rounds || []);
                 >
                     Awards
                 </h1>
-                <!-- <p
-                    class="mt-6 text-lg leading-8 font-medium text-pretty text-violet-300 sm:text-xl/8"
-                >
-                    An Award is a grant and enrollment onto one of our
-                    programmes;
-                    <a
-                        href="/awards/millennium-awards-trust"
-                        class="cursor-pointer inline-flex items-center rounded-md bg-yellow-400/30 px-2 py-1 text-lg font-medium text-yellow-400 inset-ring inset-ring-yellow-400/20 transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105"
-                    >
-                        Millennium Awards Trust
-                    </a>
-                    or
-                    <a
-                        href="/awards/funding-futures-programme"
-                        class="cursor-pointer inline-flex items-center rounded-md bg-purple-400/30 px-2 py-1 text-lg font-medium text-purple-400 inset-ring inset-ring-purple-400/20 transition-transform duration-200 ease-out hover:scale-105 focus-visible:scale-105"
-                    >
-                        Funding Futures Programme
-                    </a>. We offer two types of Awards, starting up awards for
-                    early stage social entrepreneurs and scaling-up for social
-                    entrepreneurs who've been trading for over a year.
-                </p> -->
-
                 <p
                     class="mt-6 text-lg leading-8 font-medium text-pretty text-violet-300 sm:text-xl/8"
                 >
                     You have an idea, or you are already creating a positive
                     social impact with your venture and are looking to develop.
-                    We combine funding and support specifically tailored to you.
+                    We combine a grant and a programme specifically tailored to
+                    you.
                 </p>
-
-                <!-- Application Rounds Widget - Full width -->
-                <!-- {
-                    currentRound && (
-                        <div class="mt-8">
-                            <RoundWidget
-                                currentRound={currentRound}
-                                nextOpenRound={nextOpenRound}
-                            />
-                        </div>
-                    )
-                } -->
 
                 <!-- Navigation Cards -->
                 <div class="mt-8 grid grid-cols-2 gap-3">
                     <a
-                        href="#sessions"
+                        href="#our-awards"
                         class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
                     >
                         <div
                             class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
                         >
                             <i
-                                class="fa-regular fa-calendar-star text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                                class="fa-regular fa-trophy-star text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
                                 aria-hidden="true"></i>
                         </div>
                         <h3
                             class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
                         >
-                            Sessions
+                            Our Awards
                             <i
                                 class="fa-solid fa-arrow-down text-[10px] text-violet-500"
                                 aria-hidden="true"></i>
@@ -97,26 +56,26 @@ const { currentRound, nextOpenRound } = processAllRounds(rounds || []);
                         <p
                             class="text-violet-400 text-xs leading-relaxed line-clamp-2"
                         >
-                            Attend info sessions to learn about the application
-                            process.
+                            Explore Starting Up and Scaling Up awards with
+                            funding and support.
                         </p>
                     </a>
 
                     <a
-                        href="#application-rounds"
+                        href="#how-applying-works"
                         class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
                     >
                         <div
                             class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
                         >
                             <i
-                                class="fa-regular fa-calendar-clock text-lg text-violet-400 group-hover:text-emerald-400 transition-colors"
+                                class="fa-regular fa-route text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
                                 aria-hidden="true"></i>
                         </div>
                         <h3
                             class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
                         >
-                            Application Rounds
+                            How applying works
                             <i
                                 class="fa-solid fa-arrow-down text-[10px] text-violet-500"
                                 aria-hidden="true"></i>
@@ -124,61 +83,139 @@ const { currentRound, nextOpenRound } = processAllRounds(rounds || []);
                         <p
                             class="text-violet-400 text-xs leading-relaxed line-clamp-2"
                         >
-                            View key dates and deadlines for applying.
+                            Understand each step of the application journey.
+                        </p>
+                    </a>
+
+                    <a
+                        href="#when-to-apply"
+                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+                    >
+                        <div
+                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                        >
+                            <i
+                                class="fa-regular fa-calendar-clock text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                                aria-hidden="true"></i>
+                        </div>
+                        <h3
+                            class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                        >
+                            When to apply
+                            <i
+                                class="fa-solid fa-arrow-down text-[10px] text-violet-500"
+                                aria-hidden="true"></i>
+                        </h3>
+                        <p
+                            class="text-violet-400 text-xs leading-relaxed line-clamp-2"
+                        >
+                            See our application rounds and key dates.
+                        </p>
+                    </a>
+
+                    <a
+                        href="#attend-an-information-session"
+                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+                    >
+                        <div
+                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                        >
+                            <i
+                                class="fa-regular fa-presentation-screen text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                                aria-hidden="true"></i>
+                        </div>
+                        <h3
+                            class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                        >
+                            Attend an info session
+                            <i
+                                class="fa-solid fa-arrow-down text-[10px] text-violet-500"
+                                aria-hidden="true"></i>
+                        </h3>
+                        <p
+                            class="text-violet-400 text-xs leading-relaxed line-clamp-2"
+                        >
+                            Join a live session to learn more and ask questions.
+                        </p>
+                    </a>
+
+                    <a
+                        href="#check-your-eligibility"
+                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+                    >
+                        <div
+                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                        >
+                            <i
+                                class="fa-regular fa-clipboard-list-check text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                                aria-hidden="true"></i>
+                        </div>
+                        <h3
+                            class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                        >
+                            Check your eligibility
+                            <i
+                                class="fa-solid fa-arrow-down text-[10px] text-violet-500"
+                                aria-hidden="true"></i>
+                        </h3>
+                        <p
+                            class="text-violet-400 text-xs leading-relaxed line-clamp-2"
+                        >
+                            Confirm you meet our criteria before applying.
+                        </p>
+                    </a>
+
+                    <a
+                        href="#frequently-asked-questions"
+                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+                    >
+                        <div
+                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                        >
+                            <i
+                                class="fa-regular fa-messages-question text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                                aria-hidden="true"></i>
+                        </div>
+                        <h3
+                            class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                        >
+                            Frequently asked questions
+                            <i
+                                class="fa-solid fa-arrow-down text-[10px] text-violet-500"
+                                aria-hidden="true"></i>
+                        </h3>
+                        <p
+                            class="text-violet-400 text-xs leading-relaxed line-clamp-2"
+                        >
+                            Find answers to common questions about Awards.
                         </p>
                     </a>
 
                     <a
                         href="/equity-commitments"
-                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+                        class="group col-span-2 flex items-center gap-4 bg-violet-800/30 rounded-xl p-4 border border-violet-700/50 hover:bg-violet-700/30 hover:border-violet-600 transition-all duration-200"
                     >
                         <div
-                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-700/50 shrink-0 group-hover:bg-violet-600/50 transition-colors"
                         >
                             <i
-                                class="fa-regular fa-heart text-lg text-violet-400 group-hover:text-rose-400 transition-colors"
+                                class="fa-regular fa-scale-balanced text-lg text-violet-300 group-hover:text-amber-400 transition-colors"
                                 aria-hidden="true"></i>
                         </div>
-                        <h3
-                            class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                        >
-                            Equity Commitments
-                            <i
-                                class="fa-solid fa-arrow-right text-[10px] text-violet-500 group-hover:translate-x-0.5 transition-transform"
-                                aria-hidden="true"></i>
-                        </h3>
-                        <p
-                            class="text-violet-400 text-xs leading-relaxed line-clamp-2"
-                        >
-                            At least 50% of Awards support underrepresented
-                            entrepreneurs.
-                        </p>
-                    </a>
-
-                    <a
-                        href="#faq"
-                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-                    >
-                        <div
-                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                        >
-                            <i
-                                class="fa-regular fa-circle-question text-lg text-violet-400 group-hover:text-sky-400 transition-colors"
-                                aria-hidden="true"></i>
+                        <div class="flex-1 min-w-0">
+                            <h3
+                                class="font-semibold text-violet-200 text-sm mb-0.5 flex items-center gap-1.5"
+                            >
+                                Equity Commitments
+                                <i
+                                    class="fa-solid fa-arrow-right text-[10px] text-violet-500 group-hover:translate-x-0.5 transition-transform"
+                                    aria-hidden="true"></i>
+                            </h3>
+                            <p class="text-violet-400 text-xs leading-relaxed">
+                                Learn about our commitment to supporting
+                                underrepresented entrepreneurs.
+                            </p>
                         </div>
-                        <h3
-                            class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                        >
-                            FAQ
-                            <i
-                                class="fa-solid fa-arrow-down text-[10px] text-violet-500"
-                                aria-hidden="true"></i>
-                        </h3>
-                        <p
-                            class="text-violet-400 text-xs leading-relaxed line-clamp-2"
-                        >
-                            Get answers to common questions about Awards.
-                        </p>
                     </a>
                 </div>
             </div>

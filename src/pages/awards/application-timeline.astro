@@ -6,7 +6,7 @@
  */
 
 import Container from "@components/Container.astro";
-import CurrentRoundCard from "@components/awards/CurrentRoundCard.astro";
+import WhenToApply from "@components/awards/WhenToApply.astro";
 
 // DATA
 import { rounds } from "@data/rounds.js";
@@ -126,7 +126,7 @@ const isRoundOpen = currentRound?.isOpen && !currentRound?.isCapacityFull;
             </p>
         </div>
 
-        <CurrentRoundCard
+        <WhenToApply
             currentRound={currentRound}
             nextOpenRound={nextOpenRound}
             allRounds={applicationRounds}

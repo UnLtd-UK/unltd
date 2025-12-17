@@ -1,0 +1,176 @@
+---
+/**
+ * EligibleHero Component
+ * Success hero section for the eligibility confirmation page
+ */
+
+import Award from "@components/awards/Award.astro";
+
+interface Props {
+    awards: any[];
+    page: {
+        tradingDescription: string;
+    };
+    isRoundOpen: boolean;
+    nextOpenDate: string;
+}
+
+const { awards, page, isRoundOpen, nextOpenDate } = Astro.props;
+
+const isMultipleAwards = awards.length > 1;
+const awardText = isMultipleAwards ? "Awards" : "Award";
+---
+
+<section
+    class="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 text-white py-12 lg:py-16"
+    x-data="{ email: new URLSearchParams(window.location.search).get('email') }"
+>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+            class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8 lg:gap-12"
+        >
+            <!-- Left: Confirmation Text & Apply Button -->
+            <div class="flex-1 lg:max-w-xl">
+                <div class="flex items-center gap-4 mb-4">
+                    <div
+                        class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center"
+                    >
+                        <i
+                            class="fa-solid fa-circle-check text-3xl"
+                            aria-hidden="true"></i>
+                    </div>
+                    <span
+                        class="inline-flex items-center rounded-full bg-white/20 px-3 py-1 text-sm font-semibold ring-1 ring-white/30"
+                    >
+                        <i
+                            class="fa-solid fa-sparkles mr-1.5 text-xs"
+                            aria-hidden="true"></i>
+                        Eligibility Confirmed
+                    </span>
+                </div>
+
+                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                    You're eligible to apply for {
+                        isMultipleAwards ? awards.length : "a"
+                    }
+                    {awardText}
+                </h1>
+
+                <p class="text-lg text-emerald-100 mb-6">
+                    {page.tradingDescription}, which means you can apply for {
+                        isMultipleAwards
+                            ? "either of these Awards"
+                            : "this Award"
+                    }.
+                </p>
+
+                <!-- Info notices -->
+                <div class="flex flex-col gap-3 mb-6">
+                    <!-- Email confirmation (client-side) -->
+                    <div
+                        x-show="email"
+                        x-cloak
+                        class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20"
+                    >
+                        <i
+                            class="fa-solid fa-envelope-circle-check text-emerald-200 mt-0.5"
+                            aria-hidden="true"></i>
+                        <div>
+                            <p class="text-sm text-white">
+                                We've emailed <span
+                                    x-text="email"
+                                    class="font-semibold"></span> a link to this
+                                page
+                            </p>
+                        </div>
+                    </div>
+
+                    {
+                        isMultipleAwards && (
+                            <div class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20">
+                                <i
+                                    class="fa-solid fa-info-circle text-emerald-200 mt-0.5"
+                                    aria-hidden="true"
+                                />
+                                <p class="text-sm text-white">
+                                    You can only apply for one Award at a time.
+                                    Choose the programme that best fits your
+                                    needs.
+                                </p>
+                            </div>
+                        )
+                    }
+                </div>
+
+                <div class="mt-6">
+                    {
+                        isRoundOpen ? (
+                            <a
+                                href="https://portal.unltd.org.uk/apply"
+                                class="inline-flex items-center gap-3 px-8 py-4 bg-white text-emerald-700 font-bold rounded-xl text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105"
+                            >
+                                <i
+                                    class="fa-solid fa-rocket"
+                                    aria-hidden="true"
+                                />
+                                Apply Now
+                                <i
+                                    class="fa-solid fa-arrow-right"
+                                    aria-hidden="true"
+                                />
+                            </a>
+                        ) : (
+                            <div>
+                                <div class="inline-flex items-center gap-2 px-6 py-3 bg-white/20 text-white font-semibold rounded-xl text-lg ring-1 ring-white/30">
+                                    <i
+                                        class="fa-solid fa-clock"
+                                        aria-hidden="true"
+                                    />
+                                    Applications open {nextOpenDate}
+                                </div>
+                                <p class="text-emerald-200 text-sm mt-2">
+                                    Bookmark this page and come back when
+                                    applications open
+                                </p>
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
+
+            <!-- Right: Award Cards -->
+            <div class="shrink-0 w-full lg:w-auto">
+                <div class="grid grid-cols-2 gap-4">
+                    {
+                        awards.map((award) => (
+                            <div class="w-full max-w-[280px]">
+                                <Award {...award} />
+                            </div>
+                        ))
+                    }
+                    {
+                        !isMultipleAwards && (
+                            <div class="w-full max-w-[280px]">
+                                <div class="h-full min-h-[300px] rounded-4xl border-2 border-dashed border-white/20 bg-white/5 flex flex-col items-center justify-center text-center p-6">
+                                    <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-4">
+                                        <i
+                                            class="fa-solid fa-question text-xl text-white/30"
+                                            aria-hidden="true"
+                                        />
+                                    </div>
+                                    <p class="text-sm text-white/40 font-medium mb-2">
+                                        Other Awards
+                                    </p>
+                                    <p class="text-xs text-white/30">
+                                        Additional Awards may be available based
+                                        on your eligibility
+                                    </p>
+                                </div>
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

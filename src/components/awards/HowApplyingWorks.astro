@@ -6,7 +6,7 @@
  */
 
 import Container from "@components/Container.astro";
-import CurrentRoundCard from "@components/awards/CurrentRoundCard.astro";
+import WhenToApply from "@components/awards/WhenToApply.astro";
 
 // DATA
 import { rounds } from "@data/rounds.js";
@@ -15,14 +15,9 @@ import { processAllRounds } from "@utils/application-rounds.js";
 interface Props {
     showEligibilityLink?: boolean;
     showResourceLinks?: boolean;
-    showRoundWidget?: boolean;
 }
 
-const {
-    showEligibilityLink = false,
-    showResourceLinks = false,
-    showRoundWidget = false,
-} = Astro.props;
+const { showEligibilityLink = false, showResourceLinks = false } = Astro.props;
 
 // Process all rounds from Directus (only needed if showing the widget)
 const {
@@ -231,20 +226,17 @@ const colorClasses = {
 };
 ---
 
-<section class="bg-slate-50 dark:bg-slate-900 py-16 lg:py-24">
+<section
+    id="how-applying-works"
+    class="bg-slate-50 dark:bg-slate-900 py-16 lg:py-24"
+>
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Header -->
         <div class="text-center mb-16">
-            <span
-                class="inline-flex items-center gap-2 rounded-full bg-violet-100 dark:bg-violet-900/50 px-4 py-1.5 text-sm font-semibold text-violet-700 dark:text-violet-300 mb-4"
-            >
-                <i class="fa-solid fa-route" aria-hidden="true"></i>
-                Your Application Journey
-            </span>
             <h2
                 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4"
             >
-                How the process works
+                How applying works
             </h2>
             <p
                 class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
@@ -253,47 +245,6 @@ const colorClasses = {
                 of your Award application.
             </p>
         </div>
-
-        <!-- Current Round Widget -->
-        {
-            showRoundWidget && (
-                <div class="mb-16">
-                    <CurrentRoundCard
-                        currentRound={currentRound}
-                        nextOpenRound={nextOpenRound}
-                        allRounds={applicationRounds}
-                    />
-
-                    <div class="mt-8 text-center">
-                        {isRoundOpen ? (
-                            <a
-                                href="https://portal.unltd.org.uk/apply"
-                                class="inline-flex items-center gap-2 px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-lg transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
-                            >
-                                <i
-                                    class="fa-solid fa-rocket"
-                                    aria-hidden="true"
-                                />
-                                Apply Now
-                                <i
-                                    class="fa-solid fa-arrow-right"
-                                    aria-hidden="true"
-                                />
-                            </a>
-                        ) : (
-                            <div class="inline-flex items-center gap-2 px-8 py-4 bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-semibold rounded-xl text-lg cursor-not-allowed">
-                                <i
-                                    class="fa-solid fa-clock"
-                                    aria-hidden="true"
-                                />
-                                Applications open{" "}
-                                {currentRound?.dates?.opens || "soon"}
-                            </div>
-                        )}
-                    </div>
-                </div>
-            )
-        }
 
         <!-- Journey Timeline -->
         <div class="relative">
@@ -542,19 +493,6 @@ const colorClasses = {
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Help CTA -->
-        <div class="mt-12 text-center">
-            <p class="text-slate-600 dark:text-slate-400">
-                Questions about the process?
-                <a
-                    href="mailto:awards@unltd.org.uk"
-                    class="text-violet-600 dark:text-violet-400 hover:underline font-medium ml-1"
-                >
-                    Email awards@unltd.org.uk
-                </a>
-            </p>
         </div>
     </div>
 </section>
