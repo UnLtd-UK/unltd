@@ -1,6 +1,5 @@
 ---
 import Countdown from "./Countdown.jsx";
-import Container from "@components/Container.astro";
 
 // DATA - fetch internally so component is self-contained
 import { rounds } from "@data/rounds.js";
@@ -121,14 +120,16 @@ const upcomingRounds = allRounds.filter(
 );
 ---
 
-<Container bg="bg-violet-900">
-    <div class="text-center mb-16">
+<div>
+    <div class="text-center">
         <h2
-            class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4"
+            class="text-3xl md:text-4xl font-bold text-violet-900 dark:text-violet-100 mb-4"
         >
             When to apply
         </h2>
-        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+        <p
+            class="text-lg text-violet-700 dark:text-violet-300 max-w-2xl mx-auto"
+        >
             The right Award will help you to get started or grow, with a
             Starting Up Award for early-stage social entrepreneurs, or a Scaling
             Up Award for social entrepreneurs who are looking to grow their
@@ -140,10 +141,7 @@ const upcomingRounds = allRounds.filter(
         </p>
     </div>
 
-    <div
-        id="when-to-apply"
-        class="bg-violet-950 text-white rounded-2xl p-8 mb-12"
-    >
+    <div id="when-to-apply" class="bg-violet-950 text-white rounded-2xl p-8">
         <div class="flex flex-col gap-6">
             <div
                 class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4"
@@ -703,4 +701,4 @@ const upcomingRounds = allRounds.filter(
             }
         </div>
     </div>
-</Container>
+</div>

@@ -1,37 +1,63 @@
 ---
-import Faq from "@components/Faq.astro";
-import Container from "@components/Container.astro";
-
 import { faq } from "@data/faq.js";
 ---
 
-<Container bg="bg-violet-100 dark:bg-violet-900">
-  <div id="frequently-asked-questions" class="py-20 flex flex-col gap-5">
-    <div>
-      <h2
-        class="mt-2 text-4xl font-bold tracking-tight text-violet-950 dark:text-violet-100 sm:text-5xl"
-      >
-        Frequently asked questions
-      </h2>
-    </div>
-    <div
-      class="max-w-4xl divide-y divide-violet-900/10 dark:divide-violet-900/10"
+<div class="mx-auto max-w-4xl">
+  <h2
+    class="text-4xl font-semibold tracking-tight text-violet-950 sm:text-5xl dark:text-white"
+  >
+    Frequently asked questions
+  </h2>
+  <dl class="mt-16 divide-y divide-violet-900/10 dark:divide-white/10">
+    {
+      faq.map((item, i) => (
+        <div class="py-6 first:pt-0 last:pb-0" x-data="{ open: false }">
+          <dt>
+            <button
+              type="button"
+              x-on:click="open = !open"
+              class="flex w-full items-start justify-between text-left text-violet-950 dark:text-white"
+              x-bind:aria-expanded="open"
+            >
+              <span class="text-base/7 font-semibold">{item.question}</span>
+              <span class="ml-6 flex h-7 items-center">
+                <i
+                  class="fa-solid fa-plus size-5"
+                  x-show="!open"
+                  aria-hidden="true"
+                />
+                <i
+                  class="fa-solid fa-minus size-5"
+                  x-show="open"
+                  x-cloak
+                  aria-hidden="true"
+                />
+              </span>
+            </button>
+          </dt>
+          <dd x-show="open" x-collapse x-cloak class="mt-2 pr-12">
+            <p class="text-base/7 text-gray-600 dark:text-gray-400">
+              {item.answer}
+            </p>
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+  <p class="mt-10 text-sm text-gray-600 dark:text-gray-400">
+    Can't find what you're looking for?
+    <a
+      href="/contact/awards"
+      class="font-semibold text-violet-600 hover:text-violet-500 dark:text-violet-400 dark:hover:text-violet-300"
     >
-      <dl class="mt-10 space-y-6 divide-y divide-violet-900/10">
-        {
-          faq.map((item, i) => (
-            <Faq question={item.question} answer={item.answer} i={i} />
-          ))
-        }
-      </dl>
-    </div>
-    <p
-      class="mt-6 max-w-3xl text-sm leading-8 text-violet-800 dark:text-violet-200"
-    >
-      If you don't find an answer to your question, you can make an <a
-        class="hover:text-violet-50 font-bold underline underline-offset-4 decoration-amber-500 decoration-1 hover:decoration-2"
-        href="/contact/awards">Award enquiry</a
-      >.
-    </p>
-  </div>
-</Container>
+      Make an Award enquiry
+      <i class="fa-solid fa-arrow-right text-xs ml-1" aria-hidden="true"></i>
+    </a>
+  </p>
+</div>
+
+<style>
+  [x-cloak] {
+    display: none !important;
+  }
+</style>
