@@ -3,42 +3,28 @@ import Award from "@components/awards/Award.astro";
 import { awards } from "@data/awards";
 ---
 
-<div id="our-awards" class="bg-white dark:bg-violet-900">
-    <div class="relative py-18">
-        <div
-            class="absolute inset-x-0 top-48 bottom-0 bg-[radial-gradient(circle_at_center_center,#7775D6,#592E71,#030712_70%)] lg:bg-[radial-gradient(circle_at_center_150%,#7775D6,#592E71,#030712_70%)] dark:bg-[radial-gradient(circle_at_center_center,#7775D680,#592E7180,transparent_70%)] dark:lg:bg-[radial-gradient(circle_at_center_150%,#7775D680,#592E7180,transparent_70%)]"
+<div class="relative mx-auto max-w-2xl lg:max-w-7xl">
+    <div class="text-center mb-16">
+        <h2
+            class="text-3xl md:text-4xl font-bold text-violet-900 dark:text-violet-100 mb-4"
         >
-        </div>
+            Our Awards
+        </h2>
+        <p
+            class="text-lg text-violet-700 dark:text-violet-300 max-w-2xl mx-auto"
+        >
+            The right Award will help you to get started or grow, with a
+            Starting Up Award for early-stage social entrepreneurs, or a Scaling
+            Up Award for social entrepreneurs who are looking to grow their
+            impact alongside their income. <br /><br />Depending on your age,
+            sectors in which your social venture operates in and how long you
+            venture has been trading, you will be assigned to one of our
+            programmes. Our programmes are designed to provide specialised
+            support that align with the needs of you and your social venture.
+        </p>
+    </div>
 
-        <div class="relative mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-            <div class="text-center mb-16">
-                <h2
-                    class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4"
-                >
-                    Our Awards
-                </h2>
-                <p
-                    class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
-                >
-                    The right Award will help you to get started or grow, with a
-                    Starting Up Award for early-stage social entrepreneurs, or a
-                    Scaling Up Award for social entrepreneurs who are looking to
-                    grow their impact alongside their income. <br /><br
-                    />Depending on your age, sectors in which your social
-                    venture operates in and how long you venture has been
-                    trading, you will be assigned to one of our programmes. Our
-                    programmes are designed to provide specialised support that
-                    align with the needs of you and your social venture.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 gap-10 lg:grid-cols-4">
-                {awards.map((award) => <Award {...award} />)}
-            </div>
-            <div
-                class="flex justify-between py-16 opacity-60 max-sm:mx-auto max-sm:max-w-md max-sm:flex-wrap max-sm:justify-evenly max-sm:gap-x-4 max-sm:gap-y-4 sm:py-6"
-            >
-            </div>
-        </div>
+    <div class="grid grid-cols-1 gap-10 lg:grid-cols-4">
+        {awards.map((award) => <Award {...award} />)}
     </div>
 </div>

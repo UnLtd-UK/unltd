@@ -2,68 +2,67 @@
 import { benefits, checkerUrl, typeformLiveId } from "@data/eligibilityChecker";
 ---
 
-<section id="check-your-eligibility" class="py-18 bg-violet-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2
-                id="eligibility"
-                class="text-3xl md:text-4xl font-bold text-foreground mb-4 text-balance text-violet-50"
-            >
-                Take the Eligibility Checker
-            </h2>
-            <p class="text-lg text-violet-300 max-w-2xl mx-auto mb-4">
-                Everyone must complete the eligibility checker to begin their
-                application process. It&apos;s the fastest way to find out which
-                awards you qualify for. <br />
-                <br />If you&apos;re eligible, you&apos;ll receive an email with
-                your personalised next steps, including access to our portal and
-                resources to help you apply.
-            </p>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12 flex flex-col gap-5">
+        <h2
+            class="text-3xl md:text-4xl font-bold text-violet-900 dark:text-violet-100 mb-4"
+        >
+            Check your eligibility
+        </h2>
+        <p
+            class="text-lg text-violet-700 dark:text-violet-300 max-w-2xl mx-auto"
+        >
+            Everyone must complete the eligibility checker to begin their
+            application process. It&apos;s the fastest way to find out which
+            awards you qualify for. <br />
+            <br />If you&apos;re eligible, you&apos;ll receive an email with
+            your personalised next steps, including access to our portal and
+            resources to help you apply.
+        </p>
 
-            <div class="flex flex-wrap justify-center gap-6 mb-12">
-                {
-                    benefits.map((item) => (
-                        <div class="flex items-center gap-2 text-sm">
-                            <i
-                                class={`${item.icon} h-4 w-4 text-violet-400`}
-                                aria-hidden="true"
-                            />
-                            <span class="text-violet-300">{item.text}</span>
-                        </div>
-                    ))
-                }
-            </div>
+        <div class="flex flex-wrap justify-center gap-6">
+            {
+                benefits.map((item) => (
+                    <div class="flex items-center gap-2 text-sm">
+                        <i
+                            class={`${item.icon} h-4 w-4 text-violet-400`}
+                            aria-hidden="true"
+                        />
+                        <span class="text-violet-300">{item.text}</span>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+
+    <div class="bg-white rounded-2xl overflow-hidden shadow-2xl">
+        <div
+            class="bg-violet-100 px-4 py-3 border-b border-violet-200 flex items-center justify-between"
+        >
+            <span class="text-sm font-medium text-violet-700"
+                >Eligibility Checker</span
+            >
+            <a
+                href={checkerUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm font-semibold text-violet-600 hover:text-violet-900"
+            >
+                Open in new tab
+                <i
+                    class="fa-regular fa-arrow-up-right-from-square h-3 w-3"
+                    aria-hidden="true"></i>
+            </a>
         </div>
 
-        <div class="bg-white rounded-2xl overflow-hidden shadow-2xl">
+        <div class="relative bg-violet-950">
             <div
-                class="bg-violet-100 px-4 py-3 border-b border-violet-200 flex items-center justify-between"
+                data-tf-live={typeformLiveId}
+                title="Eligibility Checker"
+                class="w-full border-0"
+                loading="lazy"
             >
-                <span class="text-sm font-medium text-violet-700"
-                    >Eligibility Checker</span
-                >
-                <a
-                    href={checkerUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm font-semibold text-violet-600 hover:text-violet-900"
-                >
-                    Open in new tab
-                    <i
-                        class="fa-regular fa-arrow-up-right-from-square h-3 w-3"
-                        aria-hidden="true"></i>
-                </a>
-            </div>
-
-            <div class="relative bg-violet-950">
-                <div
-                    data-tf-live={typeformLiveId}
-                    title="Eligibility Checker"
-                    class="w-full border-0"
-                    loading="lazy"
-                >
-                </div>
             </div>
         </div>
     </div>
-</section>
+</div>

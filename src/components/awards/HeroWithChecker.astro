@@ -2,280 +2,259 @@
 import { benefits, checkerUrl, typeformLiveId } from "@data/eligibilityChecker";
 ---
 
-<section class="bg-violet-950 pt-16 lg:pt-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-            class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start"
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+    <!-- Left: Hero Content -->
+    <div class="lg:pr-8">
+        <p class="text-base font-semibold leading-7 text-amber-500">
+            For social entrepreneurs
+        </p>
+        <h1
+            class="mt-2 text-4xl font-bold tracking-tight text-violet-100 sm:text-5xl lg:text-6xl"
         >
-            <!-- Left: Hero Content -->
-            <div class="lg:pr-8">
-                <p class="text-base font-semibold leading-7 text-amber-500">
-                    For social entrepreneurs
-                </p>
-                <h1
-                    class="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl"
-                >
-                    Awards
-                </h1>
-                <p
-                    class="mt-6 text-lg leading-8 font-medium text-pretty text-violet-300 sm:text-xl/8"
-                >
-                    You have an idea, or you are already creating a positive
-                    social impact with your venture and are looking to develop.
-                    We combine a grant and a programme specifically tailored to
-                    you.
-                </p>
+            Awards
+        </h1>
+        <p
+            class="mt-6 text-lg leading-8 font-medium text-pretty text-violet-300 sm:text-xl/8"
+        >
+            You have an idea, or you are already creating a positive social
+            impact with your venture and are looking to develop. We combine a
+            grant and a programme specifically tailored to you.
+        </p>
 
-                <!-- Navigation Cards -->
-                <div class="mt-8 grid grid-cols-2 gap-3">
-                    <a
-                        href="#our-awards"
-                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-                    >
-                        <div
-                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                        >
-                            <i
-                                class="fa-regular fa-trophy-star text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                                aria-hidden="true"></i>
-                        </div>
-                        <h3
-                            class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                        >
-                            Our Awards
-                            <i
-                                class="fa-solid fa-arrow-down text-[10px] text-violet-500"
-                                aria-hidden="true"></i>
-                        </h3>
-                        <p
-                            class="text-violet-400 text-xs leading-relaxed line-clamp-2"
-                        >
-                            Explore Starting Up and Scaling Up awards with
-                            funding and support.
-                        </p>
-                    </a>
-
-                    <a
-                        href="#how-applying-works"
-                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-                    >
-                        <div
-                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                        >
-                            <i
-                                class="fa-regular fa-route text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                                aria-hidden="true"></i>
-                        </div>
-                        <h3
-                            class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                        >
-                            How applying works
-                            <i
-                                class="fa-solid fa-arrow-down text-[10px] text-violet-500"
-                                aria-hidden="true"></i>
-                        </h3>
-                        <p
-                            class="text-violet-400 text-xs leading-relaxed line-clamp-2"
-                        >
-                            Understand each step of the application journey.
-                        </p>
-                    </a>
-
-                    <a
-                        href="#when-to-apply"
-                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-                    >
-                        <div
-                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                        >
-                            <i
-                                class="fa-regular fa-calendar-clock text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                                aria-hidden="true"></i>
-                        </div>
-                        <h3
-                            class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                        >
-                            When to apply
-                            <i
-                                class="fa-solid fa-arrow-down text-[10px] text-violet-500"
-                                aria-hidden="true"></i>
-                        </h3>
-                        <p
-                            class="text-violet-400 text-xs leading-relaxed line-clamp-2"
-                        >
-                            See our application rounds and key dates.
-                        </p>
-                    </a>
-
-                    <a
-                        href="#attend-an-information-session"
-                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-                    >
-                        <div
-                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                        >
-                            <i
-                                class="fa-regular fa-presentation-screen text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                                aria-hidden="true"></i>
-                        </div>
-                        <h3
-                            class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                        >
-                            Attend an info session
-                            <i
-                                class="fa-solid fa-arrow-down text-[10px] text-violet-500"
-                                aria-hidden="true"></i>
-                        </h3>
-                        <p
-                            class="text-violet-400 text-xs leading-relaxed line-clamp-2"
-                        >
-                            Join a live session to learn more and ask questions.
-                        </p>
-                    </a>
-
-                    <a
-                        href="#check-your-eligibility"
-                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-                    >
-                        <div
-                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                        >
-                            <i
-                                class="fa-regular fa-clipboard-list-check text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                                aria-hidden="true"></i>
-                        </div>
-                        <h3
-                            class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                        >
-                            Check your eligibility
-                            <i
-                                class="fa-solid fa-arrow-down text-[10px] text-violet-500"
-                                aria-hidden="true"></i>
-                        </h3>
-                        <p
-                            class="text-violet-400 text-xs leading-relaxed line-clamp-2"
-                        >
-                            Confirm you meet our criteria before applying.
-                        </p>
-                    </a>
-
-                    <a
-                        href="#frequently-asked-questions"
-                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-                    >
-                        <div
-                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                        >
-                            <i
-                                class="fa-regular fa-messages-question text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                                aria-hidden="true"></i>
-                        </div>
-                        <h3
-                            class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                        >
-                            Frequently asked questions
-                            <i
-                                class="fa-solid fa-arrow-down text-[10px] text-violet-500"
-                                aria-hidden="true"></i>
-                        </h3>
-                        <p
-                            class="text-violet-400 text-xs leading-relaxed line-clamp-2"
-                        >
-                            Find answers to common questions about Awards.
-                        </p>
-                    </a>
-
-                    <a
-                        href="/equity-commitments"
-                        class="group col-span-2 flex items-center gap-4 bg-violet-800/30 rounded-xl p-4 border border-violet-700/50 hover:bg-violet-700/30 hover:border-violet-600 transition-all duration-200"
-                    >
-                        <div
-                            class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-700/50 shrink-0 group-hover:bg-violet-600/50 transition-colors"
-                        >
-                            <i
-                                class="fa-regular fa-scale-balanced text-lg text-violet-300 group-hover:text-amber-400 transition-colors"
-                                aria-hidden="true"></i>
-                        </div>
-                        <div class="flex-1 min-w-0">
-                            <h3
-                                class="font-semibold text-violet-200 text-sm mb-0.5 flex items-center gap-1.5"
-                            >
-                                Equity Commitments
-                                <i
-                                    class="fa-solid fa-arrow-right text-[10px] text-violet-500 group-hover:translate-x-0.5 transition-transform"
-                                    aria-hidden="true"></i>
-                            </h3>
-                            <p class="text-violet-400 text-xs leading-relaxed">
-                                Learn about our commitment to supporting
-                                underrepresented entrepreneurs.
-                            </p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Right: Eligibility Checker -->
-            <div id="eligibility-checker" class="lg:sticky lg:top-8">
+        <!-- Navigation Cards -->
+        <div class="mt-8 grid grid-cols-2 gap-3">
+            <a
+                href="#our-awards"
+                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+            >
                 <div
-                    class="bg-violet-950 rounded-2xl overflow-hidden shadow-2xl border border-violet-100"
+                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
                 >
-                    <div
-                        class="bg-violet-100 px-4 py-2.5 border-b border-violet-100 flex items-center justify-between"
-                    >
-                        <span
-                            class="inline-flex items-center rounded-full bg-amber-500 text-amber-950 px-3 py-1 text-sm font-semibold"
-                        >
-                            Required First Step
-                        </span>
-                        <a
-                            href={checkerUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm font-semibold text-violet-900 hover:text-violet-800 transition-colors"
-                        >
-                            Open in new tab
-                            <i
-                                class="fa-regular fa-arrow-up-right-from-square h-3 w-3"
-                                aria-hidden="true"></i>
-                        </a>
-                    </div>
-
-                    <div class="relative bg-violet-950">
-                        <div
-                            data-tf-live={typeformLiveId}
-                            title="Eligibility Checker"
-                            class="w-full border-0"
-                            loading="lazy"
-                        >
-                        </div>
-                    </div>
-
-                    <div class="flex flex-wrap justify-center gap-4 mb-6">
-                        {
-                            benefits.map((item) => (
-                                <div class="flex items-center gap-2 text-xs">
-                                    <i
-                                        class={`${item.icon} h-3.5 w-3.5 text-violet-400`}
-                                        aria-hidden="true"
-                                    />
-                                    <span class="text-violet-300">
-                                        {item.text}
-                                    </span>
-                                </div>
-                            ))
-                        }
-                    </div>
+                    <i
+                        class="fa-regular fa-trophy-star text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                        aria-hidden="true"></i>
                 </div>
-
-                <!-- Small print: Eligibility criteria link -->
-                <p class="mt-3 text-center text-xs text-violet-400">
-                    View our full <a
-                        href="/awards#eligibility-criteria"
-                        class="underline hover:text-violet-300 transition-colors"
-                        >eligibility criteria</a
-                    > for all awards.
+                <h3
+                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                >
+                    Our Awards
+                    <i
+                        class="fa-solid fa-arrow-down text-[10px] text-violet-500"
+                        aria-hidden="true"></i>
+                </h3>
+                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
+                    Explore Starting Up and Scaling Up awards with funding and
+                    support.
                 </p>
-            </div>
+            </a>
+
+            <a
+                href="#how-applying-works"
+                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+            >
+                <div
+                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                >
+                    <i
+                        class="fa-regular fa-route text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                        aria-hidden="true"></i>
+                </div>
+                <h3
+                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                >
+                    How applying works
+                    <i
+                        class="fa-solid fa-arrow-down text-[10px] text-violet-500"
+                        aria-hidden="true"></i>
+                </h3>
+                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
+                    Understand each step of the application journey.
+                </p>
+            </a>
+
+            <a
+                href="#when-to-apply"
+                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+            >
+                <div
+                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                >
+                    <i
+                        class="fa-regular fa-calendar-clock text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                        aria-hidden="true"></i>
+                </div>
+                <h3
+                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                >
+                    When to apply
+                    <i
+                        class="fa-solid fa-arrow-down text-[10px] text-violet-500"
+                        aria-hidden="true"></i>
+                </h3>
+                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
+                    See our application rounds and key dates.
+                </p>
+            </a>
+
+            <a
+                href="#attend-an-information-session"
+                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+            >
+                <div
+                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                >
+                    <i
+                        class="fa-regular fa-presentation-screen text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                        aria-hidden="true"></i>
+                </div>
+                <h3
+                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                >
+                    Attend an info session
+                    <i
+                        class="fa-solid fa-arrow-down text-[10px] text-violet-500"
+                        aria-hidden="true"></i>
+                </h3>
+                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
+                    Join a live session to learn more and ask questions.
+                </p>
+            </a>
+
+            <a
+                href="#check-your-eligibility"
+                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+            >
+                <div
+                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                >
+                    <i
+                        class="fa-regular fa-clipboard-list-check text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                        aria-hidden="true"></i>
+                </div>
+                <h3
+                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                >
+                    Check your eligibility
+                    <i
+                        class="fa-solid fa-arrow-down text-[10px] text-violet-500"
+                        aria-hidden="true"></i>
+                </h3>
+                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
+                    Confirm you meet our criteria before applying.
+                </p>
+            </a>
+
+            <a
+                href="#frequently-asked-questions"
+                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+            >
+                <div
+                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                >
+                    <i
+                        class="fa-regular fa-messages-question text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                        aria-hidden="true"></i>
+                </div>
+                <h3
+                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                >
+                    Frequently asked questions
+                    <i
+                        class="fa-solid fa-arrow-down text-[10px] text-violet-500"
+                        aria-hidden="true"></i>
+                </h3>
+                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
+                    Find answers to common questions about Awards.
+                </p>
+            </a>
+
+            <a
+                href="/equity-commitments"
+                class="group col-span-2 flex items-center gap-4 bg-violet-800/30 rounded-xl p-4 border border-violet-700/50 hover:bg-violet-700/30 hover:border-violet-600 transition-all duration-200"
+            >
+                <div
+                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-700/50 shrink-0 group-hover:bg-violet-600/50 transition-colors"
+                >
+                    <i
+                        class="fa-regular fa-scale-balanced text-lg text-violet-300 group-hover:text-amber-400 transition-colors"
+                        aria-hidden="true"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <h3
+                        class="font-semibold text-violet-200 text-sm mb-0.5 flex items-center gap-1.5"
+                    >
+                        Equity Commitments
+                        <i
+                            class="fa-solid fa-arrow-right text-[10px] text-violet-500 group-hover:translate-x-0.5 transition-transform"
+                            aria-hidden="true"></i>
+                    </h3>
+                    <p class="text-violet-400 text-xs leading-relaxed">
+                        Learn about our commitment to supporting
+                        underrepresented entrepreneurs.
+                    </p>
+                </div>
+            </a>
         </div>
     </div>
-</section>
+
+    <!-- Right: Eligibility Checker -->
+    <div id="eligibility-checker" class="lg:sticky lg:top-8">
+        <div
+            class="bg-violet-950 rounded-2xl overflow-hidden shadow-2xl border border-violet-100"
+        >
+            <div
+                class="bg-violet-100 px-4 py-2.5 border-b border-violet-100 flex items-center justify-between"
+            >
+                <span
+                    class="inline-flex items-center rounded-full bg-amber-500 text-amber-950 px-3 py-1 text-sm font-semibold"
+                >
+                    Required First Step
+                </span>
+                <a
+                    href={checkerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm font-semibold text-violet-900 hover:text-violet-800 transition-colors"
+                >
+                    Open in new tab
+                    <i
+                        class="fa-regular fa-arrow-up-right-from-square h-3 w-3"
+                        aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div class="relative bg-violet-950">
+                <div
+                    data-tf-live={typeformLiveId}
+                    title="Eligibility Checker"
+                    class="w-full border-0"
+                    loading="lazy"
+                >
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4 mb-6">
+                {
+                    benefits.map((item) => (
+                        <div class="flex items-center gap-2 text-xs">
+                            <i
+                                class={`${item.icon} h-3.5 w-3.5 text-violet-400`}
+                                aria-hidden="true"
+                            />
+                            <span class="text-violet-300">{item.text}</span>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+
+        <!-- Small print: Eligibility criteria link -->
+        <p class="mt-3 text-center text-xs text-violet-400">
+            View our full <a
+                href="/awards#eligibility-criteria"
+                class="underline hover:text-violet-300 transition-colors"
+                >eligibility criteria</a
+            > for all awards.
+        </p>
+    </div>
+</div>

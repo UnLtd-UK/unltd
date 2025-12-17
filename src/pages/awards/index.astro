@@ -34,12 +34,28 @@ import FrequentlyAskedQuestions from "@components/awards/FrequentlyAskedQuestion
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
   </Container>
-  <HeroWithChecker />
-  <Awards />
-  <HowApplyingWorks showEligibilityLink={true} />
-  <WhenToApply />
-  <Sessions />
-  <EligibilityChecker />
-  <EligibilityCriteria />
-  <FrequentlyAskedQuestions />
+  <Container id="hero" class="bg-violet-950 py-16 mt-8">
+    <HeroWithChecker />
+  </Container>
+  <Container id="our-awards" class="bg-violet-900 py-16 mt-8">
+    <Awards />
+  </Container>
+  <Container id="how-applying-works" class="bg-violet-950 py-16 mt-8">
+    <HowApplyingWorks showEligibilityLink={true} />
+  </Container>
+  <Container id="when-to-apply" class="bg-violet-900 py-16 mt-8">
+    <WhenToApply />
+  </Container>
+  <Container id="sessions" class="bg-violet-950 py-16 mt-8">
+    <Sessions />
+  </Container>
+  <Container id="eligibility-checker" class="bg-violet-900 py-16 mt-8">
+    <EligibilityChecker />
+  </Container>
+  <Container id="eligibility-criteria" class="bg-violet-950 py-16 mt-8">
+    <EligibilityCriteria />
+  </Container>
+  <Container id="frequently-asked-questions" class="bg-violet-900 py-16 mt-8">
+    <FrequentlyAskedQuestions />
+  </Container>
 </Template>

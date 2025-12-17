@@ -1,8 +1,13 @@
 ---
-const { bg } = Astro.props;
+interface Props {
+  id?: string;
+  class?: string;
+}
+
+const { id, class: className } = Astro.props;
 ---
 
-<div class={`${bg}`}>
+<div id={id} class={className}>
   <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 px-3">
     <slot />
   </div>

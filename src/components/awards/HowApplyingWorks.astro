@@ -30,279 +30,264 @@ function getStepLink(linkKey?: StepLinkKey) {
 }
 ---
 
-<section
-    id="how-applying-works"
-    class="bg-slate-50 dark:bg-violet-950 py-16 lg:py-24"
->
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Header -->
-        <div class="text-center mb-16">
-            <h2
-                class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4"
-            >
-                How applying works
-            </h2>
-            <p
-                class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
-            >
-                From preparation to outcome, here's what to expect at each stage
-                of your Award application.
-            </p>
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16">
+        <h2
+            class="text-3xl md:text-4xl font-bold text-violet-900 dark:text-violet-100 mb-4"
+        >
+            How applying works
+        </h2>
+        <p
+            class="text-lg text-violet-700 dark:text-violet-300 max-w-2xl mx-auto"
+        >
+            From preparation to outcome, here's what to expect at each stage of
+            your Award application.
+        </p>
+    </div>
+
+    <!-- Journey Timeline -->
+    <div class="relative">
+        <!-- Vertical connecting line (desktop) -->
+        <div
+            class="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-300 via-violet-300 to-sky-300 dark:from-emerald-700 dark:via-violet-700 dark:to-sky-700 -translate-x-1/2"
+        >
         </div>
 
-        <!-- Journey Timeline -->
-        <div class="relative">
-            <!-- Vertical connecting line (desktop) -->
-            <div
-                class="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-emerald-300 via-violet-300 to-sky-300 dark:from-emerald-700 dark:via-violet-700 dark:to-sky-700 -translate-x-1/2"
-            >
-            </div>
+        <!-- Phases -->
+        <div class="space-y-8 lg:space-y-0">
+            {
+                phases.map((phase, phaseIndex) => {
+                    const colors =
+                        colorClasses[phase.color as keyof typeof colorClasses];
+                    const isEven = phaseIndex % 2 === 0;
 
-            <!-- Phases -->
-            <div class="space-y-8 lg:space-y-0">
-                {
-                    phases.map((phase, phaseIndex) => {
-                        const colors =
-                            colorClasses[
-                                phase.color as keyof typeof colorClasses
-                            ];
-                        const isEven = phaseIndex % 2 === 0;
-
-                        return (
-                            <div class="relative lg:grid lg:grid-cols-2 lg:gap-8 lg:py-8">
-                                {/* Timeline node (desktop) */}
-                                <div class="hidden lg:flex absolute left-1/2 top-8 -translate-x-1/2 z-10">
-                                    <div
-                                        class={`w-14 h-14 rounded-2xl ${colors.bg} text-white flex items-center justify-center shadow-lg ring-4 ring-white dark:ring-slate-900`}
-                                    >
-                                        <i
-                                            class={`${phase.icon} text-xl`}
-                                            aria-hidden="true"
-                                        />
-                                    </div>
-                                </div>
-
-                                {/* Phase content */}
+                    return (
+                        <div class="relative lg:grid lg:grid-cols-2 lg:gap-8 lg:py-8">
+                            {/* Timeline node (desktop) */}
+                            <div class="hidden lg:flex absolute left-1/2 top-8 -translate-x-1/2 z-10">
                                 <div
-                                    class={`lg:${isEven ? "pr-16 text-right" : "pl-16 col-start-2"}`}
+                                    class={`w-14 h-14 rounded-2xl ${colors.bg} text-white flex items-center justify-center shadow-lg ring-4 ring-white dark:ring-slate-900`}
                                 >
-                                    {/* Phase card */}
-                                    <div
-                                        class={`${colors.bgLight} rounded-3xl p-6 lg:p-8 border ${colors.border} shadow-sm`}
-                                    >
-                                        {/* Mobile icon */}
-                                        <div class="lg:hidden flex items-center gap-3 mb-4">
-                                            <div
-                                                class={`w-12 h-12 rounded-xl ${colors.bg} text-white flex items-center justify-center shadow-md`}
-                                            >
-                                                <i
-                                                    class={`${phase.icon} text-lg`}
-                                                    aria-hidden="true"
-                                                />
-                                            </div>
-                                            <div>
-                                                <h3
-                                                    class={`text-xl font-bold ${colors.textDark}`}
-                                                >
-                                                    {phase.title}
-                                                </h3>
-                                                <p class="text-sm text-slate-500 dark:text-slate-400">
-                                                    {phase.subtitle}
-                                                </p>
-                                            </div>
-                                        </div>
+                                    <i
+                                        class={`${phase.icon} text-xl`}
+                                        aria-hidden="true"
+                                    />
+                                </div>
+                            </div>
 
-                                        {/* Desktop header */}
+                            {/* Phase content */}
+                            <div
+                                class={`lg:${isEven ? "pr-16 text-right" : "pl-16 col-start-2"}`}
+                            >
+                                {/* Phase card */}
+                                <div
+                                    class={`${colors.bgLight} rounded-3xl p-6 lg:p-8 border ${colors.border} shadow-sm`}
+                                >
+                                    {/* Mobile icon */}
+                                    <div class="lg:hidden flex items-center gap-3 mb-4">
                                         <div
-                                            class={`hidden lg:block mb-6 ${isEven ? "text-right" : "text-left"}`}
+                                            class={`w-12 h-12 rounded-xl ${colors.bg} text-white flex items-center justify-center shadow-md`}
                                         >
+                                            <i
+                                                class={`${phase.icon} text-lg`}
+                                                aria-hidden="true"
+                                            />
+                                        </div>
+                                        <div>
                                             <h3
-                                                class={`text-2xl font-bold ${colors.textDark}`}
+                                                class={`text-xl font-bold ${colors.textDark}`}
                                             >
                                                 {phase.title}
                                             </h3>
-                                            <p class="text-slate-500 dark:text-slate-400">
+                                            <p class="text-sm text-slate-500 dark:text-slate-400">
                                                 {phase.subtitle}
                                             </p>
                                         </div>
+                                    </div>
 
-                                        {/* Steps */}
-                                        <div
-                                            class={`space-y-3 ${isEven ? "lg:text-right" : "lg:text-left"}`}
+                                    {/* Desktop header */}
+                                    <div
+                                        class={`hidden lg:block mb-6 ${isEven ? "text-right" : "text-left"}`}
+                                    >
+                                        <h3
+                                            class={`text-2xl font-bold ${colors.textDark}`}
                                         >
-                                            {phase.steps.map((step) => (
+                                            {phase.title}
+                                        </h3>
+                                        <p class="text-slate-500 dark:text-slate-400">
+                                            {phase.subtitle}
+                                        </p>
+                                    </div>
+
+                                    {/* Steps */}
+                                    <div
+                                        class={`space-y-3 ${isEven ? "lg:text-right" : "lg:text-left"}`}
+                                    >
+                                        {phase.steps.map((step) => (
+                                            <div
+                                                class={`flex items-start gap-3 ${isEven ? "lg:flex-row-reverse" : ""}`}
+                                            >
                                                 <div
-                                                    class={`flex items-start gap-3 ${isEven ? "lg:flex-row-reverse" : ""}`}
+                                                    class={`shrink-0 w-9 h-9 rounded-lg ${colors.bgLighter} ${colors.text} flex items-center justify-center`}
                                                 >
-                                                    <div
-                                                        class={`shrink-0 w-9 h-9 rounded-lg ${colors.bgLighter} ${colors.text} flex items-center justify-center`}
-                                                    >
-                                                        <i
-                                                            class={`${step.icon} text-sm`}
-                                                            aria-hidden="true"
-                                                        />
-                                                    </div>
-                                                    <div class="flex-1 min-w-0">
-                                                        <h4 class="font-semibold text-slate-900 dark:text-white text-sm">
-                                                            {step.title}
-                                                        </h4>
-                                                        <p class="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
-                                                            {step.description}
-                                                        </p>
-                                                        {(() => {
-                                                            const link =
-                                                                getStepLink(
-                                                                    step.linkKey,
-                                                                );
-                                                            return (
-                                                                link && (
-                                                                    <a
-                                                                        href={
-                                                                            link.href
-                                                                        }
-                                                                        class={`inline-flex items-center gap-1.5 text-xs font-medium ${colors.text} hover:underline mt-1.5`}
-                                                                    >
-                                                                        {
-                                                                            link.label
-                                                                        }
-                                                                        <i
-                                                                            class={`${link.icon} text-[10px]`}
-                                                                            aria-hidden="true"
-                                                                        />
-                                                                    </a>
-                                                                )
-                                                            );
-                                                        })()}
-                                                    </div>
+                                                    <i
+                                                        class={`${step.icon} text-sm`}
+                                                        aria-hidden="true"
+                                                    />
                                                 </div>
-                                            ))}
-                                        </div>
+                                                <div class="flex-1 min-w-0">
+                                                    <h4 class="font-semibold text-slate-900 dark:text-white text-sm">
+                                                        {step.title}
+                                                    </h4>
+                                                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+                                                        {step.description}
+                                                    </p>
+                                                    {(() => {
+                                                        const link =
+                                                            getStepLink(
+                                                                step.linkKey,
+                                                            );
+                                                        return (
+                                                            link && (
+                                                                <a
+                                                                    href={
+                                                                        link.href
+                                                                    }
+                                                                    class={`inline-flex items-center gap-1.5 text-xs font-medium ${colors.text} hover:underline mt-1.5`}
+                                                                >
+                                                                    {link.label}
+                                                                    <i
+                                                                        class={`${link.icon} text-[10px]`}
+                                                                        aria-hidden="true"
+                                                                    />
+                                                                </a>
+                                                            )
+                                                        );
+                                                    })()}
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
-
-                                {/* Empty column for alternating layout */}
-                                {isEven && <div class="hidden lg:block" />}
                             </div>
-                        );
-                    })
-                }
-            </div>
+
+                            {/* Empty column for alternating layout */}
+                            {isEven && <div class="hidden lg:block" />}
+                        </div>
+                    );
+                })
+            }
+        </div>
+    </div>
+
+    <!-- Outcomes Section -->
+    <div class="mt-16 lg:mt-24">
+        <div class="text-center mb-8">
+            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                What happens next?
+            </h3>
+            <p class="text-slate-600 dark:text-slate-400">
+                Whatever the outcome, we're here to support you.
+            </p>
         </div>
 
-        <!-- Outcomes Section -->
-        <div class="mt-16 lg:mt-24">
-            <div class="text-center mb-8">
-                <h3
-                    class="text-2xl font-bold text-slate-900 dark:text-white mb-2"
-                >
-                    What happens next?
-                </h3>
-                <p class="text-slate-600 dark:text-slate-400">
-                    Whatever the outcome, we're here to support you.
-                </p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                <!-- Success outcome -->
+        <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <!-- Success outcome -->
+            <div
+                class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-500 to-teal-600 p-6 lg:p-8 text-white shadow-xl"
+            >
                 <div
-                    class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-500 to-teal-600 p-6 lg:p-8 text-white shadow-xl"
+                    class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"
                 >
-                    <div
-                        class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"
-                    >
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"
-                    >
-                    </div>
-
-                    <div class="relative">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div
-                                class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center"
-                            >
-                                <i
-                                    class={`${outcomes.success.icon} text-xl`}
-                                    aria-hidden="true"></i>
-                            </div>
-                            <div>
-                                <p class="text-emerald-100 text-sm font-medium">
-                                    {outcomes.success.title}
-                                </p>
-                                <h4 class="text-lg font-bold">
-                                    {outcomes.success.subtitle}
-                                </h4>
-                            </div>
-                        </div>
-
-                        <ul class="space-y-2.5">
-                            {
-                                outcomes.success.items.map((item) => (
-                                    <li class="flex items-center gap-2.5 text-sm">
-                                        <i
-                                            class="fa-solid fa-check text-emerald-200"
-                                            aria-hidden="true"
-                                        />
-                                        <span class="text-white/90">
-                                            {item}
-                                        </span>
-                                    </li>
-                                ))
-                            }
-                        </ul>
-                    </div>
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"
+                >
                 </div>
 
-                <!-- Unsuccessful outcome -->
-                <div
-                    class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-700 to-slate-800 dark:from-slate-800 dark:to-slate-900 p-6 lg:p-8 text-white shadow-xl border border-slate-600 dark:border-slate-700"
-                >
-                    <div
-                        class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"
-                    >
-                    </div>
-                    <div
-                        class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"
-                    >
-                    </div>
-
-                    <div class="relative">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div
-                                class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center"
-                            >
-                                <i
-                                    class={`${outcomes.unsuccessful.icon} text-xl`}
-                                    aria-hidden="true"></i>
-                            </div>
-                            <div>
-                                <p class="text-slate-400 text-sm font-medium">
-                                    {outcomes.unsuccessful.title}
-                                </p>
-                                <h4 class="text-lg font-bold">
-                                    {outcomes.unsuccessful.subtitle}
-                                </h4>
-                            </div>
+                <div class="relative">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center"
+                        >
+                            <i
+                                class={`${outcomes.success.icon} text-xl`}
+                                aria-hidden="true"></i>
                         </div>
-
-                        <ul class="space-y-2.5">
-                            {
-                                outcomes.unsuccessful.items.map((item) => (
-                                    <li class="flex items-center gap-2.5 text-sm">
-                                        <i
-                                            class="fa-solid fa-arrow-right text-slate-500"
-                                            aria-hidden="true"
-                                        />
-                                        <span class="text-slate-300">
-                                            {item}
-                                        </span>
-                                    </li>
-                                ))
-                            }
-                        </ul>
+                        <div>
+                            <p class="text-emerald-100 text-sm font-medium">
+                                {outcomes.success.title}
+                            </p>
+                            <h4 class="text-lg font-bold">
+                                {outcomes.success.subtitle}
+                            </h4>
+                        </div>
                     </div>
+
+                    <ul class="space-y-2.5">
+                        {
+                            outcomes.success.items.map((item) => (
+                                <li class="flex items-center gap-2.5 text-sm">
+                                    <i
+                                        class="fa-solid fa-check text-emerald-200"
+                                        aria-hidden="true"
+                                    />
+                                    <span class="text-white/90">{item}</span>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Unsuccessful outcome -->
+            <div
+                class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-700 to-slate-800 dark:from-slate-800 dark:to-slate-900 p-6 lg:p-8 text-white shadow-xl border border-slate-600 dark:border-slate-700"
+            >
+                <div
+                    class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"
+                >
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"
+                >
+                </div>
+
+                <div class="relative">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div
+                            class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center"
+                        >
+                            <i
+                                class={`${outcomes.unsuccessful.icon} text-xl`}
+                                aria-hidden="true"></i>
+                        </div>
+                        <div>
+                            <p class="text-slate-400 text-sm font-medium">
+                                {outcomes.unsuccessful.title}
+                            </p>
+                            <h4 class="text-lg font-bold">
+                                {outcomes.unsuccessful.subtitle}
+                            </h4>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-2.5">
+                        {
+                            outcomes.unsuccessful.items.map((item) => (
+                                <li class="flex items-center gap-2.5 text-sm">
+                                    <i
+                                        class="fa-solid fa-arrow-right text-slate-500"
+                                        aria-hidden="true"
+                                    />
+                                    <span class="text-slate-300">{item}</span>
+                                </li>
+                            ))
+                        }
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
