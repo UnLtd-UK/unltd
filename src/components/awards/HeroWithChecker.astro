@@ -1,11 +1,5 @@
 ---
-const benefits = [
-    { text: "No account required", icon: "fa-regular fa-circle-check" },
-    { text: "Instant results", icon: "fa-regular fa-sparkles" },
-    { text: "Email confirmation", icon: "fa-regular fa-envelope" },
-];
-
-const checkerUrl = "https://unltduk.typeform.com/awards-checker";
+import { benefits, checkerUrl, typeformLiveId } from "@data/eligibilityChecker";
 ---
 
 <section class="bg-violet-950 pt-16 lg:pt-20">
@@ -248,7 +242,7 @@ const checkerUrl = "https://unltduk.typeform.com/awards-checker";
 
                     <div class="relative bg-violet-950">
                         <div
-                            data-tf-live="01KA7RWQS22SHZE07GHDBWDV37"
+                            data-tf-live={typeformLiveId}
                             title="Eligibility Checker"
                             class="w-full border-0"
                             loading="lazy"

@@ -5,12 +5,14 @@
  * Optionally shows the current round status widget
  */
 
-import Container from "@components/Container.astro";
-import WhenToApply from "@components/awards/WhenToApply.astro";
-
-// DATA
-import { rounds } from "@data/rounds.js";
-import { processAllRounds } from "@utils/application-rounds.js";
+import {
+    phases,
+    outcomes,
+    colorClasses,
+    stepLinks,
+    type PhaseColor,
+    type StepLinkKey,
+} from "@data/awardPhases";
 
 interface Props {
     showEligibilityLink?: boolean;
@@ -19,211 +21,13 @@ interface Props {
 
 const { showEligibilityLink = false, showResourceLinks = false } = Astro.props;
 
-// Process all rounds from Directus (only needed if showing the widget)
-const {
-    all: applicationRounds,
-    currentRound,
-    nextOpenRound,
-} = processAllRounds(rounds);
-
-// Determine if round is open for the Apply button
-const isRoundOpen = currentRound?.isOpen && !currentRound?.isCapacityFull;
-
-// Journey phases with their steps
-const phases = [
-    {
-        id: "prepare",
-        title: "Prepare",
-        subtitle: "Get ready to apply",
-        icon: "fa-solid fa-lightbulb",
-        color: "emerald",
-        steps: [
-            {
-                title: "Check Eligibility",
-                description:
-                    "Use our eligibility checker to confirm you meet all criteria before you start.",
-                icon: "fa-solid fa-clipboard-check",
-                link: showEligibilityLink
-                    ? {
-                          label: "Check eligibility",
-                          href: "/awards/eligibility",
-                          icon: "fa-solid fa-arrow-right",
-                      }
-                    : null,
-            },
-            {
-                title: "Preview Questions",
-                description:
-                    "Download a copy of the application to understand what's required and draft your answers offline.",
-                icon: "fa-solid fa-file-lines",
-                link: showResourceLinks
-                    ? {
-                          label: "Download preview",
-                          href: "/resources/application-form-preview",
-                          icon: "fa-solid fa-download",
-                      }
-                    : null,
-            },
-            {
-                title: "Plan Your Budget",
-                description:
-                    "Learn what you can include and how to present your Award budget effectively.",
-                icon: "fa-solid fa-coins",
-                link: showResourceLinks
-                    ? {
-                          label: "Budget guidance",
-                          href: "/resources/award-budget-guidance",
-                          icon: "fa-solid fa-arrow-right",
-                      }
-                    : null,
-            },
-        ],
-    },
-    {
-        id: "apply",
-        title: "Apply",
-        subtitle: "Submit your application",
-        icon: "fa-solid fa-paper-plane",
-        color: "violet",
-        steps: [
-            {
-                title: "Complete Application",
-                description:
-                    "Fill out all sections of the online application form through our portal.",
-                icon: "fa-solid fa-pen-to-square",
-            },
-            {
-                title: "Submit Before Deadline",
-                description:
-                    "We assess applications in rounds. Submit before the round closes to be considered.",
-                icon: "fa-solid fa-clock",
-            },
-        ],
-    },
-    {
-        id: "assess",
-        title: "Assessment",
-        subtitle: "We review your application",
-        icon: "fa-solid fa-magnifying-glass",
-        color: "amber",
-        steps: [
-            {
-                title: "Suitability Check",
-                description:
-                    "Your application is reviewed against social impact, inclusion, and financial sustainability criteria.",
-                icon: "fa-solid fa-shield-halved",
-            },
-            {
-                title: "Peer Review",
-                description:
-                    "Support Managers discuss your application together. Strong applications progress to panel.",
-                icon: "fa-solid fa-people-group",
-            },
-            {
-                title: "Panel Meeting",
-                description:
-                    "Discuss your venture with staff and experienced social entrepreneurs in a supportive setting.",
-                icon: "fa-solid fa-comments",
-                link: showResourceLinks
-                    ? {
-                          label: "Panel guide",
-                          href: "/resources/panel-meeting-guide",
-                          icon: "fa-solid fa-arrow-right",
-                      }
-                    : null,
-            },
-            {
-                title: "Committee Approval",
-                description:
-                    "Final recommendations go to the Awards Committee for approval.",
-                icon: "fa-solid fa-gavel",
-            },
-        ],
-    },
-    {
-        id: "outcome",
-        title: "Outcome",
-        subtitle: "Receive your decision",
-        icon: "fa-solid fa-envelope-open-text",
-        color: "sky",
-        steps: [
-            {
-                title: "Decision Email",
-                description:
-                    "We'll email you with the outcome of your application and detailed feedback.",
-                icon: "fa-solid fa-envelope",
-            },
-        ],
-    },
-];
-
-// Outcome cards
-const outcomes = {
-    success: {
-        title: "If successful",
-        subtitle: "Welcome to the community",
-        icon: "fa-solid fa-party-horn",
-        items: [
-            "Welcome pack with cohort information",
-            "Budget & reporting guidance",
-            "Dedicated Support Manager introduction",
-        ],
-    },
-    unsuccessful: {
-        title: "If unsuccessful",
-        subtitle: "Support to try again",
-        icon: "fa-solid fa-arrows-rotate",
-        items: [
-            "Detailed feedback on your application",
-            "Resources to develop your venture",
-            "Encouragement to reapply",
-        ],
-    },
-};
-
-// Color mapping for Tailwind classes
-const colorClasses = {
-    emerald: {
-        bg: "bg-emerald-500",
-        bgLight: "bg-emerald-50 dark:bg-emerald-950/50",
-        bgLighter: "bg-emerald-100 dark:bg-emerald-900/30",
-        border: "border-emerald-200 dark:border-emerald-800",
-        text: "text-emerald-600 dark:text-emerald-400",
-        textDark: "text-emerald-700 dark:text-emerald-300",
-        ring: "ring-emerald-500/20",
-        gradient: "from-emerald-500 to-teal-500",
-    },
-    violet: {
-        bg: "bg-violet-500",
-        bgLight: "bg-violet-50 dark:bg-violet-950/50",
-        bgLighter: "bg-violet-100 dark:bg-violet-900/30",
-        border: "border-violet-200 dark:border-violet-800",
-        text: "text-violet-600 dark:text-violet-400",
-        textDark: "text-violet-700 dark:text-violet-300",
-        ring: "ring-violet-500/20",
-        gradient: "from-violet-500 to-purple-500",
-    },
-    amber: {
-        bg: "bg-amber-500",
-        bgLight: "bg-amber-50 dark:bg-amber-950/50",
-        bgLighter: "bg-amber-100 dark:bg-amber-900/30",
-        border: "border-amber-200 dark:border-amber-800",
-        text: "text-amber-600 dark:text-amber-400",
-        textDark: "text-amber-700 dark:text-amber-300",
-        ring: "ring-amber-500/20",
-        gradient: "from-amber-500 to-orange-500",
-    },
-    sky: {
-        bg: "bg-sky-500",
-        bgLight: "bg-sky-50 dark:bg-sky-950/50",
-        bgLighter: "bg-sky-100 dark:bg-sky-900/30",
-        border: "border-sky-200 dark:border-sky-800",
-        text: "text-sky-600 dark:text-sky-400",
-        textDark: "text-sky-700 dark:text-sky-300",
-        ring: "ring-sky-500/20",
-        gradient: "from-sky-500 to-blue-500",
-    },
-};
+// Helper to get step link based on props
+function getStepLink(linkKey?: StepLinkKey) {
+    if (!linkKey) return null;
+    if (linkKey === "eligibility" && !showEligibilityLink) return null;
+    if (linkKey !== "eligibility" && !showResourceLinks) return null;
+    return stepLinks[linkKey];
+}
 ---
 
 <section
@@ -345,24 +149,30 @@ const colorClasses = {
                                                         <p class="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
                                                             {step.description}
                                                         </p>
-                                                        {step.link && (
-                                                            <a
-                                                                href={
-                                                                    step.link
-                                                                        .href
-                                                                }
-                                                                class={`inline-flex items-center gap-1.5 text-xs font-medium ${colors.text} hover:underline mt-1.5`}
-                                                            >
-                                                                {
-                                                                    step.link
-                                                                        .label
-                                                                }
-                                                                <i
-                                                                    class={`${step.link.icon} text-[10px]`}
-                                                                    aria-hidden="true"
-                                                                />
-                                                            </a>
-                                                        )}
+                                                        {(() => {
+                                                            const link =
+                                                                getStepLink(
+                                                                    step.linkKey,
+                                                                );
+                                                            return (
+                                                                link && (
+                                                                    <a
+                                                                        href={
+                                                                            link.href
+                                                                        }
+                                                                        class={`inline-flex items-center gap-1.5 text-xs font-medium ${colors.text} hover:underline mt-1.5`}
+                                                                    >
+                                                                        {
+                                                                            link.label
+                                                                        }
+                                                                        <i
+                                                                            class={`${link.icon} text-[10px]`}
+                                                                            aria-hidden="true"
+                                                                        />
+                                                                    </a>
+                                                                )
+                                                            );
+                                                        })()}
                                                     </div>
                                                 </div>
                                             ))}
