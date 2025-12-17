@@ -35,6 +35,7 @@ import Typeform from "@components/awards/Typeform.astro";
 import Awards from "@components/awards/Awards.astro";
 import Sessions from "@components/awards/Sessions.astro";
 import Testimonials from "@components/awards/Testimonials.astro";
+import ApplicationTimeline from "./application-timeline.astro";
 let todayDate = moment();
 ---
 
@@ -46,7 +47,8 @@ let todayDate = moment();
   <HeroWithChecker />
   <!-- <Header /> -->
   <Awards />
-  <ApplicationRoundsProcess showLinks={false} />
+  <ApplicationTimeline />
+  <ApplicationRoundsProcess showEligibilityLink={true} />
 
   <!-- <Testimonials /> -->
   <!-- <Programmes /> -->
