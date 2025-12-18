@@ -107,7 +107,7 @@ const descText = isStartingUp ? "text-gray-600" : "text-gray-400";
 const labelText = isStartingUp ? "text-gray-500" : "text-gray-400";
 const grantText = isStartingUp ? "text-violet-950" : "text-white";
 const headingText = isStartingUp ? "text-gray-900" : "text-gray-100";
-const excludedText = isStartingUp ? "text-gray-500" : "text-gray-500";
+const excludedText = isStartingUp ? "text-red-800" : "text-red-200";
 const includedText = isStartingUp ? "text-emerald-800" : "text-emerald-200";
 const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
 ---
@@ -166,17 +166,11 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
                                                     class={
                                                         isIncluded
                                                             ? "fa-sharp fa-solid fa-circle-check text-green-500"
-                                                            : "fa-sharp fa-regular fa-circle-xmark text-slate-500"
+                                                            : "fa-sharp fa-solid fa-circle-xmark text-red-500"
                                                     }
                                                 />
                                             </span>
-                                            <span
-                                                class={
-                                                    !isIncluded
-                                                        ? "line-through"
-                                                        : ""
-                                                }
-                                            >
+                                            <span>
                                                 {!isIncluded && (
                                                     <span class="sr-only">
                                                         Not included:
