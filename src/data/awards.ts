@@ -28,7 +28,6 @@ export interface Programme {
 export interface Award {
     code: string;
     name: string;
-    shortName: string;
     stage: 'starting-up' | 'scaling-up';
     backgroundColour: string;
     grant: number;
@@ -40,8 +39,7 @@ export interface Award {
 export const awards: Award[] = [
     {
         code: "stmat",
-        name: "Starting Up Millennium Awards Trust Award",
-        shortName: "Starting Up – MAT",
+        name: "Starting Up Award Millennium Awards Trust",
         stage: "starting-up",
         backgroundColour: "bg-slate-100",
         grant: 8000,
@@ -68,8 +66,7 @@ export const awards: Award[] = [
     },
     {
         code: "stffp",
-        name: "Starting Up Funding Futures Programme Award",
-        shortName: "Starting Up – FFP",
+        name: "Starting Up Award Funding Futures Programme",
         stage: "starting-up",
         backgroundColour: "bg-slate-100",
         grant: 8000,
@@ -97,8 +94,7 @@ export const awards: Award[] = [
     },
     {
         code: "scmat",
-        name: "Scaling Up Millennium Awards Trust Award",
-        shortName: "Scaling Up – MAT",
+        name: "Scaling Up Award Millennium Awards Trust",
         stage: "scaling-up",
         backgroundColour: "bg-slate-900",
         grant: 18000,
@@ -125,8 +121,7 @@ export const awards: Award[] = [
     },
     {
         code: "scffp",
-        name: "Scaling Up Funding Futures Programme Award",
-        shortName: "Scaling Up – FFP",
+        name: "Scaling Up Award Funding Futures Programme",
         stage: "scaling-up",
         backgroundColour: "bg-slate-900",
         grant: 18000,

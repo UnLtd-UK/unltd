@@ -5,14 +5,14 @@
  * Used by the EligibilityCriteria component to render the comparison table.
  */
 
-export const awardCodes = {
-    STMAT: "Starting Up Millennium Awards Trust Award",
-    STFFP: "Starting Up Funding Futures Programme Award",
-    SCMAT: "Scaling Up Millennium Awards Trust Award",
-    SCFFP: "Scaling Up Funding Futures Programme Award",
-} as const;
+import { awards, type Award } from "./awards";
 
-export type AwardCode = keyof typeof awardCodes;
+// Derive award codes from the awards data
+export const awardCodes = Object.fromEntries(
+    awards.map((award) => [award.code, award.name])
+) as Record<string, string>;
+
+export type AwardCode = Award["code"];
 
 export interface EligibilityCriterion {
     name: string;
@@ -31,59 +31,59 @@ export const eligibilityData: EligibilityCategory[] = [
             {
                 name: "How old are you?",
                 awards: {
-                    STMAT: "16 years old or older",
-                    STFFP: "16 to 30 years old",
-                    SCMAT: "16 years old or older",
-                    SCFFP: "16 to 30 years old",
+                    stmat: "16 years old or older",
+                    stffp: "16 to 30 years old",
+                    scmat: "16 years old or older",
+                    scffp: "16 to 30 years old",
                 },
             },
             {
                 name: "Are you currently living in the United Kingdom?",
-                awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true },
+                awards: { stmat: true, stffp: true, scmat: true, scffp: true },
             },
             {
                 name: "Are you the founder or leader of the social venture?",
-                awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true },
+                awards: { stmat: true, stffp: true, scmat: true, scffp: true },
             },
             {
                 name: "Why are you looking for funding?",
                 awards: {
-                    STMAT: "To create long term social impact",
-                    STFFP: "To create long term social impact",
-                    SCMAT: "To create long term social impact",
-                    SCFFP: "To create long term social impact",
+                    stmat: "To create long term social impact",
+                    stffp: "To create long term social impact",
+                    scmat: "To create long term social impact",
+                    scffp: "To create long term social impact",
                 },
             },
             {
                 name: "Are you applying primarily to fund academic qualifications?",
                 awards: {
-                    STMAT: false,
-                    STFFP: false,
-                    SCMAT: false,
-                    SCFFP: false,
+                    stmat: false,
+                    stffp: false,
+                    scmat: false,
+                    scffp: false,
                 },
             },
             {
                 name: "Are you applying primarily to fund overseas travel?",
                 awards: {
-                    STMAT: false,
-                    STFFP: false,
-                    SCMAT: false,
-                    SCFFP: false,
+                    stmat: false,
+                    stffp: false,
+                    scmat: false,
+                    scffp: false,
                 },
             },
             {
                 name: "Are you applying primarily to pay others to deliver the work on your behalf?",
                 awards: {
-                    STMAT: false,
-                    STFFP: false,
-                    SCMAT: false,
-                    SCFFP: false,
+                    stmat: false,
+                    stffp: false,
+                    scmat: false,
+                    scffp: false,
                 },
             },
             {
                 name: "Do you need both UnLtd's financial and non-financial support?",
-                awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true },
+                awards: { stmat: true, stffp: true, scmat: true, scffp: true },
             },
         ],
     },
@@ -92,83 +92,83 @@ export const eligibilityData: EligibilityCategory[] = [
         criteria: [
             {
                 name: "Is it clearly driven by its social purpose?",
-                awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true },
+                awards: { stmat: true, stffp: true, scmat: true, scffp: true },
             },
             {
                 name: "Can you demonstrate a clear need for it?",
-                awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true },
+                awards: { stmat: true, stffp: true, scmat: true, scffp: true },
             },
             {
                 name: "Does it mainly benefit people or places within the UK?",
                 awards: {
-                    STMAT: false,
-                    STFFP: false,
-                    SCMAT: false,
-                    SCFFP: false,
+                    stmat: false,
+                    stffp: false,
+                    scmat: false,
+                    scffp: false,
                 },
             },
             {
                 name: "Is it continuing activities that have already been running for more than four years?",
                 awards: {
-                    STMAT: false,
-                    STFFP: false,
-                    SCMAT: false,
-                    SCFFP: false,
+                    stmat: false,
+                    stffp: false,
+                    scmat: false,
+                    scffp: false,
                 },
             },
             {
                 name: "Does it involve activities outside of the law, against public policy or anything which encourages ethnic, religious, or commercial disharmony?",
                 awards: {
-                    STMAT: false,
-                    STFFP: false,
-                    SCMAT: false,
-                    SCFFP: false,
+                    stmat: false,
+                    stffp: false,
+                    scmat: false,
+                    scffp: false,
                 },
             },
             {
                 name: "Does it involve political, or religious campaigning?",
                 awards: {
-                    STMAT: false,
-                    STFFP: false,
-                    SCMAT: false,
-                    SCFFP: false,
+                    stmat: false,
+                    stffp: false,
+                    scmat: false,
+                    scffp: false,
                 },
             },
             {
                 name: "Does it do more than just raise awareness of a social issue?",
                 awards: {
-                    STMAT: false,
-                    STFFP: false,
-                    SCMAT: false,
-                    SCFFP: false,
+                    stmat: false,
+                    stffp: false,
+                    scmat: false,
+                    scffp: false,
                 },
             },
             {
                 name: "Does it have the potential to be financially sustainable with our support?",
-                awards: { STMAT: true, STFFP: true, SCMAT: true, SCFFP: true },
+                awards: { stmat: true, stffp: true, scmat: true, scffp: true },
             },
             {
                 name: "How long has your idea or social venture been incorporated?",
                 awards: {
-                    STMAT: "Not yet or less than 4 years",
-                    STFFP: "Not yet or less than 4 years",
-                    SCMAT: "Between 1 to 4 years",
-                    SCFFP: "Between 1 to 4 years",
+                    stmat: "Not yet or less than 4 years",
+                    stffp: "Not yet or less than 4 years",
+                    scmat: "Between 1 to 4 years",
+                    scffp: "Between 1 to 4 years",
                 },
             },
             {
                 name: "Has your idea or social venture started trading?",
                 awards: {
-                    STMAT: "Not yet or trading for under 1 year",
-                    STFFP: "Not yet or trading for under 1 year",
-                    SCMAT: "Between 1 to 4 years",
-                    SCFFP: "Between 1 to 4 years",
+                    stmat: "Not yet or trading for under 1 year",
+                    stffp: "Not yet or trading for under 1 year",
+                    scmat: "Between 1 to 4 years",
+                    scffp: "Between 1 to 4 years",
                 },
             },
             {
                 name: "What sectors are you in?",
                 awards: {
-                    STMAT: [
+                    stmat: [
                         "Access to education",
                         "Access to employment",
                         "Access to legal services",
@@ -199,13 +199,13 @@ export const eligibilityData: EligibilityCategory[] = [
                         "Youth",
                         "Other",
                     ],
-                    STFFP: [
+                    stffp: [
                         "Access to employment",
                         "Financial services and financial inclusion",
                         "Poverty reduction",
                         "Skills and training",
                     ],
-                    SCMAT: [
+                    scmat: [
                         "Access to education",
                         "Access to employment",
                         "Access to legal services",
@@ -236,7 +236,7 @@ export const eligibilityData: EligibilityCategory[] = [
                         "Youth",
                         "Other",
                     ],
-                    SCFFP: [
+                    scffp: [
                         "Access to employment",
                         "Financial services and financial inclusion",
                         "Poverty reduction",
@@ -247,28 +247,28 @@ export const eligibilityData: EligibilityCategory[] = [
             {
                 name: "What was your social ventures turnover in its last financial year?",
                 awards: {
-                    STMAT: null,
-                    STFFP: "Less than £250,000",
-                    SCMAT: null,
-                    SCFFP: "Less than £250,000",
+                    stmat: null,
+                    stffp: "Less than £250,000",
+                    scmat: null,
+                    scffp: "Less than £250,000",
                 },
             },
             {
                 name: "In the last 12 months, has your social venture earned over £18,000 in traded income?",
                 awards: {
-                    STMAT: null,
-                    STFFP: "£18,000 or more",
-                    SCMAT: null,
-                    SCFFP: "£18,000 or more",
+                    stmat: null,
+                    stffp: "£18,000 or more",
+                    scmat: null,
+                    scffp: "£18,000 or more",
                 },
             },
             {
                 name: "Are you able to provide financial data which covers the last 12 months, along with financial projections for the next 12 months?",
                 awards: {
-                    STMAT: null,
-                    STFFP: true,
-                    SCMAT: null,
-                    SCFFP: true,
+                    stmat: null,
+                    stffp: true,
+                    scmat: null,
+                    scffp: true,
                 },
             },
         ],
@@ -277,6 +277,20 @@ export const eligibilityData: EligibilityCategory[] = [
 
 // Helper to get award keys
 export const awardKeys = Object.keys(awardCodes) as AwardCode[];
+
+// Helper to get award info by code
+export function getAwardInfo(code: AwardCode) {
+    const award = awards.find((a) => a.code === code);
+    return award
+        ? {
+            name: award.name,
+            stage: award.stage,
+            stageLabel: award.stage === "starting-up" ? "Starting up" : "Scaling up",
+            programmeName: award.programme.name,
+            programmeColour: award.programme.colour,
+        }
+        : null;
+}
 
 // Helper function to render criterion values
 export function renderCriterionValue(value: boolean | string | string[] | null): {
