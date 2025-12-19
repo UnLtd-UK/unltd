@@ -3,61 +3,39 @@ const { question, answer, i } = Astro.props;
 import { marked } from "marked";
 ---
 
-<div class="pt-6" x-data="{ open: false }">
+<div class="py-4 first:pt-0" x-data="{ open: false }">
   <dt>
-    <!-- Expand/collapse question button -->
     <button
       x-on:click="open = ! open"
       type="button"
-      class="flex w-full items-start justify-between text-left text-violet-800 dark:text-violet-200"
-      aria-controls="faq-0"
-      aria-expanded="false"
+      class="flex w-full items-center justify-between text-left text-violet-800 dark:text-violet-200 cursor-pointer"
+      aria-controls={`faq-${i + 1}`}
+      x-bind:aria-expanded="open"
     >
       <span class="text-base font-semibold leading-7">{question}</span>
       <span class="ml-6 flex h-7 items-center">
-        <!--
-                  Icon when question is collapsed.
-
-                  Item expanded: "hidden", Item collapsed: ""
-                -->
-        <svg
+        <i
           x-show="!open"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 6v12m6-6H6"></path>
-        </svg>
-        <!--
-                  Icon when question is expanded.
-
-                  Item expanded: "", Item collapsed: "hidden"
-                -->
-        <svg
+          class="fa-solid fa-chevron-down size-4 transition-transform"
+          aria-hidden="true"></i>
+        <i
           x-show="open"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          aria-hidden="true"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6"
-          ></path>
-        </svg>
+          x-cloak
+          class="fa-solid fa-chevron-up size-4 transition-transform"
+          aria-hidden="true"></i>
       </span>
     </button>
   </dt>
-  <dd class="mt-2 pr-12" id={`faq-${i + 1}`} x-show="open" x-transition>
+  <dd class="mt-2 pr-12" id={`faq-${i + 1}`} x-show="open" x-cloak x-collapse>
     <div
-      class="text-base leading-7 text-violet-700 dark:text-violet-300 prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-xs prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2 set:html={markdown}"
+      class="text-base leading-7 text-violet-700 dark:text-violet-300 prose prose-slate dark:prose-invert lg:prose-lg prose-img:rounded-md prose-img:shadow-xs prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 hover:prose-a:decoration-2"
       set:html={marked.parse(answer)}
     />
   </dd>
 </div>
+
+<style>
+  [x-cloak] {
+    display: none !important;
+  }
+</style>

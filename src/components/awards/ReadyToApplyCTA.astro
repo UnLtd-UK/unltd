@@ -14,35 +14,33 @@ interface Props {
 const { isRoundOpen, nextOpenDate } = Astro.props;
 ---
 
-<section class="bg-violet-950 text-white py-16">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl font-bold mb-4">Ready to apply?</h2>
-        <p class="text-violet-200 text-lg mb-8 max-w-2xl mx-auto">
-            You've got everything you need. If the round is open, submit your
-            application through our portal.
-        </p>
-        {
-            isRoundOpen ? (
-                <a
-                    href="https://portal.unltd.org.uk/apply"
-                    class="inline-flex items-center gap-2 px-8 py-4 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold rounded-xl text-lg transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
-                >
-                    <i class="fa-solid fa-rocket" aria-hidden="true" />
-                    Start Your Application
-                    <i class="fa-solid fa-arrow-right" aria-hidden="true" />
-                </a>
-            ) : (
-                <div class="space-y-4">
-                    <div class="inline-flex items-center gap-2 px-8 py-4 bg-violet-800 text-violet-300 font-semibold rounded-xl text-lg">
-                        <i class="fa-solid fa-clock" aria-hidden="true" />
-                        Applications open {nextOpenDate}
-                    </div>
-                    <p class="text-violet-400 text-sm">
-                        Use this time to prepare your application using the
-                        resources above.
-                    </p>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-3xl font-bold mb-4 text-violet-100">Ready to apply?</h2>
+    <p class="text-violet-200 text-lg mb-8 max-w-2xl mx-auto">
+        You've got everything you need. If the round is open, submit your
+        application through our portal.
+    </p>
+    {
+        isRoundOpen ? (
+            <a
+                href="https://portal.unltd.org.uk/apply"
+                class="inline-flex items-center gap-2 px-8 py-4 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold rounded-xl text-lg transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
+            >
+                <i class="fa-solid fa-rocket" aria-hidden="true" />
+                Start Your Application
+                <i class="fa-solid fa-arrow-right" aria-hidden="true" />
+            </a>
+        ) : (
+            <div class="space-y-4">
+                <div class="inline-flex items-center gap-2 px-8 py-4 bg-violet-800 text-violet-300 font-semibold rounded-xl text-lg">
+                    <i class="fa-solid fa-clock" aria-hidden="true" />
+                    Applications open {nextOpenDate}
                 </div>
-            )
-        }
-    </div>
-</section>
+                <p class="text-violet-400 text-sm">
+                    Use this time to prepare your application using the
+                    resources above.
+                </p>
+            </div>
+        )
+    }
+</div>

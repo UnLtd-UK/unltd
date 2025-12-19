@@ -22,7 +22,6 @@ const awardText = isMultipleAwards ? "Awards" : "Award";
 ---
 
 <section
-    class="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 text-white py-12 lg:py-16"
     x-data="{ email: new URLSearchParams(window.location.search).get('email') }"
 >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,6 +99,33 @@ const awardText = isMultipleAwards ? "Awards" : "Award";
                             </div>
                         )
                     }
+
+                    <!-- AI usage notice -->
+                    <div
+                        class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20"
+                    >
+                        <i
+                            class="fa-solid fa-robot text-emerald-200 mt-0.5"
+                            aria-hidden="true"></i>
+                        <div>
+                            <p class="text-sm font-semibold text-white mb-1">
+                                On the use of AI
+                            </p>
+                            <p class="text-sm text-emerald-100">
+                                We know that AI chatbots can be helpful — they
+                                can make writing clearer and more structured. We
+                                encourage you to use them if they help you share
+                                your plans. But we want to hear <span
+                                    class="font-semibold text-white"
+                                    >your voice</span
+                                >. If you use AI, please do so thoughtfully — as
+                                a tool, not a substitute. The more you
+                                personalise your responses and share your
+                                genuine values and vision, the stronger your
+                                application will be.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="mt-6">
