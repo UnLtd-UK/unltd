@@ -100,7 +100,7 @@ function getStepLink(linkKey?: StepLinkKey) {
                                             >
                                                 {phase.title}
                                             </h3>
-                                            <p class="text-sm text-slate-500 dark:text-slate-400">
+                                            <p class={`text-sm ${colors.text}`}>
                                                 {phase.subtitle}
                                             </p>
                                         </div>
@@ -115,7 +115,7 @@ function getStepLink(linkKey?: StepLinkKey) {
                                         >
                                             {phase.title}
                                         </h3>
-                                        <p class="text-slate-500 dark:text-slate-400">
+                                        <p class={`${colors.text}`}>
                                             {phase.subtitle}
                                         </p>
                                     </div>
@@ -137,10 +137,14 @@ function getStepLink(linkKey?: StepLinkKey) {
                                                     />
                                                 </div>
                                                 <div class="flex-1 min-w-0">
-                                                    <h4 class="font-semibold text-slate-900 dark:text-white text-sm">
+                                                    <h4
+                                                        class={`font-semibold ${colors.textDark} text-sm`}
+                                                    >
                                                         {step.title}
                                                     </h4>
-                                                    <p class="text-sm text-slate-600 dark:text-slate-400 mt-0.5">
+                                                    <p
+                                                        class={`text-sm ${colors.text} mt-0.5`}
+                                                    >
                                                         {step.description}
                                                     </p>
                                                     {(() => {
@@ -182,12 +186,12 @@ function getStepLink(linkKey?: StepLinkKey) {
     </div>
 
     <!-- Outcomes Section -->
-    <div class="mt-16 lg:mt-24">
+    <div class="mt-4">
         <div class="text-center mb-8">
-            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+            <h3 class="text-2xl font-bold text-violet-900 dark:text-white mb-2">
                 What happens next?
             </h3>
-            <p class="text-slate-600 dark:text-slate-400">
+            <p class="text-violet-700 dark:text-violet-300">
                 Whatever the outcome, we're here to support you.
             </p>
         </div>
@@ -243,7 +247,7 @@ function getStepLink(linkKey?: StepLinkKey) {
 
             <!-- Unsuccessful outcome -->
             <div
-                class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-700 to-slate-800 dark:from-slate-800 dark:to-slate-900 p-6 lg:p-8 text-white shadow-xl border border-slate-600 dark:border-slate-700"
+                class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-violet-700 to-violet-800 dark:from-violet-800 dark:to-violet-900 p-6 lg:p-8 text-white shadow-xl border border-violet-600 dark:border-violet-700"
             >
                 <div
                     class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"
@@ -264,7 +268,7 @@ function getStepLink(linkKey?: StepLinkKey) {
                                 aria-hidden="true"></i>
                         </div>
                         <div>
-                            <p class="text-slate-400 text-sm font-medium">
+                            <p class="text-violet-300 text-sm font-medium">
                                 {outcomes.unsuccessful.title}
                             </p>
                             <h4 class="text-lg font-bold">
@@ -278,10 +282,10 @@ function getStepLink(linkKey?: StepLinkKey) {
                             outcomes.unsuccessful.items.map((item) => (
                                 <li class="flex items-center gap-2.5 text-sm">
                                     <i
-                                        class="fa-solid fa-arrow-right text-slate-500"
+                                        class="fa-solid fa-arrow-right text-violet-400"
                                         aria-hidden="true"
                                     />
-                                    <span class="text-slate-300">{item}</span>
+                                    <span class="text-violet-200">{item}</span>
                                 </li>
                             ))
                         }

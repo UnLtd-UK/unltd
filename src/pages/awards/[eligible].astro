@@ -8,28 +8,18 @@
  * Not indexable (noindex) - only accessible via eligibility checker redirect.
  */
 
+// TYPES
 import type { GetStaticPaths } from "astro";
-import Template from "@layouts/Template.astro";
-import Container from "@components/Container.astro";
-import Breadcrumbs from "@components/Breadcrumbs.astro";
-import EligibleHero from "@components/awards/EligibleHero.astro";
-import ResourcesRow from "@components/awards/ResourcesRow.astro";
-import AdditionalSupportRow from "@components/awards/AdditionalSupportRow.astro";
-import HowApplyingWorks from "@components/awards/HowApplyingWorks.astro";
-import WhenToApply from "@components/awards/WhenToApply.astro";
-import FrequentlyAskedQuestions from "@components/awards/FrequentlyAskedQuestions.astro";
-import ReadyToApplyCTA from "@components/awards/ReadyToApplyCTA.astro";
 
+// DATA
 import {
     eligibilityPages,
     getEligibilityPageWithAwards,
-    type EligibilityPage,
 } from "@data/eligibilityPages";
-import type { Award as AwardType } from "@data/awards";
 import { rounds } from "@data/rounds.js";
 import { processAllRounds } from "@utils/application-rounds.js";
 
-// Generate static paths for all eligibility slugs
+// STATIC PATHS
 export const getStaticPaths: GetStaticPaths = () => {
     return eligibilityPages.map((page) => ({
         params: { eligible: page.slug },
@@ -37,27 +27,24 @@ export const getStaticPaths: GetStaticPaths = () => {
     }));
 };
 
-// Get the page data from params
+// PAGE DATA
 const { eligible } = Astro.params;
 const result = getEligibilityPageWithAwards(eligible as string);
 
-// 404 if no matching eligibility page
 if (!result) {
     return Astro.redirect("/404");
 }
 
 const { page, awards } = result;
 
-// Process rounds for Apply button state
+// ROUNDS
 const { currentRound, nextOpenRound } = processAllRounds(rounds);
 const isRoundOpen =
     currentRound?.isOpen && currentRound?.capacityPercentage < 100;
-
-// Get the next opening date - use nextOpenRound if available, otherwise currentRound
 const nextOpenDate =
     nextOpenRound?.dates?.opens || currentRound?.dates?.opens || "soon";
 
-// Map trading status to application preview slug
+// APPLICATION PREVIEW
 const applicationPreviewSlugMap: Record<string, string> = {
     idea: "Idea+stage+or+not+yet+trading",
     "under-1-year": "Trading+for+less+than+1+year",
@@ -68,28 +55,61 @@ const applicationPreviewSlug =
     applicationPreviewSlugMap["idea"];
 const applicationPreviewUrl = `/awards/${applicationPreviewSlug}`;
 
-// Page metadata
+// BREADCRUMBS
 const breadcrumbs = [
     { name: "Awards", path: "/awards" },
     { name: "Eligible", path: `/eligible/${page.slug}` },
 ];
+
+// LAYOUT
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+
+// COMPONENTS
+import EligibleHero from "@components/awards/EligibleHero.astro";
+import ResourcesRow from "@components/awards/ResourcesRow.astro";
+import AdditionalSupportRow from "@components/awards/AdditionalSupportRow.astro";
+import HowApplyingWorks from "@components/awards/HowApplyingWorks.astro";
+import WhenToApply from "@components/awards/WhenToApply.astro";
+import FrequentlyAskedQuestions from "@components/awards/FrequentlyAskedQuestions.astro";
+import ReadyToApplyCTA from "@components/awards/ReadyToApplyCTA.astro";
 ---
 
 <Template name={page.title} description={page.description} noindex={true}>
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
     </Container>
-
-    <EligibleHero
-        awards={awards}
-        page={page}
-        isRoundOpen={isRoundOpen}
-        nextOpenDate={nextOpenDate}
-    />
-    <ResourcesRow applicationPreviewUrl={applicationPreviewUrl} />
-    <AdditionalSupportRow />
-    <HowApplyingWorks showResourceLinks={true} showRoundWidget={true} />
-    <WhenToApply />
-    <FrequentlyAskedQuestions />
-    <ReadyToApplyCTA isRoundOpen={isRoundOpen} nextOpenDate={nextOpenDate} />
+    <Container
+        id="hero"
+        class="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 text-white py-12 lg:py-16 mt-8"
+    >
+        <EligibleHero
+            awards={awards}
+            page={page}
+            isRoundOpen={isRoundOpen}
+            nextOpenDate={nextOpenDate}
+        />
+    </Container>
+    <Container id="resources" class="bg-emerald-700 py-8">
+        <ResourcesRow applicationPreviewUrl={applicationPreviewUrl} />
+    </Container>
+    <Container id="support" class="bg-slate-900 py-8">
+        <AdditionalSupportRow />
+    </Container>
+    <Container id="how-applying-works" class="bg-violet-950 py-16">
+        <HowApplyingWorks showResourceLinks={true} showRoundWidget={true} />
+    </Container>
+    <Container id="when-to-apply" class="bg-violet-900 py-16 mt-8">
+        <WhenToApply />
+    </Container>
+    <Container id="frequently-asked-questions" class="bg-violet-950 py-16 mt-8">
+        <FrequentlyAskedQuestions />
+    </Container>
+    <Container id="apply" class="bg-violet-900 py-16 mt-8">
+        <ReadyToApplyCTA
+            isRoundOpen={isRoundOpen}
+            nextOpenDate={nextOpenDate}
+        />
+    </Container>
 </Template>

@@ -1,4 +1,5 @@
 ---
+import Faq from "@components/Faq.astro";
 import { faq } from "@data/faq.js";
 ---
 
@@ -8,39 +9,12 @@ import { faq } from "@data/faq.js";
   >
     Frequently asked questions
   </h2>
-  <dl class="mt-16 divide-y divide-violet-900/10 dark:divide-white/10">
+  <dl
+    class="mt-10 space-y-6 divide-y divide-violet-900/10 dark:divide-white/10"
+  >
     {
       faq.map((item, i) => (
-        <div class="py-6 first:pt-0 last:pb-0" x-data="{ open: false }">
-          <dt>
-            <button
-              type="button"
-              x-on:click="open = !open"
-              class="flex w-full items-start justify-between text-left text-violet-950 dark:text-white"
-              x-bind:aria-expanded="open"
-            >
-              <span class="text-base/7 font-semibold">{item.question}</span>
-              <span class="ml-6 flex h-7 items-center">
-                <i
-                  class="fa-solid fa-plus size-5"
-                  x-show="!open"
-                  aria-hidden="true"
-                />
-                <i
-                  class="fa-solid fa-minus size-5"
-                  x-show="open"
-                  x-cloak
-                  aria-hidden="true"
-                />
-              </span>
-            </button>
-          </dt>
-          <dd x-show="open" x-collapse x-cloak class="mt-2 pr-12">
-            <p class="text-base/7 text-gray-600 dark:text-gray-400">
-              {item.answer}
-            </p>
-          </dd>
-        </div>
+        <Faq question={item.question} answer={item.answer} i={i} />
       ))
     }
   </dl>
@@ -55,9 +29,3 @@ import { faq } from "@data/faq.js";
     </a>
   </p>
 </div>
-
-<style>
-  [x-cloak] {
-    display: none !important;
-  }
-</style>
