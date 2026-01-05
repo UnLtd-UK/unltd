@@ -204,7 +204,7 @@ export type PhaseColor = keyof typeof colorClasses;
 export const stepLinks = {
     eligibility: {
         label: "Check eligibility",
-        href: "/awards/eligibility",
+        href: "/awards#eligibility-checker",
         icon: "fa-solid fa-arrow-right",
     },
     preview: {
