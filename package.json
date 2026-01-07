@@ -25,7 +25,6 @@
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.6.0",
-    "@awesome.me/kit-0ff725f684": "^1.0.22",
     "@clerk/astro": "^2.16.10",
     "@daviddarnes/storage-form": "^2.0.1",
     "@directus/sdk": "^20.3.0",
@@ -35,7 +34,6 @@
     "@fontsource-variable/montserrat": "^5.2.8",
     "@fontsource-variable/outfit": "^5.2.8",
     "@fontsource-variable/unbounded": "^5.2.8",
-    "@fortawesome/fontawesome-pro": "^7.1.0",
     "@headlessui/react": "2.2.9",
     "@heroicons/react": "^2.2.0",
     "@react-email/components": "^1.0.3",
@@ -74,6 +72,6 @@
     "@tailwindcss/typography": "^0.5.19",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.1.2",
-    "wrangler": "^4.56.0"
+    "wrangler": "^4.57.0"
   }
 }

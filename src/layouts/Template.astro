@@ -37,6 +37,15 @@ import RoundBanner from "@components/awards/RoundBanner.astro";
       content={description ? description : "No page description"}
     />
 
+    <script is:inline>
+      if (window.location.hostname !== "unltd.org.uk") {
+        const script = document.createElement("script");
+        script.src = "https://kit.fontawesome.com/0ff725f684.js";
+        script.crossOrigin = "anonymous";
+        document.head.appendChild(script);
+      }
+    </script>
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="" />
     <meta property="og:url" content="" />
