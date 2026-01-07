@@ -1,0 +1,498 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Default from "@components/heroes/Default.astro";
+
+const name = "Get Involved";
+const slug = "get-involved";
+const description =
+    "Join us in supporting social entrepreneurs. Whether you're an individual or organisation, there are many ways to partner with UnLtd and help change lives.";
+
+const breadcrumbs = [
+    {
+        name,
+        path: `/${slug}`,
+    },
+];
+
+const involvementOptions = [
+    {
+        id: "mentoring",
+        name: "Become a Mentor or Skilled Volunteer",
+        description:
+            "Share your expertise and experience to guide social entrepreneurs on their journey. Our mentors and skilled volunteers provide invaluable one-to-one support, helping founders overcome challenges and accelerate their impact.",
+        icon: "fa-hands-helping",
+        highlights: [
+            "Flexible time commitment",
+            "Match with entrepreneurs based on your skills",
+            "Make a direct impact on social ventures",
+            "Join a community of like-minded professionals",
+        ],
+        cta: {
+            text: "Offer your skills",
+            href: "/get-involved/mentoring",
+        },
+        color: "violet",
+    },
+    {
+        id: "donate",
+        name: "Donate as an Individual",
+        description:
+            "Your donation directly supports social entrepreneurs tackling the UK's most pressing challenges. Every contribution helps provide funding and support to ventures creating positive change in communities.",
+        icon: "fa-heart",
+        highlights: [
+            "100% goes towards supporting social entrepreneurs",
+            "Choose one-off or regular giving",
+            "See the impact of your donation",
+            "Join our community of supporters",
+        ],
+        cta: {
+            text: "Make a donation",
+            href: "/get-involved/donate",
+        },
+        color: "rose",
+    },
+    {
+        id: "corporate-volunteering",
+        name: "Corporate Volunteering",
+        description:
+            "Create meaningful employee engagement through a corporate volunteering partnership with UnLtd. We'll work with you to design a programme where your team can offer their skills to support social entrepreneurs.",
+        icon: "fa-building",
+        highlights: [
+            "Bespoke volunteering programmes for your organisation",
+            "Develop your employees' skills and purpose",
+            "CSR reporting and impact measurement",
+            "Opportunities for financial partnership",
+        ],
+        cta: {
+            text: "Partner with us",
+            href: "/get-involved/corporate-volunteering",
+        },
+        color: "amber",
+    },
+    {
+        id: "programme-partnership",
+        name: "Programme Partnership",
+        description:
+            "Partner with UnLtd to design and deliver bespoke programmes supporting social entrepreneurs in your area of focus. Our programme partnerships combine funding with our expertise to create lasting systemic change.",
+        icon: "fa-handshake",
+        highlights: [
+            "Co-design programmes aligned to your priorities",
+            "Access our network of 18,000+ social entrepreneurs",
+            "Leverage our 20+ years of expertise",
+            "Measure and report on social impact",
+        ],
+        cta: {
+            text: "Explore partnerships",
+            href: "/get-involved/programme-partnership",
+        },
+        color: "emerald",
+    },
+];
+
+const colorClasses = {
+    violet: {
+        bg: "bg-violet-100 dark:bg-violet-900/30",
+        border: "border-violet-200 dark:border-violet-700",
+        icon: "bg-violet-600 text-white",
+        badge: "bg-violet-100 text-violet-700 dark:bg-violet-800 dark:text-violet-200",
+        link: "text-violet-600 hover:text-violet-500 dark:text-violet-400",
+        check: "text-violet-500",
+    },
+    rose: {
+        bg: "bg-rose-100 dark:bg-rose-900/30",
+        border: "border-rose-200 dark:border-rose-700",
+        icon: "bg-rose-600 text-white",
+        badge: "bg-rose-100 text-rose-700 dark:bg-rose-800 dark:text-rose-200",
+        link: "text-rose-600 hover:text-rose-500 dark:text-rose-400",
+        check: "text-rose-500",
+    },
+    amber: {
+        bg: "bg-amber-100 dark:bg-amber-900/30",
+        border: "border-amber-200 dark:border-amber-700",
+        icon: "bg-amber-600 text-white",
+        badge: "bg-amber-100 text-amber-700 dark:bg-amber-800 dark:text-amber-200",
+        link: "text-amber-600 hover:text-amber-500 dark:text-amber-400",
+        check: "text-amber-500",
+    },
+    emerald: {
+        bg: "bg-emerald-100 dark:bg-emerald-900/30",
+        border: "border-emerald-200 dark:border-emerald-700",
+        icon: "bg-emerald-600 text-white",
+        badge: "bg-emerald-100 text-emerald-700 dark:bg-emerald-800 dark:text-emerald-200",
+        link: "text-emerald-600 hover:text-emerald-500 dark:text-emerald-400",
+        check: "text-emerald-500",
+    },
+};
+
+// Testimonials from partners and volunteers
+const testimonials = [
+    {
+        quote: "The UnLtd mentoring programme has a big impact at Actis, providing examples of how we can think about the world in terms other than purely commercial. Our team comes back energised and with fresh perspectives.",
+        name: "Paul Fletcher",
+        role: "Executive Chairman",
+        organisation: "Actis",
+        type: "Corporate Partner",
+    },
+    {
+        quote: "Being a mentor with UnLtd has been one of the most rewarding experiences of my career. Seeing the social entrepreneurs I've supported go on to create real change in their communities is incredibly fulfilling.",
+        name: "Sarah Mitchell",
+        role: "Senior Consultant",
+        organisation: "Deloitte",
+        type: "Skilled Volunteer",
+    },
+    {
+        quote: "Our partnership with UnLtd has allowed us to support social entrepreneurs tackling health inequalities. The team's expertise in designing and delivering programmes has been invaluable.",
+        name: "Dr James Chen",
+        role: "Head of Social Impact",
+        organisation: "AstraZeneca Foundation",
+        type: "Programme Partner",
+    },
+];
+
+// Case studies showcasing partnership impact
+const caseStudies = [
+    {
+        title: "Lloyds Banking Group: Building Financial Resilience",
+        description:
+            "Our multi-year partnership with Lloyds has supported over 200 social entrepreneurs focused on financial inclusion, reaching underserved communities across the UK.",
+        stats: [
+            { value: "200+", label: "Entrepreneurs supported" },
+            { value: "£2.5m", label: "Grant funding distributed" },
+            { value: "50,000+", label: "People reached" },
+        ],
+        partnerType: "Programme Partnership",
+        icon: "fa-landmark",
+    },
+    {
+        title: "PwC: Skills for Social Good",
+        description:
+            "PwC employees volunteer their professional expertise to help social entrepreneurs with business planning, finance, and strategy through our pro-bono programme.",
+        stats: [
+            { value: "500+", label: "Volunteer hours" },
+            { value: "75", label: "Ventures supported" },
+            { value: "92%", label: "Satisfaction rate" },
+        ],
+        partnerType: "Corporate Volunteering",
+        icon: "fa-briefcase",
+    },
+    {
+        title: "Big Lottery Fund: Reaching Every Nation",
+        description:
+            "Working together to find and fund social entrepreneurs across England, Scotland, Wales and Northern Ireland, with tailored support for each nation's unique needs.",
+        stats: [
+            { value: "1,000+", label: "Awards made" },
+            { value: "4", label: "Nations covered" },
+            { value: "£10m+", label: "Total investment" },
+        ],
+        partnerType: "Programme Partnership",
+        icon: "fa-map",
+    },
+];
+
+// Impact statistics
+const impactStats = [
+    {
+        value: "18,000+",
+        label: "Social entrepreneurs supported",
+        description:
+            "Since 2003, we've backed thousands of founders creating positive change",
+        icon: "fa-users",
+    },
+    {
+        value: "£60m+",
+        label: "Invested in social ventures",
+        description: "Direct funding to help ideas become reality",
+        icon: "fa-sterling-sign",
+    },
+    {
+        value: "85%",
+        label: "Still trading after 3 years",
+        description: "Our support helps ventures survive and thrive",
+        icon: "fa-chart-line",
+    },
+    {
+        value: "2.5m+",
+        label: "Lives impacted annually",
+        description: "The ripple effect of social entrepreneurship",
+        icon: "fa-heart-pulse",
+    },
+    {
+        value: "500+",
+        label: "Active mentors and volunteers",
+        description: "A community of skilled professionals giving back",
+        icon: "fa-hands-helping",
+    },
+    {
+        value: "50+",
+        label: "Corporate and foundation partners",
+        description: "Working together for systemic change",
+        icon: "fa-handshake",
+    },
+];
+---
+
+<Template name={name} description={description}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <Default name={name} description={description} />
+
+        <!-- Introduction Section -->
+        <section class="pb-12">
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                <p class="text-xl text-violet-300 leading-relaxed">
+                    UnLtd is the UK's leading foundation for social
+                    entrepreneurs. For over 20 years, we've been finding,
+                    funding and supporting people and ventures that are changing
+                    the world. <strong>We can't do this alone.</strong>
+                </p>
+                <p class="text-violet-400">
+                    Whether you're an individual looking to share your skills or
+                    make a donation, or an organisation seeking a meaningful
+                    partnership, there are many ways to get involved and help us
+                    support the next generation of social entrepreneurs.
+                </p>
+            </div>
+        </section>
+
+        <!-- Involvement Options Grid -->
+        <section class="pb-20">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {
+                    involvementOptions.map((option) => {
+                        const colors =
+                            colorClasses[
+                                option.color as keyof typeof colorClasses
+                            ];
+                        return (
+                            <article
+                                class={`rounded-2xl border ${colors.border} ${colors.bg} p-8 flex flex-col h-full transition-all hover:shadow-lg`}
+                            >
+                                <div class="flex items-start gap-4 mb-6">
+                                    <div
+                                        class={`w-14 h-14 rounded-xl ${colors.icon} flex items-center justify-center shrink-0`}
+                                    >
+                                        <i
+                                            class={`fa-solid ${option.icon} text-2xl`}
+                                            aria-hidden="true"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-bold text-violet-100 mb-2">
+                                            {option.name}
+                                        </h2>
+                                    </div>
+                                </div>
+
+                                <p class="text-violet-300 mb-6 grow">
+                                    {option.description}
+                                </p>
+
+                                <ul class="space-y-2 mb-6">
+                                    {option.highlights.map((highlight) => (
+                                        <li class="flex items-start gap-2 text-sm text-violet-300">
+                                            <i
+                                                class={`fa-solid fa-check ${colors.check} mt-1 shrink-0`}
+                                                aria-hidden="true"
+                                            />
+                                            <span>{highlight}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <div class="mt-auto pt-4 border-t border-violet-700/50">
+                                    <a
+                                        href={option.cta.href}
+                                        class={`inline-flex items-center gap-2 font-semibold ${colors.link}`}
+                                    >
+                                        {option.cta.text}
+                                        <i
+                                            class="fa-solid fa-arrow-right text-sm"
+                                            aria-hidden="true"
+                                        />
+                                    </a>
+                                </div>
+                            </article>
+                        );
+                    })
+                }
+            </div>
+        </section>
+
+        <!-- Quick Contact Section -->
+        <section class="pb-20">
+            <div
+                class="rounded-2xl bg-linear-to-br from-violet-800 to-violet-900 p-8 lg:p-12"
+            >
+                <div
+                    class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6"
+                >
+                    <div>
+                        <h2 class="text-2xl font-bold text-white mb-2">
+                            Not sure where to start?
+                        </h2>
+                        <p class="text-violet-200">
+                            Get in touch with our partnerships team and we'll
+                            help you find the right way to get involved.
+                        </p>
+                    </div>
+                    <a
+                        href="/contact"
+                        class="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 font-semibold text-violet-900 hover:bg-violet-50 transition-colors shrink-0"
+                    >
+                        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                        Contact Us
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Partner With UnLtd - Impact Statistics -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Our impact in numbers
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    When you partner with UnLtd, you join a movement that's been
+                    transforming lives and communities for over two decades.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {
+                    impactStats.map((stat) => (
+                        <div class="bg-violet-900/50 rounded-2xl p-6 border border-violet-700/50 hover:border-violet-600 transition-colors">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-violet-800 flex items-center justify-center shrink-0">
+                                    <i
+                                        class={`fa-solid ${stat.icon} text-xl text-violet-200`}
+                                        aria-hidden="true"
+                                    />
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-amber-400">
+                                        {stat.value}
+                                    </h3>
+                                    <p class="font-semibold text-violet-100">
+                                        {stat.label}
+                                    </p>
+                                    <p class="text-sm text-violet-400 mt-1">
+                                        {stat.description}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    What our partners say
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    Hear from the individuals and organisations making a
+                    difference through their partnership with UnLtd.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {
+                    testimonials.map((testimonial) => (
+                        <figure class="bg-violet-900/30 rounded-2xl p-8 border border-violet-700/50 flex flex-col">
+                            <div class="mb-4">
+                                <span class="inline-flex items-center rounded-full bg-amber-900/50 px-3 py-1 text-xs font-medium text-amber-300">
+                                    {testimonial.type}
+                                </span>
+                            </div>
+                            <blockquote class="grow">
+                                <i
+                                    class="fa-solid fa-quote-left text-violet-600 text-2xl mb-4"
+                                    aria-hidden="true"
+                                />
+                                <p class="text-violet-200 leading-relaxed">
+                                    "{testimonial.quote}"
+                                </p>
+                            </blockquote>
+                            <figcaption class="mt-6 pt-6 border-t border-violet-700/50">
+                                <div class="font-semibold text-violet-100">
+                                    {testimonial.name}
+                                </div>
+                                <div class="text-sm text-violet-400">
+                                    {testimonial.role},{" "}
+                                    {testimonial.organisation}
+                                </div>
+                            </figcaption>
+                        </figure>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Case Studies Section -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Partnership success stories
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    See how organisations like yours have created lasting impact
+                    through their partnership with UnLtd.
+                </p>
+            </div>
+            <div class="space-y-8">
+                {
+                    caseStudies.map((study, index) => (
+                        <article
+                            class={`rounded-2xl border border-violet-700/50 overflow-hidden ${index % 2 === 0 ? "bg-violet-900/30" : "bg-violet-800/20"}`}
+                        >
+                            <div class="p-8 lg:p-10">
+                                <div class="flex flex-col lg:flex-row gap-8">
+                                    <div class="lg:w-2/3">
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <div class="w-12 h-12 rounded-xl bg-amber-600 flex items-center justify-center">
+                                                <i
+                                                    class={`fa-solid ${study.icon} text-xl text-white`}
+                                                    aria-hidden="true"
+                                                />
+                                            </div>
+                                            <span class="inline-flex items-center rounded-full bg-violet-800 px-3 py-1 text-xs font-medium text-violet-200">
+                                                {study.partnerType}
+                                            </span>
+                                        </div>
+                                        <h3 class="text-xl font-bold text-violet-100 mb-3">
+                                            {study.title}
+                                        </h3>
+                                        <p class="text-violet-300 leading-relaxed">
+                                            {study.description}
+                                        </p>
+                                    </div>
+                                    <div class="lg:w-1/3 lg:border-l lg:border-violet-700/50 lg:pl-8">
+                                        <h4 class="text-sm font-semibold text-violet-400 uppercase tracking-wide mb-4">
+                                            Key Results
+                                        </h4>
+                                        <div class="space-y-4">
+                                            {study.stats.map((stat) => (
+                                                <div>
+                                                    <div class="text-2xl font-bold text-amber-400">
+                                                        {stat.value}
+                                                    </div>
+                                                    <div class="text-sm text-violet-300">
+                                                        {stat.label}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    ))
+                }
+            </div>
+        </section>
+    </Container>
+</Template>
