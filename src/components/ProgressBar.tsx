@@ -1,4 +1,5 @@
-import { CheckIcon } from '@heroicons/react/24/solid'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from '@awesome.me/kit-0ff725f684/icons/classic/solid'
 
 import { steps } from "@data/steps.js";
 
@@ -12,7 +13,7 @@ export default function ProgressBar() {
                             <a href={step.href} className="group flex w-full items-center">
                                 <span className="flex items-center px-6 py-4 text-sm font-medium">
                                     <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-amber-500 group-hover:bg-amber-600">
-                                        <CheckIcon aria-hidden="true" className="size-6 text-white" />
+                                        <FontAwesomeIcon icon={faCheck} aria-hidden="true" className="size-6 text-white" />
                                     </span>
                                     <span className="ml-4 text-sm font-medium text-violet-900 dark:text-violet-100">{step.name}</span>
                                 </span>
