@@ -1,4 +1,6 @@
 ---
+import DynamicIcon from "@components/DynamicIcon.astro";
+
 interface Programme {
     icon: string;
     name: string;
@@ -206,7 +208,7 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
                         <span
                             class={`inline-flex items-center gap-2 rounded-md px-2.5 py-1 text-xs font-medium ${theme.badgeBg} ${theme.badgeText} ${theme.badgeRing}`}
                         >
-                            <i class={programme?.icon}></i>
+                            <DynamicIcon icon={programme?.icon} />
                             {programme?.name}
                         </span>
                     </div>
@@ -235,7 +237,7 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
                                 >
                                     <span class="inline-flex h-6 items-center">
                                         {service.icon && (
-                                            <i class={service.icon} />
+                                            <DynamicIcon icon={service.icon} />
                                         )}
                                     </span>
                                     {service.name}

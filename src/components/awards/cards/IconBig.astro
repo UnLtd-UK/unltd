@@ -1,4 +1,5 @@
 ---
+import DynamicIcon from "@components/DynamicIcon.astro";
 const { name, icon, styles } = Astro.props;
 ---
 
@@ -25,7 +26,7 @@ const { name, icon, styles } = Astro.props;
             <div
                 class={`flex items-center justify-center h-32 w-32 rounded-2xl border shadow-2xl ${styles.bg} ${styles.border}`}
             >
-                <i class={`${icon} text-6xl ${styles.text}`} />
+                <DynamicIcon icon={icon} class={`text-6xl ${styles.text}`} />
             </div>
         )
     }

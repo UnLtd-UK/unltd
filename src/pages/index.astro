@@ -6,6 +6,7 @@ import Mission from "@components/Mission.astro";
 import Things from "@components/Things.astro";
 import Testamonials from "@components/Testamonials.astro";
 import Icon from "@components/Icon.astro";
+import DynamicIcon from "@components/DynamicIcon.astro";
 import { home } from "@data/home.js";
 const name = "Home";
 const description = "Home description";
@@ -98,7 +99,10 @@ const description = "Home description";
                   <div class="relative pl-16">
                     <dt class="text-base/7 font-semibold text-violet-100">
                       <div class="absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-violet-200">
-                        <i class={`text-lg text-violet-600 ${service.icon}`} />
+                        <DynamicIcon
+                          icon={service.icon}
+                          class="text-lg text-violet-600"
+                        />
                       </div>
                       {service.title}
                     </dt>

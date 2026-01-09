@@ -16,6 +16,7 @@ import {
     faBagShopping,
     faBars,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faBenchTree,
     faBook,
     faBookOpen,
@@ -26,6 +27,9 @@ import {
     faLock,
     faPlay,
 =======
+=======
+    faBenchTree,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faBook,
     faBooks,
 >>>>>>> 729c08b (Refactor icon usage across the application)
@@ -61,9 +65,13 @@ import {
     faDownload,
     faDragon,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faEarthEurope,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faEarthEurope,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faEllipsis,
     faEnvelope,
     faEnvelopeCircleCheck,
@@ -92,9 +100,13 @@ import {
     faLaptop,
     faLightbulb,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faLightbulbOn,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faLightbulbOn,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faList,
     faLocationDot,
     faMagnifyingGlass,
@@ -109,6 +121,9 @@ import {
     faPenToSquare,
     faPeopleGroup,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faPersonRunningFast,
     faPhone,
     faPoliceBox,
@@ -122,9 +137,13 @@ import {
     faRobot,
     faRocket,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faRocketLaunch,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faRocketLaunch,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faShieldHalved,
     faSparkles,
     faSpinner,
@@ -149,9 +168,13 @@ import {
     faArrowRight as farArrowRight,
     faArrowUpRightFromSquare as farArrowUpRightFromSquare,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faAward as farAward,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faAward as farAward,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faCalendar as farCalendar,
     faCalendarClock as farCalendarClock,
     faCalendarDays as farCalendarDays,
@@ -162,15 +185,24 @@ import {
     faEnvelope as farEnvelope,
     faGlobe as farGlobe,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faHandshake as farHandshake,
     faLightbulb as farLightbulb,
     faMagnifyingGlass as farMagnifyingGlass,
     faMessagesQuestion as farMessagesQuestion,
     faPeopleRoof as farPeopleRoof,
 =======
+=======
+    faHandshake as farHandshake,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faLightbulb as farLightbulb,
+    faMagnifyingGlass as farMagnifyingGlass,
     faMessagesQuestion as farMessagesQuestion,
+<<<<<<< HEAD
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faPeopleRoof as farPeopleRoof,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faPresentationScreen as farPresentationScreen,
     faRoute as farRoute,
     faSparkles as farSparkles,
@@ -179,15 +211,21 @@ import {
 
 // Brand icons
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
 import {
     faBluesky,
     faInstagram,
     faLinkedin,
     faYoutube,
 } from "@awesome.me/kit-0ff725f684/icons/classic/brands";
+<<<<<<< HEAD
 =======
 import { faLinkedin } from "@awesome.me/kit-0ff725f684/icons/classic/brands";
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
 
 // Light icons
 import {
@@ -229,6 +267,7 @@ library.add(
     faBagShopping,
     faBars,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faBenchTree,
     faBook,
     faBookOpen,
@@ -239,6 +278,9 @@ library.add(
     faLock,
     faPlay,
 =======
+=======
+    faBenchTree,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faBook,
     faBooks,
 >>>>>>> 729c08b (Refactor icon usage across the application)
@@ -274,9 +316,13 @@ library.add(
     faDownload,
     faDragon,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faEarthEurope,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faEarthEurope,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faEllipsis,
     faEnvelope,
     faEnvelopeCircleCheck,
@@ -305,9 +351,13 @@ library.add(
     faLaptop,
     faLightbulb,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faLightbulbOn,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faLightbulbOn,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faList,
     faLocationDot,
     faMagnifyingGlass,
@@ -322,6 +372,9 @@ library.add(
     faPenToSquare,
     faPeopleGroup,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faPersonRunningFast,
     faPhone,
     faPiggyBank,
@@ -334,9 +387,13 @@ library.add(
     faRobot,
     faRocket,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faRocketLaunch,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faRocketLaunch,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faShieldHalved,
     faSparkles,
     faSpinner,
@@ -358,9 +415,13 @@ library.add(
     farArrowRight,
     farArrowUpRightFromSquare,
 <<<<<<< HEAD
+<<<<<<< HEAD
     farAward,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    farAward,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     farCalendar,
     farCalendarClock,
     farCalendarDays,
@@ -371,28 +432,43 @@ library.add(
     farEnvelope,
     farGlobe,
 <<<<<<< HEAD
+<<<<<<< HEAD
     farHandshake,
     farLightbulb,
     farMagnifyingGlass,
     farMessagesQuestion,
     farPeopleRoof,
 =======
+=======
+    farHandshake,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     farLightbulb,
+    farMagnifyingGlass,
     farMessagesQuestion,
+<<<<<<< HEAD
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    farPeopleRoof,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     farPresentationScreen,
     farRoute,
     farSparkles,
     farTrophyStar,
     // Brands
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faBluesky,
     faInstagram,
     faLinkedin,
     faYoutube,
+<<<<<<< HEAD
 =======
     faLinkedin,
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     // Light
     falBagShopping,
     falCheck,
@@ -432,6 +508,9 @@ export {
     faBagShopping,
     faBars,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faBenchTree,
     faBook,
     faBooks,
@@ -473,9 +552,13 @@ export {
     faDownload,
     faDragon,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faEarthEurope,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faEarthEurope,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faEllipsis,
     faEnvelope,
     faEnvelopeCircleCheck,
@@ -504,9 +587,13 @@ export {
     faLaptop,
     faLightbulb,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faLightbulbOn,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faLightbulbOn,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faList,
     faLocationDot,
     faMagnifyingGlass,
@@ -521,6 +608,9 @@ export {
     faPenToSquare,
     faPeopleGroup,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faPersonRunningFast,
     faPhone,
     faPiggyBank,
@@ -533,9 +623,13 @@ export {
     faRobot,
     faRocket,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faRocketLaunch,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faRocketLaunch,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faShieldHalved,
     faSparkles,
     faSpinner,
@@ -557,9 +651,13 @@ export {
     farArrowRight,
     farArrowUpRightFromSquare,
 <<<<<<< HEAD
+<<<<<<< HEAD
     farAward,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    farAward,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     farCalendar,
     farCalendarClock,
     farCalendarDays,
@@ -570,28 +668,43 @@ export {
     farEnvelope,
     farGlobe,
 <<<<<<< HEAD
+<<<<<<< HEAD
     farHandshake,
     farLightbulb,
     farMagnifyingGlass,
     farMessagesQuestion,
     farPeopleRoof,
 =======
+=======
+    farHandshake,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     farLightbulb,
+    farMagnifyingGlass,
     farMessagesQuestion,
+<<<<<<< HEAD
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    farPeopleRoof,
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     farPresentationScreen,
     farRoute,
     farSparkles,
     farTrophyStar,
     // Brands
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faBluesky,
     faInstagram,
     faLinkedin,
     faYoutube,
+<<<<<<< HEAD
 =======
     faLinkedin,
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+>>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     // Light
     falBagShopping,
     falCheck,
