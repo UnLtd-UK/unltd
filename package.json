@@ -7,6 +7,7 @@
     "node": ">=20"
   },
   "scripts": {
+    "setup": "bash scripts/setup-npmrc.sh",
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build && npx wrangler pages functions build --outdir=./dist/worker && npx wrangler deploy --dry-run --env=\"\"",
@@ -25,6 +26,7 @@
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.6.0",
+    "@awesome.me/kit-0ff725f684": "^1.0.22",
     "@clerk/astro": "^2.16.10",
     "@daviddarnes/storage-form": "^2.0.1",
     "@directus/sdk": "^20.3.0",
