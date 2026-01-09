@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 const { programme, styles } = Astro.props;
 import { marked } from "marked";
 marked.use({ mangle: false, headerIds: false });
@@ -48,8 +49,11 @@ let todayDate = moment();
               <div
                 class={`flex flex-inline items-center gap-3 pr-3 border-r ${styles.border2} ${styles.text}`}
               >
-                <i class={`fa-solid fa-award text-base ${styles.text2}`}
-                ></i><span
+                <Icon
+                  name="award"
+                  style="solid"
+                  class={`text-base ${styles.text2}`}
+                /><span
                   class={`text-xs tracking-widest uppercase font-bold ${styles.text2}`}
                   >Award Programme</span
                 >

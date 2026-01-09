@@ -1,6 +1,7 @@
 ---
 import Badge from "@components/awards/cards/Badge.astro";
-import Icon from "@components/awards/cards/Icon.astro";
+import IconCard from "@components/awards/cards/Icon.astro";
+import DynamicIcon from "@components/DynamicIcon.astro";
 import Status from "@components/awards/programme/Status.astro";
 
 function isValidUrl(string) {
@@ -48,7 +49,7 @@ const {
     </div>
     <div class="flex flex-col gap-3">
       <span class="relative inline-block">
-        <Icon icon={icon} name={name} styles={styles} />
+        <IconCard icon={icon} name={name} styles={styles} />
       </span>
       <div>
         <!-- <span class={`uppercase tracking-widest text-xs ${styles.text2}`}
@@ -84,8 +85,9 @@ const {
         services.map((service) => (
           <div>
             <p class={`truncate flex gap-2 items-center text-wrap`}>
-              <i
-                class={`text-sm ${service.services_id.icon} ${styles.text2}`}
+              <DynamicIcon
+                icon={service.services_id.icon}
+                class={`text-sm ${styles.text2}`}
               />
               <span class={`text-xs font-medium ${styles.text} ${styles.font}`}>
                 {service.services_id.name}

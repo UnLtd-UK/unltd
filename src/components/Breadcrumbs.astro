@@ -1,6 +1,7 @@
 ---
 import { palette } from "@data/palette";
 import Popover from "@components/Popover.jsx";
+import Icon from "@components/Icon.astro";
 const { breadcrumbs, styles = palette["UnLtd"] } = Astro.props;
 ---
 
@@ -16,7 +17,11 @@ const { breadcrumbs, styles = palette["UnLtd"] } = Astro.props;
               href="/"
               class={`${styles.text} hover:text-violet-900 dark:hover:text-violet-100 transition`}
             >
-              <i class={`fa-solid fa-house text-xs ${styles.breadcrumbs}`}></i>
+              <Icon
+                name="house"
+                style="solid"
+                class={`text-xs ${styles.breadcrumbs}`}
+              />
               <span class="sr-only">UnLtd</span>
             </a>
           </div>
@@ -26,8 +31,10 @@ const { breadcrumbs, styles = palette["UnLtd"] } = Astro.props;
           breadcrumbs.map((crumb) => (
             <li>
               <div class="flex items-center">
-                <i
-                  class={`fa-solid fa-chevron-right hover:text-violet-900 ${styles.breadcrumb} text-xs`}
+                <Icon
+                  name="chevron-right"
+                  style="solid"
+                  class={`hover:text-violet-900 ${styles.breadcrumb} text-xs`}
                 />
                 <a
                   href={`${crumb.path}`}
