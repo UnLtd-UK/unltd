@@ -21,6 +21,7 @@ on:
     - cron: "0 9 * * *"
 
 jobs:
+<<<<<<< HEAD
   deploy:
 <<<<<<< HEAD
     name: Deploy to production
@@ -38,24 +39,38 @@ jobs:
             environment: preview
             url: preview.unltd.org.uk
 >>>>>>> 0624441 (feat: Consolidate deployment workflows into a single deploy.yml for improved management)
+=======
+  deploy-dev:
+    name: Deploy to preview
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'dev' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+>>>>>>> be62cf7 (feat: Refactor deployment workflow to separate dev and main environments with explicit steps)
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       EVENTBRITE_PRIVATE_TOKEN: ${{ secrets.EVENTBRITE_PRIVATE_TOKEN }}
 <<<<<<< HEAD
+<<<<<<< HEAD
       FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
       SHOW_DRAFTS: "false"
 =======
 >>>>>>> 0624441 (feat: Consolidate deployment workflows into a single deploy.yml for improved management)
+=======
+      FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+>>>>>>> be62cf7 (feat: Refactor deployment workflow to separate dev and main environments with explicit steps)
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
 <<<<<<< HEAD
+<<<<<<< HEAD
           ref: main
 =======
           ref: ${{ matrix.branch }}
 >>>>>>> 0624441 (feat: Consolidate deployment workflows into a single deploy.yml for improved management)
+=======
+          ref: dev
+>>>>>>> be62cf7 (feat: Refactor deployment workflow to separate dev and main environments with explicit steps)
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -63,11 +78,17 @@ jobs:
           node-version: "22"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       - name: Setup Font Awesome Pro
         run: bash scripts/setup-npmrc.sh
 
 =======
 >>>>>>> 0624441 (feat: Consolidate deployment workflows into a single deploy.yml for improved management)
+=======
+      - name: Setup Font Awesome Pro
+        run: bash scripts/setup-npmrc.sh
+
+>>>>>>> be62cf7 (feat: Refactor deployment workflow to separate dev and main environments with explicit steps)
       - name: Install dependencies
         run: npm ci
 
@@ -76,7 +97,43 @@ jobs:
 
       - name: Deploy worker
 <<<<<<< HEAD
+<<<<<<< HEAD
         run: npx wrangler deploy --env production
 =======
         run: npx wrangler deploy --env ${{ matrix.environment }}
 >>>>>>> 0624441 (feat: Consolidate deployment workflows into a single deploy.yml for improved management)
+=======
+        run: npx wrangler deploy --env preview
+
+  deploy-main:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'main' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      EVENTBRITE_PRIVATE_TOKEN: ${{ secrets.EVENTBRITE_PRIVATE_TOKEN }}
+      FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Setup Font Awesome Pro
+        run: bash scripts/setup-npmrc.sh
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Deploy worker
+        run: npx wrangler deploy --env production
+>>>>>>> be62cf7 (feat: Refactor deployment workflow to separate dev and main environments with explicit steps)
