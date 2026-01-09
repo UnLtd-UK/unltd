@@ -3,6 +3,7 @@ import Template from "@layouts/Template.astro";
 import Default from "@components/heroes/Default.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Icon from "@components/Icon.astro";
 
 import { fundraisers } from "@data/fundraisers.js";
 
@@ -47,7 +48,11 @@ import moment from "moment";
                       </div>
                       <div class="mt-2 flex">
                         <div class="flex gap-2 items-center text-sm text-violet-300">
-                          <i class="fa-regular fa-calendar text-violet-400" />
+                          <Icon
+                            name="calendar"
+                            style="regular"
+                            class="text-violet-400"
+                          />
                           <span class="">
                             {() => {
                               if (
@@ -134,7 +139,11 @@ import moment from "moment";
                     </div>
                   </div>
                   <div class="ml-5 flex-shrink-0">
-                    <i class="fa-solid fa-chevron-right text-violet-400" />
+                    <Icon
+                      name="chevron-right"
+                      style="solid"
+                      class="text-violet-400"
+                    />
                   </div>
                 </div>
               </a>

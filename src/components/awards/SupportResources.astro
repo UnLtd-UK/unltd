@@ -4,6 +4,7 @@
  * Displays support options available for eligible applicants
  */
 
+import Icon from "@components/Icon.astro";
 import Container from "@components/Container.astro";
 
 const supportCards = [
@@ -83,9 +84,10 @@ const supportCards = [
                             <div
                                 class={`flex items-center justify-center w-12 h-12 rounded-xl ${card.iconBg} shrink-0`}
                             >
-                                <i
-                                    class={`${card.icon} text-xl ${card.iconColor}`}
-                                    aria-hidden="true"
+                                <Icon
+                                    name={card.icon.replace("fa-solid fa-", "")}
+                                    style="solid"
+                                    class={`text-xl ${card.iconColor}`}
                                 />
                             </div>
                             <div class="flex-1">
@@ -111,9 +113,10 @@ const supportCards = [
                                     class="inline-flex items-center gap-2 text-sm font-semibold text-violet-600 dark:text-amber-400 hover:text-violet-800 dark:hover:text-amber-300 transition-colors"
                                 >
                                     {card.linkLabel}
-                                    <i
-                                        class="fa-solid fa-arrow-right text-xs transition-transform group-hover:translate-x-1"
-                                        aria-hidden="true"
+                                    <Icon
+                                        name="arrow-right"
+                                        style="solid"
+                                        class="text-xs transition-transform group-hover:translate-x-1"
                                     />
                                 </a>
                             </div>

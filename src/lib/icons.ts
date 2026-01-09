@@ -15,6 +15,7 @@ import {
     faAward,
     faBagShopping,
     faBars,
+<<<<<<< HEAD
     faBenchTree,
     faBook,
     faBookOpen,
@@ -24,6 +25,10 @@ import {
     faLink,
     faLock,
     faPlay,
+=======
+    faBook,
+    faBooks,
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faBriefcase,
     faBuilding,
     faCalendarCheck,
@@ -34,7 +39,10 @@ import {
     faCertificate,
     faChartLine,
     faCheck,
+<<<<<<< HEAD
     faChessPawn,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faChevronDown,
     faChevronRight,
     faChevronUp,
@@ -52,7 +60,10 @@ import {
     faDoorOpen,
     faDownload,
     faDragon,
+<<<<<<< HEAD
     faEarthEurope,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faEllipsis,
     faEnvelope,
     faEnvelopeCircleCheck,
@@ -70,14 +81,20 @@ import {
     faHeart,
     faHeartPulse,
     faHourglass,
+<<<<<<< HEAD
     faHourglassHalf,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faHouse,
     faImageSlash,
     faInfoCircle,
     faLandmark,
     faLaptop,
     faLightbulb,
+<<<<<<< HEAD
     faLightbulbOn,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faList,
     faLocationDot,
     faMagnifyingGlass,
@@ -91,16 +108,23 @@ import {
     faPenNib,
     faPenToSquare,
     faPeopleGroup,
+<<<<<<< HEAD
     faPersonRunningFast,
     faPhone,
     faPoliceBox,
     faPiggyBank,
     faPuzzlePiece,
+=======
+    faPhone,
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faQuestion,
     faQuoteLeft,
     faRobot,
     faRocket,
+<<<<<<< HEAD
     faRocketLaunch,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faShieldHalved,
     faSparkles,
     faSpinner,
@@ -124,7 +148,10 @@ import {
     faArrowDown as farArrowDown,
     faArrowRight as farArrowRight,
     faArrowUpRightFromSquare as farArrowUpRightFromSquare,
+<<<<<<< HEAD
     faAward as farAward,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faCalendar as farCalendar,
     faCalendarClock as farCalendarClock,
     faCalendarDays as farCalendarDays,
@@ -134,11 +161,16 @@ import {
     faClipboardListCheck as farClipboardListCheck,
     faEnvelope as farEnvelope,
     faGlobe as farGlobe,
+<<<<<<< HEAD
     faHandshake as farHandshake,
     faLightbulb as farLightbulb,
     faMagnifyingGlass as farMagnifyingGlass,
     faMessagesQuestion as farMessagesQuestion,
     faPeopleRoof as farPeopleRoof,
+=======
+    faLightbulb as farLightbulb,
+    faMessagesQuestion as farMessagesQuestion,
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faPresentationScreen as farPresentationScreen,
     faRoute as farRoute,
     faSparkles as farSparkles,
@@ -146,12 +178,16 @@ import {
 } from "@awesome.me/kit-0ff725f684/icons/classic/regular";
 
 // Brand icons
+<<<<<<< HEAD
 import {
     faBluesky,
     faInstagram,
     faLinkedin,
     faYoutube,
 } from "@awesome.me/kit-0ff725f684/icons/classic/brands";
+=======
+import { faLinkedin } from "@awesome.me/kit-0ff725f684/icons/classic/brands";
+>>>>>>> 729c08b (Refactor icon usage across the application)
 
 // Light icons
 import {
@@ -192,6 +228,7 @@ library.add(
     faAward,
     faBagShopping,
     faBars,
+<<<<<<< HEAD
     faBenchTree,
     faBook,
     faBookOpen,
@@ -201,6 +238,10 @@ library.add(
     faLink,
     faLock,
     faPlay,
+=======
+    faBook,
+    faBooks,
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faBriefcase,
     faBuilding,
     faCalendarCheck,
@@ -211,7 +252,10 @@ library.add(
     faCertificate,
     faChartLine,
     faCheck,
+<<<<<<< HEAD
     faChessPawn,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faChevronDown,
     faChevronRight,
     faChevronUp,
@@ -229,7 +273,10 @@ library.add(
     faDoorOpen,
     faDownload,
     faDragon,
+<<<<<<< HEAD
     faEarthEurope,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faEllipsis,
     faEnvelope,
     faEnvelopeCircleCheck,
@@ -247,14 +294,20 @@ library.add(
     faHeart,
     faHeartPulse,
     faHourglass,
+<<<<<<< HEAD
     faHourglassHalf,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faHouse,
     faImageSlash,
     faInfoCircle,
     faLandmark,
     faLaptop,
     faLightbulb,
+<<<<<<< HEAD
     faLightbulbOn,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faList,
     faLocationDot,
     faMagnifyingGlass,
@@ -268,15 +321,22 @@ library.add(
     faPenNib,
     faPenToSquare,
     faPeopleGroup,
+<<<<<<< HEAD
     faPersonRunningFast,
     faPhone,
     faPiggyBank,
     faPuzzlePiece,
+=======
+    faPhone,
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faQuestion,
     faQuoteLeft,
     faRobot,
     faRocket,
+<<<<<<< HEAD
     faRocketLaunch,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faShieldHalved,
     faSparkles,
     faSpinner,
@@ -297,7 +357,10 @@ library.add(
     farArrowDown,
     farArrowRight,
     farArrowUpRightFromSquare,
+<<<<<<< HEAD
     farAward,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     farCalendar,
     farCalendarClock,
     farCalendarDays,
@@ -307,20 +370,29 @@ library.add(
     farClipboardListCheck,
     farEnvelope,
     farGlobe,
+<<<<<<< HEAD
     farHandshake,
     farLightbulb,
     farMagnifyingGlass,
     farMessagesQuestion,
     farPeopleRoof,
+=======
+    farLightbulb,
+    farMessagesQuestion,
+>>>>>>> 729c08b (Refactor icon usage across the application)
     farPresentationScreen,
     farRoute,
     farSparkles,
     farTrophyStar,
     // Brands
+<<<<<<< HEAD
     faBluesky,
     faInstagram,
     faLinkedin,
     faYoutube,
+=======
+    faLinkedin,
+>>>>>>> 729c08b (Refactor icon usage across the application)
     // Light
     falBagShopping,
     falCheck,
@@ -339,9 +411,13 @@ library.add(
     fatSpinner,
     // Sharp solid
     fassCircleCheck,
+<<<<<<< HEAD
     fassCircleXmark,
     // Solid (police-box)
     faPoliceBox
+=======
+    fassCircleXmark
+>>>>>>> 729c08b (Refactor icon usage across the application)
 );
 
 // Export for direct usage
@@ -355,11 +431,16 @@ export {
     faAward,
     faBagShopping,
     faBars,
+<<<<<<< HEAD
     faBenchTree,
     faBook,
     faBooks,
     faClipboardList,
     faLock,
+=======
+    faBook,
+    faBooks,
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faBriefcase,
     faBuilding,
     faCalendarCheck,
@@ -370,7 +451,10 @@ export {
     faCertificate,
     faChartLine,
     faCheck,
+<<<<<<< HEAD
     faChessPawn,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faChevronDown,
     faChevronRight,
     faChevronUp,
@@ -388,7 +472,10 @@ export {
     faDoorOpen,
     faDownload,
     faDragon,
+<<<<<<< HEAD
     faEarthEurope,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faEllipsis,
     faEnvelope,
     faEnvelopeCircleCheck,
@@ -406,14 +493,20 @@ export {
     faHeart,
     faHeartPulse,
     faHourglass,
+<<<<<<< HEAD
     faHourglassHalf,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faHouse,
     faImageSlash,
     faInfoCircle,
     faLandmark,
     faLaptop,
     faLightbulb,
+<<<<<<< HEAD
     faLightbulbOn,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faList,
     faLocationDot,
     faMagnifyingGlass,
@@ -427,15 +520,22 @@ export {
     faPenNib,
     faPenToSquare,
     faPeopleGroup,
+<<<<<<< HEAD
     faPersonRunningFast,
     faPhone,
     faPiggyBank,
     faPuzzlePiece,
+=======
+    faPhone,
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faQuestion,
     faQuoteLeft,
     faRobot,
     faRocket,
+<<<<<<< HEAD
     faRocketLaunch,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     faShieldHalved,
     faSparkles,
     faSpinner,
@@ -456,7 +556,10 @@ export {
     farArrowDown,
     farArrowRight,
     farArrowUpRightFromSquare,
+<<<<<<< HEAD
     farAward,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
     farCalendar,
     farCalendarClock,
     farCalendarDays,
@@ -466,20 +569,29 @@ export {
     farClipboardListCheck,
     farEnvelope,
     farGlobe,
+<<<<<<< HEAD
     farHandshake,
     farLightbulb,
     farMagnifyingGlass,
     farMessagesQuestion,
     farPeopleRoof,
+=======
+    farLightbulb,
+    farMessagesQuestion,
+>>>>>>> 729c08b (Refactor icon usage across the application)
     farPresentationScreen,
     farRoute,
     farSparkles,
     farTrophyStar,
     // Brands
+<<<<<<< HEAD
     faBluesky,
     faInstagram,
     faLinkedin,
     faYoutube,
+=======
+    faLinkedin,
+>>>>>>> 729c08b (Refactor icon usage across the application)
     // Light
     falBagShopping,
     falCheck,
@@ -499,6 +611,9 @@ export {
     // Sharp solid
     fassCircleCheck,
     fassCircleXmark,
+<<<<<<< HEAD
     // Solid (police-box)
     faPoliceBox,
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
 };

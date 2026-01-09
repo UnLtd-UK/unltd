@@ -23,7 +23,7 @@ renderer.heading = function ({ tokens, depth, text }) {
   };
 
   if ((depth === 2 || depth === 3) && h.href && h.href.startsWith("#")) {
-    return `\n<h${h.level} id="${h.id}">${h.text}<a href="${h.href}"><i class="pl-2 text-sm fa-solid fa-link text-violet-300 hover:text-violet-100" aria-hidden="true"></i></a></h${h.level}>\n`;
+    return `\n<h${h.level} id="${h.id}">${h.text}<a href="${h.href}"><svg class="inline-block pl-2 h-4 w-4 text-violet-300 hover:text-violet-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor" aria-hidden="true"><path d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C680.6 251.2 117.1 330 167.1 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372.1 74 321.1 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C540.9 260.8 483 182 433 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"/></svg></a></h${h.level}>\n`;
   } else if (
     (depth === 2 || depth === 3) &&
     h.href &&

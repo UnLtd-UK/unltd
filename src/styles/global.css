@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/* Default icon sizing - icons inherit text size like FontAwesome's default behavior */
+svg[role="img"] {
+    height: 1em;
+    width: 1em;
+    vertical-align: -0.125em;
+    fill: currentColor;
+}
+
 @utility prose {
     blockquote {
         /* Disable adding quote marks to block-quotes: https://github.com/tailwindlabs/tailwindcss-typography/issues/66 */

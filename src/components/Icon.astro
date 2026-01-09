@@ -14,7 +14,11 @@ import "@lib/icons";
 
 interface Props {
     name: string;
+<<<<<<< HEAD
     style?: "solid" | "regular" | "brands" | "light" | "thin";
+=======
+    style?: "solid" | "regular" | "brands" | "light";
+>>>>>>> 729c08b (Refactor icon usage across the application)
     class?: string;
     title?: string;
 }
@@ -27,7 +31,10 @@ const prefixMap: Record<string, string> = {
     regular: "far",
     brands: "fab",
     light: "fal",
+<<<<<<< HEAD
     thin: "fat",
+=======
+>>>>>>> 729c08b (Refactor icon usage across the application)
 };
 
 const prefix = prefixMap[style] || "fas";

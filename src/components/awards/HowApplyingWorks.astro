@@ -5,6 +5,7 @@
  * Optionally shows the current round status widget
  */
 
+import Icon from "@components/Icon.astro";
 import {
     phases,
     outcomes,
@@ -89,9 +90,13 @@ function getStepLink(linkKey?: StepLinkKey) {
                                         <div
                                             class={`w-12 h-12 rounded-xl ${colors.bg} text-white flex items-center justify-center shadow-md`}
                                         >
-                                            <i
-                                                class={`${phase.icon} text-lg`}
-                                                aria-hidden="true"
+                                            <Icon
+                                                name={phase.icon.replace(
+                                                    "fa-solid fa-",
+                                                    "",
+                                                )}
+                                                style="solid"
+                                                class="text-lg"
                                             />
                                         </div>
                                         <div>
@@ -131,9 +136,13 @@ function getStepLink(linkKey?: StepLinkKey) {
                                                 <div
                                                     class={`shrink-0 w-9 h-9 rounded-lg ${colors.bgLighter} ${colors.text} flex items-center justify-center`}
                                                 >
-                                                    <i
-                                                        class={`${step.icon} text-sm`}
-                                                        aria-hidden="true"
+                                                    <Icon
+                                                        name={step.icon.replace(
+                                                            "fa-solid fa-",
+                                                            "",
+                                                        )}
+                                                        style="solid"
+                                                        class="text-sm"
                                                     />
                                                 </div>
                                                 <div class="flex-1 min-w-0">
@@ -161,9 +170,13 @@ function getStepLink(linkKey?: StepLinkKey) {
                                                                     class={`inline-flex items-center gap-1.5 text-xs font-medium ${colors.text} hover:underline mt-1.5`}
                                                                 >
                                                                     {link.label}
-                                                                    <i
-                                                                        class={`${link.icon} text-[10px]`}
-                                                                        aria-hidden="true"
+                                                                    <Icon
+                                                                        name={link.icon.replace(
+                                                                            "fa-solid fa-",
+                                                                            "",
+                                                                        )}
+                                                                        style="solid"
+                                                                        class="text-[10px]"
                                                                     />
                                                                 </a>
                                                             )
@@ -215,9 +228,14 @@ function getStepLink(linkKey?: StepLinkKey) {
                         <div
                             class="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center"
                         >
-                            <i
-                                class={`${outcomes.success.icon} text-xl`}
-                                aria-hidden="true"></i>
+                            <Icon
+                                name={outcomes.success.icon.replace(
+                                    "fa-solid fa-",
+                                    "",
+                                )}
+                                style="solid"
+                                class="text-xl"
+                            />
                         </div>
                         <div>
                             <p class="text-emerald-100 text-sm font-medium">
@@ -233,9 +251,10 @@ function getStepLink(linkKey?: StepLinkKey) {
                         {
                             outcomes.success.items.map((item) => (
                                 <li class="flex items-center gap-2.5 text-sm">
-                                    <i
-                                        class="fa-solid fa-check text-emerald-200"
-                                        aria-hidden="true"
+                                    <Icon
+                                        name="check"
+                                        style="solid"
+                                        class="text-emerald-200"
                                     />
                                     <span class="text-white/90">{item}</span>
                                 </li>
@@ -263,9 +282,14 @@ function getStepLink(linkKey?: StepLinkKey) {
                         <div
                             class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center"
                         >
-                            <i
-                                class={`${outcomes.unsuccessful.icon} text-xl`}
-                                aria-hidden="true"></i>
+                            <Icon
+                                name={outcomes.unsuccessful.icon.replace(
+                                    "fa-solid fa-",
+                                    "",
+                                )}
+                                style="solid"
+                                class="text-xl"
+                            />
                         </div>
                         <div>
                             <p class="text-violet-300 text-sm font-medium">
@@ -281,9 +305,10 @@ function getStepLink(linkKey?: StepLinkKey) {
                         {
                             outcomes.unsuccessful.items.map((item) => (
                                 <li class="flex items-center gap-2.5 text-sm">
-                                    <i
-                                        class="fa-solid fa-arrow-right text-violet-400"
-                                        aria-hidden="true"
+                                    <Icon
+                                        name="arrow-right"
+                                        style="solid"
+                                        class="text-violet-400"
                                     />
                                     <span class="text-violet-200">{item}</span>
                                 </li>

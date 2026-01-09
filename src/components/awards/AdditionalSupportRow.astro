@@ -3,11 +3,13 @@
  * AdditionalSupportRow Component
  * Links to additional support resources for applicants with specific needs
  */
+
+import Icon from "@components/Icon.astro";
 ---
 
 <div class="">
     <p class="text-sm font-medium text-slate-600 dark:text-slate-300 mb-4">
-        <i class="fa-solid fa-hand-holding-heart mr-2" aria-hidden="true"></i>
+        <Icon name="hand-holding-heart" style="solid" class="mr-2" />
         Need extra support? We're here to help
     </p>
     <div class="grid sm:grid-cols-3 gap-4">
@@ -19,9 +21,11 @@
             <div
                 class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center shrink-0"
             >
-                <i
-                    class="fa-solid fa-eye text-blue-600 dark:text-blue-400"
-                    aria-hidden="true"></i>
+                <Icon
+                    name="eye"
+                    style="solid"
+                    class="text-blue-600 dark:text-blue-400"
+                />
             </div>
             <div class="flex-1 min-w-0">
                 <p
@@ -33,9 +37,11 @@
                     Screen reader assistance
                 </p>
             </div>
-            <i
-                class="fa-solid fa-envelope text-slate-400 group-hover:text-blue-500 transition-all"
-                aria-hidden="true"></i>
+            <Icon
+                name="envelope"
+                style="solid"
+                class="text-slate-400 group-hover:text-blue-500 transition-all"
+            />
         </a>
 
         <!-- Additional Needs Support -->
@@ -46,9 +52,11 @@
             <div
                 class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center shrink-0"
             >
-                <i
-                    class="fa-solid fa-hands-holding-heart text-emerald-600 dark:text-emerald-400"
-                    aria-hidden="true"></i>
+                <Icon
+                    name="hands-holding-heart"
+                    style="solid"
+                    class="text-emerald-600 dark:text-emerald-400"
+                />
             </div>
             <div class="flex-1 min-w-0">
                 <p
@@ -60,9 +68,11 @@
                     1-to-1 assistance sessions
                 </p>
             </div>
-            <i
-                class="fa-solid fa-up-right-from-square text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all"
-                aria-hidden="true"></i>
+            <Icon
+                name="up-right-from-square"
+                style="solid"
+                class="text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all"
+            />
         </a>
 
         <!-- Wales Support -->
@@ -73,9 +83,11 @@
             <div
                 class="w-10 h-10 rounded-lg bg-rose-100 dark:bg-rose-900/50 flex items-center justify-center shrink-0"
             >
-                <i
-                    class="fa-solid fa-dragon text-rose-600 dark:text-rose-400"
-                    aria-hidden="true"></i>
+                <Icon
+                    name="dragon"
+                    style="solid"
+                    class="text-rose-600 dark:text-rose-400"
+                />
             </div>
             <div class="flex-1 min-w-0">
                 <p
@@ -87,9 +99,11 @@
                     Local support networks
                 </p>
             </div>
-            <i
-                class="fa-solid fa-arrow-right text-slate-400 group-hover:text-rose-500 group-hover:translate-x-1 transition-all"
-                aria-hidden="true"></i>
+            <Icon
+                name="arrow-right"
+                style="solid"
+                class="text-slate-400 group-hover:text-rose-500 group-hover:translate-x-1 transition-all"
+            />
         </a>
     </div>
 </div>

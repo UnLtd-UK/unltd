@@ -6,6 +6,7 @@ import Post from "@components/Post.astro";
 import { posts } from "@data/posts.js";
 import slugify from "slugify";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Icon from "@components/Icon.astro";
 
 export function getStaticPaths() {
   const title = "Blog";
@@ -93,9 +94,11 @@ const { name, description, posts, years, breadcrumbs } = Astro.props;
             ))
           }
         </select>
-        <i
-          class="fa-solid fa-chevron-down pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-violet-500"
-          aria-hidden="true"></i>
+        <Icon
+          name="chevron-down"
+          style="solid"
+          class="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end text-violet-500"
+        />
       </div>
       <div class="hidden sm:block">
         <div class="border-b border-violet-800">

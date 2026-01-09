@@ -4,6 +4,8 @@
  * Resources to help applicants prepare their application
  */
 
+import Icon from "@components/Icon.astro";
+
 interface Props {
     applicationPreviewUrl?: string;
 }
@@ -14,7 +16,7 @@ const { applicationPreviewUrl = "/resources/application-form-preview" } =
 
 <div>
     <p class="text-sm font-medium text-emerald-100 pb-4">
-        <i class="fa-solid fa-books mr-2" aria-hidden="true"></i>
+        <Icon name="books" style="solid" class="mr-2" />
         Resources to help you apply
     </p>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -26,9 +28,11 @@ const { applicationPreviewUrl = "/resources/application-form-preview" } =
             <div
                 class="w-10 h-10 rounded-lg bg-emerald-400/20 flex items-center justify-center shrink-0"
             >
-                <i
-                    class="fa-solid fa-file-lines text-emerald-300"
-                    aria-hidden="true"></i>
+                <Icon
+                    name="file-lines"
+                    style="solid"
+                    class="text-emerald-300"
+                />
             </div>
             <div class="flex-1 min-w-0">
                 <p class="text-sm font-semibold text-white">
@@ -36,9 +40,11 @@ const { applicationPreviewUrl = "/resources/application-form-preview" } =
                 </p>
                 <p class="text-xs text-emerald-200">See the questions</p>
             </div>
-            <i
-                class="fa-solid fa-arrow-right text-emerald-300 group-hover:text-white group-hover:translate-x-1 transition-all"
-                aria-hidden="true"></i>
+            <Icon
+                name="arrow-right"
+                style="solid"
+                class="text-emerald-300 group-hover:text-white group-hover:translate-x-1 transition-all"
+            />
         </a>
 
         <!-- Budget Guidance -->
@@ -49,16 +55,17 @@ const { applicationPreviewUrl = "/resources/application-form-preview" } =
             <div
                 class="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center shrink-0"
             >
-                <i class="fa-solid fa-coins text-amber-300" aria-hidden="true"
-                ></i>
+                <Icon name="coins" style="solid" class="text-amber-300" />
             </div>
             <div class="flex-1 min-w-0">
                 <p class="text-sm font-semibold text-white">Budget Guidance</p>
                 <p class="text-xs text-emerald-200">Plan your spending</p>
             </div>
-            <i
-                class="fa-solid fa-arrow-right text-emerald-300 group-hover:text-white group-hover:translate-x-1 transition-all"
-                aria-hidden="true"></i>
+            <Icon
+                name="arrow-right"
+                style="solid"
+                class="text-emerald-300 group-hover:text-white group-hover:translate-x-1 transition-all"
+            />
         </a>
 
         <!-- Panel Meeting Guide -->
@@ -69,8 +76,7 @@ const { applicationPreviewUrl = "/resources/application-form-preview" } =
             <div
                 class="w-10 h-10 rounded-lg bg-violet-500/20 flex items-center justify-center shrink-0"
             >
-                <i class="fa-solid fa-users text-violet-300" aria-hidden="true"
-                ></i>
+                <Icon name="users" style="solid" class="text-violet-300" />
             </div>
             <div class="flex-1 min-w-0">
                 <p class="text-sm font-semibold text-white">
@@ -78,9 +84,11 @@ const { applicationPreviewUrl = "/resources/application-form-preview" } =
                 </p>
                 <p class="text-xs text-emerald-200">Prepare for interview</p>
             </div>
-            <i
-                class="fa-solid fa-arrow-right text-emerald-300 group-hover:text-white group-hover:translate-x-1 transition-all"
-                aria-hidden="true"></i>
+            <Icon
+                name="arrow-right"
+                style="solid"
+                class="text-emerald-300 group-hover:text-white group-hover:translate-x-1 transition-all"
+            />
         </a>
 
         <!-- Pre-application Sessions -->
@@ -93,9 +101,11 @@ const { applicationPreviewUrl = "/resources/application-form-preview" } =
             <div
                 class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center shrink-0"
             >
-                <i
-                    class="fa-solid fa-calendar-check text-blue-300"
-                    aria-hidden="true"></i>
+                <Icon
+                    name="calendar-check"
+                    style="solid"
+                    class="text-blue-300"
+                />
             </div>
             <div class="flex-1 min-w-0">
                 <p class="text-sm font-semibold text-white">Info Sessions</p>
@@ -103,9 +113,11 @@ const { applicationPreviewUrl = "/resources/application-form-preview" } =
                     Join a live Q&A on Eventbrite
                 </p>
             </div>
-            <i
-                class="fa-solid fa-arrow-up-right-from-square text-emerald-300 group-hover:text-white transition-all"
-                aria-hidden="true"></i>
+            <Icon
+                name="arrow-up-right-from-square"
+                style="solid"
+                class="text-emerald-300 group-hover:text-white transition-all"
+            />
         </a>
     </div>
 </div>

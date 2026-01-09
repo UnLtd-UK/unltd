@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 import { programmes } from "@data/programmes.js";
 import {
     programmeEvents as fetchedProgrammeEvents,
@@ -81,12 +82,12 @@ const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
                     const timezoneLabel = event.start?.timezone
                         ? ` ${event.start.timezone}`
                         : "";
-                    const locationIconClass = event.online_event
-                        ? "fa-solid fa-video"
-                        : "fa-solid fa-location-dot";
-                    const attendanceIconClass = event.online_event
-                        ? "fa-solid fa-laptop"
-                        : "fa-solid fa-people-group";
+                    const locationIcon = event.online_event
+                        ? "video"
+                        : "location-dot";
+                    const attendanceIcon = event.online_event
+                        ? "laptop"
+                        : "people-group";
                     const attendanceLabel = event.online_event
                         ? "Virtual session"
                         : "In-person session";
@@ -139,16 +140,18 @@ const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
                                 )}
                                 <dl class="grid gap-3 text-sm text-violet-700 dark:text-violet-200">
                                     <div class="flex items-center gap-2">
-                                        <i
-                                            class="fa-regular fa-calendar-days text-violet-500"
-                                            aria-hidden="true"
+                                        <Icon
+                                            name="calendar-days"
+                                            style="regular"
+                                            class="text-violet-500"
                                         />
                                         <span>{dateLabel}</span>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <i
-                                            class="fa-regular fa-clock text-violet-500"
-                                            aria-hidden="true"
+                                        <Icon
+                                            name="clock"
+                                            style="regular"
+                                            class="text-violet-500"
                                         />
                                         <span>
                                             {timeLabel}
@@ -156,18 +159,20 @@ const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
                                         </span>
                                     </div>
                                     <div class="flex items-center gap-2">
-                                        <i
-                                            class={`${locationIconClass} text-violet-500`}
-                                            aria-hidden="true"
+                                        <Icon
+                                            name={locationIcon}
+                                            style="solid"
+                                            class="text-violet-500"
                                         />
                                         <span>{locationLabel}</span>
                                     </div>
                                 </dl>
                                 <div class="mt-auto flex items-center justify-between gap-3 border-t border-violet-100 pt-4 text-xs font-semibold uppercase tracking-[0.24em] text-violet-600 dark:border-violet-900/60 dark:text-violet-300">
                                     <span class="flex items-center gap-2">
-                                        <i
-                                            class={`${attendanceIconClass} text-violet-500`}
-                                            aria-hidden="true"
+                                        <Icon
+                                            name={attendanceIcon}
+                                            style="solid"
+                                            class="text-violet-500"
                                         />
                                         {attendanceLabel}
                                     </span>
@@ -178,9 +183,10 @@ const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
                                         class="inline-flex items-center gap-2 rounded-full bg-violet-900 px-4 py-2 text-xs text-violet-50 transition duration-300 hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500 dark:bg-violet-700 dark:hover:bg-violet-500 whitespace-nowrap tracking-normal normal-case"
                                     >
                                         Reserve spot
-                                        <i
-                                            class="fa-solid fa-arrow-up-right-from-square text-xs"
-                                            aria-hidden="true"
+                                        <Icon
+                                            name="arrow-up-right-from-square"
+                                            style="solid"
+                                            class="text-xs"
                                         />
                                     </a>
                                 </div>
@@ -194,9 +200,10 @@ const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
                 }).map((_, i) => (
                     <div class="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-violet-300 bg-violet-50/50 p-6 min-h-[280px] dark:border-violet-700 dark:bg-violet-950/30">
                         <div class="w-12 h-12 rounded-full bg-violet-100 dark:bg-violet-900/50 flex items-center justify-center mb-4">
-                            <i
-                                class="fa-solid fa-calendar-plus text-xl text-violet-400 dark:text-violet-600"
-                                aria-hidden="true"
+                            <Icon
+                                name="calendar-plus"
+                                style="solid"
+                                class="text-xl text-violet-400 dark:text-violet-600"
                             />
                         </div>
                         <p class="text-sm font-medium text-violet-500 dark:text-violet-400 mb-1">

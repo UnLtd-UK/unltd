@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 const {
   name,
   description,
@@ -49,7 +50,7 @@ if (description != null) {
           }`}
         >
           <div class="space-y-1 text-center">
-            <i class="fa-solid fa-table text-violet-400 text-3xl" />
+            <Icon name="table" style="solid" class="text-violet-400 text-3xl" />
             <div class="flex text-sm text-violet-600">
               <label
                 for="file-upload"

@@ -3,6 +3,7 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Default from "@components/heroes/Default.astro";
+import Icon from "@components/Icon.astro";
 
 const name = "Get Involved";
 const slug = "get-involved";
@@ -273,9 +274,13 @@ const impactStats = [
                                     <div
                                         class={`w-14 h-14 rounded-xl ${colors.icon} flex items-center justify-center shrink-0`}
                                     >
-                                        <i
-                                            class={`fa-solid ${option.icon} text-2xl`}
-                                            aria-hidden="true"
+                                        <Icon
+                                            name={option.icon.replace(
+                                                "fa-",
+                                                "",
+                                            )}
+                                            style="solid"
+                                            class="text-2xl"
                                         />
                                     </div>
                                     <div>
@@ -292,9 +297,10 @@ const impactStats = [
                                 <ul class="space-y-2 mb-6">
                                     {option.highlights.map((highlight) => (
                                         <li class="flex items-start gap-2 text-sm text-violet-300">
-                                            <i
-                                                class={`fa-solid fa-check ${colors.check} mt-1 shrink-0`}
-                                                aria-hidden="true"
+                                            <Icon
+                                                name="check"
+                                                style="solid"
+                                                class={`${colors.check} mt-1 shrink-0`}
                                             />
                                             <span>{highlight}</span>
                                         </li>
@@ -307,9 +313,10 @@ const impactStats = [
                                         class={`inline-flex items-center gap-2 font-semibold ${colors.link}`}
                                     >
                                         {option.cta.text}
-                                        <i
-                                            class="fa-solid fa-arrow-right text-sm"
-                                            aria-hidden="true"
+                                        <Icon
+                                            name="arrow-right"
+                                            style="solid"
+                                            class="text-sm"
                                         />
                                     </a>
                                 </div>
@@ -341,7 +348,7 @@ const impactStats = [
                         href="/contact"
                         class="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 font-semibold text-violet-900 hover:bg-violet-50 transition-colors shrink-0"
                     >
-                        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                        <Icon name="envelope" style="solid" />
                         Contact Us
                     </a>
                 </div>
@@ -365,9 +372,10 @@ const impactStats = [
                         <div class="bg-violet-900/50 rounded-2xl p-6 border border-violet-700/50 hover:border-violet-600 transition-colors">
                             <div class="flex items-start gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-violet-800 flex items-center justify-center shrink-0">
-                                    <i
-                                        class={`fa-solid ${stat.icon} text-xl text-violet-200`}
-                                        aria-hidden="true"
+                                    <Icon
+                                        name={stat.icon.replace("fa-", "")}
+                                        style="solid"
+                                        class="text-xl text-violet-200"
                                     />
                                 </div>
                                 <div>
@@ -409,9 +417,10 @@ const impactStats = [
                                 </span>
                             </div>
                             <blockquote class="grow">
-                                <i
-                                    class="fa-solid fa-quote-left text-violet-600 text-2xl mb-4"
-                                    aria-hidden="true"
+                                <Icon
+                                    name="quote-left"
+                                    style="solid"
+                                    class="text-violet-600 text-2xl mb-4"
                                 />
                                 <p class="text-violet-200 leading-relaxed">
                                     "{testimonial.quote}"
@@ -454,9 +463,13 @@ const impactStats = [
                                     <div class="lg:w-2/3">
                                         <div class="flex items-center gap-3 mb-4">
                                             <div class="w-12 h-12 rounded-xl bg-amber-600 flex items-center justify-center">
-                                                <i
-                                                    class={`fa-solid ${study.icon} text-xl text-white`}
-                                                    aria-hidden="true"
+                                                <Icon
+                                                    name={study.icon.replace(
+                                                        "fa-",
+                                                        "",
+                                                    )}
+                                                    style="solid"
+                                                    class="text-xl text-white"
                                                 />
                                             </div>
                                             <span class="inline-flex items-center rounded-full bg-violet-800 px-3 py-1 text-xs font-medium text-violet-200">
