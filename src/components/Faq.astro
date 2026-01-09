@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 const { question, answer, i } = Astro.props;
 import { marked } from "marked";
 ---
@@ -14,15 +15,19 @@ import { marked } from "marked";
     >
       <span class="text-base font-semibold leading-7">{question}</span>
       <span class="ml-6 flex h-7 items-center">
-        <i
+        <Icon
+          name="chevron-down"
+          style="solid"
           x-show="!open"
-          class="fa-solid fa-chevron-down size-4 transition-transform"
-          aria-hidden="true"></i>
-        <i
+          class="size-4 transition-transform"
+        />
+        <Icon
+          name="chevron-up"
+          style="solid"
           x-show="open"
           x-cloak
-          class="fa-solid fa-chevron-up size-4 transition-transform"
-          aria-hidden="true"></i>
+          class="size-4 transition-transform"
+        />
       </span>
     </button>
   </dt>

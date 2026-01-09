@@ -5,6 +5,7 @@ import Posts from "@components/Posts.astro";
 import Mission from "@components/Mission.astro";
 import Things from "@components/Things.astro";
 import Testamonials from "@components/Testamonials.astro";
+import Icon from "@components/Icon.astro";
 import { home } from "@data/home.js";
 const name = "Home";
 const description = "Home description";
@@ -49,7 +50,11 @@ const description = "Home description";
                   <div
                     class="absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-violet-200"
                   >
-                    <i class="fa-solid fa-fingerprint text-violet-900"></i>
+                    <Icon
+                      name="fingerprint"
+                      style="solid"
+                      class="text-violet-900"
+                    />
                   </div>
                   The grant amount you get is unique to you
                 </dt>
@@ -59,7 +64,11 @@ const description = "Home description";
                   <div
                     class="absolute top-0 left-0 flex size-10 items-center justify-center rounded-lg bg-violet-200"
                   >
-                    <i class="fa-regular fa-lightbulb text-violet-900"></i>
+                    <Icon
+                      name="lightbulb"
+                      style="regular"
+                      class="text-violet-900"
+                    />
                   </div>
                   An idea is good enough
                 </dt>

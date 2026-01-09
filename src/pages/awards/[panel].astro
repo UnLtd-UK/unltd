@@ -3,6 +3,7 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Default from "@components/heroes/Default.astro";
+import Icon from "@components/Icon.astro";
 import { marked } from "marked";
 import slugify from "slugify";
 import moment from "moment";
@@ -203,7 +204,11 @@ const {
                                                     <span class="sr-only">
                                                         LinkedIn
                                                     </span>
-                                                    <i class="fa-brands fa-linkedin text-xl" />
+                                                    <Icon
+                                                        name="linkedin"
+                                                        style="brands"
+                                                        class="text-xl"
+                                                    />
                                                 </a>
                                             </li>
                                         )
@@ -225,7 +230,11 @@ const {
                                                     <span class="sr-only">
                                                         Website
                                                     </span>
-                                                    <i class="fa-regular fa-globe text-xl" />
+                                                    <Icon
+                                                        name="globe"
+                                                        style="regular"
+                                                        class="text-xl"
+                                                    />
                                                 </a>
                                             </li>
                                         )
@@ -332,7 +341,11 @@ const {
                                                         <span class="sr-only">
                                                             LinkedIn
                                                         </span>
-                                                        <i class="fa-brands fa-linkedin text-xl" />
+                                                        <Icon
+                                                            name="linkedin"
+                                                            style="brands"
+                                                            class="text-xl"
+                                                        />
                                                     </a>
                                                 </li>
                                             )}
@@ -355,7 +368,11 @@ const {
                                                         <span class="sr-only">
                                                             Website
                                                         </span>
-                                                        <i class="fa-regular fa-globe text-xl" />
+                                                        <Icon
+                                                            name="globe"
+                                                            style="regular"
+                                                            class="text-xl"
+                                                        />
                                                     </a>
                                                 </li>
                                             )}
@@ -455,7 +472,11 @@ const {
                                                         <span class="sr-only">
                                                             LinkedIn
                                                         </span>
-                                                        <i class="fa-brands fa-linkedin text-xl" />
+                                                        <Icon
+                                                            name="linkedin"
+                                                            style="brands"
+                                                            class="text-xl"
+                                                        />
                                                     </a>
                                                 </li>
                                             )}
@@ -478,7 +499,11 @@ const {
                                                         <span class="sr-only">
                                                             Website
                                                         </span>
-                                                        <i class="fa-regular fa-globe text-xl" />
+                                                        <Icon
+                                                            name="globe"
+                                                            style="regular"
+                                                            class="text-xl"
+                                                        />
                                                     </a>
                                                 </li>
                                             )}

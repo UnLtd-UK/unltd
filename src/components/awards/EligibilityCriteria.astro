@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 import {
     awardCodes,
     awardKeys,
@@ -32,14 +33,16 @@ import {
                 <div class="bg-white rounded-2xl border border-violet-200 overflow-hidden shadow-sm">
                     <div class="bg-violet-50 border-b border-violet-200 px-6 py-4 flex items-center gap-3">
                         {category.name === "Social entrepreneur" ? (
-                            <i
-                                class="fa-solid fa-user h-5 w-5 text-violet-600"
-                                aria-hidden="true"
+                            <Icon
+                                name="user"
+                                style="solid"
+                                class="h-5 w-5 text-violet-600"
                             />
                         ) : (
-                            <i
-                                class="fa-solid fa-building h-5 w-5 text-violet-600"
-                                aria-hidden="true"
+                            <Icon
+                                name="building"
+                                style="solid"
+                                class="h-5 w-5 text-violet-600"
                             />
                         )}
                         <h3 class="font-semibold text-foreground">
@@ -113,16 +116,18 @@ import {
                                                                                 }{" "}
                                                                                 sectors
                                                                             </span>
-                                                                            <i
-                                                                                class="fa-solid fa-chevron-down text-[10px]"
+                                                                            <Icon
+                                                                                name="chevron-down"
+                                                                                style="solid"
+                                                                                class="text-[10px]"
                                                                                 x-show="!expanded"
-                                                                                aria-hidden="true"
                                                                             />
-                                                                            <i
-                                                                                class="fa-solid fa-chevron-up text-[10px]"
+                                                                            <Icon
+                                                                                name="chevron-up"
+                                                                                style="solid"
+                                                                                class="text-[10px]"
                                                                                 x-show="expanded"
                                                                                 x-cloak
-                                                                                aria-hidden="true"
                                                                             />
                                                                         </button>
                                                                         <div
@@ -183,10 +188,11 @@ import {
                                                                                                 6}{" "}
                                                                                             more
                                                                                         </span>
-                                                                                        <i
-                                                                                            class="fa-solid fa-chevron-down text-[10px]"
+                                                                                        <Icon
+                                                                                            name="chevron-down"
+                                                                                            style="solid"
+                                                                                            class="text-[10px]"
                                                                                             x-show="!showAll"
-                                                                                            aria-hidden="true"
                                                                                         />
                                                                                         <span
                                                                                             x-show="showAll"
@@ -195,11 +201,12 @@ import {
                                                                                             Show
                                                                                             less
                                                                                         </span>
-                                                                                        <i
-                                                                                            class="fa-solid fa-chevron-up text-[10px]"
+                                                                                        <Icon
+                                                                                            name="chevron-up"
+                                                                                            style="solid"
+                                                                                            class="text-[10px]"
                                                                                             x-show="showAll"
                                                                                             x-cloak
-                                                                                            aria-hidden="true"
                                                                                         />
                                                                                     </button>
                                                                                 )}
@@ -209,9 +216,10 @@ import {
                                                                 ) : rendered.type ===
                                                                   "null" ? (
                                                                     <span class="inline-flex items-center gap-1.5 text-slate-400">
-                                                                        <i
-                                                                            class="fa-solid fa-minus h-4 w-4"
-                                                                            aria-hidden="true"
+                                                                        <Icon
+                                                                            name="minus"
+                                                                            style="solid"
+                                                                            class="h-4 w-4"
                                                                         />
                                                                         <span class="text-xs">
                                                                             N/A
@@ -220,9 +228,10 @@ import {
                                                                 ) : rendered.type ===
                                                                   "true" ? (
                                                                     <span class="inline-flex items-center gap-1.5 text-emerald-600">
-                                                                        <i
-                                                                            class="fa-solid fa-check h-4 w-4"
-                                                                            aria-hidden="true"
+                                                                        <Icon
+                                                                            name="check"
+                                                                            style="solid"
+                                                                            class="h-4 w-4"
                                                                         />
                                                                         <span class="text-xs font-medium">
                                                                             Yes
@@ -231,9 +240,10 @@ import {
                                                                 ) : rendered.type ===
                                                                   "false" ? (
                                                                     <span class="inline-flex items-center gap-1.5 text-red-500">
-                                                                        <i
-                                                                            class="fa-solid fa-xmark h-4 w-4"
-                                                                            aria-hidden="true"
+                                                                        <Icon
+                                                                            name="xmark"
+                                                                            style="solid"
+                                                                            class="h-4 w-4"
                                                                         />
                                                                         <span class="text-xs font-medium">
                                                                             No
@@ -279,23 +289,25 @@ import {
         </h4>
         <div class="flex flex-wrap gap-6 text-sm">
             <div class="flex items-center gap-2">
-                <i
-                    class="fa-solid fa-check h-4 w-4 text-emerald-600"
-                    aria-hidden="true"></i>
+                <Icon
+                    name="check"
+                    style="solid"
+                    class="h-4 w-4 text-emerald-600"
+                />
                 <span class="text-muted-foreground"
                     >Required / Must answer Yes</span
                 >
             </div>
             <div class="flex items-center gap-2">
-                <i
-                    class="fa-solid fa-xmark h-4 w-4 text-red-500"
-                    aria-hidden="true"></i>
+                <Icon name="xmark" style="solid" class="h-4 w-4 text-red-500" />
                 <span class="text-muted-foreground">Must answer No</span>
             </div>
             <div class="flex items-center gap-2">
-                <i
-                    class="fa-solid fa-minus h-4 w-4 text-violet-400"
-                    aria-hidden="true"></i>
+                <Icon
+                    name="minus"
+                    style="solid"
+                    class="h-4 w-4 text-violet-400"
+                />
                 <span class="text-muted-foreground"
                     >Not applicable for this award</span
                 >

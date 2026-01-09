@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 const { name } = Astro.props;
 ---
 
@@ -17,9 +18,8 @@ const { name } = Astro.props;
         >{name}</span
       >
       <span class="ml-6 flex h-7 items-center">
-        <i class="fa-solid fa-chevron-down" x-show="!open" aria-hidden="true"
-        ></i>
-        <i class="fa-solid fa-chevron-up" x-show="open" aria-hidden="true"></i>
+        <Icon name="chevron-down" style="solid" x-show="!open" />
+        <Icon name="chevron-up" style="solid" x-show="open" />
       </span>
     </button>
   </dt>

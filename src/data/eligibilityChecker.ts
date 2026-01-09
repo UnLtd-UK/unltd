@@ -6,13 +6,14 @@
 
 export interface CheckerBenefit {
     text: string;
-    icon: string;
+    iconName: string;
+    iconStyle: "solid" | "regular" | "brands";
 }
 
 export const benefits: CheckerBenefit[] = [
-    { text: "No account required", icon: "fa-regular fa-circle-check" },
-    { text: "Instant results", icon: "fa-regular fa-sparkles" },
-    { text: "Email confirmation", icon: "fa-regular fa-envelope" },
+    { text: "No account required", iconName: "circle-check", iconStyle: "regular" },
+    { text: "Instant results", iconName: "sparkles", iconStyle: "regular" },
+    { text: "Email confirmation", iconName: "envelope", iconStyle: "regular" },
 ];
 
 export const checkerUrl = "https://unltduk.typeform.com/awards-checker";

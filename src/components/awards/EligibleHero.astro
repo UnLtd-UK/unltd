@@ -4,6 +4,7 @@
  * Success hero section for the eligibility confirmation page
  */
 
+import Icon from "@components/Icon.astro";
 import Award from "@components/awards/Award.astro";
 
 interface Props {
@@ -34,16 +35,20 @@ const awardText = isMultipleAwards ? "Awards" : "Award";
                     <div
                         class="w-16 h-16 rounded-2xl bg-white/20 flex items-center justify-center"
                     >
-                        <i
-                            class="fa-solid fa-circle-check text-3xl"
-                            aria-hidden="true"></i>
+                        <Icon
+                            name="circle-check"
+                            style="solid"
+                            class="text-3xl"
+                        />
                     </div>
                     <span
                         class="inline-flex items-center rounded-full bg-white/20 px-3 py-1 text-sm font-semibold ring-1 ring-white/30"
                     >
-                        <i
-                            class="fa-solid fa-sparkles mr-1.5 text-xs"
-                            aria-hidden="true"></i>
+                        <Icon
+                            name="sparkles"
+                            style="solid"
+                            class="mr-1.5 text-xs"
+                        />
                         Eligibility Confirmed
                     </span>
                 </div>
@@ -71,9 +76,11 @@ const awardText = isMultipleAwards ? "Awards" : "Award";
                         x-cloak
                         class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20"
                     >
-                        <i
-                            class="fa-solid fa-envelope-circle-check text-emerald-200 mt-0.5"
-                            aria-hidden="true"></i>
+                        <Icon
+                            name="envelope-circle-check"
+                            style="solid"
+                            class="text-emerald-200 mt-0.5"
+                        />
                         <div>
                             <p class="text-sm text-white">
                                 We've emailed <span
@@ -87,9 +94,10 @@ const awardText = isMultipleAwards ? "Awards" : "Award";
                     {
                         isMultipleAwards && (
                             <div class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20">
-                                <i
-                                    class="fa-solid fa-info-circle text-emerald-200 mt-0.5"
-                                    aria-hidden="true"
+                                <Icon
+                                    name="info-circle"
+                                    style="solid"
+                                    class="text-emerald-200 mt-0.5"
                                 />
                                 <p class="text-sm text-white">
                                     You can only apply for one Award at a time.
@@ -104,9 +112,11 @@ const awardText = isMultipleAwards ? "Awards" : "Award";
                     <div
                         class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20"
                     >
-                        <i
-                            class="fa-solid fa-robot text-emerald-200 mt-0.5"
-                            aria-hidden="true"></i>
+                        <Icon
+                            name="robot"
+                            style="solid"
+                            class="text-emerald-200 mt-0.5"
+                        />
                         <div>
                             <p class="text-sm font-semibold text-white mb-1">
                                 On the use of AI
@@ -135,23 +145,14 @@ const awardText = isMultipleAwards ? "Awards" : "Award";
                                 href="https://portal.unltd.org.uk/apply"
                                 class="inline-flex items-center gap-3 px-8 py-4 bg-white text-emerald-700 font-bold rounded-xl text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105"
                             >
-                                <i
-                                    class="fa-solid fa-rocket"
-                                    aria-hidden="true"
-                                />
+                                <Icon name="rocket" style="solid" />
                                 Apply Now
-                                <i
-                                    class="fa-solid fa-arrow-right"
-                                    aria-hidden="true"
-                                />
+                                <Icon name="arrow-right" style="solid" />
                             </a>
                         ) : (
                             <div>
                                 <div class="inline-flex items-center gap-2 px-6 py-3 bg-white/20 text-white font-semibold rounded-xl text-lg ring-1 ring-white/30">
-                                    <i
-                                        class="fa-solid fa-clock"
-                                        aria-hidden="true"
-                                    />
+                                    <Icon name="clock" style="solid" />
                                     Applications open {nextOpenDate}
                                 </div>
                                 <p class="text-emerald-200 text-sm mt-2">
@@ -179,9 +180,10 @@ const awardText = isMultipleAwards ? "Awards" : "Award";
                             <div class="w-full max-w-[280px]">
                                 <div class="h-full min-h-[300px] rounded-4xl border-2 border-dashed border-white/20 bg-white/5 flex flex-col items-center justify-center text-center p-6">
                                     <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-4">
-                                        <i
-                                            class="fa-solid fa-question text-xl text-white/30"
-                                            aria-hidden="true"
+                                        <Icon
+                                            name="question"
+                                            style="solid"
+                                            class="text-xl text-white/30"
                                         />
                                     </div>
                                     <p class="text-sm text-white/40 font-medium mb-2">

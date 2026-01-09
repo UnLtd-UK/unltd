@@ -6,6 +6,8 @@
  * Shows Apply button when round is open, or opening date when closed.
  */
 
+import Icon from "@components/Icon.astro";
+
 interface Props {
     isRoundOpen: boolean;
     nextOpenDate: string;
@@ -26,14 +28,14 @@ const { isRoundOpen, nextOpenDate } = Astro.props;
                 href="https://portal.unltd.org.uk/apply"
                 class="inline-flex items-center gap-2 px-8 py-4 bg-amber-500 hover:bg-amber-400 text-amber-950 font-bold rounded-xl text-lg transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
             >
-                <i class="fa-solid fa-rocket" aria-hidden="true" />
+                <Icon name="rocket" style="solid" />
                 Start Your Application
-                <i class="fa-solid fa-arrow-right" aria-hidden="true" />
+                <Icon name="arrow-right" style="solid" />
             </a>
         ) : (
             <div class="space-y-4">
                 <div class="inline-flex items-center gap-2 px-8 py-4 bg-violet-800 text-violet-300 font-semibold rounded-xl text-lg">
-                    <i class="fa-solid fa-clock" aria-hidden="true" />
+                    <Icon name="clock" style="solid" />
                     Applications open {nextOpenDate}
                 </div>
                 <p class="text-violet-400 text-sm">

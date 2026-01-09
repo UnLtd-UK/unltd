@@ -1,16 +1,10 @@
 ---
 import "../styles/global.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-import { config, library } from "@fortawesome/fontawesome-svg-core";
-import * as brandIcons from "@awesome.me/kit-0ff725f684/icons/classic/brands";
-import * as solidIcons from "@awesome.me/kit-0ff725f684/icons/classic/solid";
-import * as regularIcons from "@awesome.me/kit-0ff725f684/icons/classic/regular";
+import { config } from "@fortawesome/fontawesome-svg-core";
+// Import the centralized icon registry (registers icons with library)
+import "@lib/icons";
 config.autoAddCss = false;
-library.add(
-  ...Object.values(brandIcons),
-  ...Object.values(solidIcons),
-  ...Object.values(regularIcons),
-);
 
 import { palette } from "@data/palette.js";
 import { navigation } from "@data/navigation.js";
@@ -91,17 +85,5 @@ import RoundBanner from "@components/awards/RoundBanner.astro";
       </div>
       <Footer />
     </div>
-    <script>
-      import { dom, library } from "@fortawesome/fontawesome-svg-core";
-      import * as brandIcons from "@awesome.me/kit-0ff725f684/icons/classic/brands";
-      import * as solidIcons from "@awesome.me/kit-0ff725f684/icons/classic/solid";
-      import * as regularIcons from "@awesome.me/kit-0ff725f684/icons/classic/regular";
-      library.add(
-        ...Object.values(brandIcons),
-        ...Object.values(solidIcons),
-        ...Object.values(regularIcons),
-      );
-      dom.watch();
-    </script>
   </body>
 </html>

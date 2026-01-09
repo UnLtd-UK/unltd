@@ -1,4 +1,6 @@
 ---
+import Icon from "@components/Icon.astro";
+
 interface Props {
   headings: {
     id: string;
@@ -48,7 +50,7 @@ const filteredHeadings = headings.filter((heading) => heading.level <= 3);
   class="fixed bottom-8 right-8 bg-violet-800 hover:bg-violet-700 text-white p-3 rounded-full shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none"
   aria-label="Back to top"
 >
-  <i class="fa-solid fa-arrow-up h-6 w-6" aria-hidden="true"></i>
+  <Icon name="arrow-up" style="solid" class="h-6 w-6" />
 </button>
 
 <script>

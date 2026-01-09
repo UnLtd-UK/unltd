@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 import Fields from "@components/fields/Fields.astro";
 // import Grant from "@components/GrantCard2.astro";
 import { marked } from "marked";
@@ -27,9 +28,10 @@ const selectedStageDisplay = portal_text;
       <div class="bg-amber-50 border border-amber-200 rounded-md p-6 shadow-sm">
         <div class="flex gap-3">
           <div class="flex-shrink-0">
-            <i
-              class="fa-solid fa-circle-info h-5 w-5 text-amber-600"
-              aria-hidden="true"
+            <Icon
+              name="circle-info"
+              style="solid"
+              class="h-5 w-5 text-amber-600"
             />
           </div>
           <div class="flex-1">

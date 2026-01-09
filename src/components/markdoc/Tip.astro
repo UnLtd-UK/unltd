@@ -1,13 +1,16 @@
 ---
+import Icon from "@components/Icon.astro";
 const { description, link } = Astro.props;
 ---
 
 <div class="rounded-md bg-blue-50 p-4">
     <div class="flex">
         <div class="shrink-0">
-            <i
-                class="fa-solid fa-circle-info size-5 text-blue-400"
-                aria-hidden="true"></i>
+            <Icon
+                name="circle-info"
+                style="solid"
+                class="size-5 text-blue-400"
+            />
         </div>
         <div class="ml-3 flex-1 md:flex md:justify-between">
             <p class="text-sm text-blue-700">

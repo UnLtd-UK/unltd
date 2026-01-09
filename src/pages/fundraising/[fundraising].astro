@@ -3,6 +3,7 @@ import { fundraisers } from "@data/fundraisers.js";
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Icon from "@components/Icon.astro";
 
 import { marked } from "marked";
 marked.use({ mangle: false, headerIds: false });
@@ -159,7 +160,7 @@ const { fundraiser } = Astro.props;
                 >
                   <>
                     <span>Donate now</span>
-                    <i class="fa-solid fa-arrow-right" />
+                    <Icon name="arrow-right" style="solid" />
                   </>
                 </a>
               </div>

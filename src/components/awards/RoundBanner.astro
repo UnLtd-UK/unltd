@@ -9,6 +9,7 @@
  * - With props: uses provided currentRound/nextOpenRound
  */
 
+import Icon from "@components/Icon.astro";
 import CountdownTimer from "./CountdownTimer.jsx";
 import {
     getWidgetDisplayData,
@@ -117,15 +118,15 @@ const ctaStyles = isAcceptingApplications
                 <div
                     class={`hidden sm:flex h-10 w-10 items-center justify-center rounded-lg ${iconBgColor} shrink-0`}
                 >
-                    <i
-                        class={`fa-solid ${
-                            isAcceptingApplications
-                                ? "fa-door-open"
-                                : status === "upcoming"
-                                  ? "fa-calendar-clock"
-                                  : "fa-magnifying-glass-chart"
-                        } ${iconColor}`}
-                        aria-hidden="true"></i>
+                    <Icon
+                        name={isAcceptingApplications
+                            ? "door-open"
+                            : status === "upcoming"
+                              ? "calendar-clock"
+                              : "magnifying-glass-chart"}
+                        style="solid"
+                        class={iconColor}
+                    />
                 </div>
 
                 <div>
@@ -148,12 +149,20 @@ const ctaStyles = isAcceptingApplications
                                     </>
                                 ) : status === "upcoming" ? (
                                     <>
-                                        <i class="fa-regular fa-clock text-[10px]" />
+                                        <Icon
+                                            name="clock"
+                                            style="regular"
+                                            class="text-[10px]"
+                                        />
                                         Coming soon
                                     </>
                                 ) : (
                                     <>
-                                        <i class="fa-solid fa-spinner text-[10px]" />
+                                        <Icon
+                                            name="spinner"
+                                            style="solid"
+                                            class="text-[10px]"
+                                        />
                                         Assessing
                                     </>
                                 )
@@ -266,9 +275,11 @@ const ctaStyles = isAcceptingApplications
                     href="/awards#eligibility-checker"
                     class={`inline-flex items-center gap-2 px-4 py-2 font-semibold rounded-lg text-sm transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 ${ctaStyles}`}
                 >
-                    <i
-                        class="fa-solid fa-clipboard-check text-xs"
-                        aria-hidden="true"></i>
+                    <Icon
+                        name="clipboard-check"
+                        style="solid"
+                        class="text-xs"
+                    />
                     Check Eligibility
                 </a>
 
@@ -277,7 +288,7 @@ const ctaStyles = isAcceptingApplications
                     class="hidden lg:inline-flex items-center gap-1.5 text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors"
                 >
                     View Awards
-                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                    <Icon name="arrow-right" style="solid" class="text-xs" />
                 </a>
             </div>
         </div>

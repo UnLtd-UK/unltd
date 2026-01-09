@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 const { banner } = Astro.props;
 ---
 
@@ -37,7 +38,8 @@ const { banner } = Astro.props;
             href={banner.secondary_button_url}
             class="text-sm/6 font-semibold text-violet-950"
           >
-            {banner.secondary_button_text} <i class="fa-solid fa-arrow-right" />
+            {banner.secondary_button_text}{" "}
+            <Icon name="arrow-right" style="solid" />
           </a>
         )
       }

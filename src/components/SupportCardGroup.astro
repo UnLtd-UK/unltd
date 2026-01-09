@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 const { support, type } = Astro.props;
 import groups from "@data/json/groups.json";
 
@@ -18,13 +19,13 @@ for (let index = 0; index < groups.length; index++) {
     <span
       class={`inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800 capitalize gap-1`}
     >
-      <i class={`fa-solid fa-${type.icon}`}></i>
+      <Icon name={type.icon} style="solid" />
       <p>{type.singular.name}</p>
     </span>
     <span
       class={`inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800 capitalize gap-1`}
     >
-      <i class="fa-solid fa-star"></i>
+      <Icon name="star" style="solid" />
       <p>{group.name}</p>
     </span>
   </div>

@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 const { styles, programme } = Astro.props;
 import Container from "@components/Container.astro";
 ---
@@ -27,9 +28,7 @@ import Container from "@components/Container.astro";
                 <a
                     href="/awards#faq"
                     class={`text-sm font-semibold leading-6 ${styles.text2} ${styles.font}`}
-                    >Help <i
-                        aria-hidden="true"
-                        class="fa-regular fa-circle-question"></i></a
+                    >Help <Icon name="circle-question" style="regular" /></a
                 >
             </div>
         </div>

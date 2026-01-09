@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 import Countdown from "./Countdown.jsx";
 
 // DATA - fetch internally so component is self-contained
@@ -364,7 +365,11 @@ const upcomingRounds = allRounds.filter(
                                     </div>
 
                                     <div class="flex items-center gap-2">
-                                        <i class="fa-solid fa-calendar-day text-indigo-300" />
+                                        <Icon
+                                            name="calendar-day"
+                                            style="solid"
+                                            class="text-indigo-300"
+                                        />
                                         <p class="text-sm text-indigo-200">
                                             Opens in{" "}
                                             <strong class="text-white">
@@ -391,7 +396,11 @@ const upcomingRounds = allRounds.filter(
                                     </div>
 
                                     <div class="flex items-center gap-2">
-                                        <i class="fa-solid fa-calendar-day text-violet-300" />
+                                        <Icon
+                                            name="calendar-day"
+                                            style="solid"
+                                            class="text-violet-300"
+                                        />
                                         <p class="text-sm text-violet-200">
                                             Opens in{" "}
                                             <strong class="text-white">
@@ -439,9 +448,11 @@ const upcomingRounds = allRounds.filter(
                             : "bg-white/5 border-white/10"
                     }`}
                 >
-                    <i
-                        class="fa-solid fa-calendar-day h-5 w-5 mx-auto mb-2 text-violet-300"
-                    ></i>
+                    <Icon
+                        name="calendar-day"
+                        style="solid"
+                        class="h-5 w-5 mx-auto mb-2 text-violet-300"
+                    />
                     <p class="text-violet-400 text-xs uppercase tracking-wide">
                         Opens
                     </p>
@@ -459,9 +470,11 @@ const upcomingRounds = allRounds.filter(
                             : "bg-white/10"
                     }`}
                 >
-                    <i
-                        class="fa-regular fa-clock h-5 w-5 mx-auto mb-2 text-violet-300"
-                    ></i>
+                    <Icon
+                        name="clock"
+                        style="regular"
+                        class="h-5 w-5 mx-auto mb-2 text-violet-300"
+                    />
                     <p class="text-violet-400 text-xs uppercase tracking-wide">
                         Closes
                     </p>
@@ -479,9 +492,11 @@ const upcomingRounds = allRounds.filter(
                             : "bg-white/10"
                     }`}
                 >
-                    <i
-                        class="fa-solid fa-magnifying-glass-chart h-5 w-5 mx-auto mb-2 text-violet-300"
-                    ></i>
+                    <Icon
+                        name="magnifying-glass-chart"
+                        style="solid"
+                        class="h-5 w-5 mx-auto mb-2 text-violet-300"
+                    />
                     <p class="text-violet-400 text-xs uppercase tracking-wide">
                         Assessment Starts
                     </p>
@@ -499,9 +514,11 @@ const upcomingRounds = allRounds.filter(
                             : "bg-white/10"
                     }`}
                 >
-                    <i
-                        class="fa-solid fa-clipboard-check h-5 w-5 mx-auto mb-2 text-violet-300"
-                    ></i>
+                    <Icon
+                        name="clipboard-check"
+                        style="solid"
+                        class="h-5 w-5 mx-auto mb-2 text-violet-300"
+                    />
                     <p class="text-violet-400 text-xs uppercase tracking-wide">
                         Assessment Ends
                     </p>
@@ -519,9 +536,11 @@ const upcomingRounds = allRounds.filter(
                             : "bg-white/10"
                     }`}
                 >
-                    <i
-                        class="fa-regular fa-envelope h-5 w-5 mx-auto mb-2 text-violet-300"
-                    ></i>
+                    <Icon
+                        name="envelope"
+                        style="regular"
+                        class="h-5 w-5 mx-auto mb-2 text-violet-300"
+                    />
                     <p class="text-violet-400 text-xs uppercase tracking-wide">
                         Results Start
                     </p>
@@ -539,9 +558,11 @@ const upcomingRounds = allRounds.filter(
                             : "bg-white/10"
                     }`}
                 >
-                    <i
-                        class="fa-regular fa-circle-check h-5 w-5 mx-auto mb-2 text-violet-300"
-                    ></i>
+                    <Icon
+                        name="circle-check"
+                        style="regular"
+                        class="h-5 w-5 mx-auto mb-2 text-violet-300"
+                    />
                     <p class="text-violet-400 text-xs uppercase tracking-wide">
                         Results End
                     </p>
@@ -559,7 +580,11 @@ const upcomingRounds = allRounds.filter(
                 allRounds.length > 1 && (
                     <div class="mt-6 pt-6 border-t border-violet-700/50">
                         <h4 class="text-lg font-semibold mb-4 text-violet-100">
-                            <i class="fa-solid fa-calendar-days mr-2 text-violet-300" />
+                            <Icon
+                                name="calendar-days"
+                                style="solid"
+                                class="mr-2 text-violet-300"
+                            />
                             All Application Rounds
                         </h4>
                         <div class="overflow-x-auto -mx-2">
