@@ -107,8 +107,8 @@ function convertToEmbedUrl(url: string): string {
 }
 
 // Get action button text
-function getActionText() {
-    return 'Load Content';
+function getActionText(platformName: string) {
+    return `Load ${platformName} embed`;
 }
 
 export default function EmbedLoader({
@@ -271,7 +271,7 @@ export default function EmbedLoader({
                     onClick={handleLoadEmbed}
                     className={EMBED_STYLES.consent.buttonPrimary}
                 >
-                    {getActionText()}
+                    {getActionText(platformConfig.name)}
                 </button>
 
                 {/* Open in new tab */}
