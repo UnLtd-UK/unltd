@@ -16,9 +16,9 @@
 // =============================================================================
 
 export const CONSENT_PURPOSE_IDS = {
-    /** Purpose ID for video embeds (YouTube, Loom, Vimeo) */
+    /** Purpose ID for video embeds (YouTube) */
     VIDEOS: 'fAeW',
-    /** Purpose ID for form embeds (Typeform, etc.) */
+    /** Purpose ID for form embeds (Typeform) */
     FORMS: 'IaZk',
 } as const;
 
@@ -53,22 +53,6 @@ export const PLATFORMS: PlatformConfig[] = [
         type: 'video',
         consentPurposeId: CONSENT_PURPOSE_IDS.VIDEOS,
         urlPatterns: ['youtube.com', 'youtu.be', 'youtube-nocookie.com'],
-    },
-    {
-        name: 'Loom',
-        owner: 'Atlassian',
-        privacyPolicyUrl: 'https://www.atlassian.com/legal/privacy-policy',
-        type: 'video',
-        consentPurposeId: CONSENT_PURPOSE_IDS.VIDEOS,
-        urlPatterns: ['loom.com'],
-    },
-    {
-        name: 'Vimeo',
-        owner: 'Vimeo',
-        privacyPolicyUrl: 'https://vimeo.com/legal/privacy/policy',
-        type: 'video',
-        consentPurposeId: CONSENT_PURPOSE_IDS.VIDEOS,
-        urlPatterns: ['vimeo.com'],
     },
     {
         name: 'Typeform',

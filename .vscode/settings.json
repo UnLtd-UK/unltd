@@ -1,0 +1,14 @@
+{
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "search.exclude": {
+        "**/dist": true
+    },
+    "files.exclude": {
+        "**/dist": true
+    },
+    "typescript.validate.enable": true,
+    "javascript.validate.enable": true,
+    "files.watcherExclude": {
+        "**/dist/**": true
+    }
+}

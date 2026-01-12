@@ -17,5 +17,6 @@
     "src/**/*.ts",
     "src/**/*.astro",
     "src/**/*.tsx"
-  ]
+  ],
+  "exclude": ["node_modules", "dist"]
 }

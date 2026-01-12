@@ -13,7 +13,7 @@ import {
 
 interface EmbedLoaderProps {
     src: string;
-    title?: string;
+    title: string;
     className?: string;
 }
 
@@ -57,30 +57,52 @@ function getPlatformConfig(url: string): Omit<PlatformConfig, 'urlPatterns'> | n
     return null;
 }
 
-// Convert YouTube URLs to privacy-enhanced nocookie variant
-function getPrivacyEnhancedUrl(url: string): string {
-    // Already using nocookie
-    if (url.includes('youtube-nocookie.com')) {
+/**
+ * Convert any supported URL to its embed-friendly version
+ * 
+ * Supports:
+ * - YouTube: watch URLs, short URLs, and embed URLs → youtube-nocookie.com/embed
+ * - Typeform: regular URLs → embed URLs with embed parameter
+ */
+function convertToEmbedUrl(url: string): string {
+    // =========================================================================
+    // YOUTUBE
+    // =========================================================================
+
+    // Already using nocookie embed
+    if (url.includes('youtube-nocookie.com/embed/')) {
         return url;
     }
 
-    // Handle youtube.com/embed/ URLs
+    // youtube.com/embed/ → convert to nocookie
     if (url.includes('youtube.com/embed/')) {
         return url.replace('youtube.com/embed/', 'youtube-nocookie.com/embed/');
     }
 
-    // Handle youtube.com/watch?v= URLs - convert to embed format
-    const watchMatch = url.match(/youtube\.com\/watch\?v=([^&]+)/);
-    if (watchMatch) {
-        return `https://www.youtube-nocookie.com/embed/${watchMatch[1]}`;
+    // youtube.com/watch?v=VIDEO_ID → nocookie embed
+    const youtubeWatchMatch = url.match(/youtube\.com\/watch\?v=([^&]+)/);
+    if (youtubeWatchMatch) {
+        return `https://www.youtube-nocookie.com/embed/${youtubeWatchMatch[1]}`;
     }
 
-    // Handle youtu.be short URLs - convert to embed format
-    const shortMatch = url.match(/youtu\.be\/([^?]+)/);
-    if (shortMatch) {
-        return `https://www.youtube-nocookie.com/embed/${shortMatch[1]}`;
+    // youtu.be/VIDEO_ID → nocookie embed
+    const youtubeShortMatch = url.match(/youtu\.be\/([^?]+)/);
+    if (youtubeShortMatch) {
+        return `https://www.youtube-nocookie.com/embed/${youtubeShortMatch[1]}`;
     }
 
+    // =========================================================================
+    // TYPEFORM
+    // =========================================================================
+
+    // Typeform URLs generally work as-is for iframe embeds
+    // Just ensure it has the embed parameter
+    if (url.includes('typeform.com') && !url.includes('typeform-embed')) {
+        const separator = url.includes('?') ? '&' : '?';
+        return `${url}${separator}typeform-embed=embed-widget`;
+    }
+
+    // Return unchanged if no conversion needed
     return url;
 }
 
@@ -91,7 +113,7 @@ function getActionText() {
 
 export default function EmbedLoader({
     src,
-    title = 'Embedded content',
+    title,
     className = '',
 }: EmbedLoaderProps) {
     const [hasConsent, setHasConsent] = useState<boolean | null>(null);
@@ -114,8 +136,8 @@ export default function EmbedLoader({
 
     const consentPurposeId = platformConfig.consentPurposeId;
 
-    // Get privacy-enhanced URL (converts YouTube to nocookie)
-    const enhancedSrc = getPrivacyEnhancedUrl(src);
+    // Convert URL to embed-friendly version (e.g., watch URLs → embed URLs)
+    const embedSrc = convertToEmbedUrl(src);
 
     // Check if we should bypass consent (non-production environment)
     const shouldBypassConsent = useCallback(() => {
@@ -226,7 +248,7 @@ export default function EmbedLoader({
     if (hasConsent) {
         return (
             <iframe
-                src={enhancedSrc}
+                src={embedSrc}
                 title={title}
                 frameBorder="0"
                 allow="fullscreen; autoplay; encrypted-media"
