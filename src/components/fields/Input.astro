@@ -12,7 +12,8 @@ const {
   number,
 } = Astro.props;
 import { marked } from "marked";
-marked.use({ mangle: false, headerIds: false });
+import { gfmHeadingId } from "marked-gfm-heading-id";
+marked.use(gfmHeadingId());
 let markdown;
 if (description != null) {
   markdown = marked.parse(description);

@@ -1,7 +1,8 @@
 ---
 import Icon from "@components/Icon.astro";
 import { marked } from "marked";
-marked.use({ mangle: false, headerIds: false });
+import { gfmHeadingId } from "marked-gfm-heading-id";
+marked.use(gfmHeadingId());
 const { grants, name } = Astro.props;
 ---
 
