@@ -3,6 +3,7 @@ import Note from "@components/markdoc/Note.astro";
 import Dropdown from "@components/markdoc/Dropdown.astro";
 import Tip from "@components/markdoc/Tip.astro";
 import Heading from "@components/markdoc/Heading.astro";
+import EmbedLoaderHydrator from "@components/EmbedLoaderHydrator";
 import { prepareMarkdown } from "@data/functions/prepareMarkdown.js";
 
 import { marked } from "marked";
@@ -14,12 +15,13 @@ const renderer = new marked.Renderer();
 renderer.heading = function ({ tokens, depth, text }) {
   const idMatch = tokens[0].raw.match(/\(#(.*?)\)/);
   const id = idMatch ? idMatch[1] : text.toLowerCase().replace(/\s+/g, "-");
+  const firstToken = tokens[0] as { text?: string; href?: string };
 
   let h = {
     level: depth,
     id: id,
-    text: tokens[0].text,
-    href: tokens[0].href || "", // Add default empty string if href is undefined
+    text: firstToken.text || text,
+    href: firstToken.href || "", // Add default empty string if href is undefined
   };
 
   if ((depth === 2 || depth === 3) && h.href && h.href.startsWith("#")) {
@@ -100,3 +102,6 @@ const html = marked.parse(preparedBody);
     [&_details[open]_summary::after]:content-['-']
     [&_details>*:not(summary)]:mt-4"
 />
+
+<!-- Hydrate embed placeholders with React EmbedLoader components -->
+<EmbedLoaderHydrator client:load />
