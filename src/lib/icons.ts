@@ -90,9 +90,13 @@ import {
     faHeartPulse,
     faHourglass,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faHourglassHalf,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faHourglassHalf,
+>>>>>>> 03b76fe (feat: Integrate DynamicIcon component across various components and update icon usage)
     faHouse,
     faImageSlash,
     faInfoCircle,
@@ -341,9 +345,13 @@ library.add(
     faHeartPulse,
     faHourglass,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faHourglassHalf,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faHourglassHalf,
+>>>>>>> 03b76fe (feat: Integrate DynamicIcon component across various components and update icon usage)
     faHouse,
     faImageSlash,
     faInfoCircle,
@@ -577,9 +585,13 @@ export {
     faHeartPulse,
     faHourglass,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faHourglassHalf,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faHourglassHalf,
+>>>>>>> 03b76fe (feat: Integrate DynamicIcon component across various components and update icon usage)
     faHouse,
     faImageSlash,
     faInfoCircle,

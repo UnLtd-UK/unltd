@@ -52,9 +52,6 @@ const {
         <IconCard icon={icon} name={name} styles={styles} />
       </span>
       <div>
-        <!-- <span class={`uppercase tracking-widest text-xs ${styles.text2}`}
-          >{code}</span
-        > -->
         <h3 class={`text-lg font-bold leading-6 ${styles.text} ${styles.font}`}>
           {name}
         </h3>
@@ -66,21 +63,6 @@ const {
     style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%224%22 height=%224%22 viewBox=%220 0 4 4%22%3E%3Cpath fill=%22%23ffffff%22 fill-opacity=%220.08%22 d=%22M1 3h1v1H1V3zm2-2h1v1H3V1z%22%3E%3C/path%3E%3C/svg%3E');"
   >
     <div class="flex flex-col gap-2">
-      <!-- <div>
-        <p class={`flex gap-2 items-center`}>
-          <i class={`fa-light fa-heart text-sm ${styles.text2}`}></i>
-          <span class={`text-xs font-medium ${styles.text}`}
-            >Everything in
-            <span
-              class={`inline-flex gap-1 justify-center items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${styles.badge}`}
-            >
-              <img class="h-3" src="/svg/unltd.svg" alt="" />
-              <span class="tracking-tight text-xs">Millennium Awards Trust</span
-              >
-            </span>
-          </span>
-        </p>
-      </div> -->
       {
         services.map((service) => (
           <div>
@@ -98,56 +80,4 @@ const {
       }
     </div>
   </div>
-
-  <!-- <div class={`flex flex-col gap-6  rounded-b-2xl p-8 ${styles.bg2}`}>
-    <div class="flex flex-col gap-3">
-      <p class={`text-base  ${styles.text}`}>Programme eligibility</p>
-      <ul class="flex flex-col gap-4">
-        <li class="flex flex-col gap-1">
-          <p class={`truncate text-xs flex gap-2 items-center`}>
-            <i class={`fa-thin fa-seedling ${styles.text2}`}></i>
-            <span class={`${styles.text2} ${styles.font}`}> Stage </span>
-          </p>
-          <p
-            class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
-          >
-            {stage}
-          </p>
-        </li>
-        <li class="flex flex-col gap-1">
-          <p class={`truncate text-xs flex gap-2 items-center`}>
-            <i class={`fa-thin fa-spinner ${styles.text2}`}></i>
-            <span class={`${styles.text2} ${styles.font}`}> Aged </span>
-          </p>
-          <p
-            class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
-          >
-            {age}
-          </p>
-        </li>
-        <li class="flex flex-col gap-1">
-          <p class={`truncate text-xs flex gap-2 items-center`}>
-            <i class={`fa-thin fa-location-dot ${styles.text2}`}></i>
-            <span class={`${styles.text2} ${styles.font}`}> Located in </span>
-          </p>
-          <p
-            class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
-          >
-            {geography}
-          </p>
-        </li>
-        <li class="flex flex-col gap-1">
-          <p class={`truncate text-xs flex gap-2 items-center`}>
-            <i class={`fa-thin fa-layer-group ${styles.text2}`}></i>
-            <span class={`${styles.text2} ${styles.font}`}> Focus </span>
-          </p>
-          <p
-            class={`text-sm font-medium tracking-tight ${styles.text} ${styles.font}`}
-          >
-            {focus}
-          </p>
-        </li>
-      </ul>
-    </div>
-  </div> -->
 </a>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import DynamicIcon from '@components/ui/DynamicIcon';
 
 /**
  * Countdown Component
@@ -53,7 +54,7 @@ export default function Countdown({ closesDate, daysRemaining }) {
         return (
             <div className="pt-2 border-t border-white/10">
                 <div className="flex items-center gap-2">
-                    <i className="fa-regular fa-clock text-violet-300" />
+                    <DynamicIcon icon="fa-regular fa-clock" className="text-violet-300" />
                     <span className="text-sm text-violet-300">
                         <strong className="text-white">{daysRemaining}</strong>{" "}
                         {daysRemaining === 1 ? "day" : "days"} left to apply
@@ -68,7 +69,7 @@ export default function Countdown({ closesDate, daysRemaining }) {
         return (
             <div className="pt-2 border-t border-white/10">
                 <div className="flex items-center gap-2">
-                    <i className="fa-solid fa-circle-xmark text-red-400" />
+                    <DynamicIcon icon="fa-solid fa-circle-xmark" className="text-red-400" />
                     <span className="text-sm text-red-300 font-semibold">
                         Applications closed
                     </span>
@@ -85,7 +86,7 @@ export default function Countdown({ closesDate, daysRemaining }) {
             <div className="pt-2 border-t border-white/10">
                 <div className="flex flex-col gap-2">
                     <div className="flex items-center gap-2">
-                        <i className="fa-solid fa-hourglass-half text-red-400 animate-pulse" />
+                        <DynamicIcon icon="fa-solid fa-hourglass-half" className="text-red-400 animate-pulse" />
                         <span className="text-sm text-red-300 font-semibold">
                             Closing today!
                         </span>
@@ -121,7 +122,7 @@ export default function Countdown({ closesDate, daysRemaining }) {
     return (
         <div className="pt-2 border-t border-white/10">
             <div className="flex items-center gap-2">
-                <i className="fa-regular fa-clock text-violet-300" />
+                <DynamicIcon icon="fa-regular fa-clock" className="text-violet-300" />
                 <span className="text-sm text-violet-300">
                     <strong className="text-white">{daysRemaining}</strong>{" "}
                     {daysRemaining === 1 ? "day" : "days"} left to apply

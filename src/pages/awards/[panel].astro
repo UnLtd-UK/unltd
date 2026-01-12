@@ -4,6 +4,7 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Default from "@components/heroes/Default.astro";
 import Icon from "@components/Icon.astro";
+import DynamicIcon from "@components/DynamicIcon.astro";
 import { marked } from "marked";
 import slugify from "slugify";
 import moment from "moment";
@@ -103,7 +104,7 @@ const {
                             })}`}
                             class={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${palette[programme.name].badge} ring-1 ring-inset gap-1`}
                         >
-                            <i class={programme.icon}></i>
+                            <DynamicIcon icon={programme.icon} />
                             <span>{programme.name}</span>
                         </a>
                     </div>
