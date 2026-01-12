@@ -24,10 +24,10 @@ export const Input = forwardRef(function Input({ className, ...props }, ref) {
         'after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-inset after:ring-transparent sm:after:focus-within:ring-2 sm:after:focus-within:ring-blue-500',
 
         // Disabled state
-        'has-[[data-disabled]]:opacity-50 before:has-[[data-disabled]]:bg-zinc-950/5 before:has-[[data-disabled]]:shadow-none',
+        'has-[input:disabled]:opacity-50 before:has-[input:disabled]:bg-zinc-950/5 before:has-[input:disabled]:shadow-none',
 
         // Invalid state
-        'before:has-[[data-invalid]]:shadow-red-500/10',
+        'before:has-[input:invalid]:shadow-red-500/10',
       ])}
     >
       <HeadlessInput

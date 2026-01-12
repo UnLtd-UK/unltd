@@ -1,5 +1,6 @@
 import { Popover } from '@headlessui/react';
 import { useState } from 'react';
+import DynamicIcon from '@components/ui/DynamicIcon';
 
 export default function FeedbackPopover() {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -39,7 +40,7 @@ export default function FeedbackPopover() {
             </Popover.Button>
             <Popover.Panel className="absolute -left-56 mt-2 z-10 border-1 bg-violet-950 border-violet-900 max-w-lg p-4 rounded-2xl shadow-6xl w-[21rem]">
                 {isSubmitted ? (
-                    <p className="flex gap-1"><i className="fa-solid fa-circle-check text-green-500"></i><span className="text-xs text-violet-100">Feedback sent. You have received a confirmation email.</span></p>
+                    <p className="flex gap-1"><DynamicIcon icon="fa-solid fa-circle-check" className="text-green-500" /><span className="text-xs text-violet-100">Feedback sent. You have received a confirmation email.</span></p>
                 ) : (
                     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                         <h3 className="text-md text-violet-100">Got feedback about this page?</h3>
@@ -53,17 +54,17 @@ export default function FeedbackPopover() {
                                     <label for="issue" className="flex gap-1 items-center cursor-pointer bg-white px-4 py-2 text-xs font-sans border-2 border-gray-700 rounded-full 
             peer-checked/option1:bg-yellow-200 peer-checked/option1:border-yellow-600 
             peer-focus/option1:border-dashed peer-focus/option1:border-yellow-700 
-            hover:bg-yellow-100 transition"><i className="fa-solid fa-triangle-exclamation text-yellow-800"></i><span className="text-yellow-900">Issue</span></label>
+            hover:bg-yellow-100 transition"><DynamicIcon icon="fa-solid fa-triangle-exclamation" className="text-yellow-800" /><span className="text-yellow-900">Issue</span></label>
                                     <input type="radio" id="improvement" name="type" disabled={isSubmitting} value="improvement" className="hidden peer/option2" />
                                     <label for="improvement" className="flex gap-1 items-center cursor-pointer bg-white px-4 py-2 text-xs font-sans border-2 border-gray-700 rounded-full 
             peer-checked/option2:bg-blue-200 peer-checked/option2:border-blue-600 
             peer-focus/option2:border-dashed peer-focus/option2:border-blue-700 
-            hover:bg-blue-100 transition"><i className="fa-solid fa-lightbulb text-blue-800"></i><span className="text-blue-900">Improvement</span></label>
+            hover:bg-blue-100 transition"><DynamicIcon icon="fa-solid fa-lightbulb" className="text-blue-800" /><span className="text-blue-900">Improvement</span></label>
                                     <input type="radio" id="other" name="type" disabled={isSubmitting} value="other" className="hidden peer/option3" />
                                     <label for="other" className="flex gap-1 items-center cursor-pointer bg-white px-4 py-2 text-xs font-sans border-2 border-gray-700 rounded-full 
             peer-checked/option3:bg-green-200 peer-checked/option3:border-green-600 
             peer-focus/option3:border-dashed peer-focus/option3:border-green-700 
-            hover:bg-green-100 transition"><i className="fa-solid fa-ellipsis text-green-800"></i><span className="text-green-900">Other</span></label>
+            hover:bg-green-100 transition"><DynamicIcon icon="fa-solid fa-ellipsis" className="text-green-800" /><span className="text-green-900">Other</span></label>
                                 </div>
                             </fieldset>
                         </div>
@@ -102,7 +103,7 @@ export default function FeedbackPopover() {
                             </button>
 
                         </div>
-                        {isError && (<p className="flex gap-1"><i className="fa-solid fa-circle-xmark text-red-500"></i><span className="text-xs text-violet-100">There was an issue. Please email <a className="underline" href="mailto:digital@unltd.org.uk">digital@unltd.org.uk</a>.</span></p>)}
+                        {isError && (<p className="flex gap-1"><DynamicIcon icon="fa-solid fa-circle-xmark" className="text-red-500" /><span className="text-xs text-violet-100">There was an issue. Please email <a className="underline" href="mailto:digital@unltd.org.uk">digital@unltd.org.uk</a>.</span></p>)}
                     </form>
                 )}
             </Popover.Panel>

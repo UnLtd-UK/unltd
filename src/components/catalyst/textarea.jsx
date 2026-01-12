@@ -22,7 +22,7 @@ export const Textarea = forwardRef(function Textarea({ className, resizable = tr
         'after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-inset after:ring-transparent sm:after:focus-within:ring-2 sm:after:focus-within:ring-blue-500',
 
         // Disabled state
-        'has-[[data-disabled]]:opacity-50 before:has-[[data-disabled]]:bg-zinc-950/5 before:has-[[data-disabled]]:shadow-none',
+        'has-[textarea:disabled]:opacity-50 before:has-[textarea:disabled]:bg-zinc-950/5 before:has-[textarea:disabled]:shadow-none',
       ])}
     >
       <HeadlessTextarea
