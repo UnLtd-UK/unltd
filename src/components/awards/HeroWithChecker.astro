@@ -1,6 +1,10 @@
 ---
 import Icon from "@components/Icon.astro";
-import { benefits, checkerUrl, typeformLiveId } from "@data/eligibilityChecker";
+import EmbedLoader from "@components/EmbedLoader";
+import { benefits, checkerUrl } from "@data/eligibilityChecker";
+
+// Typeform iframe embed URL (using the form slug from the checker URL)
+const typeformEmbedUrl = `${checkerUrl}?typeform-embed=embed-widget`;
 ---
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
@@ -232,29 +236,29 @@ import { benefits, checkerUrl, typeformLiveId } from "@data/eligibilityChecker";
                 </a>
             </div>
 
-            <div class="relative bg-violet-950">
-                <div
-                    data-tf-live={typeformLiveId}
+            <div class="relative bg-violet-950" style="min-height: 500px;">
+                <EmbedLoader
+                    client:load
+                    src={typeformEmbedUrl}
                     title="Eligibility Checker"
-                    class="w-full border-0"
-                >
-                </div>
+                    className="w-full h-full"
+                />
             </div>
+        </div>
 
-            <div class="flex flex-wrap justify-center gap-4 mb-6">
-                {
-                    benefits.map((item) => (
-                        <div class="flex items-center gap-2 text-xs">
-                            <Icon
-                                name={item.iconName}
-                                style={item.iconStyle}
-                                class="h-3.5 w-3.5 text-violet-400"
-                            />
-                            <span class="text-violet-300">{item.text}</span>
-                        </div>
-                    ))
-                }
-            </div>
+        <div class="flex flex-wrap justify-center gap-4 mb-6">
+            {
+                benefits.map((item) => (
+                    <div class="flex items-center gap-2 text-xs">
+                        <Icon
+                            name={item.iconName}
+                            style={item.iconStyle}
+                            class="h-3.5 w-3.5 text-violet-400"
+                        />
+                        <span class="text-violet-300">{item.text}</span>
+                    </div>
+                ))
+            }
         </div>
 
         <!-- Small print: Eligibility criteria link -->

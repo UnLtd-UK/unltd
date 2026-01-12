@@ -1,6 +1,10 @@
 ---
 import Icon from "@components/Icon.astro";
-import { benefits, checkerUrl, typeformLiveId } from "@data/eligibilityChecker";
+import EmbedLoader from "@components/EmbedLoader";
+import { benefits, checkerUrl } from "@data/eligibilityChecker";
+
+// Typeform iframe embed URL
+const typeformEmbedUrl = `${checkerUrl}?typeform-embed=embed-widget`;
 ---
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,13 +63,13 @@ import { benefits, checkerUrl, typeformLiveId } from "@data/eligibilityChecker";
             </a>
         </div>
 
-        <div class="relative bg-violet-950">
-            <div
-                data-tf-live={typeformLiveId}
+        <div class="relative bg-violet-950" style="min-height: 500px;">
+            <EmbedLoader
+                client:load
+                src={typeformEmbedUrl}
                 title="Eligibility Checker"
-                class="w-full border-0"
-            >
-            </div>
+                className="w-full h-full"
+            />
         </div>
     </div>
 </div>
