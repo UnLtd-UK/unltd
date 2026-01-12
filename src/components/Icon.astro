@@ -14,7 +14,7 @@ import "@lib/icons";
 
 interface Props {
     name: string;
-    style?: "solid" | "regular" | "brands" | "light";
+    style?: "solid" | "regular" | "brands" | "light" | "thin";
     class?: string;
     title?: string;
 }
@@ -27,6 +27,7 @@ const prefixMap: Record<string, string> = {
     regular: "far",
     brands: "fab",
     light: "fal",
+    thin: "fat",
 };
 
 const prefix = prefixMap[style] || "fas";

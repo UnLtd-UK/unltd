@@ -170,15 +170,15 @@ const awardText = isMultipleAwards ? "Awards" : "Award";
                 <div class="grid grid-cols-2 gap-4">
                     {
                         awards.map((award) => (
-                            <div class="w-full max-w-[280px]">
+                            <div class="w-full max-w-70">
                                 <Award {...award} />
                             </div>
                         ))
                     }
                     {
                         !isMultipleAwards && (
-                            <div class="w-full max-w-[280px]">
-                                <div class="h-full min-h-[300px] rounded-4xl border-2 border-dashed border-white/20 bg-white/5 flex flex-col items-center justify-center text-center p-6">
+                            <div class="w-full max-w-70">
+                                <div class="h-full min-h-75 rounded-4xl border-2 border-dashed border-white/20 bg-white/5 flex flex-col items-center justify-center text-center p-6">
                                     <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mb-4">
                                         <Icon
                                             name="question"

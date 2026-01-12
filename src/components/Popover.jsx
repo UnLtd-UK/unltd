@@ -38,7 +38,7 @@ export default function FeedbackPopover() {
             <Popover.Button className="cursor-pointer inline-flex items-center gap-x-1.5 rounded-md border border-violet-600 bg-violet-900 px-2.5 py-1.5 text-xs font-semibold text-violet-50 shadow-xs hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600">
                 Give Feedback
             </Popover.Button>
-            <Popover.Panel className="absolute -left-56 mt-2 z-10 border-1 bg-violet-950 border-violet-900 max-w-lg p-4 rounded-2xl shadow-6xl w-[21rem]">
+            <Popover.Panel className="absolute -left-56 mt-2 z-10 border bg-violet-950 border-violet-900 max-w-lg p-4 rounded-2xl shadow-6xl w-84">
                 {isSubmitted ? (
                     <p className="flex gap-1"><DynamicIcon icon="fa-solid fa-circle-check" className="text-green-500" /><span className="text-xs text-violet-100">Feedback sent. You have received a confirmation email.</span></p>
                 ) : (
@@ -70,11 +70,11 @@ export default function FeedbackPopover() {
                         </div>
                         <div className="">
                             <label className="block text-xs font-medium text-violet-100">Email</label>
-                            <input disabled={isSubmitting} name="email" type="email" className="p-2 mt-1 block w-full rounded-md border-1 border-violet-400 text-violet-200 shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm" />
+                            <input disabled={isSubmitting} name="email" type="email" className="p-2 mt-1 block w-full rounded-md border border-violet-400 text-violet-200 shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm" />
                         </div>
                         <div className="">
                             <label className="block text-xs font-medium text-violet-100">Message</label>
-                            <textarea disabled={isSubmitting} name="message" rows="4" className="p-2 mt-1 block w-full rounded-md border-1 border-violet-400 text-violet-200 shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"></textarea>
+                            <textarea disabled={isSubmitting} name="message" rows="4" className="p-2 mt-1 block w-full rounded-md border border-violet-400 text-violet-200 shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"></textarea>
                         </div>
 
                         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer

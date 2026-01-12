@@ -3,7 +3,8 @@ import Icon from "@components/Icon.astro";
 import Fields from "@components/fields/Fields.astro";
 // import Grant from "@components/GrantCard2.astro";
 import { marked } from "marked";
-marked.use({ mangle: false, headerIds: false });
+import { gfmHeadingId } from "marked-gfm-heading-id";
+marked.use(gfmHeadingId());
 
 const {
   slug,
@@ -27,7 +28,7 @@ const selectedStageDisplay = portal_text;
     selectedStage && (
       <div class="bg-amber-50 border border-amber-200 rounded-md p-6 shadow-sm">
         <div class="flex gap-3">
-          <div class="flex-shrink-0">
+          <div class="shrink-0">
             <Icon
               name="circle-info"
               style="solid"

@@ -1,4 +1,5 @@
 ---
+import type { GetStaticPaths } from "astro";
 import { fundraisers } from "@data/fundraisers.js";
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
@@ -6,12 +7,13 @@ import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Icon from "@components/Icon.astro";
 
 import { marked } from "marked";
-marked.use({ mangle: false, headerIds: false });
+import { gfmHeadingId } from "marked-gfm-heading-id";
+marked.use(gfmHeadingId());
 
 import moment from "moment";
 
-export async function getStaticPaths() {
-  return fundraisers.map((fundraiser) => {
+export const getStaticPaths = (async () => {
+  return fundraisers.map((fundraiser: any) => {
     let breadcrumbs = [
       {
         name: "Fundraising",
@@ -36,11 +38,11 @@ export async function getStaticPaths() {
 
     return results;
   });
-}
+}) satisfies GetStaticPaths;
 
 let todayDate = moment();
 
-const { fundraiser } = Astro.props;
+const { fundraiser }: any = Astro.props;
 ---
 
 <Template name={fundraiser.name} description={fundraiser.description}>
@@ -59,17 +61,17 @@ const { fundraiser } = Astro.props;
         aria-hidden="true"
       >
         <div
-          class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-violet-950-600 to-amber-600 opacity-20"
+          class="aspect-1097/845 w-274.25 bg-linear-to-tr from-violet-950-600 to-amber-600 opacity-20"
           style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
         >
         </div>
       </div>
       <div
-        class="absolute -top-52 left-1/2 -z-10 -tranviolet-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:tranviolet-x-0 sm:transform-gpu"
+        class="absolute -top-52 left-1/2 -z-10 -tranviolet-x-1/2 transform-gpu blur-3xl sm:-top-112 sm:ml-16 sm:tranviolet-x-0 sm:transform-gpu"
         aria-hidden="true"
       >
         <div
-          class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20"
+          class="aspect-1097/845 w-274.25 bg-linear-to-tr from-[#ff4694] to-[#776fff] opacity-20"
           style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
         >
         </div>
@@ -156,7 +158,7 @@ const { fundraiser } = Astro.props;
                     fundraiser.link.startsWith("https://") ? "" : "https://"
                   }${fundraiser.link}`}
                   target="_blank"
-                  class="p-7 flex gap-2 items-center rounded-r-xl bg-violet-100 hover:bg-violet-200 text-sm font-semibold text-violet-950 shadow-xs 0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
+                  class="p-7 flex gap-2 items-center rounded-r-xl bg-violet-100 hover:bg-violet-200 text-sm font-semibold text-violet-950 shadow-xs focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600"
                 >
                   <>
                     <span>Donate now</span>
