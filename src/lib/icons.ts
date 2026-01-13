@@ -44,9 +44,13 @@ import {
     faChartLine,
     faCheck,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faChessPawn,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faChessPawn,
+>>>>>>> 899a7fc (chore: update dependencies and add new icons)
     faChevronDown,
     faChevronRight,
     faChevronUp,
@@ -130,12 +134,17 @@ import {
 >>>>>>> adda23e (feat: Integrate DynamicIcon component for Font Awesome icons and refactor existing icon usage)
     faPersonRunningFast,
     faPhone,
+<<<<<<< HEAD
     faPoliceBox,
     faPiggyBank,
     faPuzzlePiece,
 =======
     faPhone,
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faPiggyBank,
+    faPuzzlePiece,
+>>>>>>> 899a7fc (chore: update dependencies and add new icons)
     faQuestion,
     faQuoteLeft,
     faRobot,
@@ -299,9 +308,13 @@ library.add(
     faChartLine,
     faCheck,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faChessPawn,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faChessPawn,
+>>>>>>> 899a7fc (chore: update dependencies and add new icons)
     faChevronDown,
     faChevronRight,
     faChevronUp,
@@ -387,9 +400,12 @@ library.add(
     faPhone,
     faPiggyBank,
     faPuzzlePiece,
+<<<<<<< HEAD
 =======
     faPhone,
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+>>>>>>> 899a7fc (chore: update dependencies and add new icons)
     faQuestion,
     faQuoteLeft,
     faRobot,
@@ -539,9 +555,13 @@ export {
     faChartLine,
     faCheck,
 <<<<<<< HEAD
+<<<<<<< HEAD
     faChessPawn,
 =======
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+    faChessPawn,
+>>>>>>> 899a7fc (chore: update dependencies and add new icons)
     faChevronDown,
     faChevronRight,
     faChevronUp,
@@ -627,9 +647,12 @@ export {
     faPhone,
     faPiggyBank,
     faPuzzlePiece,
+<<<<<<< HEAD
 =======
     faPhone,
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+>>>>>>> 899a7fc (chore: update dependencies and add new icons)
     faQuestion,
     faQuoteLeft,
     faRobot,
