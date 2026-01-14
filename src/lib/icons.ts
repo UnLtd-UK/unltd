@@ -87,6 +87,7 @@ import {
     faPeopleGroup,
     faPersonRunningFast,
     faPhone,
+    faPoliceBox,
     faPiggyBank,
     faPuzzlePiece,
     faQuestion,
@@ -326,7 +327,9 @@ library.add(
     fatSpinner,
     // Sharp solid
     fassCircleCheck,
-    fassCircleXmark
+    fassCircleXmark,
+    // Solid (police-box)
+    faPoliceBox
 );
 
 // Export for direct usage
@@ -482,4 +485,6 @@ export {
     // Sharp solid
     fassCircleCheck,
     fassCircleXmark,
+    // Solid (police-box)
+    faPoliceBox,
 };

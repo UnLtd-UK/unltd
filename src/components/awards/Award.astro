@@ -1,5 +1,6 @@
 ---
 import DynamicIcon from "@components/DynamicIcon.astro";
+import Icon from "@components/Icon.astro";
 
 interface Programme {
     icon: string;
@@ -150,39 +151,25 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
 
                         <ul class="mt-3 space-y-1">
                             {
-                                grantUsabilityEntries.map(
-                                    ([label, isIncluded]) => (
+                                grantUsabilityEntries
+                                    .filter(([_, isIncluded]) => isIncluded)
+                                    .map(([label]) => (
                                         <li
-                                            data-disabled={
-                                                !isIncluded ? "true" : undefined
-                                            }
                                             class:list={[
                                                 "group flex items-start gap-2 text-xs/6",
-                                                isIncluded
-                                                    ? includedText
-                                                    : excludedText,
+                                                includedText,
                                             ]}
                                         >
                                             <span class="inline-flex h-6 items-center">
-                                                <i
-                                                    class={
-                                                        isIncluded
-                                                            ? "fa-sharp fa-solid fa-circle-check text-green-500"
-                                                            : "fa-sharp fa-solid fa-circle-xmark text-red-500"
-                                                    }
+                                                <Icon
+                                                    name="circle-check"
+                                                    style="solid"
+                                                    class="h-3.5 w-3.5 text-green-500"
                                                 />
                                             </span>
-                                            <span>
-                                                {!isIncluded && (
-                                                    <span class="sr-only">
-                                                        Not included:
-                                                    </span>
-                                                )}
-                                                {label}
-                                            </span>
+                                            <span>{label}</span>
                                         </li>
-                                    ),
-                                )
+                                    ))
                             }
                         </ul>
                     </div>

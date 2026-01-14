@@ -3,6 +3,8 @@
  * Processes rounds data from Directus with date formatting and status calculations
  */
 
+import { getCurrentDate } from '@config/dev.config.js';
+
 /**
  * Format an ISO date string for display
  * @param {string} isoString - ISO date string
@@ -78,7 +80,7 @@ export const RoundPhase = {
  * @returns {string} Phase constant
  */
 export const getRoundPhase = (round) => {
-    const now = new Date();
+    const now = getCurrentDate();
     const opens = new Date(round.opensDate);
     const closes = new Date(round.closesDate);
     const assessmentStart = new Date(round.assessmentStart);
@@ -182,7 +184,7 @@ export const getPhaseInfo = (phase, round) => {
  * @returns {Object} Timing calculations
  */
 export const getRoundTiming = (round) => {
-    const now = new Date();
+    const now = getCurrentDate();
     const opens = new Date(round.opensDate);
     const closes = new Date(round.closesDate);
     const assessmentStart = new Date(round.assessmentStart);
@@ -310,6 +312,13 @@ export const getCapacityStatus = (percentage) => {
  * @returns {Object} Processed round with all computed properties
  */
 export const processRound = (directusRound, applicationLimit = 650) => {
+    // Check if capacity is enabled for this round
+    // Capacity is disabled when both capacity and capacity_status are 0/null/undefined
+    // We treat null, undefined, and 0 as equivalent for this check
+    const capacityValue = directusRound.capacity ?? 0;
+    const capacityStatusValue = directusRound.capacity_status ?? 0;
+    const hasCapacity = !(capacityValue === 0 && capacityStatusValue === 0);
+
     const round = {
         id: directusRound.id,
         opensDate: directusRound.opens,
@@ -320,6 +329,7 @@ export const processRound = (directusRound, applicationLimit = 650) => {
         resultsEnd: directusRound.results_end,
         applicationLimit: directusRound.capacity ?? applicationLimit,
         capacityPercentage: directusRound.capacity_status ?? 0,
+        hasCapacity,
 
         // Formatted dates
         dates: {
@@ -361,7 +371,8 @@ export const processRound = (directusRound, applicationLimit = 650) => {
         isCompleted: phase === RoundPhase.COMPLETED,
 
         // Accepting applications?
-        isAcceptingApplications: phase === RoundPhase.OPEN && round.capacityPercentage < 100,
+        // Only check capacity if capacity tracking is enabled for this round
+        isAcceptingApplications: phase === RoundPhase.OPEN && (!round.hasCapacity || round.capacityPercentage < 100),
 
         // Past, present, future classification
         isPast: phase === RoundPhase.COMPLETED,
@@ -377,6 +388,20 @@ export const processRound = (directusRound, applicationLimit = 650) => {
  * @returns {Object} Processed and categorized rounds
  */
 export const processAllRounds = (directusRounds, applicationLimit = 650) => {
+    // Handle empty rounds
+    if (!directusRounds || directusRounds.length === 0) {
+        return {
+            all: [],
+            past: [],
+            present: [],
+            future: [],
+            currentRound: null,
+            nextOpenRound: null,
+            hasNoRounds: true,
+            counts: { total: 0, past: 0, present: 0, future: 0 }
+        };
+    }
+
     const processed = directusRounds.map(r => processRound(r, applicationLimit));
 
     // Sort by opens date
@@ -387,15 +412,25 @@ export const processAllRounds = (directusRounds, applicationLimit = 650) => {
     const present = processed.filter(r => r.isPresent);
     const future = processed.filter(r => r.isFuture);
 
-    // Find the current active round (first one that's open or most relevant)
-    const currentRound = processed.find(r => r.isOpen)
-        || processed.find(r => r.isPresent)
-        || processed.find(r => r.isFuture)
-        || processed[processed.length - 1];
+    // Priority logic for current round:
+    // 1. First: Any currently OPEN round (accepting applications)
+    // 2. Second: Any round currently in progress (present but not accepting - e.g., in assessment)
+    // 3. Third: Next upcoming/future round
+    // 4. Fourth: Most recent past round (last one by close date)
+    const openRound = processed.find(r => r.isOpen);
+    const presentRound = processed.find(r => r.isPresent);
+    const futureRound = future[0]; // First upcoming round (sorted by date)
+    const lastPastRound = past.length > 0 ? past[past.length - 1] : null;
 
-    // Find next round accepting applications
-    const nextOpenRound = processed.find(r => r.isFuture)
-        || processed.find(r => r.isOpen && r.capacityPercentage < 100);
+    // Determine current round based on priority
+    let currentRound = openRound || presentRound || futureRound || lastPastRound || null;
+
+    // Next open round: the first future round (if any)
+    // Only relevant if current round is not open or is at capacity
+    const nextOpenRound = futureRound || null;
+
+    // Determine if we have no future rounds left
+    const hasNoFutureRounds = future.length === 0 && !openRound;
 
     return {
         all: processed,
@@ -404,6 +439,8 @@ export const processAllRounds = (directusRounds, applicationLimit = 650) => {
         future,
         currentRound,
         nextOpenRound,
+        hasNoRounds: false,
+        hasNoFutureRounds,
 
         // Summary counts
         counts: {
@@ -443,7 +480,7 @@ export const getRoundName = (round) => {
 export const isClosingToday = (round) => {
     if (!round?.closesDate) return false;
     const closeDate = new Date(round.closesDate);
-    const today = new Date();
+    const today = getCurrentDate();
     return closeDate.toDateString() === today.toDateString();
 };
 
@@ -455,9 +492,46 @@ export const isClosingToday = (round) => {
 export const isClosingWithin24Hours = (round) => {
     if (!round?.closesDate) return false;
     const closeDate = new Date(round.closesDate);
-    const now = new Date();
+    const now = getCurrentDate();
     const hoursRemaining = (closeDate - now) / (1000 * 60 * 60);
     return hoursRemaining > 0 && hoursRemaining <= 24;
+};
+
+/**
+ * Check if a round is closing within 48 hours
+ * @param {Object} round - Processed round object
+ * @returns {boolean} True if closing within 48 hours
+ */
+export const isClosingWithin48Hours = (round) => {
+    if (!round?.closesDate) return false;
+    const closeDate = new Date(round.closesDate);
+    const now = getCurrentDate();
+    const hoursRemaining = (closeDate - now) / (1000 * 60 * 60);
+    return hoursRemaining > 0 && hoursRemaining <= 48;
+};
+
+/**
+ * Check if a round is closing within 7 days
+ * @param {Object} round - Processed round object
+ * @returns {boolean} True if closing within 7 days
+ */
+export const isClosingWithin7Days = (round) => {
+    if (!round?.closesDate) return false;
+    const closeDate = new Date(round.closesDate);
+    const now = getCurrentDate();
+    const daysRemaining = (closeDate - now) / (1000 * 60 * 60 * 24);
+    return daysRemaining > 0 && daysRemaining <= 7;
+};
+
+/**
+ * Get deadline urgency level
+ * @param {Object} round - Processed round object
+ * @returns {string} 'critical' (48hrs), 'high' (7 days), 'normal'
+ */
+export const getDeadlineUrgency = (round) => {
+    if (isClosingWithin48Hours(round)) return 'critical';
+    if (isClosingWithin7Days(round)) return 'high';
+    return 'normal';
 };
 
 /**
@@ -469,7 +543,7 @@ export const getTimeUntilClose = (round) => {
     if (!round?.closesDate) return null;
 
     const closeDate = new Date(round.closesDate);
-    const now = new Date();
+    const now = getCurrentDate();
     const difference = closeDate - now;
 
     if (difference <= 0) {
@@ -488,30 +562,85 @@ export const getTimeUntilClose = (round) => {
  * Get widget display data for a round (used by RoundWidget)
  * @param {Object} currentRound - Current processed round
  * @param {Object} nextOpenRound - Next upcoming round (optional)
+ * @param {Object} options - Additional options (hasNoRounds, hasNoFutureRounds)
  * @returns {Object} Widget display data
  */
-export const getWidgetDisplayData = (currentRound, nextOpenRound = null) => {
-    if (!currentRound) return null;
+export const getWidgetDisplayData = (currentRound, nextOpenRound = null, options = {}) => {
+    const { hasNoRounds = false, hasNoFutureRounds = false } = options;
 
-    const isCapacityFull = currentRound.capacityPercentage >= 100;
-    const isDatePassed = !currentRound.isOpen && !currentRound.isUpcoming;
+    // Handle no rounds case
+    if (hasNoRounds || !currentRound) {
+        return {
+            displayRound: null,
+            roundName: null,
+            status: 'no-rounds',
+            isAcceptingApplications: false,
+            shouldShowNextRound: false,
+            hasNoRounds: true,
+            hasNoFutureRounds: true,
+            dates: null
+        };
+    }
+
+    // Only consider capacity if capacity tracking is enabled for this round
+    const hasCapacity = currentRound.hasCapacity ?? true;
+    const isCapacityFull = hasCapacity && currentRound.capacityPercentage >= 100;
     const isAcceptingApplications = currentRound.isOpen && !isCapacityFull;
-    const isClosed = isCapacityFull || isDatePassed;
 
-    // When closed, focus on the next upcoming round
-    const shouldShowNextRound = isClosed && nextOpenRound;
-    const displayRound = shouldShowNextRound ? nextOpenRound : currentRound;
+    // Determine which round to display
+    // Priority: 
+    // 1. If current round is open and accepting → show it
+    // 2. If current round is open but full → show next if exists, else show current
+    // 3. If current round is not open but in assessment/results → show it, mention next if exists
+    // 4. If current round is past and there's a next round → show next
+    // 5. If current round is past and no next round → show last round's status
+
+    let displayRound = currentRound;
+    let shouldShowNextRound = false;
+
+    if (isAcceptingApplications) {
+        // Current round is open and accepting - show it
+        displayRound = currentRound;
+    } else if (currentRound.isOpen && isCapacityFull) {
+        // Current round is open but full - show next if available
+        if (nextOpenRound) {
+            displayRound = nextOpenRound;
+            shouldShowNextRound = true;
+        } else {
+            displayRound = currentRound; // Show full message
+        }
+    } else if (currentRound.isPresent && !currentRound.isOpen) {
+        // Current round is in assessment/results phase - show it
+        displayRound = currentRound;
+    } else if (currentRound.isUpcoming) {
+        // Current round is upcoming - show it
+        displayRound = currentRound;
+    } else if (currentRound.isPast) {
+        // Current round is past
+        if (nextOpenRound) {
+            // There's a future round - show when it opens
+            displayRound = nextOpenRound;
+            shouldShowNextRound = true;
+        } else {
+            // No future rounds - show last round's completed status
+            displayRound = currentRound;
+        }
+    }
 
     // Determine status
     let status = 'upcoming';
-    if (isAcceptingApplications) {
+    if (hasNoFutureRounds && displayRound.isPast) {
+        status = 'completed';
+    } else if (isAcceptingApplications && displayRound === currentRound) {
         status = 'open';
-    } else if (shouldShowNextRound || displayRound.isUpcoming) {
+    } else if (displayRound.isUpcoming || shouldShowNextRound) {
         status = 'upcoming';
     } else if (displayRound.isInAssessment) {
         status = 'assessing';
-    } else if (isClosed) {
-        status = 'closed';
+    } else if (displayRound.isInResults) {
+        status = 'results';
+    } else if (displayRound.isPast) {
+        status = 'completed';
     }
 
     // Capacity urgency level
@@ -524,16 +653,26 @@ export const getWidgetDisplayData = (currentRound, nextOpenRound = null) => {
         capacityUrgency = 'medium';
     }
 
+    // Deadline urgency level (independent of capacity)
+    const deadlineUrgency = getDeadlineUrgency(displayRound);
+
     return {
         displayRound,
+        currentRound, // Also return the original current round for reference
         roundName: getRoundName(displayRound),
         status,
-        isAcceptingApplications,
+        isAcceptingApplications: isAcceptingApplications && displayRound === currentRound,
         shouldShowNextRound,
+        hasNoRounds: false,
+        hasNoFutureRounds,
         isClosingToday: isClosingToday(displayRound),
         isClosingSoon: isClosingWithin24Hours(displayRound),
+        isClosingWithin48Hours: isClosingWithin48Hours(displayRound),
+        isClosingWithin7Days: isClosingWithin7Days(displayRound),
+        hasCapacity: displayRound.hasCapacity ?? true,
         capacityPercentage: displayRound.capacityPercentage,
         capacityUrgency,
+        deadlineUrgency,
         daysRemaining: displayRound.timing?.daysRemaining ?? 0,
         daysUntilOpen: displayRound.timing?.daysUntilOpen ?? 0,
         closesDate: displayRound.closesDate,
@@ -556,6 +695,9 @@ export default {
     getRoundName,
     isClosingToday,
     isClosingWithin24Hours,
+    isClosingWithin48Hours,
+    isClosingWithin7Days,
+    getDeadlineUrgency,
     getTimeUntilClose,
     getWidgetDisplayData
 };
