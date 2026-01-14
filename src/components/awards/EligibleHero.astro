@@ -6,6 +6,7 @@
 
 import Icon from "@components/Icon.astro";
 import Award from "@components/awards/Award.astro";
+import RoundButton from "@components/awards/RoundButtonWrapper.astro";
 
 interface Props {
     awards: any[];
@@ -115,7 +116,7 @@ const awardText = isMultipleAwards ? "Awards" : "Award";
                         <Icon
                             name="robot"
                             style="solid"
-                            class="text-emerald-200 mt-0.5"
+                            class="text-emerald-200 mt-0.5 h-4 w-4 shrink-0"
                         />
                         <div>
                             <p class="text-sm font-semibold text-white mb-1">
@@ -139,29 +140,10 @@ const awardText = isMultipleAwards ? "Awards" : "Award";
                 </div>
 
                 <div class="mt-6">
-                    {
-                        isRoundOpen ? (
-                            <a
-                                href="https://portal.unltd.org.uk/apply"
-                                class="inline-flex items-center gap-3 px-8 py-4 bg-white text-emerald-700 font-bold rounded-xl text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105"
-                            >
-                                <Icon name="rocket" style="solid" />
-                                Apply Now
-                                <Icon name="arrow-right" style="solid" />
-                            </a>
-                        ) : (
-                            <div>
-                                <div class="inline-flex items-center gap-2 px-6 py-3 bg-white/20 text-white font-semibold rounded-xl text-lg ring-1 ring-white/30">
-                                    <Icon name="clock" style="solid" />
-                                    Applications open {nextOpenDate}
-                                </div>
-                                <p class="text-emerald-200 text-sm mt-2">
-                                    Bookmark this page and come back when
-                                    applications open
-                                </p>
-                            </div>
-                        )
-                    }
+                    <RoundButton
+                        isRoundOpen={isRoundOpen}
+                        nextOpenDate={nextOpenDate}
+                    />
                 </div>
             </div>
 

@@ -1,0 +1,103 @@
+---
+/**
+ * RoundWidgetWrapper.astro
+ * Astro wrapper for RoundWidget React component
+ *
+ * Fetches round data server-side and passes processed data to the client-side React component
+ */
+
+// Data processing happens server-side
+import { rounds } from "@data/rounds.js";
+import { processAllRounds } from "@utils/application-rounds.js";
+import { getDevDateTimeString } from "@config/dev.config.js";
+
+// React component
+import RoundWidget from "./RoundWidget";
+
+// Process rounds server-side
+const {
+    all: allRounds,
+    currentRound,
+    nextOpenRound,
+} = processAllRounds(rounds);
+
+// Get dev datetime for client-side (if set)
+const devDateTime = getDevDateTimeString();
+
+// Prepare the processed round data to pass to React
+// The React component receives serializable data only
+const processedRounds = allRounds.map((round) => ({
+    id: round.id,
+    opensDate: round.opensDate,
+    closesDate: round.closesDate,
+    assessmentStart: round.assessmentStart,
+    assessmentEnd: round.assessmentEnd,
+    resultsStart: round.resultsStart,
+    resultsEnd: round.resultsEnd,
+    hasCapacity: round.hasCapacity ?? false,
+    capacityPercentage: round.capacityPercentage ?? 0,
+    isOpen: round.isOpen,
+    isUpcoming: round.isUpcoming,
+    isInAssessment: round.isInAssessment,
+    isInResults: round.isInResults,
+    isCompleted: round.isCompleted,
+    phase: round.phase,
+    dates: round.dates,
+    timing: round.timing,
+    phaseInfo: round.phaseInfo,
+}));
+
+const currentRoundData = currentRound
+    ? {
+          id: currentRound.id,
+          opensDate: currentRound.opensDate,
+          closesDate: currentRound.closesDate,
+          assessmentStart: currentRound.assessmentStart,
+          assessmentEnd: currentRound.assessmentEnd,
+          resultsStart: currentRound.resultsStart,
+          resultsEnd: currentRound.resultsEnd,
+          hasCapacity: currentRound.hasCapacity ?? false,
+          capacityPercentage: currentRound.capacityPercentage ?? 0,
+          isOpen: currentRound.isOpen,
+          isUpcoming: currentRound.isUpcoming,
+          isInAssessment: currentRound.isInAssessment,
+          isInResults: currentRound.isInResults,
+          isCompleted: currentRound.isCompleted,
+          phase: currentRound.phase,
+          dates: currentRound.dates,
+          timing: currentRound.timing,
+          phaseInfo: currentRound.phaseInfo,
+      }
+    : null;
+
+const nextRoundData = nextOpenRound
+    ? {
+          id: nextOpenRound.id,
+          opensDate: nextOpenRound.opensDate,
+          closesDate: nextOpenRound.closesDate,
+          assessmentStart: nextOpenRound.assessmentStart,
+          assessmentEnd: nextOpenRound.assessmentEnd,
+          resultsStart: nextOpenRound.resultsStart,
+          resultsEnd: nextOpenRound.resultsEnd,
+          hasCapacity: nextOpenRound.hasCapacity ?? false,
+          capacityPercentage: nextOpenRound.capacityPercentage ?? 0,
+          isOpen: nextOpenRound.isOpen,
+          isUpcoming: nextOpenRound.isUpcoming,
+          isInAssessment: nextOpenRound.isInAssessment,
+          isInResults: nextOpenRound.isInResults,
+          isCompleted: nextOpenRound.isCompleted,
+          phase: nextOpenRound.phase,
+          dates: nextOpenRound.dates,
+          timing: nextOpenRound.timing,
+          phaseInfo: nextOpenRound.phaseInfo,
+      }
+    : null;
+---
+
+<RoundWidget
+    client:load
+    rounds={processedRounds}
+    currentRound={currentRoundData}
+    nextRound={nextRoundData}
+    devDateTime={devDateTime}
+/>

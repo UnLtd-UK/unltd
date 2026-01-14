@@ -1,0 +1,55 @@
+---
+/**
+ * RoundButtonWrapper.astro
+ * Astro wrapper for RoundButton React component
+ *
+ * Fetches round data server-side and passes processed data to the client-side React component
+ */
+
+// Data processing happens server-side
+import { rounds } from "@data/rounds.js";
+import { processAllRounds } from "@utils/application-rounds.js";
+import { getDevDateTimeString } from "@config/dev.config.js";
+
+// React component
+import RoundButton from "./RoundButton";
+
+interface Props {
+    isRoundOpen?: boolean;
+    nextOpenDate?: string;
+    applyUrl?: string;
+    class?: string;
+}
+
+// Allow override via props, but default to fetching from rounds
+const propsIsRoundOpen = Astro.props.isRoundOpen;
+const propsNextOpenDate = Astro.props.nextOpenDate;
+const {
+    applyUrl = "https://unltd.microsoftcrmportals.com/applications",
+    class: className = "",
+} = Astro.props;
+
+// Process rounds server-side only if not provided via props
+const { currentRound, nextOpenRound } = processAllRounds(rounds);
+
+// Get dev datetime for client-side (if set)
+const devDateTime = getDevDateTimeString();
+
+// Determine values (props override computed values)
+const isRoundOpen = propsIsRoundOpen ?? currentRound?.isOpen ?? false;
+const opensDateTime =
+    propsNextOpenDate ?? (nextOpenRound?.opensDate || currentRound?.opensDate);
+const closesDateTime = currentRound?.closesDate;
+const opensDateFormatted =
+    nextOpenRound?.dates?.opens || currentRound?.dates?.opens;
+---
+
+<RoundButton
+    client:load
+    isOpen={isRoundOpen}
+    opensDateTime={isRoundOpen ? undefined : opensDateTime}
+    closesDateTime={isRoundOpen ? closesDateTime : undefined}
+    opensDateFormatted={opensDateFormatted}
+    devDateTime={devDateTime}
+    applyUrl={applyUrl}
+/>
