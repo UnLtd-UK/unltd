@@ -2,9 +2,15 @@
 /**
  * Individual Resource Page - Canonical URL
  * Flat URL structure: /spaces/[resource-slug]
+<<<<<<< HEAD
  *
  * Only generates pages for resources that belong to at least one PUBLIC space.
  * Resources that only belong to restricted spaces are not generated.
+=======
+ * Access control based on spaces the resource belongs to:
+ * - If belongs to ANY public space → public access
+ * - If only in restricted spaces → requires authentication
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
  */
 
 import slugify from "slugify";
@@ -14,19 +20,30 @@ import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Default from "@components/heroes/Default.astro";
 import Content from "@components/markdoc/Content.astro";
 import TableOfContents from "@components/TableOfContents.astro";
+<<<<<<< HEAD
+=======
+import SpaceAuth from "@components/SpaceAuth.astro";
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
 
 import { allSpaces } from "@data/spaces.js";
 import { allResources } from "@data/resources.js";
 import { prepareMarkdown } from "@data/functions/prepareMarkdown.ts";
 import { prepareToc } from "@data/functions/prepareToc.ts";
+<<<<<<< HEAD
 import { getEffectiveAccess } from "@utils/spaceAccess";
+=======
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
 
 // Type definitions
 interface Space {
     id: string;
     name: string;
     description: string;
+<<<<<<< HEAD
     unlisted: boolean;
+=======
+    access: "public" | "unlisted" | "restricted";
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
     restricted_password?: string;
     eventbrite_keywords?: string[];
 }
@@ -41,7 +58,11 @@ interface Resource {
     description: string;
     body?: string;
     type: "guide" | "video" | "form" | "external";
+<<<<<<< HEAD
     topic?: string;
+=======
+    category?: string;
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
     external_url?: string;
     spaces?: ResourceSpace[];
 }
@@ -60,7 +81,12 @@ export async function getStaticPaths() {
             resourceSlug: string;
             body: string;
             toc: TocHeading[];
+<<<<<<< HEAD
             isListed: boolean;
+=======
+            isPublic: boolean;
+            restrictedSpaces: Space[];
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
         };
     }> = [];
 
@@ -89,6 +115,7 @@ export async function getStaticPaths() {
             resourceSpaceIds.includes(space.id),
         );
 
+<<<<<<< HEAD
         // Get effective access based on highest priority space
         const effectiveAccess = getEffectiveAccess(resourceSpaces);
 
@@ -99,6 +126,17 @@ export async function getStaticPaths() {
         }
 
         const isListed = effectiveAccess.isListed;
+=======
+        // If belongs to ANY public space, it's public
+        const isPublic = resourceSpaces.some(
+            (space) => space.access === "public",
+        );
+
+        // Get restricted spaces for auth (only needed if not public)
+        const restrictedSpaces = isPublic
+            ? []
+            : resourceSpaces.filter((space) => space.access === "restricted");
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
 
         paths.push({
             params: {
@@ -109,7 +147,12 @@ export async function getStaticPaths() {
                 resourceSlug,
                 body,
                 toc,
+<<<<<<< HEAD
                 isListed,
+=======
+                isPublic,
+                restrictedSpaces,
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
             },
         });
     }
@@ -117,6 +160,7 @@ export async function getStaticPaths() {
     return paths;
 }
 
+<<<<<<< HEAD
 const { resource, resourceSlug, body, toc, isListed } = Astro.props as {
     resource: Resource;
     resourceSlug: string;
@@ -124,6 +168,17 @@ const { resource, resourceSlug, body, toc, isListed } = Astro.props as {
     toc: TocHeading[];
     isListed: boolean;
 };
+=======
+const { resource, resourceSlug, body, toc, isPublic, restrictedSpaces } =
+    Astro.props as {
+        resource: Resource;
+        resourceSlug: string;
+        body: string;
+        toc: TocHeading[];
+        isPublic: boolean;
+        restrictedSpaces: Space[];
+    };
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
 
 // Breadcrumbs
 const breadcrumbs = [
@@ -131,13 +186,19 @@ const breadcrumbs = [
     { name: resource.name, path: `/spaces/${resourceSlug}` },
 ];
 
+<<<<<<< HEAD
 // noindex if unlisted
 const shouldNoindex = !isListed;
+=======
+// For restricted resources, use the first restricted space for auth
+const authSpace = restrictedSpaces[0];
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
 ---
 
 <Template
     name={resource.name}
     description={resource.description}
+<<<<<<< HEAD
     noindex={shouldNoindex}
 >
     <Container>
@@ -145,6 +206,30 @@ const shouldNoindex = !isListed;
         <div class="mt-8">
             <Default name={resource.name} description={resource.description} />
         </div>
+=======
+    noindex={!isPublic}
+>
+    {/* Password protection for restricted resources */}
+    {
+        !isPublic && authSpace && (
+            <SpaceAuth
+                spaceSlug={slugify(authSpace.name, {
+                    lower: true,
+                    strict: true,
+                    locale: "en",
+                    trim: true,
+                })}
+                spaceName={authSpace.name}
+                password={authSpace.restricted_password || ""}
+                access={authSpace.access}
+            />
+        )
+    }
+
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <Default name={resource.name} description={resource.description} />
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
 
         <div class="flex gap-8 lg:gap-12 pb-16 items-start">
             {/* Table of Contents - Desktop Sidebar */}

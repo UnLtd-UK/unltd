@@ -51,9 +51,8 @@ const isRestricted = access === 'restricted';
                     );
 
                     if (enteredPassword === null) {
-                        // User cancelled - redirect to resources page
-                        window.location.href = '/resources';
-                        return;
+                    // User cancelled - redirect to spaces page
+                    window.location.href = '/spaces';
                     }
 
                     if (enteredPassword === correctPassword) {
@@ -68,7 +67,7 @@ const isRestricted = access === 'restricted';
                         if (retry) {
                             promptForPassword();
                         } else {
-                            window.location.href = '/resources';
+                            window.location.href = '/spaces';
                         }
                     }
                 }

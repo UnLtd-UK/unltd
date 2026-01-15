@@ -1,8 +1,13 @@
 ---
 /**
+<<<<<<< HEAD
  * Space Landing Page
  * Shows all resources with sticky side navigation
  * Only generates pages for PUBLIC spaces (no password)
+=======
+ * Space Landing Page - Hub Layout
+ * Shows all resources with sticky side navigation
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
  * Order: Events, Videos, Playlists, Guides, Forms, External
  */
 
@@ -11,6 +16,10 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Icon from "@components/Icon.astro";
+<<<<<<< HEAD
+=======
+import SpaceAuth from "@components/SpaceAuth.astro";
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
 
 // Import compact card components
 import GuideCardCompact from "@components/resources/GuideCardCompact.astro";
@@ -19,7 +28,10 @@ import FormCardCompact from "@components/resources/FormCardCompact.astro";
 import ExternalCardCompact from "@components/resources/ExternalCardCompact.astro";
 import PlaylistCardCompact from "@components/resources/PlaylistCardCompact.astro";
 import EventCardCompact from "@components/resources/EventCardCompact.astro";
+<<<<<<< HEAD
 import SpaceResources from "@components/resources/SpaceResources";
+=======
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
 
 import { allSpaces } from "@data/spaces.js";
 import { allResources } from "@data/resources.js";
@@ -29,15 +41,22 @@ import {
     sortEvents,
     type Event,
 } from "@data/eventCollections";
+<<<<<<< HEAD
 import { topicConfig, topicOrder } from "@data/topics";
 import { isSpaceRestricted } from "@utils/spaceAccess";
+=======
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
 
 // Type definitions
 interface Space {
     id: string;
     name: string;
     description: string;
+<<<<<<< HEAD
     unlisted: boolean;
+=======
+    access: "public" | "unlisted" | "restricted";
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
     restricted_password?: string;
     eventbrite_keywords?: string[];
     sort?: number;
@@ -53,7 +72,11 @@ interface Resource {
     description: string;
     body?: string;
     type: "guide" | "video" | "form" | "external" | "playlist";
+<<<<<<< HEAD
     topic?: string;
+=======
+    category?: string;
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
     external_url?: string;
     spaces?: ResourceSpace[];
     sort?: number;
@@ -80,12 +103,16 @@ export async function getStaticPaths() {
         });
     }
 
+<<<<<<< HEAD
     // Only generate pages for PUBLIC spaces (no password set)
     const publicSpaces = (allSpaces as Space[]).filter(
         (space) => !isSpaceRestricted(space),
     );
 
     return publicSpaces.map((space) => {
+=======
+    return (allSpaces as Space[]).map((space) => {
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
         const spaceSlug = slugify(space.name, {
             lower: true,
             strict: true,
@@ -148,6 +175,7 @@ const resourcesByType = resources.reduce(
     {} as Record<string, Resource[]>,
 );
 
+<<<<<<< HEAD
 // Group resources by topic
 const resourcesByTopic = resources.reduce(
     (acc, resource) => {
@@ -159,6 +187,8 @@ const resourcesByTopic = resources.reduce(
     {} as Record<string, Resource[]>,
 );
 
+=======
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
 // Type order: Events first, then videos, playlists, guides, forms, external
 const typeOrder = ["video", "playlist", "guide", "form", "external"];
 
@@ -247,6 +277,7 @@ const typeConfig: TypeConfigItem[] = [
 const activeTypes = typeConfig.filter((t) => t.count > 0);
 const totalResources = activeTypes.reduce((sum, t) => sum + t.count, 0);
 
+<<<<<<< HEAD
 // Build topic config for navigation (only topics with resources)
 interface TopicConfigItem {
     id: string;
@@ -297,6 +328,9 @@ if (uncategorizedCount > 0) {
 }
 
 const isUnlisted = !!space.unlisted;
+=======
+const isUnlisted = space.access === "unlisted";
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
 ---
 
 <Template
@@ -304,20 +338,43 @@ const isUnlisted = !!space.unlisted;
     description={space.description}
     noindex={isUnlisted}
 >
+<<<<<<< HEAD
+=======
+    <SpaceAuth
+        spaceSlug={spaceSlug}
+        spaceName={space.name}
+        password={space.restricted_password || ""}
+        access={space.access}
+    />
+
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
         {
             activeTypes.length > 0 ? (
+<<<<<<< HEAD
                 <div class="flex flex-col lg:flex-row gap-8 pb-12 mt-8">
                     {/* Sticky Side Navigation - Desktop */}
                     <aside class="hidden lg:block w-72 shrink-0">
                         <div class="sticky top-4 space-y-4 max-h-[calc(100vh-2rem)] overflow-y-auto scrollbar-hide">
+=======
+                <div class="flex flex-col lg:flex-row gap-8 pb-12">
+                    {/* Sticky Side Navigation - Desktop */}
+                    <aside class="hidden lg:block w-72 shrink-0">
+                        <div class="sticky top-24 space-y-4">
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                             {/* Space Title & Description */}
                             <div class="p-5 rounded-2xl bg-violet-900/40 ring-1 ring-violet-700/50">
                                 <h1 class="text-xl font-bold text-violet-100 mb-2">
                                     {space.name}
                                 </h1>
+<<<<<<< HEAD
+=======
+                                <p class="text-sm text-violet-400 leading-relaxed mb-3">
+                                    {space.description}
+                                </p>
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                                 <div class="flex items-center gap-2 text-xs text-violet-500">
                                     <Icon
                                         name="books"
@@ -328,6 +385,7 @@ const isUnlisted = !!space.unlisted;
                                 </div>
                             </div>
 
+<<<<<<< HEAD
                             {/* View Toggle */}
                             <div class="p-4 rounded-2xl bg-violet-900/30 ring-1 ring-violet-700/50">
                                 <SpaceResources
@@ -343,6 +401,12 @@ const isUnlisted = !!space.unlisted;
                             >
                                 <p class="text-xs font-semibold text-violet-500 uppercase tracking-wider mb-3 px-2">
                                     Jump to type
+=======
+                            {/* Navigation Card */}
+                            <nav class="space-y-1 p-4 rounded-2xl bg-violet-900/30 ring-1 ring-violet-700/50">
+                                <p class="text-xs font-semibold text-violet-500 uppercase tracking-wider mb-3 px-2">
+                                    Jump to section
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                                 </p>
                                 {activeTypes.map((type) => (
                                     <a
@@ -371,6 +435,7 @@ const isUnlisted = !!space.unlisted;
                                     </a>
                                 ))}
                             </nav>
+<<<<<<< HEAD
 
                             {/* Navigation Card - By Topic (hidden by default) */}
                             <nav
@@ -407,6 +472,8 @@ const isUnlisted = !!space.unlisted;
                                     </a>
                                 ))}
                             </nav>
+=======
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                         </div>
                     </aside>
 
@@ -418,6 +485,7 @@ const isUnlisted = !!space.unlisted;
                         <p class="text-sm text-violet-400">
                             {space.description}
                         </p>
+<<<<<<< HEAD
                         <div class="flex items-center justify-between mt-3">
                             <div class="flex items-center gap-2 text-xs text-violet-500">
                                 <Icon
@@ -436,6 +504,20 @@ const isUnlisted = !!space.unlisted;
                         id="mobile-nav-by-type"
                         class="lg:hidden sticky top-16 z-30 -mx-4 px-4 py-3 bg-violet-950/95 backdrop-blur-sm border-b border-violet-800/50"
                     >
+=======
+                        <div class="flex items-center gap-2 mt-3 text-xs text-violet-500">
+                            <Icon
+                                name="books"
+                                style="solid"
+                                class="h-3.5 w-3.5"
+                            />
+                            <span>{totalResources} resources</span>
+                        </div>
+                    </div>
+
+                    {/* Mobile Navigation Bar */}
+                    <div class="lg:hidden sticky top-16 z-30 -mx-4 px-4 py-3 bg-violet-950/95 backdrop-blur-sm border-b border-violet-800/50">
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                         <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                             {activeTypes.map((type) => (
                                 <a
@@ -460,6 +542,7 @@ const isUnlisted = !!space.unlisted;
                         </div>
                     </div>
 
+<<<<<<< HEAD
                     {/* Mobile Navigation Bar - By Topic (hidden by default) */}
                     <div
                         id="mobile-nav-by-topic"
@@ -491,6 +574,10 @@ const isUnlisted = !!space.unlisted;
 
                     {/* Main Content - View by Type */}
                     <main id="view-by-type" class="flex-1 min-w-0 space-y-12">
+=======
+                    {/* Main Content */}
+                    <main class="flex-1 min-w-0 space-y-12">
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                         {/* Events Section */}
                         {events.length > 0 && (
                             <section id="events" class="scroll-mt-24">
@@ -504,10 +591,17 @@ const isUnlisted = !!space.unlisted;
                                     </div>
                                     <div>
                                         <h2 class="text-xl font-bold text-violet-100">
+<<<<<<< HEAD
                                             Events
                                         </h2>
                                         <p class="text-xs text-violet-400">
                                             Attend and meet your peers
+=======
+                                            Upcoming Events
+                                        </h2>
+                                        <p class="text-xs text-violet-400">
+                                            {events.length} events coming up
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                                         </p>
                                     </div>
                                 </div>
@@ -560,7 +654,11 @@ const isUnlisted = !!space.unlisted;
                                             name={resource.name}
                                             description={resource.description}
                                             href={resource.external_url || "#"}
+<<<<<<< HEAD
                                             topic={resource.topic}
+=======
+                                            category={resource.category}
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                                         />
                                     ))}
                                 </div>
@@ -598,7 +696,11 @@ const isUnlisted = !!space.unlisted;
                                                 href={
                                                     resource.external_url || "#"
                                                 }
+<<<<<<< HEAD
                                                 topic={resource.topic}
+=======
+                                                category={resource.category}
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                                             />
                                         ),
                                     )}
@@ -619,7 +721,11 @@ const isUnlisted = !!space.unlisted;
                                     </div>
                                     <div>
                                         <h2 class="text-xl font-bold text-violet-100">
+<<<<<<< HEAD
                                             Guides
+=======
+                                            Guides & Articles
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                                         </h2>
                                         <p class="text-xs text-violet-400">
                                             In-depth written resources
@@ -644,7 +750,11 @@ const isUnlisted = !!space.unlisted;
                                                     resource.description
                                                 }
                                                 href={`/spaces/${resourceSlug}`}
+<<<<<<< HEAD
                                                 topic={resource.topic}
+=======
+                                                category={resource.category}
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                                                 body={resource.body}
                                             />
                                         );
@@ -666,11 +776,18 @@ const isUnlisted = !!space.unlisted;
                                     </div>
                                     <div>
                                         <h2 class="text-xl font-bold text-violet-100">
+<<<<<<< HEAD
                                             Forms
                                         </h2>
                                         <p class="text-xs text-violet-400">
                                             To get access to the full support
                                             offer
+=======
+                                            Forms & Templates
+                                        </h2>
+                                        <p class="text-xs text-violet-400">
+                                            Documents and templates
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                                         </p>
                                     </div>
                                 </div>
@@ -680,7 +797,11 @@ const isUnlisted = !!space.unlisted;
                                             name={resource.name}
                                             description={resource.description}
                                             href={resource.external_url || "#"}
+<<<<<<< HEAD
                                             topic={resource.topic}
+=======
+                                            category={resource.category}
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                                         />
                                     ))}
                                 </div>
@@ -700,10 +821,17 @@ const isUnlisted = !!space.unlisted;
                                     </div>
                                     <div>
                                         <h2 class="text-xl font-bold text-violet-100">
+<<<<<<< HEAD
                                             Links
                                         </h2>
                                         <p class="text-xs text-violet-400">
                                             Useful websites
+=======
+                                            External Resources
+                                        </h2>
+                                        <p class="text-xs text-violet-400">
+                                            Useful links and tools
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                                         </p>
                                     </div>
                                 </div>
@@ -718,7 +846,11 @@ const isUnlisted = !!space.unlisted;
                                                 href={
                                                     resource.external_url || "#"
                                                 }
+<<<<<<< HEAD
                                                 topic={resource.topic}
+=======
+                                                category={resource.category}
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                                             />
                                         ),
                                     )}
@@ -726,6 +858,7 @@ const isUnlisted = !!space.unlisted;
                             </section>
                         )}
                     </main>
+<<<<<<< HEAD
 
                     {/* Main Content - View by Topic (hidden by default) */}
                     <main
@@ -902,6 +1035,8 @@ const isUnlisted = !!space.unlisted;
                             );
                         })}
                     </main>
+=======
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                 </div>
             ) : (
                 <div class="text-center py-16">
@@ -916,7 +1051,11 @@ const isUnlisted = !!space.unlisted;
                         No resources yet
                     </h3>
                     <p class="text-violet-400 max-w-md mx-auto">
+<<<<<<< HEAD
                         Resources for this space are coming soon.
+=======
+                        Resources for this hub are coming soon.
+>>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                     </p>
                 </div>
             )
