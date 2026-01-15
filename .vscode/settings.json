@@ -3,9 +3,6 @@
     "search.exclude": {
         "**/dist": true
     },
-    "files.exclude": {
-        "**/dist": true
-    },
     "typescript.validate.enable": true,
     "javascript.validate.enable": true,
     "files.watcherExclude": {
