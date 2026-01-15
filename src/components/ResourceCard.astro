@@ -1,0 +1,146 @@
+---
+/**
+ * ResourceCard Component
+ * Displays a resource card with appropriate icon based on type
+ */
+
+import Icon from "@components/Icon.astro";
+import { calculateReadTime } from "@data/functions/read-time.js";
+
+interface Props {
+    name: string;
+    description: string;
+    href: string;
+    type: "guide" | "video" | "form" | "external";
+    category?: string;
+    body?: string;
+    isExternal?: boolean;
+}
+
+const {
+    name,
+    description,
+    href,
+    type,
+    category,
+    body,
+    isExternal = false,
+} = Astro.props;
+
+// Icon mapping by type
+const typeConfig = {
+    guide: { icon: "book", color: "violet" },
+    video: { icon: "video", color: "rose" },
+    form: { icon: "clipboard-list", color: "amber" },
+    external: { icon: "arrow-up-right-from-square", color: "emerald" },
+};
+
+const config = typeConfig[type] || typeConfig.guide;
+const readTime = type === "guide" && body ? calculateReadTime(body) : null;
+
+// Category display names
+const categoryLabels: Record<string, string> = {
+    legal: "Legal & Policies",
+    application: "Application Help",
+    funding: "Funding & Budget",
+    business: "Business Support",
+    wellbeing: "Wellbeing",
+    general: "General",
+};
+
+const categoryLabel = category ? categoryLabels[category] || category : null;
+---
+
+<a
+    href={href}
+    target={isExternal ? "_blank" : undefined}
+    rel={isExternal ? "noopener noreferrer" : undefined}
+    class="group relative flex flex-col overflow-hidden rounded-2xl bg-linear-to-b from-violet-800/50 to-violet-900/50 ring-1 ring-violet-700/50 hover:ring-violet-500/70 transition-all duration-300 hover:shadow-xl hover:shadow-violet-500/10 hover:-translate-y-1"
+>
+    {/* Card Header */}
+    <div class="relative p-6 pb-4">
+        <div class="flex items-start justify-between gap-4">
+            {/* Type Icon */}
+            <div
+                class={`flex h-12 w-12 items-center justify-center rounded-xl bg-${config.color}-500/20 ring-1 ring-${config.color}-500/30 group-hover:bg-${config.color}-500/30 group-hover:ring-${config.color}-400/50 transition-all duration-300`}
+            >
+                <Icon
+                    name={config.icon}
+                    style="solid"
+                    class={`h-6 w-6 text-${config.color}-300 group-hover:text-${config.color}-200`}
+                />
+            </div>
+
+            {/* Badges */}
+            <div class="flex flex-wrap gap-2 justify-end">
+                {
+                    readTime && (
+                        <span class="inline-flex items-center gap-1.5 rounded-full bg-violet-700/50 px-3 py-1 text-xs font-medium text-violet-200 ring-1 ring-violet-600/50">
+                            <Icon
+                                name="clock"
+                                style="regular"
+                                class="h-3 w-3"
+                            />
+                            {readTime} min
+                        </span>
+                    )
+                }
+                {
+                    categoryLabel && (
+                        <span class="inline-flex items-center rounded-full bg-violet-800/50 px-3 py-1 text-xs font-medium text-violet-300 ring-1 ring-violet-700/50">
+                            {categoryLabel}
+                        </span>
+                    )
+                }
+            </div>
+        </div>
+    </div>
+
+    {/* Card Content */}
+    <div class="flex-1 px-6 pb-2">
+        <h3
+            class="text-lg font-semibold text-violet-100 group-hover:text-white transition-colors duration-200 line-clamp-2"
+        >
+            {name}
+        </h3>
+        <p class="mt-3 text-sm leading-relaxed text-violet-300/80 line-clamp-3">
+            {description}
+        </p>
+    </div>
+
+    {/* Card Footer */}
+    <div class="mt-auto px-6 py-4 border-t border-violet-700/30">
+        <div class="flex items-center justify-between">
+            <span
+                class="text-sm font-medium text-violet-400 group-hover:text-violet-300 transition-colors"
+            >
+                {
+                    type === "guide"
+                        ? "Read guide"
+                        : type === "video"
+                          ? "Watch video"
+                          : type === "form"
+                            ? "Open form"
+                            : "Visit link"
+                }
+            </span>
+            <div
+                class="flex h-8 w-8 items-center justify-center rounded-full bg-violet-700/50 group-hover:bg-violet-600/70 transition-all duration-300 group-hover:translate-x-1"
+            >
+                <Icon
+                    name={isExternal
+                        ? "arrow-up-right-from-square"
+                        : "arrow-right"}
+                    style="solid"
+                    class="h-4 w-4 text-violet-300 group-hover:text-white"
+                />
+            </div>
+        </div>
+    </div>
+
+    {/* Hover gradient overlay */}
+    <div
+        class="absolute inset-0 rounded-2xl bg-linear-to-t from-violet-600/0 to-violet-400/0 group-hover:from-violet-600/5 group-hover:to-violet-400/5 transition-all duration-300 pointer-events-none"
+    >
+    </div>
+</a>

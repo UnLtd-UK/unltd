@@ -5,12 +5,16 @@
  */
 
 import Icon from "@components/Icon.astro";
+<<<<<<< HEAD
 import { getTopicLabel, getTopicConfig } from "@data/topics";
+=======
+>>>>>>> c40fddc (Refactor resources and spaces structure)
 
 interface Props {
     name: string;
     description: string;
     href: string;
+<<<<<<< HEAD
     topic?: string;
     videoCount?: number;
 }
@@ -19,6 +23,24 @@ const { name, description, href, topic, videoCount } = Astro.props;
 
 const topicLabel = getTopicLabel(topic);
 const topicConf = getTopicConfig(topic);
+=======
+    category?: string;
+    videoCount?: number;
+}
+
+const { name, description, href, category, videoCount } = Astro.props;
+
+const categoryLabels: Record<string, string> = {
+    legal: "Legal & Policies",
+    application: "Application Help",
+    funding: "Funding & Budget",
+    business: "Business Support",
+    wellbeing: "Wellbeing",
+    general: "General",
+};
+
+const categoryLabel = category ? categoryLabels[category] || category : null;
+>>>>>>> c40fddc (Refactor resources and spaces structure)
 ---
 
 <a
@@ -78,6 +100,7 @@ const topicConf = getTopicConfig(topic);
             )
         }
 
+<<<<<<< HEAD
         {/* Topic badge */}
         {
             topicLabel && (
@@ -93,6 +116,14 @@ const topicConf = getTopicConfig(topic);
                             />
                         )}
                         {topicLabel}
+=======
+        {/* Category badge */}
+        {
+            categoryLabel && (
+                <div class="absolute bottom-3 left-3">
+                    <span class="inline-flex items-center rounded-full bg-black/50 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-purple-200 ring-1 ring-white/10">
+                        {categoryLabel}
+>>>>>>> c40fddc (Refactor resources and spaces structure)
                     </span>
                 </div>
             )

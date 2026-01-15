@@ -6,12 +6,16 @@
 
 import Icon from "@components/Icon.astro";
 import { calculateReadTime } from "@data/functions/read-time.js";
+<<<<<<< HEAD
 import { getTopicLabel, getTopicConfig } from "@data/topics";
+=======
+>>>>>>> c40fddc (Refactor resources and spaces structure)
 
 interface Props {
     name: string;
     description: string;
     href: string;
+<<<<<<< HEAD
     topic?: string;
     body?: string;
 }
@@ -22,6 +26,26 @@ const readTime = body ? calculateReadTime(body) : null;
 
 const topicLabel = getTopicLabel(topic);
 const topicConf = getTopicConfig(topic);
+=======
+    category?: string;
+    body?: string;
+}
+
+const { name, description, href, category, body } = Astro.props;
+
+const readTime = body ? calculateReadTime(body) : null;
+
+const categoryLabels: Record<string, string> = {
+    legal: "Legal & Policies",
+    application: "Application Help",
+    funding: "Funding & Budget",
+    business: "Business Support",
+    wellbeing: "Wellbeing",
+    general: "General",
+};
+
+const categoryLabel = category ? categoryLabels[category] || category : null;
+>>>>>>> c40fddc (Refactor resources and spaces structure)
 ---
 
 <a
@@ -60,6 +84,7 @@ const topicConf = getTopicConfig(topic);
                     )
                 }
                 {
+<<<<<<< HEAD
                     topicLabel && (
                         <span
                             class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${topicConf ? `${topicConf.bgClass} ${topicConf.textClass} ${topicConf.ringClass}` : "bg-emerald-800/60 text-emerald-300 ring-emerald-600/40"}`}
@@ -72,6 +97,11 @@ const topicConf = getTopicConfig(topic);
                                 />
                             )}
                             {topicLabel}
+=======
+                    categoryLabel && (
+                        <span class="inline-flex items-center rounded-full bg-emerald-800/60 px-2.5 py-1 text-xs font-medium text-emerald-300 ring-1 ring-emerald-600/40">
+                            {categoryLabel}
+>>>>>>> c40fddc (Refactor resources and spaces structure)
                         </span>
                     )
                 }

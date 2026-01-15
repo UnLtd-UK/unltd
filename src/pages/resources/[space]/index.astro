@@ -1,0 +1,618 @@
+---
+/**
+ * Space Landing Page - Hub Layout
+ * Shows all resources with sticky side navigation
+ * Order: Events, Videos, Playlists, Guides, Forms, External
+ */
+
+import slugify from "slugify";
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Icon from "@components/Icon.astro";
+import SpaceAuth from "@components/SpaceAuth.astro";
+
+// Import compact card components
+import GuideCardCompact from "@components/resources/GuideCardCompact.astro";
+import VideoCardCompact from "@components/resources/VideoCardCompact.astro";
+import FormCardCompact from "@components/resources/FormCardCompact.astro";
+import ExternalCardCompact from "@components/resources/ExternalCardCompact.astro";
+import PlaylistCardCompact from "@components/resources/PlaylistCardCompact.astro";
+import EventCardCompact from "@components/resources/EventCardCompact.astro";
+
+import { allSpaces } from "@data/spaces.js";
+import { allResources } from "@data/resources.js";
+import {
+    programmeEvents,
+    isPastEvent,
+    sortEvents,
+    type Event,
+} from "@data/eventCollections";
+
+// Type definitions
+interface Space {
+    id: string;
+    name: string;
+    description: string;
+    access: "public" | "unlisted" | "restricted";
+    restricted_password?: string;
+    eventbrite_keywords?: string[];
+    sort?: number;
+}
+
+interface ResourceSpace {
+    spaces_id?: { id: string; name: string };
+}
+
+interface Resource {
+    id: string;
+    name: string;
+    description: string;
+    body?: string;
+    type: "guide" | "video" | "form" | "external" | "playlist";
+    category?: string;
+    external_url?: string;
+    spaces?: ResourceSpace[];
+    sort?: number;
+}
+
+export async function getStaticPaths() {
+    // Filter events by keywords - defined inside getStaticPaths for proper scoping
+    function filterEventsByKeywords(
+        events: Event[],
+        keywords: string[],
+    ): Event[] {
+        if (!keywords || keywords.length === 0) return [];
+        const normalizedKeywords = keywords.map((k) => k.toLowerCase().trim());
+        return events.filter((event) => {
+            const title = event.name?.text?.toLowerCase() || "";
+            const description =
+                event.description?.text?.toLowerCase() ||
+                event.summary?.toLowerCase() ||
+                "";
+            const searchText = `${title} ${description}`;
+            return normalizedKeywords.some((keyword) =>
+                searchText.includes(keyword),
+            );
+        });
+    }
+
+    return (allSpaces as Space[]).map((space) => {
+        const spaceSlug = slugify(space.name, {
+            lower: true,
+            strict: true,
+            locale: "en",
+            trim: true,
+        });
+
+        const spaceResources = (allResources as Resource[]).filter(
+            (resource) => {
+                if (!resource.spaces || resource.spaces.length === 0)
+                    return false;
+                return resource.spaces.some(
+                    (s) => s.spaces_id?.id === space.id,
+                );
+            },
+        );
+
+        // Get events for this space
+        const keywords = space.eventbrite_keywords || [];
+        const filteredEvents = filterEventsByKeywords(
+            programmeEvents,
+            keywords,
+        );
+        const upcomingEvents = sortEvents(
+            filteredEvents.filter((e) => !isPastEvent(e)),
+        );
+
+        return {
+            params: { space: spaceSlug },
+            props: {
+                space,
+                spaceSlug,
+                resources: spaceResources,
+                events: upcomingEvents,
+            },
+        };
+    });
+}
+
+const { space, spaceSlug, resources, events } = Astro.props as {
+    space: Space;
+    spaceSlug: string;
+    resources: Resource[];
+    events: Event[];
+};
+
+const breadcrumbs = [
+    { name: "Resources", path: "/resources" },
+    { name: space.name, path: `/resources/${spaceSlug}` },
+];
+
+// Group resources by type
+const resourcesByType = resources.reduce(
+    (acc, resource) => {
+        const type = resource.type || "guide";
+        if (!acc[type]) acc[type] = [];
+        acc[type].push(resource);
+        return acc;
+    },
+    {} as Record<string, Resource[]>,
+);
+
+// Type order: Events first, then videos, playlists, guides, forms, external
+const typeOrder = ["video", "playlist", "guide", "form", "external"];
+
+interface TypeConfigItem {
+    id: string;
+    label: string;
+    shortLabel: string;
+    icon: string;
+    color: string;
+    bgClass: string;
+    textClass: string;
+    ringClass: string;
+    count: number;
+}
+
+const typeConfig: TypeConfigItem[] = [
+    {
+        id: "events",
+        label: "Upcoming Events",
+        shortLabel: "Events",
+        icon: "calendar-days",
+        color: "cyan",
+        bgClass: "bg-cyan-500/20",
+        textClass: "text-cyan-300",
+        ringClass: "ring-cyan-400/30",
+        count: events.length,
+    },
+    {
+        id: "video",
+        label: "Videos",
+        shortLabel: "Videos",
+        icon: "video",
+        color: "rose",
+        bgClass: "bg-rose-500/20",
+        textClass: "text-rose-300",
+        ringClass: "ring-rose-400/30",
+        count: resourcesByType.video?.length || 0,
+    },
+    {
+        id: "playlist",
+        label: "Playlists",
+        shortLabel: "Playlists",
+        icon: "list",
+        color: "purple",
+        bgClass: "bg-purple-500/20",
+        textClass: "text-purple-300",
+        ringClass: "ring-purple-400/30",
+        count: resourcesByType.playlist?.length || 0,
+    },
+    {
+        id: "guide",
+        label: "Guides & Articles",
+        shortLabel: "Guides",
+        icon: "book-open",
+        color: "emerald",
+        bgClass: "bg-emerald-500/20",
+        textClass: "text-emerald-300",
+        ringClass: "ring-emerald-400/30",
+        count: resourcesByType.guide?.length || 0,
+    },
+    {
+        id: "form",
+        label: "Forms & Templates",
+        shortLabel: "Forms",
+        icon: "file-lines",
+        color: "amber",
+        bgClass: "bg-amber-500/20",
+        textClass: "text-amber-300",
+        ringClass: "ring-amber-400/30",
+        count: resourcesByType.form?.length || 0,
+    },
+    {
+        id: "external",
+        label: "External Resources",
+        shortLabel: "Links",
+        icon: "link",
+        color: "sky",
+        bgClass: "bg-sky-500/20",
+        textClass: "text-sky-300",
+        ringClass: "ring-sky-400/30",
+        count: resourcesByType.external?.length || 0,
+    },
+];
+
+// Only show types that have content
+const activeTypes = typeConfig.filter((t) => t.count > 0);
+const totalResources = activeTypes.reduce((sum, t) => sum + t.count, 0);
+
+const isUnlisted = space.access === "unlisted";
+---
+
+<Template
+    name={space.name}
+    description={space.description}
+    noindex={isUnlisted}
+>
+    <SpaceAuth
+        spaceSlug={spaceSlug}
+        spaceName={space.name}
+        password={space.restricted_password || ""}
+        access={space.access}
+    />
+
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+
+        {
+            activeTypes.length > 0 ? (
+                <div class="flex flex-col lg:flex-row gap-8 pb-12">
+                    {/* Sticky Side Navigation - Desktop */}
+                    <aside class="hidden lg:block w-72 shrink-0">
+                        <div class="sticky top-24 space-y-4">
+                            {/* Space Title & Description */}
+                            <div class="p-5 rounded-2xl bg-violet-900/40 ring-1 ring-violet-700/50">
+                                <h1 class="text-xl font-bold text-violet-100 mb-2">
+                                    {space.name}
+                                </h1>
+                                <p class="text-sm text-violet-400 leading-relaxed mb-3">
+                                    {space.description}
+                                </p>
+                                <div class="flex items-center gap-2 text-xs text-violet-500">
+                                    <Icon
+                                        name="books"
+                                        style="solid"
+                                        class="h-3.5 w-3.5"
+                                    />
+                                    <span>{totalResources} resources</span>
+                                </div>
+                            </div>
+
+                            {/* Navigation Card */}
+                            <nav class="space-y-1 p-4 rounded-2xl bg-violet-900/30 ring-1 ring-violet-700/50">
+                                <p class="text-xs font-semibold text-violet-500 uppercase tracking-wider mb-3 px-2">
+                                    Jump to section
+                                </p>
+                                {activeTypes.map((type) => (
+                                    <a
+                                        href={`#${type.id}`}
+                                        class={`flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-violet-800/50 transition-colors group`}
+                                    >
+                                        <div
+                                            class={`flex h-8 w-8 items-center justify-center rounded-lg ${type.bgClass} ring-1 ${type.ringClass}`}
+                                        >
+                                            <Icon
+                                                name={type.icon}
+                                                style="solid"
+                                                class={`h-4 w-4 ${type.textClass}`}
+                                            />
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <span class="text-sm font-medium text-violet-200 group-hover:text-white transition-colors">
+                                                {type.shortLabel}
+                                            </span>
+                                        </div>
+                                        <span
+                                            class={`text-xs font-medium px-2 py-0.5 rounded-full ${type.bgClass} ${type.textClass}`}
+                                        >
+                                            {type.count}
+                                        </span>
+                                    </a>
+                                ))}
+                            </nav>
+                        </div>
+                    </aside>
+
+                    {/* Mobile Header */}
+                    <div class="lg:hidden mb-4">
+                        <h1 class="text-2xl font-bold text-violet-100 mb-2">
+                            {space.name}
+                        </h1>
+                        <p class="text-sm text-violet-400">
+                            {space.description}
+                        </p>
+                        <div class="flex items-center gap-2 mt-3 text-xs text-violet-500">
+                            <Icon
+                                name="books"
+                                style="solid"
+                                class="h-3.5 w-3.5"
+                            />
+                            <span>{totalResources} resources</span>
+                        </div>
+                    </div>
+
+                    {/* Mobile Navigation Bar */}
+                    <div class="lg:hidden sticky top-16 z-30 -mx-4 px-4 py-3 bg-violet-950/95 backdrop-blur-sm border-b border-violet-800/50">
+                        <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                            {activeTypes.map((type) => (
+                                <a
+                                    href={`#${type.id}`}
+                                    class={`shrink-0 flex items-center gap-2 px-3 py-2 rounded-lg ${type.bgClass} ring-1 ${type.ringClass}`}
+                                >
+                                    <Icon
+                                        name={type.icon}
+                                        style="solid"
+                                        class={`h-4 w-4 ${type.textClass}`}
+                                    />
+                                    <span
+                                        class={`text-xs font-medium ${type.textClass}`}
+                                    >
+                                        {type.shortLabel}
+                                    </span>
+                                    <span class="text-xs text-violet-400">
+                                        {type.count}
+                                    </span>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Main Content */}
+                    <main class="flex-1 min-w-0 space-y-12">
+                        {/* Events Section */}
+                        {events.length > 0 && (
+                            <section id="events" class="scroll-mt-24">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/20 ring-1 ring-cyan-400/30">
+                                        <Icon
+                                            name="calendar-days"
+                                            style="solid"
+                                            class="h-5 w-5 text-cyan-300"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-bold text-violet-100">
+                                            Upcoming Events
+                                        </h2>
+                                        <p class="text-xs text-violet-400">
+                                            {events.length} events coming up
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="grid gap-4 sm:grid-cols-2">
+                                    {events.slice(0, 6).map((event) => (
+                                        <EventCardCompact event={event} />
+                                    ))}
+                                </div>
+                                {events.length > 6 && (
+                                    <a
+                                        href="https://www.eventbrite.com/o/unltd-3046207224"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-2 mt-4 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+                                    >
+                                        View all {events.length} events
+                                        <Icon
+                                            name="arrow-up-right-from-square"
+                                            style="solid"
+                                            class="h-3 w-3"
+                                        />
+                                    </a>
+                                )}
+                            </section>
+                        )}
+
+                        {/* Videos Section */}
+                        {resourcesByType.video?.length > 0 && (
+                            <section id="video" class="scroll-mt-24">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-500/20 ring-1 ring-rose-400/30">
+                                        <Icon
+                                            name="video"
+                                            style="solid"
+                                            class="h-5 w-5 text-rose-300"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-bold text-violet-100">
+                                            Videos
+                                        </h2>
+                                        <p class="text-xs text-violet-400">
+                                            Watch and learn
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                    {resourcesByType.video.map((resource) => (
+                                        <VideoCardCompact
+                                            name={resource.name}
+                                            description={resource.description}
+                                            href={resource.external_url || "#"}
+                                            category={resource.category}
+                                        />
+                                    ))}
+                                </div>
+                            </section>
+                        )}
+
+                        {/* Playlists Section */}
+                        {resourcesByType.playlist?.length > 0 && (
+                            <section id="playlist" class="scroll-mt-24">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/20 ring-1 ring-purple-400/30">
+                                        <Icon
+                                            name="list"
+                                            style="solid"
+                                            class="h-5 w-5 text-purple-300"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-bold text-violet-100">
+                                            Playlists
+                                        </h2>
+                                        <p class="text-xs text-violet-400">
+                                            Curated video collections
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                    {resourcesByType.playlist.map(
+                                        (resource) => (
+                                            <PlaylistCardCompact
+                                                name={resource.name}
+                                                description={
+                                                    resource.description
+                                                }
+                                                href={
+                                                    resource.external_url || "#"
+                                                }
+                                                category={resource.category}
+                                            />
+                                        ),
+                                    )}
+                                </div>
+                            </section>
+                        )}
+
+                        {/* Guides Section */}
+                        {resourcesByType.guide?.length > 0 && (
+                            <section id="guide" class="scroll-mt-24">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 ring-1 ring-emerald-400/30">
+                                        <Icon
+                                            name="book-open"
+                                            style="solid"
+                                            class="h-5 w-5 text-emerald-300"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-bold text-violet-100">
+                                            Guides & Articles
+                                        </h2>
+                                        <p class="text-xs text-violet-400">
+                                            In-depth written resources
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="grid gap-4 sm:grid-cols-2">
+                                    {resourcesByType.guide.map((resource) => {
+                                        const resourceSlug = slugify(
+                                            resource.name,
+                                            {
+                                                lower: true,
+                                                strict: true,
+                                                locale: "en",
+                                                trim: true,
+                                            },
+                                        );
+                                        return (
+                                            <GuideCardCompact
+                                                name={resource.name}
+                                                description={
+                                                    resource.description
+                                                }
+                                                href={`/resources/${spaceSlug}/${resourceSlug}`}
+                                                category={resource.category}
+                                                body={resource.body}
+                                            />
+                                        );
+                                    })}
+                                </div>
+                            </section>
+                        )}
+
+                        {/* Forms Section */}
+                        {resourcesByType.form?.length > 0 && (
+                            <section id="form" class="scroll-mt-24">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/20 ring-1 ring-amber-400/30">
+                                        <Icon
+                                            name="file-lines"
+                                            style="solid"
+                                            class="h-5 w-5 text-amber-300"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-bold text-violet-100">
+                                            Forms & Templates
+                                        </h2>
+                                        <p class="text-xs text-violet-400">
+                                            Documents and templates
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="grid gap-4 sm:grid-cols-2">
+                                    {resourcesByType.form.map((resource) => (
+                                        <FormCardCompact
+                                            name={resource.name}
+                                            description={resource.description}
+                                            href={resource.external_url || "#"}
+                                            category={resource.category}
+                                        />
+                                    ))}
+                                </div>
+                            </section>
+                        )}
+
+                        {/* External Resources Section */}
+                        {resourcesByType.external?.length > 0 && (
+                            <section id="external" class="scroll-mt-24">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/20 ring-1 ring-sky-400/30">
+                                        <Icon
+                                            name="link"
+                                            style="solid"
+                                            class="h-5 w-5 text-sky-300"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-bold text-violet-100">
+                                            External Resources
+                                        </h2>
+                                        <p class="text-xs text-violet-400">
+                                            Useful links and tools
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="grid gap-4 sm:grid-cols-2">
+                                    {resourcesByType.external.map(
+                                        (resource) => (
+                                            <ExternalCardCompact
+                                                name={resource.name}
+                                                description={
+                                                    resource.description
+                                                }
+                                                href={
+                                                    resource.external_url || "#"
+                                                }
+                                                category={resource.category}
+                                            />
+                                        ),
+                                    )}
+                                </div>
+                            </section>
+                        )}
+                    </main>
+                </div>
+            ) : (
+                <div class="text-center py-16">
+                    <div class="mx-auto w-16 h-16 rounded-2xl bg-violet-800/50 flex items-center justify-center ring-1 ring-violet-700/50 mb-6">
+                        <Icon
+                            name="books"
+                            style="solid"
+                            class="h-8 w-8 text-violet-400"
+                        />
+                    </div>
+                    <h3 class="text-lg font-semibold text-violet-200 mb-2">
+                        No resources yet
+                    </h3>
+                    <p class="text-violet-400 max-w-md mx-auto">
+                        Resources for this hub are coming soon.
+                    </p>
+                </div>
+            )
+        }
+    </Container>
+</Template>
+
+<style>
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+</style>

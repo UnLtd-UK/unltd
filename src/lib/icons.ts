@@ -26,6 +26,7 @@ import {
     faLink,
     faLock,
     faPlay,
+<<<<<<< HEAD
 =======
 =======
     faBenchTree,
@@ -33,6 +34,8 @@ import {
     faBook,
     faBooks,
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+>>>>>>> c40fddc (Refactor resources and spaces structure)
     faBriefcase,
     faBuilding,
     faCalendarCheck,
@@ -293,6 +296,7 @@ library.add(
     faLink,
     faLock,
     faPlay,
+<<<<<<< HEAD
 =======
 =======
     faBenchTree,
@@ -300,6 +304,8 @@ library.add(
     faBook,
     faBooks,
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+>>>>>>> c40fddc (Refactor resources and spaces structure)
     faBriefcase,
     faBuilding,
     faCalendarCheck,
@@ -549,10 +555,13 @@ export {
     faBooks,
     faClipboardList,
     faLock,
+<<<<<<< HEAD
 =======
     faBook,
     faBooks,
 >>>>>>> 729c08b (Refactor icon usage across the application)
+=======
+>>>>>>> c40fddc (Refactor resources and spaces structure)
     faBriefcase,
     faBuilding,
     faCalendarCheck,

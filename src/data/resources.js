@@ -20,7 +20,11 @@ const filterOptions = {
         'description',
         'body',
         'type',
+<<<<<<< HEAD
         'topic',
+=======
+        'category',
+>>>>>>> c40fddc (Refactor resources and spaces structure)
         'external_url',
         'sort',
         'spaces.spaces_id.id',
