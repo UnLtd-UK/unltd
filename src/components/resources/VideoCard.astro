@@ -6,14 +6,19 @@
 
 import Icon from "@components/Icon.astro";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { getTopicLabel, getTopicConfig } from "@data/topics";
 =======
 >>>>>>> c40fddc (Refactor resources and spaces structure)
+=======
+import { getTopicLabel, getTopicConfig } from "@data/topics";
+>>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
 
 interface Props {
     name: string;
     description: string;
     href: string;
+<<<<<<< HEAD
 <<<<<<< HEAD
     topic?: string;
     thumbnail?: string;
@@ -25,11 +30,15 @@ const topicLabel = getTopicLabel(topic);
 const topicConf = getTopicConfig(topic);
 =======
     category?: string;
+=======
+    topic?: string;
+>>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
     thumbnail?: string;
 }
 
-const { name, description, href, category, thumbnail } = Astro.props;
+const { name, description, href, topic, thumbnail } = Astro.props;
 
+<<<<<<< HEAD
 const categoryLabels: Record<string, string> = {
     legal: "Legal & Policies",
     application: "Application Help",
@@ -41,6 +50,10 @@ const categoryLabels: Record<string, string> = {
 
 const categoryLabel = category ? categoryLabels[category] || category : null;
 >>>>>>> c40fddc (Refactor resources and spaces structure)
+=======
+const topicLabel = getTopicLabel(topic);
+const topicConf = getTopicConfig(topic);
+>>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
 ---
 
 <a
@@ -83,6 +96,7 @@ const categoryLabel = category ? categoryLabels[category] || category : null;
         </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         {/* Topic badge */}
         {
             topicLabel && (
@@ -100,12 +114,29 @@ const categoryLabel = category ? categoryLabels[category] || category : null;
                         {topicLabel}
 =======
         {/* Category badge */}
+=======
+        {/* Topic badge */}
+>>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
         {
-            categoryLabel && (
+            topicLabel && (
                 <div class="absolute top-3 right-3">
+<<<<<<< HEAD
                     <span class="inline-flex items-center rounded-full bg-black/50 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-rose-200 ring-1 ring-white/10">
                         {categoryLabel}
 >>>>>>> c40fddc (Refactor resources and spaces structure)
+=======
+                    <span
+                        class={`inline-flex items-center gap-1.5 rounded-full backdrop-blur-sm px-2.5 py-1 text-xs font-medium ring-1 ${topicConf ? `${topicConf.bgClass} ${topicConf.textClass} ${topicConf.ringClass}` : "bg-black/50 text-rose-200 ring-white/10"}`}
+                    >
+                        {topicConf && (
+                            <Icon
+                                name={topicConf.icon}
+                                style="solid"
+                                class="h-3 w-3"
+                            />
+                        )}
+                        {topicLabel}
+>>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
                     </span>
                 </div>
             )

@@ -21,9 +21,13 @@ import Default from "@components/heroes/Default.astro";
 import Content from "@components/markdoc/Content.astro";
 import TableOfContents from "@components/TableOfContents.astro";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import SpaceAuth from "@components/SpaceAuth.astro";
 >>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
+=======
+import ResourceAuth from "@components/ResourceAuth.astro";
+>>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
 
 import { allSpaces } from "@data/spaces.js";
 import { allResources } from "@data/resources.js";
@@ -59,10 +63,14 @@ interface Resource {
     body?: string;
     type: "guide" | "video" | "form" | "external";
 <<<<<<< HEAD
+<<<<<<< HEAD
     topic?: string;
 =======
     category?: string;
 >>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
+=======
+    topic?: string;
+>>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
     external_url?: string;
     spaces?: ResourceSpace[];
 }
@@ -187,12 +195,26 @@ const breadcrumbs = [
 ];
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // noindex if unlisted
 const shouldNoindex = !isListed;
 =======
 // For restricted resources, use the first restricted space for auth
 const authSpace = restrictedSpaces[0];
 >>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
+=======
+// Prepare restricted spaces data for auth component
+const restrictedSpacesData = restrictedSpaces.map((space) => ({
+    slug: slugify(space.name, {
+        lower: true,
+        strict: true,
+        locale: "en",
+        trim: true,
+    }),
+    name: space.name,
+    password: space.restricted_password || "",
+}));
+>>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
 ---
 
 <Template
@@ -209,27 +231,28 @@ const authSpace = restrictedSpaces[0];
 =======
     noindex={!isPublic}
 >
-    {/* Password protection for restricted resources */}
     {
-        !isPublic && authSpace && (
-            <SpaceAuth
-                spaceSlug={slugify(authSpace.name, {
-                    lower: true,
-                    strict: true,
-                    locale: "en",
-                    trim: true,
-                })}
-                spaceName={authSpace.name}
-                password={authSpace.restricted_password || ""}
-                access={authSpace.access}
+        /* Password protection for restricted resources - accepts any valid password */
+    }
+    {
+        !isPublic && restrictedSpacesData.length > 0 && (
+            <ResourceAuth
+                restrictedSpaces={restrictedSpacesData}
+                resourceName={resource.name}
             />
         )
     }
 
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
+<<<<<<< HEAD
         <Default name={resource.name} description={resource.description} />
 >>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
+=======
+        <div class="mt-8">
+            <Default name={resource.name} description={resource.description} />
+        </div>
+>>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
 
         <div class="flex gap-8 lg:gap-12 pb-16 items-start">
             {/* Table of Contents - Desktop Sidebar */}
