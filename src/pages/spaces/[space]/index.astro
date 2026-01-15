@@ -125,8 +125,8 @@ const { space, spaceSlug, resources, events } = Astro.props as {
 };
 
 const breadcrumbs = [
-    { name: "Resources", path: "/resources" },
-    { name: space.name, path: `/resources/${spaceSlug}` },
+    { name: "Spaces", path: "/spaces" },
+    { name: space.name, path: `/spaces/${spaceSlug}` },
 ];
 
 // Group resources by type
@@ -503,7 +503,7 @@ const isUnlisted = space.access === "unlisted";
                                                 description={
                                                     resource.description
                                                 }
-                                                href={`/resources/${spaceSlug}/${resourceSlug}`}
+                                                href={`/spaces/${resourceSlug}`}
                                                 category={resource.category}
                                                 body={resource.body}
                                             />

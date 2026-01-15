@@ -209,17 +209,17 @@ export const stepLinks = {
     },
     preview: {
         label: "Download preview",
-        href: "/resources/application-form-preview",
+        href: "/spaces/application-form-preview",
         icon: "fa-solid fa-download",
     },
     budget: {
         label: "Budget guidance",
-        href: "/resources/award-budget-guidance",
+        href: "/spaces/award-budget-guidance",
         icon: "fa-solid fa-arrow-right",
     },
     panel: {
         label: "Panel guide",
-        href: "/resources/panel-meeting-guide",
+        href: "/spaces/panel-meeting-guide",
         icon: "fa-solid fa-arrow-right",
     },
 } as const;

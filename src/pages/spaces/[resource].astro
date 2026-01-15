@@ -1,0 +1,186 @@
+---
+/**
+ * Individual Resource Page - Canonical URL
+ * Flat URL structure: /spaces/[resource-slug]
+ * Access control based on spaces the resource belongs to:
+ * - If belongs to ANY public space → public access
+ * - If only in restricted spaces → requires authentication
+ */
+
+import slugify from "slugify";
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Default from "@components/heroes/Default.astro";
+import Content from "@components/markdoc/Content.astro";
+import TableOfContents from "@components/TableOfContents.astro";
+import SpaceAuth from "@components/SpaceAuth.astro";
+
+import { allSpaces } from "@data/spaces.js";
+import { allResources } from "@data/resources.js";
+import { prepareMarkdown } from "@data/functions/prepareMarkdown.ts";
+import { prepareToc } from "@data/functions/prepareToc.ts";
+
+// Type definitions
+interface Space {
+    id: string;
+    name: string;
+    description: string;
+    access: "public" | "unlisted" | "restricted";
+    restricted_password?: string;
+    eventbrite_keywords?: string[];
+}
+
+interface ResourceSpace {
+    spaces_id?: { id: string; name: string };
+}
+
+interface Resource {
+    id: string;
+    name: string;
+    description: string;
+    body?: string;
+    type: "guide" | "video" | "form" | "external";
+    category?: string;
+    external_url?: string;
+    spaces?: ResourceSpace[];
+}
+
+interface TocHeading {
+    id: string;
+    level: number;
+    text: string;
+}
+
+export async function getStaticPaths() {
+    const paths: Array<{
+        params: { resource: string };
+        props: {
+            resource: Resource;
+            resourceSlug: string;
+            body: string;
+            toc: TocHeading[];
+            isPublic: boolean;
+            restrictedSpaces: Space[];
+        };
+    }> = [];
+
+    // Get all guide resources (those with body content)
+    const guideResources = (allResources as Resource[]).filter(
+        (resource) => resource.type === "guide" && resource.body,
+    );
+
+    for (const resource of guideResources) {
+        const resourceSlug = slugify(resource.name, {
+            lower: true,
+            strict: true,
+            locale: "en",
+            trim: true,
+        });
+
+        const body = prepareMarkdown(resource.body || "");
+        const toc = prepareToc(body);
+
+        // Determine access based on spaces this resource belongs to
+        const resourceSpaceIds = (resource.spaces || [])
+            .map((s) => s.spaces_id?.id)
+            .filter(Boolean);
+
+        const resourceSpaces = (allSpaces as Space[]).filter((space) =>
+            resourceSpaceIds.includes(space.id),
+        );
+
+        // If belongs to ANY public space, it's public
+        const isPublic = resourceSpaces.some(
+            (space) => space.access === "public",
+        );
+
+        // Get restricted spaces for auth (only needed if not public)
+        const restrictedSpaces = isPublic
+            ? []
+            : resourceSpaces.filter((space) => space.access === "restricted");
+
+        paths.push({
+            params: {
+                resource: resourceSlug,
+            },
+            props: {
+                resource,
+                resourceSlug,
+                body,
+                toc,
+                isPublic,
+                restrictedSpaces,
+            },
+        });
+    }
+
+    return paths;
+}
+
+const { resource, resourceSlug, body, toc, isPublic, restrictedSpaces } =
+    Astro.props as {
+        resource: Resource;
+        resourceSlug: string;
+        body: string;
+        toc: TocHeading[];
+        isPublic: boolean;
+        restrictedSpaces: Space[];
+    };
+
+// Breadcrumbs
+const breadcrumbs = [
+    { name: "Spaces", path: "/spaces" },
+    { name: resource.name, path: `/spaces/${resourceSlug}` },
+];
+
+// For restricted resources, use the first restricted space for auth
+const authSpace = restrictedSpaces[0];
+---
+
+<Template
+    name={resource.name}
+    description={resource.description}
+    noindex={!isPublic}
+>
+    {/* Password protection for restricted resources */}
+    {
+        !isPublic && authSpace && (
+            <SpaceAuth
+                spaceSlug={slugify(authSpace.name, {
+                    lower: true,
+                    strict: true,
+                    locale: "en",
+                    trim: true,
+                })}
+                spaceName={authSpace.name}
+                password={authSpace.restricted_password || ""}
+                access={authSpace.access}
+            />
+        )
+    }
+
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <Default name={resource.name} description={resource.description} />
+
+        <div class="flex gap-8 lg:gap-12 pb-16 items-start">
+            {/* Table of Contents - Desktop Sidebar */}
+            <aside class="hidden lg:block sticky top-24">
+                <TableOfContents headings={toc} variant="desktop" />
+            </aside>
+
+            {/* Main Content */}
+            <article class="flex-1 min-w-0">
+                <div
+                    class="bg-violet-900/30 rounded-2xl ring-1 ring-violet-700/50 p-6 sm:p-8 lg:p-10"
+                >
+                    <Content body={body} />
+                </div>
+            </article>
+        </div>
+    </Container>
+
+    {/* Mobile Table of Contents */}
+    <TableOfContents headings={toc} variant="mobile" />
+</Template>

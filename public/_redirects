@@ -1,11 +1,16 @@
 /home-page /
 /home-page/ /
 
-/other-funding-and-support-available-for-social-entrepreneurs /resources/other-funding-and-support-available-for-social-entrepreneurs
-/other-funding-and-support-available-for-social-entrepreneurs/ /resources/other-funding-and-support-available-for-social-entrepreneurs
+/other-funding-and-support-available-for-social-entrepreneurs /spaces/other-funding-and-support-available-for-social-entrepreneurs
+/other-funding-and-support-available-for-social-entrepreneurs/ /spaces/other-funding-and-support-available-for-social-entrepreneurs
 
-/assistance-for-those-with-additional-support-needs /resources/assistance-for-those-with-additional-support-needs
-/assistance-for-those-with-additional-support-needs/ /resources/assistance-for-those-with-additional-support-needs
+/assistance-for-those-with-additional-support-needs /spaces/assistance-for-those-with-additional-support-needs
+/assistance-for-those-with-additional-support-needs/ /spaces/assistance-for-those-with-additional-support-needs
+
+# Legacy /resources redirects to /spaces
+/resources /spaces
+/resources/ /spaces
+/resources/* /spaces/:splat
 
 /terms-conditions /terms-and-conditions
 /terms-conditions/ /terms-and-conditions

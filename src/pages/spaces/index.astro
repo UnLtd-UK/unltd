@@ -1,0 +1,246 @@
+---
+/**
+ * Spaces Index - Hub Picker
+ * Shows all public and restricted spaces (hides unlisted)
+ * Clear distinction between public and restricted spaces
+ */
+
+import slugify from "slugify";
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import HeaderSection from "@components/our-support/headerSection.astro";
+import Icon from "@components/Icon.astro";
+
+import { allSpaces } from "@data/spaces.js";
+
+// Type definition
+interface Space {
+    id: string;
+    name: string;
+    description: string;
+    access: "public" | "unlisted" | "restricted";
+    restricted_password?: string;
+    eventbrite_keywords?: string[];
+    sort?: number;
+}
+
+const name = "Spaces";
+const description =
+    "Access hubs, guides, and support materials tailored to your journey.";
+
+const breadcrumbs = [{ name: "Spaces", path: "/spaces" }];
+
+// Filter spaces: show public and restricted, hide unlisted
+const allVisibleSpaces = (allSpaces as Space[]).filter(
+    (space) => space.access === "public" || space.access === "restricted",
+);
+
+// Separate public and restricted spaces
+const publicSpaces = allVisibleSpaces.filter(
+    (space) => space.access === "public",
+);
+const restrictedSpaces = allVisibleSpaces.filter(
+    (space) => space.access === "restricted",
+);
+---
+
+<Template name={name} description={description}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <HeaderSection title={name} description={description} />
+
+        {/* Public Spaces Section */}
+        {
+            publicSpaces.length > 0 && (
+                <section class="mb-12">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 ring-1 ring-emerald-400/30">
+                            <Icon
+                                name="globe"
+                                style="solid"
+                                class="h-5 w-5 text-emerald-300"
+                            />
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-violet-100">
+                                Public Spaces
+                            </h2>
+                            <p class="text-sm text-violet-400">
+                                Open to everyone
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        {publicSpaces.map((space) => {
+                            const spaceSlug = slugify(space.name, {
+                                lower: true,
+                                strict: true,
+                                locale: "en",
+                                trim: true,
+                            });
+
+                            return (
+                                <a
+                                    href={`/spaces/${spaceSlug}`}
+                                    class="group relative flex flex-col overflow-hidden rounded-2xl bg-linear-to-b from-emerald-800/30 to-emerald-900/30 ring-1 ring-emerald-700/50 hover:ring-emerald-500/70 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-1 p-6"
+                                >
+                                    {/* Header */}
+                                    <div class="flex items-start justify-between gap-4 mb-4">
+                                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-emerald-500/20 ring-1 ring-emerald-500/30 group-hover:bg-emerald-500/30 transition-all duration-300">
+                                            <Icon
+                                                name="books"
+                                                style="solid"
+                                                class="h-7 w-7 text-emerald-300 group-hover:text-emerald-200"
+                                            />
+                                        </div>
+                                        <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 px-3 py-1.5 text-xs font-medium text-emerald-200 ring-1 ring-emerald-500/30">
+                                            <Icon
+                                                name="globe"
+                                                style="solid"
+                                                class="h-3 w-3"
+                                            />
+                                            Public
+                                        </span>
+                                    </div>
+
+                                    {/* Content */}
+                                    <h3 class="text-xl font-bold text-emerald-100 group-hover:text-white transition-colors mb-2">
+                                        {space.name}
+                                    </h3>
+                                    <p class="text-sm text-emerald-300/80 line-clamp-3 flex-1">
+                                        {space.description}
+                                    </p>
+
+                                    {/* Footer */}
+                                    <div class="mt-6 pt-4 border-t border-emerald-700/30 flex items-center justify-between">
+                                        <span class="text-sm font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors">
+                                            Browse hub
+                                        </span>
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-700/50 group-hover:bg-emerald-600/70 transition-all duration-300 group-hover:translate-x-1">
+                                            <Icon
+                                                name="arrow-right"
+                                                style="solid"
+                                                class="h-4 w-4 text-emerald-300 group-hover:text-white"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Hover overlay */}
+                                    <div class="absolute inset-0 rounded-2xl bg-linear-to-t from-emerald-600/0 to-emerald-400/0 group-hover:from-emerald-600/5 group-hover:to-emerald-400/5 transition-all duration-300 pointer-events-none" />
+                                </a>
+                            );
+                        })}
+                    </div>
+                </section>
+            )
+        }
+
+        {/* Restricted Spaces Section */}
+        {
+            restrictedSpaces.length > 0 && (
+                <section class="mb-12">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/20 ring-1 ring-amber-400/30">
+                            <Icon
+                                name="lock"
+                                style="solid"
+                                class="h-5 w-5 text-amber-300"
+                            />
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-violet-100">
+                                Restricted Spaces
+                            </h2>
+                            <p class="text-sm text-violet-400">
+                                Password protected for award holders
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        {restrictedSpaces.map((space) => {
+                            const spaceSlug = slugify(space.name, {
+                                lower: true,
+                                strict: true,
+                                locale: "en",
+                                trim: true,
+                            });
+
+                            return (
+                                <a
+                                    href={`/spaces/${spaceSlug}`}
+                                    class="group relative flex flex-col overflow-hidden rounded-2xl bg-linear-to-b from-amber-800/30 to-amber-900/30 ring-1 ring-amber-700/50 hover:ring-amber-500/70 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/10 hover:-translate-y-1 p-6"
+                                >
+                                    {/* Header */}
+                                    <div class="flex items-start justify-between gap-4 mb-4">
+                                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-amber-500/20 ring-1 ring-amber-500/30 group-hover:bg-amber-500/30 transition-all duration-300">
+                                            <Icon
+                                                name="books"
+                                                style="solid"
+                                                class="h-7 w-7 text-amber-300 group-hover:text-amber-200"
+                                            />
+                                        </div>
+                                        <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 px-3 py-1.5 text-xs font-medium text-amber-200 ring-1 ring-amber-500/30">
+                                            <Icon
+                                                name="lock"
+                                                style="solid"
+                                                class="h-3 w-3"
+                                            />
+                                            Password Protected
+                                        </span>
+                                    </div>
+
+                                    {/* Content */}
+                                    <h3 class="text-xl font-bold text-amber-100 group-hover:text-white transition-colors mb-2">
+                                        {space.name}
+                                    </h3>
+                                    <p class="text-sm text-amber-300/80 line-clamp-3 flex-1">
+                                        {space.description}
+                                    </p>
+
+                                    {/* Footer */}
+                                    <div class="mt-6 pt-4 border-t border-amber-700/30 flex items-center justify-between">
+                                        <span class="text-sm font-medium text-amber-400 group-hover:text-amber-300 transition-colors">
+                                            Enter hub
+                                        </span>
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-amber-700/50 group-hover:bg-amber-600/70 transition-all duration-300 group-hover:translate-x-1">
+                                            <Icon
+                                                name="arrow-right"
+                                                style="solid"
+                                                class="h-4 w-4 text-amber-300 group-hover:text-white"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Hover overlay */}
+                                    <div class="absolute inset-0 rounded-2xl bg-linear-to-t from-amber-600/0 to-amber-400/0 group-hover:from-amber-600/5 group-hover:to-amber-400/5 transition-all duration-300 pointer-events-none" />
+                                </a>
+                            );
+                        })}
+                    </div>
+                </section>
+            )
+        }
+
+        {/* Empty state */}
+        {
+            allVisibleSpaces.length === 0 && (
+                <div class="text-center py-16">
+                    <div class="mx-auto w-16 h-16 rounded-2xl bg-violet-800/50 flex items-center justify-center ring-1 ring-violet-700/50 mb-6">
+                        <Icon
+                            name="books"
+                            style="solid"
+                            class="h-8 w-8 text-violet-400"
+                        />
+                    </div>
+                    <h3 class="text-lg font-semibold text-violet-200 mb-2">
+                        No spaces available
+                    </h3>
+                    <p class="text-violet-400 max-w-md mx-auto">
+                        Check back soon for hubs and guides.
+                    </p>
+                </div>
+            )
+        }
+    </Container>
+</Template>
