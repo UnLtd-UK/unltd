@@ -1,0 +1,171 @@
+---
+/**
+ * Individual Resource Page within a Space
+ * Displays guide content with table of contents
+ * Includes password protection inherited from parent space
+ */
+
+import slugify from "slugify";
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Default from "@components/heroes/Default.astro";
+import Content from "@components/markdoc/Content.astro";
+import TableOfContents from "@components/TableOfContents.astro";
+import SpaceAuth from "@components/SpaceAuth.astro";
+
+import { allSpaces } from "@data/spaces.js";
+import { allResources } from "@data/resources.js";
+import { prepareMarkdown } from "@data/functions/prepareMarkdown.ts";
+import { prepareToc } from "@data/functions/prepareToc.ts";
+
+// Type definitions
+interface Space {
+    id: string;
+    name: string;
+    description: string;
+    access: "public" | "unlisted" | "restricted";
+    restricted_password?: string;
+    eventbrite_keywords?: string[];
+}
+
+interface ResourceSpace {
+    spaces_id?: { id: string; name: string };
+}
+
+interface Resource {
+    id: string;
+    name: string;
+    description: string;
+    body?: string;
+    type: "guide" | "video" | "form" | "external";
+    category?: string;
+    external_url?: string;
+    spaces?: ResourceSpace[];
+}
+
+interface TocHeading {
+    id: string;
+    level: number;
+    text: string;
+}
+
+export async function getStaticPaths() {
+    const paths: Array<{
+        params: { space: string; resource: string };
+        props: {
+            space: Space;
+            spaceSlug: string;
+            resource: Resource;
+            resourceSlug: string;
+            body: string;
+            toc: TocHeading[];
+        };
+    }> = [];
+
+    for (const space of allSpaces as Space[]) {
+        const spaceSlug = slugify(space.name, {
+            lower: true,
+            strict: true,
+            locale: "en",
+            trim: true,
+        });
+
+        // Get resources belonging to this space that are guides (have body content)
+        const spaceResources = (allResources as Resource[]).filter(
+            (resource) => {
+                if (!resource.spaces || resource.spaces.length === 0)
+                    return false;
+                if (resource.type !== "guide") return false; // Only guides have dedicated pages
+                return resource.spaces.some(
+                    (s) => s.spaces_id?.id === space.id,
+                );
+            },
+        );
+
+        for (const resource of spaceResources) {
+            const resourceSlug = slugify(resource.name, {
+                lower: true,
+                strict: true,
+                locale: "en",
+                trim: true,
+            });
+            const body = prepareMarkdown(resource.body || "");
+            const toc = prepareToc(body);
+
+            paths.push({
+                params: {
+                    space: spaceSlug,
+                    resource: resourceSlug,
+                },
+                props: {
+                    space,
+                    spaceSlug,
+                    resource,
+                    resourceSlug,
+                    body,
+                    toc,
+                },
+            });
+        }
+    }
+
+    return paths;
+}
+
+const { space, spaceSlug, resource, resourceSlug, body, toc } = Astro.props as {
+    space: Space;
+    spaceSlug: string;
+    resource: Resource;
+    resourceSlug: string;
+    body: string;
+    toc: TocHeading[];
+};
+
+const breadcrumbs = [
+    { name: "Resources", path: "/resources" },
+    { name: space.name, path: `/resources/${spaceSlug}` },
+    { name: resource.name, path: `/resources/${spaceSlug}/${resourceSlug}` },
+];
+
+// Determine if page should be noindexed
+const isUnlisted = space.access === "unlisted";
+---
+
+<Template
+    name={resource.name}
+    description={resource.description}
+    noindex={isUnlisted}
+>
+    {/* Password protection for restricted spaces */}
+    <SpaceAuth
+        spaceSlug={spaceSlug}
+        spaceName={space.name}
+        password={space.restricted_password || ""}
+        access={space.access}
+    />
+
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <Default name={resource.name} description={resource.description} />
+
+        <div class="flex gap-8 lg:gap-12 pb-16 items-start">
+            {/* Table of Contents - Desktop Sidebar */}
+            <aside class="hidden lg:block sticky top-24">
+                <TableOfContents headings={toc} variant="desktop" />
+            </aside>
+
+            {/* Main Content */}
+            <article class="flex-1 min-w-0">
+                <div
+                    class="bg-violet-900/30 rounded-2xl ring-1 ring-violet-700/50 p-6 sm:p-8 lg:p-10"
+                >
+                    <Content body={body} />
+                </div>
+            </article>
+        </div>
+    </Container>
+
+    {/* Mobile Table of Contents */}
+    <TableOfContents headings={toc} variant="mobile" />
+</Template>

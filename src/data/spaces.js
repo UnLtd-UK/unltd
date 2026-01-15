@@ -1,10 +1,10 @@
 import { getCollection } from './load.js';
 
-const collection = "resources";
-const name = "resources";
+const collection = "spaces";
+const name = "spaces";
 
 const branch = process.env.BRANCH_NAME || 'local';
-console.log(`Branch: ${branch}`);
+
 const statusFilter = branch === 'main'
     ? { _eq: 'published' }
     : {
@@ -14,7 +14,7 @@ const statusFilter = branch === 'main'
     };
 
 const filterOptions = {
-    sort: ['sort', 'name'],
+    sort: ['sort'],
     filter: {
         status: statusFilter
     },
@@ -22,19 +22,16 @@ const filterOptions = {
         'id',
         'name',
         'description',
-        'body',
-        'type',
-        'category',
-        'external_url',
-        'sort',
-        'spaces.spaces_id.id',
-        'spaces.spaces_id.name'
+        'access',
+        'restricted_password',
+        'eventbrite_keywords',
+        'sort'
     ],
-    limit: 500
+    limit: 50
 }
 
 const attach = false;
 
-const allResources = await getCollection(collection, name, filterOptions, attach);
+const allSpaces = await getCollection(collection, name, filterOptions, attach);
 
-export { allResources }
+export { allSpaces }

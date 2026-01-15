@@ -1,0 +1,103 @@
+---
+/**
+ * GuideCardCompact Component
+ * A balanced card for guide/article resources - not too compact
+ */
+
+import Icon from "@components/Icon.astro";
+import { calculateReadTime } from "@data/functions/read-time.js";
+
+interface Props {
+    name: string;
+    description: string;
+    href: string;
+    category?: string;
+    body?: string;
+}
+
+const { name, description, href, category, body } = Astro.props;
+
+const readTime = body ? calculateReadTime(body) : null;
+
+const categoryLabels: Record<string, string> = {
+    legal: "Legal & Policies",
+    application: "Application Help",
+    funding: "Funding & Budget",
+    business: "Business Support",
+    wellbeing: "Wellbeing",
+    general: "General",
+};
+
+const categoryLabel = category ? categoryLabels[category] || category : null;
+---
+
+<a
+    href={href}
+    class="group relative flex overflow-hidden rounded-2xl bg-linear-to-br from-emerald-900/50 via-emerald-800/30 to-teal-900/50 ring-1 ring-emerald-600/30 hover:ring-emerald-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/10 hover:-translate-y-0.5"
+>
+    {/* Book spine accent */}
+    <div
+        class="absolute left-0 top-0 bottom-0 w-1.5 bg-linear-to-b from-emerald-400 via-emerald-500 to-teal-500"
+    >
+    </div>
+
+    <div class="flex-1 pl-6 pr-5 py-5">
+        {/* Header with icon and badges */}
+        <div class="flex items-start justify-between gap-4 mb-3">
+            <div
+                class="flex h-11 w-11 items-center justify-center rounded-xl bg-emerald-500/20 ring-1 ring-emerald-400/30 group-hover:bg-emerald-500/30 transition-all duration-300"
+            >
+                <Icon
+                    name="book-open"
+                    style="solid"
+                    class="h-5 w-5 text-emerald-300 group-hover:text-emerald-200"
+                />
+            </div>
+            <div class="flex flex-wrap gap-2 justify-end">
+                {
+                    readTime && (
+                        <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-700/40 px-2.5 py-1 text-xs font-medium text-emerald-200 ring-1 ring-emerald-600/40">
+                            <Icon
+                                name="clock"
+                                style="regular"
+                                class="h-3 w-3"
+                            />
+                            {readTime} min read
+                        </span>
+                    )
+                }
+                {
+                    categoryLabel && (
+                        <span class="inline-flex items-center rounded-full bg-emerald-800/50 px-2.5 py-1 text-xs font-medium text-emerald-300 ring-1 ring-emerald-600/30">
+                            {categoryLabel}
+                        </span>
+                    )
+                }
+            </div>
+        </div>
+
+        {/* Content */}
+        <h3
+            class="text-lg font-semibold text-emerald-100 group-hover:text-white transition-colors duration-200 line-clamp-2 mb-2"
+        >
+            {name}
+        </h3>
+        <p
+            class="text-sm leading-relaxed text-emerald-300/70 line-clamp-2 mb-4"
+        >
+            {description}
+        </p>
+
+        {/* Footer */}
+        <div
+            class="flex items-center gap-2 text-sm font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors"
+        >
+            <span>Read guide</span>
+            <Icon
+                name="arrow-right"
+                style="solid"
+                class="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-300"
+            />
+        </div>
+    </div>
+</a>

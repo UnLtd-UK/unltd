@@ -1,0 +1,91 @@
+---
+/**
+ * FormCardCompact Component
+ * A balanced card for form/template resources
+ */
+
+import Icon from "@components/Icon.astro";
+
+interface Props {
+    name: string;
+    description: string;
+    href: string;
+    category?: string;
+}
+
+const { name, description, href, category } = Astro.props;
+
+const categoryLabels: Record<string, string> = {
+    legal: "Legal & Policies",
+    application: "Application Help",
+    funding: "Funding & Budget",
+    business: "Business Support",
+    wellbeing: "Wellbeing",
+    general: "General",
+};
+
+const categoryLabel = category ? categoryLabels[category] || category : null;
+---
+
+<a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="group relative flex overflow-hidden rounded-2xl bg-linear-to-br from-amber-900/50 via-orange-800/30 to-amber-900/50 ring-1 ring-amber-600/30 hover:ring-amber-400/50 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/10 hover:-translate-y-0.5"
+>
+    {/* Form icon sidebar */}
+    <div
+        class="flex flex-col items-center justify-center w-20 bg-linear-to-b from-amber-600/20 to-orange-700/20 border-r border-amber-500/20"
+    >
+        <div
+            class="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-500/25 ring-1 ring-amber-400/30 group-hover:bg-amber-500/35 transition-all duration-300"
+        >
+            <Icon
+                name="file-lines"
+                style="solid"
+                class="h-6 w-6 text-amber-200 group-hover:text-amber-100"
+            />
+        </div>
+    </div>
+
+    <div class="flex-1 p-5">
+        {/* Header */}
+        <div class="flex items-start justify-between gap-3 mb-3">
+            <span
+                class="inline-flex items-center gap-1.5 rounded-full bg-amber-600/30 px-3 py-1 text-xs font-semibold text-amber-200 ring-1 ring-amber-500/30"
+            >
+                <Icon name="clipboard-list" style="solid" class="h-3 w-3" />
+                Form / Template
+            </span>
+            {
+                categoryLabel && (
+                    <span class="inline-flex items-center rounded-full bg-amber-800/40 px-2.5 py-1 text-xs font-medium text-amber-300 ring-1 ring-amber-600/30">
+                        {categoryLabel}
+                    </span>
+                )
+            }
+        </div>
+
+        {/* Content */}
+        <h3
+            class="text-lg font-semibold text-amber-100 group-hover:text-white transition-colors duration-200 line-clamp-2 mb-2"
+        >
+            {name}
+        </h3>
+        <p class="text-sm leading-relaxed text-amber-300/70 line-clamp-2 mb-4">
+            {description}
+        </p>
+
+        {/* Footer */}
+        <div
+            class="flex items-center gap-2 text-sm font-medium text-amber-400 group-hover:text-amber-300 transition-colors"
+        >
+            <span>Open form</span>
+            <Icon
+                name="arrow-up-right-from-square"
+                style="solid"
+                class="h-3.5 w-3.5"
+            />
+        </div>
+    </div>
+</a>
