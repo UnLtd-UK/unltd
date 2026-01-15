@@ -5,27 +5,20 @@
  */
 
 import Icon from "@components/Icon.astro";
+import { getTopicLabel, getTopicConfig } from "@data/topics";
 
 interface Props {
     name: string;
     description: string;
     href: string;
-    category?: string;
+    topic?: string;
     thumbnail?: string;
 }
 
-const { name, description, href, category, thumbnail } = Astro.props;
+const { name, description, href, topic, thumbnail } = Astro.props;
 
-const categoryLabels: Record<string, string> = {
-    legal: "Legal & Policies",
-    application: "Application Help",
-    funding: "Funding & Budget",
-    business: "Business Support",
-    wellbeing: "Wellbeing",
-    general: "General",
-};
-
-const categoryLabel = category ? categoryLabels[category] || category : null;
+const topicLabel = getTopicLabel(topic);
+const topicConf = getTopicConfig(topic);
 ---
 
 <a
@@ -67,12 +60,21 @@ const categoryLabel = category ? categoryLabels[category] || category : null;
             </span>
         </div>
 
-        {/* Category badge */}
+        {/* Topic badge */}
         {
-            categoryLabel && (
+            topicLabel && (
                 <div class="absolute top-3 right-3">
-                    <span class="inline-flex items-center rounded-full bg-black/50 backdrop-blur-sm px-2.5 py-1 text-xs font-medium text-rose-200 ring-1 ring-white/10">
-                        {categoryLabel}
+                    <span
+                        class={`inline-flex items-center gap-1.5 rounded-full backdrop-blur-sm px-2.5 py-1 text-xs font-medium ring-1 ${topicConf ? `${topicConf.bgClass} ${topicConf.textClass} ${topicConf.ringClass}` : "bg-black/50 text-rose-200 ring-white/10"}`}
+                    >
+                        {topicConf && (
+                            <Icon
+                                name={topicConf.icon}
+                                style="solid"
+                                class="h-3 w-3"
+                            />
+                        )}
+                        {topicLabel}
                     </span>
                 </div>
             )

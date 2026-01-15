@@ -48,7 +48,9 @@ const restrictedSpaces = allVisibleSpaces.filter(
 <Template name={name} description={description}>
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
-        <HeaderSection title={name} description={description} />
+        <div class="mt-8">
+            <HeaderSection title={name} description={description} />
+        </div>
 
         {/* Public Spaces Section */}
         {

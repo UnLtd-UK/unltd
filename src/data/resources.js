@@ -24,7 +24,7 @@ const filterOptions = {
         'description',
         'body',
         'type',
-        'category',
+        'topic',
         'external_url',
         'sort',
         'spaces.spaces_id.id',

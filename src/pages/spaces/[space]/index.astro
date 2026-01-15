@@ -19,6 +19,7 @@ import FormCardCompact from "@components/resources/FormCardCompact.astro";
 import ExternalCardCompact from "@components/resources/ExternalCardCompact.astro";
 import PlaylistCardCompact from "@components/resources/PlaylistCardCompact.astro";
 import EventCardCompact from "@components/resources/EventCardCompact.astro";
+import SpaceResources from "@components/resources/SpaceResources";
 
 import { allSpaces } from "@data/spaces.js";
 import { allResources } from "@data/resources.js";
@@ -28,6 +29,7 @@ import {
     sortEvents,
     type Event,
 } from "@data/eventCollections";
+import { topicConfig, topicOrder } from "@data/topics";
 
 // Type definitions
 interface Space {
@@ -50,7 +52,7 @@ interface Resource {
     description: string;
     body?: string;
     type: "guide" | "video" | "form" | "external" | "playlist";
-    category?: string;
+    topic?: string;
     external_url?: string;
     spaces?: ResourceSpace[];
     sort?: number;
@@ -135,6 +137,17 @@ const resourcesByType = resources.reduce(
         const type = resource.type || "guide";
         if (!acc[type]) acc[type] = [];
         acc[type].push(resource);
+        return acc;
+    },
+    {} as Record<string, Resource[]>,
+);
+
+// Group resources by topic
+const resourcesByTopic = resources.reduce(
+    (acc, resource) => {
+        const topic = resource.topic || "uncategorized";
+        if (!acc[topic]) acc[topic] = [];
+        acc[topic].push(resource);
         return acc;
     },
     {} as Record<string, Resource[]>,
@@ -228,6 +241,55 @@ const typeConfig: TypeConfigItem[] = [
 const activeTypes = typeConfig.filter((t) => t.count > 0);
 const totalResources = activeTypes.reduce((sum, t) => sum + t.count, 0);
 
+// Build topic config for navigation (only topics with resources)
+interface TopicConfigItem {
+    id: string;
+    label: string;
+    shortLabel: string;
+    icon: string;
+    color: string;
+    bgClass: string;
+    textClass: string;
+    ringClass: string;
+    count: number;
+}
+
+const activeTopics: TopicConfigItem[] = topicOrder
+    .filter(
+        (topicId) =>
+            resourcesByTopic[topicId]?.length > 0 && topicConfig[topicId],
+    )
+    .map((topicId) => {
+        const config = topicConfig[topicId];
+        return {
+            id: topicId,
+            label: config.label,
+            shortLabel: config.label.split(" ")[0], // First word as short label
+            icon: config.icon,
+            color: config.color,
+            bgClass: config.bgClass,
+            textClass: config.textClass,
+            ringClass: config.ringClass,
+            count: resourcesByTopic[topicId]?.length || 0,
+        };
+    });
+
+// Check for uncategorized resources
+const uncategorizedCount = resourcesByTopic["uncategorized"]?.length || 0;
+if (uncategorizedCount > 0) {
+    activeTopics.push({
+        id: "uncategorized",
+        label: "Other",
+        shortLabel: "Other",
+        icon: "folder",
+        color: "zinc",
+        bgClass: "bg-zinc-500/20",
+        textClass: "text-zinc-300",
+        ringClass: "ring-zinc-400/30",
+        count: uncategorizedCount,
+    });
+}
+
 const isUnlisted = space.access === "unlisted";
 ---
 
@@ -248,10 +310,10 @@ const isUnlisted = space.access === "unlisted";
 
         {
             activeTypes.length > 0 ? (
-                <div class="flex flex-col lg:flex-row gap-8 pb-12">
+                <div class="flex flex-col lg:flex-row gap-8 pb-12 mt-8">
                     {/* Sticky Side Navigation - Desktop */}
                     <aside class="hidden lg:block w-72 shrink-0">
-                        <div class="sticky top-24 space-y-4">
+                        <div class="sticky top-4 space-y-4 max-h-[calc(100vh-2rem)] overflow-y-auto scrollbar-hide">
                             {/* Space Title & Description */}
                             <div class="p-5 rounded-2xl bg-violet-900/40 ring-1 ring-violet-700/50">
                                 <h1 class="text-xl font-bold text-violet-100 mb-2">
@@ -270,10 +332,21 @@ const isUnlisted = space.access === "unlisted";
                                 </div>
                             </div>
 
-                            {/* Navigation Card */}
-                            <nav class="space-y-1 p-4 rounded-2xl bg-violet-900/30 ring-1 ring-violet-700/50">
+                            {/* View Toggle */}
+                            <div class="p-4 rounded-2xl bg-violet-900/30 ring-1 ring-violet-700/50">
+                                <SpaceResources
+                                    spaceSlug={spaceSlug}
+                                    client:load
+                                />
+                            </div>
+
+                            {/* Navigation Card - By Type */}
+                            <nav
+                                id="nav-by-type"
+                                class="space-y-1 p-4 rounded-2xl bg-violet-900/30 ring-1 ring-violet-700/50"
+                            >
                                 <p class="text-xs font-semibold text-violet-500 uppercase tracking-wider mb-3 px-2">
-                                    Jump to section
+                                    Jump to type
                                 </p>
                                 {activeTypes.map((type) => (
                                     <a
@@ -302,6 +375,42 @@ const isUnlisted = space.access === "unlisted";
                                     </a>
                                 ))}
                             </nav>
+
+                            {/* Navigation Card - By Topic (hidden by default) */}
+                            <nav
+                                id="nav-by-topic"
+                                class="hidden space-y-1 p-4 rounded-2xl bg-violet-900/30 ring-1 ring-violet-700/50"
+                            >
+                                <p class="text-xs font-semibold text-violet-500 uppercase tracking-wider mb-3 px-2">
+                                    Jump to topic
+                                </p>
+                                {activeTopics.map((topic) => (
+                                    <a
+                                        href={`#topic-${topic.id}`}
+                                        class={`flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-violet-800/50 transition-colors group`}
+                                    >
+                                        <div
+                                            class={`flex h-8 w-8 items-center justify-center rounded-lg ${topic.bgClass} ring-1 ${topic.ringClass}`}
+                                        >
+                                            <Icon
+                                                name={topic.icon}
+                                                style="solid"
+                                                class={`h-4 w-4 ${topic.textClass}`}
+                                            />
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <span class="text-sm font-medium text-violet-200 group-hover:text-white transition-colors truncate">
+                                                {topic.label}
+                                            </span>
+                                        </div>
+                                        <span
+                                            class={`text-xs font-medium px-2 py-0.5 rounded-full ${topic.bgClass} ${topic.textClass}`}
+                                        >
+                                            {topic.count}
+                                        </span>
+                                    </a>
+                                ))}
+                            </nav>
                         </div>
                     </aside>
 
@@ -313,18 +422,24 @@ const isUnlisted = space.access === "unlisted";
                         <p class="text-sm text-violet-400">
                             {space.description}
                         </p>
-                        <div class="flex items-center gap-2 mt-3 text-xs text-violet-500">
-                            <Icon
-                                name="books"
-                                style="solid"
-                                class="h-3.5 w-3.5"
-                            />
-                            <span>{totalResources} resources</span>
+                        <div class="flex items-center justify-between mt-3">
+                            <div class="flex items-center gap-2 text-xs text-violet-500">
+                                <Icon
+                                    name="books"
+                                    style="solid"
+                                    class="h-3.5 w-3.5"
+                                />
+                                <span>{totalResources} resources</span>
+                            </div>
+                            <SpaceResources spaceSlug={spaceSlug} client:load />
                         </div>
                     </div>
 
-                    {/* Mobile Navigation Bar */}
-                    <div class="lg:hidden sticky top-16 z-30 -mx-4 px-4 py-3 bg-violet-950/95 backdrop-blur-sm border-b border-violet-800/50">
+                    {/* Mobile Navigation Bar - By Type */}
+                    <div
+                        id="mobile-nav-by-type"
+                        class="lg:hidden sticky top-16 z-30 -mx-4 px-4 py-3 bg-violet-950/95 backdrop-blur-sm border-b border-violet-800/50"
+                    >
                         <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                             {activeTypes.map((type) => (
                                 <a
@@ -349,8 +464,37 @@ const isUnlisted = space.access === "unlisted";
                         </div>
                     </div>
 
-                    {/* Main Content */}
-                    <main class="flex-1 min-w-0 space-y-12">
+                    {/* Mobile Navigation Bar - By Topic (hidden by default) */}
+                    <div
+                        id="mobile-nav-by-topic"
+                        class="hidden lg:hidden sticky top-16 z-30 -mx-4 px-4 py-3 bg-violet-950/95 backdrop-blur-sm border-b border-violet-800/50"
+                    >
+                        <div class="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                            {activeTopics.map((topic) => (
+                                <a
+                                    href={`#topic-${topic.id}`}
+                                    class={`shrink-0 flex items-center gap-2 px-3 py-2 rounded-lg ${topic.bgClass} ring-1 ${topic.ringClass}`}
+                                >
+                                    <Icon
+                                        name={topic.icon}
+                                        style="solid"
+                                        class={`h-4 w-4 ${topic.textClass}`}
+                                    />
+                                    <span
+                                        class={`text-xs font-medium ${topic.textClass}`}
+                                    >
+                                        {topic.shortLabel}
+                                    </span>
+                                    <span class="text-xs text-violet-400">
+                                        {topic.count}
+                                    </span>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Main Content - View by Type */}
+                    <main id="view-by-type" class="flex-1 min-w-0 space-y-12">
                         {/* Events Section */}
                         {events.length > 0 && (
                             <section id="events" class="scroll-mt-24">
@@ -364,10 +508,10 @@ const isUnlisted = space.access === "unlisted";
                                     </div>
                                     <div>
                                         <h2 class="text-xl font-bold text-violet-100">
-                                            Upcoming Events
+                                            Events
                                         </h2>
                                         <p class="text-xs text-violet-400">
-                                            {events.length} events coming up
+                                            Attend and meet your peers
                                         </p>
                                     </div>
                                 </div>
@@ -420,7 +564,7 @@ const isUnlisted = space.access === "unlisted";
                                             name={resource.name}
                                             description={resource.description}
                                             href={resource.external_url || "#"}
-                                            category={resource.category}
+                                            topic={resource.topic}
                                         />
                                     ))}
                                 </div>
@@ -458,7 +602,7 @@ const isUnlisted = space.access === "unlisted";
                                                 href={
                                                     resource.external_url || "#"
                                                 }
-                                                category={resource.category}
+                                                topic={resource.topic}
                                             />
                                         ),
                                     )}
@@ -479,7 +623,7 @@ const isUnlisted = space.access === "unlisted";
                                     </div>
                                     <div>
                                         <h2 class="text-xl font-bold text-violet-100">
-                                            Guides & Articles
+                                            Guides
                                         </h2>
                                         <p class="text-xs text-violet-400">
                                             In-depth written resources
@@ -504,7 +648,7 @@ const isUnlisted = space.access === "unlisted";
                                                     resource.description
                                                 }
                                                 href={`/spaces/${resourceSlug}`}
-                                                category={resource.category}
+                                                topic={resource.topic}
                                                 body={resource.body}
                                             />
                                         );
@@ -526,10 +670,11 @@ const isUnlisted = space.access === "unlisted";
                                     </div>
                                     <div>
                                         <h2 class="text-xl font-bold text-violet-100">
-                                            Forms & Templates
+                                            Forms
                                         </h2>
                                         <p class="text-xs text-violet-400">
-                                            Documents and templates
+                                            To get access to the full support
+                                            offer
                                         </p>
                                     </div>
                                 </div>
@@ -539,7 +684,7 @@ const isUnlisted = space.access === "unlisted";
                                             name={resource.name}
                                             description={resource.description}
                                             href={resource.external_url || "#"}
-                                            category={resource.category}
+                                            topic={resource.topic}
                                         />
                                     ))}
                                 </div>
@@ -559,10 +704,10 @@ const isUnlisted = space.access === "unlisted";
                                     </div>
                                     <div>
                                         <h2 class="text-xl font-bold text-violet-100">
-                                            External Resources
+                                            Links
                                         </h2>
                                         <p class="text-xs text-violet-400">
-                                            Useful links and tools
+                                            Useful websites
                                         </p>
                                     </div>
                                 </div>
@@ -577,13 +722,189 @@ const isUnlisted = space.access === "unlisted";
                                                 href={
                                                     resource.external_url || "#"
                                                 }
-                                                category={resource.category}
+                                                topic={resource.topic}
                                             />
                                         ),
                                     )}
                                 </div>
                             </section>
                         )}
+                    </main>
+
+                    {/* Main Content - View by Topic (hidden by default) */}
+                    <main
+                        id="view-by-topic"
+                        class="hidden flex-1 min-w-0 space-y-12"
+                    >
+                        {/* Events Section - Also shown in topic view */}
+                        {events.length > 0 && (
+                            <section id="topic-events" class="scroll-mt-24">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/20 ring-1 ring-cyan-400/30">
+                                        <Icon
+                                            name="calendar-days"
+                                            style="solid"
+                                            class="h-5 w-5 text-cyan-300"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-bold text-violet-100">
+                                            Events
+                                        </h2>
+                                        <p class="text-xs text-violet-400">
+                                            Attend and meet your peers
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="grid gap-4 sm:grid-cols-2">
+                                    {events.slice(0, 6).map((event) => (
+                                        <EventCardCompact event={event} />
+                                    ))}
+                                </div>
+                                {events.length > 6 && (
+                                    <a
+                                        href="https://www.eventbrite.com/o/unltd-3046207224"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-2 mt-4 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+                                    >
+                                        View all {events.length} events
+                                        <Icon
+                                            name="arrow-up-right-from-square"
+                                            style="solid"
+                                            class="h-3 w-3"
+                                        />
+                                    </a>
+                                )}
+                            </section>
+                        )}
+
+                        {/* Topic Sections */}
+                        {activeTopics.map((topic) => {
+                            const topicResources =
+                                resourcesByTopic[topic.id] || [];
+                            return (
+                                <section
+                                    id={`topic-${topic.id}`}
+                                    class="scroll-mt-24"
+                                >
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div
+                                            class={`flex h-10 w-10 items-center justify-center rounded-xl ${topic.bgClass} ring-1 ${topic.ringClass}`}
+                                        >
+                                            <Icon
+                                                name={topic.icon}
+                                                style="solid"
+                                                class={`h-5 w-5 ${topic.textClass}`}
+                                            />
+                                        </div>
+                                        <div>
+                                            <h2 class="text-xl font-bold text-violet-100">
+                                                {topic.label}
+                                            </h2>
+                                            <p class="text-xs text-violet-400">
+                                                {topic.count}{" "}
+                                                {topic.count === 1
+                                                    ? "resource"
+                                                    : "resources"}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="grid gap-4 sm:grid-cols-2">
+                                        {topicResources.map((resource) => {
+                                            const resourceSlug = slugify(
+                                                resource.name,
+                                                {
+                                                    lower: true,
+                                                    strict: true,
+                                                    locale: "en",
+                                                    trim: true,
+                                                },
+                                            );
+
+                                            if (resource.type === "guide") {
+                                                return (
+                                                    <GuideCardCompact
+                                                        name={resource.name}
+                                                        description={
+                                                            resource.description
+                                                        }
+                                                        href={`/spaces/${resourceSlug}`}
+                                                        topic={resource.topic}
+                                                        body={resource.body}
+                                                    />
+                                                );
+                                            } else if (
+                                                resource.type === "video"
+                                            ) {
+                                                return (
+                                                    <VideoCardCompact
+                                                        name={resource.name}
+                                                        description={
+                                                            resource.description
+                                                        }
+                                                        href={
+                                                            resource.external_url ||
+                                                            "#"
+                                                        }
+                                                        topic={resource.topic}
+                                                    />
+                                                );
+                                            } else if (
+                                                resource.type === "playlist"
+                                            ) {
+                                                return (
+                                                    <PlaylistCardCompact
+                                                        name={resource.name}
+                                                        description={
+                                                            resource.description
+                                                        }
+                                                        href={
+                                                            resource.external_url ||
+                                                            "#"
+                                                        }
+                                                        topic={resource.topic}
+                                                    />
+                                                );
+                                            } else if (
+                                                resource.type === "form"
+                                            ) {
+                                                return (
+                                                    <FormCardCompact
+                                                        name={resource.name}
+                                                        description={
+                                                            resource.description
+                                                        }
+                                                        href={
+                                                            resource.external_url ||
+                                                            "#"
+                                                        }
+                                                        topic={resource.topic}
+                                                    />
+                                                );
+                                            } else if (
+                                                resource.type === "external"
+                                            ) {
+                                                return (
+                                                    <ExternalCardCompact
+                                                        name={resource.name}
+                                                        description={
+                                                            resource.description
+                                                        }
+                                                        href={
+                                                            resource.external_url ||
+                                                            "#"
+                                                        }
+                                                        topic={resource.topic}
+                                                    />
+                                                );
+                                            }
+                                            return null;
+                                        })}
+                                    </div>
+                                </section>
+                            );
+                        })}
                     </main>
                 </div>
             ) : (

@@ -14,7 +14,7 @@ import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Default from "@components/heroes/Default.astro";
 import Content from "@components/markdoc/Content.astro";
 import TableOfContents from "@components/TableOfContents.astro";
-import SpaceAuth from "@components/SpaceAuth.astro";
+import ResourceAuth from "@components/ResourceAuth.astro";
 
 import { allSpaces } from "@data/spaces.js";
 import { allResources } from "@data/resources.js";
@@ -41,7 +41,7 @@ interface Resource {
     description: string;
     body?: string;
     type: "guide" | "video" | "form" | "external";
-    category?: string;
+    topic?: string;
     external_url?: string;
     spaces?: ResourceSpace[];
 }
@@ -134,8 +134,17 @@ const breadcrumbs = [
     { name: resource.name, path: `/spaces/${resourceSlug}` },
 ];
 
-// For restricted resources, use the first restricted space for auth
-const authSpace = restrictedSpaces[0];
+// Prepare restricted spaces data for auth component
+const restrictedSpacesData = restrictedSpaces.map((space) => ({
+    slug: slugify(space.name, {
+        lower: true,
+        strict: true,
+        locale: "en",
+        trim: true,
+    }),
+    name: space.name,
+    password: space.restricted_password || "",
+}));
 ---
 
 <Template
@@ -143,26 +152,23 @@ const authSpace = restrictedSpaces[0];
     description={resource.description}
     noindex={!isPublic}
 >
-    {/* Password protection for restricted resources */}
     {
-        !isPublic && authSpace && (
-            <SpaceAuth
-                spaceSlug={slugify(authSpace.name, {
-                    lower: true,
-                    strict: true,
-                    locale: "en",
-                    trim: true,
-                })}
-                spaceName={authSpace.name}
-                password={authSpace.restricted_password || ""}
-                access={authSpace.access}
+        /* Password protection for restricted resources - accepts any valid password */
+    }
+    {
+        !isPublic && restrictedSpacesData.length > 0 && (
+            <ResourceAuth
+                restrictedSpaces={restrictedSpacesData}
+                resourceName={resource.name}
             />
         )
     }
 
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
-        <Default name={resource.name} description={resource.description} />
+        <div class="mt-8">
+            <Default name={resource.name} description={resource.description} />
+        </div>
 
         <div class="flex gap-8 lg:gap-12 pb-16 items-start">
             {/* Table of Contents - Desktop Sidebar */}

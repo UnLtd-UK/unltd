@@ -5,26 +5,19 @@
  */
 
 import Icon from "@components/Icon.astro";
+import { getTopicLabel, getTopicConfig } from "@data/topics";
 
 interface Props {
     name: string;
     description: string;
     href: string;
-    category?: string;
+    topic?: string;
 }
 
-const { name, description, href, category } = Astro.props;
+const { name, description, href, topic } = Astro.props;
 
-const categoryLabels: Record<string, string> = {
-    legal: "Legal & Policies",
-    application: "Application Help",
-    funding: "Funding & Budget",
-    business: "Business Support",
-    wellbeing: "Wellbeing",
-    general: "General",
-};
-
-const categoryLabel = category ? categoryLabels[category] || category : null;
+const topicLabel = getTopicLabel(topic);
+const topicConf = getTopicConfig(topic);
 
 // Try to extract domain from URL for display
 let domain = "";
@@ -62,9 +55,18 @@ try {
                     External
                 </span>
                 {
-                    categoryLabel && (
-                        <span class="inline-flex items-center rounded-full bg-sky-800/50 px-2.5 py-1 text-xs font-medium text-sky-300 ring-1 ring-sky-600/40">
-                            {categoryLabel}
+                    topicLabel && (
+                        <span
+                            class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${topicConf ? `${topicConf.bgClass} ${topicConf.textClass} ${topicConf.ringClass}` : "bg-sky-800/50 text-sky-300 ring-sky-600/40"}`}
+                        >
+                            {topicConf && (
+                                <Icon
+                                    name={topicConf.icon}
+                                    style="solid"
+                                    class="h-3 w-3"
+                                />
+                            )}
+                            {topicLabel}
                         </span>
                     )
                 }
