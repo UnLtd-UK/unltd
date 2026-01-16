@@ -24,7 +24,6 @@ npm-debug.log*
 # macOS-specific files
 .DS_Store
 
-<<<<<<< HEAD
 
 # macOS-specific files
 .DS_Store
@@ -33,7 +32,3 @@ src/data/cache/
 
 .dev.vars
 .npmrc
-=======
-# local Directus data cache
-src/data/cache/
->>>>>>> 1995377 (feat: Update setup process and configuration files for Font Awesome integration)

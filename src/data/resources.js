@@ -20,15 +20,7 @@ const filterOptions = {
         'description',
         'body',
         'type',
-<<<<<<< HEAD
-<<<<<<< HEAD
         'topic',
-=======
-        'category',
->>>>>>> c40fddc (Refactor resources and spaces structure)
-=======
-        'topic',
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
         'external_url',
         'sort',
         'spaces.spaces_id.id',

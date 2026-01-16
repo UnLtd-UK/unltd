@@ -4,21 +4,11 @@
 /other-funding-and-support-available-for-social-entrepreneurs /spaces/other-funding-and-support-available-for-social-entrepreneurs
 /other-funding-and-support-available-for-social-entrepreneurs/ /spaces/other-funding-and-support-available-for-social-entrepreneurs
 
-<<<<<<< HEAD
 /file-uploads /spaces/financial-data-guide-for-award-application
 /file-uploads/ /spaces/financial-data-guide-for-award-application
 
 /assistance-for-those-with-additional-support-needs /spaces/assistance-for-those-with-additional-support-needs
 /assistance-for-those-with-additional-support-needs/ /spaces/assistance-for-those-with-additional-support-needs
-=======
-/assistance-for-those-with-additional-support-needs /spaces/assistance-for-those-with-additional-support-needs
-/assistance-for-those-with-additional-support-needs/ /spaces/assistance-for-those-with-additional-support-needs
-
-# Legacy /resources redirects to /spaces
-/resources /spaces
-/resources/ /spaces
-/resources/* /spaces/:splat
->>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
 
 /terms-conditions /terms-and-conditions
 /terms-conditions/ /terms-and-conditions

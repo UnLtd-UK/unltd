@@ -5,21 +5,12 @@
  */
 
 import Icon from "@components/Icon.astro";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { getTopicLabel, getTopicConfig } from "@data/topics";
-=======
->>>>>>> c40fddc (Refactor resources and spaces structure)
-=======
-import { getTopicLabel, getTopicConfig } from "@data/topics";
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
 
 interface Props {
     name: string;
     description: string;
     href: string;
-<<<<<<< HEAD
-<<<<<<< HEAD
     topic?: string;
 }
 
@@ -27,31 +18,6 @@ const { name, description, href, topic } = Astro.props;
 
 const topicLabel = getTopicLabel(topic);
 const topicConf = getTopicConfig(topic);
-=======
-    category?: string;
-=======
-    topic?: string;
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
-}
-
-const { name, description, href, topic } = Astro.props;
-
-<<<<<<< HEAD
-const categoryLabels: Record<string, string> = {
-    legal: "Legal & Policies",
-    application: "Application Help",
-    funding: "Funding & Budget",
-    business: "Business Support",
-    wellbeing: "Wellbeing",
-    general: "General",
-};
-
-const categoryLabel = category ? categoryLabels[category] || category : null;
->>>>>>> c40fddc (Refactor resources and spaces structure)
-=======
-const topicLabel = getTopicLabel(topic);
-const topicConf = getTopicConfig(topic);
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
 ---
 
 <a
@@ -85,10 +51,6 @@ const topicConf = getTopicConfig(topic);
                 Form / Template
             </span>
             {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
                 topicLabel && (
                     <span
                         class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${topicConf ? `${topicConf.bgClass} ${topicConf.textClass} ${topicConf.ringClass}` : "bg-amber-800/50 text-amber-300 ring-amber-600/40"}`}
@@ -101,14 +63,6 @@ const topicConf = getTopicConfig(topic);
                             />
                         )}
                         {topicLabel}
-<<<<<<< HEAD
-=======
-                categoryLabel && (
-                    <span class="inline-flex items-center rounded-full bg-amber-800/50 px-2.5 py-1 text-xs font-medium text-amber-300 ring-1 ring-amber-600/40">
-                        {categoryLabel}
->>>>>>> c40fddc (Refactor resources and spaces structure)
-=======
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
                     </span>
                 )
             }
@@ -152,23 +106,15 @@ const topicConf = getTopicConfig(topic);
                         class="h-2.5 w-2.5 text-amber-400"
                     />
                 </div>
-                <div class="w-12 h-1 bg-amber-400 rounded"></div>
-            </div>
-            <div class="flex items-center gap-2">
-                <div
-                    class="w-4 h-4 rounded border-2 border-amber-400 flex items-center justify-center"
-                >
-                    <Icon
-                        name="check"
-                        style="solid"
-                        class="h-2.5 w-2.5 text-amber-400"
-                    />
-                </div>
-                <div class="w-10 h-1 bg-amber-400 rounded"></div>
+                <div class="w-12 h-1.5 bg-amber-400 rounded"></div>
             </div>
             <div class="flex items-center gap-2">
                 <div class="w-4 h-4 rounded border-2 border-amber-400"></div>
-                <div class="w-8 h-1 bg-amber-400 rounded"></div>
+                <div class="w-16 h-1.5 bg-amber-400 rounded"></div>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="w-4 h-4 rounded border-2 border-amber-400"></div>
+                <div class="w-10 h-1.5 bg-amber-400 rounded"></div>
             </div>
         </div>
     </div>

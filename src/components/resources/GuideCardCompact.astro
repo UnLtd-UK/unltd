@@ -6,21 +6,12 @@
 
 import Icon from "@components/Icon.astro";
 import { calculateReadTime } from "@data/functions/read-time.js";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { getTopicLabel, getTopicConfig } from "@data/topics";
-=======
->>>>>>> c40fddc (Refactor resources and spaces structure)
-=======
-import { getTopicLabel, getTopicConfig } from "@data/topics";
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
 
 interface Props {
     name: string;
     description: string;
     href: string;
-<<<<<<< HEAD
-<<<<<<< HEAD
     topic?: string;
     body?: string;
 }
@@ -31,34 +22,6 @@ const readTime = body ? calculateReadTime(body) : null;
 
 const topicLabel = getTopicLabel(topic);
 const topicConf = getTopicConfig(topic);
-=======
-    category?: string;
-=======
-    topic?: string;
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
-    body?: string;
-}
-
-const { name, description, href, topic, body } = Astro.props;
-
-const readTime = body ? calculateReadTime(body) : null;
-
-<<<<<<< HEAD
-const categoryLabels: Record<string, string> = {
-    legal: "Legal & Policies",
-    application: "Application Help",
-    funding: "Funding & Budget",
-    business: "Business Support",
-    wellbeing: "Wellbeing",
-    general: "General",
-};
-
-const categoryLabel = category ? categoryLabels[category] || category : null;
->>>>>>> c40fddc (Refactor resources and spaces structure)
-=======
-const topicLabel = getTopicLabel(topic);
-const topicConf = getTopicConfig(topic);
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
 ---
 
 <a
@@ -97,10 +60,6 @@ const topicConf = getTopicConfig(topic);
                     )
                 }
                 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
                     topicLabel && (
                         <span
                             class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${topicConf ? `${topicConf.bgClass} ${topicConf.textClass} ${topicConf.ringClass}` : "bg-emerald-800/50 text-emerald-300 ring-emerald-600/30"}`}
@@ -113,14 +72,6 @@ const topicConf = getTopicConfig(topic);
                                 />
                             )}
                             {topicLabel}
-<<<<<<< HEAD
-=======
-                    categoryLabel && (
-                        <span class="inline-flex items-center rounded-full bg-emerald-800/50 px-2.5 py-1 text-xs font-medium text-emerald-300 ring-1 ring-emerald-600/30">
-                            {categoryLabel}
->>>>>>> c40fddc (Refactor resources and spaces structure)
-=======
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
                         </span>
                     )
                 }

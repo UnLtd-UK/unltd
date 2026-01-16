@@ -5,21 +5,12 @@
  */
 
 import Icon from "@components/Icon.astro";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { getTopicLabel, getTopicConfig } from "@data/topics";
-=======
->>>>>>> c40fddc (Refactor resources and spaces structure)
-=======
-import { getTopicLabel, getTopicConfig } from "@data/topics";
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
 
 interface Props {
     name: string;
     description: string;
     href: string;
-<<<<<<< HEAD
-<<<<<<< HEAD
     topic?: string;
 }
 
@@ -27,31 +18,6 @@ const { name, description, href, topic } = Astro.props;
 
 const topicLabel = getTopicLabel(topic);
 const topicConf = getTopicConfig(topic);
-=======
-    category?: string;
-=======
-    topic?: string;
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
-}
-
-const { name, description, href, topic } = Astro.props;
-
-<<<<<<< HEAD
-const categoryLabels: Record<string, string> = {
-    legal: "Legal & Policies",
-    application: "Application Help",
-    funding: "Funding & Budget",
-    business: "Business Support",
-    wellbeing: "Wellbeing",
-    general: "General",
-};
-
-const categoryLabel = category ? categoryLabels[category] || category : null;
->>>>>>> c40fddc (Refactor resources and spaces structure)
-=======
-const topicLabel = getTopicLabel(topic);
-const topicConf = getTopicConfig(topic);
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
 
 // Try to extract domain from URL for display
 let domain = "";
@@ -89,10 +55,6 @@ try {
                     External
                 </span>
                 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
                     topicLabel && (
                         <span
                             class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${topicConf ? `${topicConf.bgClass} ${topicConf.textClass} ${topicConf.ringClass}` : "bg-sky-800/50 text-sky-300 ring-sky-600/40"}`}
@@ -105,14 +67,6 @@ try {
                                 />
                             )}
                             {topicLabel}
-<<<<<<< HEAD
-=======
-                    categoryLabel && (
-                        <span class="inline-flex items-center rounded-full bg-sky-800/50 px-2.5 py-1 text-xs font-medium text-sky-300 ring-1 ring-sky-600/40">
-                            {categoryLabel}
->>>>>>> c40fddc (Refactor resources and spaces structure)
-=======
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
                         </span>
                     )
                 }
@@ -153,14 +107,10 @@ try {
         >
             Visit link
         </span>
-        <div
-            class="flex h-7 w-7 items-center justify-center rounded-full bg-sky-700/50 group-hover:bg-sky-600/70 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-        >
-            <Icon
-                name="arrow-up-right-from-square"
-                style="solid"
-                class="h-3.5 w-3.5 text-sky-300 group-hover:text-white"
-            />
-        </div>
+        <Icon
+            name="arrow-up-right-from-square"
+            style="solid"
+            class="h-4 w-4 text-sky-400 group-hover:text-sky-300 transition-colors"
+        />
     </div>
 </a>

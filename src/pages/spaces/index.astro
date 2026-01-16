@@ -1,26 +1,7 @@
 ---
 /**
-<<<<<<< HEAD
-<<<<<<< HEAD
  * Spaces Index
  * Shows only PUBLIC + LISTED spaces (hides restricted and unlisted)
-=======
- * Spaces Index - Hub Picker
-=======
- * Spaces Index
->>>>>>> 2f5308a (refactor: update terminology from "hub" to "space" for consistency across space pages)
- * Shows all listed spaces (hides unlisted)
- * Clear distinction between public and restricted spaces
-<<<<<<< HEAD
->>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
-=======
- *
- * Access priority:
- * - Listed = unlisted: false (visible in this list)
- * - Unlisted = unlisted: true (hidden from this list, accessible via direct URL)
- * - Public = no password (open access)
- * - Restricted = has password (password protected)
->>>>>>> 190cfff (feat: implement priority-based access control for spaces and resources)
  */
 
 import slugify from "slugify";
@@ -31,29 +12,14 @@ import HeaderSection from "@components/our-support/headerSection.astro";
 import Icon from "@components/Icon.astro";
 
 import { allSpaces } from "@data/spaces.js";
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { isSpaceRestricted } from "@utils/spaceAccess";
-=======
->>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
-=======
-import { isSpaceRestricted } from "@utils/spaceAccess";
->>>>>>> 190cfff (feat: implement priority-based access control for spaces and resources)
 
 // Type definition
 interface Space {
     id: string;
     name: string;
     description: string;
-<<<<<<< HEAD
-<<<<<<< HEAD
     unlisted: boolean;
-=======
-    access: "public" | "unlisted" | "restricted";
->>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
-=======
-    unlisted: boolean;
->>>>>>> 190cfff (feat: implement priority-based access control for spaces and resources)
     restricted_password?: string;
     eventbrite_keywords?: string[];
     sort?: number;
@@ -61,8 +27,6 @@ interface Space {
 
 const name = "Spaces";
 const description =
-<<<<<<< HEAD
-<<<<<<< HEAD
     "Access spaces, guides, and support materials tailored to your journey.";
 
 const breadcrumbs = [{ name: "Spaces", path: "/spaces" }];
@@ -70,39 +34,12 @@ const breadcrumbs = [{ name: "Spaces", path: "/spaces" }];
 // Filter spaces: show only PUBLIC + LISTED spaces (hide restricted entirely)
 const allVisibleSpaces = (allSpaces as Space[]).filter(
     (space) => !space.unlisted && !isSpaceRestricted(space),
-=======
-    "Access hubs, guides, and support materials tailored to your journey.";
-=======
-    "Access spaces, guides, and support materials tailored to your journey.";
->>>>>>> 2f5308a (refactor: update terminology from "hub" to "space" for consistency across space pages)
-
-const breadcrumbs = [{ name: "Spaces", path: "/spaces" }];
-
-// Filter spaces: show listed spaces only (unlisted: false or undefined)
-const allVisibleSpaces = (allSpaces as Space[]).filter(
-    (space) => !space.unlisted,
-);
-
-// Separate public and restricted spaces
-const publicSpaces = allVisibleSpaces.filter(
-    (space) => !isSpaceRestricted(space),
-);
-<<<<<<< HEAD
-const restrictedSpaces = allVisibleSpaces.filter(
-    (space) => space.access === "restricted",
->>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
-=======
-const restrictedSpaces = allVisibleSpaces.filter((space) =>
-    isSpaceRestricted(space),
->>>>>>> 190cfff (feat: implement priority-based access control for spaces and resources)
 );
 ---
 
 <Template name={name} description={description}>
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
-<<<<<<< HEAD
-<<<<<<< HEAD
         <div class="mt-8">
             <HeaderSection title={name} description={description} />
         </div>
@@ -110,18 +47,6 @@ const restrictedSpaces = allVisibleSpaces.filter((space) =>
         {/* Public Spaces Section */}
         {
             allVisibleSpaces.length > 0 && (
-=======
-        <HeaderSection title={name} description={description} />
-=======
-        <div class="mt-8">
-            <HeaderSection title={name} description={description} />
-        </div>
->>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
-
-        {/* Public Spaces Section */}
-        {
-            publicSpaces.length > 0 && (
->>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                 <section class="mb-12">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 ring-1 ring-emerald-400/30">
@@ -141,11 +66,7 @@ const restrictedSpaces = allVisibleSpaces.filter((space) =>
                         </div>
                     </div>
                     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-<<<<<<< HEAD
                         {allVisibleSpaces.map((space) => {
-=======
-                        {publicSpaces.map((space) => {
->>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
                             const spaceSlug = slugify(space.name, {
                                 lower: true,
                                 strict: true,
@@ -181,25 +102,10 @@ const restrictedSpaces = allVisibleSpaces.filter((space) =>
                                     <h3 class="text-xl font-bold text-emerald-100 group-hover:text-white transition-colors mb-2">
                                         {space.name}
                                     </h3>
-<<<<<<< HEAD
                                     {/* Footer */}
                                     <div class="mt-6 pt-4 border-t border-emerald-700/30 flex items-center justify-between">
                                         <span class="text-sm font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors">
                                             Browse space
-=======
-                                    <p class="text-sm text-emerald-300/80 line-clamp-3 flex-1">
-                                        {space.description}
-                                    </p>
-
-                                    {/* Footer */}
-                                    <div class="mt-6 pt-4 border-t border-emerald-700/30 flex items-center justify-between">
-                                        <span class="text-sm font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors">
-<<<<<<< HEAD
-                                            Browse hub
->>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
-=======
-                                            Browse space
->>>>>>> 2f5308a (refactor: update terminology from "hub" to "space" for consistency across space pages)
                                         </span>
                                         <div class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-700/50 group-hover:bg-emerald-600/70 transition-all duration-300 group-hover:translate-x-1">
                                             <Icon
@@ -220,95 +126,6 @@ const restrictedSpaces = allVisibleSpaces.filter((space) =>
             )
         }
 
-<<<<<<< HEAD
-=======
-        {/* Restricted Spaces Section */}
-        {
-            restrictedSpaces.length > 0 && (
-                <section class="mb-12">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/20 ring-1 ring-amber-400/30">
-                            <Icon
-                                name="lock"
-                                style="solid"
-                                class="h-5 w-5 text-amber-300"
-                            />
-                        </div>
-                        <div>
-                            <h2 class="text-xl font-bold text-violet-100">
-                                Restricted Spaces
-                            </h2>
-                            <p class="text-sm text-violet-400">
-                                Password protected for award holders
-                            </p>
-                        </div>
-                    </div>
-                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        {restrictedSpaces.map((space) => {
-                            const spaceSlug = slugify(space.name, {
-                                lower: true,
-                                strict: true,
-                                locale: "en",
-                                trim: true,
-                            });
-
-                            return (
-                                <a
-                                    href={`/spaces/${spaceSlug}`}
-                                    class="group relative flex flex-col overflow-hidden rounded-2xl bg-linear-to-b from-amber-800/30 to-amber-900/30 ring-1 ring-amber-700/50 hover:ring-amber-500/70 transition-all duration-300 hover:shadow-xl hover:shadow-amber-500/10 hover:-translate-y-1 p-6"
-                                >
-                                    {/* Header */}
-                                    <div class="flex items-start justify-between gap-4 mb-4">
-                                        <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-amber-500/20 ring-1 ring-amber-500/30 group-hover:bg-amber-500/30 transition-all duration-300">
-                                            <Icon
-                                                name="books"
-                                                style="solid"
-                                                class="h-7 w-7 text-amber-300 group-hover:text-amber-200"
-                                            />
-                                        </div>
-                                        <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-500/20 px-3 py-1.5 text-xs font-medium text-amber-200 ring-1 ring-amber-500/30">
-                                            <Icon
-                                                name="lock"
-                                                style="solid"
-                                                class="h-3 w-3"
-                                            />
-                                            Password Protected
-                                        </span>
-                                    </div>
-
-                                    {/* Content */}
-                                    <h3 class="text-xl font-bold text-amber-100 group-hover:text-white transition-colors mb-2">
-                                        {space.name}
-                                    </h3>
-                                    <p class="text-sm text-amber-300/80 line-clamp-3 flex-1">
-                                        {space.description}
-                                    </p>
-
-                                    {/* Footer */}
-                                    <div class="mt-6 pt-4 border-t border-amber-700/30 flex items-center justify-between">
-                                        <span class="text-sm font-medium text-amber-400 group-hover:text-amber-300 transition-colors">
-                                            Enter space
-                                        </span>
-                                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-amber-700/50 group-hover:bg-amber-600/70 transition-all duration-300 group-hover:translate-x-1">
-                                            <Icon
-                                                name="arrow-right"
-                                                style="solid"
-                                                class="h-4 w-4 text-amber-300 group-hover:text-white"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    {/* Hover overlay */}
-                                    <div class="absolute inset-0 rounded-2xl bg-linear-to-t from-amber-600/0 to-amber-400/0 group-hover:from-amber-600/5 group-hover:to-amber-400/5 transition-all duration-300 pointer-events-none" />
-                                </a>
-                            );
-                        })}
-                    </div>
-                </section>
-            )
-        }
-
->>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
         {/* Empty state */}
         {
             allVisibleSpaces.length === 0 && (
@@ -324,15 +141,7 @@ const restrictedSpaces = allVisibleSpaces.filter((space) =>
                         No spaces available
                     </h3>
                     <p class="text-violet-400 max-w-md mx-auto">
-<<<<<<< HEAD
-<<<<<<< HEAD
                         Check back soon for spaces and guides.
-=======
-                        Check back soon for hubs and guides.
->>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
-=======
-                        Check back soon for spaces and guides.
->>>>>>> 2f5308a (refactor: update terminology from "hub" to "space" for consistency across space pages)
                     </p>
                 </div>
             )
