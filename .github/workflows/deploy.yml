@@ -1,13 +1,18 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 name: Deploy Production
 =======
 name: Deploy
 >>>>>>> 0624441 (feat: Consolidate deployment workflows into a single deploy.yml for improved management)
+=======
+name: Deploy Production
+>>>>>>> 462b34e (chore: remove dev branch from deploy workflow)
 
 on:
   push:
     branches:
       - main
+<<<<<<< HEAD
 <<<<<<< HEAD
   workflow_dispatch:
   schedule:
@@ -106,9 +111,17 @@ jobs:
         run: npx wrangler deploy --env preview
 
   deploy-main:
+=======
+  workflow_dispatch:
+  schedule:
+    # 09:00 UTC daily - rebuilds production
+    - cron: "0 9 * * *"
+
+jobs:
+  deploy:
+>>>>>>> 462b34e (chore: remove dev branch from deploy workflow)
     name: Deploy to production
     runs-on: ubuntu-latest
-    if: github.ref_name == 'main' || github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
