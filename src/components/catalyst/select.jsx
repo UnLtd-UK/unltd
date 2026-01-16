@@ -19,10 +19,10 @@ export const Select = forwardRef(function Select({ className, multiple, ...props
         'dark:before:hidden',
 
         // Focus ring
-        'after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-inset after:ring-transparent sm:after:has-[[data-focus]]:ring-2 sm:after:has-[[data-focus]]:ring-blue-500',
+        'after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-inset after:ring-transparent sm:after:has-[select:focus]:ring-2 sm:after:has-[select:focus]:ring-blue-500',
 
         // Disabled state
-        'has-[[data-disabled]]:opacity-50 before:has-[[data-disabled]]:bg-zinc-950/5 before:has-[[data-disabled]]:shadow-none',
+        'has-[select:disabled]:opacity-50 before:has-[select:disabled]:bg-zinc-950/5 before:has-[select:disabled]:shadow-none',
       ])}
     >
       <HeadlessSelect

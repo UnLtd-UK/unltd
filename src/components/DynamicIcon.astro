@@ -1,0 +1,86 @@
+---
+/**
+ * DynamicIcon component that renders FontAwesome icons from class strings at build time
+ *
+ * Usage:
+ * <DynamicIcon icon="fa-solid fa-check" class="h-5 w-5 text-green-500" />
+ * <DynamicIcon icon="fa-brands fa-linkedin" class="text-xl" />
+ * <DynamicIcon icon={dynamicIconFromData} class="text-lg" />
+ */
+
+import { icon as faIcon } from "@fortawesome/fontawesome-svg-core";
+import "@lib/icons";
+
+interface Props {
+    icon: string;
+    class?: string;
+    title?: string;
+}
+
+const { icon, class: className = "", title } = Astro.props;
+
+// Parse the FontAwesome class string to extract prefix and icon name
+function parseIconClass(
+    iconClass: string,
+): { prefix: string; iconName: string } | null {
+    if (!iconClass) return null;
+
+    const classes = iconClass
+        .split(" ")
+        .filter(
+            (c) =>
+                c.startsWith("fa-") ||
+                ["fas", "far", "fab", "fal", "fat"].includes(c),
+        );
+
+    let prefix = "fas"; // default to solid
+    let iconName = "";
+
+    for (const cls of classes) {
+        // Style classes
+        if (cls === "fa-solid" || cls === "fas") prefix = "fas";
+        else if (cls === "fa-regular" || cls === "far") prefix = "far";
+        else if (cls === "fa-brands" || cls === "fab") prefix = "fab";
+        else if (cls === "fa-light" || cls === "fal") prefix = "fal";
+        else if (cls === "fa-thin" || cls === "fat") prefix = "fat";
+        else if (cls === "fa-sharp")
+            continue; // ignore sharp modifier for now
+        else if (cls.startsWith("fa-")) {
+            // This is the icon name (e.g., fa-check -> check)
+            iconName = cls.replace("fa-", "");
+        }
+    }
+
+    if (!iconName) return null;
+    return { prefix, iconName };
+}
+
+const parsed = parseIconClass(icon);
+let svgHtml = "";
+
+if (parsed) {
+    const iconLookup = faIcon({
+        prefix: parsed.prefix as any,
+        iconName: parsed.iconName as any,
+    });
+    svgHtml = iconLookup?.html?.[0] || "";
+
+    if (!svgHtml) {
+        console.warn(
+            `[DynamicIcon] Missing icon: ${parsed.prefix} ${parsed.iconName}`,
+        );
+    }
+}
+
+// Replace FA's classes with our own classes
+const svgWithClasses = svgHtml
+    ? svgHtml
+          .replace(/class="[^"]*"/, `class="${className}"`)
+          .replace(
+              "<svg ",
+              `<svg aria-hidden="true" focusable="false" role="img"${title ? ` title="${title}"` : ""} `,
+          )
+    : "";
+---
+
+<Fragment set:html={svgWithClasses} />

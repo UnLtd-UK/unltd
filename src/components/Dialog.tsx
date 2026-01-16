@@ -2,6 +2,7 @@
 
 import { type MouseEventHandler, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
+import DynamicIcon from './ui/DynamicIcon'
 
 type DialogButton = {
   text: string
@@ -60,7 +61,7 @@ export default function DialogComponent({ title, description, primaryButton, sec
           autoFocus={button.autoFocus}
         >
           <span>{button.text}</span>
-          {variant === 'primary' && isExternal && <i className="fa-solid fa-arrow-up-right-from-square text-xs" />}
+          {variant === 'primary' && isExternal && <DynamicIcon icon="fa-solid fa-arrow-up-right-from-square" className="text-xs" />}
         </a>
       )
     }
@@ -125,7 +126,7 @@ export default function DialogComponent({ title, description, primaryButton, sec
           >
             <div>
               <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-violet-100">
-                <i aria-hidden="true" className={`${icon} text-lg text-violet-600`}></i>
+                <DynamicIcon icon={icon} className="text-lg text-violet-600" aria-hidden="true" />
               </div>
               <div className="mt-3 text-center sm:mt-5">
                 <DialogTitle as="h3" className="text-base font-semibold text-violet-900">

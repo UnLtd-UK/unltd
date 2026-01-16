@@ -1,0 +1,117 @@
+---
+/**
+ * ResourceAuth Component
+ * Client-side password protection for resources that belong to multiple spaces
+ * 
+ * Access is determined by the highest-priority space the resource belongs to:
+ * - Priority 4: Public + Listed (no auth needed)
+ * - Priority 3: Public + Unlisted (no auth needed)
+ * - Priority 2: Restricted + Listed (auth required)
+ * - Priority 1: Restricted + Unlisted (auth required)
+ * 
+ * When auth is required, accepts any valid password from ALL restricted spaces
+ * the resource belongs to (not just the highest-priority one).
+ */
+
+interface RestrictedSpace {
+    slug: string;
+    name: string;
+    password: string;
+}
+
+interface Props {
+    restrictedSpaces: RestrictedSpace[];
+    resourceName: string;
+}
+
+const { restrictedSpaces, resourceName } = Astro.props;
+
+// Only render if there are restricted spaces with valid passwords
+const validRestrictedSpaces = restrictedSpaces.filter(
+    space => space.password && space.password.trim().length > 0
+);
+const hasRestrictions = validRestrictedSpaces.length > 0;
+
+// Prepare space data for client-side script
+const spacesData = JSON.stringify(validRestrictedSpaces);
+---
+
+{hasRestrictions && (
+    <div 
+        id="resource-auth-gate"
+        data-spaces={spacesData}
+        data-resource-name={resourceName}
+    >
+        <script>
+            // Resource Authentication Handler
+            (function() {
+                const gate = document.getElementById('resource-auth-gate');
+                if (!gate) return;
+
+                const spaces = JSON.parse(gate.dataset.spaces || '[]');
+                const resourceName = gate.dataset.resourceName;
+
+                if (spaces.length === 0) {
+                    gate.remove();
+                    return;
+                }
+
+                // Check if already authenticated for ANY of the resource's spaces
+                function isAuthenticated() {
+                    for (const space of spaces) {
+                        const storageKey = `space-auth-${space.slug}`;
+                        if (localStorage.getItem(storageKey) === 'authenticated') {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+
+                // If already authenticated, remove gate and allow access
+                if (isAuthenticated()) {
+                    gate.remove();
+                    return;
+                }
+
+                // Build space names list for prompt
+                const spaceNames = spaces.map(s => s.name).join(' or ');
+
+                // Show password prompt
+                function promptForPassword() {
+                    const enteredPassword = window.prompt(
+                        `This resource is password protected.\n\nEnter the password for:\n${spaceNames}`
+                    );
+
+                    if (enteredPassword === null) {
+                        // User cancelled - redirect to spaces page
+                        window.location.href = '/spaces';
+                        return;
+                    }
+
+                    // Check if password matches ANY of the spaces
+                    const matchedSpace = spaces.find(s => s.password === enteredPassword);
+
+                    if (matchedSpace) {
+                        // Correct password - store authentication for the matched space
+                        const storageKey = `space-auth-${matchedSpace.slug}`;
+                        localStorage.setItem(storageKey, 'authenticated');
+                        gate.remove();
+                    } else {
+                        // Wrong password - try again
+                        const retry = window.confirm(
+                            'Incorrect password. Would you like to try again?'
+                        );
+                        if (retry) {
+                            promptForPassword();
+                        } else {
+                            window.location.href = '/spaces';
+                        }
+                    }
+                }
+
+                // Start authentication flow
+                promptForPassword();
+            })();
+        </script>
+    </div>
+)}

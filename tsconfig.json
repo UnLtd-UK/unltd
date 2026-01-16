@@ -6,6 +6,7 @@
     "baseUrl": ".",
     "paths": {
       "@components/*": ["src/components/*"],
+      "@config/*": ["src/config/*"],
       "@data/*": ["src/data/*"],
       "@layouts/*": ["src/layouts/*"],
       "@utils/*": ["src/utils/*"],
@@ -17,5 +18,6 @@
     "src/**/*.ts",
     "src/**/*.astro",
     "src/**/*.tsx"
-  ]
+  ],
+  "exclude": ["node_modules", "dist"]
 }

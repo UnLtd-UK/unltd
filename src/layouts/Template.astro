@@ -1,5 +1,11 @@
 ---
 import "../styles/global.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+// Import the centralized icon registry (registers icons with library)
+import "@lib/icons";
+config.autoAddCss = false;
+
 import { palette } from "@data/palette.js";
 import { navigation } from "@data/navigation.js";
 
@@ -7,12 +13,13 @@ const {
   name = "UnLtd",
   description = "No description",
   theme = palette["UnLtd"],
+  noindex = false,
 } = Astro.props.frontmatter || Astro.props;
 
 import Footer from "@components/Footer.astro";
 import Header from "@components/ui/Header.jsx";
-import Banner from "@components/Banner.astro";
-import { banner } from "@data/banner";
+import RoundBanner from "@components/awards/RoundBannerWrapper.astro";
+import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
 ---
 
 <!doctype html>
@@ -48,14 +55,12 @@ import { banner } from "@data/banner";
     />
     <meta property="og:image" content="" />
 
-    <!-- <script src="https://hub.unltd.org.uk/~gitbook/embed/script.js"></script>
-    <script>
-      window.GitBook("show");
-    </script> -->
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
   </head>
   <body class={`dark ${palette["UnLtd"].bg}`}>
     <div class="flex flex-col justify-between h-full">
-      {banner.status === "published" && <Banner banner={banner} />}
+      <!-- {banner.status === "published" && <Banner banner={banner} />} -->
+      <RoundBanner />
 
       <!-- NEW HEADER -->
       {
@@ -74,6 +79,9 @@ import { banner } from "@data/banner";
         <slot />
       </div>
       <Footer />
+
+      <!-- Dev tools (only renders in development) -->
+      <DevDateTimeIndicator />
     </div>
   </body>
 </html>

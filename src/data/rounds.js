@@ -9,11 +9,11 @@ const statusFilter = showDrafts
     : { _eq: 'published' };
 
 const filterOptions = {
-    sort: 'applications_start',
+    sort: 'opens',
     filter: {
         status: statusFilter
     },
-    fields: ['*.*.*.*'],
+    fields: ['*'],
     limit: 200
 }
 

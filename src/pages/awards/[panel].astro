@@ -1,8 +1,11 @@
 ---
+import type { GetStaticPaths } from "astro";
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Default from "@components/heroes/Default.astro";
+import Icon from "@components/Icon.astro";
+import DynamicIcon from "@components/DynamicIcon.astro";
 import { marked } from "marked";
 import slugify from "slugify";
 import moment from "moment";
@@ -10,9 +13,9 @@ import { palette } from "@data/palette.js";
 
 import { panels } from "@data/panels.js";
 
-export async function getStaticPaths() {
+export const getStaticPaths = (async () => {
     try {
-        return panels.map((panel) => {
+        return panels.map((panel: any) => {
             const name = `${moment(panel.date).format("DD-MM-YYYY")}`;
             const slug = panel.name;
 
@@ -47,7 +50,7 @@ export async function getStaticPaths() {
     } catch (error) {
         console.error("🐛 ", error);
     }
-}
+}) satisfies GetStaticPaths;
 
 const {
     name,
@@ -58,10 +61,15 @@ const {
     panel_chair,
     breadcrumbs,
     description,
-} = Astro.props;
+}: any = Astro.props;
 ---
 
-<Template name={name} breadcrumbs={breadcrumbs} description={description}>
+<Template
+    name={name}
+    breadcrumbs={breadcrumbs}
+    description={description}
+    noindex={true}
+>
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
         <div class="py-12">
@@ -97,7 +105,7 @@ const {
                             })}`}
                             class={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${palette[programme.name].badge} ring-1 ring-inset gap-1`}
                         >
-                            <i class={programme.icon}></i>
+                            <DynamicIcon icon={programme.icon} />
                             <span>{programme.name}</span>
                         </a>
                     </div>
@@ -136,7 +144,7 @@ const {
                                 {
                                     panel_chair.person.image && (
                                         <img
-                                            class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
+                                            class="aspect-4/5 w-52 flex-none rounded-2xl object-cover"
                                             src={`https://unltd.directus.app/assets/${panel_chair.person.image}`}
                                             alt=""
                                         />
@@ -198,7 +206,11 @@ const {
                                                     <span class="sr-only">
                                                         LinkedIn
                                                     </span>
-                                                    <i class="fa-brands fa-linkedin text-xl" />
+                                                    <Icon
+                                                        name="linkedin"
+                                                        style="brands"
+                                                        class="text-xl"
+                                                    />
                                                 </a>
                                             </li>
                                         )
@@ -220,7 +232,11 @@ const {
                                                     <span class="sr-only">
                                                         Website
                                                     </span>
-                                                    <i class="fa-regular fa-globe text-xl" />
+                                                    <Icon
+                                                        name="globe"
+                                                        style="regular"
+                                                        class="text-xl"
+                                                    />
                                                 </a>
                                             </li>
                                         )
@@ -253,7 +269,7 @@ const {
                                         {social_entrepreneur.positions_id.person
                                             .image && (
                                             <img
-                                                class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
+                                                class="aspect-4/5 w-52 flex-none rounded-2xl object-cover"
                                                 src={`https://unltd.directus.app/assets/${social_entrepreneur.positions_id.person.image}`}
                                                 alt=""
                                             />
@@ -327,7 +343,11 @@ const {
                                                         <span class="sr-only">
                                                             LinkedIn
                                                         </span>
-                                                        <i class="fa-brands fa-linkedin text-xl" />
+                                                        <Icon
+                                                            name="linkedin"
+                                                            style="brands"
+                                                            class="text-xl"
+                                                        />
                                                     </a>
                                                 </li>
                                             )}
@@ -350,7 +370,11 @@ const {
                                                         <span class="sr-only">
                                                             Website
                                                         </span>
-                                                        <i class="fa-regular fa-globe text-xl" />
+                                                        <Icon
+                                                            name="globe"
+                                                            style="regular"
+                                                            class="text-xl"
+                                                        />
                                                     </a>
                                                 </li>
                                             )}
@@ -383,7 +407,7 @@ const {
                                         {unltd_colleague.positions_id.person
                                             .image && (
                                             <img
-                                                class="aspect-[4/5] w-52 flex-none rounded-2xl object-cover"
+                                                class="aspect-4/5 w-52 flex-none rounded-2xl object-cover"
                                                 src={`https://unltd.directus.app/assets/${unltd_colleague.positions_id.person.image}`}
                                                 alt=""
                                             />
@@ -450,7 +474,11 @@ const {
                                                         <span class="sr-only">
                                                             LinkedIn
                                                         </span>
-                                                        <i class="fa-brands fa-linkedin text-xl" />
+                                                        <Icon
+                                                            name="linkedin"
+                                                            style="brands"
+                                                            class="text-xl"
+                                                        />
                                                     </a>
                                                 </li>
                                             )}
@@ -473,7 +501,11 @@ const {
                                                         <span class="sr-only">
                                                             Website
                                                         </span>
-                                                        <i class="fa-regular fa-globe text-xl" />
+                                                        <Icon
+                                                            name="globe"
+                                                            style="regular"
+                                                            class="text-xl"
+                                                        />
                                                     </a>
                                                 </li>
                                             )}

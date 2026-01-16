@@ -1,83 +1,221 @@
 ---
+import Icon from "@components/Icon.astro";
+
 interface Props {
   headings: {
     id: string;
     level: number;
     text: string;
   }[];
+  variant?: "desktop" | "mobile";
 }
 
-const { headings } = Astro.props;
+const { headings, variant = "desktop" } = Astro.props;
 const filteredHeadings = headings.filter((heading) => heading.level <= 3);
 ---
 
-<div class="hidden lg:block w-64 shrink-0">
-  <div class="sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
-    <nav class="space-y-4 bg-violet-950/50 rounded-xl backdrop-blur-sm">
-      <h2 class="font-semibold text-violet-200 mb-4">Table of Contents</h2>
-      <div class="inset-0 flex items-center" aria-hidden="true">
-        <div class="w-full border-t border-violet-800"></div>
-      </div>
+{/* Desktop Table of Contents - Sticky sidebar */}
+{variant === "desktop" && (
+  <div class="w-64 shrink-0">
+    <div class="max-h-[calc(100vh-8rem)] overflow-y-auto">
+      <nav
+        class="space-y-4 bg-violet-900/40 rounded-2xl backdrop-blur-sm ring-1 ring-violet-700/50 p-5"
+      >
+        <div class="flex items-center gap-2">
+          <Icon name="list" style="solid" class="h-4 w-4 text-violet-400" />
+          <h2 class="font-semibold text-violet-200">Table of Contents</h2>
+        </div>
+        <div class="inset-0 flex items-center" aria-hidden="true">
+          <div class="w-full border-t border-violet-700/50"></div>
+        </div>
 
-      <ul class="space-y-3">
-        {
-          filteredHeadings.map((heading) => (
-            <li
-              class={`text-sm ${
-                heading.level === 2
-                  ? "font-semibold text-violet-50 text-sm"
-                  : "font-normal text-violet-300 text-xs pl-4"
-              } hover:bg-violet-900 rounded p-1`}
-            >
-              <a
-                href={`#${heading.id}`}
-                class=" hover:text-violet-100 block transition-colors duration-200"
+        <ul class="space-y-2">
+          {
+            filteredHeadings.map((heading) => (
+              <li
+                class={`text-sm transition-all duration-200 ${
+                  heading.level === 2
+                    ? "font-medium text-violet-100"
+                    : "font-normal text-violet-300 text-xs pl-4 border-l-2 border-violet-700/50"
+                } hover:bg-violet-800/50 rounded-lg`}
               >
-                {heading.text}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+                <a
+                  href={`#${heading.id}`}
+                  class="block p-2 hover:text-white transition-colors duration-200"
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
   </div>
-</div>
+)}
 
-<button
-  id="backToTop"
-  class="fixed bottom-8 right-8 bg-violet-800 hover:bg-violet-700 text-white p-3 rounded-full shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none"
-  aria-label="Back to top"
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    class="h-6 w-6"
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-  >
-    <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
-      d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
-  </svg>
-</button>
+{/* Mobile Table of Contents - Floating button + Slide-out drawer */}
+{variant === "mobile" && (
+  <div class="lg:hidden">
+    {/* Floating TOC Button */}
+    <button
+      id="mobileTocButton"
+      class="fixed bottom-20 right-4 z-40 flex items-center gap-2 bg-violet-700 hover:bg-violet-600 text-white px-4 py-3 rounded-full shadow-lg shadow-violet-900/50 ring-1 ring-violet-500/50 transition-all duration-300"
+      aria-label="Open table of contents"
+      aria-expanded="false"
+      aria-controls="mobileTocDrawer"
+    >
+      <Icon name="list" style="solid" class="h-5 w-5" />
+      <span class="text-sm font-medium">Contents</span>
+    </button>
 
-<script>
-  // Handle back to top button visibility
-  const backToTop = document.getElementById("backToTop");
+    {/* Backdrop */}
+    <div
+      id="mobileTocBackdrop"
+      class="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+      aria-hidden="true"
+    >
+    </div>
 
-  if (backToTop) {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
-        backToTop.classList.remove("opacity-0", "pointer-events-none");
-      } else {
-        backToTop.classList.add("opacity-0", "pointer-events-none");
+    {/* Slide-out Drawer */}
+    <div
+      id="mobileTocDrawer"
+      class="fixed bottom-0 left-0 right-0 z-50 transform translate-y-full transition-transform duration-300 ease-out"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mobileTocTitle"
+    >
+      <div
+        class="bg-violet-950 rounded-t-3xl ring-1 ring-violet-700/50 shadow-2xl max-h-[70vh] flex flex-col"
+      >
+        {/* Drawer Handle */}
+        <div class="flex justify-center pt-3 pb-2">
+          <div class="w-12 h-1.5 bg-violet-700 rounded-full"></div>
+        </div>
+
+        {/* Drawer Header */}
+        <div
+          class="flex items-center justify-between px-6 pb-4 border-b border-violet-800"
+        >
+          <div class="flex items-center gap-2">
+            <Icon name="list" style="solid" class="h-5 w-5 text-violet-400" />
+            <h2 id="mobileTocTitle" class="font-semibold text-violet-100 text-lg">
+              Table of Contents
+            </h2>
+          </div>
+          <button
+            id="mobileTocClose"
+            class="p-2 rounded-lg bg-violet-800/50 hover:bg-violet-700 text-violet-300 hover:text-white transition-colors"
+            aria-label="Close table of contents"
+          >
+            <Icon name="xmark" style="solid" class="h-5 w-5" />
+          </button>
+        </div>
+
+        {/* Drawer Content */}
+        <nav class="flex-1 overflow-y-auto px-4 py-4">
+          <ul class="space-y-1">
+            {
+              filteredHeadings.map((heading) => (
+                <li>
+                  <a
+                    href={`#${heading.id}`}
+                    class={`mobile-toc-link block py-3 px-4 rounded-xl transition-all duration-200 ${
+                      heading.level === 2
+                        ? "font-medium text-violet-100 text-base bg-violet-900/30"
+                        : "font-normal text-violet-300 text-sm ml-4 border-l-2 border-violet-700/50 rounded-l-none"
+                    } hover:bg-violet-800/70 hover:text-white active:scale-[0.98]`}
+                  >
+                    {heading.text}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+
+        {/* Safe area padding for mobile devices */}
+        <div class="h-6 bg-violet-950"></div>
+      </div>
+    </div>
+
+    {/* Back to Top Button */}
+    <button
+      id="backToTop"
+      class="fixed bottom-8 right-4 z-30 bg-violet-800 hover:bg-violet-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 pointer-events-none"
+      aria-label="Back to top"
+    >
+      <Icon name="arrow-up" style="solid" class="h-6 w-6" />
+    </button>
+
+    <script>
+      // Mobile TOC functionality
+      const mobileTocButton = document.getElementById("mobileTocButton");
+      const mobileTocDrawer = document.getElementById("mobileTocDrawer");
+      const mobileTocBackdrop = document.getElementById("mobileTocBackdrop");
+      const mobileTocClose = document.getElementById("mobileTocClose");
+      const mobileTocLinks = document.querySelectorAll(".mobile-toc-link");
+
+      function openMobileToc() {
+        if (mobileTocDrawer && mobileTocBackdrop && mobileTocButton) {
+          mobileTocDrawer.classList.remove("translate-y-full");
+          mobileTocBackdrop.classList.remove("opacity-0", "pointer-events-none");
+          mobileTocButton.setAttribute("aria-expanded", "true");
+          document.body.style.overflow = "hidden";
+        }
       }
-    });
 
-    backToTop.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-  }
-</script>
+      function closeMobileToc() {
+        if (mobileTocDrawer && mobileTocBackdrop && mobileTocButton) {
+          mobileTocDrawer.classList.add("translate-y-full");
+          mobileTocBackdrop.classList.add("opacity-0", "pointer-events-none");
+          mobileTocButton.setAttribute("aria-expanded", "false");
+          document.body.style.overflow = "";
+        }
+      }
+
+      if (mobileTocButton) {
+        mobileTocButton.addEventListener("click", openMobileToc);
+      }
+
+      if (mobileTocClose) {
+        mobileTocClose.addEventListener("click", closeMobileToc);
+      }
+
+      if (mobileTocBackdrop) {
+        mobileTocBackdrop.addEventListener("click", closeMobileToc);
+      }
+
+      // Close drawer when clicking a link
+      mobileTocLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          closeMobileToc();
+        });
+      });
+
+      // Close on escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          closeMobileToc();
+        }
+      });
+
+      // Handle back to top button visibility
+      const backToTop = document.getElementById("backToTop");
+
+      if (backToTop) {
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 300) {
+            backToTop.classList.remove("opacity-0", "pointer-events-none");
+          } else {
+            backToTop.classList.add("opacity-0", "pointer-events-none");
+          }
+        });
+
+        backToTop.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      }
+    </script>
+  </div>
+)}

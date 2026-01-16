@@ -1,4 +1,5 @@
 ---
+import DynamicIcon from "@components/DynamicIcon.astro";
 const { colour, name, icon, logo } = Astro.props;
 ---
 
@@ -9,7 +10,7 @@ const { colour, name, icon, logo } = Astro.props;
         logo && logo ? (
             <img class="h-3" src={logo} alt="" />
         ) : (
-            <i class={`${icon} text-xs`} />
+            <DynamicIcon icon={icon} class="text-xs" />
         )
     }
     <span>{name}</span>

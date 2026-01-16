@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 const { endpoint, name, description, email, icon, fields } = Astro.props;
 
 import Input from "@components/newfields/Input.astro";
@@ -26,8 +27,11 @@ const componentMap = {
         <div
           class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg outline outline-offset-2 outline-violet-300 dark:outline-violet-700"
         >
-          <i class={`text-violet-800 dark:text-violet-200 fa-solid ${icon}`}
-          ></i>
+          <Icon
+            name={icon.replace("fa-", "")}
+            style="solid"
+            class="text-violet-800 dark:text-violet-200"
+          />
         </div>
 
         <h2
@@ -40,8 +44,11 @@ const componentMap = {
         </p>
 
         <div class="flex items-center gap-3 mt-6">
-          <i class="text-violet-600 dark:text-violet-400 fa-regular fa-envelope"
-          ></i>
+          <Icon
+            name="envelope"
+            style="regular"
+            class="text-violet-600 dark:text-violet-400"
+          />
           <a
             class="text-violet-700 hover:text-violet-800 dark:text-violet-300 hover:dark:text-violet-200 text-lg leading-8 font-bold underline underline-offset-4 decoration-amber-500 decoration-1 hover:decoration-2"
             href={`mailto:${email}`}>{email}</a

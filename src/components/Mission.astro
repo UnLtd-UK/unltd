@@ -1,4 +1,5 @@
 ---
+import DynamicIcon from "@components/DynamicIcon.astro";
 const { data } = Astro.props;
 ---
 
@@ -27,15 +28,18 @@ const { data } = Astro.props;
                     {
                         data.statistics.map((stat) => (
                             <div class="flex flex-col bg-violet-950 gap-4 p-8">
-                                <i class={`${stat.icon} text-6xl text-violet-200`}></i>
+                                <DynamicIcon
+                                    icon={stat.icon}
+                                    class="text-6xl text-violet-200"
+                                />
                                 <div>
-                                <dd class="text-lg font-semibold tracking-tight text-violet-100">
-                                    {stat.title}
-                                </dd>
-                                <dt class="text-sm font-semibold leading-6 text-violet-300">
-                                    {stat.text}
-                                </dt>
-                            </div>
+                                    <dd class="text-lg font-semibold tracking-tight text-violet-100">
+                                        {stat.title}
+                                    </dd>
+                                    <dt class="text-sm font-semibold leading-6 text-violet-300">
+                                        {stat.text}
+                                    </dt>
+                                </div>
                             </div>
                         ))
                     }

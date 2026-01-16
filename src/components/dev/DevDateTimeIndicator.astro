@@ -1,0 +1,60 @@
+---
+/**
+ * DevDateTimeIndicator Component
+ *
+ * Shows a visual indicator when a simulated datetime is being used in development.
+ * This helps prevent confusion when testing time-sensitive features.
+ *
+ * Only renders in development mode when DEV_DATETIME is set.
+ */
+
+import { isUsingDevDate, getDevDateInfo } from "@config/dev.config.js";
+import Icon from "@components/Icon.astro";
+
+const devDateTimeInfo = getDevDateInfo();
+const showIndicator = isUsingDevDate() && devDateTimeInfo;
+---
+
+{
+    showIndicator && (
+        <div class="fixed bottom-4 right-4 z-9999 max-w-sm font-mono">
+            <div class="bg-linear-to-br from-[#003b6f] to-[#00254d] text-white rounded-lg shadow-2xl p-4 text-sm border-2 border-[#1a5a96] relative overflow-hidden">
+                <div class="flex flex-col gap-3">
+                    <div class="flex-1">
+                        <p class="font-bold text-[#6bb9f0] uppercase tracking-wider text-xs flex items-center gap-2">
+                            <Icon name="police-box" style="solid" />
+                            TARDIS Materialised
+                        </p>
+                        <p class="text-white text-sm mt-1 font-bold">
+                            {devDateTimeInfo.simulatedDateTime}
+                        </p>
+                        <p class="text-[#8ecdf8] text-xs mt-1">
+                            <span class="opacity-70">Reality:</span>{" "}
+                            {devDateTimeInfo.realDateTime}
+                        </p>
+                        <p class="text-[#f0c674] text-xs mt-1 font-bold">
+                            ⚡ {devDateTimeInfo.offset} from present
+                        </p>
+                    </div>
+                </div>
+
+                <div class="mt-3 pt-2 border-t border-[#1a5a96] text-[10px] text-[#8ecdf8]">
+                    <p class="opacity-80">
+                        Set coordinates in{" "}
+                        <code class="bg-[#1a5a96] px-1.5 py-0.5 rounded text-white">
+                            .env
+                        </code>
+                    </p>
+                    <p class="mt-1 text-[#6bb9f0]">
+                        <code class="bg-[#1a5a96] px-1.5 py-0.5 rounded text-white">
+                            DEV_DATETIME=YYYY-MM-DDTHH:MM:SS
+                        </code>
+                    </p>
+                </div>
+
+                {/* Bottom decorative bar */}
+                <div class="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-[#1a5a96] via-[#6bb9f0] to-[#1a5a96]" />
+            </div>
+        </div>
+    )
+}

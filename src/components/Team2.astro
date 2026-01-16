@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 const { name, description, people, slug } = Astro.props;
 ---
 
@@ -78,7 +79,7 @@ const { name, description, people, slug } = Astro.props;
                         class="text-violet-400"
                       >
                         <span class="sr-only">LinkedIn</span>
-                        <i class="text-sm fa-brands fa-linkedin" />
+                        <Icon name="linkedin" style="brands" class="text-sm" />
                       </a>
                     )}
                   </div>

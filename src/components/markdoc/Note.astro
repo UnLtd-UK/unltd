@@ -1,7 +1,15 @@
+---
+import Icon from "@components/Icon.astro";
+---
+
 <div class="rounded-md bg-amber-50 p-5">
   <div class="flex flex-col">
     <div class="flex flex-row gap-3 items-center">
-      <i class="fa-solid fa-circle-info text-amber-800 opacity-75"></i>
+      <Icon
+        name="circle-info"
+        style="solid"
+        class="text-amber-800 opacity-75"
+      />
       <h3 class="text-sm font-medium text-amber-800">Note</h3>
     </div>
     <div class="flex flex-col gap-1 text-sm text-amber-700">

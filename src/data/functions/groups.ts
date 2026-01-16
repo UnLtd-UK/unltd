@@ -29,7 +29,7 @@ export function groups(resources: Resource[]): GroupNode[] {
                         locale: "en",
                         trim: true,
                     }),
-                    path: `/resources/${slugify(groupName, {
+                    path: `/spaces/${slugify(groupName, {
                         lower: true,
                         strict: true,
                         locale: "en",

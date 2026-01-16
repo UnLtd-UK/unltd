@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Logo from "@components/Logo.jsx";
 import PanelComp from './Panel.jsx';
 import DialogComp from './Dialog.jsx';
+import DynamicIcon from './DynamicIcon.jsx';
 
 export default function HeaderComp({ styles, navigation }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -23,7 +24,7 @@ export default function HeaderComp({ styles, navigation }) {
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
-            <i className="fa-solid fa-bars h-6 w-6" aria-hidden="true" ></i>
+            <DynamicIcon icon="fa-solid fa-bars" className="h-6 w-6" aria-hidden="true" />
           </button>
         </div>
         <PanelComp navs={navigations} styles={styles} />
@@ -35,11 +36,11 @@ export default function HeaderComp({ styles, navigation }) {
           )}
         </div>
       </nav>
-      <DialogComp 
-        nav={navigations} 
-        styles={styles} 
-        mobileMenuOpen={mobileMenuOpen} 
-        setMobileMenuOpen={setMobileMenuOpen} 
+      <DialogComp
+        nav={navigations}
+        styles={styles}
+        mobileMenuOpen={mobileMenuOpen}
+        setMobileMenuOpen={setMobileMenuOpen}
         navigation={navigation}
       />
     </header>
