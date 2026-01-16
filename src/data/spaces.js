@@ -3,15 +3,11 @@ import { getCollection } from './load.js';
 const collection = "spaces";
 const name = "spaces";
 
-const branch = process.env.BRANCH_NAME || 'local';
-
-const statusFilter = branch === 'main'
-    ? { _eq: 'published' }
-    : {
-        _in: branch === 'dev'
-            ? ['published', 'draft']
-            : ['published', 'draft', 'archived']
-    };
+const showDrafts = process.env.SHOW_DRAFTS === 'true';
+console.log(`Show Drafts: ${showDrafts}`);
+const statusFilter = showDrafts
+    ? { _in: ['published', 'draft'] }
+    : { _eq: 'published' };
 
 const filterOptions = {
     sort: ['sort'],

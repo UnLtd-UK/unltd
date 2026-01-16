@@ -3,16 +3,11 @@ import { getCollection } from './load.js';
 const collection = "pages";
 const name = "pages";
 
-const branch = process.env.BRANCH_NAME || 'local';
-console.log(`Branch: ${branch}`);
-const isMainBranch = branch === 'main';
-const statusFilter = isMainBranch
-    ? { _eq: 'published' }
-    : {
-        _in: branch === 'dev'
-            ? ['published', 'draft']
-            : ['published', 'draft', 'archived']
-    };
+const showDrafts = process.env.SHOW_DRAFTS === 'true';
+console.log(`Show Drafts: ${showDrafts}`);
+const statusFilter = showDrafts
+    ? { _in: ['published', 'draft'] }
+    : { _eq: 'published' };
 
 const filterOptions = {
     filter: {
