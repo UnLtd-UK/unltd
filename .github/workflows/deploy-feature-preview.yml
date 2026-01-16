@@ -3,9 +3,9 @@ name: Deploy Feature Preview
 on:
     push:
         branches:
-            - 'feature/**'
-            - 'fix/**'
-            - 'chore/**'
+            - "feature/**"
+            - "fix/**"
+            - "chore/**"
     workflow_dispatch:
 
 jobs:
@@ -61,7 +61,7 @@ jobs:
                   script: |
                       const subdomain = '${{ steps.worker-name.outputs.subdomain }}';
                       const previewUrl = `https://${subdomain}.preview.unltd.org.uk`;
-                      
+
                       // Find associated PR
                       const { data: prs } = await github.rest.pulls.list({
                         owner: context.repo.owner,
@@ -69,7 +69,7 @@ jobs:
                         head: `${context.repo.owner}:${context.ref.replace('refs/heads/', '')}`,
                         state: 'open'
                       });
-                      
+
                       if (prs.length > 0) {
                         const pr = prs[0];
                         await github.rest.issues.createComment({
@@ -79,5 +79,5 @@ jobs:
                           body: `🚀 **Preview deployed!**\n\n🔗 ${previewUrl}\n\nThis preview will be updated on each push to this branch.`
                         });
                       }
-                      
+
                       console.log(`Preview URL: ${previewUrl}`);
