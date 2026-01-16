@@ -51,9 +51,9 @@ jobs:
                   echo "Response: $BODY"
                   echo "HTTP Status: $HTTP_CODE"
 
-                  if [ "$HTTP_CODE" == "200" ]; then
+                  if [ "$HTTP_CODE" = "200" ]; then
                     echo "✅ Successfully deleted worker: $WORKER_NAME"
-                  elif [ "$HTTP_CODE" == "404" ]; then
+                  elif [ "$HTTP_CODE" = "404" ]; then
                     echo "ℹ️ Worker not found (may have already been deleted): $WORKER_NAME"
                   else
                     echo "⚠️ Unexpected response when deleting worker: $WORKER_NAME"

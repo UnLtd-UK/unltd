@@ -18,6 +18,7 @@ jobs:
             EVENTBRITE_PRIVATE_TOKEN: ${{ secrets.EVENTBRITE_PRIVATE_TOKEN }}
             FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
             SHOW_DRAFTS: "true"
+            DEPLOY_ENVIRONMENT: "feature-preview"
         steps:
             - name: Checkout repo
               uses: actions/checkout@v4
