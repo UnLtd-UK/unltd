@@ -82,7 +82,7 @@ export async function getStaticPaths() {
 
     // Only generate pages for PUBLIC spaces (no password set)
     const publicSpaces = (allSpaces as Space[]).filter(
-        (space) => !isSpaceRestricted(space)
+        (space) => !isSpaceRestricted(space),
     );
 
     return publicSpaces.map((space) => {
