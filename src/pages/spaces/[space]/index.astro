@@ -36,7 +36,7 @@ interface Space {
     id: string;
     name: string;
     description: string;
-    access: "public" | "unlisted" | "restricted";
+    unlisted: boolean;
     restricted_password?: string;
     eventbrite_keywords?: string[];
     sort?: number;
@@ -290,7 +290,7 @@ if (uncategorizedCount > 0) {
     });
 }
 
-const isUnlisted = space.access === "unlisted";
+const isUnlisted = !!space.unlisted;
 ---
 
 <Template
@@ -302,7 +302,6 @@ const isUnlisted = space.access === "unlisted";
         spaceSlug={spaceSlug}
         spaceName={space.name}
         password={space.restricted_password || ""}
-        access={space.access}
     />
 
     <Container>

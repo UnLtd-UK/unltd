@@ -2,9 +2,17 @@
 /**
  * Individual Resource Page - Canonical URL
  * Flat URL structure: /spaces/[resource-slug]
- * Access control based on spaces the resource belongs to:
- * - If belongs to ANY public space → public access
- * - If only in restricted spaces → requires authentication
+ *
+ * Access control based on priority system:
+ * When a resource belongs to multiple spaces, it inherits the
+ * MOST PERMISSIVE (highest priority) access level:
+ * - Priority 4: Public + Listed (no auth needed)
+ * - Priority 3: Public + Unlisted (no auth needed)
+ * - Priority 2: Restricted + Listed (auth required)
+ * - Priority 1: Restricted + Unlisted (auth required)
+ *
+ * When auth is required, the password prompt lists ALL restricted
+ * spaces the resource belongs to, and accepts any valid password.
  */
 
 import slugify from "slugify";
@@ -20,13 +28,14 @@ import { allSpaces } from "@data/spaces.js";
 import { allResources } from "@data/resources.js";
 import { prepareMarkdown } from "@data/functions/prepareMarkdown.ts";
 import { prepareToc } from "@data/functions/prepareToc.ts";
+import { getEffectiveAccess, getRestrictedSpaces } from "@utils/spaceAccess";
 
 // Type definitions
 interface Space {
     id: string;
     name: string;
     description: string;
-    access: "public" | "unlisted" | "restricted";
+    unlisted: boolean;
     restricted_password?: string;
     eventbrite_keywords?: string[];
 }
@@ -61,6 +70,7 @@ export async function getStaticPaths() {
             body: string;
             toc: TocHeading[];
             isPublic: boolean;
+            isListed: boolean;
             restrictedSpaces: Space[];
         };
     }> = [];
@@ -90,15 +100,15 @@ export async function getStaticPaths() {
             resourceSpaceIds.includes(space.id),
         );
 
-        // If belongs to ANY public space, it's public
-        const isPublic = resourceSpaces.some(
-            (space) => space.access === "public",
-        );
+        // Get effective access based on highest priority space
+        const effectiveAccess = getEffectiveAccess(resourceSpaces);
+        const isPublic = effectiveAccess.isPublic;
+        const isListed = effectiveAccess.isListed;
 
-        // Get restricted spaces for auth (only needed if not public)
+        // Get ALL restricted spaces for auth prompt (user can use any valid password)
         const restrictedSpaces = isPublic
             ? []
-            : resourceSpaces.filter((space) => space.access === "restricted");
+            : getRestrictedSpaces(resourceSpaces);
 
         paths.push({
             params: {
@@ -110,6 +120,7 @@ export async function getStaticPaths() {
                 body,
                 toc,
                 isPublic,
+                isListed,
                 restrictedSpaces,
             },
         });
@@ -118,15 +129,23 @@ export async function getStaticPaths() {
     return paths;
 }
 
-const { resource, resourceSlug, body, toc, isPublic, restrictedSpaces } =
-    Astro.props as {
-        resource: Resource;
-        resourceSlug: string;
-        body: string;
-        toc: TocHeading[];
-        isPublic: boolean;
-        restrictedSpaces: Space[];
-    };
+const {
+    resource,
+    resourceSlug,
+    body,
+    toc,
+    isPublic,
+    isListed,
+    restrictedSpaces,
+} = Astro.props as {
+    resource: Resource;
+    resourceSlug: string;
+    body: string;
+    toc: TocHeading[];
+    isPublic: boolean;
+    isListed: boolean;
+    restrictedSpaces: Space[];
+};
 
 // Breadcrumbs
 const breadcrumbs = [
@@ -145,12 +164,15 @@ const restrictedSpacesData = restrictedSpaces.map((space) => ({
     name: space.name,
     password: space.restricted_password || "",
 }));
+
+// noindex if restricted OR if effective access is unlisted
+const shouldNoindex = !isPublic || !isListed;
 ---
 
 <Template
     name={resource.name}
     description={resource.description}
-    noindex={!isPublic}
+    noindex={shouldNoindex}
 >
     {
         /* Password protection for restricted resources - accepts any valid password */

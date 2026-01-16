@@ -22,7 +22,7 @@ const filterOptions = {
         'id',
         'name',
         'description',
-        'access',
+        'unlisted',
         'restricted_password',
         'eventbrite_keywords',
         'sort'
