@@ -1,0 +1,60 @@
+name: Cleanup Feature Workers
+
+on:
+    delete:
+    pull_request:
+        types: [closed]
+
+jobs:
+    cleanup-worker:
+        name: Delete feature preview worker
+        runs-on: ubuntu-latest
+        # Only run on branch deletion or merged PRs
+        if: |
+            github.event_name == 'delete' ||
+            (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+        env:
+            CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+            CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        steps:
+            - name: Get branch name
+              id: branch
+              run: |
+                  if [ "${{ github.event_name }}" == "delete" ]; then
+                    BRANCH="${{ github.event.ref }}"
+                  else
+                    BRANCH="${{ github.event.pull_request.head.ref }}"
+                  fi
+                  echo "name=$BRANCH" >> $GITHUB_OUTPUT
+
+            - name: Generate worker name from branch
+              id: worker-name
+              run: |
+                  BRANCH="${{ steps.branch.outputs.name }}"
+                  WORKER_NAME=$(echo "$BRANCH" | tr '/' '-' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g')
+                  echo "name=unltd-${WORKER_NAME}" >> $GITHUB_OUTPUT
+                  echo "Worker to delete: unltd-${WORKER_NAME}"
+
+            - name: Delete Cloudflare Worker
+              run: |
+                  WORKER_NAME="${{ steps.worker-name.outputs.name }}"
+                  echo "Attempting to delete worker: $WORKER_NAME"
+
+                  RESPONSE=$(curl -s -w "\n%{http_code}" -X DELETE \
+                    "https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/workers/scripts/$WORKER_NAME" \
+                    -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+                    -H "Content-Type: application/json")
+
+                  HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+                  BODY=$(echo "$RESPONSE" | sed '$d')
+
+                  echo "Response: $BODY"
+                  echo "HTTP Status: $HTTP_CODE"
+
+                  if [ "$HTTP_CODE" = "200" ]; then
+                    echo "✅ Successfully deleted worker: $WORKER_NAME"
+                  elif [ "$HTTP_CODE" = "404" ]; then
+                    echo "ℹ️ Worker not found (may have already been deleted): $WORKER_NAME"
+                  else
+                    echo "⚠️ Unexpected response when deleting worker: $WORKER_NAME"
+                  fi
