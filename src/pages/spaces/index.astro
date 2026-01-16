@@ -1,10 +1,14 @@
 ---
 /**
 <<<<<<< HEAD
+<<<<<<< HEAD
  * Spaces Index
  * Shows only PUBLIC + LISTED spaces (hides restricted and unlisted)
 =======
  * Spaces Index - Hub Picker
+=======
+ * Spaces Index
+>>>>>>> 2f5308a (refactor: update terminology from "hub" to "space" for consistency across space pages)
  * Shows all listed spaces (hides unlisted)
  * Clear distinction between public and restricted spaces
 <<<<<<< HEAD
@@ -58,6 +62,7 @@ interface Space {
 const name = "Spaces";
 const description =
 <<<<<<< HEAD
+<<<<<<< HEAD
     "Access spaces, guides, and support materials tailored to your journey.";
 
 const breadcrumbs = [{ name: "Spaces", path: "/spaces" }];
@@ -67,6 +72,9 @@ const allVisibleSpaces = (allSpaces as Space[]).filter(
     (space) => !space.unlisted && !isSpaceRestricted(space),
 =======
     "Access hubs, guides, and support materials tailored to your journey.";
+=======
+    "Access spaces, guides, and support materials tailored to your journey.";
+>>>>>>> 2f5308a (refactor: update terminology from "hub" to "space" for consistency across space pages)
 
 const breadcrumbs = [{ name: "Spaces", path: "/spaces" }];
 
@@ -186,8 +194,12 @@ const restrictedSpaces = allVisibleSpaces.filter((space) =>
                                     {/* Footer */}
                                     <div class="mt-6 pt-4 border-t border-emerald-700/30 flex items-center justify-between">
                                         <span class="text-sm font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors">
+<<<<<<< HEAD
                                             Browse hub
 >>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
+=======
+                                            Browse space
+>>>>>>> 2f5308a (refactor: update terminology from "hub" to "space" for consistency across space pages)
                                         </span>
                                         <div class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-700/50 group-hover:bg-emerald-600/70 transition-all duration-300 group-hover:translate-x-1">
                                             <Icon
@@ -275,7 +287,7 @@ const restrictedSpaces = allVisibleSpaces.filter((space) =>
                                     {/* Footer */}
                                     <div class="mt-6 pt-4 border-t border-amber-700/30 flex items-center justify-between">
                                         <span class="text-sm font-medium text-amber-400 group-hover:text-amber-300 transition-colors">
-                                            Enter hub
+                                            Enter space
                                         </span>
                                         <div class="flex h-8 w-8 items-center justify-center rounded-full bg-amber-700/50 group-hover:bg-amber-600/70 transition-all duration-300 group-hover:translate-x-1">
                                             <Icon
@@ -313,10 +325,14 @@ const restrictedSpaces = allVisibleSpaces.filter((space) =>
                     </h3>
                     <p class="text-violet-400 max-w-md mx-auto">
 <<<<<<< HEAD
+<<<<<<< HEAD
                         Check back soon for spaces and guides.
 =======
                         Check back soon for hubs and guides.
 >>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
+=======
+                        Check back soon for spaces and guides.
+>>>>>>> 2f5308a (refactor: update terminology from "hub" to "space" for consistency across space pages)
                     </p>
                 </div>
             )
