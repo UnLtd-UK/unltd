@@ -1,14 +1,14 @@
 /home-page /
 /home-page/ /
 
-/other-funding-and-support-available-for-social-entrepreneurs /resources/other-funding-and-support-available-for-social-entrepreneurs
-/other-funding-and-support-available-for-social-entrepreneurs/ /resources/other-funding-and-support-available-for-social-entrepreneurs
+/other-funding-and-support-available-for-social-entrepreneurs /spaces/other-funding-and-support-available-for-social-entrepreneurs
+/other-funding-and-support-available-for-social-entrepreneurs/ /spaces/other-funding-and-support-available-for-social-entrepreneurs
 
-/file-uploads /resources/financial-data-guide-for-award-application
-/file-uploads/ /resources/financial-data-guide-for-award-application
+/file-uploads /spaces/financial-data-guide-for-award-application
+/file-uploads/ /spaces/financial-data-guide-for-award-application
 
-/assistance-for-those-with-additional-support-needs /resources/assistance-for-those-with-additional-support-needs
-/assistance-for-those-with-additional-support-needs/ /resources/assistance-for-those-with-additional-support-needs
+/assistance-for-those-with-additional-support-needs /spaces/assistance-for-those-with-additional-support-needs
+/assistance-for-those-with-additional-support-needs/ /spaces/assistance-for-those-with-additional-support-needs
 
 /terms-conditions /terms-and-conditions
 /terms-conditions/ /terms-and-conditions
@@ -16,5 +16,7 @@
 /cookies-policy /browser-storage-policy
 /cookies-policy/ /browser-storage-policy
 
-/resources/financial-data-guide-for-award-application /resources/financial-data-submission-guide-for-scaling-up-applications
-/resources/financial-data-guide-for-award-application/ /resources/financial-data-submission-guide-for-scaling-up-applications/
+# Legacy /resources redirects to /spaces
+/resources /spaces
+/resources/ /spaces
+/resources/* /spaces/:splat
