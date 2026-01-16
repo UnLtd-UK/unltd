@@ -1,0 +1,43 @@
+name: Deploy Draft Preview
+
+on:
+    push:
+        branches:
+            - main
+    workflow_dispatch:
+    schedule:
+        # 09:00 UTC daily - rebuilds draft environment to pick up CMS changes
+        - cron: "0 9 * * *"
+
+jobs:
+    deploy-draft:
+        name: Deploy draft preview
+        runs-on: ubuntu-latest
+        env:
+            CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+            CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+            EVENTBRITE_PRIVATE_TOKEN: ${{ secrets.EVENTBRITE_PRIVATE_TOKEN }}
+            FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+            SHOW_DRAFTS: "true"
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+              with:
+                  ref: main
+
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "22"
+
+            - name: Setup Font Awesome Pro
+              run: bash scripts/setup-npmrc.sh
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build site
+              run: npm run build
+
+            - name: Deploy worker
+              run: npx wrangler deploy --env draft
