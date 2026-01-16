@@ -1,0 +1,56 @@
+---
+/**
+ * Icon component that renders FontAwesome icons at build time
+ *
+ * Usage:
+ * <Icon name="check" style="solid" class="h-5 w-5 text-green-500" />
+ * <Icon name="calendar" style="regular" class="text-violet-400" />
+ * <Icon name="linkedin" style="brands" class="text-xl" />
+ */
+
+import { icon as faIcon } from "@fortawesome/fontawesome-svg-core";
+// Import the centralized icon registry (registers icons with library)
+import "@lib/icons";
+
+interface Props {
+    name: string;
+    style?: "solid" | "regular" | "brands" | "light" | "thin";
+    class?: string;
+    title?: string;
+}
+
+const { name, style = "solid", class: className = "", title } = Astro.props;
+
+// Map style to prefix
+const prefixMap: Record<string, string> = {
+    solid: "fas",
+    regular: "far",
+    brands: "fab",
+    light: "fal",
+    thin: "fat",
+};
+
+const prefix = prefixMap[style] || "fas";
+
+// Find and render the icon
+const iconLookup = faIcon({ prefix: prefix as any, iconName: name as any });
+const svgHtml = iconLookup?.html?.[0];
+
+if (!svgHtml) {
+    console.warn(`[Icon] Missing icon: ${prefix} ${name}`);
+}
+
+// Remove FontAwesome's sizing classes and replace with our own
+// FA adds "svg-inline--fa fa-check" which has CSS that sets height:1em, width:1.25em
+// We want Tailwind to control sizing, so we strip those classes
+const svgWithClasses = svgHtml
+    ? svgHtml
+          .replace(/class="[^"]*"/, `class="${className}"`)
+          .replace(
+              "<svg ",
+              `<svg aria-hidden="true" focusable="false" role="img"${title ? ` title="${title}"` : ""} `,
+          )
+    : "";
+---
+
+<Fragment set:html={svgWithClasses} />

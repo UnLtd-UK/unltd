@@ -1,0 +1,117 @@
+---
+/**
+ * GuideCard Component
+ * A distinctive card for guide/article resources with book styling
+ */
+
+import Icon from "@components/Icon.astro";
+import { calculateReadTime } from "@data/functions/read-time.js";
+import { getTopicLabel, getTopicConfig } from "@data/topics";
+
+interface Props {
+    name: string;
+    description: string;
+    href: string;
+    topic?: string;
+    body?: string;
+}
+
+const { name, description, href, topic, body } = Astro.props;
+
+const readTime = body ? calculateReadTime(body) : null;
+
+const topicLabel = getTopicLabel(topic);
+const topicConf = getTopicConfig(topic);
+---
+
+<a
+    href={href}
+    class="group relative flex overflow-hidden rounded-2xl bg-linear-to-br from-emerald-900/60 via-emerald-800/40 to-teal-900/60 ring-1 ring-emerald-600/40 hover:ring-emerald-400/60 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/15 hover:-translate-y-1"
+>
+    {/* Book spine accent */}
+    <div
+        class="absolute left-0 top-0 bottom-0 w-1.5 bg-linear-to-b from-emerald-400 via-emerald-500 to-teal-500"
+    >
+    </div>
+
+    <div class="flex-1 pl-6 pr-5 py-5">
+        {/* Header with badges */}
+        <div class="flex items-start justify-between gap-3 mb-3">
+            <div
+                class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/25 ring-1 ring-emerald-400/40 group-hover:bg-emerald-500/35 transition-all duration-300"
+            >
+                <Icon
+                    name="book-open"
+                    style="solid"
+                    class="h-5 w-5 text-emerald-300 group-hover:text-emerald-200"
+                />
+            </div>
+            <div class="flex flex-wrap gap-2 justify-end">
+                {
+                    readTime && (
+                        <span class="inline-flex items-center gap-1 rounded-full bg-emerald-700/50 px-2.5 py-1 text-xs font-medium text-emerald-200 ring-1 ring-emerald-600/50">
+                            <Icon
+                                name="clock"
+                                style="regular"
+                                class="h-3 w-3"
+                            />
+                            {readTime} min
+                        </span>
+                    )
+                }
+                {
+                    topicLabel && (
+                        <span
+                            class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ${topicConf ? `${topicConf.bgClass} ${topicConf.textClass} ${topicConf.ringClass}` : "bg-emerald-800/60 text-emerald-300 ring-emerald-600/40"}`}
+                        >
+                            {topicConf && (
+                                <Icon
+                                    name={topicConf.icon}
+                                    style="solid"
+                                    class="h-3 w-3"
+                                />
+                            )}
+                            {topicLabel}
+                        </span>
+                    )
+                }
+            </div>
+        </div>
+
+        {/* Content */}
+        <h3
+            class="text-lg font-semibold text-emerald-100 group-hover:text-white transition-colors duration-200 line-clamp-2 mb-2"
+        >
+            {name}
+        </h3>
+        <p
+            class="text-sm leading-relaxed text-emerald-300/80 line-clamp-2 mb-4"
+        >
+            {description}
+        </p>
+
+        {/* Footer */}
+        <div
+            class="flex items-center gap-2 text-sm font-medium text-emerald-400 group-hover:text-emerald-300 transition-colors"
+        >
+            <span>Read guide</span>
+            <Icon
+                name="arrow-right"
+                style="solid"
+                class="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform duration-300"
+            />
+        </div>
+    </div>
+
+    {/* Decorative book page lines */}
+    <div
+        class="absolute right-3 top-1/2 -translate-y-1/2 opacity-10 group-hover:opacity-20 transition-opacity"
+    >
+        <div class="space-y-1.5">
+            <div class="w-16 h-0.5 bg-emerald-300 rounded"></div>
+            <div class="w-12 h-0.5 bg-emerald-300 rounded"></div>
+            <div class="w-14 h-0.5 bg-emerald-300 rounded"></div>
+            <div class="w-10 h-0.5 bg-emerald-300 rounded"></div>
+        </div>
+    </div>
+</a>
