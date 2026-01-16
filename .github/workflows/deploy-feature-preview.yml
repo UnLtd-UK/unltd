@@ -40,24 +40,27 @@ jobs:
             - name: Generate worker name from branch
               id: worker-name
               run: |
-                  # Convert branch name to valid worker name (lowercase, replace / with -)
+                  # Convert branch name to valid worker/subdomain name (lowercase, replace / with -)
                   BRANCH="${{ github.ref_name }}"
                   WORKER_NAME=$(echo "$BRANCH" | tr '/' '-' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g')
                   echo "name=unltd-${WORKER_NAME}" >> $GITHUB_OUTPUT
+                  echo "subdomain=${WORKER_NAME}" >> $GITHUB_OUTPUT
                   echo "Worker name: unltd-${WORKER_NAME}"
+                  echo "Preview URL: https://${WORKER_NAME}.preview.unltd.org.uk"
 
             - name: Deploy feature preview worker
               run: |
                   npx wrangler deploy \
                     --name ${{ steps.worker-name.outputs.name }} \
-                    --compatibility-date 2025-11-17
+                    --compatibility-date 2025-11-17 \
+                    --route "${{ steps.worker-name.outputs.subdomain }}.preview.unltd.org.uk/*"
 
             - name: Comment preview URL
               uses: actions/github-script@v7
               with:
                   script: |
-                      const workerName = '${{ steps.worker-name.outputs.name }}';
-                      const previewUrl = `https://${workerName}.unltd-uk.workers.dev`;
+                      const subdomain = '${{ steps.worker-name.outputs.subdomain }}';
+                      const previewUrl = `https://${subdomain}.preview.unltd.org.uk`;
                       
                       // Find associated PR
                       const { data: prs } = await github.rest.pulls.list({
