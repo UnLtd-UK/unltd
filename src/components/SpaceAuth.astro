@@ -3,19 +3,21 @@
  * SpaceAuth Component
  * Client-side password protection for restricted spaces
  * Uses window.prompt() and localStorage for persistence
+ * 
+ * A space is restricted when it has a non-empty password set.
+ * The 'unlisted' field controls visibility, not access.
  */
 
 interface Props {
     spaceSlug: string;
     spaceName: string;
     password: string;
-    access: 'public' | 'unlisted' | 'restricted';
 }
 
-const { spaceSlug, spaceName, password, access } = Astro.props;
+const { spaceSlug, spaceName, password } = Astro.props;
 
-// Only render auth script for restricted spaces
-const isRestricted = access === 'restricted';
+// Only render auth script for restricted spaces (those with a password)
+const isRestricted = !!password && password.trim().length > 0;
 ---
 
 {isRestricted && (

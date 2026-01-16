@@ -1,9 +1,16 @@
 ---
 /**
  * ResourceAuth Component
- * Client-side password protection for resources that belong to multiple restricted spaces
- * Checks if user is authenticated for ANY of the resource's restricted spaces
- * Accepts any valid password from any of those spaces
+ * Client-side password protection for resources that belong to multiple spaces
+ * 
+ * Access is determined by the highest-priority space the resource belongs to:
+ * - Priority 4: Public + Listed (no auth needed)
+ * - Priority 3: Public + Unlisted (no auth needed)
+ * - Priority 2: Restricted + Listed (auth required)
+ * - Priority 1: Restricted + Unlisted (auth required)
+ * 
+ * When auth is required, accepts any valid password from ALL restricted spaces
+ * the resource belongs to (not just the highest-priority one).
  */
 
 interface RestrictedSpace {
@@ -19,11 +26,14 @@ interface Props {
 
 const { restrictedSpaces, resourceName } = Astro.props;
 
-// Only render if there are restricted spaces
-const hasRestrictions = restrictedSpaces.length > 0;
+// Only render if there are restricted spaces with valid passwords
+const validRestrictedSpaces = restrictedSpaces.filter(
+    space => space.password && space.password.trim().length > 0
+);
+const hasRestrictions = validRestrictedSpaces.length > 0;
 
 // Prepare space data for client-side script
-const spacesData = JSON.stringify(restrictedSpaces);
+const spacesData = JSON.stringify(validRestrictedSpaces);
 ---
 
 {hasRestrictions && (

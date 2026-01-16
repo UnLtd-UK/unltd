@@ -31,10 +31,14 @@ const filterOptions = {
         'name',
         'description',
 <<<<<<< HEAD
+<<<<<<< HEAD
         'unlisted',
 =======
         'access',
 >>>>>>> c40fddc (Refactor resources and spaces structure)
+=======
+        'unlisted',
+>>>>>>> 190cfff (feat: implement priority-based access control for spaces and resources)
         'restricted_password',
         'eventbrite_keywords',
         'sort'

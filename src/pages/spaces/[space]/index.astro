@@ -61,10 +61,14 @@ interface Space {
     name: string;
     description: string;
 <<<<<<< HEAD
+<<<<<<< HEAD
     unlisted: boolean;
 =======
     access: "public" | "unlisted" | "restricted";
 >>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
+=======
+    unlisted: boolean;
+>>>>>>> 190cfff (feat: implement priority-based access control for spaces and resources)
     restricted_password?: string;
     eventbrite_keywords?: string[];
     sort?: number;
@@ -349,12 +353,16 @@ if (uncategorizedCount > 0) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const isUnlisted = !!space.unlisted;
 =======
 =======
 >>>>>>> 8c3fa8c (feat: refactor resource components to use topic instead of category)
 const isUnlisted = space.access === "unlisted";
 >>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
+=======
+const isUnlisted = !!space.unlisted;
+>>>>>>> 190cfff (feat: implement priority-based access control for spaces and resources)
 ---
 
 <Template
@@ -368,7 +376,6 @@ const isUnlisted = space.access === "unlisted";
         spaceSlug={spaceSlug}
         spaceName={space.name}
         password={space.restricted_password || ""}
-        access={space.access}
     />
 
 >>>>>>> 9d79ac1 (Refactor resource and space pages to improve URL structure and access control)
