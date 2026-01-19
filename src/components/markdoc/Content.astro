@@ -36,10 +36,24 @@ renderer.heading = function ({ tokens, depth, text }) {
   return `<h${h.level}>${h.text}</h${h.level}>`;
 };
 
-// Custom link renderer to open external links in new tab
+// Custom link renderer to open external links in new tab and support button syntax
 renderer.link = function ({ href, title, tokens }) {
   const text = this.parser.parseInline(tokens);
   const titleAttr = title ? ` title="${title}"` : "";
+
+  // Check if this is a button link (href starts with !)
+  if (href && href.startsWith("!")) {
+    const actualHref = href.slice(1); // Remove the ! prefix
+    const isExternal =
+      actualHref &&
+      !actualHref.startsWith("/") &&
+      !actualHref.startsWith("#") &&
+      !actualHref.includes("unltd.org.uk");
+    const targetAttr = isExternal
+      ? ' target="_blank" rel="noopener noreferrer"'
+      : "";
+    return `<a href="${actualHref}"${titleAttr}${targetAttr} class="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-4 py-2.5 text-sm font-semibold text-amber-950 shadow-sm hover:bg-amber-400 transition-colors no-underline">${text}</a>`;
+  }
 
   // Check if link is external (not unltd.org.uk or relative)
   const isExternal =
