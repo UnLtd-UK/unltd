@@ -226,7 +226,7 @@ const lastUpdated = resource.date_updated
             document
                 .getElementById("share-button")
                 .addEventListener("click", function () {
-                    var shareText = document.getElementById("share-text");
+                    const shareText = document.getElementById("share-text");
                     navigator.clipboard
                         .writeText(window.location.href)
                         .then(function () {
