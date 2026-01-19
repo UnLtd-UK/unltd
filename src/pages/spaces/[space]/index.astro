@@ -2,7 +2,7 @@
 /**
  * Space Landing Page
  * Shows all resources with sticky side navigation
- * Generates pages for all listed spaces (both public and restricted)
+ * Only generates pages for PUBLIC spaces (no password)
  * Order: Events, Videos, Playlists, Guides, Forms, External
  */
 
@@ -11,7 +11,6 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Icon from "@components/Icon.astro";
-import SpaceAuth from "@components/SpaceAuth.astro";
 
 // Import compact card components
 import GuideCardCompact from "@components/resources/GuideCardCompact.astro";
@@ -81,12 +80,12 @@ export async function getStaticPaths() {
         });
     }
 
-    // Generate pages for all listed spaces (both public and restricted)
-    const listedSpaces = (allSpaces as Space[]).filter(
-        (space) => !space.unlisted,
+    // Only generate pages for PUBLIC spaces (no password set)
+    const publicSpaces = (allSpaces as Space[]).filter(
+        (space) => !isSpaceRestricted(space),
     );
 
-    return listedSpaces.map((space) => {
+    return publicSpaces.map((space) => {
         const spaceSlug = slugify(space.name, {
             lower: true,
             strict: true,
@@ -305,11 +304,6 @@ const isUnlisted = !!space.unlisted;
     description={space.description}
     noindex={isUnlisted}
 >
-    <SpaceAuth
-        spaceSlug={spaceSlug}
-        spaceName={space.name}
-        password={space.restricted_password || ""}
-    />
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
