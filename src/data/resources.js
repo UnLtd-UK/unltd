@@ -23,6 +23,7 @@ const filterOptions = {
         'topic',
         'external_url',
         'sort',
+        'date_updated',
         'spaces.spaces_id.id',
         'spaces.spaces_id.name'
     ],
