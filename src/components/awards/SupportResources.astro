@@ -1,0 +1,128 @@
+---
+/**
+ * SupportResources Component
+ * Displays support options available for eligible applicants
+ */
+
+import Icon from "@components/Icon.astro";
+import Container from "@components/Container.astro";
+
+const supportCards = [
+    {
+        title: "Support for everyone",
+        description:
+            "Attend an optional pre-application information session, and hear from the team about the application process.",
+        linkLabel: "Sign up on our Eventbrite",
+        linkHref:
+            "https://www.eventbrite.com/cc/for-social-entrepreneurs-4794111",
+        icon: "fa-solid fa-users",
+        iconBg: "bg-violet-100",
+        iconColor: "text-violet-600",
+    },
+    {
+        title: "Support for those with visual impairment",
+        description:
+            "We know our application portal isn't compatible with all screen readers. If you use one, we can assist you with your application.",
+        linkLabel: "Email awardapplications@unltd.org.uk",
+        linkHref: "mailto:awardapplications@unltd.org.uk",
+        icon: "fa-solid fa-eye",
+        iconBg: "bg-blue-100",
+        iconColor: "text-blue-600",
+    },
+    {
+        title: "Support for those with additional needs",
+        description:
+            "We offer one-to-one assistance sessions to help you understand the application process, talk through the form, and learn more about our current programmes.",
+        linkLabel: "Book a support session now",
+        linkHref: "/spaces/assistance-for-those-with-additional-support-needs",
+        icon: "fa-solid fa-hands-holding-heart",
+        iconBg: "bg-emerald-100",
+        iconColor: "text-emerald-600",
+    },
+    {
+        title: "Support for those living in Wales",
+        description:
+            "We offer introductions to local support networks, advice and signposting for those who may not yet be ready for an UnLtd Award, along with guidance through the application process and answers to any questions about our programmes, support or eligibility.",
+        linkLabel:
+            "Learn more about this partnership with Social Business Wales",
+        linkHref: "/spaces/assistance-for-those-living-in-wales",
+        icon: "fa-solid fa-dragon",
+        iconBg: "bg-rose-100",
+        iconColor: "text-rose-600",
+    },
+];
+---
+
+<Container bg="bg-violet-100 dark:bg-violet-900">
+    <div class="py-16">
+        <div class="text-center mb-12">
+            <span
+                class="inline-flex items-center rounded-full bg-violet-200 dark:bg-violet-800 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-violet-700 dark:text-violet-200"
+            >
+                Get Help
+            </span>
+            <h2
+                class="text-3xl md:text-4xl font-bold text-violet-950 dark:text-violet-50 mb-4 mt-4"
+            >
+                Application Support
+            </h2>
+            <p
+                class="text-lg text-violet-700 dark:text-violet-200 max-w-2xl mx-auto"
+            >
+                We want everyone to have a fair chance at applying. Here are the
+                support options available to help you through the application
+                process.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {
+                supportCards.map((card) => (
+                    <div class="bg-white dark:bg-violet-950 rounded-2xl p-6 border border-violet-200 dark:border-violet-800 shadow-sm hover:shadow-md transition-shadow duration-200">
+                        <div class="flex items-start gap-4">
+                            <div
+                                class={`flex items-center justify-center w-12 h-12 rounded-xl ${card.iconBg} shrink-0`}
+                            >
+                                <Icon
+                                    name={card.icon.replace("fa-solid fa-", "")}
+                                    style="solid"
+                                    class={`text-xl ${card.iconColor}`}
+                                />
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-lg font-bold text-violet-950 dark:text-violet-50 mb-2">
+                                    {card.title}
+                                </h3>
+                                <p class="text-sm text-violet-700 dark:text-violet-300 mb-4 leading-relaxed">
+                                    {card.description}
+                                </p>
+                                <a
+                                    href={card.linkHref}
+                                    target={
+                                        card.linkHref.startsWith("http") ||
+                                        card.linkHref.startsWith("mailto")
+                                            ? "_blank"
+                                            : undefined
+                                    }
+                                    rel={
+                                        card.linkHref.startsWith("http")
+                                            ? "noopener noreferrer"
+                                            : undefined
+                                    }
+                                    class="inline-flex items-center gap-2 text-sm font-semibold text-violet-600 dark:text-amber-400 hover:text-violet-800 dark:hover:text-amber-300 transition-colors"
+                                >
+                                    {card.linkLabel}
+                                    <Icon
+                                        name="arrow-right"
+                                        style="solid"
+                                        class="text-xs transition-transform group-hover:translate-x-1"
+                                    />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</Container>
