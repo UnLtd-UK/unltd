@@ -1,6 +1,8 @@
 ---
+import Icon from "@components/Icon.astro";
 import { marked } from "marked";
-marked.use({ mangle: false, headerIds: false });
+import { gfmHeadingId } from "marked-gfm-heading-id";
+marked.use(gfmHeadingId());
 const { grants, name } = Astro.props;
 ---
 
@@ -90,12 +92,12 @@ const { grants, name } = Astro.props;
         </th>
 
         <td class="py-5 px-6">
-          <i class="fa-solid fa-xmark text-violet-"></i>
+          <Icon name="xmark" style="solid" class="text-violet-" />
           <span class="sr-only">Included in Starting up</span>
         </td>
 
         <td class="py-5 px-6">
-          <i class="fa-solid fa-check"></i>
+          <Icon name="check" style="solid" />
           <span class="sr-only">Included in Scaling up</span>
         </td>
       </tr>
@@ -111,12 +113,12 @@ const { grants, name } = Astro.props;
         </th>
 
         <td class="py-5 px-6">
-          <i class="fa-solid fa-check"></i>
+          <Icon name="check" style="solid" />
           <span class="sr-only">Included in Starting up</span>
         </td>
 
         <td class="py-5 px-6">
-          <i class="fa-solid fa-check"></i>
+          <Icon name="check" style="solid" />
           <span class="sr-only">Included in Scaling up</span>
         </td>
       </tr>
@@ -137,7 +139,7 @@ const { grants, name } = Astro.props;
           scope="row"
         >
           <div class="flex flex-col">
-            <i class="fa-solid fa-user-shield text-4xl"></i>
+            <Icon name="user-shield" style="solid" class="text-4xl" />
           </div>
           <div>
             <span class="font-medium text-violet-500"
@@ -150,12 +152,12 @@ const { grants, name } = Astro.props;
         </th>
 
         <td class="py-5 px-6">
-          <i class="fa-solid fa-check"></i>
+          <Icon name="check" style="solid" />
           <span class="sr-only">Included in Starting up</span>
         </td>
 
         <td class="py-5 px-6">
-          <i class="fa-solid fa-check"></i>
+          <Icon name="check" style="solid" />
           <span class="sr-only">Included in Scaling up</span>
         </td>
       </tr>
@@ -166,7 +168,7 @@ const { grants, name } = Astro.props;
           scope="row"
         >
           <div class="flex flex-col">
-            <i class="fa-solid fa-hammer text-4xl"></i>
+            <Icon name="hammer" style="solid" class="text-4xl" />
           </div>
           <div>
             <span class="font-medium text-violet-500"
@@ -180,12 +182,12 @@ const { grants, name } = Astro.props;
         </th>
 
         <td class="py-5 px-6">
-          <i class="fa-solid fa-check"></i>
+          <Icon name="check" style="solid" />
           <span class="sr-only">Included in Starting up</span>
         </td>
 
         <td class="py-5 px-6">
-          <i class="fa-solid fa-check"></i>
+          <Icon name="check" style="solid" />
           <span class="sr-only">Included in Scaling up</span>
         </td>
       </tr>
@@ -196,7 +198,7 @@ const { grants, name } = Astro.props;
           scope="row"
         >
           <div class="flex flex-col">
-            <i class="fa-solid fa-code-branch text-4xl"></i>
+            <Icon name="code-branch" style="solid" class="text-4xl" />
           </div>
           <div>
             <span class="font-medium text-violet-500"
@@ -209,12 +211,12 @@ const { grants, name } = Astro.props;
         </th>
 
         <td class="py-5 px-6">
-          <i class="fa-solid fa-check"></i>
+          <Icon name="check" style="solid" />
           <span class="sr-only">Included in Starting up</span>
         </td>
 
         <td class="py-5 px-6">
-          <i class="fa-solid fa-check"></i>
+          <Icon name="check" style="solid" />
           <span class="sr-only">Included in Scaling up</span>
         </td>
       </tr>
