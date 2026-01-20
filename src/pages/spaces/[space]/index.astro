@@ -2,7 +2,7 @@
 /**
  * Space Landing Page
  * Shows all resources with sticky side navigation
- * Only generates pages for PUBLIC spaces (no password)
+ * Generates pages for all listed spaces (both public and restricted)
  * Order: Events, Videos, Playlists, Guides, Forms, External
  */
 
@@ -11,6 +11,7 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Icon from "@components/Icon.astro";
+import SpaceAuth from "@components/SpaceAuth.astro";
 
 // Import compact card components
 import GuideCardCompact from "@components/resources/GuideCardCompact.astro";
@@ -80,12 +81,12 @@ export async function getStaticPaths() {
         });
     }
 
-    // Only generate pages for PUBLIC spaces (no password set)
-    const publicSpaces = (allSpaces as Space[]).filter(
-        (space) => !isSpaceRestricted(space),
+    // Generate pages for all listed spaces (both public and restricted)
+    const listedSpaces = (allSpaces as Space[]).filter(
+        (space) => !space.unlisted,
     );
 
-    return publicSpaces.map((space) => {
+    return listedSpaces.map((space) => {
         const spaceSlug = slugify(space.name, {
             lower: true,
             strict: true,
@@ -280,6 +281,21 @@ const activeTopics: TopicConfigItem[] = topicOrder
         };
     });
 
+// Add events as a topic entry for topic view navigation
+if (events.length > 0) {
+    activeTopics.unshift({
+        id: "events",
+        label: "Events",
+        shortLabel: "Events",
+        icon: "calendar-days",
+        color: "cyan",
+        bgClass: "bg-cyan-500/20",
+        textClass: "text-cyan-300",
+        ringClass: "ring-cyan-400/30",
+        count: events.length,
+    });
+}
+
 // Check for uncategorized resources
 const uncategorizedCount = resourcesByTopic["uncategorized"]?.length || 0;
 if (uncategorizedCount > 0) {
@@ -304,6 +320,11 @@ const isUnlisted = !!space.unlisted;
     description={space.description}
     noindex={isUnlisted}
 >
+    <SpaceAuth
+        spaceSlug={spaceSlug}
+        spaceName={space.name}
+        password={space.restricted_password || ""}
+    />
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
 
@@ -554,7 +575,7 @@ const isUnlisted = !!space.unlisted;
                                         </p>
                                     </div>
                                 </div>
-                                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                <div class="grid gap-4 sm:grid-cols-2">
                                     {resourcesByType.video.map((resource) => (
                                         <VideoCardCompact
                                             name={resource.name}
@@ -587,7 +608,7 @@ const isUnlisted = !!space.unlisted;
                                         </p>
                                     </div>
                                 </div>
-                                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                                <div class="grid gap-4 sm:grid-cols-2">
                                     {resourcesByType.playlist.map(
                                         (resource) => (
                                             <PlaylistCardCompact
@@ -732,51 +753,63 @@ const isUnlisted = !!space.unlisted;
                         id="view-by-topic"
                         class="hidden flex-1 min-w-0 space-y-12"
                     >
-                        {/* Events Section - Also shown in topic view */}
-                        {events.length > 0 && (
-                            <section id="topic-events" class="scroll-mt-24">
-                                <div class="flex items-center gap-3 mb-4">
-                                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/20 ring-1 ring-cyan-400/30">
-                                        <Icon
-                                            name="calendar-days"
-                                            style="solid"
-                                            class="h-5 w-5 text-cyan-300"
-                                        />
-                                    </div>
-                                    <div>
-                                        <h2 class="text-xl font-bold text-violet-100">
-                                            Events
-                                        </h2>
-                                        <p class="text-xs text-violet-400">
-                                            Attend and meet your peers
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="grid gap-4 sm:grid-cols-2">
-                                    {events.slice(0, 6).map((event) => (
-                                        <EventCardCompact event={event} />
-                                    ))}
-                                </div>
-                                {events.length > 6 && (
-                                    <a
-                                        href="https://www.eventbrite.com/o/unltd-3046207224"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="inline-flex items-center gap-2 mt-4 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
-                                    >
-                                        View all {events.length} events
-                                        <Icon
-                                            name="arrow-up-right-from-square"
-                                            style="solid"
-                                            class="h-3 w-3"
-                                        />
-                                    </a>
-                                )}
-                            </section>
-                        )}
-
                         {/* Topic Sections */}
                         {activeTopics.map((topic) => {
+                            // Handle events topic specially
+                            if (topic.id === "events") {
+                                return (
+                                    <section
+                                        id="topic-events"
+                                        class="scroll-mt-24"
+                                    >
+                                        <div class="flex items-center gap-3 mb-4">
+                                            <div
+                                                class={`flex h-10 w-10 items-center justify-center rounded-xl ${topic.bgClass} ring-1 ${topic.ringClass}`}
+                                            >
+                                                <Icon
+                                                    name={topic.icon}
+                                                    style="solid"
+                                                    class={`h-5 w-5 ${topic.textClass}`}
+                                                />
+                                            </div>
+                                            <div>
+                                                <h2 class="text-xl font-bold text-violet-100">
+                                                    {topic.label}
+                                                </h2>
+                                                <p class="text-xs text-violet-400">
+                                                    {topic.count}{" "}
+                                                    {topic.count === 1
+                                                        ? "event"
+                                                        : "events"}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="grid gap-4 sm:grid-cols-2">
+                                            {events.slice(0, 6).map((event) => (
+                                                <EventCardCompact
+                                                    event={event}
+                                                />
+                                            ))}
+                                        </div>
+                                        {events.length > 6 && (
+                                            <a
+                                                href="https://www.eventbrite.com/o/unltd-3046207224"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                class="inline-flex items-center gap-2 mt-4 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+                                            >
+                                                View all {events.length} events
+                                                <Icon
+                                                    name="arrow-up-right-from-square"
+                                                    style="solid"
+                                                    class="h-3 w-3"
+                                                />
+                                            </a>
+                                        )}
+                                    </section>
+                                );
+                            }
+
                             const topicResources =
                                 resourcesByTopic[topic.id] || [];
                             return (

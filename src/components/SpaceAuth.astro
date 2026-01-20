@@ -1,0 +1,82 @@
+---
+    /**
+     * SpaceAuth Component
+     * Client-side password protection for restricted spaces
+     * Uses window.prompt() and localStorage for persistence
+     * 
+     * A space is restricted when it has a non-empty password set.
+     * The 'unlisted' field controls visibility, not access.
+     */
+
+    interface Props {
+    spaceSlug: string;
+    spaceName: string;
+    password: string;
+}
+
+const { spaceSlug, spaceName, password } = Astro.props;
+
+// Only render auth script for restricted spaces (those with a password)
+const isRestricted = !!password && password.trim().length > 0;
+---
+
+    { isRestricted && (
+        <div
+            id="space-auth-gate"
+            data-space-slug={spaceSlug}
+            data-space-name={spaceName}
+            data-password={password}
+        >
+            <script>
+            // Space Authentication Handler
+                (function() {
+                const gate = document.getElementById('space-auth-gate');
+                if (!gate) return;
+
+                const spaceSlug = gate.dataset.spaceSlug;
+                const spaceName = gate.dataset.spaceName;
+                const correctPassword = gate.dataset.password;
+                const storageKey = `space-auth-${spaceSlug}`;
+
+                // Check if already authenticated
+                const storedAuth = localStorage.getItem(storageKey);
+                if (storedAuth === 'authenticated') {
+                    // Already authenticated, remove gate
+                    gate.remove();
+                return;
+                }
+
+                // Show password prompt
+                function promptForPassword() {
+                    const enteredPassword = window.prompt(
+                `This area is password protected.\n\nEnter the password for "${spaceName}":`
+                );
+
+                if (enteredPassword === null) {
+                    // User cancelled - redirect to spaces page
+                    window.location.href = '/spaces';
+                    }
+
+                if (enteredPassword === correctPassword) {
+                    // Correct password - store in localStorage
+                    localStorage.setItem(storageKey, 'authenticated');
+                gate.remove();
+                    } else {
+                        // Wrong password - try again
+                        const retry = window.confirm(
+                'Incorrect password. Would you like to try again?'
+                );
+                if (retry) {
+                    promptForPassword();
+                        } else {
+                    window.location.href = '/spaces';
+                        }
+                    }
+                }
+
+                // Start authentication flow
+                promptForPassword();
+            })();
+            </script>
+        </div>
+    )}
