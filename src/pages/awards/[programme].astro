@@ -81,6 +81,12 @@ const { programme } = Astro.props;
 
   <Grants styles={palette[programme.name]} programme={programme} />
 
+  <Services
+    styles={palette[programme.name]}
+    services={programme.services}
+    programme={programme}
+  />
+
   {
     (programme.videos.length > 0 ||
       programme.posts.length > 0 ||
@@ -89,18 +95,12 @@ const { programme } = Astro.props;
     )
   }
 
-  <Services
-    styles={palette[programme.name]}
-    services={programme.services}
-    programme={programme}
-  />
-
-  <Banner styles={palette[programme.name]} programme={programme} />
+  <!-- <Banner styles={palette[programme.name]} programme={programme} />
 
   <Other
     current={programme}
     programmes={programmes}
     styles={palette[programme.name]}
     name={programme.name}
-  />
+  /> -->
 </Template>

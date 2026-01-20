@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 const { support, type } = Astro.props;
 import groups from "@data/json/groups.json";
 
@@ -18,13 +19,13 @@ for (let index = 0; index < groups.length; index++) {
     <span
       class={`inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800 capitalize gap-1`}
     >
-      <i class={`fa-solid fa-${type.icon}`}></i>
+      <Icon name={type.icon} style="solid" />
       <p>{type.singular.name}</p>
     </span>
     <span
       class={`inline-flex items-center rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800 capitalize gap-1`}
     >
-      <i class="fa-solid fa-star"></i>
+      <Icon name="star" style="solid" />
       <p>{group.name}</p>
     </span>
   </div>
@@ -58,19 +59,4 @@ for (let index = 0; index < groups.length; index++) {
       <p class="text-xs font-bold capitalize">{support.countries}</p>
     </div>
   </div>
-
-  <!-- {
-    support &&
-  <div class={`bg-violet-50 p-6 rounded-b-xl flex flex-col gap-3`}>
-    <i class="fa-solid fa-quote-left text-violet-700"></i>
-    <p class="text-sm">{support.review.description}</p>
-    <div class="flex gap-2 items-center">
-      <img src={support.review.img} alt="" class="w-10 h-10 rounded-full" />
-      <div class="flex flex-col">
-        <p class="text-sm font-bold">{support.review.name}</p>
-        <p class="text-sm text-violet-600">{support.review.organisation}</p>
-      </div>
-    </div>
-  </div>
-} -->
 </div>

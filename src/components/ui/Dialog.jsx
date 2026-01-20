@@ -1,6 +1,7 @@
 import { Dialog } from '@headlessui/react'
 import DisclosureComp from '@components/ui/Disclosure.jsx';
 import Logo from "@components/Logo.jsx";
+import DynamicIcon from './DynamicIcon.jsx';
 
 export default function DialogComp({ nav, styles, mobileMenuOpen, setMobileMenuOpen, navigation }) {
     // Helper function to determine if an item is a standard link and is enabled
@@ -21,7 +22,7 @@ export default function DialogComp({ nav, styles, mobileMenuOpen, setMobileMenuO
                         onClick={() => setMobileMenuOpen(false)}
                     >
                         <span className="sr-only">Close menu</span>
-                        <i className="fa-solid fa-xmark w-6 h-6" aria-hidden="true" ></i>
+                        <DynamicIcon icon="fa-solid fa-xmark" className="w-6 h-6" aria-hidden="true" />
                     </button>
                 </div>
                 <div className="mt-6 flow-root">
