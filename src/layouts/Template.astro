@@ -13,13 +13,13 @@ const {
   name = "UnLtd",
   description = "No description",
   theme = palette["UnLtd"],
-  noindex = false,
 } = Astro.props.frontmatter || Astro.props;
 
 import Footer from "@components/Footer.astro";
 import Header from "@components/ui/Header.jsx";
-import RoundBanner from "@components/awards/RoundBannerWrapper.astro";
+import Banner from "@components/awards/Banner.astro";
 import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
+import { banner } from "@data/banner";
 ---
 
 <!doctype html>
@@ -55,12 +55,14 @@ import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
     />
     <meta property="og:image" content="" />
 
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <!-- <script src="https://hub.unltd.org.uk/~gitbook/embed/script.js"></script>
+    <script>
+      window.GitBook("show");
+    </script> -->
   </head>
   <body class={`dark ${palette["UnLtd"].bg}`}>
     <div class="flex flex-col justify-between h-full">
-      <!-- {banner.status === "published" && <Banner banner={banner} />} -->
-      <RoundBanner />
+      {banner.status === "published" && <Banner banner={banner} />}
 
       <!-- NEW HEADER -->
       {

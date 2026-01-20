@@ -1,0 +1,203 @@
+---
+import { Code } from "astro:components";
+import { marked } from "marked";
+import Container from "@components/Container.astro"
+import { rounds } from "@data/rounds.js";
+import moment from "moment";
+import { steps } from "@data/steps.js";
+import Content from "@components/markdoc/Content.astro";
+
+import slugify from "slugify";
+---
+
+<Container bg="bg-violet-100 dark:bg-violet-900">
+<div class="pt-20 flex flex-col gap-10">
+  <div class="">
+    <h2
+      id="how-to-apply-for-an-award"
+      class="mt-2 text-4xl font-bold tracking-tight text-violet-950 dark:text-violet-100 sm:text-5xl"
+    >
+      How to apply for an Award
+  </h2>
+  <p
+    class="mt-6 max-w-3xl text-lg leading-8 text-violet-800 dark:text-violet-200"
+  >
+<span class="font-bold">Read through all of the following steps to guide you in your application.</span> We are committed to using our resources to drive change.
+        At least 50% of our Awards will support social entrepreneurs who come from
+        a disabled and/or Black, Asian or minority ethnic background. <a href="/equity-commitments" class="text-violet-100 hover:text-violet-50 font-bold underline underline-offset-4 decoration-amber-500 decoration-1 hover:decoration-2">Learn more about our equity commitments.</a>
+  </p>
+
+</div>
+
+  <div class="rounded-md bg-violet-100 p-4">
+  <div class="flex">
+    <div class="flex-shrink-0">
+      <i class="fa-solid fa-universal-access text-violet-600 text-xl" aria-hidden="true"></i>
+    </div>
+    <div class="ml-3 flex-1 md:flex md:justify-between items-center">
+      <p class="text-sm text-violet-600 font-semibold">For those with additional support needs, you can access one-to-one assistance for the application process.</p>
+      <p class="mt-3 text-sm md:ml-6 md:mt-0">
+        <a href="/resources/assistance-for-those-with-additional-support-needs" class="whitespace-nowrap font-medium text-violet-700 hover:text-violet-600">
+          Details
+          <i class="fa-solid fa-arrow-right text-sm"  aria-hidden="true"></i>
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+  <div class="rounded-md bg-violet-100 p-4 flex">
+  <div class="flex">
+    <div class="flex-shrink-0">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Flag_of_Wales.svg" class="h-6 rounded-sm" alt="Welsh flag">
+    </div>
+    </div>
+        <div class="ml-3 flex-1 md:flex md:justify-between items-center">
+      <p class="text-sm text-violet-600 font-semibold">For those living in Wales, you can access free business support from Social Business Wales.</p>
+      <p class="mt-3 text-sm md:ml-6 md:mt-0">
+        <a href="/resources/assistance-for-those-living-in-wales" class="whitespace-nowrap font-medium text-violet-700 hover:text-violet-600">
+          Details
+<i class="fa-solid fa-arrow-right text-sm"  aria-hidden="true"></i>
+        </a>
+      </p>
+    </div>
+      </div>
+</div>
+
+<div
+  class="w-full py-12"
+  x-init="initTabs()"
+  x-data="{ 
+    activeTab: 'tab0', 
+    initTabs: function() {
+      this.checkUrlHash();
+      window.addEventListener('popstate', () => this.checkUrlHash());
+      window.addEventListener('DOMContentLoaded', () => this.checkUrlHash());
+      window.addEventListener('hashchange', () => this.checkUrlHash());
+    },
+    checkUrlHash: function() {
+      if (window.location.hash) {
+        const slug = window.location.hash.substring(1);
+        const tabButton = document.getElementById(slug);
+        
+        if (tabButton && tabButton.tagName === 'BUTTON') {
+          // For desktop - click the button
+          tabButton.click();
+        } else {
+          // For mobile - find and select the dropdown option
+          const tabIndex = this.findTabIndexBySlug(slug);
+          if (tabIndex !== -1) {
+            this.activeTab = `tab${tabIndex}`;
+            this.selectHs(tabIndex);
+            setTimeout(() => {
+              const tabElement = document.getElementById(`tab${tabIndex}`);
+              if (tabElement) tabElement.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+          }
+        }
+      }
+    },
+    findTabIndexBySlug: function(slug) {
+      for (let i = 0; i < steps.length; i++) {
+        const stepSlug = this.slugify(steps[i].name);
+        if (stepSlug === slug) return i;
+      }
+      return -1;
+    },
+    slugify: function(text) {
+      return slugify(text, {lower: true, strict: true, locale: 'en', trim: true});
+    },
+    urlUpdater: function(slug) { 
+      history.pushState(null, null, `/awards#${slug}`); 
+      const targetElement = document.getElementById(slug); 
+      if (targetElement) { 
+        targetElement.scrollIntoView({ behavior: 'smooth' }); 
+      } 
+    }, 
+    selectHs: function(i) {
+      document.getElementById('tabs').value = `tab${i}`;
+    }, 
+    tabClass: function(i) { 
+      return this.activeTab === `tab${i}` ? 'border-b-4 border-b-amber-500' : 'bg-violet-50';
+    }
+  }"
+>
+  <div class="lg:hidden">
+    <label for="tabs" class="sr-only">Select a tab</label>
+    <div class="relative">
+      <select
+        @change="activeTab = $event.target.value; const index = $event.target.selectedIndex; urlUpdater(slugify(steps[index].name, {lower: true, strict: true, locale: 'en', trim: true}))"
+        id="tabs"
+        name="tabs"
+        class="appearance-none block w-full rounded-t-md rounded-x-md text-3xl text-violet-800 font-semibold border-violet-300 focus:border-amber-500 focus:ring-amber-500 bg-violet-200 py-3 px-5 border-t-2 border-x-2 border-solid focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-violet-100 dark:bg-violet-200 dark:border-violet-400 dark:focus:border-amber-500 dark:focus:ring-amber-500 dark:focus:ring-offset-violet-900 pr-10"
+      >
+        {
+          steps.map((step, i) => (
+            <option value={`tab${i}`} selected={i == 0 && true}>
+              {i + 1}. {step.name}
+            </option>
+          ))
+        }
+      </select>
+      <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-violet-800">
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <div class="hidden lg:block">
+    <nav class="flex space-x-4" aria-label="Tabs">
+      {
+        steps.map((step, i) => (
+          <button id={`${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}`}
+            @click={`activeTab = 'tab${i}', selectHs('${i}'), urlUpdater('${slugify(step.name, {lower: true, strict: true, locale: "en", trim: true,})}')`}
+            :class={`tabClass(${i})`}
+            class={`cursor-pointer border border-violet-700 flex-1 flex flex-col gap-3 justify-start items-center group rounded-t-md px-3 py-5 h-28 bg-violet-100 dark:bg-violet-950 dark:hover:border-b-4 dark:hover:border-b-amber-500/20 duration-200 shadow-3xl`}
+          >
+            <span
+              class={`text-sm font-bold rounded-full h-6 w-6 flex justify-center items-center outline bg-violet-300 outline-violet-700 dark:outline-violet-300 text-violet-600 dark:text-violet-800`}
+            >
+              {i + 1}
+            </span>
+
+            <div class="flex-auto flex flex-col items-center justify-center">
+              <span class={`text-sm font-medium text-violet-700 dark:text-violet-300`}>
+                {step.name}
+              </span>
+            </div>
+          </button>
+        ))
+      }
+    </nav>
+  </div>
+{
+  steps.map((step, i) => (
+    <div id={`tab${i}`} x-show={`activeTab === 'tab${i}'`} class={`bg-violet-100 dark:bg-violet-950 rounded-b-md border-2 border-violet-400 dark:border-violet-400 shadow-xs`} x-cloak>
+      <div
+        class={`px-10 py-6 ${i === 0 && "rounded-tr-md"} ${i === 4 && "rounded-tl-md"}`}
+      >
+
+        {/* If the step is called Timeframe then don't use body. Generate it using  */}
+        <div class={`prose prose-slate dark:prose-invert prose-sm prose-img:rounded-md prose-img:shadow-xs prose-img:w-full prose-a:font-bold prose-a:underline-offset-4 prose-a:decoration-amber-500 prose-a:decoration-1 prose-a:hover:decoration-2`} set:html={marked.parse(step.body)}></div>
+      </div>
+      <div class="rounded-b-md border-t border-violet-100 dark:border-violet-900 px-10 py-6 flex justify-between items-center">
+        {step.next !== null && step.next_link === null ? (
+          <button type="button" @click={`activeTab = 'tab${i+1}', selectHs('${i+1}'), urlUpdater('${slugify(steps[i+1].name, {lower: true, strict: true, locale: "en", trim: true,})}')`} class="cursor-pointer rounded-full bg-amber-600 px-4 py-2.5 font-semibold text-violet-50 shadow-xs hover:bg-amber-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center">
+            <i class="fa-regular fa-circle-check text-base"></i>
+            <span class="text-sm">{step.next}</span>
+          </button>
+        ) : (
+          <a class="cursor-pointer rounded-full bg-amber-600 px-4 py-2.5 font-semibold text-violet-50 shadow-xs hover:bg-amber-500 focus-visible:outline-offset-2 focus-visible:outline-amber-600 flex gap-2 items-center" href={step.next_link } target="_blank">
+            <i class="fa-regular fa-circle-check text-base"></i>
+            <span class="text-sm">{step.next}</span>
+          </a>
+        )}
+                { step.help && <a href={step.help_link} class="flex gap-2 items-center"><i class="fa-solid fa-circle-question text-violet-500 dark:text-violet-300 text-base"></i> <span class="text-violet-600 dark:text-violet-300 text-sm">{step.help}</span></a> }
+
+      </div>
+
+    </div>
+  ))
+}
+</div>
+</Container>

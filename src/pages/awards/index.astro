@@ -20,42 +20,47 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 
 // COMPONENTS
-import HeroWithChecker from "@components/awards/HeroWithChecker.astro";
-import Awards from "@components/awards/Awards.astro";
-import HowApplyingWorks from "@components/awards/HowApplyingWorks.astro";
-import RoundWidget from "@components/awards/RoundWidgetWrapper.astro";
-import EligibilityChecker from "@components/awards/EligibilityChecker.astro";
-import EligibilityCriteria from "@components/awards/EligibilityCriteria.astro";
+import Header from "@components/awards/Header.astro";
+import Programmes from "@components/awards/Programmes.astro";
+import Steps from "@components/awards/Steps.astro";
+import Questions from "@components/awards/Questions.astro";
+import Eligibility from "@components/awards/Eligibility.astro";
+
+// OTHER
+import moment from "moment";
 import Sessions from "@components/awards/Sessions.astro";
-import FrequentlyAskedQuestions from "@components/awards/FrequentlyAskedQuestions.astro";
+let todayDate = moment();
+
+// let activeGrants = rounds.filter((round) => {
+//   let date = new Date();
+//   let roundopen = new Date(round.open);
+//   let roundclose = new Date(round.close);
+//   let fundopen = new Date(round.open);
+//   let fundclose = new Date(round.close);
+
+//   if (
+//     roundopen < date &&
+//     roundclose > date &&
+//     fundopen < date &&
+//     fundclose > date
+//   ) {
+//     return activeGrant;
+//   }
+// });
 ---
 
 <Template name={props.name} description={props.description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
   </Container>
-  <Container id="hero" class="bg-violet-950 py-16 mt-8">
-    <HeroWithChecker />
-  </Container>
-  <Container id="our-awards" class="bg-violet-900 py-16 mt-8">
-    <Awards />
-  </Container>
-  <Container id="how-applying-works" class="bg-violet-950 py-16 mt-8">
-    <HowApplyingWorks showEligibilityLink={true} />
-  </Container>
-  <Container id="when-to-apply" class="bg-violet-900 py-16 mt-8">
-    <RoundWidget />
-  </Container>
-  <Container id="sessions" class="bg-violet-950 py-16 mt-8">
+  <Header />
+  <!-- <Awards /> -->
+  <!-- <Typeform /> -->
+  <Programmes />
+  <Container>
     <Sessions />
   </Container>
-  <Container id="eligibility-checker" class="bg-violet-900 py-16 mt-8">
-    <EligibilityChecker />
-  </Container>
-  <Container id="eligibility-criteria" class="bg-violet-950 py-16 mt-8">
-    <EligibilityCriteria />
-  </Container>
-  <Container id="frequently-asked-questions" class="bg-violet-900 py-16 mt-8">
-    <FrequentlyAskedQuestions />
-  </Container>
+  <!-- <Eligibility client:load /> -->
+  <Steps />
+  <Questions />
 </Template>

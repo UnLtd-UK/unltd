@@ -1,0 +1,47 @@
+---
+const { banner } = Astro.props;
+---
+
+<div
+    class="inset-x-0 bottom-0 bg-violet-50 p-6 ring-1 ring-violet-900/10 md:flex-row md:items-center lg:px-8"
+>
+    <div
+        class="gap-x-8 gap-y-4 mx-auto max-w-7xl sm:px-6 lg:px-8 flex lg:flex-row flex-col justify-between"
+    >
+        <div class="flex flex-col gap-y-2">
+            {
+                banner.title && (
+                    <p class="max-w-3xl text-md/6 text-violet-950 font-semibold">
+                        {banner.title}
+                    </p>
+                )
+            }
+            <p class="max-w-2xl text-sm/6 text-violet-800">
+                {banner.body}
+            </p>
+        </div>
+        <div class="flex flex-none items-center gap-x-5">
+            {
+                banner.primary_button_url && banner.primary_button_text && (
+                    <a
+                        href={banner.primary_button_url}
+                        class="rounded-md bg-violet-900 px-3 py-2 text-sm font-semibold text-violet-50 shadow-xs hover:bg-violet-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-900"
+                    >
+                        {banner.primary_button_text}
+                    </a>
+                )
+            }
+            {
+                banner.secondary_button_url && banner.secondary_button_text && (
+                    <a
+                        href={banner.secondary_button_url}
+                        class="text-sm/6 font-semibold text-violet-950"
+                    >
+                        {banner.secondary_button_text}{" "}
+                        <i class="fa-solid fa-arrow-right" />
+                    </a>
+                )
+            }
+        </div>
+    </div>
+</div>
