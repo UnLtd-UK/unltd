@@ -36,6 +36,14 @@ const breadcrumbs = [{ name: "Spaces", path: "/spaces" }];
 const allVisibleSpaces = (allSpaces as Space[]).filter(
     (space) => !space.unlisted,
 );
+
+// Separate public and restricted spaces
+const publicSpaces = allVisibleSpaces.filter(
+    (space) => !isSpaceRestricted(space),
+);
+const restrictedSpaces = allVisibleSpaces.filter((space) =>
+    isSpaceRestricted(space),
+);
 ---
 
 <Template name={name} description={description}>
@@ -45,131 +53,164 @@ const allVisibleSpaces = (allSpaces as Space[]).filter(
             <HeaderSection title={name} description={description} />
         </div>
 
-        {/* All Spaces */}
+        {/* Public Spaces */}
         {
-            allVisibleSpaces.length > 0 && (
+            publicSpaces.length > 0 && (
                 <section class="mb-12">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 ring-1 ring-emerald-400/30">
+                            <Icon
+                                name="globe"
+                                style="solid"
+                                class="h-5 w-5 text-emerald-300"
+                            />
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-violet-100">
+                                Public Spaces
+                            </h2>
+                            <p class="text-xs text-violet-400">
+                                Open to everyone
+                            </p>
+                        </div>
+                    </div>
                     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                        {allVisibleSpaces.map((space) => {
+                        {publicSpaces.map((space) => {
                             const spaceSlug = slugify(space.name, {
                                 lower: true,
                                 strict: true,
                                 locale: "en",
                                 trim: true,
                             });
-                            const isRestricted = isSpaceRestricted(space);
 
                             return (
                                 <a
                                     href={`/spaces/${spaceSlug}`}
-                                    class={`group relative flex flex-col overflow-hidden rounded-2xl ring-1 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 p-6 ${
-                                        isRestricted
-                                            ? "bg-linear-to-b from-amber-800/30 to-amber-900/30 ring-amber-700/50 hover:ring-amber-500/70 hover:shadow-amber-500/10"
-                                            : "bg-linear-to-b from-emerald-800/30 to-emerald-900/30 ring-emerald-700/50 hover:ring-emerald-500/70 hover:shadow-emerald-500/10"
-                                    }`}
+                                    class="group relative flex flex-col overflow-hidden rounded-2xl ring-1 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 p-6 bg-linear-to-b from-emerald-800/30 to-emerald-900/30 ring-emerald-700/50 hover:ring-emerald-500/70 hover:shadow-emerald-500/10"
                                 >
                                     {/* Header */}
                                     <div class="flex items-start justify-between gap-4 mb-4">
-                                        <div
-                                            class={`flex h-14 w-14 items-center justify-center rounded-xl ring-1 transition-all duration-300 ${
-                                                isRestricted
-                                                    ? "bg-amber-500/20 ring-amber-500/30 group-hover:bg-amber-500/30"
-                                                    : "bg-emerald-500/20 ring-emerald-500/30 group-hover:bg-emerald-500/30"
-                                            }`}
-                                        >
+                                        <div class="flex h-14 w-14 items-center justify-center rounded-xl ring-1 transition-all duration-300 bg-emerald-500/20 ring-emerald-500/30 group-hover:bg-emerald-500/30">
                                             <Icon
-                                                name={
-                                                    isRestricted
-                                                        ? "lock"
-                                                        : "books"
-                                                }
+                                                name="books"
                                                 style="solid"
-                                                class={`h-7 w-7 ${
-                                                    isRestricted
-                                                        ? "text-amber-300 group-hover:text-amber-200"
-                                                        : "text-emerald-300 group-hover:text-emerald-200"
-                                                }`}
+                                                class="h-7 w-7 text-emerald-300 group-hover:text-emerald-200"
                                             />
                                         </div>
-                                        <span
-                                            class={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium ring-1 ${
-                                                isRestricted
-                                                    ? "bg-amber-500/20 text-amber-200 ring-amber-500/30"
-                                                    : "bg-emerald-500/20 text-emerald-200 ring-emerald-500/30"
-                                            }`}
-                                        >
+                                        <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium ring-1 bg-emerald-500/20 text-emerald-200 ring-emerald-500/30">
                                             <Icon
-                                                name={
-                                                    isRestricted
-                                                        ? "lock"
-                                                        : "globe"
-                                                }
+                                                name="globe"
                                                 style="solid"
                                                 class="h-3 w-3"
                                             />
-                                            {isRestricted
-                                                ? "Password Required"
-                                                : "Public"}
+                                            Public
                                         </span>
                                     </div>
 
                                     {/* Content */}
-                                    <h3
-                                        class={`text-xl font-bold transition-colors mb-2 ${
-                                            isRestricted
-                                                ? "text-amber-100 group-hover:text-white"
-                                                : "text-emerald-100 group-hover:text-white"
-                                        }`}
-                                    >
+                                    <h3 class="text-xl font-bold transition-colors mb-2 text-emerald-100 group-hover:text-white">
                                         {space.name}
                                     </h3>
 
                                     {/* Footer */}
-                                    <div
-                                        class={`mt-6 pt-4 border-t flex items-center justify-between ${
-                                            isRestricted
-                                                ? "border-amber-700/30"
-                                                : "border-emerald-700/30"
-                                        }`}
-                                    >
-                                        <span
-                                            class={`text-sm font-medium transition-colors ${
-                                                isRestricted
-                                                    ? "text-amber-400 group-hover:text-amber-300"
-                                                    : "text-emerald-400 group-hover:text-emerald-300"
-                                            }`}
-                                        >
-                                            {isRestricted
-                                                ? "Enter password"
-                                                : "Browse space"}
+                                    <div class="mt-6 pt-4 border-t flex items-center justify-between border-emerald-700/30">
+                                        <span class="text-sm font-medium transition-colors text-emerald-400 group-hover:text-emerald-300">
+                                            Browse space
                                         </span>
-                                        <div
-                                            class={`flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 group-hover:translate-x-1 ${
-                                                isRestricted
-                                                    ? "bg-amber-700/50 group-hover:bg-amber-600/70"
-                                                    : "bg-emerald-700/50 group-hover:bg-emerald-600/70"
-                                            }`}
-                                        >
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 group-hover:translate-x-1 bg-emerald-700/50 group-hover:bg-emerald-600/70">
                                             <Icon
                                                 name="arrow-right"
                                                 style="solid"
-                                                class={`h-4 w-4 group-hover:text-white ${
-                                                    isRestricted
-                                                        ? "text-amber-300"
-                                                        : "text-emerald-300"
-                                                }`}
+                                                class="h-4 w-4 group-hover:text-white text-emerald-300"
                                             />
                                         </div>
                                     </div>
 
                                     {/* Hover overlay */}
-                                    <div
-                                        class={`absolute inset-0 rounded-2xl transition-all duration-300 pointer-events-none ${
-                                            isRestricted
-                                                ? "bg-linear-to-t from-amber-600/0 to-amber-400/0 group-hover:from-amber-600/5 group-hover:to-amber-400/5"
-                                                : "bg-linear-to-t from-emerald-600/0 to-emerald-400/0 group-hover:from-emerald-600/5 group-hover:to-emerald-400/5"
-                                        }`}
-                                    />
+                                    <div class="absolute inset-0 rounded-2xl transition-all duration-300 pointer-events-none bg-linear-to-t from-emerald-600/0 to-emerald-400/0 group-hover:from-emerald-600/5 group-hover:to-emerald-400/5" />
+                                </a>
+                            );
+                        })}
+                    </div>
+                </section>
+            )
+        }
+
+        {/* Restricted Spaces */}
+        {
+            restrictedSpaces.length > 0 && (
+                <section class="mb-12">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/20 ring-1 ring-amber-400/30">
+                            <Icon
+                                name="lock"
+                                style="solid"
+                                class="h-5 w-5 text-amber-300"
+                            />
+                        </div>
+                        <div>
+                            <h2 class="text-xl font-bold text-violet-100">
+                                Restricted Spaces
+                            </h2>
+                            <p class="text-xs text-violet-400">
+                                Password required to access
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        {restrictedSpaces.map((space) => {
+                            const spaceSlug = slugify(space.name, {
+                                lower: true,
+                                strict: true,
+                                locale: "en",
+                                trim: true,
+                            });
+
+                            return (
+                                <a
+                                    href={`/spaces/${spaceSlug}`}
+                                    class="group relative flex flex-col overflow-hidden rounded-2xl ring-1 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 p-6 bg-linear-to-b from-amber-800/30 to-amber-900/30 ring-amber-700/50 hover:ring-amber-500/70 hover:shadow-amber-500/10"
+                                >
+                                    {/* Header */}
+                                    <div class="flex items-start justify-between gap-4 mb-4">
+                                        <div class="flex h-14 w-14 items-center justify-center rounded-xl ring-1 transition-all duration-300 bg-amber-500/20 ring-amber-500/30 group-hover:bg-amber-500/30">
+                                            <Icon
+                                                name="lock"
+                                                style="solid"
+                                                class="h-7 w-7 text-amber-300 group-hover:text-amber-200"
+                                            />
+                                        </div>
+                                        <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium ring-1 bg-amber-500/20 text-amber-200 ring-amber-500/30">
+                                            <Icon
+                                                name="lock"
+                                                style="solid"
+                                                class="h-3 w-3"
+                                            />
+                                            Password Required
+                                        </span>
+                                    </div>
+
+                                    {/* Content */}
+                                    <h3 class="text-xl font-bold transition-colors mb-2 text-amber-100 group-hover:text-white">
+                                        {space.name}
+                                    </h3>
+
+                                    {/* Footer */}
+                                    <div class="mt-6 pt-4 border-t flex items-center justify-between border-amber-700/30">
+                                        <span class="text-sm font-medium transition-colors text-amber-400 group-hover:text-amber-300">
+                                            Enter password
+                                        </span>
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300 group-hover:translate-x-1 bg-amber-700/50 group-hover:bg-amber-600/70">
+                                            <Icon
+                                                name="arrow-right"
+                                                style="solid"
+                                                class="h-4 w-4 group-hover:text-white text-amber-300"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Hover overlay */}
+                                    <div class="absolute inset-0 rounded-2xl transition-all duration-300 pointer-events-none bg-linear-to-t from-amber-600/0 to-amber-400/0 group-hover:from-amber-600/5 group-hover:to-amber-400/5" />
                                 </a>
                             );
                         })}
