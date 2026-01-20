@@ -1,4 +1,5 @@
 ---
+import Icon from "@components/Icon.astro";
 const { team, members = [] } = Astro.props;
 
 const toPronounArray = (value) => {
@@ -168,9 +169,10 @@ const memberDisplays = sortedMembers
                             class="inline-flex items-center gap-2 text-inherit transition-colors duration-150 hover:text-violet-500 dark:hover:text-violet-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
                           >
                             {ownerDisplay.name}
-                            <i
-                              class="text-sm fa-brands fa-linkedin transition-colors duration-150"
-                              aria-hidden="true"
+                            <Icon
+                              name="linkedin"
+                              style="brands"
+                              class="text-sm transition-colors duration-150"
                             />
                           </a>
                         ) : (
@@ -247,9 +249,10 @@ const memberDisplays = sortedMembers
                             class="inline-flex items-center gap-2 text-inherit transition-colors duration-150 hover:text-violet-500 dark:hover:text-violet-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
                           >
                             {display.name}
-                            <i
-                              class="text-sm fa-brands fa-linkedin transition-colors duration-150"
-                              aria-hidden="true"
+                            <Icon
+                              name="linkedin"
+                              style="brands"
+                              class="text-sm transition-colors duration-150"
                             />
                           </a>
                         ) : (

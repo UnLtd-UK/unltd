@@ -24,12 +24,10 @@ import Header from "@components/awards/Header.astro";
 import Programmes from "@components/awards/Programmes.astro";
 import Steps from "@components/awards/Steps.astro";
 import Questions from "@components/awards/Questions.astro";
-import Eligibility from "@components/eligibility";
+import Eligibility from "@components/awards/Eligibility.astro";
 
 // OTHER
 import moment from "moment";
-import Typeform from "@components/awards/Typeform.astro";
-import Awards from "@components/awards/Awards.astro";
 import Sessions from "@components/awards/Sessions.astro";
 let todayDate = moment();
 
@@ -58,9 +56,11 @@ let todayDate = moment();
   <Header />
   <!-- <Awards /> -->
   <!-- <Typeform /> -->
-  <Sessions />
-  <!-- <Eligibility client:load /> -->
   <Programmes />
+  <Container>
+    <Sessions />
+  </Container>
+  <!-- <Eligibility client:load /> -->
   <Steps />
   <Questions />
 </Template>

@@ -1,5 +1,11 @@
 ---
 import "../styles/global.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { config } from "@fortawesome/fontawesome-svg-core";
+// Import the centralized icon registry (registers icons with library)
+import "@lib/icons";
+config.autoAddCss = false;
+
 import { palette } from "@data/palette.js";
 import { navigation } from "@data/navigation.js";
 
@@ -11,7 +17,8 @@ const {
 
 import Footer from "@components/Footer.astro";
 import Header from "@components/ui/Header.jsx";
-import Banner from "@components/Banner.astro";
+import Banner from "@components/awards/Banner.astro";
+import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
 import { banner } from "@data/banner";
 ---
 
@@ -74,6 +81,9 @@ import { banner } from "@data/banner";
         <slot />
       </div>
       <Footer />
+
+      <!-- Dev tools (only renders in development) -->
+      <DevDateTimeIndicator />
     </div>
   </body>
 </html>
