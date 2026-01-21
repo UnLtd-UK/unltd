@@ -15,7 +15,8 @@
     "clear": "rimraf ./src/data/cache/*.json",
     "update": "npx npm-check-updates -u && npm install",
     "deploy:preview": "astro build && wrangler deploy --env preview",
-    "deploy:prod": "astro build && wrangler deploy --env production"
+    "deploy:prod": "astro build && wrangler deploy --env production",
+    "migrate:ghost": "node scripts/migrate-to-ghost.js"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.9",
@@ -73,9 +74,11 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.19",
+    "archiver": "^7.0.1",
     "baseline-browser-mapping": "^2.9.16",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.1.2",
+    "uuid": "^13.0.0",
     "wrangler": "^4.59.2"
   }
 }

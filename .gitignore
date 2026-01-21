@@ -1,5 +1,6 @@
 # build output
 dist/
+ghost-export/
 
 # generated types
 .astro/
@@ -32,3 +33,4 @@ src/data/cache/
 
 .dev.vars
 .npmrc
+unltd.ghost.json
