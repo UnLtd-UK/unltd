@@ -17,7 +17,6 @@ import { v4 as uuidv4 } from 'uuid';
 import archiver from 'archiver';
 import { createWriteStream } from 'fs';
 import { marked } from 'marked';
-import { generate } from 'random-words';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, '..');
@@ -54,11 +53,6 @@ function slugify(text) {
 // Helper to generate email from author name (lowercase, no spaces)
 function generateAuthorEmail(name) {
   return name.toLowerCase().replace(/[^a-z]+/g, '') + '@unltd.org.uk';
-}
-
-// Helper to generate a 4-word password
-function generatePassword() {
-  return generate({ exactly: 4, join: '-' });
 }
 
 // Download a file from URL and save it
@@ -403,24 +397,22 @@ async function migrate() {
     if (post.author_name && !authorsMap.has(post.author_name)) {
       const authorId = generateId();
       const email = generateAuthorEmail(post.author_name);
-      const password = generatePassword();
 
-      // Store credentials for export
+      // Store credentials for export (email reference only - passwords set via Ghost's forgot password flow)
       contributorCredentials.push({
         name: post.author_name,
-        email: email,
-        password: password
+        email: email
       });
 
+      // Note: Ghost doesn't support setting passwords via import
+      // Users will need to use "forgot password" to set their credentials
       authorsMap.set(post.author_name, {
         id: authorId,
         name: post.author_name,
         slug: slugify(post.author_name),
         email: email,
-        password: password,
         status: 'active',
         visibility: 'public',
-        // Set role to Contributor (role_id will be set via roles table)
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       });
@@ -519,24 +511,9 @@ async function migrate() {
     console.log('');
   }
 
-  // Define the Contributor role (Ghost's built-in role ID for Contributor)
-  const contributorRoleId = generateId();
-  const roles = [{
-    id: contributorRoleId,
-    name: 'Contributor',
-    description: 'Contributors can create and edit their own draft posts, but cannot publish.',
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString()
-  }];
-
-  // Create roles_users entries to assign all authors as Contributors
-  const rolesUsers = Array.from(authorsMap.values()).map(author => ({
-    id: generateId(),
-    role_id: contributorRoleId,
-    user_id: author.id
-  }));
-
   // Build Ghost JSON structure
+  // Note: We don't include roles/roles_users - Ghost doesn't support creating roles via import
+  // Imported users will default to "Author" role and can be changed manually in Ghost Admin
   const ghostData = {
     db: [{
       meta: {
@@ -548,9 +525,7 @@ async function migrate() {
         posts_authors: postsAuthors,
         posts_tags: postsTags,
         tags: Array.from(tagsMap.values()),
-        users: Array.from(authorsMap.values()),
-        roles: roles,
-        roles_users: rolesUsers
+        users: Array.from(authorsMap.values())
       }
     }]
   };
@@ -560,12 +535,12 @@ async function migrate() {
   await fs.writeFile(jsonPath, JSON.stringify(ghostData, null, 2));
   console.log(`\nWritten Ghost JSON to: ${jsonPath}`);
 
-  // Write contributor credentials file
-  const credentialsPath = path.join(CONFIG.outputDir, 'contributor-credentials.csv');
-  const csvHeader = 'Name,Email,Password\n';
-  const csvRows = contributorCredentials.map(c => `"${c.name}","${c.email}","${c.password}"`).join('\n');
+  // Write contributor list (users will need to use "forgot password" to set credentials)
+  const credentialsPath = path.join(CONFIG.outputDir, 'contributor-list.csv');
+  const csvHeader = 'Name,Email\n';
+  const csvRows = contributorCredentials.map(c => `"${c.name}","${c.email}"`).join('\n');
   await fs.writeFile(credentialsPath, csvHeader + csvRows);
-  console.log(`Written contributor credentials to: ${credentialsPath}`);
+  console.log(`Written contributor list to: ${credentialsPath}`);
 
   // Create ZIP file
   const zipPath = path.join(CONFIG.outputDir, 'ghost-import.zip');
