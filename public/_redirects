@@ -1,22 +1,17 @@
 /home-page /
 /home-page/ /
 
-/other-funding-and-support-available-for-social-entrepreneurs /spaces/other-funding-and-support-available-for-social-entrepreneurs
-/other-funding-and-support-available-for-social-entrepreneurs/ /spaces/other-funding-and-support-available-for-social-entrepreneurs
-
-/file-uploads /spaces/financial-data-guide-for-award-application
-/file-uploads/ /spaces/financial-data-guide-for-award-application
-
-/assistance-for-those-with-additional-support-needs /spaces/assistance-for-those-with-additional-support-needs
-/assistance-for-those-with-additional-support-needs/ /spaces/assistance-for-those-with-additional-support-needs
-
-/terms-conditions /terms-and-conditions
 /terms-conditions/ /terms-and-conditions
+/terms-conditions /terms-and-conditions
 
-/cookies-policy /browser-storage-policy
 /cookies-policy/ /browser-storage-policy
+/cookies-policy /browser-storage-policy
 
-# Legacy /resources redirects to /spaces
-/resources /spaces
+/resources/financial-data-guide-for-award-application/ /spaces/prepare-your-financial-data
+/resources/financial-data-guide-for-award-application /spaces/prepare-your-financial-data
+/financial-data-guide-for-award-application/ /spaces/prepare-your-financial-data
+/financial-data-guide-for-award-application /spaces/prepare-your-financial-data
+
 /resources/ /spaces
+/resources /spaces
 /resources/* /spaces/:splat
