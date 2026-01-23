@@ -125,7 +125,9 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
             <!-- Section 1: Award Name -->
             <div class="p-6 pb-4">
                 <h2 class:list={["text-md font-semibold", headingText]}>
-                    {name}
+                    {name.replace(programme?.name ?? "", "").trim()}
+                    <br />
+                    {programme?.name}
                 </h2>
             </div>
 
