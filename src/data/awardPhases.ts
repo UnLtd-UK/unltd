@@ -83,7 +83,7 @@ export const phases: Phase[] = [
     {
         id: "assess",
         title: "Assessment",
-        subtitle: "We review your application",
+        subtitle: "Your application is reviewed against our eligibility criteria and our three key assessment areas, social impact, inclusion and financial sustainability.",
         icon: "fa-solid fa-magnifying-glass",
         color: "amber",
         steps: [
@@ -137,9 +137,9 @@ export const outcomes: Record<"success" | "unsuccessful", Outcome> = {
         subtitle: "Welcome to the community",
         icon: "fa-solid fa-party-horn",
         items: [
-            "Welcome pack with cohort information",
-            "Budget & reporting guidance",
-            "Dedicated Support Manager introduction",
+            "Approval email and welcome pack",
+            "Invite to welcome workshop",
+            "Introduction to dedicated Support Manager",
         ],
     },
     unsuccessful: {
@@ -147,9 +147,8 @@ export const outcomes: Record<"success" | "unsuccessful", Outcome> = {
         subtitle: "Support to try again",
         icon: "fa-solid fa-arrows-rotate",
         items: [
-            "Detailed feedback on your application",
-            "Resources to develop your venture",
-            "Encouragement to reapply",
+            "We'll email you with the outcome of your application",
+            "Receive feedback on your application"
         ],
     },
 };

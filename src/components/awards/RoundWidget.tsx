@@ -253,7 +253,7 @@ export default function RoundWidget({
                                                 <strong className="text-white">
                                                     {closesCountdown.totalDays} {closesCountdown.totalDays === 1 ? "day" : "days"}
                                                 </strong>{" "}
-                                                left to apply.
+                                                left to apply. We have four application rounds each year. Each round has clear application opening and closing dates, followed by an assessment period and results timeline.
                                             </>
                                         )}
                                         {closesCountdown.totalDays === 0 && !closesCountdown.isExpired && (
@@ -381,8 +381,8 @@ export default function RoundWidget({
                             <div className="flex items-center justify-between mb-2">
                                 <span className="text-sm text-violet-400">Round Capacity</span>
                                 <span className={`text-sm font-semibold ${capacityPercentage >= 80 ? "text-red-400" :
-                                        capacityPercentage >= 60 ? "text-amber-400" :
-                                            "text-emerald-400"
+                                    capacityPercentage >= 60 ? "text-amber-400" :
+                                        "text-emerald-400"
                                     }`}>
                                     {capacityPercentage}% filled
                                 </span>
@@ -392,10 +392,10 @@ export default function RoundWidget({
                                     <div
                                         key={threshold}
                                         className={`h-2 flex-1 rounded-sm ${capacityPercentage >= threshold
-                                                ? threshold <= 40 ? "bg-emerald-400"
-                                                    : threshold <= 60 ? "bg-amber-400"
-                                                        : "bg-red-400"
-                                                : "bg-white/20"
+                                            ? threshold <= 40 ? "bg-emerald-400"
+                                                : threshold <= 60 ? "bg-amber-400"
+                                                    : "bg-red-400"
+                                            : "bg-white/20"
                                             }`}
                                     />
                                 ))}
@@ -407,8 +407,8 @@ export default function RoundWidget({
                     {displayRound && (
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mt-4">
                             <div className={`text-center px-3 py-4 rounded-lg border ${status === "open" || status === "upcoming"
-                                    ? "bg-violet-500/30 border-violet-400/30"
-                                    : "bg-white/5 border-white/10"
+                                ? "bg-violet-500/30 border-violet-400/30"
+                                : "bg-white/5 border-white/10"
                                 }`}>
                                 <Icon name="calendar-day" style="solid" className="h-5 w-5 mx-auto mb-2 text-violet-300" />
                                 <p className="text-violet-400 text-xs uppercase tracking-wide">Opens</p>
