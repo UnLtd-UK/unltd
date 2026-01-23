@@ -1,8 +1,9 @@
 /** @type {import('tailwindcss').Config} */
+import defaultTheme from "tailwindcss/defaultTheme";
+import forms from "@tailwindcss/forms";
+import typography from "@tailwindcss/typography";
 
-const defaultTheme = require("tailwindcss/defaultTheme");
-
-module.exports = {
+export default {
   darkMode: 'selector',
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
@@ -14,5 +15,5 @@ module.exports = {
       'ate': ['Inter Variable', ...defaultTheme.fontFamily.sans]
     }
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/typography")]
+  plugins: [forms, typography]
 };
