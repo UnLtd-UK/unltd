@@ -195,35 +195,78 @@ const typeformEmbedUrl = `${checkerUrl}?typeform-embed=embed-widget`;
                     Find answers to common questions about Awards.
                 </p>
             </a>
+        </div>
 
-            <a
-                href="/equity-commitments"
-                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+        <!-- Related Pages -->
+        <div class="mt-6">
+            <p
+                class="text-xs text-violet-500 uppercase tracking-wide font-medium mb-3"
             >
-                <div
-                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                Related pages
+            </p>
+            <div class="grid grid-cols-2 gap-3">
+                <a
+                    href="/awards/eligibility-criteria"
+                    class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
                 >
-                    <Icon
-                        name="hands-holding-heart"
-                        style="regular"
-                        class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                    />
-                </div>
-                <h3
-                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                    <div
+                        class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                    >
+                        <Icon
+                            name="check-circle"
+                            style="regular"
+                            class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                        />
+                    </div>
+                    <h3
+                        class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                    >
+                        Eligibility Criteria
+                        <Icon
+                            name="arrow-right"
+                            style="regular"
+                            class="text-[10px] text-violet-500"
+                        />
+                    </h3>
+                    <p
+                        class="text-violet-400 text-xs leading-relaxed line-clamp-2"
+                    >
+                        Check through the eligibility criteria before you take
+                        the Eligibility Checker.
+                    </p>
+                </a>
+
+                <a
+                    href="/equity-commitments"
+                    class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
                 >
-                    Equity Commitments
-                    <Icon
-                        name="arrow-right"
-                        style="regular"
-                        class="text-[10px] text-violet-500"
-                    />
-                </h3>
-                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
-                    We are committed to supporting underrepresented
-                    entrepreneurs.
-                </p>
-            </a>
+                    <div
+                        class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
+                    >
+                        <Icon
+                            name="hands-holding-heart"
+                            style="regular"
+                            class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                        />
+                    </div>
+                    <h3
+                        class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
+                    >
+                        Equity Commitments
+                        <Icon
+                            name="arrow-right"
+                            style="regular"
+                            class="text-[10px] text-violet-500"
+                        />
+                    </h3>
+                    <p
+                        class="text-violet-400 text-xs leading-relaxed line-clamp-2"
+                    >
+                        We are committed to supporting underrepresented
+                        entrepreneurs.
+                    </p>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -240,6 +283,9 @@ const typeformEmbedUrl = `${checkerUrl}?typeform-embed=embed-widget`;
                 >
                     Required First Step
                 </span>
+                <span class="text-sm font-medium text-violet-700"
+                    >Eligibility Checker</span
+                >
                 <a
                     href={checkerUrl}
                     target="_blank"
@@ -279,14 +325,5 @@ const typeformEmbedUrl = `${checkerUrl}?typeform-embed=embed-widget`;
                 ))
             }
         </div>
-
-        <!-- Small print: Eligibility criteria link -->
-        <p class="mt-3 text-center text-xs text-violet-400">
-            View our full <a
-                href="/awards/eligibility-criteria"
-                class="underline hover:text-violet-300 transition-colors"
-                >eligibility criteria</a
-            > for all awards.
-        </p>
     </div>
 </div>
