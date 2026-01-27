@@ -15,19 +15,12 @@ import { marked } from "marked";
     >
       <span class="text-base font-semibold leading-7">{question}</span>
       <span class="ml-6 flex h-7 items-center">
-        <Icon
-          name="chevron-down"
-          style="solid"
-          x-show="!open"
-          class="size-4 transition-transform"
-        />
-        <Icon
-          name="chevron-up"
-          style="solid"
-          x-show="open"
-          x-cloak
-          class="size-4 transition-transform"
-        />
+        <span x-show="!open">
+          <Icon name="plus" style="solid" class="size-4" />
+        </span>
+        <span x-show="open" x-cloak>
+          <Icon name="minus" style="solid" class="size-4" />
+        </span>
       </span>
     </button>
   </dt>
