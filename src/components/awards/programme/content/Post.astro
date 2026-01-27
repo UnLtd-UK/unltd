@@ -4,42 +4,56 @@ import slugify from "slugify";
 import moment from "moment";
 ---
 
-<article
-    class={`relative isolate flex aspect-video h-44 lg:h-96 flex-none flex-col justify-end overflow-hidden rounded-2xl ${styles.bg} p-8 transition ease-in-out delay-150 hover:-translate-y-2 duration-300`}
->
-    <img
-        src={post.id.image !== null && post.id.image.id !== null
-            ? `https://unltd.directus.app/assets/${post.id.image.id}?width=384&height=216`
-            : `/img/blog/${slugify(post.tag, { lower: true, strict: true, locale: "en", trim: true })}.webp`}
-        alt=""
-        class="absolute inset-0 -z-10 h-full w-full object-cover"
-    />
-    <div class={`absolute inset-0 -z-10 bg-gradient-to-t ${styles.gradient}`}>
-    </div>
-    <div class={`absolute inset-0 -z-10 rounded-2xl`}></div>
-
+<article class="group relative flex flex-col">
     <div
-        class={`flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 ${styles.text}`}
+        class={`relative aspect-video w-full overflow-hidden rounded-2xl shadow-lg`}
     >
-        <time datetime="2020-03-16" class="mr-8">
-            {moment(post.id.date_time).format("ddd hh:mm, DD MMM YYYY")}
-        </time>
-        <div class="-ml-4 flex items-center gap-x-4">
-            <svg
-                viewBox="0 0 2 2"
-                class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50"
+        <img
+            src={post.id.image !== null && post.id.image.id !== null
+                ? `https://unltd.directus.app/assets/${post.id.image.id}?width=600&height=340`
+                : `/img/blog/${slugify(post.tag || "default", { lower: true, strict: true, locale: "en", trim: true })}.webp`}
+            alt={post.id.title}
+            class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+        />
+        <div
+            class={`absolute inset-0 bg-gradient-to-t ${styles.gradient} opacity-60`}
+        >
+        </div>
+        <div class="absolute bottom-0 left-0 right-0 p-6">
+            <div
+                class={`flex items-center gap-x-2 text-xs ${styles.text} opacity-90`}
             >
-                <circle cx="1" cy="1" r="1"></circle>
-            </svg>
-            <div class="flex gap-x-2.5">
-                {post.id.author_name}
+                <time datetime={post.id.date_time}>
+                    {moment(post.id.date_time).format("DD MMM YYYY")}
+                </time>
+                {
+                    post.id.author_name && (
+                        <>
+                            <span>·</span>
+                            <span>{post.id.author_name}</span>
+                        </>
+                    )
+                }
             </div>
         </div>
     </div>
-    <h3 class="mt-1 text-lg font-semibold leading-6 text-white">
-        <a href={`/blog/${post.id.slug}`}>
-            <span class="absolute inset-0"></span>
-            {post.id.title}
-        </a>
-    </h3>
+    <div class="mt-4">
+        <h3
+            class={`text-base font-semibold leading-6 ${styles.text} group-hover:opacity-80 transition`}
+        >
+            <a href={`/blog/${post.id.slug}`}>
+                <span class="absolute inset-0"></span>
+                {post.id.title}
+            </a>
+        </h3>
+        {
+            post.id.description && (
+                <p
+                    class={`mt-2 line-clamp-2 text-sm leading-6 ${styles.text2}`}
+                >
+                    {post.id.description}
+                </p>
+            )
+        }
+    </div>
 </article>

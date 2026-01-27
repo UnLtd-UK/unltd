@@ -19,8 +19,34 @@ import { quotes } from "@data/quotes.js";
 
 import slugify from "slugify";
 
+interface Breadcrumb {
+  name: string;
+  path: string;
+}
+
+interface Programme {
+  id: number;
+  name: string;
+  description: string;
+  slug: string;
+  code: string;
+  icon: string;
+  image: string;
+  logo: string | null;
+  age: string;
+  geography: string;
+  focus: string;
+  stage: string;
+  services: any[];
+  videos: any[];
+  posts: any[];
+  quotes: any[];
+  breadcrumbs?: Breadcrumb[];
+  [key: string]: any;
+}
+
 export async function getStaticPaths() {
-  return programmes.map((programme) => {
+  return (programmes as Programme[]).map((programme) => {
     let slug = slugify(programme.name, {
       lower: true,
       strict: true,
@@ -54,7 +80,7 @@ export async function getStaticPaths() {
   });
 }
 
-const { programme } = Astro.props;
+const { programme } = Astro.props as { programme: Programme };
 ---
 
 <Template
@@ -68,18 +94,8 @@ const { programme } = Astro.props;
       styles={palette[programme.name]}
     />
   </Container>
-  <Intro programme={programme} styles={palette[programme.name]} />
 
-  <!-- <Criteria
-    programme={programme}
-    styles={palette[programme.name]}
-    age={programme.age}
-    geography={programme.geography}
-    focus={programme.focus}
-    stage={programme.stage}
-  /> -->
-  <!-- 
-  <Grants styles={palette[programme.name]} programme={programme} /> -->
+  <Intro programme={programme} styles={palette[programme.name]} />
 
   <Services
     styles={palette[programme.name]}
@@ -94,13 +110,4 @@ const { programme } = Astro.props;
       <Content styles={palette[programme.name]} programme={programme} />
     )
   }
-
-  <!-- <Banner styles={palette[programme.name]} programme={programme} />
-
-  <Other
-    current={programme}
-    programmes={programmes}
-    styles={palette[programme.name]}
-    name={programme.name}
-  /> -->
 </Template>

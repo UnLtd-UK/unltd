@@ -1,14 +1,97 @@
 ---
+import Icon from "@components/Icon.astro";
+
 const { video, styles } = Astro.props;
+
+// Extract YouTube video ID from various URL formats
+function getYouTubeId(url: string): string | null {
+    const patterns = [
+        /youtube-nocookie\.com\/embed\/([^?&]+)/,
+        /youtube\.com\/embed\/([^?&]+)/,
+        /youtube\.com\/watch\?v=([^&]+)/,
+        /youtu\.be\/([^?]+)/,
+    ];
+    for (const pattern of patterns) {
+        const match = url.match(pattern);
+        if (match) return match[1];
+    }
+    return null;
+}
+
+// Get the original YouTube watch URL
+function getYouTubeUrl(url: string): string {
+    const videoId = getYouTubeId(url);
+    if (videoId) {
+        return `https://www.youtube.com/watch?v=${videoId}`;
+    }
+    return url;
+}
+
+// Get YouTube thumbnail URL
+function getYouTubeThumbnail(url: string): string {
+    const videoId = getYouTubeId(url);
+    if (videoId) {
+        return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+    }
+    return "";
+}
+
+const youtubeUrl = getYouTubeUrl(video.id.url);
+const thumbnailUrl = getYouTubeThumbnail(video.id.url);
 ---
 
-<div class="flex-none aspect-video h-44 lg:h-96 bg-white rounded-lg shadow-lg">
-    <iframe
-        class={`w-full h-full object-cover rounded-lg`}
-        src={video.id.url}
-        title="YouTube video player"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen></iframe>
-</div>
+<a
+    href={youtubeUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="group relative block"
+>
+    <div
+        class={`relative aspect-video w-full overflow-hidden rounded-2xl shadow-lg ring-1 ${styles.border || "ring-gray-200"}`}
+    >
+        {
+            thumbnailUrl && (
+                <img
+                    src={thumbnailUrl}
+                    alt={video.id.title || "Video thumbnail"}
+                    class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                    loading="lazy"
+                />
+            )
+        }
+        <!-- Play button overlay -->
+        <div
+            class="absolute inset-0 flex items-center justify-center bg-black/30 transition group-hover:bg-black/40"
+        >
+            <div
+                class={`flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg transition group-hover:scale-110`}
+            >
+                <Icon
+                    name="play"
+                    style="solid"
+                    class="h-6 w-6 text-red-600 ml-1"
+                />
+            </div>
+        </div>
+        <!-- YouTube badge -->
+        <div
+            class="absolute bottom-3 right-3 flex items-center gap-1.5 rounded bg-black/70 px-2 py-1 text-xs text-white"
+        >
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+                ></path>
+            </svg>
+            Watch on YouTube
+        </div>
+    </div>
+    {
+        video.id.title && (
+            <h3
+                class={`mt-4 text-base font-semibold ${styles.text} group-hover:opacity-80 transition`}
+            >
+                {video.id.title}
+            </h3>
+        )
+    }
+</a>

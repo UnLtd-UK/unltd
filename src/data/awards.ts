@@ -1,8 +1,7 @@
 /**
  * Awards Data
  * 
- * Defines all available Award types with their associated programmes and benefits.
- * Structured for future Directus integration - each award will become a collection item.
+ * Fetches Award types from Directus with their associated programmes and benefits.
  * 
  * Award codes follow the pattern: {stage}-{programme}
  * - st = Starting Up
@@ -10,6 +9,8 @@
  * - mat = Millennium Awards Trust
  * - ffp = Funding Futures Programme
  */
+
+import { getCollection } from './load.js';
 
 export interface ProgrammeService {
     name: string;
@@ -20,7 +21,7 @@ export interface Programme {
     icon: string;
     name: string;
     code: string;
-    path: string;
+    slug: string;
     colour: string;
     description: string;
 }
@@ -28,126 +29,86 @@ export interface Programme {
 export interface Award {
     code: string;
     name: string;
-    stage: 'starting-up' | 'scaling-up';
-    backgroundColour: string;
     grant: number;
     programme: Programme;
     grantUsability: Record<string, boolean>;
     programmeServices: ProgrammeService[];
 }
 
-export const awards: Award[] = [
-    {
-        code: "stmat",
-        name: "Starting Up Award Millennium Awards Trust",
-        stage: "starting-up",
-        backgroundColour: "bg-slate-100",
-        grant: 8000,
-        programme: {
-            icon: "fa-solid fa-universal-access",
-            name: "Millennium Awards Trust",
-            code: "mat",
-            path: "/awards/millennium-awards-trust",
-            colour: "amber",
-            description:
-                "Open to any social entrepreneur aged 16+ tackling a range of social issues.",
-        },
-        grantUsability: {
-            "For social venture costs": true,
-            "For social entrepreneur living costs": false,
-        },
-        programmeServices: [
-            { name: "12 months of enrollment", icon: "fa-light fa-timer" },
-            { name: "Support manager", icon: "fa-light fa-user-headset" },
-            { name: "Upskill with your peers", icon: "fa-light fa-people-group" },
-            { name: "Business mentoring", icon: "fa-light fa-handshake" },
-            { name: "Legal advisor consultancy", icon: "fa-light fa-rectangle-pro" },
-        ],
+const collection = "awards";
+const collectionName = "awards";
+
+const showDrafts = process.env.SHOW_DRAFTS === 'true';
+const statusFilter = showDrafts
+    ? { _in: ['published', 'draft'] }
+    : { _eq: 'published' };
+
+const filterOptions = {
+    sort: ['sort'],
+    filter: {
+        status: statusFilter
     },
-    {
-        code: "stffp",
-        name: "Starting Up Award Funding Futures Programme",
-        stage: "starting-up",
-        backgroundColour: "bg-slate-100",
-        grant: 8000,
-        programme: {
-            icon: "fa-solid fa-rocket",
-            name: "Funding Futures Programme",
-            code: "ffp",
-            path: "/awards/funding-futures-programme",
-            colour: "purple",
-            description:
-                "Supports 16-30 year olds with great ideas for solutions to help those sidelined by the financial system.",
-        },
-        grantUsability: {
-            "For social venture costs": true,
-            "For social entrepreneur living costs": false,
-        },
-        programmeServices: [
-            { name: "12 months of enrollment", icon: "fa-light fa-timer" },
-            { name: "Support manager", icon: "fa-light fa-user-headset" },
-            { name: "Upskill with your peers", icon: "fa-light fa-people-group" },
-            { name: "Business mentoring", icon: "fa-light fa-handshake" },
-            { name: "Legal advisor consultancy", icon: "fa-light fa-rectangle-pro" },
-            { name: "Peer-to-peer learning", icon: "fa-light fa-people-group" },
-        ],
+    fields: [
+        '*',
+        'programme.*',
+        'programme.services.services_id.*'
+    ],
+};
+
+const attach = false;
+
+interface DirectusProgramme {
+    id: number;
+    name: string;
+    code: string;
+    slug: string;
+    icon: string;
+    description: string;
+    services: Array<{
+        services_id: {
+            name: string;
+            icon: string;
+        };
+    }>;
+}
+
+interface DirectusAward {
+    id: number;
+    code: string;
+    name: string;
+    grant_amount: number;
+    grant_features: string[];
+    programme: DirectusProgramme;
+}
+
+const rawAwards: DirectusAward[] = await getCollection(collection, collectionName, filterOptions, attach);
+
+/**
+ * Transform Directus data to match the Award interface
+ */
+export const awards: Award[] = rawAwards.map((award) => ({
+    code: award.code,
+    name: award.name,
+    grant: award.grant_amount,
+    programme: {
+        icon: award.programme?.icon ?? '',
+        name: award.programme?.name ?? '',
+        code: award.programme?.code ?? '',
+        slug: award.programme?.slug ?? '',
+        colour: award.programme?.code === 'mat' ? 'amber' : 'purple',
+        description: award.programme?.description ?? '',
     },
-    {
-        code: "scmat",
-        name: "Scaling Up Award Millennium Awards Trust",
-        stage: "scaling-up",
-        backgroundColour: "bg-slate-900",
-        grant: 18000,
-        programme: {
-            icon: "fa-solid fa-universal-access",
-            name: "Millennium Awards Trust",
-            code: "mat",
-            path: "/awards/millennium-awards-trust",
-            colour: "amber",
-            description:
-                "Open to any social entrepreneur aged 16+ tackling a range of social issues.",
-        },
-        grantUsability: {
-            "For social venture costs": true,
-            "For social entrepreneur living costs": true,
-        },
-        programmeServices: [
-            { name: "12 months of enrollment", icon: "fa-light fa-timer" },
-            { name: "Support manager", icon: "fa-light fa-user-headset" },
-            { name: "Upskill with your peers", icon: "fa-light fa-people-group" },
-            { name: "Business mentoring", icon: "fa-light fa-handshake" },
-            { name: "Legal advisor consultancy", icon: "fa-light fa-rectangle-pro" },
-        ],
-    },
-    {
-        code: "scffp",
-        name: "Scaling Up Award Funding Futures Programme",
-        stage: "scaling-up",
-        backgroundColour: "bg-slate-900",
-        grant: 18000,
-        programme: {
-            icon: "fa-solid fa-rocket",
-            name: "Funding Futures Programme",
-            code: "ffp",
-            path: "/awards/funding-futures-programme",
-            colour: "purple",
-            description:
-                "Supports 16-30 year olds with great ideas for solutions to help those sidelined by the financial system.",
-        },
-        grantUsability: {
-            "For social venture costs": true,
-            "For social entrepreneur living costs": true,
-        },
-        programmeServices: [
-            { name: "12 months of enrollment", icon: "fa-light fa-timer" },
-            { name: "Support manager", icon: "fa-light fa-user-headset" },
-            { name: "Upskill with your peers", icon: "fa-light fa-people-group" },
-            { name: "Business mentoring", icon: "fa-light fa-handshake" },
-            { name: "Legal advisor consultancy", icon: "fa-light fa-rectangle-pro" },
-            { name: "Peer-to-peer learning", icon: "fa-light fa-people-group" },
-        ],
-    },
-];
+    grantUsability: (award.grant_features ?? []).reduce((acc, feature) => {
+        acc[feature] = true;
+        return acc;
+    }, {} as Record<string, boolean>),
+    programmeServices: (award.programme?.services ?? [])
+        .filter((s) => s.services_id)
+        .map((s) => ({
+            name: s.services_id.name,
+            icon: s.services_id.icon,
+        })),
+}));
 
 /**
  * Helper to get an award by its code
@@ -161,4 +122,18 @@ export const getAwardByCode = (code: string): Award | undefined => {
  */
 export const getAwardsByCodes = (codes: string[]): Award[] => {
     return codes.map(code => getAwardByCode(code)).filter((a): a is Award => a !== undefined);
+};
+
+/**
+ * Helper to get an award by its name
+ */
+export const getAwardByName = (name: string): Award | undefined => {
+    return awards.find(award => award.name === name);
+};
+
+/**
+ * Helper to get awards by programme code
+ */
+export const getAwardsByProgramme = (code: string): Award[] => {
+    return awards.filter(award => award.programme.code === code);
 };
