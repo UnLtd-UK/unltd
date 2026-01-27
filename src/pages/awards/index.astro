@@ -14,6 +14,30 @@ const breadcrumbs = [
     },
 ];
 
+// DATA
+// import { rounds } from "@data/rounds.js";
+// import { processAllRounds } from "@utils/application-rounds.js";
+
+// const { currentRound: rawCurrentRound } = processAllRounds(rounds);
+
+// // Prepare round data for the Applying component
+// const currentRound = rawCurrentRound
+//     ? {
+//           type: rawCurrentRound.hasCapacity
+//               ? ("deadline-capacity" as const)
+//               : ("deadline" as const),
+//           opens: new Date(rawCurrentRound.opensDate),
+//           closes: new Date(rawCurrentRound.closesDate),
+//           resultsStart: rawCurrentRound.resultsStart
+//               ? new Date(rawCurrentRound.resultsStart)
+//               : undefined,
+//           resultsEnd: rawCurrentRound.resultsEnd
+//               ? new Date(rawCurrentRound.resultsEnd)
+//               : undefined,
+//           capacityFilled: rawCurrentRound.capacityPercentage ?? undefined,
+//       }
+//     : null;
+
 // LAYOUT
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
@@ -22,6 +46,7 @@ import Breadcrumbs from "@components/Breadcrumbs.astro";
 // COMPONENTS
 import HeroWithChecker from "@components/awards/HeroWithChecker.astro";
 import Awards from "@components/awards/Awards.astro";
+// import Applying from "@components/awards/Applying.tsx";
 import HowApplyingWorks from "@components/awards/HowApplyingWorks.astro";
 import RoundWidget from "@components/awards/RoundWidgetWrapper.astro";
 import EligibilityChecker from "@components/awards/EligibilityChecker.astro";
@@ -40,6 +65,9 @@ import FrequentlyAskedQuestions from "@components/awards/FrequentlyAskedQuestion
     <Container id="our-awards" class="bg-violet-900 py-16 mt-8">
         <Awards />
     </Container>
+    <!-- <Container id="applying" class="bg-violet-900 py-16 mt-8">
+        <Applying round={currentRound} client:load />
+    </Container> -->
     <Container id="how-applying-works" class="bg-violet-950 py-16 mt-8">
         <HowApplyingWorks showEligibilityLink={true} />
     </Container>
@@ -49,7 +77,7 @@ import FrequentlyAskedQuestions from "@components/awards/FrequentlyAskedQuestion
     <Container id="sessions" class="bg-violet-950 py-16 mt-8">
         <Sessions />
     </Container>
-    <Container id="eligibility-checker" class="bg-violet-900 py-16 mt-8">
+    <Container id="check-your-eligibility" class="bg-violet-900 py-16 mt-8">
         <EligibilityChecker />
     </Container>
     <Container id="frequently-asked-questions" class="bg-violet-950 py-16 mt-8">
