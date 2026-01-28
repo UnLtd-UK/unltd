@@ -15,7 +15,8 @@
     "clear": "rimraf ./src/data/cache/*.json",
     "update": "npx npm-check-updates -u && npm install",
     "deploy:preview": "astro build && wrangler deploy --env preview",
-    "deploy:prod": "astro build && wrangler deploy --env production"
+    "deploy:prod": "astro build && wrangler deploy --env production",
+    "migrate:ghost": "node scripts/migrate-to-ghost.js"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.9",
@@ -45,7 +46,7 @@
     "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
     "alpinejs": "^3.15.5",
-    "astro": "^5.16.15",
+    "astro": "^5.16.16",
     "boring-avatars": "^2.0.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -73,9 +74,12 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.19",
-    "baseline-browser-mapping": "^2.9.18",
+    "archiver": "^7.0.1",
+    "baseline-browser-mapping": "^2.9.19",
     "prettier-plugin-astro": "^0.14.1",
+    "random-words": "^2.0.1",
     "rimraf": "^6.1.2",
+    "uuid": "^13.0.0",
     "wrangler": "^4.61.0"
   }
 }
