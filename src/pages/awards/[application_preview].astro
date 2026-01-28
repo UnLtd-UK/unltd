@@ -4,7 +4,7 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Main from "@components/application-preview/Main.astro";
 import AsideRight from "@components/application-preview/AsideRight.astro";
-// import DialogComponent from "@components/Dialog.tsx";
+import DialogComponent from "@components/Dialog.tsx";
 
 import { applications } from "@data/applications.js";
 
@@ -43,6 +43,9 @@ export function getStaticPaths() {
         xlsx: app.xlsx,
         sections: app.sections,
         breadcrumbs: copyBreadcrumb,
+        portal_value: app.portal_value,
+        portal_text: app.portal_text,
+        stage_text: app.stage_text,
       },
     });
   });
@@ -62,26 +65,10 @@ const {
   xlsx,
   sections,
   breadcrumbs,
+  portal_value,
+  portal_text,
+  stage_text,
 } = Astro.props;
-
-// Match URL paths (Astro decodes %2B to +) and assign portal values
-let portal_value = null;
-let portal_text = null;
-let stage_text = null;
-
-if (slug === "Idea+stage+or+not+yet+trading") {
-  portal_value = "forming-i-have-an-idea";
-  portal_text = "Forming: I have an idea";
-  stage_text = "is an idea or not yet trading";
-} else if (slug === "Trading+for+less+than+1+year") {
-  portal_value = "i-ve-been-trading-for-less-than-1-year";
-  portal_text = "I've been trading for less than 1 year";
-  stage_text = "has been trading for less than 1 year";
-} else if (slug === "Trading+for+more+than+1+year") {
-  portal_value = "i-ve-been-trading-for-1-year";
-  portal_text = "I've been trading for 1 year";
-  stage_text = "has been trading for more than 1 year";
-}
 
 const dialogTitle = `You are previewing the application form for a social venture which ${stage_text}.`;
 const dialogDescription = `When you complete your application in the portal, in section 'Social venture stage and programme', question 'Please tell us the stage your social venture is at', choose '${portal_text}'.`;
@@ -90,7 +77,7 @@ const dialogDescription = `When you complete your application in the portal, in 
 <Template name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <!-- <DialogComponent
+    <DialogComponent
       icon="fa-solid fa-circle-info"
       title={dialogTitle}
       description={dialogDescription}
@@ -98,7 +85,7 @@ const dialogDescription = `When you complete your application in the portal, in 
         text: "I understand",
       }}
       client:load
-    /> -->
+    />
     <div class="flex flex-col gap-2 mt-10">
       <div class="flex flex-col sm:flex-row gap-10">
         <div
