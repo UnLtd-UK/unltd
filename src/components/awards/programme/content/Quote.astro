@@ -1,27 +1,33 @@
 ---
 const { quote, styles } = Astro.props;
+import Icon from "@components/Icon.astro";
 ---
 
 <figure
-    class={`flex aspect-video h-44 lg:h-96 flex-none flex-col justify-end overflow-hidden rounded-2xl ${styles.bg} p-8 sm:inline-block text-sm leading-6`}
+    class={`flex flex-col justify-between rounded-2xl ${styles.bg} p-8 shadow-lg ring-1 ${styles.border || "ring-gray-200"} h-full`}
 >
-    <div class="flex flex-col justify-center">
+    <div>
+        <div class={`mb-4 ${styles.text2}`}>
+            <Icon name="quote-left" style="solid" class="h-6 w-6 opacity-50" />
+        </div>
         <blockquote class={`${styles.text}`}>
-            <p class="text-sm leading-6">
+            <p class="text-base leading-7">
                 {quote.id.body}
             </p>
         </blockquote>
-        <figcaption class="mt-6 flex items-center gap-x-4">
-            <div>
-                <div class={`font-semibold ${styles.text}`}>
-                    {quote.id.award_winner.person.name}
-                </div>
-                <div class={`${styles.text2} text-xs`}>
-                    {quote.id.award_winner.grant.name} | {
-                        quote.id.award_winner.programme.name
-                    } | Award Winner
-                </div>
-            </div>
-        </figcaption>
     </div>
+    <figcaption
+        class="mt-6 flex items-center gap-x-4 border-t pt-6 ${styles.border || 'border-gray-200'}"
+    >
+        <div>
+            <div class={`font-semibold ${styles.text}`}>
+                {quote.id.award_winner.person.name}
+            </div>
+            <div class={`${styles.text2} text-xs mt-0.5`}>
+                {quote.id.award_winner.grant.name} · {
+                    quote.id.award_winner.programme.name
+                }
+            </div>
+        </div>
+    </figcaption>
 </figure>

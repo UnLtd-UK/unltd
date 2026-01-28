@@ -1,6 +1,7 @@
 ---
 const { styles, services, programme } = Astro.props;
 import Container from "@components/Container.astro";
+import DynamicIcon from "@components/DynamicIcon.astro";
 ---
 
 <Container>
@@ -8,16 +9,10 @@ import Container from "@components/Container.astro";
         class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 my-20"
     >
         <div>
-            <h2
-                id="services"
-                class={`text-base font-semibold leading-7 ${styles.text2}`}
-            >
-                Support
-            </h2>
             <p
-                class={`mt-2 text-2xl font-bold tracking-tight ${styles.text} sm:text-5xl`}
+                class={`mt-2 text-2xl font-bold tracking-tight ${styles.text} sm:text-4xl`}
             >
-                Tailored services
+                Programme service
             </p>
             <p class={`mt-6 text-lg leading-8 ${styles.text2} ${styles.font}`}>
                 Our support is personalised, ensuring you get practical help to
@@ -32,8 +27,9 @@ import Container from "@components/Container.astro";
                             <div
                                 class={`absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full shadow-lg border ${styles.bg} ${styles.border}`}
                             >
-                                <i
-                                    class={`${service.services_id.icon} text-md shadow-3xl ${styles.text2}`}
+                                <DynamicIcon
+                                    icon={service.services_id.icon}
+                                    class={`text-md ${styles.text2}`}
                                 />
                             </div>
                             <span

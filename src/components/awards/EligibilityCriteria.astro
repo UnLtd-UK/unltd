@@ -1,0 +1,394 @@
+---
+import Icon from "@components/Icon.astro";
+import {
+    awardCodes,
+    awardKeys,
+    eligibilityData,
+    renderCriterionValue,
+    getAwardInfo,
+    type AwardCode,
+} from "@data/eligibilityCriteria";
+---
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-12">
+        <h2
+            class="text-3xl md:text-4xl font-bold text-violet-900 dark:text-violet-100 mb-4"
+        >
+            Full Eligibility Criteria
+        </h2>
+        <p
+            class="text-lg text-violet-700 dark:text-violet-300 max-w-2xl mx-auto"
+        >
+            Want to check through the eligibility criteria before you begin?
+            Here's a detailed breakdown of all eligibility requirements for each
+            Award type.
+        </p>
+    </div>
+
+    <!-- Eligibility Tables -->
+    <div class="space-y-12 mb-16">
+        {
+            eligibilityData.map((category, categoryIdx) => (
+                <div class="bg-white rounded-2xl border border-violet-200 overflow-hidden shadow-sm">
+                    <div class="bg-violet-50 border-b border-violet-200 px-6 py-4 flex items-center gap-3">
+                        {category.name === "Social entrepreneur" ? (
+                            <Icon
+                                name="user"
+                                style="solid"
+                                class="h-5 w-5 text-violet-600"
+                            />
+                        ) : (
+                            <Icon
+                                name="building"
+                                style="solid"
+                                class="h-5 w-5 text-violet-600"
+                            />
+                        )}
+                        <h3 class="font-semibold text-foreground">
+                            {category.name} requirements
+                        </h3>
+                    </div>
+                    <div class="p-4 md:p-6">
+                        <div class="overflow-x-auto -mx-4 sm:mx-0">
+                            <table class="w-full min-w-200">
+                                <thead>
+                                    <tr class="border-b border-slate-200">
+                                        <th class="text-left py-4 px-4 font-semibold text-slate-900 w-[40%]">
+                                            Criteria
+                                        </th>
+                                        {awardKeys.map((code) => {
+                                            const info = getAwardInfo(code);
+                                            return (
+                                                <th
+                                                    data-award={code}
+                                                    class="text-center py-4 px-2 font-medium text-slate-700 text-xs transition-colors duration-300"
+                                                >
+                                                    <span class="block text-xs font-semibold">
+                                                        {info?.name}
+                                                    </span>
+                                                </th>
+                                            );
+                                        })}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {category.criteria.map(
+                                        (criterion, criterionIdx) => {
+                                            const isSectorRow =
+                                                criterion.name ===
+                                                "What sectors are you in?";
+                                            return (
+                                                <tr
+                                                    class:list={[
+                                                        "border-b border-slate-100",
+                                                        criterionIdx % 2 === 0
+                                                            ? "bg-white"
+                                                            : "bg-slate-50/50",
+                                                    ]}
+                                                >
+                                                    <td class="py-4 px-4 text-sm text-slate-700">
+                                                        {criterion.name}
+                                                    </td>
+                                                    {awardKeys.map((code) => {
+                                                        const value =
+                                                            criterion.awards[
+                                                                code
+                                                            ];
+                                                        const rendered =
+                                                            renderCriterionValue(
+                                                                value,
+                                                            );
+                                                        return (
+                                                            <td
+                                                                data-award={
+                                                                    code
+                                                                }
+                                                                class="py-4 px-2 text-center transition-colors duration-300"
+                                                            >
+                                                                {isSectorRow &&
+                                                                Array.isArray(
+                                                                    value,
+                                                                ) ? (
+                                                                    <div
+                                                                        class="text-left"
+                                                                        x-data="{ expanded: false }"
+                                                                    >
+                                                                        <button
+                                                                            x-on:click="expanded = !expanded"
+                                                                            class="text-xs text-teal-600 hover:text-teal-700 font-medium flex items-center gap-1 mx-auto"
+                                                                        >
+                                                                            <span>
+                                                                                {
+                                                                                    value.length
+                                                                                }{" "}
+                                                                                sectors
+                                                                            </span>
+                                                                            <Icon
+                                                                                name="chevron-down"
+                                                                                style="solid"
+                                                                                class="text-[10px]"
+                                                                                x-show="!expanded"
+                                                                            />
+                                                                            <Icon
+                                                                                name="chevron-up"
+                                                                                style="solid"
+                                                                                class="text-[10px]"
+                                                                                x-show="expanded"
+                                                                                x-cloak
+                                                                            />
+                                                                        </button>
+                                                                        <div
+                                                                            x-show="expanded"
+                                                                            x-transition
+                                                                            x-cloak
+                                                                            class="mt-2 text-left"
+                                                                        >
+                                                                            <div x-data="{ showAll: false }">
+                                                                                <div class="flex flex-wrap gap-1.5">
+                                                                                    {value
+                                                                                        .slice(
+                                                                                            0,
+                                                                                            6,
+                                                                                        )
+                                                                                        .map(
+                                                                                            (
+                                                                                                sector,
+                                                                                            ) => (
+                                                                                                <span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-md">
+                                                                                                    {
+                                                                                                        sector
+                                                                                                    }
+                                                                                                </span>
+                                                                                            ),
+                                                                                        )}
+                                                                                </div>
+                                                                                <div
+                                                                                    x-show="showAll"
+                                                                                    x-cloak
+                                                                                    class="flex flex-wrap gap-1.5 mt-1.5"
+                                                                                >
+                                                                                    {value
+                                                                                        .slice(
+                                                                                            6,
+                                                                                        )
+                                                                                        .map(
+                                                                                            (
+                                                                                                sector,
+                                                                                            ) => (
+                                                                                                <span class="inline-block px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-md">
+                                                                                                    {
+                                                                                                        sector
+                                                                                                    }
+                                                                                                </span>
+                                                                                            ),
+                                                                                        )}
+                                                                                </div>
+                                                                                {value.length >
+                                                                                    6 && (
+                                                                                    <button
+                                                                                        x-on:click="showAll = !showAll"
+                                                                                        class="mt-2 text-xs text-teal-600 hover:text-teal-700 font-medium flex items-center gap-1"
+                                                                                    >
+                                                                                        <span x-show="!showAll">
+                                                                                            +
+                                                                                            {value.length -
+                                                                                                6}{" "}
+                                                                                            more
+                                                                                        </span>
+                                                                                        <Icon
+                                                                                            name="chevron-down"
+                                                                                            style="solid"
+                                                                                            class="text-[10px]"
+                                                                                            x-show="!showAll"
+                                                                                        />
+                                                                                        <span
+                                                                                            x-show="showAll"
+                                                                                            x-cloak
+                                                                                        >
+                                                                                            Show
+                                                                                            less
+                                                                                        </span>
+                                                                                        <Icon
+                                                                                            name="chevron-up"
+                                                                                            style="solid"
+                                                                                            class="text-[10px]"
+                                                                                            x-show="showAll"
+                                                                                            x-cloak
+                                                                                        />
+                                                                                    </button>
+                                                                                )}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                ) : rendered.type ===
+                                                                  "null" ? (
+                                                                    <span class="inline-flex items-center gap-1.5 text-slate-400">
+                                                                        <Icon
+                                                                            name="minus"
+                                                                            style="solid"
+                                                                            class="h-4 w-4"
+                                                                        />
+                                                                        <span class="text-xs">
+                                                                            N/A
+                                                                        </span>
+                                                                    </span>
+                                                                ) : rendered.type ===
+                                                                  "true" ? (
+                                                                    <span class="inline-flex items-center gap-1.5 text-emerald-600">
+                                                                        <Icon
+                                                                            name="check"
+                                                                            style="solid"
+                                                                            class="h-4 w-4"
+                                                                        />
+                                                                        <span class="text-xs font-medium">
+                                                                            Yes
+                                                                        </span>
+                                                                    </span>
+                                                                ) : rendered.type ===
+                                                                  "false" ? (
+                                                                    <span class="inline-flex items-center gap-1.5 text-red-500">
+                                                                        <Icon
+                                                                            name="xmark"
+                                                                            style="solid"
+                                                                            class="h-4 w-4"
+                                                                        />
+                                                                        <span class="text-xs font-medium">
+                                                                            No
+                                                                        </span>
+                                                                    </span>
+                                                                ) : rendered.type ===
+                                                                  "array" ? (
+                                                                    <div class="text-xs text-slate-600">
+                                                                        <span class="font-medium text-emerald-600">
+                                                                            {
+                                                                                rendered.count
+                                                                            }{" "}
+                                                                            sectors
+                                                                        </span>
+                                                                    </div>
+                                                                ) : (
+                                                                    <span class="text-xs text-slate-700 font-medium">
+                                                                        {
+                                                                            rendered.text
+                                                                        }
+                                                                    </span>
+                                                                )}
+                                                            </td>
+                                                        );
+                                                    })}
+                                                </tr>
+                                            );
+                                        },
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+
+    <!-- Legend -->
+    <div class="bg-white rounded-xl border border-violet-200 p-4">
+        <h4 class="text-sm font-medium text-foreground mb-3">
+            Understanding the table
+        </h4>
+        <div class="flex flex-wrap gap-6 text-sm">
+            <div class="flex items-center gap-2">
+                <Icon
+                    name="check"
+                    style="solid"
+                    class="h-4 w-4 text-emerald-600"
+                />
+                <span class="text-muted-foreground"
+                    >Required / Must answer Yes</span
+                >
+            </div>
+            <div class="flex items-center gap-2">
+                <Icon name="xmark" style="solid" class="h-4 w-4 text-red-500" />
+                <span class="text-muted-foreground">Must answer No</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <Icon
+                    name="minus"
+                    style="solid"
+                    class="h-4 w-4 text-violet-400"
+                />
+                <span class="text-muted-foreground"
+                    >Not applicable for this award</span
+                >
+            </div>
+            <div class="flex items-center gap-2">
+                <span
+                    class="px-2 py-0.5 bg-violet-100 text-violet-700 text-xs rounded"
+                    >Starting Up</span
+                >
+                <span class="text-muted-foreground">Early-stage ventures</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span
+                    class="px-2 py-0.5 bg-violet-900 text-white text-xs rounded"
+                    >Scaling Up</span
+                >
+                <span class="text-muted-foreground">Established ventures</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    [x-cloak] {
+        display: none !important;
+    }
+
+    /* Highlighted column styles */
+    th[data-award].highlighted,
+    td[data-award].highlighted {
+        background-color: rgb(139 92 246 / 0.15) !important;
+        box-shadow: inset 0 0 0 2px rgb(139 92 246 / 0.3);
+    }
+
+    th[data-award].highlighted {
+        background-color: rgb(139 92 246 / 0.25) !important;
+    }
+</style>
+
+<script>
+    function highlightColumn() {
+        const hash = window.location.hash.slice(1);
+
+        // Remove existing highlights
+        document.querySelectorAll("[data-award].highlighted").forEach((el) => {
+            el.classList.remove("highlighted");
+        });
+
+        if (hash) {
+            // Add highlight to matching columns
+            document
+                .querySelectorAll(`[data-award="${hash}"]`)
+                .forEach((el) => {
+                    el.classList.add("highlighted");
+                });
+
+            // Scroll to the eligibility section
+            const firstHighlighted = document.querySelector(
+                `[data-award="${hash}"]`,
+            );
+            if (firstHighlighted) {
+                setTimeout(() => {
+                    firstHighlighted.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                    });
+                }, 100);
+            }
+        }
+    }
+
+    // Run on page load and hash change
+    highlightColumn();
+    window.addEventListener("hashchange", highlightColumn);
+</script>
