@@ -24,7 +24,7 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 
 // COMPONENTS
-import EligibilityCriteria from "@components/awards/EligibilityCriteria.astro";
+import EligibilityCriteriaTable from "@components/awards/EligibilityCriteria.astro";
 ---
 
 <Template name={props.name} description={props.description}>
@@ -32,6 +32,6 @@ import EligibilityCriteria from "@components/awards/EligibilityCriteria.astro";
         <Breadcrumbs breadcrumbs={breadcrumbs} />
     </Container>
     <Container id="eligibility-criteria" class="bg-violet-950 py-16 mt-8">
-        <EligibilityCriteria />
+        <EligibilityCriteriaTable />
     </Container>
 </Template>

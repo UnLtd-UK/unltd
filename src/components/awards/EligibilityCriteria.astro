@@ -61,7 +61,10 @@ import {
                                         {awardKeys.map((code) => {
                                             const info = getAwardInfo(code);
                                             return (
-                                                <th class="text-center py-4 px-2 font-medium text-slate-700 text-xs">
+                                                <th
+                                                    data-award={code}
+                                                    class="text-center py-4 px-2 font-medium text-slate-700 text-xs transition-colors duration-300"
+                                                >
                                                     <span class="block text-xs font-semibold">
                                                         {info?.name}
                                                     </span>
@@ -98,7 +101,12 @@ import {
                                                                 value,
                                                             );
                                                         return (
-                                                            <td class="py-4 px-2 text-center">
+                                                            <td
+                                                                data-award={
+                                                                    code
+                                                                }
+                                                                class="py-4 px-2 text-center transition-colors duration-300"
+                                                            >
                                                                 {isSectorRow &&
                                                                 Array.isArray(
                                                                     value,
@@ -335,4 +343,52 @@ import {
     [x-cloak] {
         display: none !important;
     }
+
+    /* Highlighted column styles */
+    th[data-award].highlighted,
+    td[data-award].highlighted {
+        background-color: rgb(139 92 246 / 0.15) !important;
+        box-shadow: inset 0 0 0 2px rgb(139 92 246 / 0.3);
+    }
+
+    th[data-award].highlighted {
+        background-color: rgb(139 92 246 / 0.25) !important;
+    }
 </style>
+
+<script>
+    function highlightColumn() {
+        const hash = window.location.hash.slice(1);
+
+        // Remove existing highlights
+        document.querySelectorAll("[data-award].highlighted").forEach((el) => {
+            el.classList.remove("highlighted");
+        });
+
+        if (hash) {
+            // Add highlight to matching columns
+            document
+                .querySelectorAll(`[data-award="${hash}"]`)
+                .forEach((el) => {
+                    el.classList.add("highlighted");
+                });
+
+            // Scroll to the eligibility section
+            const firstHighlighted = document.querySelector(
+                `[data-award="${hash}"]`,
+            );
+            if (firstHighlighted) {
+                setTimeout(() => {
+                    firstHighlighted.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                    });
+                }, 100);
+            }
+        }
+    }
+
+    // Run on page load and hash change
+    highlightColumn();
+    window.addEventListener("hashchange", highlightColumn);
+</script>

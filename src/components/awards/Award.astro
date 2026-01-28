@@ -19,6 +19,7 @@ interface ProgrammeService {
 type GrantUsability = Record<string, boolean>;
 
 interface AwardProps {
+    code: string;
     name: string;
     description: string;
     grant: number;
@@ -28,6 +29,7 @@ interface AwardProps {
 }
 
 const {
+    code,
     name,
     description,
     grant,
@@ -244,6 +246,34 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
                             }
                         </ul>
                     </div>
+                </a>
+            </div>
+
+            <div
+                aria-hidden="true"
+                class:list={["mx-6 border-t border-dotted", dividerBorder]}
+            >
+            </div>
+
+            <!-- Section 4: Eligibility Criteria Link -->
+            <div class="p-6 pt-4">
+                <a
+                    href={`/awards/eligibility-criteria#${code}`}
+                    class:list={[
+                        "group flex items-center justify-between gap-2 px-4 py-3 rounded-xl transition-colors",
+                        isStartingUp
+                            ? "bg-zinc-50 hover:bg-zinc-100 text-zinc-700"
+                            : "bg-zinc-950 hover:bg-zinc-900 text-zinc-300",
+                    ]}
+                >
+                    <span class="text-xs font-medium"
+                        >View full eligibility criteria</span
+                    >
+                    <Icon
+                        name="arrow-right"
+                        style="solid"
+                        class="h-4 w-4 transition-transform group-hover:translate-x-1"
+                    />
                 </a>
             </div>
         </div>
