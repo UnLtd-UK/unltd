@@ -19,46 +19,10 @@ const breadcrumbs = [
 
 const involvementOptions = [
     {
-        id: "mentoring",
-        name: "Become a Mentor or Skilled Volunteer",
+        id: "corporate-membership",
+        name: "Engage Your Company",
         description:
-            "Share your expertise and experience to guide social entrepreneurs on their journey. Our mentors and skilled volunteers provide invaluable one-to-one support, helping founders overcome challenges and accelerate their impact.",
-        icon: "fa-hands-helping",
-        highlights: [
-            "Flexible time commitment",
-            "Match with entrepreneurs based on your skills",
-            "Make a direct impact on social ventures",
-            "Join a community of like-minded professionals",
-        ],
-        cta: {
-            text: "Offer your skills",
-            href: "/get-involved/mentoring",
-        },
-        color: "violet",
-    },
-    {
-        id: "donate",
-        name: "Donate as an Individual",
-        description:
-            "Your donation directly supports social entrepreneurs tackling the UK's most pressing challenges. Every contribution helps provide funding and support to ventures creating positive change in communities.",
-        icon: "fa-heart",
-        highlights: [
-            "100% goes towards supporting social entrepreneurs",
-            "Choose one-off or regular giving",
-            "See the impact of your donation",
-            "Join our community of supporters",
-        ],
-        cta: {
-            text: "Make a donation",
-            href: "/get-involved/donate",
-        },
-        color: "rose",
-    },
-    {
-        id: "corporate-volunteering",
-        name: "Corporate Volunteering",
-        description:
-            "Create meaningful employee engagement through a corporate volunteering partnership with UnLtd. We'll work with you to design a programme where your team can offer their skills to support social entrepreneurs.",
+            "Engage your employees through our corporate membership partnerships.",
         icon: "fa-building",
         highlights: [
             "Bespoke volunteering programmes for your organisation",
@@ -74,9 +38,9 @@ const involvementOptions = [
     },
     {
         id: "programme-partnership",
-        name: "Programme Partnership",
+        name: "Partner With Us Strategically",
         description:
-            "Partner with UnLtd to design and deliver bespoke programmes supporting social entrepreneurs in your area of focus. Our programme partnerships combine funding with our expertise to create lasting systemic change.",
+            "Work with us to design programmes that drive systemic impact.",
         icon: "fa-handshake",
         highlights: [
             "Co-design programmes aligned to your priorities",
@@ -89,6 +53,40 @@ const involvementOptions = [
             href: "/get-involved/programme-partnership",
         },
         color: "emerald",
+    },
+    {
+        id: "mentoring",
+        name: "Volunteer Your Skills",
+        description: "Mentor founders or offer specialist expertise.",
+        icon: "fa-hands-helping",
+        highlights: [
+            "Flexible time commitment",
+            "Match with entrepreneurs based on your skills",
+            "Make a direct impact on social ventures",
+            "Join a community of like-minded professionals",
+        ],
+        cta: {
+            text: "Offer your skills",
+            href: "/get-involved/mentoring",
+        },
+        color: "violet",
+    },
+    {
+        id: "donate",
+        name: "Give as an Individual",
+        description: "Financially support social entrepreneurs at every stage.",
+        icon: "fa-heart",
+        highlights: [
+            "100% goes towards supporting social entrepreneurs",
+            "Choose one-off or regular giving",
+            "See the impact of your donation",
+            "Join our community of supporters",
+        ],
+        cta: {
+            text: "Make a donation",
+            href: "/get-involved/donate",
+        },
+        color: "rose",
     },
 ];
 
@@ -284,15 +282,14 @@ const impactStats = [
                                         />
                                     </div>
                                     <div>
-                                        <h2 class="text-xl font-bold text-violet-100 mb-2">
+                                        <h2 class="text-xl font-bold text-violet-100 ">
                                             {option.name}
                                         </h2>
+                                        <p class="text-violet-300 mb-6 grow">
+                                            {option.description}
+                                        </p>
                                     </div>
                                 </div>
-
-                                <p class="text-violet-300 mb-6 grow">
-                                    {option.description}
-                                </p>
 
                                 <ul class="space-y-2 mb-6">
                                     {option.highlights.map((highlight) => (
