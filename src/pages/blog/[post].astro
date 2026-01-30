@@ -5,9 +5,7 @@ import Breadcrumbs from "@components/Breadcrumbs.astro";
 import HeroPost from "@components/heroes/Post.astro";
 import Content from "@components/markdoc/Content.astro";
 
-import slugify from "slugify";
 import { posts } from "@data/posts.js";
-import { string } from "astro:schema";
 
 interface Post {
   title: string;
@@ -26,13 +24,6 @@ interface Post {
 
 export async function getStaticPaths() {
   return posts.map((post) => {
-    const slug = slugify(post.title, {
-      lower: true,
-      strict: true,
-      locale: "en",
-      trim: true,
-    });
-
     let breadcrumbs = [
       {
         name: "Blog",
@@ -40,7 +31,7 @@ export async function getStaticPaths() {
       },
       {
         name: post.title,
-        path: `/blog/${slug}`,
+        path: `/blog/${post.slug}`,
       },
     ];
 
@@ -48,7 +39,7 @@ export async function getStaticPaths() {
 
     let item = {
       params: {
-        post: slug,
+        post: post.slug,
       },
       props: {
         post: post,
