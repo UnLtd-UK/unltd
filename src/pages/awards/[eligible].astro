@@ -1,0 +1,117 @@
+---
+/**
+ * Dynamic Eligibility Page
+ *
+ * Renders a personalized page for users who pass the eligibility checker.
+ * Typeform redirects users to /eligible/{slug} based on their answers.
+ *
+ * Not indexable (noindex) - only accessible via eligibility checker redirect.
+ */
+
+// TYPES
+import type { GetStaticPaths } from "astro";
+
+// DATA
+import {
+    eligibilityPages,
+    getEligibilityPageWithAwards,
+} from "@data/eligibilityPages";
+import { rounds } from "@data/rounds.js";
+import { processAllRounds } from "@utils/application-rounds.js";
+
+// STATIC PATHS
+export const getStaticPaths: GetStaticPaths = () => {
+    return eligibilityPages.map((page) => ({
+        params: { eligible: page.slug },
+        props: { pageData: page },
+    }));
+};
+
+// PAGE DATA
+const { eligible } = Astro.params;
+const result = getEligibilityPageWithAwards(eligible as string);
+
+if (!result) {
+    return Astro.redirect("/404");
+}
+
+const { page, awards } = result;
+
+// ROUNDS
+const { currentRound, nextOpenRound } = processAllRounds(rounds);
+// Only check capacity if capacity tracking is enabled for this round
+const isRoundOpen =
+    currentRound?.isOpen &&
+    (!currentRound?.hasCapacity || currentRound?.capacityPercentage < 100);
+const nextOpenDate =
+    nextOpenRound?.dates?.opens || currentRound?.dates?.opens || "soon";
+
+// APPLICATION PREVIEW
+const applicationPreviewSlugMap: Record<string, string> = {
+    idea: "Idea+stage+or+not+yet+trading",
+    "under-1-year": "Trading+for+less+than+1+year",
+    "under-4-years": "Trading+for+more+than+1+year",
+};
+const applicationPreviewSlug =
+    applicationPreviewSlugMap[page.tradingStatus] ||
+    applicationPreviewSlugMap["idea"];
+const applicationPreviewUrl = `/awards/${applicationPreviewSlug}`;
+
+// BREADCRUMBS
+const breadcrumbs = [
+    { name: "Awards", path: "/awards" },
+    { name: "Eligible", path: `/eligible/${page.slug}` },
+];
+
+// LAYOUT
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+
+// COMPONENTS
+import EligibleHero from "@components/awards/EligibleHero.astro";
+import ResourcesRow from "@components/awards/ResourcesRow.astro";
+import AdditionalSupportRow from "@components/awards/AdditionalSupportRow.astro";
+import HowApplyingWorks from "@components/awards/HowApplyingWorks.astro";
+import RoundWidget from "@components/awards/RoundWidgetWrapper.astro";
+import FrequentlyAskedQuestions from "@components/awards/FrequentlyAskedQuestions.astro";
+import ReadyToApplyCTA from "@components/awards/ReadyToApplyCTA.astro";
+---
+
+<Template name={page.title} description={page.description} noindex={true}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+    </Container>
+    <Container
+        id="hero"
+        class="bg-linear-to-br from-emerald-600 via-emerald-500 to-teal-500 text-white py-12 lg:py-16 mt-8"
+    >
+        <EligibleHero
+            awards={awards}
+            page={page}
+            isRoundOpen={isRoundOpen}
+            nextOpenDate={nextOpenDate}
+        />
+    </Container>
+    <Container id="resources" class="bg-emerald-700 py-8">
+        <ResourcesRow applicationPreviewUrl={applicationPreviewUrl} />
+    </Container>
+    <Container id="support" class="bg-slate-900 py-8">
+        <AdditionalSupportRow />
+    </Container>
+    <Container id="how-applying-works" class="bg-violet-950 py-16">
+        <HowApplyingWorks showResourceLinks={true} />
+    </Container>
+    <Container id="when-to-apply" class="bg-violet-900 py-16 mt-8">
+        <RoundWidget />
+    </Container>
+    <Container id="frequently-asked-questions" class="bg-violet-950 py-16 mt-8">
+        <FrequentlyAskedQuestions />
+    </Container>
+    <Container id="apply" class="bg-violet-900 py-16 mt-8">
+        <ReadyToApplyCTA
+            isRoundOpen={isRoundOpen}
+            nextOpenDate={nextOpenDate}
+        />
+    </Container>
+</Template>

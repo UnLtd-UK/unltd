@@ -4,6 +4,7 @@ const { styles, programme } = Astro.props;
 import Video from "@components/awards/programme/content/Video.astro";
 import Quote from "@components/awards/programme/content/Quote.astro";
 import Post from "@components/awards/programme/content/Post.astro";
+import Container from "@components/Container.astro";
 
 const contents = [];
 
@@ -42,31 +43,48 @@ programme.posts.forEach((post) => {
 
 // Sort contents by date_time
 contents.sort((a, b) => {
-    const dateA = new Date(a.id.date_time);
-    const dateB = new Date(b.id.date_time);
+    const dateA = new Date(a.id.date_time).getTime();
+    const dateB = new Date(b.id.date_time).getTime();
     return dateB - dateA;
 });
 ---
 
-<div class={`overflow-x-scroll hide-scroll-bar py-10 ${styles.bg2}`}>
-    <div
-        class={`mx-auto max-w-7xl flex items-start gap-6 sm:px-6 lg:px-8 px-3`}
-    >
-        {
-            contents.map((content) => {
-                switch (content.type) {
-                    // case "image":
-                    //     return <Image image={content} styles={styles} />;
-                    case "video":
-                        return <Video video={content} styles={styles} />;
-                    case "quote":
-                        return <Quote quote={content} styles={styles} />;
-                    case "post":
-                        return <Post post={content} styles={styles} />;
-                    default:
-                        return null; // Or any fallback component
+<div class={`py-16 sm:py-24 ${styles.bg2}`}>
+    <Container>
+        <div class="mx-auto max-w-2xl lg:max-w-none">
+            <div class="text-center mb-12">
+                <p
+                    class={`mt-2 text-3xl font-bold tracking-tight ${styles.text} sm:text-4xl`}
+                >
+                    Stories & Media
+                </p>
+                <p
+                    class={`mt-4 text-lg leading-8 ${styles.text2} max-w-2xl mx-auto`}
+                >
+                    Discover stories of Award Winners from this programme
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                {
+                    contents.map((content) => {
+                        switch (content.type) {
+                            case "video":
+                                return (
+                                    <Video video={content} styles={styles} />
+                                );
+                            case "quote":
+                                return (
+                                    <Quote quote={content} styles={styles} />
+                                );
+                            case "post":
+                                return <Post post={content} styles={styles} />;
+                            default:
+                                return null;
+                        }
+                    })
                 }
-            })
-        }
-    </div>
+            </div>
+        </div>
+    </Container>
 </div>
