@@ -52,6 +52,7 @@ import RoundWidget from "@components/awards/RoundWidgetWrapper.astro";
 import EligibilityChecker from "@components/awards/EligibilityChecker.astro";
 import EligibilityCriteria from "@components/awards/EligibilityCriteria.astro";
 import Sessions from "@components/awards/Sessions.astro";
+import VideoShowcase from "@components/awards/VideoShowcase.astro";
 import FrequentlyAskedQuestions from "@components/awards/FrequentlyAskedQuestions.astro";
 ---
 
@@ -74,13 +75,16 @@ import FrequentlyAskedQuestions from "@components/awards/FrequentlyAskedQuestion
     <Container id="when-to-apply" class="bg-violet-900 py-16 mt-8">
         <RoundWidget />
     </Container>
-    <Container id="sessions" class="bg-violet-950 py-16 mt-8">
+    <Container id="video" class="bg-violet-950 py-16 mt-8">
+        <VideoShowcase />
+    </Container>
+    <Container id="sessions" class="bg-violet-900 py-16 mt-8">
         <Sessions />
     </Container>
-    <Container id="check-your-eligibility" class="bg-violet-900 py-16 mt-8">
+    <Container id="check-your-eligibility" class="bg-violet-950 py-16 mt-8">
         <EligibilityChecker />
     </Container>
-    <Container id="frequently-asked-questions" class="bg-violet-950 py-16 mt-8">
+    <Container id="frequently-asked-questions" class="bg-violet-900 py-16 mt-8">
         <FrequentlyAskedQuestions />
     </Container>
 </Template>

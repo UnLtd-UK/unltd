@@ -1,0 +1,50 @@
+---
+/**
+ * VideoShowcase.astro
+ * A section component that showcases a featured video using the EmbedLoader
+ */
+
+import EmbedLoader from "@components/EmbedLoader";
+
+interface Props {
+    src?: string;
+    title?: string;
+    heading?: string;
+    description?: string;
+}
+
+const {
+    src = "https://www.youtube.com/watch?v=leYUo0Wy5SE",
+    title = "UnLtd Awards - Learn more about our funding and support",
+    heading = "See what we do",
+    description = "Watch this short video to learn more about how UnLtd Awards can help you on your social entrepreneurship journey.",
+} = Astro.props;
+---
+
+<div class="flex flex-col gap-10">
+    <div class="text-center">
+        <h2
+            class="text-3xl md:text-4xl font-bold text-violet-900 dark:text-violet-100 mb-4"
+        >
+            {heading}
+        </h2>
+        <p
+            class="text-lg text-violet-700 dark:text-violet-300 max-w-2xl mx-auto"
+        >
+            {description}
+        </p>
+    </div>
+    <div class="max-w-4xl mx-auto w-full">
+        <div
+            class="relative w-full overflow-hidden rounded-lg"
+            style="padding-bottom: 56.25%;"
+        >
+            <EmbedLoader
+                src={src}
+                title={title}
+                className="absolute inset-0 w-full h-full"
+                client:load
+            />
+        </div>
+    </div>
+</div>
