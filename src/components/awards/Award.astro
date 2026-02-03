@@ -142,7 +142,7 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
             <!-- Section 2: Grant Information -->
             <div class="p-6">
                 <div class="flex flex-col gap-1">
-                    <div class:list={["text-sm", labelText]}>
+                    <div class:list={["text-xs uppercase", labelText]}>
                         <p>Up to</p>
                     </div>
                     <div class:list={["text-5xl font-semibold", grantText]}>
@@ -188,9 +188,7 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
 
             <!-- Section 3: Programme Information -->
             <div class="p-6">
-                <p class:list={["text-sm", labelText]}>
-                    Programme enrollment to
-                </p>
+                <p class:list={["text-xs uppercase", labelText]}>Programme</p>
 
                 <a
                     href={`/awards/${programme.slug}`}
@@ -225,7 +223,7 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
                                 headingText,
                             ]}
                         >
-                            Your programme includes:
+                            Award includes:
                         </h3>
                         <ul class="space-y-2">
                             {

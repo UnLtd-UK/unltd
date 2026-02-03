@@ -94,7 +94,7 @@ export const phases: Phase[] = [
                 icon: "fa-solid fa-shield-halved",
             },
             {
-                title: "Peer Review",
+                title: "Support Manager Review",
                 description:
                     "Support Managers discuss your application together. Strong applications progress to panel.",
                 icon: "fa-solid fa-people-group",

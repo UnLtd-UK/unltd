@@ -69,9 +69,6 @@ const {
   portal_text,
   stage_text,
 } = Astro.props;
-
-const dialogTitle = `You are previewing the application form for a social venture which ${stage_text}.`;
-const dialogDescription = `When you complete your application in the portal, in section 'Social venture stage and programme', question 'Please tell us the stage your social venture is at', choose '${portal_text}'.`;
 ---
 
 <Template name={name} description={description}>
@@ -79,10 +76,54 @@ const dialogDescription = `When you complete your application in the portal, in 
     <Breadcrumbs breadcrumbs={breadcrumbs} />
     <DialogComponent
       icon="fa-solid fa-circle-info"
-      title={dialogTitle}
-      description={dialogDescription}
+      title="The purpose of this application preview"
+      content={[
+        {
+          items: [
+            {
+              icon: "fa-solid fa-check",
+              iconColor: "text-violet-400",
+              text: "This preview is to help you prepare your application",
+            },
+            {
+              icon: "fa-solid fa-check",
+              iconColor: "text-violet-400",
+              text: "You can read through each question in preparation for applying",
+            },
+            {
+              icon: "fa-solid fa-file-word",
+              iconColor: "text-violet-400",
+              text: "Download a Word document to help you draft your answers offline",
+            },
+            {
+              icon: "fa-solid fa-arrow-up-right-from-square",
+              iconColor: "text-violet-400",
+              text: "Go to the Application Portal to start your application",
+            },
+          ],
+        },
+        {
+          title: "DO NOT:",
+          titleIcon: "fa-solid fa-triangle-exclamation",
+          variant: "warning",
+          items: [
+            {
+              icon: "fa-solid fa-xmark",
+              text: "Email us your application using the Word template",
+            },
+            {
+              icon: "fa-solid fa-xmark",
+              text: "Try to add your details to this preview – it won't work",
+            },
+          ],
+        },
+      ]}
       primaryButton={{
-        text: "I understand",
+        text: "See preview",
+      }}
+      secondaryButton={{
+        text: "Go to Application Portal",
+        href: "https://portal.unltd.org.uk",
       }}
       client:load
     />

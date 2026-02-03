@@ -63,6 +63,7 @@ import {
     faEye,
     faFileCircleCheck,
     faFileLines,
+    faFileWord,
     faFingerprint,
     faGavel,
     faHammer,
@@ -359,7 +360,8 @@ library.add(
     fassCircleCheck,
     fassCircleXmark,
     // Solid (police-box)
-    faPoliceBox
+    faPoliceBox,
+    faFileWord
 );
 
 // Export for direct usage
