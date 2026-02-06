@@ -1,11 +1,13 @@
 ---
 import Icon from "@components/Icon.astro";
+import Faq from "@components/Faq.astro";
 import { programmes } from "@data/programmes.js";
 import {
     programmeEvents as fetchedProgrammeEvents,
     isPastEvent,
     sortEvents,
 } from "@data/eventCollections";
+import { faq } from "@data/faq.js";
 import Container from "@components/Container.astro";
 
 // Filter programmes to only show those with 'published' status
@@ -51,7 +53,7 @@ const ONE_TO_ONE_BOOKING_URL =
         programmeEvents.length > 0 && (
             <div class="flex flex-col gap-8">
                 <div class="text-center">
-                    <span class="inline-flex items-center rounded-full bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 inset-ring inset-ring-yellow-600/20 dark:bg-yellow-400/10 dark:text-yellow-500 dark:inset-ring-yellow-400/20">
+                    <span class="inline-flex items-center rounded-full bg-yellow-50 px-2 py-1 mb-2 text-xs font-medium text-yellow-800 inset-ring inset-ring-yellow-600/20 dark:bg-yellow-400/10 dark:text-yellow-500 dark:inset-ring-yellow-400/20">
                         For anyone
                     </span>
                     <h3 class="text-2xl font-bold text-violet-900 dark:text-violet-100 mb-3">
@@ -255,12 +257,12 @@ const ONE_TO_ONE_BOOKING_URL =
         <div class="flex-1 flex flex-col gap-6">
             <div>
                 <span
-                    class="inline-flex items-center rounded-full bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 inset-ring inset-ring-yellow-600/20 dark:bg-yellow-400/10 dark:text-yellow-500 dark:inset-ring-yellow-400/20"
+                    class="inline-flex items-center rounded-full bg-yellow-50 px-2 py-1 mb-2 text-xs font-medium text-yellow-800 inset-ring inset-ring-yellow-600/20 dark:bg-yellow-400/10 dark:text-yellow-500 dark:inset-ring-yellow-400/20"
                     >For those with additional support needs and who may face
                     barriers
                 </span>
                 <h3
-                    class="text-2xl font-bold text-violet-900 dark:text-violet-100 mb-3"
+                    class="text-xl font-bold text-violet-900 dark:text-violet-100 mb-3"
                 >
                     One-to-one application assistance
                 </h3>
@@ -286,7 +288,7 @@ const ONE_TO_ONE_BOOKING_URL =
                             <Icon
                                 name="check-circle"
                                 style="solid"
-                                class="text-emerald-500 mt-0.5 shrink-0"
+                                class="text-violet-500 mt-0.5 shrink-0"
                             />
                             <span>Understanding the application process</span>
                         </li>
@@ -296,7 +298,7 @@ const ONE_TO_ONE_BOOKING_URL =
                             <Icon
                                 name="check-circle"
                                 style="solid"
-                                class="text-emerald-500 mt-0.5 shrink-0"
+                                class="text-violet-500 mt-0.5 shrink-0"
                             />
                             <span>Talking through the application form</span>
                         </li>
@@ -306,7 +308,7 @@ const ONE_TO_ONE_BOOKING_URL =
                             <Icon
                                 name="check-circle"
                                 style="solid"
-                                class="text-emerald-500 mt-0.5 shrink-0"
+                                class="text-violet-500 mt-0.5 shrink-0"
                             />
                             <span>Discussing our current programmes</span>
                         </li>
@@ -316,7 +318,7 @@ const ONE_TO_ONE_BOOKING_URL =
                             <Icon
                                 name="check-circle"
                                 style="solid"
-                                class="text-emerald-500 mt-0.5 shrink-0"
+                                class="text-violet-500 mt-0.5 shrink-0"
                             />
                             <span
                                 >Discussing adjustments we can make to reduce
@@ -328,20 +330,24 @@ const ONE_TO_ONE_BOOKING_URL =
                     <div
                         class="bg-violet-50 dark:bg-violet-900/30 rounded-xl p-4 mb-8"
                     >
-                        <p class="text-sm text-violet-700 dark:text-violet-300">
+                        <p
+                            class="text-sm text-violet-700 dark:text-violet-300 inline-flex items-start gap-2"
+                        >
                             <Icon
                                 name="lightbulb"
                                 style="solid"
-                                class="mr-2 text-amber-500"
+                                class="text-amber-500 mt-0.5 shrink-0"
                             />
-                            <strong>Tip:</strong> Before booking, we recommend that
-                            you
-                            <a
-                                href="/awards/eligibility"
-                                class="underline hover:text-violet-900 dark:hover:text-violet-100"
-                                >check your eligibility</a
+                            <span
+                                ><strong>Tip:</strong> Before booking, we recommend
+                                that you
+                                <a
+                                    href="/awards/eligibility-criteria"
+                                    class="underline hover:text-violet-900 dark:hover:text-violet-100"
+                                    >check your eligibility</a
+                                >
+                                for our Awards and familiarise yourself with the application.</span
                             >
-                            for our Awards and familiarise yourself with the application.
                         </p>
                     </div>
 
@@ -385,7 +391,7 @@ const ONE_TO_ONE_BOOKING_URL =
                             href={ONE_TO_ONE_BOOKING_URL}
                             target="_blank"
                             rel="noopener noreferrer"
-                            class="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-500"
+                            class="inline-flex items-center gap-2 rounded-full bg-violet-600 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-violet-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
                         >
                             <Icon name="calendar-check" style="solid" />
                             Book a session
@@ -404,25 +410,26 @@ const ONE_TO_ONE_BOOKING_URL =
         <div class="flex-1 flex flex-col gap-6">
             <div class="">
                 <span
-                    class="inline-flex items-center rounded-full bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 inset-ring inset-ring-yellow-600/20 dark:bg-yellow-400/10 dark:text-yellow-500 dark:inset-ring-yellow-400/20"
-                    >For those livng in Wales and may face barriers to applying
+                    class="inline-flex items-center rounded-full bg-yellow-50 px-2 py-1 mb-2 text-xs font-medium text-yellow-800 inset-ring inset-ring-yellow-600/20 dark:bg-yellow-400/10 dark:text-yellow-500 dark:inset-ring-yellow-400/20"
+                    >For those livng in Wales and identify as a marginalised
+                    individual
                 </span>
                 <h3
-                    class="text-2xl font-bold text-violet-900 dark:text-violet-100 mb-3"
+                    class="text-xl font-bold text-violet-900 dark:text-violet-100 mb-3"
                 >
-                    Support for those living in Wales
+                    Introductions to local support networks and guidance
                 </h3>
                 <p
                     class="text-base text-violet-700 dark:text-violet-300 max-w-2xl mx-auto"
                 >
-                    Additional support for individuals in Wales who may face
-                    barriers to accessing our programmes.
+                    Additional support for individuals in Wales who identify as
+                    a marginalised individual
                 </p>
             </div>
 
             <div class="max-w-3xl mx-auto w-full">
                 <div
-                    class="rounded-2xl border border-rose-200 bg-white/90 p-8 dark:border-rose-900/60 dark:bg-violet-950/80"
+                    class="rounded-2xl border border-violet-200 bg-white/90 p-8 dark:border-violet-900/60 dark:bg-violet-950/80"
                 >
                     <p class="text-violet-800 dark:text-violet-200 mb-6">
                         If you live in Wales and identify as a marginalised
@@ -435,7 +442,7 @@ const ONE_TO_ONE_BOOKING_URL =
                             <Icon
                                 name="check-circle"
                                 style="solid"
-                                class="text-rose-500 mt-0.5 shrink-0"
+                                class="text-violet-500 mt-0.5 shrink-0"
                             />
                             <span
                                 >An introduction to local support networks</span
@@ -447,7 +454,7 @@ const ONE_TO_ONE_BOOKING_URL =
                             <Icon
                                 name="check-circle"
                                 style="solid"
-                                class="text-rose-500 mt-0.5 shrink-0"
+                                class="text-violet-500 mt-0.5 shrink-0"
                             />
                             <span
                                 >Advice and signposting to relevant resources</span
@@ -459,7 +466,7 @@ const ONE_TO_ONE_BOOKING_URL =
                             <Icon
                                 name="check-circle"
                                 style="solid"
-                                class="text-rose-500 mt-0.5 shrink-0"
+                                class="text-violet-500 mt-0.5 shrink-0"
                             />
                             <span
                                 >Support even if you may not yet be ready for an
@@ -473,13 +480,75 @@ const ONE_TO_ONE_BOOKING_URL =
                     >
                         <a
                             href="/spaces/assistance-for-those-living-in-wales"
-                            class="inline-flex items-center gap-2 rounded-full bg-rose-600 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-rose-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-500"
+                            class="inline-flex items-center gap-2 rounded-full bg-violet-600 px-6 py-3 text-sm font-semibold text-white transition duration-300 hover:bg-violet-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
                         >
                             <Icon name="arrow-right" style="solid" />
                             Learn more about Wales support
                         </a>
                     </div>
+
+                    <div
+                        class="mt-6 flex items-center justify-center gap-3 border-t border-violet-100 pt-6 dark:border-violet-900/40"
+                    >
+                        <span
+                            class="text-xs text-violet-500 dark:text-violet-400"
+                            >Supported by</span
+                        >
+                        <img
+                            src="https://unltd.directus.app/assets/35376360-023e-4468-b23d-f6f32640ad2d.webp"
+                            alt="Welsh Government"
+                            class="h-12 w-auto"
+                        />
+                    </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="mx-auto max-w-4xl w-full">
+        <h3 class="text-xl font-bold text-violet-900 dark:text-violet-100 mb-3">
+            Frequently asked questions
+        </h3>
+        <dl
+            class="mt-10 space-y-6 divide-y divide-violet-900/10 dark:divide-white/10"
+        >
+            {
+                faq.map((item, i) => (
+                    <Faq question={item.question} answer={item.answer} i={i} />
+                ))
+            }
+        </dl>
+
+        <div
+            class="mt-10 flex items-center gap-x-6 rounded-2xl bg-violet-50 p-6 dark:bg-violet-900/50"
+        >
+            <div
+                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-violet-100 dark:bg-violet-900/50"
+            >
+                <Icon
+                    name="messages"
+                    style="solid"
+                    class="h-5 w-5 text-violet-600 dark:text-violet-400"
+                />
+            </div>
+            <div>
+                <p
+                    class="text-sm font-medium text-violet-900 dark:text-violet-100"
+                >
+                    Can't find what you're looking for?
+                </p>
+                <a
+                    href="/contact/awards"
+                    class="group mt-1 inline-flex items-center text-sm font-semibold text-violet-600 hover:text-violet-500 dark:text-violet-400 dark:hover:text-violet-300"
+                >
+                    Make an Award enquiry
+                    <Icon
+                        name="arrow-right"
+                        style="solid"
+                        class="ml-2 h-3 w-3 transition-transform group-hover:translate-x-1"
+                    />
+                </a>
             </div>
         </div>
     </div>
