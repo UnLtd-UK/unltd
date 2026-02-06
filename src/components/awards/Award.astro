@@ -1,12 +1,7 @@
 ---
 import DynamicIcon from "@components/DynamicIcon.astro";
 import Icon from "@components/Icon.astro";
-import {
-    awards,
-    type EligibilityCriteria,
-    type EligibilityValue,
-} from "@data/awards";
-import { allCriteria } from "@data/criteriaMapping";
+import { type EligibilityCriteria } from "@data/awards";
 
 interface Programme {
     icon: string;
@@ -124,54 +119,14 @@ const excludedText = isStartingUp ? "text-red-800" : "text-red-200";
 const includedText = isStartingUp ? "text-emerald-800" : "text-emerald-200";
 const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
 
-// Dynamically determine which criteria vary across awards
-// A criterion varies if not all awards have the same value
-function criteriaVariesAcrossAwards(slug: string): boolean {
-    const values = awards.map((a) =>
-        JSON.stringify(a.eligibility[slug as keyof EligibilityCriteria]),
-    );
-    const uniqueValues = new Set(values);
-    return uniqueValues.size > 1;
-}
-
-// Calculate the maximum number of sectors across all awards (to determine "All sectors")
-const maxSectorCount = Math.max(
-    ...awards.map((a) => {
-        const sectors = a.eligibility.sector_classification;
-        return Array.isArray(sectors) ? sectors.length : 0;
-    }),
-);
-
-// Format eligibility value for display
-function formatEligibilityValue(
-    value: EligibilityValue,
-    slug?: string,
-): {
-    text: string;
-    items?: string[];
-    type: "yes" | "no" | "info" | "na" | "array";
-} {
-    if (value === null || value === undefined)
-        return { text: "N/A", type: "na" };
-    if (value === true) return { text: "Yes", type: "yes" };
-    if (value === false) return { text: "No", type: "no" };
-    if (Array.isArray(value)) {
-        // If this is sector_classification and all sectors are selected, show "All sectors"
-        if (
-            slug === "sector_classification" &&
-            value.length >= maxSectorCount
-        ) {
-            return { text: "All sectors", type: "info" };
-        }
-        return { text: "", items: value, type: "array" };
-    }
-    return { text: String(value), type: "info" };
-}
-
-// Get criteria that vary across awards and have a value for this award
-const varyingCriteria = allCriteria
-    .filter((c) => criteriaVariesAcrossAwards(c.slug))
-    .filter((c) => eligibility?.[c.slug as keyof EligibilityCriteria] !== null);
+// Extract age eligibility for display on the card
+const ageValue = eligibility?.age;
+const ageLabel =
+    typeof ageValue === "string"
+        ? ageValue
+        : Array.isArray(ageValue)
+          ? ageValue.join(", ")
+          : null;
 ---
 
 <div
@@ -310,127 +265,42 @@ const varyingCriteria = allCriteria
             >
             </div>
 
-            <!-- Section 4: Mini Eligibility Criteria -->
-            {
-                eligibility && varyingCriteria.length > 0 && (
-                    <div class="p-6 pb-4">
-                        <p class:list={["text-xs uppercase mb-4", labelText]}>
-                            Key eligibility criteria
-                        </p>
-                        <ul
-                            class:list={[
-                                "rounded-lg overflow-hidden divide-y",
-                                isStartingUp
-                                    ? "divide-gray-100 border border-gray-100"
-                                    : "divide-white/5 border border-white/5",
-                            ]}
-                        >
-                            {varyingCriteria.map((criterion, index) => {
-                                const value =
-                                    eligibility[
-                                        criterion.slug as keyof EligibilityCriteria
-                                    ];
-                                const formatted = formatEligibilityValue(
-                                    value,
-                                    criterion.slug,
-                                );
-                                const valueColorClass =
-                                    formatted.type === "yes"
-                                        ? isStartingUp
-                                            ? "text-emerald-600"
-                                            : "text-emerald-400"
-                                        : formatted.type === "no"
-                                          ? isStartingUp
-                                              ? "text-red-600"
-                                              : "text-red-400"
-                                          : isStartingUp
-                                            ? "text-violet-700"
-                                            : "text-violet-300";
-                                const rowBg =
-                                    index % 2 === 0
-                                        ? isStartingUp
-                                            ? "bg-gray-50/50"
-                                            : "bg-white/[0.02]"
-                                        : isStartingUp
-                                          ? "bg-white"
-                                          : "bg-transparent";
-                                return (
-                                    <li
-                                        class:list={[
-                                            "flex flex-col gap-2 px-4 py-3",
-                                            rowBg,
-                                        ]}
-                                    >
-                                        <span
-                                            class:list={[
-                                                "text-xs leading-relaxed",
-                                                isStartingUp
-                                                    ? "text-gray-700"
-                                                    : "text-gray-300",
-                                            ]}
-                                        >
-                                            {criterion.name}
-                                        </span>
-                                        {formatted.type === "array" &&
-                                        formatted.items ? (
-                                            <span class="flex flex-wrap gap-1">
-                                                {formatted.items.map((item) => (
-                                                    <span
-                                                        class:list={[
-                                                            "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium whitespace-nowrap",
-                                                            isStartingUp
-                                                                ? "bg-violet-100 text-violet-700"
-                                                                : "bg-violet-500/20 text-violet-300",
-                                                        ]}
-                                                    >
-                                                        {item}
-                                                    </span>
-                                                ))}
-                                            </span>
-                                        ) : (
-                                            <span
-                                                class:list={[
-                                                    "text-xs font-semibold",
-                                                    valueColorClass,
-                                                ]}
-                                            >
-                                                {formatted.text}
-                                            </span>
-                                        )}
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </div>
-                )
-            }
-
-            <div
-                aria-hidden="true"
-                class:list={["mx-6 border-t border-dotted", dividerBorder]}
-            >
-            </div>
-
-            <!-- Section 5: Eligibility Criteria Link -->
+            <!-- Section 4: Eligibility Criteria Link with Age Teaser -->
             <div class="p-6 pt-4">
-                <a
-                    href={`/awards/eligibility-criteria#${code}`}
+                <p
                     class:list={[
-                        "group flex items-center justify-between gap-2 px-4 py-3 rounded-xl transition-colors",
-                        isStartingUp
-                            ? "bg-zinc-50 hover:bg-zinc-100 text-zinc-700"
-                            : "bg-zinc-950 hover:bg-zinc-900 text-zinc-300",
+                        "text-xs",
+                        isStartingUp ? "text-gray-600" : "text-gray-400",
                     ]}
                 >
-                    <span class="text-xs font-medium"
-                        >View full eligibility criteria</span
+                    {
+                        ageLabel && (
+                            <>
+                                You must be{" "}
+                                <span
+                                    class:list={[
+                                        "font-semibold",
+                                        isStartingUp
+                                            ? "text-violet-600"
+                                            : "text-violet-400",
+                                    ]}
+                                >
+                                    {ageLabel}
+                                </span>
+                                .{" "}
+                            </>
+                        )
+                    }
+                    <a
+                        href={`/awards/eligibility-criteria#${code}`}
+                        class:list={[
+                            "underline transition-colors",
+                            isStartingUp
+                                ? "text-violet-600 hover:text-violet-800"
+                                : "text-violet-400 hover:text-violet-300",
+                        ]}>View full eligibility criteria</a
                     >
-                    <Icon
-                        name="arrow-right"
-                        style="solid"
-                        class="h-4 w-4 transition-transform group-hover:translate-x-1"
-                    />
-                </a>
+                </p>
             </div>
         </div>
     </div>
