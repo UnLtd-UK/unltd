@@ -5,196 +5,118 @@ import { benefits, checkerUrl } from "@data/eligibilityChecker";
 
 // Typeform iframe embed URL (using the form slug from the checker URL)
 const typeformEmbedUrl = `${checkerUrl}?typeform-embed=embed-widget`;
+
+const hero = {
+    eyebrow: "For social entrepreneurs",
+    title: "Awards",
+    description:
+        "You have an idea, or you are already creating positive social impact with your venture and are looking to develop. We combine funding and support specifically tailored to you.",
+};
+
+const navCards = [
+    {
+        href: "#our-awards",
+        icon: "trophy-star",
+        title: "Our Awards",
+        description: "Explore our Starting Up and Scaling Up Awards.",
+    },
+    {
+        href: "#our-award-winners",
+        icon: "award",
+        title: "Our Award Winners",
+        description:
+            "Meet the inspiring entrepreneurs who have received our Awards.",
+    },
+    {
+        href: "#how-applying-works",
+        icon: "route",
+        title: "How applying works",
+        description: "Understand each step of the application journey.",
+    },
+    {
+        href: "#apply",
+        icon: "messages-question",
+        title: "Apply now",
+        description: "First, take our eligibility checker.",
+    },
+    {
+        href: "#application-assistance",
+        icon: "messages-question",
+        title: "Application assistance",
+        description: "Find answers to common questions about Awards.",
+    },
+];
+
+const relatedPages = [
+    {
+        href: "/awards/eligibility-criteria",
+        icon: "check-circle",
+        title: "Eligibility Criteria",
+        description:
+            "Check through the eligibility criteria before you take the Eligibility Checker.",
+    },
+    {
+        href: "/equity-commitments",
+        icon: "hands-holding-heart",
+        title: "Equity Commitments",
+        description:
+            "We are committed to supporting underrepresented entrepreneurs.",
+    },
+];
+
+const checker = {
+    badge: "Required First Step",
+    label: "Eligibility Checker",
+    openLabel: "Open in new tab",
+};
 ---
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
     <!-- Left: Hero Content -->
     <div class="lg:pr-8">
         <p class="text-base font-semibold leading-7 text-amber-500">
-            For social entrepreneurs
+            {hero.eyebrow}
         </p>
         <h1
             class="mt-2 text-4xl font-bold tracking-tight text-violet-100 sm:text-5xl lg:text-6xl"
         >
-            Awards
+            {hero.title}
         </h1>
         <p
             class="mt-6 text-lg leading-8 font-medium text-pretty text-violet-300 sm:text-xl/8"
         >
-            You have an idea, or you are already creating positive social impact
-            with your venture and are looking to develop. We combine funding and
-            support specifically tailored to you.
+            {hero.description}
         </p>
 
         <!-- Navigation Cards -->
         <div class="mt-8 grid grid-cols-2 gap-3">
-            <a
-                href="#our-awards"
-                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-            >
-                <div
-                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                >
-                    <Icon
-                        name="trophy-star"
-                        style="regular"
-                        class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                    />
-                </div>
-                <h3
-                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                >
-                    Our Awards
-                    <Icon
-                        name="arrow-down"
-                        style="solid"
-                        class="text-[10px] text-violet-500"
-                    />
-                </h3>
-                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
-                    Explore our Starting Up and Scaling Up Awards.
-                </p>
-            </a>
-
-            <a
-                href="#how-applying-works"
-                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-            >
-                <div
-                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                >
-                    <Icon
-                        name="route"
-                        style="regular"
-                        class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                    />
-                </div>
-                <h3
-                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                >
-                    How applying works
-                    <Icon
-                        name="arrow-down"
-                        style="solid"
-                        class="text-[10px] text-violet-500"
-                    />
-                </h3>
-                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
-                    Understand each step of the application journey.
-                </p>
-            </a>
-
-            <a
-                href="#when-to-apply"
-                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-            >
-                <div
-                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                >
-                    <Icon
-                        name="calendar-clock"
-                        style="regular"
-                        class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                    />
-                </div>
-                <h3
-                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                >
-                    When to apply
-                    <Icon
-                        name="arrow-down"
-                        style="solid"
-                        class="text-[10px] text-violet-500"
-                    />
-                </h3>
-                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
-                    See our application rounds and key dates.
-                </p>
-            </a>
-
-            <a
-                href="#attend-an-information-session"
-                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-            >
-                <div
-                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                >
-                    <Icon
-                        name="presentation-screen"
-                        style="regular"
-                        class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                    />
-                </div>
-                <h3
-                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                >
-                    Attend an info session
-                    <Icon
-                        name="arrow-down"
-                        style="solid"
-                        class="text-[10px] text-violet-500"
-                    />
-                </h3>
-                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
-                    Join a live session to learn more and ask questions.
-                </p>
-            </a>
-
-            <a
-                href="#check-your-eligibility"
-                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-            >
-                <div
-                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                >
-                    <Icon
-                        name="clipboard-list-check"
-                        style="regular"
-                        class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                    />
-                </div>
-                <h3
-                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                >
-                    Check your eligibility
-                    <Icon
-                        name="arrow-down"
-                        style="solid"
-                        class="text-[10px] text-violet-500"
-                    />
-                </h3>
-                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
-                    Confirm you meet our criteria before applying.
-                </p>
-            </a>
-
-            <a
-                href="#frequently-asked-questions"
-                class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-            >
-                <div
-                    class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                >
-                    <Icon
-                        name="messages-question"
-                        style="regular"
-                        class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                    />
-                </div>
-                <h3
-                    class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                >
-                    Frequently asked questions
-                    <Icon
-                        name="arrow-down"
-                        style="solid"
-                        class="text-[10px] text-violet-500"
-                    />
-                </h3>
-                <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
-                    Find answers to common questions about Awards.
-                </p>
-            </a>
+            {
+                navCards.map((card) => (
+                    <a
+                        href={card.href}
+                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+                    >
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors">
+                            <Icon
+                                name={card.icon}
+                                style="regular"
+                                class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                            />
+                        </div>
+                        <h3 class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5">
+                            {card.title}
+                            <Icon
+                                name="arrow-down"
+                                style="solid"
+                                class="text-[10px] text-violet-500"
+                            />
+                        </h3>
+                        <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
+                            {card.description}
+                        </p>
+                    </a>
+                ))
+            }
         </div>
 
         <!-- Related Pages -->
@@ -205,67 +127,33 @@ const typeformEmbedUrl = `${checkerUrl}?typeform-embed=embed-widget`;
                 Related pages
             </p>
             <div class="grid grid-cols-2 gap-3">
-                <a
-                    href="/awards/eligibility-criteria"
-                    class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-                >
-                    <div
-                        class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                    >
-                        <Icon
-                            name="check-circle"
-                            style="regular"
-                            class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                        />
-                    </div>
-                    <h3
-                        class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                    >
-                        Eligibility Criteria
-                        <Icon
-                            name="arrow-right"
-                            style="regular"
-                            class="text-[10px] text-violet-500"
-                        />
-                    </h3>
-                    <p
-                        class="text-violet-400 text-xs leading-relaxed line-clamp-2"
-                    >
-                        Check through the eligibility criteria before you take
-                        the Eligibility Checker.
-                    </p>
-                </a>
-
-                <a
-                    href="/equity-commitments"
-                    class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
-                >
-                    <div
-                        class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors"
-                    >
-                        <Icon
-                            name="hands-holding-heart"
-                            style="regular"
-                            class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
-                        />
-                    </div>
-                    <h3
-                        class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5"
-                    >
-                        Equity Commitments
-                        <Icon
-                            name="arrow-right"
-                            style="regular"
-                            class="text-[10px] text-violet-500"
-                        />
-                    </h3>
-                    <p
-                        class="text-violet-400 text-xs leading-relaxed line-clamp-2"
-                    >
-                        We are committed to supporting underrepresented
-                        entrepreneurs.
-                    </p>
-                </a>
+                {
+                    relatedPages.map((page) => (
+                        <a
+                            href={page.href}
+                            class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+                        >
+                            <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors">
+                                <Icon
+                                    name={page.icon}
+                                    style="regular"
+                                    class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                                />
+                            </div>
+                            <h3 class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5">
+                                {page.title}
+                                <Icon
+                                    name="arrow-right"
+                                    style="regular"
+                                    class="text-[10px] text-violet-500"
+                                />
+                            </h3>
+                            <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
+                                {page.description}
+                            </p>
+                        </a>
+                    ))
+                }
             </div>
         </div>
     </div>
@@ -281,10 +169,10 @@ const typeformEmbedUrl = `${checkerUrl}?typeform-embed=embed-widget`;
                 <span
                     class="inline-flex items-center rounded-full bg-amber-500 text-amber-950 px-3 py-1 text-sm font-semibold"
                 >
-                    Required First Step
+                    {checker.badge}
                 </span>
                 <span class="text-sm font-medium text-violet-700"
-                    >Eligibility Checker</span
+                    >{checker.label}</span
                 >
                 <a
                     href={checkerUrl}
@@ -292,7 +180,7 @@ const typeformEmbedUrl = `${checkerUrl}?typeform-embed=embed-widget`;
                     rel="noopener noreferrer"
                     class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm font-semibold text-violet-900 hover:text-violet-800 transition-colors"
                 >
-                    Open in new tab
+                    {checker.openLabel}
                     <Icon
                         name="arrow-up-right-from-square"
                         style="regular"
@@ -305,7 +193,7 @@ const typeformEmbedUrl = `${checkerUrl}?typeform-embed=embed-widget`;
                 <EmbedLoader
                     client:load
                     src={typeformEmbedUrl}
-                    title="Eligibility Checker"
+                    title={checker.label}
                     className="w-full h-full"
                 />
             </div>
