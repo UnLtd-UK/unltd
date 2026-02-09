@@ -1,0 +1,57 @@
+---
+/**
+ * AwardsRow Component
+ * Displays awards in a responsive grid, similar to the main Awards page
+ * Supports 1-4+ awards in a flexible layout
+ */
+
+import Award from "@components/awards/Award.astro";
+import Icon from "@components/Icon.astro";
+
+interface Props {
+    awards: any[];
+    showTitle?: boolean;
+}
+
+const { awards, showTitle = true } = Astro.props;
+
+const isMultipleAwards = awards.length > 1;
+const awardText = isMultipleAwards ? "Awards" : "Award";
+---
+
+<div>
+    {
+        showTitle && (
+            <p class="text-sm font-medium text-emerald-100 pb-4">
+                <Icon name="trophy-star" style="regular" class="mr-2" />
+                {isMultipleAwards
+                    ? `${awards.length} ${awardText} you can apply for`
+                    : `The ${awardText} you can apply for`}
+            </p>
+        )
+    }
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        {
+            awards.map((award) => (
+                <div class="w-full">
+                    <Award {...award} />
+                </div>
+            ))
+        }
+    </div>
+    {
+        isMultipleAwards && (
+            <div class="mt-4 flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20">
+                <Icon
+                    name="info-circle"
+                    style="solid"
+                    class="text-emerald-200 mt-0.5"
+                />
+                <p class="text-sm text-white">
+                    You can only apply for one Award at a time. Choose the
+                    programme that best fits your needs.
+                </p>
+            </div>
+        )
+    }
+</div>

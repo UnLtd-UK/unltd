@@ -2,122 +2,169 @@
 /**
  * ResourcesRow Component
  * Resources to help applicants prepare their application
+ *
+ * - Download link for the auto-generated fillable PDF form
+ * - Existing resource links (budget guidance, panel guide, info sessions)
  */
 
 import Icon from "@components/Icon.astro";
 
 interface Props {
-    applicationPreviewUrl?: string;
+    /** Path to the generated fillable PDF form */
+    downloadUrl: string;
 }
 
-const { applicationPreviewUrl = "/spaces/application-form-preview" } =
-    Astro.props;
+const { downloadUrl } = Astro.props;
 ---
 
-<div>
-    <p class="text-sm font-medium text-emerald-100 pb-4">
-        <Icon name="books" style="solid" class="mr-2" />
-        Resources to help you apply
-    </p>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Preview Application Questions -->
-        <a
-            href={applicationPreviewUrl}
-            class="group flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl ring-1 ring-white/10 hover:ring-white/30 transition-all duration-200"
+<div class="space-y-6">
+    <!-- Primary Action: Download Application Form -->
+    <div>
+        <p class="text-sm font-medium text-emerald-100 pb-4">
+            <Icon name="file-alt" style="solid" class="mr-2" />
+            Prepare your application
+        </p>
+
+        <!-- AI usage notice -->
+        <div
+            class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20 mb-4"
         >
-            <div
-                class="w-10 h-10 rounded-lg bg-emerald-400/20 flex items-center justify-center shrink-0"
+            <Icon
+                name="robot"
+                style="solid"
+                class="text-emerald-200 mt-0.5 h-4 w-4 shrink-0"
+            />
+            <div>
+                <p class="text-sm font-semibold text-white mb-1">
+                    On the use of AI
+                </p>
+                <p class="text-sm text-emerald-100">
+                    We know that AI chatbots can be helpful — they can make
+                    writing clearer and more structured. We encourage you to use
+                    them if they help you share your plans. But we want to hear
+                    <span class="font-semibold text-white">your voice</span>. If
+                    you use AI, please do so thoughtfully — as a tool, not a
+                    substitute. The more you personalise your responses and
+                    share your genuine values and vision, the stronger your
+                    application will be.
+                </p>
+            </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Download Application Form PDF -->
+            <a
+                href={downloadUrl}
+                download
+                class="group flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl ring-1 ring-white/10 hover:ring-white/30 transition-all duration-200"
             >
+                <div
+                    class="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center shrink-0"
+                >
+                    <Icon name="file-pdf" style="solid" class="text-red-300" />
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-semibold text-white">
+                        Download Application Form
+                    </p>
+                    <p class="text-xs text-emerald-200">
+                        Fillable PDF — draft your answers offline
+                    </p>
+                </div>
                 <Icon
-                    name="file-lines"
+                    name="download"
                     style="solid"
-                    class="text-emerald-300"
+                    class="text-emerald-300 group-hover:text-white transition-all"
                 />
-            </div>
-            <div class="flex-1 min-w-0">
-                <p class="text-sm font-semibold text-white">
-                    Application Preview
-                </p>
-                <p class="text-xs text-emerald-200">See the questions</p>
-            </div>
-            <Icon
-                name="arrow-right"
-                style="solid"
-                class="text-emerald-300 group-hover:text-white group-hover:translate-x-1 transition-all"
-            />
-        </a>
+            </a>
+        </div>
+    </div>
 
-        <!-- Budget Guidance -->
-        <a
-            href="/spaces/award-budget-guidance"
-            class="group flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl ring-1 ring-white/10 hover:ring-white/30 transition-all duration-200"
-        >
-            <div
-                class="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center shrink-0"
+    <!-- Secondary Resources Row -->
+    <div>
+        <p class="text-sm font-medium text-emerald-100 pb-4">
+            <Icon name="books" style="solid" class="mr-2" />
+            Resources to help you apply
+        </p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Budget Guidance -->
+            <a
+                href="/spaces/award-budget-guidance"
+                class="group flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl ring-1 ring-white/10 hover:ring-white/30 transition-all duration-200"
             >
-                <Icon name="coins" style="solid" class="text-amber-300" />
-            </div>
-            <div class="flex-1 min-w-0">
-                <p class="text-sm font-semibold text-white">Budget Guidance</p>
-                <p class="text-xs text-emerald-200">Plan your spending</p>
-            </div>
-            <Icon
-                name="arrow-right"
-                style="solid"
-                class="text-emerald-300 group-hover:text-white group-hover:translate-x-1 transition-all"
-            />
-        </a>
-
-        <!-- Panel Meeting Guide -->
-        <a
-            href="/spaces/panel-meeting-guide"
-            class="group flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl ring-1 ring-white/10 hover:ring-white/30 transition-all duration-200"
-        >
-            <div
-                class="w-10 h-10 rounded-lg bg-violet-500/20 flex items-center justify-center shrink-0"
-            >
-                <Icon name="users" style="solid" class="text-violet-300" />
-            </div>
-            <div class="flex-1 min-w-0">
-                <p class="text-sm font-semibold text-white">
-                    Panel Meeting Guide
-                </p>
-                <p class="text-xs text-emerald-200">Prepare for interview</p>
-            </div>
-            <Icon
-                name="arrow-right"
-                style="solid"
-                class="text-emerald-300 group-hover:text-white group-hover:translate-x-1 transition-all"
-            />
-        </a>
-
-        <!-- Pre-application Sessions -->
-        <a
-            href="https://www.eventbrite.com/cc/for-social-entrepreneurs-4794111"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="group flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl ring-1 ring-white/10 hover:ring-white/30 transition-all duration-200"
-        >
-            <div
-                class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center shrink-0"
-            >
+                <div
+                    class="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center shrink-0"
+                >
+                    <Icon name="coins" style="solid" class="text-amber-300" />
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-semibold text-white">
+                        Budget Guidance
+                    </p>
+                    <p class="text-xs text-emerald-200">Plan your spending</p>
+                </div>
                 <Icon
-                    name="calendar-check"
+                    name="arrow-right"
                     style="solid"
-                    class="text-blue-300"
+                    class="text-emerald-300 group-hover:text-white group-hover:translate-x-1 transition-all"
                 />
-            </div>
-            <div class="flex-1 min-w-0">
-                <p class="text-sm font-semibold text-white">Info Sessions</p>
-                <p class="text-xs text-emerald-200">
-                    Join a live Q&A on Eventbrite
-                </p>
-            </div>
-            <Icon
-                name="arrow-up-right-from-square"
-                style="solid"
-                class="text-emerald-300 group-hover:text-white transition-all"
-            />
-        </a>
+            </a>
+
+            <!-- Panel Meeting Guide -->
+            <a
+                href="/spaces/panel-meeting-guide"
+                class="group flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl ring-1 ring-white/10 hover:ring-white/30 transition-all duration-200"
+            >
+                <div
+                    class="w-10 h-10 rounded-lg bg-violet-500/20 flex items-center justify-center shrink-0"
+                >
+                    <Icon name="users" style="solid" class="text-violet-300" />
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-semibold text-white">
+                        Panel Meeting Guide
+                    </p>
+                    <p class="text-xs text-emerald-200">
+                        Prepare for interview
+                    </p>
+                </div>
+                <Icon
+                    name="arrow-right"
+                    style="solid"
+                    class="text-emerald-300 group-hover:text-white group-hover:translate-x-1 transition-all"
+                />
+            </a>
+
+            <!-- Pre-application Sessions -->
+            <a
+                href="https://www.eventbrite.com/cc/for-social-entrepreneurs-4794111"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl ring-1 ring-white/10 hover:ring-white/30 transition-all duration-200"
+            >
+                <div
+                    class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center shrink-0"
+                >
+                    <Icon
+                        name="calendar-check"
+                        style="solid"
+                        class="text-blue-300"
+                    />
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-semibold text-white">
+                        Info Sessions
+                    </p>
+                    <p class="text-xs text-emerald-200">
+                        Join a live Q&A on Eventbrite
+                    </p>
+                </div>
+                <Icon
+                    name="arrow-up-right-from-square"
+                    style="solid"
+                    class="text-emerald-300 group-hover:text-white transition-all"
+                />
+            </a>
+        </div>
     </div>
 </div>
