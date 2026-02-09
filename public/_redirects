@@ -10,13 +10,11 @@
 /resources/ /spaces
 /resources /spaces
 
-/* OLD PATHS */
 /file-uploads/ /spaces/prepare-your-financial-data
 /file-uploads /spaces/prepare-your-financial-data
 /financial-data-guide-for-award-application/ /spaces/prepare-your-financial-data
 /financial-data-guide-for-award-application /spaces/prepare-your-financial-data
 
-/* NONE SPACE TO SPACE */
 /accounting-for-your-award/ /spaces/accounting-for-your-award
 /accounting-for-your-award /spaces/accounting-for-your-award
 /assistance-for-those-living-in-wales/ /spaces/assistance-for-those-living-in-wales
