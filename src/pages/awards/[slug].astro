@@ -79,9 +79,6 @@ import Breadcrumbs from "@components/Breadcrumbs.astro";
 
 // COMPONENTS
 import EligibleHero from "@components/awards/EligibleHero.astro";
-import AwardsRow from "@components/awards/AwardsRow.astro";
-import ResourcesRow from "@components/awards/ResourcesRow.astro";
-import AdditionalSupportRow from "@components/awards/AdditionalSupportRow.astro";
 import HowApplyingWorks from "@components/awards/HowApplyingWorks.astro";
 import RoundWidget from "@components/awards/RoundWidgetWrapper.astro";
 import FrequentlyAskedQuestions from "@components/awards/FrequentlyAskedQuestions.astro";
@@ -106,18 +103,10 @@ import ReadyToApplyCTA from "@components/awards/ReadyToApplyCTA.astro";
             }}
             isRoundOpen={isRoundOpen}
             nextOpenDate={nextOpenDate}
-            showAwards={false}
+            downloadUrl={`/awards/downloads/${slug}.pdf`}
+            application={application}
         />
     </Container>
-    <Container id="awards" class="bg-emerald-600 py-8">
-        <AwardsRow awards={awards} />
-    </Container>
-    <Container id="resources" class="bg-emerald-700 py-8">
-        <ResourcesRow downloadUrl={`/awards/downloads/${slug}.pdf`} />
-    </Container>
-    <!-- <Container id="support" class="bg-slate-900 py-8">
-        <AdditionalSupportRow />
-    </Container> -->
     <Container id="how-applying-works" class="bg-violet-950 py-16">
         <HowApplyingWorks showResourceLinks={true} />
     </Container>

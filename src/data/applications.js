@@ -15,6 +15,14 @@ const filterOptions = {
     },
     fields: [
         '*',
+        'resources.resources_id.id',
+        'resources.resources_id.name',
+        'resources.resources_id.slug',
+        'resources.resources_id.description',
+        'resources.resources_id.external_url',
+        'resources.resources_id.type',
+        'resources.resources_id.spaces.spaces_id.id',
+        'resources.resources_id.spaces.spaces_id.name',
         'sections.sections_id.*',
         'sections.sections_id.fields.fields_id.*'
     ],

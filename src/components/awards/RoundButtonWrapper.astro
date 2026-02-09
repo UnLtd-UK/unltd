@@ -18,6 +18,7 @@ interface Props {
     isRoundOpen?: boolean;
     nextOpenDate?: string;
     applyUrl?: string;
+    variant?: "primary" | "hero";
     class?: string;
 }
 
@@ -26,6 +27,7 @@ const propsIsRoundOpen = Astro.props.isRoundOpen;
 const propsNextOpenDate = Astro.props.nextOpenDate;
 const {
     applyUrl = "https://unltd.microsoftcrmportals.com/applications",
+    variant = "primary",
     class: className = "",
 } = Astro.props;
 
@@ -52,4 +54,5 @@ const opensDateFormatted =
     opensDateFormatted={opensDateFormatted}
     devDateTime={devDateTime}
     applyUrl={applyUrl}
+    variant={variant}
 />

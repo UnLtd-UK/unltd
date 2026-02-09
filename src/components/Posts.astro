@@ -1,7 +1,6 @@
 ---
 import { posts } from "@data/posts.js";
 import Post from "@components/Post.astro";
-import slugify from "slugify";
 const slicedPosts = posts.slice(0, 3);
 ---
 
@@ -23,12 +22,7 @@ const slicedPosts = posts.slice(0, 3);
             {
                 slicedPosts.map((post) => (
                     <Post
-                        slug={slugify(post.title, {
-                            lower: true,
-                            strict: true,
-                            locale: "en",
-                            trim: true,
-                        })}
+                        slug={post.slug}
                         title={post.title}
                         description={post.description}
                         image={{
