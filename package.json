@@ -78,6 +78,6 @@
     "baseline-browser-mapping": "^2.9.19",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.1.2",
-    "wrangler": "^4.63.0"
+    "wrangler": "^4.64.0"
   }
 }

@@ -12,7 +12,8 @@
  */
 
 import Icon from "@components/Icon.astro";
-import AwardCompact from "@components/awards/AwardCompact.astro";
+// import AwardCompact from "@components/awards/AwardCompact.astro";
+import Award from "@components/awards/Award.astro";
 import RoundButton from "@components/awards/RoundButtonWrapper.astro";
 
 interface Props {
@@ -43,259 +44,179 @@ const resources = (application?.resources ?? [])
 <section
     x-data="{ email: new URLSearchParams(window.location.search).get('email') }"
 >
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
         <!-- Hero Header -->
-        <div class="max-w-3xl">
-            <div class="flex items-center gap-4 mb-4">
-                <div class="relative">
-                    <div
-                        class="w-14 h-14 rounded-full bg-emerald-500/20 flex items-center justify-center"
-                    >
-                        <Icon
-                            name="circle-check"
-                            style="solid"
-                            class="text-3xl text-emerald-400"
-                        />
-                    </div>
-                    <div
-                        class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-emerald-400 flex items-center justify-center"
-                    >
-                        <Icon
-                            name="sparkles"
-                            style="solid"
-                            class="text-[8px] text-emerald-900"
-                        />
-                    </div>
+
+        <div class="flex flex-col lg:flex-row gap-8 lg:gap-5">
+            <div class="max-w-3xl flex-1 flex flex-col gap-7">
+                <div class="flex flex-col gap-4">
+                    <Icon
+                        name="badge-check"
+                        style="solid"
+                        class="!h-12 !w-12 text-emerald-200"
+                    />
+
+                    <h1 class="text-3xl md:text-4xl lg:text-6xl font-bold">
+                        You're eligible to apply for an Award
+                    </h1>
+
+                    <p class="text-md text-white">
+                        The way our application process works is you don't apply
+                        for a specific Award. You submit one application and
+                        we'll match you to the right Award. There is a question
+                        where you can indicate which programme you're most
+                        interested in.
+                    </p>
                 </div>
-                <span
-                    class="inline-flex items-center rounded-full bg-emerald-500 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-white"
+                <!-- Email confirmation (client-side) -->
+                <div
+                    x-show="email"
+                    x-cloak
+                    class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20 mb-6"
                 >
                     <Icon
-                        name="plus"
+                        name="envelope-circle-check"
                         style="solid"
-                        class="mr-1.5 text-[10px]"
+                        class="text-emerald-200 mt-0.5"
                     />
-                    Eligibility Confirmed
-                </span>
-            </div>
+                    <p class="text-sm text-white">
+                        We've emailed <span x-text="email" class="font-semibold"
+                        ></span> a link to this page
+                    </p>
+                </div>
 
-            <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                You're eligible to apply for <span class="text-emerald-400"
-                    >{isMultipleAwards ? awards.length : "a"}
-                    {" "}{awardText}</span
+                <!-- AI Statement -->
+                <div
+                    class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20"
                 >
-            </h1>
-
-            <p class="text-lg text-emerald-100 mb-6">
-                {page.tradingDescription}, which means you can apply for {
-                    isMultipleAwards ? "either of these Awards" : "this Award"
-                }.
-            </p>
-
-            <!-- Email confirmation (client-side) -->
-            <div
-                x-show="email"
-                x-cloak
-                class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20 mb-6"
-            >
-                <Icon
-                    name="envelope-circle-check"
-                    style="solid"
-                    class="text-emerald-200 mt-0.5"
-                />
-                <p class="text-sm text-white">
-                    We've emailed <span x-text="email" class="font-semibold"
-                    ></span> a link to this page
-                </p>
-            </div>
-        </div>
-
-        <!-- Compact Award Cards -->
-        <div class="mt-2">
-            <p class="text-sm font-medium text-emerald-100 pb-3">
-                <Icon name="trophy-star" style="regular" class="mr-1.5" />
-                {
-                    isMultipleAwards
-                        ? `${awards.length} ${awardText} you can apply for`
-                        : `The ${awardText} you can apply for`
-                }
-                <span class="text-emerald-200/60 ml-1"
-                    >&mdash; click for details</span
-                >
-            </p>
-
-            {
-                isMultipleAwards && (
-                    <div class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20 mb-4">
-                        <Icon
-                            name="info-circle"
-                            style="solid"
-                            class="text-emerald-200 mt-0.5"
-                        />
-                        <p class="text-sm text-white">
-                            You can only apply for one Award at a time. Choose
-                            the programme that best fits your needs.
+                    <Icon
+                        name="robot"
+                        style="solid"
+                        class="text-emerald-200 mt-0.5 h-4 w-4 shrink-0"
+                    />
+                    <div>
+                        <p class="text-sm font-semibold text-white mb-1">
+                            On the use of AI
+                        </p>
+                        <p class="text-sm text-emerald-100">
+                            We know that AI chatbots can be helpful — they can
+                            make writing clearer and more structured. We
+                            encourage you to use them if they help you share
+                            your plans. But we want to hear
+                            <span class="font-semibold text-white"
+                                >your voice</span
+                            >. If you use AI, please do so thoughtfully — as a
+                            tool, not a substitute. The more you personalise
+                            your responses and share your genuine values and
+                            vision, the stronger your application will be.
                         </p>
                     </div>
-                )
-            }
+                </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                {awards.map((award) => <AwardCompact {...award} />)}
-            </div>
-        </div>
-
-        <!-- AI Statement -->
-        <div
-            class="mt-8 flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20"
-        >
-            <Icon
-                name="robot"
-                style="solid"
-                class="text-emerald-200 mt-0.5 h-4 w-4 shrink-0"
-            />
-            <div>
-                <p class="text-sm font-semibold text-white mb-1">
-                    On the use of AI
-                </p>
-                <p class="text-sm text-emerald-100">
-                    We know that AI chatbots can be helpful — they can make
-                    writing clearer and more structured. We encourage you to use
-                    them if they help you share your plans. But we want to hear
-                    <span class="font-semibold text-white">your voice</span>. If
-                    you use AI, please do so thoughtfully — as a tool, not a
-                    substitute. The more you personalise your responses and
-                    share your genuine values and vision, the stronger your
-                    application will be.
-                </p>
-            </div>
-        </div>
-
-        <!-- Apply / Portal Button -->
-        <div class="mt-8">
-            <RoundButton
-                isRoundOpen={isRoundOpen}
-                nextOpenDate={nextOpenDate}
-                variant="hero"
-            />
-        </div>
-
-        <!-- Resources & Downloads -->
-        <div class="mt-10 pt-8">
-            <p class="text-sm font-medium text-emerald-100 pb-4">
-                <Icon name="file-alt" style="solid" class="mr-1.5" />
-                Prepare your application
-            </p>
-
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                {/* Fillable PDF download — always first */}
-                {
-                    downloadUrl && (
-                        <a
-                            href={downloadUrl}
-                            download
-                            class="group flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl ring-1 ring-white/10 hover:ring-white/30 transition-all duration-200"
-                        >
-                            <div class="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center shrink-0">
-                                <Icon
-                                    name="file-pdf"
-                                    style="solid"
-                                    class="text-red-300"
-                                />
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-semibold text-white">
-                                    Application Form
-                                </p>
-                                <p class="text-xs text-emerald-200">
-                                    Fillable PDF &mdash; draft your answers
-                                    offline
-                                </p>
-                            </div>
-                            <Icon
-                                name="download"
-                                style="solid"
-                                class="text-emerald-300 group-hover:text-white transition-all"
-                            />
-                        </a>
-                    )
-                }
-
-                {
-                    /* Resources from the application's resources field in Directus */
-                }
-                {
-                    resources.map((resource: any) => {
-                        const isExternal = !!resource.external_url;
-                        const href = isExternal
-                            ? resource.external_url
-                            : `/spaces/${resource.slug}`;
-                        const iconName =
-                            resource.icon ||
-                            (isExternal ? "book-open" : "file-lines");
-
-                        // Rotating accent colours for resource icons
-                        const iconThemes = [
-                            { bg: "bg-blue-500/20", text: "text-blue-300" },
-                            { bg: "bg-purple-500/20", text: "text-purple-300" },
-                            { bg: "bg-amber-500/20", text: "text-amber-300" },
-                            { bg: "bg-teal-500/20", text: "text-teal-300" },
-                        ];
-
-                        return (
+                <!-- Apply / Portal Button -->
+                <div class="flex flex-wrap items-center gap-4">
+                    <RoundButton
+                        isRoundOpen={isRoundOpen}
+                        nextOpenDate={nextOpenDate}
+                        variant="hero"
+                    />
+                    {
+                        downloadUrl && (
                             <a
-                                href={href}
-                                target={isExternal ? "_blank" : undefined}
-                                rel={
-                                    isExternal
-                                        ? "noopener noreferrer"
-                                        : undefined
-                                }
-                                class="group flex items-center gap-3 p-4 bg-white/10 hover:bg-white/20 rounded-xl ring-1 ring-white/10 hover:ring-white/30 transition-all duration-200"
+                                href={downloadUrl}
+                                download
+                                class="inline-flex items-center gap-3 px-5 py-3 rounded-xl transition-all duration-200 ring-2 ring-white/30 text-white hover:bg-white/10 hover:ring-white/50"
                             >
-                                <div
-                                    class:list={[
-                                        "w-10 h-10 rounded-lg flex items-center justify-center shrink-0",
-                                        iconThemes[
-                                            resources.indexOf(resource) %
-                                                iconThemes.length
-                                        ].bg,
-                                    ]}
-                                >
-                                    <Icon
-                                        name={iconName}
-                                        style="solid"
-                                        class={
-                                            iconThemes[
-                                                resources.indexOf(resource) %
-                                                    iconThemes.length
-                                            ].text
-                                        }
-                                    />
-                                </div>
-                                <div class="flex-1 min-w-0">
-                                    <p class="text-sm font-semibold text-white">
-                                        {resource.name}
-                                    </p>
-                                    {resource.description && (
-                                        <p class="text-xs text-emerald-200 mt-0.5 line-clamp-2">
-                                            {resource.description}
-                                        </p>
-                                    )}
+                                <div class="text-left">
+                                    <span class="block font-bold text-lg leading-tight">
+                                        Draft your application
+                                    </span>
+                                    <span class="block text-xs text-emerald-200 leading-snug">
+                                        A fillable PDF so you can draft your
+                                        answers offline
+                                    </span>
                                 </div>
                                 <Icon
-                                    name={
-                                        isExternal
-                                            ? "arrow-up-right-from-square"
-                                            : "arrow-right"
-                                    }
+                                    name="download"
                                     style="solid"
-                                    class={`text-emerald-300 shrink-0 mt-0.5 group-hover:text-white transition-all ${!isExternal ? "group-hover:translate-x-1" : ""}`}
+                                    class="shrink-0"
                                 />
                             </a>
-                        );
-                    })
-                }
+                        )
+                    }
+                </div>
+
+                <!-- Resources & Downloads -->
+                <div class="">
+                    <p class="flex text-sm font-medium text-emerald-100 pb-4">
+                        <Icon name="file-alt" style="solid" class="mr-1.5" />
+                        Useful resources to help you with your application
+                    </p>
+
+                    <ul class="flex flex-col gap-3">
+                        {
+                            /* Resources from the application's resources field in Directus */
+                        }
+                        {
+                            resources.map((resource: any) => {
+                                const isExternal = !!resource.external_url;
+                                const href = isExternal
+                                    ? resource.external_url
+                                    : `/spaces/${resource.slug}`;
+
+                                return (
+                                    <li>
+                                        <a
+                                            href={href}
+                                            target={
+                                                isExternal
+                                                    ? "_blank"
+                                                    : undefined
+                                            }
+                                            rel={
+                                                isExternal
+                                                    ? "noopener noreferrer"
+                                                    : undefined
+                                            }
+                                            class="group inline-flex items-start gap-2 text-sm transition-colors"
+                                        >
+                                            <Icon
+                                                name={
+                                                    isExternal
+                                                        ? "arrow-up-right-from-square"
+                                                        : "arrow-right"
+                                                }
+                                                style="solid"
+                                                class={`h-3 w-3 shrink-0 mt-1 text-emerald-200 transition-transform ${!isExternal ? "group-hover:translate-x-0.5" : ""}`}
+                                            />
+                                            <span>
+                                                <span class="font-medium text-white underline decoration-emerald-200/40 underline-offset-2 group-hover:decoration-white">
+                                                    {resource.name}
+                                                </span>
+                                                {resource.description && (
+                                                    <span class="block text-xs text-emerald-200/70 mt-0.5 no-underline">
+                                                        {resource.description}
+                                                    </span>
+                                                )}
+                                            </span>
+                                        </a>
+                                    </li>
+                                );
+                            })
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex-1 flex flex-col gap-5">
+                <p class="text-xs text-white">
+                    Below are the Awards which you would be considered for based
+                    off your eligibility checker results:
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-5 lg:gap-7">
+                    {awards.map((award) => <Award {...award} />)}
+                </div>
             </div>
         </div>
     </div>

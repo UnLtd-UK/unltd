@@ -127,7 +127,6 @@ export default function RoundButton({
                 href={applyUrl}
                 className={`inline-flex items-center gap-3 px-8 py-4 font-bold rounded-xl text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 ${getButtonStyles()}`}
             >
-                <Icon name="rocket" style="solid" />
                 Apply Now
                 <Icon name="arrow-right" style="solid" />
             </a>
