@@ -35,7 +35,7 @@ export async function GET({ params }: { params: { slug: string } }) {
         sections: application.sections ?? [],
     });
 
-    return new Response(pdfBytes, {
+    return new Response(pdfBytes.buffer as ArrayBuffer, {
         headers: {
             "Content-Type": "application/pdf",
             "Content-Disposition": `inline; filename="${application.slug}-application-form.pdf"`,
