@@ -25,7 +25,10 @@ export async function GET({ params }: { params: { slug: string } }) {
         return new Response("Not found", { status: 404 });
     }
 
-    const { application } = result;
+    const { application, awards } = result;
+
+    // Extract resources from the M2M join
+    const resources = (application.resources ?? []).map((r: any) => r.resources_id).filter(Boolean);
 
     const pdfBytes = await generateApplicationPdf({
         applicationName: application.name,
@@ -33,6 +36,9 @@ export async function GET({ params }: { params: { slug: string } }) {
         stageSlug: application.stage,
         stageText: application.stage_text,
         sections: application.sections ?? [],
+        awards,
+        resources,
+        tradingDescription: application.trading_description,
     });
 
     return new Response(pdfBytes.buffer as ArrayBuffer, {

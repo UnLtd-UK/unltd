@@ -15,6 +15,8 @@
 
 import {
     PDFDocument,
+    PDFName,
+    PDFString,
     rgb,
     type PDFFont,
     type PDFPage,
@@ -56,12 +58,29 @@ interface SectionData {
     };
 }
 
+interface ResourceData {
+    name: string;
+    slug: string;
+    description?: string;
+    external_url?: string;
+}
+
+interface AwardData {
+    name: string;
+    grant: number;
+    stage: string;
+    programme: { name: string };
+}
+
 interface GeneratePdfOptions {
     applicationName: string;
     slug: string;
     stageSlug?: string;
     stageText?: string;
     sections: SectionData[];
+    awards?: AwardData[];
+    resources?: ResourceData[];
+    tradingDescription?: string;
 }
 
 // ─── Constants ──────────────────────────────────────────────────────────
@@ -197,6 +216,50 @@ function wrapText(
     }
 
     return lines;
+}
+
+// ─── Link annotations ──────────────────────────────────────────────────
+
+/**
+ * Create a clickable URL annotation on a PDF page.
+ * Uses the low-level pdf-lib API since there's no high-level link method.
+ *
+ * @param page  The page to attach the link to
+ * @param uri   The full URL (include https://)
+ * @param rect  [x1, y1, x2, y2] — lower-left to upper-right bounding box
+ */
+function addLinkAnnotation(
+    page: PDFPage,
+    uri: string,
+    rect: [number, number, number, number],
+): void {
+    const context = page.doc.context;
+    const linkDict = context.obj({
+        Type: "Annot",
+        Subtype: "Link",
+        Rect: rect,
+        Border: [0, 0, 0],
+        C: [0, 0, 0],
+        A: {
+            Type: "Action",
+            S: "URI",
+            URI: PDFString.of(uri),
+        },
+    });
+    const linkRef = context.register(linkDict);
+
+    // Append to existing annotations (form fields create widget annotations)
+    const annotsRef = page.node.get(PDFName.of("Annots"));
+    if (annotsRef) {
+        const annots = context.lookup(annotsRef) as any;
+        if (annots && typeof annots.push === "function") {
+            annots.push(linkRef);
+        } else {
+            page.node.set(PDFName.of("Annots"), context.obj([annotsRef, linkRef]));
+        }
+    } else {
+        page.node.set(PDFName.of("Annots"), context.obj([linkRef]));
+    }
 }
 
 // ─── Page cursor ────────────────────────────────────────────────────────
@@ -341,6 +404,97 @@ class PageCursor {
             this.y -= lh;
         }
     }
+
+    /** Draw a single line of text as a clickable URL link */
+    drawLinkedText(
+        displayText: string,
+        url: string,
+        font: PDFFont,
+        fontSize: number,
+        color = COLOUR_VIOLET,
+        xOffset = 0,
+    ): void {
+        const lh = fontSize + 4;
+        this.ensureSpace(lh);
+
+        const x = MARGIN_LEFT + xOffset;
+        this.page.drawText(displayText, {
+            x,
+            y: this.y,
+            size: fontSize,
+            font,
+            color,
+        });
+
+        const textWidth = font.widthOfTextAtSize(displayText, fontSize);
+        addLinkAnnotation(this.page, url, [
+            x,
+            this.y - 2,
+            x + textWidth,
+            this.y + fontSize,
+        ]);
+
+        this.y -= lh;
+    }
+
+    /** Draw wrapped text that contains a URL — renders the URL portion as a clickable link */
+    drawWrappedTextWithLink(
+        textBefore: string,
+        linkText: string,
+        url: string,
+        textAfter: string,
+        font: PDFFont,
+        fontSize: number,
+        color = COLOUR_DARK_GREY,
+        linkColor = COLOUR_VIOLET,
+        lineHeight?: number,
+    ): void {
+        const lh = lineHeight ?? fontSize + 4;
+        this.ensureSpace(lh);
+
+        let x = MARGIN_LEFT;
+
+        if (textBefore) {
+            this.page.drawText(textBefore, {
+                x,
+                y: this.y,
+                size: fontSize,
+                font,
+                color,
+            });
+            x += font.widthOfTextAtSize(textBefore, fontSize);
+        }
+
+        // Draw the linked portion
+        this.page.drawText(linkText, {
+            x,
+            y: this.y,
+            size: fontSize,
+            font,
+            color: linkColor,
+        });
+
+        const linkWidth = font.widthOfTextAtSize(linkText, fontSize);
+        addLinkAnnotation(this.page, url, [
+            x,
+            this.y - 2,
+            x + linkWidth,
+            this.y + fontSize,
+        ]);
+        x += linkWidth;
+
+        if (textAfter) {
+            this.page.drawText(textAfter, {
+                x,
+                y: this.y,
+                size: fontSize,
+                font,
+                color,
+            });
+        }
+
+        this.y -= lh;
+    }
 }
 
 // ─── Field renderers ────────────────────────────────────────────────────
@@ -355,11 +509,15 @@ function renderInputField(
     // File upload — just a note, no form field
     if (field.input_type === "file") {
         cursor.ensureSpace(40);
-        cursor.drawWrappedText(
-            "File uploads must be submitted via the Application Portal at portal.unltd.org.uk",
+        cursor.drawWrappedTextWithLink(
+            "File uploads must be submitted via the Application Portal at ",
+            "portal.unltd.org.uk",
+            "https://portal.unltd.org.uk",
+            "",
             fonts.regular,
             FONT_SIZE_BODY,
             COLOUR_MID_GREY,
+            COLOUR_VIOLET,
             LINE_HEIGHT_BODY,
         );
         cursor.y -= 4;
@@ -607,7 +765,7 @@ function renderCheckboxesField(
 export async function generateApplicationPdf(
     options: GeneratePdfOptions,
 ): Promise<Uint8Array> {
-    const { applicationName, slug, stageSlug, stageText, sections } = options;
+    const { applicationName, slug, stageSlug, stageText, sections, awards, resources } = options;
 
     // Find the most recent date_updated across all sections and fields
     const allDates: number[] = [];
@@ -626,7 +784,9 @@ export async function generateApplicationPdf(
         : new Date();
 
     const applyUrl = `unltd.org.uk/awards/${slug}`;
+    const applyUrlFull = `https://${applyUrl}`;
     const downloadUrl = `unltd.org.uk/awards/downloads/${slug}.pdf`;
+    const downloadUrlFull = `https://${downloadUrl}`;
 
     const pdfDoc = await PDFDocument.create();
 
@@ -634,7 +794,7 @@ export async function generateApplicationPdf(
     pdfDoc.registerFontkit(fontkit);
 
     // Metadata
-    pdfDoc.setTitle(`${applicationName} — Application Form`);
+    pdfDoc.setTitle("Draft your UnLtd Award application before you apply");
     pdfDoc.setAuthor("UnLtd");
     pdfDoc.setSubject(
         stageText
@@ -682,61 +842,227 @@ export async function generateApplicationPdf(
         width: logoWidth,
         height: logoHeight,
     });
-    cursor.y -= logoHeight + 16;
+    cursor.y -= logoHeight + 12;
 
-    // ── Title area ──────────────────────────────────────────────────────
+    // ── PDF metadata / version stamp ────────────────────────────────
 
-    cursor.page.drawText(applicationName, {
-        x: MARGIN_LEFT,
-        y: cursor.y,
-        size: FONT_SIZE_TITLE,
-        font: nunitoBold,
-        color: COLOUR_BLACK,
+    const versionDate = lastUpdated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+    const versionTime = lastUpdated.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+
+    cursor.drawWrappedText(
+        `Based on application data from ${versionDate} at ${versionTime}.`,
+        nunitoRegular,
+        FONT_SIZE_SMALL,
+        COLOUR_MID_GREY,
+        LINE_HEIGHT_SMALL,
+    );
+    cursor.drawWrappedTextWithLink(
+        "Ensure you have the latest version: ",
+        downloadUrl,
+        downloadUrlFull,
+        "",
+        nunitoRegular,
+        FONT_SIZE_SMALL,
+        COLOUR_MID_GREY,
+        COLOUR_VIOLET,
+        LINE_HEIGHT_SMALL,
+    );
+    cursor.y -= 8;
+
+    // ── Title ───────────────────────────────────────────────────────
+
+    cursor.drawWrappedText(
+        "Draft your UnLtd Award application before you apply",
+        nunitoBold,
+        18,
+        COLOUR_BLACK,
+        22,
+    );
+    cursor.y -= 2;
+
+    // ── Fillable PDF explanation ────────────────────────────────────
+
+    cursor.drawWrappedText(
+        "This is a fillable PDF — you can type your answers directly into the form fields below. Use it to draft your responses offline before submitting your application online. When you're ready, copy and paste your answers into the online application form.",
+        nunitoRegular,
+        FONT_SIZE_BODY,
+        COLOUR_DARK_GREY,
+        LINE_HEIGHT_BODY,
+    );
+    cursor.y -= 10;
+
+    // Divider
+    cursor.page.drawLine({
+        start: { x: MARGIN_LEFT, y: cursor.y },
+        end: { x: PAGE_WIDTH - MARGIN_RIGHT, y: cursor.y },
+        thickness: 0.5,
+        color: COLOUR_LIGHT_GREY,
     });
-    cursor.y -= FONT_SIZE_TITLE + 6;
+    cursor.y -= 10;
 
-    cursor.page.drawText("Application Form", {
+    // ── Eligible awards ─────────────────────────────────────────────
+
+    if (awards && awards.length > 0) {
+        cursor.page.drawText("Your eligible awards", {
+            x: MARGIN_LEFT,
+            y: cursor.y,
+            size: FONT_SIZE_SUBTITLE,
+            font: nunitoBold,
+            color: COLOUR_VIOLET,
+        });
+        cursor.y -= FONT_SIZE_SUBTITLE + 4;
+
+        cursor.drawWrappedText(
+            "Based on the eligibility checker, you could be eligible for the following awards:",
+            nunitoRegular,
+            FONT_SIZE_BODY,
+            COLOUR_MID_GREY,
+            LINE_HEIGHT_BODY,
+        );
+        cursor.y -= 2;
+
+        for (const award of awards) {
+            const stageLabel = award.stage === "starting-up" ? "Starting Up" : "Scaling Up";
+            const grantFormatted = award.grant ? `up to \u00A3${award.grant.toLocaleString("en-GB")}` : "";
+            const awardLine = `\u2022  ${stageLabel} — ${award.programme.name}${grantFormatted ? ` (${grantFormatted})` : ""}`;
+            cursor.drawWrappedText(
+                sanitiseForPdf(awardLine),
+                nunitoRegular,
+                FONT_SIZE_BODY,
+                COLOUR_DARK_GREY,
+                LINE_HEIGHT_BODY,
+            );
+        }
+        cursor.y -= 10;
+
+        // Divider
+        cursor.page.drawLine({
+            start: { x: MARGIN_LEFT, y: cursor.y },
+            end: { x: PAGE_WIDTH - MARGIN_RIGHT, y: cursor.y },
+            thickness: 0.5,
+            color: COLOUR_LIGHT_GREY,
+        });
+        cursor.y -= 10;
+    }
+
+    // ── AI statement ────────────────────────────────────────────────
+
+    cursor.page.drawText("A note on using AI", {
         x: MARGIN_LEFT,
         y: cursor.y,
         size: FONT_SIZE_SUBTITLE,
-        font: nunitoRegular,
+        font: nunitoBold,
         color: COLOUR_VIOLET,
     });
-    cursor.y -= FONT_SIZE_SUBTITLE + 6;
+    cursor.y -= FONT_SIZE_SUBTITLE + 4;
 
-    if (stageText) {
+    cursor.drawWrappedText(
+        "We know that AI chatbots can be helpful — they can make writing clearer and more structured. We encourage you to use them if they help you share your plans. But we want to hear your voice. If you use AI, please do so thoughtfully — as a tool, not a substitute. The more you personalise your responses and share your genuine values and vision, the stronger your application will be.",
+        nunitoRegular,
+        FONT_SIZE_BODY,
+        COLOUR_DARK_GREY,
+        LINE_HEIGHT_BODY,
+    );
+    cursor.y -= 10;
+
+    // Divider
+    cursor.page.drawLine({
+        start: { x: MARGIN_LEFT, y: cursor.y },
+        end: { x: PAGE_WIDTH - MARGIN_RIGHT, y: cursor.y },
+        thickness: 0.5,
+        color: COLOUR_LIGHT_GREY,
+    });
+    cursor.y -= 10;
+
+    // ── Resources ───────────────────────────────────────────────────
+
+    if (resources && resources.length > 0) {
+        cursor.page.drawText("Helpful resources", {
+            x: MARGIN_LEFT,
+            y: cursor.y,
+            size: FONT_SIZE_SUBTITLE,
+            font: nunitoBold,
+            color: COLOUR_VIOLET,
+        });
+        cursor.y -= FONT_SIZE_SUBTITLE + 4;
+
         cursor.drawWrappedText(
-            `For a social venture which ${stageText}.`,
+            "The following resources are available to help you with your application:",
             nunitoRegular,
             FONT_SIZE_BODY,
             COLOUR_MID_GREY,
             LINE_HEIGHT_BODY,
         );
         cursor.y -= 4;
+
+        for (const resource of resources) {
+            // Resource title
+            cursor.ensureSpace(30);
+            const resourceUrl = resource.external_url
+                ? (resource.external_url.startsWith("http") ? resource.external_url : `https://${resource.external_url}`)
+                : `https://unltd.org.uk/spaces/${resource.slug}`;
+            const resourceDisplayUrl = resource.external_url
+                ? resource.external_url.replace(/^https?:\/\//, "")
+                : `unltd.org.uk/spaces/${resource.slug}`;
+
+            // Bold resource name
+            cursor.page.drawText(sanitiseForPdf(`\u2022  ${resource.name}`), {
+                x: MARGIN_LEFT,
+                y: cursor.y,
+                size: FONT_SIZE_BODY,
+                font: nunitoBold,
+                color: COLOUR_DARK_GREY,
+            });
+            cursor.y -= LINE_HEIGHT_BODY;
+
+            // Resource description
+            if (resource.description) {
+                cursor.drawWrappedTextIndented(
+                    stripMarkdown(resource.description),
+                    nunitoRegular,
+                    FONT_SIZE_SMALL,
+                    14,
+                    COLOUR_MID_GREY,
+                    LINE_HEIGHT_SMALL,
+                );
+            }
+
+            // Clickable URL
+            cursor.drawLinkedText(
+                resourceDisplayUrl,
+                resourceUrl,
+                nunitoRegular,
+                FONT_SIZE_SMALL,
+                COLOUR_VIOLET,
+                14,
+            );
+            cursor.y -= 4;
+        }
+        cursor.y -= 6;
+
+        // Divider
+        cursor.page.drawLine({
+            start: { x: MARGIN_LEFT, y: cursor.y },
+            end: { x: PAGE_WIDTH - MARGIN_RIGHT, y: cursor.y },
+            thickness: 0.5,
+            color: COLOUR_LIGHT_GREY,
+        });
+        cursor.y -= 10;
     }
 
-    // Divider
-    cursor.page.drawLine({
-        start: { x: MARGIN_LEFT, y: cursor.y },
-        end: { x: PAGE_WIDTH - MARGIN_RIGHT, y: cursor.y },
-        thickness: 1,
-        color: COLOUR_LIGHT_GREY,
-    });
-    cursor.y -= 16;
-
-    // ── DO NOT EMAIL warning ────────────────────────────────────────────
+    // ── Where to apply — DO NOT EMAIL warning ───────────────────────
 
     const warningHeading = "DO NOT email us this form — This is NOT how you apply.";
-    const warningBody = [
-        "This PDF is for drafting your answers offline only. Do not email this form to UnLtd. We will not accept emailed applications.",
-        "",
+    const warningBody_before = "This PDF is for drafting your answers offline only. Do not email this form to UnLtd. We will not accept emailed applications.";
+    const warningSteps = [
         "How to submit your application:",
         `1. Go to: ${applyUrl}`,
         "2. Click 'Apply now'",
         "3. Sign up or sign in to the Application Portal",
         "4. Start your application online",
         "5. Copy and paste your drafted answers from this PDF into the online form",
-    ].join("\n");
+    ];
+    const warningBody = [warningBody_before, "", ...warningSteps].join("\n");
 
     // Measure the warning block height
     const warningHeadingLines = wrapText(warningHeading, nunitoBold, FONT_SIZE_SECTION_HEADING, CONTENT_WIDTH - 24);
@@ -748,6 +1074,7 @@ export async function generateApplicationPdf(
     cursor.ensureSpace(warningBlockHeight + 4);
 
     // Red background box
+    const warningBoxTop = cursor.y;
     cursor.page.drawRectangle({
         x: MARGIN_LEFT,
         y: cursor.y - warningBlockHeight + 8,
@@ -772,7 +1099,7 @@ export async function generateApplicationPdf(
     }
     cursor.y -= 4;
 
-    // Warning body (regular, white)
+    // Warning body (regular, white) — track the apply URL line to add link
     for (const line of warningBodyLines) {
         cursor.page.drawText(line, {
             x: MARGIN_LEFT + 12,
@@ -781,19 +1108,23 @@ export async function generateApplicationPdf(
             font: nunitoRegular,
             color: COLOUR_WHITE,
         });
+
+        // Make the apply URL clickable within the warning box
+        if (line.includes(applyUrl)) {
+            const prefixText = line.substring(0, line.indexOf(applyUrl));
+            const prefixWidth = prefixText ? nunitoRegular.widthOfTextAtSize(prefixText, FONT_SIZE_BODY) : 0;
+            const urlWidth = nunitoRegular.widthOfTextAtSize(applyUrl, FONT_SIZE_BODY);
+            addLinkAnnotation(cursor.page, applyUrlFull, [
+                MARGIN_LEFT + 12 + prefixWidth,
+                cursor.y - 2,
+                MARGIN_LEFT + 12 + prefixWidth + urlWidth,
+                cursor.y + FONT_SIZE_BODY,
+            ]);
+        }
+
         cursor.y -= LINE_HEIGHT_BODY;
     }
     cursor.y -= 12; // bottom padding
-
-    // Small generated-at note below the warning
-    cursor.y -= 6;
-    cursor.drawWrappedText(
-        `Version from ${lastUpdated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} at ${lastUpdated.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}. If this does not match website, download the latest version from: ${downloadUrl}`,
-        nunitoRegular,
-        FONT_SIZE_SMALL,
-        COLOUR_MID_GREY,
-        LINE_HEIGHT_SMALL,
-    );
 
     cursor.y -= SECTION_GAP;
 
@@ -966,7 +1297,7 @@ export async function generateApplicationPdf(
     }
     cursor.y -= 4;
 
-    // Footer body (regular, white)
+    // Footer body (regular, white) — make apply URL clickable
     for (const line of footerBodyLines) {
         cursor.page.drawText(line, {
             x: MARGIN_LEFT + 12,
@@ -975,6 +1306,19 @@ export async function generateApplicationPdf(
             font: nunitoRegular,
             color: COLOUR_WHITE,
         });
+
+        if (line.includes(applyUrl)) {
+            const prefixText = line.substring(0, line.indexOf(applyUrl));
+            const prefixWidth = prefixText ? nunitoRegular.widthOfTextAtSize(prefixText, FONT_SIZE_BODY) : 0;
+            const urlWidth = nunitoRegular.widthOfTextAtSize(applyUrl, FONT_SIZE_BODY);
+            addLinkAnnotation(cursor.page, applyUrlFull, [
+                MARGIN_LEFT + 12 + prefixWidth,
+                cursor.y - 2,
+                MARGIN_LEFT + 12 + prefixWidth + urlWidth,
+                cursor.y + FONT_SIZE_BODY,
+            ]);
+        }
+
         cursor.y -= LINE_HEIGHT_BODY;
     }
     cursor.y -= 12;
