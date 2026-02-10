@@ -42,6 +42,7 @@ interface FieldData {
         max_length?: number;
         prefix?: string;
         suffix?: string;
+        date_updated?: string;
     };
 }
 
@@ -51,6 +52,7 @@ interface SectionData {
         slug: string;
         description?: string;
         fields: FieldData[];
+        date_updated?: string;
     };
 }
 
@@ -93,6 +95,9 @@ const COLOUR_MID_GREY = rgb(0.45, 0.45, 0.45);
 const COLOUR_LIGHT_GREY = rgb(0.85, 0.85, 0.85);
 const COLOUR_SECTION_BG = rgb(0.93, 0.93, 0.97); // light violet tint
 const COLOUR_VIOLET = rgb(0.42, 0.28, 0.64);
+const COLOUR_WHITE = rgb(1, 1, 1);
+const COLOUR_WARNING_BG = rgb(0.85, 0.12, 0.12); // strong red
+const COLOUR_WARNING_BORDER = rgb(0.65, 0.08, 0.08);
 
 // Field widget dimensions
 const TEXT_FIELD_HEIGHT = 22;
@@ -603,7 +608,23 @@ export async function generateApplicationPdf(
     options: GeneratePdfOptions,
 ): Promise<Uint8Array> {
     const { applicationName, slug, stageSlug, stageText, sections } = options;
-    const generatedAt = new Date();
+
+    // Find the most recent date_updated across all sections and fields
+    const allDates: number[] = [];
+    for (const sec of sections) {
+        if (sec.sections_id?.date_updated) {
+            allDates.push(new Date(sec.sections_id.date_updated).getTime());
+        }
+        for (const field of sec.sections_id?.fields ?? []) {
+            if (field.fields_id?.date_updated) {
+                allDates.push(new Date(field.fields_id.date_updated).getTime());
+            }
+        }
+    }
+    const lastUpdated = allDates.length > 0
+        ? new Date(Math.max(...allDates))
+        : new Date();
+
     const applyUrl = `unltd.org.uk/awards/${slug}`;
     const downloadUrl = `unltd.org.uk/awards/downloads/${slug}.pdf`;
 
@@ -703,56 +724,76 @@ export async function generateApplicationPdf(
     });
     cursor.y -= 16;
 
-    // ── Important notice ────────────────────────────────────────────────
+    // ── DO NOT EMAIL warning ────────────────────────────────────────────
 
-    const noticeLines = [
-        "This is a fillable PDF to help you draft your answers offline. It is not the application itself.",
+    const warningHeading = "DO NOT email us this form — This is NOT how you apply.";
+    const warningBody = [
+        "This PDF is for drafting your answers offline only. Do not email this form to UnLtd. We will not accept emailed applications.",
         "",
-        `To submit your application, visit: ${applyUrl} and apply through the UnLtd Application Portal.`,
-        "",
-        `This form was generated on ${generatedAt.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} at ${generatedAt.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}. Because this is an offline document, the questions may have changed since it was created. Always download the latest version from: ${downloadUrl}`,
-    ];
-    const noticeText = noticeLines.join("\n");
+        "How to submit your application:",
+        `1. Go to: ${applyUrl}`,
+        "2. Click 'Apply now'",
+        "3. Sign up or sign in to the Application Portal",
+        "4. Start your application online",
+        "5. Copy and paste your drafted answers from this PDF into the online form",
+    ].join("\n");
 
-    // Measure the notice block height so we can draw a background
-    const noticeWrapped = wrapText(
-        noticeText,
-        nunitoRegular,
-        FONT_SIZE_BODY,
-        CONTENT_WIDTH - 20, // inner padding
-    );
-    const noticeLH = LINE_HEIGHT_BODY;
-    const noticeBlockHeight = noticeWrapped.length * noticeLH + 16; // 8px padding top+bottom
+    // Measure the warning block height
+    const warningHeadingLines = wrapText(warningHeading, nunitoBold, FONT_SIZE_SECTION_HEADING, CONTENT_WIDTH - 24);
+    const warningBodyLines = wrapText(warningBody, nunitoRegular, FONT_SIZE_BODY, CONTENT_WIDTH - 24);
+    const warningHeadingHeight = warningHeadingLines.length * (FONT_SIZE_SECTION_HEADING + 6);
+    const warningBodyHeight = warningBodyLines.length * LINE_HEIGHT_BODY;
+    const warningBlockHeight = warningHeadingHeight + warningBodyHeight + 32; // padding
 
-    cursor.ensureSpace(noticeBlockHeight + 4);
+    cursor.ensureSpace(warningBlockHeight + 4);
 
-    // Background box
-    const noticeColour = rgb(1.0, 0.97, 0.88); // warm cream
-    const noticeBorder = rgb(0.85, 0.75, 0.45); // muted gold
+    // Red background box
     cursor.page.drawRectangle({
         x: MARGIN_LEFT,
-        y: cursor.y - noticeBlockHeight + 8,
+        y: cursor.y - warningBlockHeight + 8,
         width: CONTENT_WIDTH,
-        height: noticeBlockHeight,
-        color: noticeColour,
-        borderColor: noticeBorder,
-        borderWidth: 0.75,
+        height: warningBlockHeight,
+        color: COLOUR_WARNING_BG,
+        borderColor: COLOUR_WARNING_BORDER,
+        borderWidth: 1.5,
     });
 
-    // Draw the notice text inside the box
-    cursor.y -= 4; // top padding
-    const savedX = MARGIN_LEFT + 10;
-    for (const line of noticeWrapped) {
+    // Warning heading (bold, white, large)
+    cursor.y -= 10; // top padding
+    for (const line of warningHeadingLines) {
         cursor.page.drawText(line, {
-            x: savedX,
+            x: MARGIN_LEFT + 12,
+            y: cursor.y,
+            size: FONT_SIZE_SECTION_HEADING,
+            font: nunitoBold,
+            color: COLOUR_WHITE,
+        });
+        cursor.y -= FONT_SIZE_SECTION_HEADING + 6;
+    }
+    cursor.y -= 4;
+
+    // Warning body (regular, white)
+    for (const line of warningBodyLines) {
+        cursor.page.drawText(line, {
+            x: MARGIN_LEFT + 12,
             y: cursor.y,
             size: FONT_SIZE_BODY,
             font: nunitoRegular,
-            color: COLOUR_DARK_GREY,
+            color: COLOUR_WHITE,
         });
-        cursor.y -= noticeLH;
+        cursor.y -= LINE_HEIGHT_BODY;
     }
-    cursor.y -= 8; // bottom padding
+    cursor.y -= 12; // bottom padding
+
+    // Small generated-at note below the warning
+    cursor.y -= 6;
+    cursor.drawWrappedText(
+        `Questions last updated on ${lastUpdated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} at ${lastUpdated.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}. If this is not recent, download the latest version from: ${downloadUrl}`,
+        nunitoRegular,
+        FONT_SIZE_SMALL,
+        COLOUR_MID_GREY,
+        LINE_HEIGHT_SMALL,
+    );
 
     cursor.y -= SECTION_GAP;
 
@@ -880,41 +921,63 @@ export async function generateApplicationPdf(
         }
     }
 
-    // ── Footer on last page ─────────────────────────────────────────────
+    // ── Footer warning — DO NOT EMAIL (repeat) ─────────────────────────
 
-    cursor.ensureSpace(50);
+    const footerHeading = "REMINDER: Do NOT email this form to UnLtd.";
+    const footerBody = [
+        "This PDF is for drafting only. We do not accept emailed applications.",
+        "",
+        `To apply, go to: ${applyUrl}`,
+        "Click 'Apply now', sign up or sign in, and submit your application through the online portal.",
+        "You can copy and paste your answers from this PDF into the online form.",
+    ].join("\n");
+
+    const footerHeadingLines = wrapText(footerHeading, nunitoBold, FONT_SIZE_SECTION_HEADING, CONTENT_WIDTH - 24);
+    const footerBodyLines = wrapText(footerBody, nunitoRegular, FONT_SIZE_BODY, CONTENT_WIDTH - 24);
+    const footerHeadingHeight = footerHeadingLines.length * (FONT_SIZE_SECTION_HEADING + 6);
+    const footerBodyHeight = footerBodyLines.length * LINE_HEIGHT_BODY;
+    const footerBlockHeight = footerHeadingHeight + footerBodyHeight + 32;
+
+    cursor.ensureSpace(footerBlockHeight + 20);
     cursor.y -= 10;
-    cursor.page.drawLine({
-        start: { x: MARGIN_LEFT, y: cursor.y },
-        end: { x: PAGE_WIDTH - MARGIN_RIGHT, y: cursor.y },
-        thickness: 0.5,
-        color: COLOUR_LIGHT_GREY,
-    });
-    cursor.y -= 16;
 
-    cursor.drawWrappedText(
-        `Submit your application at: ${applyUrl}`,
-        nunitoBold,
-        FONT_SIZE_BODY,
-        COLOUR_VIOLET,
-        LINE_HEIGHT_BODY,
-    );
+    // Red background box
+    cursor.page.drawRectangle({
+        x: MARGIN_LEFT,
+        y: cursor.y - footerBlockHeight + 8,
+        width: CONTENT_WIDTH,
+        height: footerBlockHeight,
+        color: COLOUR_WARNING_BG,
+        borderColor: COLOUR_WARNING_BORDER,
+        borderWidth: 1.5,
+    });
+
+    // Footer heading (bold, white, large)
+    cursor.y -= 10;
+    for (const line of footerHeadingLines) {
+        cursor.page.drawText(line, {
+            x: MARGIN_LEFT + 12,
+            y: cursor.y,
+            size: FONT_SIZE_SECTION_HEADING,
+            font: nunitoBold,
+            color: COLOUR_WHITE,
+        });
+        cursor.y -= FONT_SIZE_SECTION_HEADING + 6;
+    }
     cursor.y -= 4;
-    cursor.drawWrappedText(
-        "This form is for preparation purposes only. Your official submission must be made through the UnLtd Application Portal.",
-        nunitoRegular,
-        FONT_SIZE_SMALL,
-        COLOUR_MID_GREY,
-        LINE_HEIGHT_SMALL,
-    );
-    cursor.y -= 4;
-    cursor.drawWrappedText(
-        `Download the latest version of this form: ${downloadUrl}`,
-        nunitoRegular,
-        FONT_SIZE_SMALL,
-        COLOUR_MID_GREY,
-        LINE_HEIGHT_SMALL,
-    );
+
+    // Footer body (regular, white)
+    for (const line of footerBodyLines) {
+        cursor.page.drawText(line, {
+            x: MARGIN_LEFT + 12,
+            y: cursor.y,
+            size: FONT_SIZE_BODY,
+            font: nunitoRegular,
+            color: COLOUR_WHITE,
+        });
+        cursor.y -= LINE_HEIGHT_BODY;
+    }
+    cursor.y -= 12;
 
     // Update all field appearances to use Nunito
     form.updateFieldAppearances(nunitoRegular);

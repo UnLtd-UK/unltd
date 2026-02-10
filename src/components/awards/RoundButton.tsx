@@ -125,10 +125,11 @@ export default function RoundButton({
         <div>
             <a
                 href={applyUrl}
+                target="_blank"
                 className={`inline-flex items-center gap-3 px-8 py-4 font-bold rounded-xl text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 ${getButtonStyles()}`}
             >
                 Apply Now
-                <Icon name="arrow-right" style="solid" />
+                <Icon name="arrow-up-right-from-square" style="solid" />
             </a>
 
             {/* Show urgency info below button */}

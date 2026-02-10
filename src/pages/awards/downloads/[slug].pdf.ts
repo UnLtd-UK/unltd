@@ -38,7 +38,7 @@ export async function GET({ params }: { params: { slug: string } }) {
     return new Response(pdfBytes, {
         headers: {
             "Content-Type": "application/pdf",
-            "Content-Disposition": `attachment; filename="${application.slug}-application-form.pdf"`,
+            "Content-Disposition": `inline; filename="${application.slug}-application-form.pdf"`,
         },
     });
 }

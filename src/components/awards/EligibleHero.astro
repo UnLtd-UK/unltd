@@ -39,6 +39,24 @@ const awardText = isMultipleAwards ? "Awards" : "Award";
 const resources = (application?.resources ?? [])
     .map((r: any) => r.resources_id)
     .filter(Boolean);
+
+// Find the most recent date_updated across all sections and fields
+const allDates: number[] = [];
+for (const sec of application?.sections ?? []) {
+    if (sec.sections_id?.date_updated) {
+        allDates.push(new Date(sec.sections_id.date_updated).getTime());
+    }
+    for (const field of sec.sections_id?.fields ?? []) {
+        if (field.fields_id?.date_updated) {
+            allDates.push(new Date(field.fields_id.date_updated).getTime());
+        }
+    }
+}
+const lastUpdated =
+    allDates.length > 0 ? new Date(Math.max(...allDates)) : null;
+const lastUpdatedText = lastUpdated
+    ? `${lastUpdated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} at ${lastUpdated.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`
+    : null;
 ---
 
 <section
@@ -124,8 +142,9 @@ const resources = (application?.resources ?? [])
                         downloadUrl && (
                             <a
                                 href={downloadUrl}
-                                download
                                 class="inline-flex items-center gap-3 px-5 py-3 rounded-xl transition-all duration-200 ring-2 ring-white/30 text-white hover:bg-white/10 hover:ring-white/50"
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 <div class="text-left">
                                     <span class="block font-bold text-lg leading-tight">
@@ -133,7 +152,12 @@ const resources = (application?.resources ?? [])
                                     </span>
                                     <span class="block text-xs text-emerald-200 leading-snug">
                                         A fillable PDF so you can draft your
-                                        answers offline
+                                        answers offline. <br />
+                                        {lastUpdatedText && (
+                                            <span class="w-full text-xs text-emerald-200/70">
+                                                Last updated {lastUpdatedText}
+                                            </span>
+                                        )}
                                     </span>
                                 </div>
                                 <Icon
