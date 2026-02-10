@@ -788,7 +788,7 @@ export async function generateApplicationPdf(
     // Small generated-at note below the warning
     cursor.y -= 6;
     cursor.drawWrappedText(
-        `Questions last updated on ${lastUpdated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} at ${lastUpdated.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}. If this is not recent, download the latest version from: ${downloadUrl}`,
+        `Version from ${lastUpdated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} at ${lastUpdated.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}. If this does not match website, download the latest version from: ${downloadUrl}`,
         nunitoRegular,
         FONT_SIZE_SMALL,
         COLOUR_MID_GREY,
