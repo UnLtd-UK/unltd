@@ -5,9 +5,7 @@
  * Highlights the current/active round row.
  * Rendered at build time — rebuilt every ~2 hours via CI.
  */
-import { getRoundData } from "./roundData";
-import { getRoundStatus } from "./roundStatus";
-import type { ProcessedRound } from "./useRoundStatus";
+import { getRoundData, getRoundStatus, type ProcessedRound } from "./round";
 import Icon from "@components/Icon.astro";
 
 const { allRounds, currentRound, nextRound, devDateTime } = getRoundData();

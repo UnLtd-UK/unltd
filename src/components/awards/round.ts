@@ -1,24 +1,90 @@
 /**
- * Round Status Utility (Static / Build-time)
+ * Round Data & Status (Build-time)
  *
- * Pure-function equivalent of useRoundStatus + useCountdown.
- * Computes the same 4 display states at build time — no React, no hooks.
+ * Single source of truth for round data fetching and status computation.
+ * Used by all Round* Astro components. Runs at build time — no React, no hooks.
+ *
+ * Rebuilt every ~2 hours via GitHub Actions so values stay current.
  *
  * States:
  * 1. Closed   — No present or future rounds (or at full capacity)
  * 2. Opening  — No present round but a future round exists
  * 3. Open     — Present round is accepting applications
  * 4. Closing  — Present round closes within 7 days
- *
- * Rebuilt every ~2 hours via GitHub Actions so values stay current.
  */
 
-import type { ProcessedRound } from "./useRoundStatus";
+import { rounds } from "@data/rounds.js";
+import { processAllRounds } from "@utils/application-rounds.js";
+import { getDevDateTimeString } from "@config/dev.config.js";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
+/** The 4 possible display states for a round */
 export type RoundState = "closed" | "opening" | "open" | "closing";
+
+/** The lifecycle phase of a round (from server processing) */
+export type RoundPhase =
+    | "upcoming"
+    | "open"
+    | "closed"
+    | "assessment"
+    | "interview"
+    | "awaiting-results"
+    | "results"
+    | "completed";
+
+/** Urgency level for countdown display */
 export type UrgencyLevel = "critical" | "warning" | "normal";
+
+/** Serializable round data */
+export interface ProcessedRound {
+    id: number;
+    opensDate: string;
+    closesDate: string;
+    assessmentStart: string;
+    assessmentEnd: string;
+    interviewStart: string | null;
+    interviewEnd: string | null;
+    resultsStart: string;
+    resultsEnd: string;
+    hasCapacity: boolean;
+    capacityPercentage: number;
+    isOpen: boolean;
+    isUpcoming: boolean;
+    isInAssessment: boolean;
+    isInInterview: boolean;
+    isInResults: boolean;
+    isCompleted: boolean;
+    phase: string;
+    dates: {
+        opens: string;
+        opensShort: string;
+        closes: string;
+        closesShort: string;
+        assessmentStartShort: string;
+        assessmentEndShort: string;
+        interviewStart: string | null;
+        interviewStartShort: string | null;
+        interviewEnd: string | null;
+        interviewEndShort: string | null;
+        resultsStart: string;
+        resultsStartShort: string;
+        resultsEnd: string;
+        resultsEndShort: string;
+    };
+    timing?: {
+        daysRemaining: number;
+        daysUntilOpen: number;
+    };
+    phaseInfo?: {
+        label: string;
+        shortLabel: string;
+        description: string;
+        indicatorClass: string;
+        badgeClass: string;
+        icon: string;
+    };
+}
 
 export interface CountdownState {
     weeks: number;
@@ -43,6 +109,17 @@ export interface RoundStatusResult {
     closesCountdown: CountdownState;
     opensCountdown: CountdownState;
     roundName: string;
+}
+
+export interface RoundDataProps {
+    /** Serialized current/active round */
+    currentRound: ProcessedRound | null;
+    /** Serialized next upcoming round */
+    nextRound: ProcessedRound | null;
+    /** All rounds serialized (for table display) */
+    allRounds: ProcessedRound[];
+    /** Dev datetime string (if DEV_DATETIME is set) */
+    devDateTime: string | undefined;
 }
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -84,6 +161,39 @@ function calculateCountdown(remainingMs: number): CountdownState {
     };
 }
 
+/**
+ * Serialize a server-processed round into a plain object
+ * (no functions, classes, or circular refs).
+ */
+function serializeRound(round: any): ProcessedRound | null {
+    if (!round) return null;
+    return {
+        id: round.id,
+        opensDate: round.opensDate,
+        closesDate: round.closesDate,
+        assessmentStart: round.assessmentStart ?? "",
+        assessmentEnd: round.assessmentEnd ?? "",
+        interviewStart: round.interviewStart ?? null,
+        interviewEnd: round.interviewEnd ?? null,
+        resultsStart: round.resultsStart ?? "",
+        resultsEnd: round.resultsEnd ?? "",
+        hasCapacity: round.hasCapacity ?? false,
+        capacityPercentage: round.capacityPercentage ?? 0,
+        isOpen: round.isOpen ?? false,
+        isUpcoming: round.isUpcoming ?? false,
+        isInAssessment: round.isInAssessment ?? false,
+        isInInterview: round.isInInterview ?? false,
+        isInResults: round.isInResults ?? false,
+        isCompleted: round.isCompleted ?? false,
+        phase: round.phase ?? "",
+        dates: round.dates ?? {},
+        timing: round.timing,
+        phaseInfo: round.phaseInfo,
+    };
+}
+
+// ─── Public API ─────────────────────────────────────────────────────────────
+
 /** Round display name from results dates, e.g. "March 2026" or "March–April 2026" */
 export function getRoundName(round: ProcessedRound | null | undefined): string {
     if (!round?.resultsStart) return "Application Round";
@@ -108,12 +218,23 @@ export function formatTime(isoString: string): string {
     });
 }
 
-// ─── Main function ──────────────────────────────────────────────────────────
+/**
+ * Fetch and serialize all round data.
+ * Call once in each Astro component's frontmatter.
+ */
+export function getRoundData(): RoundDataProps {
+    const {
+        all: rawAll,
+        currentRound: rawCurrent,
+        nextOpenRound: rawNext,
+    } = processAllRounds(rounds);
 
-interface GetRoundStatusOptions {
-    currentRound?: ProcessedRound | null;
-    nextRound?: ProcessedRound | null;
-    devDateTime?: string;
+    return {
+        currentRound: serializeRound(rawCurrent),
+        nextRound: serializeRound(rawNext),
+        allRounds: rawAll.map(serializeRound).filter(Boolean) as ProcessedRound[],
+        devDateTime: getDevDateTimeString(),
+    };
 }
 
 /**
@@ -123,7 +244,11 @@ export function getRoundStatus({
     currentRound,
     nextRound,
     devDateTime,
-}: GetRoundStatusOptions): RoundStatusResult {
+}: {
+    currentRound?: ProcessedRound | null;
+    nextRound?: ProcessedRound | null;
+    devDateTime?: string;
+}): RoundStatusResult {
     const now = devDateTime ? new Date(devDateTime) : new Date();
 
     // ── Determine display round & state ─────────────────────────────────
