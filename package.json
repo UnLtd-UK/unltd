@@ -35,14 +35,14 @@
     "@fontsource-variable/nunito": "^5.2.7",
     "@fontsource-variable/outfit": "^5.2.8",
     "@fontsource-variable/unbounded": "^5.2.8",
-    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/react-fontawesome": "^3.2.0",
     "@headlessui/react": "2.2.9",
     "@heroicons/react": "^2.2.0",
     "@react-email/components": "^1.0.7",
     "@tailwindcss/vite": "^4.1.18",
     "@types/alpinejs": "^3.13.11",
-    "@types/react": "^19.2.13",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "alpinejs": "^3.15.8",
     "astro": "^5.17.1",
@@ -60,7 +60,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.13.0",
-    "resend": "^6.9.1",
+    "resend": "^6.9.2",
     "slugify": "^1.6.6",
     "tailwind-merge": "^3.4.0",
     "tailwindcss": "^4.1.18",
@@ -76,6 +76,6 @@
     "baseline-browser-mapping": "^2.9.19",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.1.2",
-    "wrangler": "^4.63.0"
+    "wrangler": "^4.64.0"
   }
 }
