@@ -69,7 +69,8 @@ export const RoundPhase = {
     OPEN: 'open',                   // Applications are being accepted
     CLOSED: 'closed',               // Applications closed, not yet in assessment
     ASSESSMENT: 'assessment',       // In assessment period
-    AWAITING_RESULTS: 'awaiting-results', // Assessment done, waiting for results
+    INTERVIEW: 'interview',         // In interview period
+    AWAITING_RESULTS: 'awaiting-results', // Interviews done, waiting for results
     RESULTS: 'results',             // Results being sent out
     COMPLETED: 'completed'          // Everything finished
 };
@@ -85,6 +86,8 @@ export const getRoundPhase = (round) => {
     const closes = new Date(round.closesDate);
     const assessmentStart = new Date(round.assessmentStart);
     const assessmentEnd = new Date(round.assessmentEnd);
+    const interviewStart = round.interviewStart ? new Date(round.interviewStart) : null;
+    const interviewEnd = round.interviewEnd ? new Date(round.interviewEnd) : null;
     const resultsStart = new Date(round.resultsStart);
     const resultsEnd = new Date(round.resultsEnd);
 
@@ -100,8 +103,22 @@ export const getRoundPhase = (round) => {
     if (now >= assessmentStart && now <= assessmentEnd) {
         return RoundPhase.ASSESSMENT;
     }
-    if (now > assessmentEnd && now < resultsStart) {
-        return RoundPhase.AWAITING_RESULTS;
+    // Interview phase (only if interview dates exist)
+    if (interviewStart && interviewEnd) {
+        if (now > assessmentEnd && now < interviewStart) {
+            return RoundPhase.AWAITING_RESULTS; // Gap between assessment and interview
+        }
+        if (now >= interviewStart && now <= interviewEnd) {
+            return RoundPhase.INTERVIEW;
+        }
+        if (now > interviewEnd && now < resultsStart) {
+            return RoundPhase.AWAITING_RESULTS;
+        }
+    } else {
+        // No interview dates — original flow
+        if (now > assessmentEnd && now < resultsStart) {
+            return RoundPhase.AWAITING_RESULTS;
+        }
     }
     if (now >= resultsStart && now <= resultsEnd) {
         return RoundPhase.RESULTS;
@@ -144,10 +161,20 @@ export const getPhaseInfo = (phase, round) => {
         [RoundPhase.ASSESSMENT]: {
             label: 'In Assessment',
             shortLabel: 'Assessing',
-            description: `Results from ${formatDate(round.resultsStart)}`,
+            description: round.interviewStart
+                ? `Interviews from ${formatDate(round.interviewStart)}`
+                : `Results from ${formatDate(round.resultsStart)}`,
             badgeClass: 'bg-amber-100 text-amber-700 border-amber-200',
             indicatorClass: 'bg-amber-500',
             icon: 'fa-solid fa-magnifying-glass-chart'
+        },
+        [RoundPhase.INTERVIEW]: {
+            label: 'Interviewing',
+            shortLabel: 'Interviews',
+            description: `Results from ${formatDate(round.resultsStart)}`,
+            badgeClass: 'bg-yellow-100 text-yellow-700 border-yellow-200',
+            indicatorClass: 'bg-yellow-500',
+            icon: 'fa-solid fa-comments'
         },
         [RoundPhase.AWAITING_RESULTS]: {
             label: 'Awaiting Results',
@@ -215,6 +242,13 @@ export const getRoundTiming = (round) => {
     const assessmentDaysRemaining = now <= assessmentEnd ? daysBetween(now, assessmentEnd) : 0;
     const daysUntilAssessment = now < assessmentStart ? daysBetween(now, assessmentStart) : 0;
 
+    // Interview timing (if dates exist)
+    const interviewStart = round.interviewStart ? new Date(round.interviewStart) : null;
+    const interviewEnd = round.interviewEnd ? new Date(round.interviewEnd) : null;
+    const totalInterviewDays = interviewStart && interviewEnd ? daysBetween(interviewStart, interviewEnd) : 0;
+    const interviewDaysRemaining = interviewEnd && now <= interviewEnd ? daysBetween(now, interviewEnd) : 0;
+    const daysUntilInterview = interviewStart && now < interviewStart ? daysBetween(now, interviewStart) : 0;
+
     // Results timing
     const daysUntilResults = now < resultsStart ? daysBetween(now, resultsStart) : 0;
     const resultsDaysRemaining = now <= resultsEnd ? daysBetween(now, resultsEnd) : 0;
@@ -232,6 +266,11 @@ export const getRoundTiming = (round) => {
         assessmentDaysElapsed,
         assessmentDaysRemaining,
         daysUntilAssessment,
+
+        // Interview window
+        totalInterviewDays,
+        interviewDaysRemaining,
+        daysUntilInterview,
 
         // Results
         daysUntilResults,
@@ -325,6 +364,8 @@ export const processRound = (directusRound, applicationLimit = 650) => {
         closesDate: directusRound.closes,
         assessmentStart: directusRound.assessment_starts,
         assessmentEnd: directusRound.assessment_ends,
+        interviewStart: directusRound.interview_starts ?? null,
+        interviewEnd: directusRound.interview_ends ?? null,
         resultsStart: directusRound.results_start,
         resultsEnd: directusRound.results_end,
         applicationLimit: directusRound.capacity ?? applicationLimit,
@@ -341,6 +382,10 @@ export const processRound = (directusRound, applicationLimit = 650) => {
             assessmentStartShort: formatShortDate(directusRound.assessment_starts),
             assessmentEnd: formatDate(directusRound.assessment_ends),
             assessmentEndShort: formatShortDate(directusRound.assessment_ends),
+            interviewStart: directusRound.interview_starts ? formatDate(directusRound.interview_starts) : null,
+            interviewStartShort: directusRound.interview_starts ? formatShortDate(directusRound.interview_starts) : null,
+            interviewEnd: directusRound.interview_ends ? formatDate(directusRound.interview_ends) : null,
+            interviewEndShort: directusRound.interview_ends ? formatShortDate(directusRound.interview_ends) : null,
             resultsStart: formatDate(directusRound.results_start),
             resultsStartShort: formatShortDate(directusRound.results_start),
             resultsEnd: formatDate(directusRound.results_end),
@@ -366,6 +411,7 @@ export const processRound = (directusRound, applicationLimit = 650) => {
         isOpen: phase === RoundPhase.OPEN,
         isClosed: phase === RoundPhase.CLOSED,
         isInAssessment: phase === RoundPhase.ASSESSMENT,
+        isInInterview: phase === RoundPhase.INTERVIEW,
         isAwaitingResults: phase === RoundPhase.AWAITING_RESULTS,
         isInResults: phase === RoundPhase.RESULTS,
         isCompleted: phase === RoundPhase.COMPLETED,
@@ -376,7 +422,7 @@ export const processRound = (directusRound, applicationLimit = 650) => {
 
         // Past, present, future classification
         isPast: phase === RoundPhase.COMPLETED,
-        isPresent: [RoundPhase.OPEN, RoundPhase.CLOSED, RoundPhase.ASSESSMENT, RoundPhase.AWAITING_RESULTS, RoundPhase.RESULTS].includes(phase),
+        isPresent: [RoundPhase.OPEN, RoundPhase.CLOSED, RoundPhase.ASSESSMENT, RoundPhase.INTERVIEW, RoundPhase.AWAITING_RESULTS, RoundPhase.RESULTS].includes(phase),
         isFuture: phase === RoundPhase.UPCOMING
     };
 };

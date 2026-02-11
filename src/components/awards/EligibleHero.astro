@@ -21,16 +21,13 @@ interface Props {
     page: {
         tradingDescription: string;
     };
-    isRoundOpen: boolean;
-    nextOpenDate: string;
     /** Path to the generated fillable PDF form */
     downloadUrl?: string;
     /** The application object from Directus (includes resources M2M) */
     application?: any;
 }
 
-const { awards, page, isRoundOpen, nextOpenDate, downloadUrl, application } =
-    Astro.props;
+const { awards, page, downloadUrl, application } = Astro.props;
 
 const isMultipleAwards = awards.length > 1;
 const awardText = isMultipleAwards ? "Awards" : "Award";
@@ -133,11 +130,7 @@ const lastUpdatedText = lastUpdated
 
                 <!-- Apply / Portal Button -->
                 <div class="flex flex-wrap items-center gap-4">
-                    <RoundButton
-                        isRoundOpen={isRoundOpen}
-                        nextOpenDate={nextOpenDate}
-                        variant="hero"
-                    />
+                    <RoundButton variant="hero" />
                     {
                         downloadUrl && (
                             <a

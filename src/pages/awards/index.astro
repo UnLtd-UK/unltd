@@ -46,9 +46,9 @@ import Breadcrumbs from "@components/Breadcrumbs.astro";
 // COMPONENTS
 import HeroWithChecker from "@components/awards/HeroWithChecker.astro";
 import Awards from "@components/awards/Awards.astro";
-// import Applying from "@components/awards/Applying.tsx";
-import HowApplyingWorks from "@components/awards/HowApplyingWorks.astro";
-import RoundWidget from "@components/awards/RoundWidgetWrapper.astro";
+import RoundApply from "@components/awards/RoundApplyWrapper.astro";
+import RoundTable from "@components/awards/RoundTableWrapper.astro";
+import RoundStages from "@components/awards/RoundStageWrapper.astro";
 import EligibilityChecker from "@components/awards/EligibilityChecker.astro";
 import Sessions from "@components/awards/Sessions.astro";
 import VideoShowcase from "@components/awards/VideoShowcase.astro";
@@ -67,12 +67,21 @@ import VideoShowcase from "@components/awards/VideoShowcase.astro";
     <Container id="our-awards" class="bg-violet-950 py-16 mt-8">
         <Awards />
     </Container>
-    <!-- <Container id="applying" class="bg-violet-900 py-16 mt-8">
-        <Applying round={currentRound} client:load />
-    </Container> -->
     <Container id="how-applying-works" class="bg-violet-900 py-16 mt-8">
-        <HowApplyingWorks showEligibilityLink={true} />
-        <RoundWidget />
+        <div class="flex flex-col gap-8">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-violet-100 mb-4">
+                    How applying works
+                </h2>
+                <p class="text-lg text-violet-300 max-w-2xl mx-auto">
+                    Our application process has clear stages so you know exactly
+                    what to expect at every step.
+                </p>
+            </div>
+            <RoundApply />
+            <RoundStages />
+            <RoundTable />
+        </div>
     </Container>
     <Container id="apply" class="bg-violet-950 py-16 mt-8">
         <EligibilityChecker />

@@ -1,58 +1,150 @@
 ---
 /**
- * RoundButtonWrapper.astro
- * Astro wrapper for RoundButton React component
+ * RoundButton (Static Astro)
+ * Apply button with contextual state based on round status.
+ * Rendered at build time — rebuilt every ~2 hours via CI.
  *
- * Fetches round data server-side and passes processed data to the client-side React component
+ * States:
+ * - Closed:   disabled "No rounds scheduled"
+ * - Opening:  disabled with date info
+ * - Open:     active "Apply Now" with optional urgency styling
+ * - Closing:  active with urgency colours + countdown
  */
-
-// Data processing happens server-side
-import { rounds } from "@data/rounds.js";
-import { processAllRounds } from "@utils/application-rounds.js";
-import { getDevDateTimeString } from "@config/dev.config.js";
-
-// React component
-import RoundButton from "./RoundButton";
+import { getRoundData } from "./roundData";
+import { getRoundStatus } from "./roundStatus";
+import Icon from "@components/Icon.astro";
 
 interface Props {
-    isRoundOpen?: boolean;
-    nextOpenDate?: string;
     applyUrl?: string;
     variant?: "primary" | "hero";
     class?: string;
 }
 
-// Allow override via props, but default to fetching from rounds
-const propsIsRoundOpen = Astro.props.isRoundOpen;
-const propsNextOpenDate = Astro.props.nextOpenDate;
 const {
     applyUrl = "https://unltd.microsoftcrmportals.com/applications",
     variant = "primary",
-    class: className = "",
 } = Astro.props;
 
-// Process rounds server-side only if not provided via props
-const { currentRound, nextOpenRound } = processAllRounds(rounds);
+const { currentRound, nextRound, devDateTime } = getRoundData();
+const {
+    state,
+    round: displayRound,
+    urgency,
+    closesCountdown,
+    opensCountdown,
+} = getRoundStatus({ currentRound, nextRound, devDateTime });
 
-// Get dev datetime for client-side (if set)
-const devDateTime = getDevDateTimeString();
+const isHeroVariant = variant === "hero";
 
-// Determine values (props override computed values)
-const isRoundOpen = propsIsRoundOpen ?? currentRound?.isOpen ?? false;
-const opensDateTime =
-    propsNextOpenDate ?? (nextOpenRound?.opensDate || currentRound?.opensDate);
-const closesDateTime = currentRound?.closesDate;
-const opensDateFormatted =
-    nextOpenRound?.dates?.opens || currentRound?.dates?.opens;
+// Button styling based on urgency (only used for open/closing states)
+const getButtonStyles = () => {
+    if (isHeroVariant) {
+        if (urgency === "critical")
+            return "bg-white text-red-700 hover:bg-red-50";
+        if (urgency === "warning")
+            return "bg-white text-amber-700 hover:bg-amber-50";
+        return "bg-white text-emerald-700 hover:bg-emerald-50";
+    }
+    if (urgency === "critical") return "bg-red-500 text-white hover:bg-red-400";
+    if (urgency === "warning")
+        return "bg-amber-500 text-white hover:bg-amber-400";
+    return "bg-emerald-500 text-white hover:bg-emerald-400";
+};
+
+// Countdown text for closing/opening states
+const countdownLabel = (() => {
+    if (
+        (state === "closing" || state === "open") &&
+        urgency !== "normal" &&
+        !closesCountdown.isExpired
+    ) {
+        if (closesCountdown.totalDays === 0) return "Less than 1 day";
+        return `${closesCountdown.totalDays} ${closesCountdown.totalDays === 1 ? "day" : "days"}`;
+    }
+    return null;
+})();
+
+const opensCountdownLabel = (() => {
+    if (state === "opening" && opensCountdown.totalDays > 0) {
+        return `${opensCountdown.totalDays} ${opensCountdown.totalDays === 1 ? "day" : "days"}`;
+    }
+    return null;
+})();
 ---
 
-<RoundButton
-    client:load
-    isOpen={isRoundOpen}
-    opensDateTime={isRoundOpen ? undefined : opensDateTime}
-    closesDateTime={isRoundOpen ? closesDateTime : undefined}
-    opensDateFormatted={opensDateFormatted}
-    devDateTime={devDateTime}
-    applyUrl={applyUrl}
-    variant={variant}
-/>
+{/* No rounds at all */}
+{
+    state === "closed" && (
+        <div>
+            <div class="inline-flex items-center gap-2 px-6 py-3 bg-slate-500/20 text-slate-300 font-semibold rounded-xl text-lg ring-1 ring-slate-500/30 cursor-not-allowed">
+                <Icon name="calendar-xmark" style="solid" />
+                No rounds scheduled
+            </div>
+            <p class="text-slate-400 text-sm mt-2">
+                Check back soon for upcoming application rounds
+            </p>
+        </div>
+    )
+}
+
+{/* Future round - show when it opens */}
+{
+    state === "opening" && displayRound && (
+        <div>
+            <div class="inline-flex items-center gap-2 px-6 py-3 bg-indigo-500/20 text-white font-semibold rounded-xl text-lg ring-1 ring-indigo-500/30 cursor-not-allowed">
+                <Icon name="clock" style="solid" class="text-indigo-400" />
+                <span>
+                    Applications open{" "}
+                    <span class="text-indigo-300">
+                        {displayRound.dates.opens}
+                    </span>
+                </span>
+            </div>
+            {opensCountdownLabel && (
+                <div class="flex items-center gap-2 mt-3">
+                    <span class="text-xs font-medium text-violet-300">
+                        Opens in
+                    </span>
+                    <span class="text-xs font-semibold text-white">
+                        {opensCountdownLabel}
+                    </span>
+                </div>
+            )}
+            <p class="text-indigo-200/70 text-sm mt-2">
+                Bookmark this page and come back when applications open
+            </p>
+        </div>
+    )
+}
+
+{/* Open / Closing round - active Apply Now button */}
+{
+    (state === "open" || state === "closing") && (
+        <div>
+            <a
+                href={applyUrl}
+                target="_blank"
+                class={`inline-flex items-center gap-3 px-8 py-4 font-bold rounded-xl text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 ${getButtonStyles()}`}
+            >
+                Apply Now
+                <Icon name="arrow-up-right-from-square" style="solid" />
+            </a>
+
+            {/* Show urgency info below button */}
+            {countdownLabel && (
+                <div class="mt-3 flex items-center gap-1.5">
+                    <span
+                        class={`text-sm font-medium ${urgency === "critical" ? "text-red-400" : "text-amber-400"}`}
+                    >
+                        {urgency === "critical" ? "Closes in" : "Deadline in"}
+                    </span>
+                    <span
+                        class={`text-sm font-semibold ${urgency === "warning" ? "text-amber-400" : "text-white"}`}
+                    >
+                        {countdownLabel}
+                    </span>
+                </div>
+            )}
+        </div>
+    )
+}

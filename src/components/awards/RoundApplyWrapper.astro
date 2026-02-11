@@ -1,0 +1,228 @@
+---
+/**
+ * RoundApply (Static Astro)
+ * Full-width section showing current round apply dates and info.
+ * Rendered at build time — rebuilt every ~2 hours via CI.
+ *
+ * States:
+ * - Closed:  muted card — "No rounds currently open"
+ * - Opening: indigo card — "Opens {date}" with days remaining
+ * - Open:    emerald card — dates + days remaining
+ * - Closing: amber/red card — dates + urgency countdown
+ */
+import { getRoundData } from "./roundData";
+import { getRoundStatus } from "./roundStatus";
+import Icon from "@components/Icon.astro";
+
+const { currentRound, nextRound, devDateTime } = getRoundData();
+const {
+    state,
+    round: displayRound,
+    urgency,
+    closesCountdown,
+    opensCountdown,
+    roundName,
+} = getRoundStatus({ currentRound, nextRound, devDateTime });
+
+// ─── Style maps ─────────────────────────────────────────────────────────
+const stateStyles = {
+    closed: {
+        border: "border-slate-700/50",
+        bg: "bg-slate-900/50",
+        accent: "text-slate-400",
+        icon: "calendar-xmark",
+    },
+    opening: {
+        border: "border-indigo-500/30",
+        bg: "bg-indigo-950/50",
+        accent: "text-indigo-400",
+        icon: "calendar-clock",
+    },
+    open: {
+        border: "border-emerald-500/30",
+        bg: "bg-emerald-950/50",
+        accent: "text-emerald-400",
+        icon: "door-open",
+    },
+    closing: {
+        border:
+            urgency === "critical"
+                ? "border-red-500/30"
+                : "border-amber-500/30",
+        bg: urgency === "critical" ? "bg-red-950/50" : "bg-amber-950/50",
+        accent: urgency === "critical" ? "text-red-400" : "text-amber-400",
+        icon: "clock",
+    },
+} as const;
+
+const s = stateStyles[state];
+
+// ─── Subtitle label ─────────────────────────────────────────────────────
+const subtitleText =
+    state === "closed"
+        ? "No active rounds"
+        : state === "opening"
+          ? "Coming soon"
+          : state === "open"
+            ? "Now accepting applications"
+            : state === "closing"
+              ? "Closing soon"
+              : "";
+
+// ─── Countdown display (static snapshot) ────────────────────────────────
+const closingCountdownText = (() => {
+    if (state !== "closing" || closesCountdown.isExpired) return null;
+    if (closesCountdown.totalDays === 0) return "Less than 1 day";
+    return `${closesCountdown.totalDays} ${closesCountdown.totalDays === 1 ? "day" : "days"}`;
+})();
+
+const openingCountdownText = (() => {
+    if (state !== "opening" || opensCountdown.totalDays <= 0) return null;
+    return `${opensCountdown.totalDays} ${opensCountdown.totalDays === 1 ? "day" : "days"}`;
+})();
+---
+
+<div class={`rounded-2xl border ${s.border} ${s.bg} p-6 md:p-8`}>
+    <p
+        class="text-xs font-semibold uppercase tracking-widest mb-3 text-violet-500"
+    >
+        Stage 1
+    </p>
+    <div
+        class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6"
+    >
+        <!-- Left: Round info -->
+        <div class="flex-1">
+            <div class="flex items-center gap-3 mb-3">
+                <div
+                    class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 shrink-0"
+                >
+                    <Icon name={s.icon} style="solid" class={s.accent} />
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-white">
+                        {roundName} Round
+                    </h3>
+                    <p class={`text-sm ${s.accent}`}>
+                        {subtitleText}
+                    </p>
+                </div>
+            </div>
+
+            <p class="text-violet-300 mb-4">
+                {
+                    state === "closed" &&
+                        "There are currently no application rounds open. Check back soon for upcoming rounds."
+                }
+
+                {
+                    state === "opening" && displayRound && (
+                        <>
+                            The next application round opens{" "}
+                            <strong class="text-white">
+                                {displayRound.dates.opens}
+                            </strong>
+                            .
+                            {opensCountdown.totalDays > 0 && (
+                                <>
+                                    {" "}
+                                    That's in{" "}
+                                    <strong class="text-white">
+                                        {opensCountdown.totalDays}{" "}
+                                        {opensCountdown.totalDays === 1
+                                            ? "day"
+                                            : "days"}
+                                    </strong>
+                                    .
+                                </>
+                            )}
+                        </>
+                    )
+                }
+
+                {
+                    state === "open" && displayRound && (
+                        <>
+                            We're accepting applications until{" "}
+                            <strong class="text-white">
+                                {displayRound.dates.closes}
+                            </strong>
+                            .
+                            {closesCountdown.totalDays > 0 && (
+                                <>
+                                    {" "}
+                                    You have{" "}
+                                    <strong class="text-white">
+                                        {closesCountdown.totalDays}{" "}
+                                        {closesCountdown.totalDays === 1
+                                            ? "day"
+                                            : "days"}
+                                    </strong>{" "}
+                                    left to apply.
+                                </>
+                            )}
+                        </>
+                    )
+                }
+
+                {
+                    state === "closing" && displayRound && (
+                        <>
+                            Applications close{" "}
+                            <strong class="text-white">
+                                {displayRound.dates.closes}
+                            </strong>
+                            .
+                            {closesCountdown.totalDays === 0 &&
+                                !closesCountdown.isExpired && (
+                                    <strong class="text-white">
+                                        {" "}
+                                        Last day to apply!
+                                    </strong>
+                                )}
+                        </>
+                    )
+                }
+            </p>
+        </div>
+
+        <!-- Right: Countdown (static snapshot) -->
+        <div
+            class="lg:w-64 shrink-0 flex flex-col items-center lg:items-end gap-3"
+        >
+            {
+                closingCountdownText && (
+                    <div class="flex items-center gap-1.5">
+                        <span
+                            class={`text-sm font-medium ${urgency === "critical" ? "text-red-400" : "text-amber-400"}`}
+                        >
+                            {urgency === "critical"
+                                ? "Closes in"
+                                : "Deadline in"}
+                        </span>
+                        <span
+                            class={`text-sm font-semibold ${urgency === "warning" ? "text-amber-400" : "text-white"}`}
+                        >
+                            {closingCountdownText}
+                        </span>
+                    </div>
+                )
+            }
+
+            {
+                openingCountdownText && (
+                    <div class="text-center lg:text-right">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-sm font-medium text-violet-300">
+                                Opens in
+                            </span>
+                            <span class="text-sm font-semibold text-white">
+                                {openingCountdownText}
+                            </span>
+                        </div>
+                    </div>
+                )
+            }
+        </div>
+    </div>
+</div>

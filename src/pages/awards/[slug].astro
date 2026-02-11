@@ -19,8 +19,6 @@ import {
     getNewApplications,
     getApplicationWithAwards,
 } from "@data/applications.js";
-import { rounds } from "@data/rounds.js";
-import { processAllRounds } from "@utils/application-rounds.js";
 
 // STATIC PATHS
 export const getStaticPaths: GetStaticPaths = () => {
@@ -57,15 +55,6 @@ const pageDescription =
     application.description ||
     "You're eligible to apply for an UnLtd Award";
 
-// ROUNDS
-const { currentRound, nextOpenRound } = processAllRounds(rounds);
-// Only check capacity if capacity tracking is enabled for this round
-const isRoundOpen =
-    currentRound?.isOpen &&
-    (!currentRound?.hasCapacity || currentRound?.capacityPercentage < 100);
-const nextOpenDate =
-    nextOpenRound?.dates?.opens || currentRound?.dates?.opens || "soon";
-
 // BREADCRUMBS
 const breadcrumbs = [
     { name: "Awards", path: "/awards" },
@@ -79,8 +68,9 @@ import Breadcrumbs from "@components/Breadcrumbs.astro";
 
 // COMPONENTS
 import EligibleHero from "@components/awards/EligibleHero.astro";
-import HowApplyingWorks from "@components/awards/HowApplyingWorks.astro";
-import RoundWidget from "@components/awards/RoundWidgetWrapper.astro";
+import RoundApply from "@components/awards/RoundApplyWrapper.astro";
+import RoundTable from "@components/awards/RoundTableWrapper.astro";
+import RoundStages from "@components/awards/RoundStageWrapper.astro";
 import FrequentlyAskedQuestions from "@components/awards/FrequentlyAskedQuestions.astro";
 import ReadyToApplyCTA from "@components/awards/ReadyToApplyCTA.astro";
 import Sessions from "@components/awards/Sessions.astro";
@@ -102,17 +92,25 @@ import Sessions from "@components/awards/Sessions.astro";
                     application.stage_text ||
                     "Your social venture qualifies",
             }}
-            isRoundOpen={isRoundOpen}
-            nextOpenDate={nextOpenDate}
             downloadUrl={`/awards/downloads/${slug}.pdf`}
             application={application}
         />
     </Container>
     <Container id="how-applying-works" class="bg-violet-950 py-16">
-        <HowApplyingWorks showResourceLinks={true} />
-    </Container>
-    <Container id="when-to-apply" class="bg-violet-900 py-16 mt-8">
-        <RoundWidget />
+        <div class="flex flex-col gap-8">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-violet-100 mb-4">
+                    How applying works
+                </h2>
+                <p class="text-lg text-violet-300 max-w-2xl mx-auto">
+                    Our application process has clear stages so you know exactly
+                    what to expect at every step.
+                </p>
+            </div>
+            <RoundApply />
+            <RoundStages />
+            <RoundTable />
+        </div>
     </Container>
     <Container id="sessions" class="bg-violet-900 py-16 mt-8">
         <Sessions />
