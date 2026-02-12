@@ -104,7 +104,7 @@ export const stages: Stage[] = [
     },
     {
         icon: "comments",
-        colour: "yellow",
+        colour: "purple",
         title: "Panel & recommendation",
         subtitle: "Meet with our panel",
         steps: [
@@ -135,7 +135,7 @@ export const stages: Stage[] = [
     },
     {
         icon: "envelope",
-        colour: "blue",
+        colour: "purple",
         title: "Result",
         subtitle: "Receive your decision",
         steps: [

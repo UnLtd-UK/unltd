@@ -18,7 +18,7 @@ const { round: displayRound } = getRoundStatus({
 const currentPhase = displayRound?.phase ?? "";
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
     {
         stages.map((stage) => {
             const isActive =
@@ -30,28 +30,17 @@ const currentPhase = displayRound?.phase ?? "";
 
             return (
                 <div
-                    class={`rounded-2xl border ${isActive ? colours.border : "border-violet-800/30"} bg-violet-950 p-6 flex flex-col h-full transition-all duration-300 ${isActive ? `shadow-lg ${colours.glow}` : ""}`}
+                    class={`rounded-2xl border ${isActive ? colours.border : "border-violet-800/30"} bg-violet-950 p-4 sm:p-6 flex gap-3 sm:gap-4 flex-col h-full transition-all duration-300 ${isActive ? `shadow-lg ${colours.glow}` : ""}`}
                 >
-                    {/* Stage number label */}
-                    <p
-                        class={`text-xs font-semibold uppercase tracking-widest mb-3 ${isActive ? colours.text : "text-violet-500"}`}
-                    >
-                        Stage {stage.stage}
-                    </p>
-
                     {/* Header */}
-                    <div class="flex items-center gap-3 mb-4">
+                    <div class="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-5">
                         <div
-                            class={`flex h-10 w-10 items-center justify-center rounded-lg ${colours.bg} shrink-0`}
+                            class={`flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg sm:rounded-xl bg-violet-50 shrink-0 text-base sm:text-lg font-bold text-violet-900`}
                         >
-                            <Icon
-                                name={stage.icon}
-                                style="solid"
-                                class={colours.icon}
-                            />
+                            {stage.stage}
                         </div>
-                        <div>
-                            <div class="flex items-center gap-2">
+                        <div class="min-w-0">
+                            <div class="flex items-center gap-2 flex-wrap">
                                 <h3 class="text-sm font-bold text-white">
                                     {stage.title}
                                 </h3>
@@ -67,17 +56,17 @@ const currentPhase = displayRound?.phase ?? "";
                                     </span>
                                 )}
                             </div>
-                            <p class="text-xs text-violet-400">
+                            <p class="text-xs text-violet-400 mt-0.5">
                                 {stage.subtitle}
                             </p>
                         </div>
                     </div>
 
-                    {/* Steps list (for stages with steps like Assessment/Interview) */}
+                    {/* Steps list */}
                     {hasSteps && (
-                        <div class="flex flex-col gap-3 mb-4 flex-1">
+                        <div class="flex flex-col gap-3 mb-2 sm:mb-4 flex-1">
                             {stage.steps.map((step) => (
-                                <div class="rounded-lg p-4">
+                                <div class="rounded-lg">
                                     <div class="flex items-start gap-3">
                                         <div
                                             class={`flex h-8 w-8 items-center justify-center rounded-md ${colours.bg} shrink-0 mt-0.5`}
@@ -101,44 +90,45 @@ const currentPhase = displayRound?.phase ?? "";
                             ))}
                         </div>
                     )}
-
-                    {/* Successful outcome (only for Result stage) */}
-                    {stage.successful && (
-                        <div class="rounded-lg bg-emerald-500/10 border border-emerald-500/20 p-4 mb-3">
-                            <div class="flex items-center gap-2 mb-2">
-                                <h4 class="font-semibold text-emerald-300 text-sm">
-                                    {stage.successful.title}
-                                </h4>
-                                <Icon
-                                    name="arrow-right"
-                                    style="solid"
-                                    class="text-emerald-400 text-sm"
-                                />
+                    <div class="mt-auto">
+                        {/* Successful outcome */}
+                        {stage.successful && (
+                            <div class="rounded-lg bg-emerald-500/10 border border-emerald-500/20 p-3 sm:p-4 mb-3">
+                                <div class="flex items-center gap-2 mb-1 sm:mb-2">
+                                    <h4 class="font-semibold text-emerald-300 text-sm">
+                                        {stage.successful.title}
+                                    </h4>
+                                    <Icon
+                                        name="arrow-right"
+                                        style="solid"
+                                        class="text-emerald-400 text-sm"
+                                    />
+                                </div>
+                                <p class="text-xs text-emerald-200/70">
+                                    {stage.successful.description}
+                                </p>
                             </div>
-                            <p class="text-xs text-emerald-200/70">
-                                {stage.successful.description}
-                            </p>
-                        </div>
-                    )}
+                        )}
 
-                    {/* Unsuccessful outcome */}
-                    {stage.unsuccessful && (
-                        <div class="rounded-lg bg-white/5 border border-white/10 p-4 mt-auto">
-                            <div class="flex items-center gap-2 mb-2">
-                                <Icon
-                                    name="comment-dots"
-                                    style="solid"
-                                    class="text-violet-400 text-sm"
-                                />
-                                <h4 class="font-semibold text-violet-300 text-sm">
-                                    {stage.unsuccessful.title}
-                                </h4>
+                        {/* Unsuccessful outcome */}
+                        {stage.unsuccessful && (
+                            <div class="rounded-lg bg-white/5 border border-white/10 p-3 sm:p-4">
+                                <div class="flex items-center gap-2 mb-1 sm:mb-2">
+                                    <Icon
+                                        name="comment-dots"
+                                        style="solid"
+                                        class="text-violet-400 text-sm"
+                                    />
+                                    <h4 class="font-semibold text-violet-300 text-sm">
+                                        {stage.unsuccessful.title}
+                                    </h4>
+                                </div>
+                                <p class="text-xs text-violet-400">
+                                    {stage.unsuccessful.description}
+                                </p>
                             </div>
-                            <p class="text-xs text-violet-400">
-                                {stage.unsuccessful.description}
-                            </p>
-                        </div>
-                    )}
+                        )}
+                    </div>
                 </div>
             );
         })
