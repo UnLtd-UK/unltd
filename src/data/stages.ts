@@ -75,13 +75,13 @@ export const stages: Stage[] = [
         steps: [
             {
                 icon: "clipboard-list",
-                title: "Submit your application",
+                title: "Suitability check",
                 subtitle:
                     "Your application is reviewed against our eligibility criteria and our three key assessment areas: social impact, inclusion and financial sustainability.",
             },
             {
                 icon: "users",
-                title: "Submit before deadline",
+                title: "Support Manager assessment",
                 subtitle:
                     "Support Managers discuss your application together. Strong applications are invited to panel.",
             },
