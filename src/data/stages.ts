@@ -42,59 +42,95 @@ export interface Stage {
 
 export const stages: Stage[] = [
     {
+        icon: "button-pointer",
+        colour: "purple",
+        title: "Apply",
+        subtitle: "Get ready to apply to submit your application.",
+        steps: [
+            {
+                icon: "circle-check",
+                title: "Submit your application",
+                subtitle:
+                    "Complete all sections of the application form through our portal.",
+            },
+            {
+                icon: "people-group",
+                title: "Submit before deadline",
+                subtitle:
+                    "We assess applications in rounds. Submit before the round closes to be considered.",
+            },
+        ],
+        phase: "apply",
+        stage: 1,
+        successful: {
+            title: "Application Eligible",
+            description: "Receive a copy of your submitted application. We will review it and get back to you within 4-6 weeks.",
+        },
+        unsuccessful: {
+            title: "If unsuccessful",
+            description: "General feedback on eligibility criteria and application strength to help you understand areas for improvement.",
+        },
+    },
+    {
         icon: "magnifying-glass",
         colour: "purple",
-        title: "Assessment",
+        title: "Application review",
         subtitle: "We review your application",
         steps: [
             {
                 icon: "circle-check",
-                title: "Suitability Check",
+                title: "Submit your application",
                 subtitle:
-                    "Reviewed against social impact and sustainability criteria.",
+                    "Your application is reviewed against our eligibility criteria and our three key assessment areas: social impact, inclusion and financial sustainability.",
             },
             {
                 icon: "people-group",
-                title: "Peer Review",
+                title: "Submit before deadline",
                 subtitle:
-                    "Support Managers discuss your application together.",
+                    "Support Managers discuss your application together. Strong applications are invited to panel.",
             },
         ],
         phase: "assessment",
         stage: 2,
-        successful: null,
+        successful: {
+            title: "Passed review",
+            description: "Your application has been successfully submitted. We will review it and get back to you within 4-6 weeks.",
+        },
         unsuccessful: {
-            title: "Basic feedback",
+            title: "If unsuccessful",
             description:
-                "General feedback on eligibility criteria and application strength to help you understand areas for improvement.",
+                "Receive feedback on the main reason your application was unsuccessful and links to other funding and support available.",
         },
     },
     {
         icon: "comments",
         colour: "yellow",
-        title: "Interview",
+        title: "Panel & recommendation",
         subtitle: "Meet with our panel",
         steps: [
             {
                 icon: "people-group",
-                title: "Panel Discussion",
+                title: "Panel meeting",
                 subtitle:
-                    "Meet with staff and entrepreneurs to discuss your venture.",
+                    "Discuss your venture with staff and experienced social entrepreneurs in a supportive setting.",
             },
             {
                 icon: "circle-question",
-                title: "Q&A Session",
+                title: "Committee approval",
                 subtitle:
-                    "Answer questions about your plans and goals.",
+                    "Final recommendations go to our Awards Committee for approval.",
             },
         ],
         phase: "interview",
         stage: 3,
-        successful: null,
+        successful: {
+            title: "Passed panel",
+            description: "Your application has been successfully submitted. We will review it and get back to you within 4-6 weeks.",
+        },
         unsuccessful: {
-            title: "Detailed feedback",
+            title: "If unsuccessful",
             description:
-                "Specific feedback on your venture proposition and interview performance, with actionable suggestions for development.",
+                "Receive feedback on your venture highlighting strengths, suggestions for improvement and links to other funding and support available.",
         },
     },
     {
@@ -102,7 +138,20 @@ export const stages: Stage[] = [
         colour: "blue",
         title: "Result",
         subtitle: "Receive your decision",
-        steps: [],
+        steps: [
+            {
+                icon: "people-group",
+                title: "Award approval",
+                subtitle:
+                    "Receive your Award amount, approved budget and details on how to accept our offer.",
+            },
+            {
+                icon: "circle-question",
+                title: "Welcome to the community",
+                subtitle:
+                    "Invitation to our welcome workshop and an introduction to your dedicated Support Manager.",
+            },
+        ],
         phase: "results",
         stage: 4,
         successful: {

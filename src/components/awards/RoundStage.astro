@@ -18,7 +18,7 @@ const { round: displayRound } = getRoundStatus({
 const currentPhase = displayRound?.phase ?? "";
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
     {
         stages.map((stage) => {
             const isActive =
@@ -52,7 +52,7 @@ const currentPhase = displayRound?.phase ?? "";
                         </div>
                         <div>
                             <div class="flex items-center gap-2">
-                                <h3 class="text-lg font-bold text-white">
+                                <h3 class="text-sm font-bold text-white">
                                     {stage.title}
                                 </h3>
                                 {isActive && (
@@ -67,7 +67,7 @@ const currentPhase = displayRound?.phase ?? "";
                                     </span>
                                 )}
                             </div>
-                            <p class="text-sm text-violet-400">
+                            <p class="text-xs text-violet-400">
                                 {stage.subtitle}
                             </p>
                         </div>
@@ -106,14 +106,14 @@ const currentPhase = displayRound?.phase ?? "";
                     {stage.successful && (
                         <div class="rounded-lg bg-emerald-500/10 border border-emerald-500/20 p-4 mb-3">
                             <div class="flex items-center gap-2 mb-2">
-                                <Icon
-                                    name="circle-check"
-                                    style="solid"
-                                    class="text-emerald-400 text-sm"
-                                />
                                 <h4 class="font-semibold text-emerald-300 text-sm">
                                     {stage.successful.title}
                                 </h4>
+                                <Icon
+                                    name="arrow-right"
+                                    style="solid"
+                                    class="text-emerald-400 text-sm"
+                                />
                             </div>
                             <p class="text-xs text-emerald-200/70">
                                 {stage.successful.description}
