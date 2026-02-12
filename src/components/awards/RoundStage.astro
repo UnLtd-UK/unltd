@@ -65,6 +65,9 @@ const applyStatusColour =
         : state === "closing"
           ? "text-amber-400"
           : "text-violet-400";
+
+const isAwardsPage =
+    Astro.url.pathname === "/awards" || Astro.url.pathname === "/awards/";
 ---
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -172,7 +175,7 @@ const applyStatusColour =
                     </div>
 
                     {/* Eligibility checker CTA */}
-                    {stage.phase === "apply" && (
+                    {stage.phase === "apply" && isAwardsPage && (
                         <a
                             href="/awards#apply"
                             class="flex items-center gap-3 rounded-lg bg-violet-500/10 border border-violet-500/20 p-3 hover:bg-violet-500/20 transition-colors group"
