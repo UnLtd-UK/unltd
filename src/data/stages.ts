@@ -90,7 +90,7 @@ export const stages: Stage[] = [
         stage: 2,
         successful: {},
         unsuccessful: {
-            icon: "comment-dots",
+            icon: "envelope-open-text",
             title: "If unsuccessful",
             description:
                 "Receive feedback on the main reason your application was unsuccessful and links to other funding and support available.",
