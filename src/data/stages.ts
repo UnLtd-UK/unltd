@@ -15,8 +15,10 @@ export interface StageStep {
 }
 
 export interface StageOutcome {
-    title: string;
-    description: string;
+    /** FontAwesome icon name */
+    icon?: string;
+    title?: string;
+    description?: string;
 }
 
 export interface Stage {
@@ -48,13 +50,13 @@ export const stages: Stage[] = [
         subtitle: "Get ready to apply to submit your application.",
         steps: [
             {
-                icon: "circle-check",
+                icon: "pen-to-square",
                 title: "Submit your application",
                 subtitle:
                     "Complete all sections of the application form through our portal.",
             },
             {
-                icon: "people-group",
+                icon: "hourglass-half",
                 title: "Submit before deadline",
                 subtitle:
                     "We assess applications in rounds. Submit before the round closes to be considered.",
@@ -62,14 +64,8 @@ export const stages: Stage[] = [
         ],
         phase: "apply",
         stage: 1,
-        successful: {
-            title: "Application Eligible",
-            description: "Receive a copy of your submitted application. We will review it and get back to you within 4-6 weeks.",
-        },
-        unsuccessful: {
-            title: "If unsuccessful",
-            description: "General feedback on eligibility criteria and application strength to help you understand areas for improvement.",
-        },
+        successful: {},
+        unsuccessful: {},
     },
     {
         icon: "magnifying-glass",
@@ -78,13 +74,13 @@ export const stages: Stage[] = [
         subtitle: "We review your application",
         steps: [
             {
-                icon: "circle-check",
+                icon: "clipboard-list",
                 title: "Submit your application",
                 subtitle:
                     "Your application is reviewed against our eligibility criteria and our three key assessment areas: social impact, inclusion and financial sustainability.",
             },
             {
-                icon: "people-group",
+                icon: "users",
                 title: "Submit before deadline",
                 subtitle:
                     "Support Managers discuss your application together. Strong applications are invited to panel.",
@@ -92,11 +88,9 @@ export const stages: Stage[] = [
         ],
         phase: "assessment",
         stage: 2,
-        successful: {
-            title: "Passed review",
-            description: "Your application has been successfully submitted. We will review it and get back to you within 4-6 weeks.",
-        },
+        successful: {},
         unsuccessful: {
+            icon: "comment-dots",
             title: "If unsuccessful",
             description:
                 "Receive feedback on the main reason your application was unsuccessful and links to other funding and support available.",
@@ -115,7 +109,7 @@ export const stages: Stage[] = [
                     "Discuss your venture with staff and experienced social entrepreneurs in a supportive setting.",
             },
             {
-                icon: "circle-question",
+                icon: "gavel",
                 title: "Committee approval",
                 subtitle:
                     "Final recommendations go to our Awards Committee for approval.",
@@ -123,30 +117,28 @@ export const stages: Stage[] = [
         ],
         phase: "interview",
         stage: 3,
-        successful: {
-            title: "Passed panel",
-            description: "Your application has been successfully submitted. We will review it and get back to you within 4-6 weeks.",
-        },
+        successful: {},
         unsuccessful: {
+            icon: "envelope-open-text",
             title: "If unsuccessful",
             description:
                 "Receive feedback on your venture highlighting strengths, suggestions for improvement and links to other funding and support available.",
         },
     },
     {
-        icon: "envelope",
+        icon: "award",
         colour: "purple",
         title: "Result",
         subtitle: "Receive your decision",
         steps: [
             {
-                icon: "people-group",
+                icon: "certificate",
                 title: "Award approval",
                 subtitle:
                     "Receive your Award amount, approved budget and details on how to accept our offer.",
             },
             {
-                icon: "circle-question",
+                icon: "handshake",
                 title: "Welcome to the community",
                 subtitle:
                     "Invitation to our welcome workshop and an introduction to your dedicated Support Manager.",
@@ -154,16 +146,8 @@ export const stages: Stage[] = [
         ],
         phase: "results",
         stage: 4,
-        successful: {
-            title: "Welcome to the community",
-            description:
-                "Welcome pack with cohort information. Budget & reporting guidance. Dedicated Support Manager introduction.",
-        },
-        unsuccessful: {
-            title: "Detailed feedback",
-            description:
-                "In-depth feedback on your application journey. Development resources and recommendations. Personalised guidance for reapplication.",
-        },
+        successful: {},
+        unsuccessful: {},
     },
 ];
 

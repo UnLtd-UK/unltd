@@ -10,12 +10,60 @@ import { stages, stageColourClasses } from "@data/stages";
 import Icon from "@components/Icon.astro";
 
 const { currentRound, nextRound, devDateTime } = getRoundData();
-const { round: displayRound } = getRoundStatus({
+const {
+    state,
+    urgency,
+    round: displayRound,
+    closesCountdown,
+    opensCountdown,
+} = getRoundStatus({
     currentRound,
     nextRound,
     devDateTime,
 });
 const currentPhase = displayRound?.phase ?? "";
+
+// ─── Apply-stage status badge ───────────────────────────────────────────
+const applyBadgeText =
+    state === "opening"
+        ? "Coming soon"
+        : state === "open"
+          ? "Open"
+          : state === "closing"
+            ? "Closing soon"
+            : "";
+const applyBadgePulse = state === "open" || state === "closing";
+const applyBadgeClass =
+    state === "opening"
+        ? "bg-indigo-500/20 text-indigo-400 ring-indigo-500/30"
+        : state === "open"
+          ? "bg-emerald-500/20 text-emerald-400 ring-emerald-500/30"
+          : state === "closing" && urgency === "critical"
+            ? "bg-red-500/20 text-red-400 ring-red-500/30"
+            : state === "closing"
+              ? "bg-amber-500/20 text-amber-400 ring-amber-500/30"
+              : "";
+
+// ─── Apply-stage supporting text ────────────────────────────────────────
+const applyStatusText = (() => {
+    if (state === "opening" && displayRound) {
+        return `Opens ${displayRound.dates.opens}`;
+    }
+    if (state === "open" && displayRound) {
+        return `Closes ${displayRound.dates.closes}`;
+    }
+    if (state === "closing" && !closesCountdown.isExpired) {
+        if (closesCountdown.totalDays === 0) return "Less than 1 day left";
+        return `${closesCountdown.totalDays} ${closesCountdown.totalDays === 1 ? "day" : "days"} left`;
+    }
+    return "";
+})();
+const applyStatusColour =
+    state === "closing" && urgency === "critical"
+        ? "text-red-400"
+        : state === "closing"
+          ? "text-amber-400"
+          : "text-violet-400";
 ---
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -35,27 +83,17 @@ const currentPhase = displayRound?.phase ?? "";
                     {/* Header */}
                     <div class="flex items-center gap-3 sm:gap-4 mb-2 sm:mb-5">
                         <div
-                            class={`flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg sm:rounded-xl bg-violet-50 shrink-0 text-base sm:text-lg font-bold text-violet-900`}
+                            class={`flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg sm:rounded-xl bg-violet-200 shrink-0 text-base sm:text-lg font-bold text-violet-900`}
                         >
                             {stage.stage}
                         </div>
                         <div class="min-w-0">
-                            <div class="flex items-center gap-2 flex-wrap">
+                            <div class="flex gap-2 flex-wrap">
                                 <h3 class="text-sm font-bold text-white">
                                     {stage.title}
                                 </h3>
-                                {isActive && (
-                                    <span
-                                        class={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ${colours.badge}`}
-                                    >
-                                        <span class="relative flex h-1.5 w-1.5">
-                                            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-75" />
-                                            <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
-                                        </span>
-                                        Active
-                                    </span>
-                                )}
                             </div>
+
                             <p class="text-xs text-violet-400 mt-0.5">
                                 {stage.subtitle}
                             </p>
@@ -90,19 +128,91 @@ const currentPhase = displayRound?.phase ?? "";
                             ))}
                         </div>
                     )}
+
+                    <div class="flex gap-2">
+                        {/* Apply stage: round status badge */}
+                        {stage.phase === "apply" && applyBadgeText && (
+                            <span
+                                class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${applyBadgeClass}`}
+                            >
+                                {applyBadgePulse && (
+                                    <span class="relative flex h-1.5 w-1.5">
+                                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-75" />
+                                        <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+                                    </span>
+                                )}
+                                {!applyBadgePulse && state === "opening" && (
+                                    <Icon
+                                        name="clock"
+                                        style="regular"
+                                        class="text-[10px]"
+                                    />
+                                )}
+                                {applyBadgeText}
+                            </span>
+                        )}
+                        {stage.phase === "apply" && applyStatusText && (
+                            <p class={`text-xs ${applyStatusColour} mt-1.5`}>
+                                {applyStatusText}
+                            </p>
+                        )}
+                        {/* Other stages: Active badge */}
+                        {stage.phase !== "apply" && isActive && (
+                            <span
+                                class={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ring-1 ${colours.badge}`}
+                            >
+                                <span class="relative flex h-1.5 w-1.5">
+                                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-75" />
+                                    <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+                                </span>
+                                Active
+                            </span>
+                        )}
+                    </div>
+
+                    {/* Eligibility checker CTA */}
+                    {stage.phase === "apply" && (
+                        <a
+                            href="/awards#apply"
+                            class="flex items-center gap-3 rounded-lg bg-violet-500/10 border border-violet-500/20 p-3 hover:bg-violet-500/20 transition-colors group"
+                        >
+                            <div class="flex h-8 w-8 items-center justify-center rounded-md bg-violet-500/20 shrink-0">
+                                <Icon
+                                    name="clipboard-check"
+                                    style="solid"
+                                    class="text-violet-400 text-sm"
+                                />
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-semibold text-white">
+                                    Ready to apply?
+                                </p>
+                                <p class="text-xs text-violet-400">
+                                    Take our eligibility checker as the first
+                                    step.
+                                </p>
+                            </div>
+                            <Icon
+                                name="chevron-right"
+                                style="solid"
+                                class="text-violet-400 text-xs group-hover:text-white transition-colors shrink-0"
+                            />
+                        </a>
+                    )}
+
                     <div class="mt-auto">
                         {/* Successful outcome */}
-                        {stage.successful && (
+                        {stage.successful?.title && (
                             <div class="rounded-lg bg-emerald-500/10 border border-emerald-500/20 p-3 sm:p-4 mb-3">
                                 <div class="flex items-center gap-2 mb-1 sm:mb-2">
-                                    <h4 class="font-semibold text-emerald-300 text-sm">
-                                        {stage.successful.title}
-                                    </h4>
                                     <Icon
-                                        name="arrow-right"
+                                        name={stage.successful.icon}
                                         style="solid"
                                         class="text-emerald-400 text-sm"
                                     />
+                                    <h4 class="font-semibold text-emerald-300 text-sm">
+                                        {stage.successful.title}
+                                    </h4>
                                 </div>
                                 <p class="text-xs text-emerald-200/70">
                                     {stage.successful.description}
@@ -111,11 +221,11 @@ const currentPhase = displayRound?.phase ?? "";
                         )}
 
                         {/* Unsuccessful outcome */}
-                        {stage.unsuccessful && (
+                        {stage.unsuccessful?.title && (
                             <div class="rounded-lg bg-white/5 border border-white/10 p-3 sm:p-4">
                                 <div class="flex items-center gap-2 mb-1 sm:mb-2">
                                     <Icon
-                                        name="comment-dots"
+                                        name={stage.unsuccessful.icon}
                                         style="solid"
                                         class="text-violet-400 text-sm"
                                     />
