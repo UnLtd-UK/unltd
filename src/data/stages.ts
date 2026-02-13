@@ -18,7 +18,7 @@ export interface StageOutcome {
     /** FontAwesome icon name */
     icon?: string;
     title?: string;
-    description?: string;
+    subtitle?: string;
 }
 
 export interface Stage {
@@ -92,7 +92,7 @@ export const stages: Stage[] = [
         unsuccessful: {
             icon: "envelope-open-text",
             title: "If unsuccessful",
-            description:
+            subtitle:
                 "Receive feedback on the main reason your application was unsuccessful and links to other funding and support available.",
         },
     },
@@ -121,7 +121,7 @@ export const stages: Stage[] = [
         unsuccessful: {
             icon: "envelope-open-text",
             title: "If unsuccessful",
-            description:
+            subtitle:
                 "Receive feedback on your venture highlighting strengths, suggestions for improvement and links to other funding and support available.",
         },
     },
@@ -136,17 +136,16 @@ export const stages: Stage[] = [
                 title: "Award approval",
                 subtitle:
                     "Receive your Award amount, approved budget and details on how to accept our offer.",
-            },
-            {
-                icon: "handshake",
-                title: "Welcome to the community",
-                subtitle:
-                    "Invitation to our welcome workshop and an introduction to your dedicated Support Manager.",
-            },
+            }
         ],
         phase: "results",
         stage: 4,
-        successful: {},
+        successful: {
+            icon: "handshake",
+            title: "Welcome to the community",
+            subtitle:
+                "Invitation to our welcome workshop and an introduction to your dedicated Support Manager.",
+        },
         unsuccessful: {},
     },
 ];
