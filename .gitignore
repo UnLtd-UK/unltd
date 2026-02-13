@@ -28,6 +28,10 @@ npm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# IDE and editor settings
+.vscode/
+.claude/
+
 src/data/cache/
 
 .dev.vars

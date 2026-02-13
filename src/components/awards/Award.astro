@@ -1,11 +1,12 @@
 ---
 import DynamicIcon from "@components/DynamicIcon.astro";
 import Icon from "@components/Icon.astro";
+import { type EligibilityCriteria } from "@data/awards";
 
 interface Programme {
     icon: string;
     name: string;
-    path: string;
+    slug: string;
     colour?: "amber" | "purple" | string;
     description?: string;
 }
@@ -19,21 +20,25 @@ interface ProgrammeService {
 type GrantUsability = Record<string, boolean>;
 
 interface AwardProps {
+    code: string;
     name: string;
     description: string;
     grant: number;
     programme: Programme;
     grantUsability: GrantUsability;
     programmeServices: ProgrammeService[];
+    eligibility?: EligibilityCriteria;
 }
 
 const {
+    code,
     name,
     description,
     grant,
     programme,
     grantUsability,
     programmeServices,
+    eligibility,
 } = Astro.props as AwardProps;
 
 // Theme tokens for programme colours on different card backgrounds
@@ -113,6 +118,15 @@ const headingText = isStartingUp ? "text-gray-900" : "text-gray-100";
 const excludedText = isStartingUp ? "text-red-800" : "text-red-200";
 const includedText = isStartingUp ? "text-emerald-800" : "text-emerald-200";
 const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
+
+// Extract age eligibility for display on the card
+const ageValue = eligibility?.age;
+const ageLabel =
+    typeof ageValue === "string"
+        ? ageValue
+        : Array.isArray(ageValue)
+          ? ageValue.join(", ")
+          : null;
 ---
 
 <div
@@ -125,7 +139,9 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
             <!-- Section 1: Award Name -->
             <div class="p-6 pb-4">
                 <h2 class:list={["text-md font-semibold", headingText]}>
-                    {name}
+                    {name.replace(programme?.name ?? "", "").trim()}
+                    <br />
+                    {programme?.name}
                 </h2>
             </div>
 
@@ -138,15 +154,15 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
             <!-- Section 2: Grant Information -->
             <div class="p-6">
                 <div class="flex flex-col gap-1">
-                    <div class:list={["text-sm", labelText]}>
-                        <p>Grant of up to</p>
+                    <div class:list={["text-xs uppercase", labelText]}>
+                        <p>Up to</p>
                     </div>
                     <div class:list={["text-5xl font-semibold", grantText]}>
                         {grantFormatted}
                     </div>
                     <div class="mt-4">
                         <h3 class:list={["text-sm/6 font-medium", headingText]}>
-                            Your grant usability:
+                            Can be used for:
                         </h3>
 
                         <ul class="mt-3 space-y-1">
@@ -184,13 +200,12 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
 
             <!-- Section 3: Programme Information -->
             <div class="p-6">
+                <p class:list={["text-xs uppercase", labelText]}>Programme</p>
+
                 <a
-                    href={programme?.path ?? "#"}
-                    class={`group block mb-4 -mx-2 px-2 py-2 rounded-xl transition-colors ${theme.hoverBg}`}
+                    href={`/awards/${programme.slug}`}
+                    class={`group block mb-4 -mx-2 px-5 py-2 rounded-xl transition-colors ${theme.hoverBg}`}
                 >
-                    <p class:list={["text-sm", labelText]}>
-                        Programme enrollment to
-                    </p>
                     <div class="flex items-center gap-2 mt-2">
                         <span
                             class={`inline-flex items-center gap-2 rounded-md px-2.5 py-1 text-xs font-medium ${theme.badgeBg} ${theme.badgeText} ${theme.badgeRing}`}
@@ -204,35 +219,88 @@ const dividerBorder = isStartingUp ? "border-gray-200" : "border-white/10";
                             <p
                                 class={`text-xs leading-relaxed mt-3 ${theme.descriptionText}`}
                             >
-                                {programme.description}
+                                {programme.description &&
+                                programme.description.length > 100
+                                    ? programme.description.slice(0, 100) +
+                                      "..."
+                                    : programme.description}
                             </p>
                         )
                     }
-                </a>
 
-                <div class="pt-2">
-                    <h3
-                        class:list={["text-sm/6 font-medium pb-2", headingText]}
-                    >
-                        Your programme services:
-                    </h3>
-                    <ul class="space-y-2">
-                        {
-                            services.map((service) => (
-                                <li
-                                    class={`group flex items-start gap-3 text-xs/6 ${theme.serviceItemText}`}
+                    <div class="pt-2">
+                        <h3
+                            class:list={[
+                                "text-sm/6 font-medium pb-2",
+                                headingText,
+                            ]}
+                        >
+                            Award includes:
+                        </h3>
+                        <ul class="space-y-2">
+                            {
+                                services.map((service) => (
+                                    <li
+                                        class={`group flex items-start gap-3 text-xs/6 ${theme.serviceItemText}`}
+                                    >
+                                        <span class="inline-flex h-6 items-center">
+                                            {service.icon && (
+                                                <DynamicIcon
+                                                    icon={service.icon}
+                                                />
+                                            )}
+                                        </span>
+                                        {service.name}
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
+                </a>
+            </div>
+
+            <div
+                aria-hidden="true"
+                class:list={["mx-6 border-t border-dotted", dividerBorder]}
+            >
+            </div>
+
+            <!-- Section 4: Eligibility Criteria Link with Age Teaser -->
+            <div class="p-6 pt-4">
+                <p
+                    class:list={[
+                        "text-xs",
+                        isStartingUp ? "text-gray-600" : "text-gray-400",
+                    ]}
+                >
+                    {
+                        ageLabel && (
+                            <>
+                                You must be{" "}
+                                <span
+                                    class:list={[
+                                        "font-semibold",
+                                        isStartingUp
+                                            ? "text-violet-600"
+                                            : "text-violet-400",
+                                    ]}
                                 >
-                                    <span class="inline-flex h-6 items-center">
-                                        {service.icon && (
-                                            <DynamicIcon icon={service.icon} />
-                                        )}
-                                    </span>
-                                    {service.name}
-                                </li>
-                            ))
-                        }
-                    </ul>
-                </div>
+                                    {ageLabel}
+                                </span>
+                                .{" "}
+                            </>
+                        )
+                    }
+                    <a
+                        href={`/awards/eligibility-criteria#${code}`}
+                        class:list={[
+                            "underline transition-colors",
+                            isStartingUp
+                                ? "text-violet-600 hover:text-violet-800"
+                                : "text-violet-400 hover:text-violet-300",
+                        ]}>View full eligibility criteria</a
+                    >
+                </p>
             </div>
         </div>
     </div>

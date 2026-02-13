@@ -1,0 +1,256 @@
+---
+/**
+ * EligibleHero Component
+ * Consolidated hero for the eligibility confirmation page.
+ *
+ * Includes:
+ * - Confirmation message
+ * - Compact Award cards (click to view full details in a dialog)
+ * - AI usage statement
+ * - Apply / Portal button
+ * - Links to fillable PDF, Excel, and other resources
+ */
+
+import Icon from "@components/Icon.astro";
+// import AwardCompact from "@components/awards/AwardCompact.astro";
+import Award from "@components/awards/Award.astro";
+import RoundButton from "@components/awards/RoundButton.astro";
+
+interface Props {
+    awards: any[];
+    page: {
+        tradingDescription: string;
+    };
+    /** Path to the generated fillable PDF form */
+    downloadUrl?: string;
+    /** The application object from Directus (includes resources M2M) */
+    application?: any;
+}
+
+const { awards, page, downloadUrl, application } = Astro.props;
+
+const isMultipleAwards = awards.length > 1;
+const awardText = isMultipleAwards ? "Awards" : "Award";
+
+// Flatten the M2M junction table to get the actual resource objects
+const resources = (application?.resources ?? [])
+    .map((r: any) => r.resources_id)
+    .filter(Boolean);
+
+// Find the most recent date_updated across all sections and fields
+const allDates: number[] = [];
+for (const sec of application?.sections ?? []) {
+    if (sec.sections_id?.date_updated) {
+        allDates.push(new Date(sec.sections_id.date_updated).getTime());
+    }
+    for (const field of sec.sections_id?.fields ?? []) {
+        if (field.fields_id?.date_updated) {
+            allDates.push(new Date(field.fields_id.date_updated).getTime());
+        }
+    }
+}
+const lastUpdated =
+    allDates.length > 0 ? new Date(Math.max(...allDates)) : null;
+const lastUpdatedText = lastUpdated
+    ? `${lastUpdated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} at ${lastUpdated.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`
+    : null;
+---
+
+<section
+    x-data="{ email: new URLSearchParams(window.location.search).get('email') }"
+>
+    <div class="max-w-7xl mx-auto">
+        <!-- Hero Header -->
+
+        <div class="flex flex-col lg:flex-row gap-8 lg:gap-5">
+            <div class="max-w-3xl flex-1 flex flex-col gap-7">
+                <div class="flex flex-col gap-4">
+                    <Icon
+                        name="badge-check"
+                        style="solid"
+                        class="!h-12 !w-12 text-emerald-200"
+                    />
+
+                    <h1 class="text-3xl md:text-4xl lg:text-6xl font-bold">
+                        You're eligible to apply for an Award
+                    </h1>
+
+                    <p class="text-md text-white">
+                        Based on the information you provided, you are eligible
+                        to apply. Submit one application and we'll match you to
+                        one of our open Award programmes.
+                    </p>
+                </div>
+                <!-- Email confirmation (client-side) -->
+                <div
+                    x-show="email"
+                    x-cloak
+                    class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20 mb-6"
+                >
+                    <Icon
+                        name="envelope-circle-check"
+                        style="solid"
+                        class="text-emerald-200 mt-0.5"
+                    />
+                    <p class="text-sm text-white">
+                        We've emailed <span x-text="email" class="font-semibold"
+                        ></span> a link to this page
+                    </p>
+                </div>
+
+                <!-- Steps: Draft then Apply -->
+                <div class="flex flex-col gap-4">
+                    {
+                        downloadUrl && (
+                            <div class="flex items-start gap-3">
+                                <span class="flex items-center justify-center h-7 w-7 rounded-full bg-white/20 text-white text-xs font-bold ring-1 ring-white/30 shrink-0 mt-2.5">
+                                    1
+                                </span>
+                                <a
+                                    href={downloadUrl}
+                                    class="inline-flex items-center gap-3 px-8 py-4 rounded-xl text-lg transition-all duration-200 ring-2 ring-white/30 text-white hover:bg-white/10 hover:ring-white/50"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <div class="text-left">
+                                        <span class="block font-bold text-lg leading-tight">
+                                            Draft your application
+                                        </span>
+                                        <span class="block text-xs text-emerald-200 leading-snug">
+                                            Download a fillable PDF so you can
+                                            prepare your answers offline.
+                                            {lastUpdatedText && (
+                                                <span class="block text-xs text-emerald-200/70 mt-0.5">
+                                                    Last updated{" "}
+                                                    {lastUpdatedText}
+                                                </span>
+                                            )}
+                                        </span>
+                                    </div>
+                                    <Icon
+                                        name="download"
+                                        style="solid"
+                                        class="shrink-0"
+                                    />
+                                </a>
+                            </div>
+                        )
+                    }
+                    <div class="flex items-start gap-3">
+                        <span
+                            class={`flex items-center justify-center h-7 w-7 rounded-full bg-white/20 text-white text-xs font-bold ring-1 ring-white/30 shrink-0 mt-2.5`}
+                        >
+                            {downloadUrl ? "2" : "1"}
+                        </span>
+                        <div class="flex flex-col">
+                            <RoundButton variant="hero" />
+                            {
+                                downloadUrl && (
+                                    <p class="text-xs text-emerald-200/70 mt-1.5 ml-0.5">
+                                        Once you've drafted your answers, submit
+                                        them here
+                                    </p>
+                                )
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Statement -->
+                <div
+                    class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20"
+                >
+                    <Icon
+                        name="robot"
+                        style="solid"
+                        class="text-emerald-200 mt-0.5 h-4 w-4 shrink-0"
+                    />
+                    <div>
+                        <p class="text-sm font-semibold text-white mb-1">
+                            On the use of AI
+                        </p>
+                        <p class="text-sm text-emerald-100">
+                            We know that AI chatbots can be helpful — they can
+                            make writing clearer and more structured. We
+                            encourage you to use them if they help you share
+                            your plans. But we want to hear
+                            <span class="font-semibold text-white"
+                                >your voice</span
+                            >. If you use AI, please do so thoughtfully — as a
+                            tool, not a substitute. The more you personalise
+                            your responses and share your genuine values and
+                            vision, the stronger your application will be.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Resources & Downloads -->
+                <div class="">
+                    <p class="flex text-sm font-medium text-emerald-100 pb-4">
+                        <Icon name="file-alt" style="solid" class="mr-1.5" />
+                        Useful resources to help you with your application
+                    </p>
+
+                    <ul class="flex flex-col gap-3">
+                        {
+                            /* Resources from the application's resources field in Directus */
+                        }
+                        {
+                            resources.map((resource: any) => {
+                                const isExternal = !!resource.external_url;
+                                const href = isExternal
+                                    ? resource.external_url
+                                    : `/spaces/${resource.slug}`;
+
+                                return (
+                                    <li>
+                                        <a
+                                            href={href}
+                                            target={
+                                                isExternal
+                                                    ? "_blank"
+                                                    : undefined
+                                            }
+                                            rel={
+                                                isExternal
+                                                    ? "noopener noreferrer"
+                                                    : undefined
+                                            }
+                                            class="group inline-flex items-start gap-2 text-sm transition-colors"
+                                        >
+                                            <Icon
+                                                name={
+                                                    isExternal
+                                                        ? "arrow-up-right-from-square"
+                                                        : "arrow-right"
+                                                }
+                                                style="solid"
+                                                class={`h-3 w-3 shrink-0 mt-1 text-emerald-200 transition-transform ${!isExternal ? "group-hover:translate-x-0.5" : ""}`}
+                                            />
+                                            <span>
+                                                <span class="font-medium text-white underline decoration-emerald-200/40 underline-offset-2 group-hover:decoration-white">
+                                                    {resource.name}
+                                                </span>
+                                                {resource.description && (
+                                                    <span class="block text-xs text-emerald-200/70 mt-0.5 no-underline">
+                                                        {resource.description}
+                                                    </span>
+                                                )}
+                                            </span>
+                                        </a>
+                                    </li>
+                                );
+                            })
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex-1 flex flex-col gap-5">
+                <div class="flex flex-col sm:flex-row gap-5 lg:gap-7">
+                    {awards.map((award) => <Award {...award} />)}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

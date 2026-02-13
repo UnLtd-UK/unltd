@@ -1,0 +1,268 @@
+---
+import Award from "./Award.astro";
+import DynamicIcon from "@components/DynamicIcon.astro";
+import Icon from "@components/Icon.astro";
+import { type EligibilityCriteria } from "@data/awards";
+
+interface Programme {
+    icon: string;
+    name: string;
+    slug: string;
+    colour?: "amber" | "purple" | string;
+    description?: string;
+}
+
+interface ProgrammeService {
+    name: string;
+    icon: string;
+    included?: boolean;
+}
+
+type GrantUsability = Record<string, boolean>;
+
+interface AwardProps {
+    code: string;
+    name: string;
+    description: string;
+    grant: number;
+    programme: Programme;
+    grantUsability: GrantUsability;
+    programmeServices: ProgrammeService[];
+    eligibility?: EligibilityCriteria;
+}
+
+const {
+    code,
+    name,
+    description,
+    grant,
+    programme,
+    grantUsability,
+    programmeServices,
+    eligibility,
+} = Astro.props as AwardProps;
+
+// Reuse the same theme logic as Award.astro
+const colourThemes = {
+    "amber-light": {
+        badgeBg: "bg-amber-100 dark:bg-amber-100",
+        badgeText: "text-amber-800 dark:text-amber-800",
+        badgeRing: "ring-1 ring-amber-600/20 dark:ring-amber-600/20",
+    },
+    "amber-dark": {
+        badgeBg: "bg-amber-500/20 dark:bg-amber-500/20",
+        badgeText: "text-amber-400 dark:text-amber-400",
+        badgeRing: "ring-1 ring-amber-400/30 dark:ring-amber-400/30",
+    },
+    "purple-light": {
+        badgeBg: "bg-purple-100 dark:bg-purple-100",
+        badgeText: "text-purple-800 dark:text-purple-800",
+        badgeRing: "ring-1 ring-purple-600/20 dark:ring-purple-600/20",
+    },
+    "purple-dark": {
+        badgeBg: "bg-purple-500/20 dark:bg-purple-500/20",
+        badgeText: "text-purple-300 dark:text-purple-300",
+        badgeRing: "ring-1 ring-purple-400/30 dark:ring-purple-400/30",
+    },
+} as const;
+
+const isStartingUp = name.toLowerCase().includes("starting up");
+
+const themeKey =
+    `${programme?.colour ?? "amber"}-${isStartingUp ? "light" : "dark"}` as keyof typeof colourThemes;
+const theme = colourThemes[themeKey] ?? colourThemes["amber-light"];
+
+const grantFormatted = new Intl.NumberFormat("en-GB", {
+    style: "currency",
+    currency: "GBP",
+    maximumFractionDigits: 0,
+}).format(grant ?? 0);
+
+const cardBg = isStartingUp
+    ? "bg-white dark:bg-white"
+    : "bg-slate-900 dark:bg-slate-900";
+const cardRing = isStartingUp
+    ? "ring-1 ring-black/5 hover:ring-violet-400/50"
+    : "ring-1 ring-white/10 hover:ring-violet-400/40";
+const cardShadow = isStartingUp
+    ? "shadow-lg hover:shadow-xl"
+    : "shadow-lg shadow-violet-500/5 hover:shadow-xl hover:shadow-violet-500/10";
+
+const headingText = isStartingUp ? "text-gray-900" : "text-gray-100";
+const labelText = isStartingUp ? "text-gray-500" : "text-gray-400";
+const grantText = isStartingUp ? "text-violet-950" : "text-white";
+const hintText = isStartingUp ? "text-violet-600" : "text-violet-400";
+
+const dialogId = `award-dialog-${code}`;
+const triggerId = `award-trigger-${code}`;
+---
+
+<div class="award-compact-wrapper">
+    <!-- Compact Card Trigger -->
+    <button
+        id={triggerId}
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls={dialogId}
+        class:list={[
+            "group w-full cursor-pointer rounded-2xl p-5 text-left transition-all duration-200 hover:-translate-y-0.5",
+            cardBg,
+            cardRing,
+            cardShadow,
+        ]}
+    >
+        <!-- Award Name -->
+        <h3 class:list={["text-sm font-semibold leading-snug", headingText]}>
+            {name.replace(programme?.name ?? "", "").trim()}
+            <br />
+            <span class:list={["font-medium", labelText]}>
+                {programme?.name}
+            </span>
+        </h3>
+
+        <!-- Grant Amount -->
+        <div class="mt-3">
+            <p class:list={["text-[10px] uppercase tracking-wide", labelText]}>
+                Up to
+            </p>
+            <p class:list={["text-2xl font-semibold", grantText]}>
+                {grantFormatted}
+            </p>
+        </div>
+
+        <!-- Programme Badge -->
+        <div class="mt-3">
+            <span
+                class:list={[
+                    "inline-flex items-center gap-1.5 rounded-md px-2 py-0.5 text-[11px] font-medium",
+                    theme.badgeBg,
+                    theme.badgeText,
+                    theme.badgeRing,
+                ]}
+            >
+                <DynamicIcon icon={programme?.icon} />
+                {programme?.name}
+            </span>
+        </div>
+
+        <!-- View details hint -->
+        <p
+            class:list={[
+                "mt-3 flex items-center gap-1 text-[11px] font-medium opacity-0 transition-opacity duration-200 group-hover:opacity-100",
+                hintText,
+            ]}
+        >
+            View details
+            <Icon
+                name="arrow-right"
+                style="solid"
+                class="h-2.5 w-2.5 transition-transform duration-200 group-hover:translate-x-0.5"
+            />
+        </p>
+    </button>
+
+    <!-- Full Award Dialog -->
+    <dialog
+        id={dialogId}
+        class="award-compact-dialog m-0 max-h-[90vh] w-full max-w-md overflow-y-auto rounded-3xl bg-transparent p-0 backdrop:bg-black/50 backdrop:backdrop-blur-sm open:flex open:items-start open:justify-center"
+    >
+        <div class="relative w-full p-4">
+            <!-- Close Button -->
+            <button
+                type="button"
+                class="award-compact-close absolute right-6 top-6 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/10 text-gray-500 transition-colors hover:bg-black/20 hover:text-gray-700 dark:bg-white/10 dark:text-gray-400 dark:hover:bg-white/20 dark:hover:text-gray-200"
+                aria-label="Close"
+            >
+                <Icon name="xmark" style="solid" class="h-4 w-4" />
+            </button>
+
+            <!-- Full Award Card -->
+            <Award
+                code={code}
+                name={name}
+                description={description}
+                grant={grant}
+                programme={programme}
+                grantUsability={grantUsability}
+                programmeServices={programmeServices}
+                eligibility={eligibility}
+            />
+        </div>
+    </dialog>
+</div>
+
+<style>
+    .award-compact-dialog {
+        position: fixed;
+        inset: 0;
+        margin: auto;
+    }
+
+    /* Animate dialog open */
+    .award-compact-dialog[open] {
+        animation: award-dialog-fade-in 0.2s ease-out;
+    }
+
+    .award-compact-dialog[open]::backdrop {
+        animation: award-backdrop-fade-in 0.2s ease-out;
+    }
+
+    @keyframes award-dialog-fade-in {
+        from {
+            opacity: 0;
+            transform: scale(0.95) translateY(8px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    @keyframes award-backdrop-fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+
+<script>
+    function initAwardCompactDialogs() {
+        document
+            .querySelectorAll<HTMLElement>(".award-compact-wrapper")
+            .forEach((wrapper) => {
+                const trigger = wrapper.querySelector("button[aria-haspopup]");
+                const dialog = wrapper.querySelector(
+                    "dialog",
+                ) as HTMLDialogElement | null;
+                const closeBtn = wrapper.querySelector(
+                    ".award-compact-close",
+                ) as HTMLButtonElement | null;
+
+                if (!trigger || !dialog) return;
+
+                trigger.addEventListener("click", () => {
+                    dialog.showModal();
+                });
+
+                closeBtn?.addEventListener("click", () => {
+                    dialog.close();
+                });
+
+                // Close on backdrop click
+                dialog.addEventListener("click", (e) => {
+                    if (e.target === dialog) {
+                        dialog.close();
+                    }
+                });
+            });
+    }
+
+    // Run on initial load
+    initAwardCompactDialogs();
+
+    // Re-run after Astro page transitions (View Transitions)
+    document.addEventListener("astro:after-swap", initAwardCompactDialogs);
+</script>

@@ -1,0 +1,37 @@
+---
+// PROPS
+const props = {
+    name: "Eligibility Criteria",
+    slug: "/awards/eligibility-criteria",
+    description:
+        "A detailed breakdown of all eligibility requirements for each UnLtd award type.",
+};
+
+const breadcrumbs = [
+    {
+        name: "Awards",
+        path: "/awards",
+    },
+    {
+        name: "Eligibility Criteria",
+        path: "/awards/eligibility-criteria",
+    },
+];
+
+// LAYOUT
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+
+// COMPONENTS
+import EligibilityCriteriaTable from "@components/awards/EligibilityCriteria.astro";
+---
+
+<Template name={props.name} description={props.description}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+    </Container>
+    <Container id="eligibility-criteria" class="bg-violet-950 py-16 mt-8">
+        <EligibilityCriteriaTable />
+    </Container>
+</Template>

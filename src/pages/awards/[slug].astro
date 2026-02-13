@@ -1,0 +1,114 @@
+---
+/**
+ * Unified Eligibility Page
+ *
+ * Renders a personalized page for users who pass the eligibility checker.
+ * Typeform redirects users to /awards/{slug} based on their answers.
+ *
+ * This replaces both [eligible].astro and [application_preview].astro
+ * by combining eligibility confirmation with application preview functionality.
+ *
+ * Not indexable (noindex) - only accessible via eligibility checker redirect.
+ */
+
+// TYPES
+import type { GetStaticPaths } from "astro";
+
+// DATA
+import {
+    getNewApplications,
+    getApplicationWithAwards,
+} from "@data/applications.js";
+
+// STATIC PATHS
+export const getStaticPaths: GetStaticPaths = () => {
+    const newApplications = getNewApplications();
+    return newApplications.map((app) => ({
+        params: { slug: app.slug },
+        props: { applicationData: app },
+    }));
+};
+
+// PAGE DATA
+const { slug } = Astro.params;
+const result = getApplicationWithAwards(slug as string);
+
+if (!result) {
+    return Astro.redirect("/404");
+}
+
+const { application, awards } = result;
+
+// DEBUG: Log awards data
+console.log("DEBUG [slug].astro - slug:", slug);
+console.log("DEBUG [slug].astro - awards count:", awards?.length);
+console.log(
+    "DEBUG [slug].astro - award codes:",
+    awards?.map((a) => a.code),
+);
+
+// Page metadata from Directus (with fallbacks)
+const pageTitle =
+    application.page_title || application.name || "Your Eligibility";
+const pageDescription =
+    application.page_description ||
+    application.description ||
+    "You're eligible to apply for an UnLtd Award";
+
+// BREADCRUMBS
+const breadcrumbs = [
+    { name: "Awards", path: "/awards" },
+    { name: pageTitle, path: `/awards/${slug}` },
+];
+
+// LAYOUT
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+
+// COMPONENTS
+import EligibleHero from "@components/awards/EligibleHero.astro";
+import RoundTable from "@components/awards/RoundTable.astro";
+import RoundStages from "@components/awards/RoundStage.astro";
+import Sessions from "@components/awards/Sessions.astro";
+---
+
+<Template name={pageTitle} description={pageDescription} noindex={true}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+    </Container>
+    <Container
+        id="hero"
+        class="bg-linear-to-br from-emerald-800 via-emerald-900 to-teal-950 text-white py-12 lg:py-16 mt-8"
+    >
+        <EligibleHero
+            awards={awards}
+            page={{
+                tradingDescription:
+                    application.trading_description ||
+                    application.stage_text ||
+                    "Your social venture qualifies",
+            }}
+            downloadUrl={`/awards/downloads/${slug}.pdf`}
+            application={application}
+        />
+    </Container>
+    <Container id="how-applying-works" class="bg-violet-900 py-16">
+        <div class="flex flex-col gap-8">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-violet-100 mb-4">
+                    How applying works
+                </h2>
+                <p class="text-lg text-violet-300 max-w-2xl mx-auto">
+                    Our application process has clear stages so you know exactly
+                    what to expect at every step.
+                </p>
+            </div>
+            <RoundStages />
+            <RoundTable />
+        </div>
+    </Container>
+    <Container id="sessions" class="bg-violet-950 py-16 mt-8">
+        <Sessions />
+    </Container>
+</Template>
