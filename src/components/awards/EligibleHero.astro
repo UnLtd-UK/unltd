@@ -98,6 +98,64 @@ const lastUpdatedText = lastUpdated
                     </p>
                 </div>
 
+                <!-- Steps: Draft then Apply -->
+                <div class="flex flex-col gap-4">
+                    {
+                        downloadUrl && (
+                            <div class="flex items-start gap-3">
+                                <span class="flex items-center justify-center h-7 w-7 rounded-full bg-white/20 text-white text-xs font-bold ring-1 ring-white/30 shrink-0 mt-2.5">
+                                    1
+                                </span>
+                                <a
+                                    href={downloadUrl}
+                                    class="inline-flex items-center gap-3 px-8 py-4 rounded-xl text-lg transition-all duration-200 ring-2 ring-white/30 text-white hover:bg-white/10 hover:ring-white/50"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <div class="text-left">
+                                        <span class="block font-bold text-lg leading-tight">
+                                            Draft your application
+                                        </span>
+                                        <span class="block text-xs text-emerald-200 leading-snug">
+                                            Download a fillable PDF so you can
+                                            prepare your answers offline.
+                                            {lastUpdatedText && (
+                                                <span class="block text-xs text-emerald-200/70 mt-0.5">
+                                                    Last updated{" "}
+                                                    {lastUpdatedText}
+                                                </span>
+                                            )}
+                                        </span>
+                                    </div>
+                                    <Icon
+                                        name="download"
+                                        style="solid"
+                                        class="shrink-0"
+                                    />
+                                </a>
+                            </div>
+                        )
+                    }
+                    <div class="flex items-start gap-3">
+                        <span
+                            class={`flex items-center justify-center h-7 w-7 rounded-full bg-white/20 text-white text-xs font-bold ring-1 ring-white/30 shrink-0 mt-2.5`}
+                        >
+                            {downloadUrl ? "2" : "1"}
+                        </span>
+                        <div class="flex flex-col">
+                            <RoundButton variant="hero" />
+                            {
+                                downloadUrl && (
+                                    <p class="text-xs text-emerald-200/70 mt-1.5 ml-0.5">
+                                        Once you've drafted your answers, submit
+                                        them here
+                                    </p>
+                                )
+                            }
+                        </div>
+                    </div>
+                </div>
+
                 <!-- AI Statement -->
                 <div
                     class="flex items-start gap-3 bg-white/10 rounded-lg px-4 py-3 ring-1 ring-white/20"
@@ -124,41 +182,6 @@ const lastUpdatedText = lastUpdated
                             vision, the stronger your application will be.
                         </p>
                     </div>
-                </div>
-
-                <!-- Apply / Portal Button -->
-                <div class="flex flex-wrap items-center gap-4">
-                    <RoundButton variant="hero" />
-                    {
-                        downloadUrl && (
-                            <a
-                                href={downloadUrl}
-                                class="inline-flex items-center gap-3 px-5 py-3 rounded-xl transition-all duration-200 ring-2 ring-white/30 text-white hover:bg-white/10 hover:ring-white/50"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <div class="text-left">
-                                    <span class="block font-bold text-lg leading-tight">
-                                        Draft your application
-                                    </span>
-                                    <span class="block text-xs text-emerald-200 leading-snug">
-                                        A fillable PDF so you can draft your
-                                        answers offline. <br />
-                                        {lastUpdatedText && (
-                                            <span class="w-full text-xs text-emerald-200/70">
-                                                Last updated {lastUpdatedText}
-                                            </span>
-                                        )}
-                                    </span>
-                                </div>
-                                <Icon
-                                    name="download"
-                                    style="solid"
-                                    class="shrink-0"
-                                />
-                            </a>
-                        )
-                    }
                 </div>
 
                 <!-- Resources & Downloads -->
@@ -224,11 +247,6 @@ const lastUpdatedText = lastUpdated
             </div>
 
             <div class="flex-1 flex flex-col gap-5">
-                <p class="text-xs text-white">
-                    Below are the Awards which you could be considered for based
-                    off your eligibility checker results:
-                </p>
-
                 <div class="flex flex-col sm:flex-row gap-5 lg:gap-7">
                     {awards.map((award) => <Award {...award} />)}
                 </div>
