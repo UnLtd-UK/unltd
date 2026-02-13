@@ -8,7 +8,7 @@ import "@lib/icons";
 config.autoAddCss = false;
 
 import { palette } from "@data/palette.js";
-import { navigation } from "@data/navigation.js";
+import { navigation } from "@data/navigation.ts";
 
 const {
     name = "UnLtd",
@@ -60,10 +60,8 @@ import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
     </head>
     <body class={`dark ${palette["UnLtd"].bg}`}>
         <div class="flex flex-col justify-between h-full">
-            <!-- {banner.status === "published" && <Banner banner={banner} />} -->
             <RoundBanner />
 
-            <!-- NEW HEADER -->
             {
                 navigation && (
                     <Header
@@ -74,8 +72,6 @@ import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
                 )
             }
 
-            <!-- OLD HEADER -->
-            <!-- <Nav /> -->
             <div class={`${theme.bg}`}>
                 <slot />
             </div>
