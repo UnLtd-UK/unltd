@@ -47,7 +47,7 @@ export const stages: Stage[] = [
         icon: "button-pointer",
         colour: "purple",
         title: "Apply",
-        subtitle: "Get ready to apply to submit your application.",
+        subtitle: "Prepare your application.",
         steps: [
             {
                 icon: "pen-to-square",
