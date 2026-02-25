@@ -21,6 +21,7 @@ export const awardCodes = Object.fromEntries(
 export type AwardCode = Award["code"];
 
 export interface EligibilityCriterion {
+    slug: string;
     name: string;
     awards: Record<AwardCode, EligibilityValue>;
 }
@@ -35,6 +36,7 @@ export interface EligibilityCategory {
  */
 function buildCriteria(mappings: CriterionMapping[]): EligibilityCriterion[] {
     return mappings.map((mapping) => ({
+        slug: mapping.slug,
         name: mapping.name,
         awards: Object.fromEntries(
             awards.map((award) => [

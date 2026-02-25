@@ -42,7 +42,7 @@ export const socialVentureCriteria: CriterionMapping[] = [
     { slug: 'sector_classification', name: 'What sectors is your social venture in?', category: 'social_venture' },
     { slug: 'last_year_turnover', name: "In it's last financial year your social ventures turnover was less than £250,000", category: 'social_venture' },
     { slug: 'earned_18k_traded_income', name: 'In the last 12 months, your social venture has earned over £18,000 in traded income', category: 'social_venture' },
-    { slug: 'financial_data_projections', name: 'Are you able to provide financial data which covers the last 12 months, along with financial projections for the next 12 months?', category: 'social_venture' },
+    { slug: 'social_venture_previously', name: 'You have not received the same Award type for the same social venture previously', category: 'social_venture' },
 ];
 
 /** All criteria combined */

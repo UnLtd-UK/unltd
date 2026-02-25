@@ -53,6 +53,7 @@ export interface EligibilityCriteria {
     last_year_turnover: EligibilityValue;
     earned_18k_traded_income: EligibilityValue;
     financial_data_projections: EligibilityValue;
+    social_venture_previously: EligibilityValue;
 }
 
 export interface Award {
@@ -133,6 +134,7 @@ interface DirectusAward {
     last_year_turnover: boolean | string | string[] | null;
     earned_18k_traded_income: boolean | string | string[] | null;
     financial_data_projections: boolean | string | string[] | null;
+    social_venture_previously: boolean | string | string[] | null;
 }
 
 const rawAwards: DirectusAward[] = await getCollection(collection, collectionName, filterOptions, attach);
@@ -186,6 +188,7 @@ export const awards: Award[] = rawAwards.map((award) => ({
         last_year_turnover: award.last_year_turnover ?? null,
         earned_18k_traded_income: award.earned_18k_traded_income ?? null,
         financial_data_projections: award.financial_data_projections ?? null,
+        social_venture_previously: award.social_venture_previously ?? null,
     },
 }));
 
