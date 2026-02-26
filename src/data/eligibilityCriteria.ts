@@ -64,6 +64,14 @@ export const eligibilityData: EligibilityCategory[] = [
 // Helper to get award keys
 export const awardKeys = Object.keys(awardCodes) as AwardCode[];
 
+// Collect all unique sectors across all awards
+export const allSectors: Set<string> = new Set(
+    awards.flatMap((award) => {
+        const val = award.eligibility.sector_classification;
+        return Array.isArray(val) ? val : [];
+    })
+);
+
 // Helper to get award info by code
 export function getAwardInfo(code: AwardCode) {
     const award = awards.find((a) => a.code === code);
