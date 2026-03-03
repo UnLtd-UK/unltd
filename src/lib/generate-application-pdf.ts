@@ -45,6 +45,7 @@ interface FieldData {
         prefix?: string;
         suffix?: string;
         date_updated?: string;
+        dependency?: string; // slug of parent field — if set, this field is shown indented below its parent
     };
 }
 
@@ -106,6 +107,7 @@ const LINE_HEIGHT_BODY = 13;
 const LINE_HEIGHT_SMALL = 11;
 const FIELD_GAP = 20; // space between fields
 const SECTION_GAP = 30; // space between sections
+const DEPENDENCY_INDENT = 20; // left indent for fields that depend on a parent field
 
 // Colours
 const COLOUR_BLACK = rgb(0, 0, 0);
@@ -505,7 +507,11 @@ function renderInputField(
     field: FieldData["fields_id"],
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
+    xOffset = 0,
 ): void {
+    const fieldX = MARGIN_LEFT + xOffset;
+    const fieldWidth = CONTENT_WIDTH - xOffset;
+
     // File upload — just a note, no form field
     if (field.input_type === "file") {
         cursor.ensureSpace(40);
@@ -530,9 +536,9 @@ function renderInputField(
 
     const tf = form.createTextField(fieldId);
     tf.addToPage(cursor.page, {
-        x: MARGIN_LEFT,
+        x: fieldX,
         y: cursor.y - TEXT_FIELD_HEIGHT,
-        width: CONTENT_WIDTH,
+        width: fieldWidth,
         height: TEXT_FIELD_HEIGHT,
         borderWidth: 1,
         borderColor: COLOUR_LIGHT_GREY,
@@ -549,7 +555,10 @@ function renderTextareaField(
     field: FieldData["fields_id"],
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
+    xOffset = 0,
 ): void {
+    const fieldX = MARGIN_LEFT + xOffset;
+    const fieldWidth = CONTENT_WIDTH - xOffset;
     const heightNeeded = TEXTAREA_HEIGHT + 6;
     cursor.ensureSpace(heightNeeded);
 
@@ -557,9 +566,9 @@ function renderTextareaField(
     tf.enableMultiline();
     tf.enableScrolling();
     tf.addToPage(cursor.page, {
-        x: MARGIN_LEFT,
+        x: fieldX,
         y: cursor.y - TEXTAREA_HEIGHT,
-        width: CONTENT_WIDTH,
+        width: fieldWidth,
         height: TEXTAREA_HEIGHT,
         borderWidth: 1,
         borderColor: COLOUR_LIGHT_GREY,
@@ -594,7 +603,10 @@ function renderSelectField(
     fieldSlug: string,
     fonts: { bold: PDFFont; regular: PDFFont },
     stageSlug?: string,
+    xOffset = 0,
 ): void {
+    const fieldX = MARGIN_LEFT + xOffset;
+    const fieldWidth = CONTENT_WIDTH - xOffset;
     const options =
         field.select_options?.map((o) => sanitiseForPdf(o.name)).filter(Boolean) ?? [];
     if (options.length === 0) return;
@@ -618,9 +630,9 @@ function renderSelectField(
     }
 
     dd.addToPage(cursor.page, {
-        x: MARGIN_LEFT,
+        x: fieldX,
         y: cursor.y - DROPDOWN_HEIGHT,
-        width: CONTENT_WIDTH,
+        width: fieldWidth,
         height: DROPDOWN_HEIGHT,
         borderWidth: 1,
         borderColor: COLOUR_MID_GREY,
@@ -653,7 +665,10 @@ function renderRadiosField(
     field: FieldData["fields_id"],
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
+    xOffset = 0,
 ): void {
+    const fieldX = MARGIN_LEFT + xOffset;
+    const fieldWidth = CONTENT_WIDTH - xOffset;
     const options = field.select_options ?? [];
     if (options.length === 0) return;
 
@@ -666,7 +681,7 @@ function renderRadiosField(
                 option.description,
                 fonts.regular,
                 FONT_SIZE_SMALL,
-                CONTENT_WIDTH - 24,
+                fieldWidth - 24,
             )
             : [];
         const neededHeight =
@@ -675,7 +690,7 @@ function renderRadiosField(
 
         // Radio widget
         rg.addOptionToPage(option.name, cursor.page, {
-            x: MARGIN_LEFT,
+            x: fieldX,
             y: cursor.y - RADIO_SIZE,
             width: RADIO_SIZE,
             height: RADIO_SIZE,
@@ -683,7 +698,7 @@ function renderRadiosField(
 
         // Option label
         cursor.page.drawText(sanitiseForPdf(option.name), {
-            x: MARGIN_LEFT + RADIO_SIZE + 6,
+            x: fieldX + RADIO_SIZE + 6,
             y: cursor.y - RADIO_SIZE + 2,
             size: FONT_SIZE_BODY,
             font: fonts.regular,
@@ -698,7 +713,7 @@ function renderRadiosField(
                 option.description,
                 fonts.regular,
                 FONT_SIZE_SMALL,
-                RADIO_SIZE + 6,
+                xOffset + RADIO_SIZE + 6,
                 COLOUR_MID_GREY,
                 LINE_HEIGHT_SMALL,
             );
@@ -715,7 +730,10 @@ function renderCheckboxesField(
     field: FieldData["fields_id"],
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
+    xOffset = 0,
 ): void {
+    const fieldX = MARGIN_LEFT + xOffset;
+    const fieldWidth = CONTENT_WIDTH - xOffset;
     const options = field.select_options ?? [];
     if (options.length === 0) return;
 
@@ -725,7 +743,7 @@ function renderCheckboxesField(
 
         const cb = form.createCheckBox(`${fieldId}.${i}`);
         cb.addToPage(cursor.page, {
-            x: MARGIN_LEFT,
+            x: fieldX,
             y: cursor.y - CHECKBOX_SIZE,
             width: CHECKBOX_SIZE,
             height: CHECKBOX_SIZE,
@@ -736,13 +754,13 @@ function renderCheckboxesField(
             option.name,
             fonts.regular,
             FONT_SIZE_BODY,
-            CONTENT_WIDTH - CHECKBOX_SIZE - 8,
+            fieldWidth - CHECKBOX_SIZE - 8,
         );
 
         for (let li = 0; li < labelLines.length; li++) {
             if (li > 0) cursor.ensureSpace(LINE_HEIGHT_BODY);
             cursor.page.drawText(labelLines[li], {
-                x: MARGIN_LEFT + CHECKBOX_SIZE + 6,
+                x: fieldX + CHECKBOX_SIZE + 6,
                 y:
                     li === 0
                         ? cursor.y - CHECKBOX_SIZE + 2
@@ -1176,43 +1194,111 @@ export async function generateApplicationPdf(
 
         // Fields
         const fields = section.fields ?? [];
+
+        // Build a lookup so we can resolve parent field names for dependency notes
+        const fieldsBySlug = new Map<string, FieldData["fields_id"]>();
+        for (const f of fields) {
+            if (f.fields_id?.slug) fieldsBySlug.set(f.fields_id.slug, f.fields_id);
+        }
+
+        // Sequential field number — only incremented for non-dependent fields
+        let fieldNumber = 0;
+
         for (let fi = 0; fi < fields.length; fi++) {
             const field = fields[fi].fields_id;
             if (!field) continue;
 
-            const fieldNumber = fi + 1;
+            const isDependentField = Boolean(field.dependency);
+            const indent = isDependentField ? DEPENDENCY_INDENT : 0;
+            const fieldWidth = CONTENT_WIDTH - indent;
             const fieldId = `${section.slug}.${field.slug}`;
 
-            // ── Field label ─────────────────────────────────────────────
-            const requiredMark = field.required ? " *" : "";
-            const labelText = `${sectionNumber}.${fieldNumber}. ${field.name}${requiredMark}`;
+            if (isDependentField) {
+                // ── Dependent field — rendered indented below its parent ─
 
-            // Estimate total height needed for label + description + widget
-            const labelLines = wrapText(labelText, nunitoBold, FONT_SIZE_FIELD_LABEL, CONTENT_WIDTH);
-            const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
-            const minFieldHeight = labelHeight + 30;
-            cursor.ensureSpace(minFieldHeight);
+                // Smaller gap to visually tie it to the parent above
+                cursor.y -= FIELD_GAP / 2;
 
-            cursor.drawWrappedText(
-                labelText,
-                nunitoBold,
-                FONT_SIZE_FIELD_LABEL,
-                COLOUR_DARK_GREY,
-                FONT_SIZE_FIELD_LABEL + 4,
-            );
-            cursor.y -= 2;
+                // Look up the parent field name for the conditional note
+                const parentField = field.dependency ? fieldsBySlug.get(field.dependency) : undefined;
+                const parentName = parentField?.name ?? "the question above";
+                const conditionalNote = `If your answer to '${parentName}' requires more detail, please complete this field:`;
+
+                // Conditional note
+                cursor.ensureSpace(30);
+                cursor.drawWrappedTextIndented(
+                    conditionalNote,
+                    nunitoRegular,
+                    FONT_SIZE_SMALL,
+                    indent,
+                    COLOUR_MID_GREY,
+                    LINE_HEIGHT_SMALL,
+                );
+                cursor.y -= 4;
+
+                // Field label (no number prefix for dependent fields)
+                const requiredMark = field.required ? " *" : "";
+                const labelText = `${field.name}${requiredMark}`;
+
+                const labelLines = wrapText(labelText, nunitoBold, FONT_SIZE_FIELD_LABEL, fieldWidth);
+                const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
+                cursor.ensureSpace(labelHeight + 30);
+
+                cursor.drawWrappedTextIndented(
+                    labelText,
+                    nunitoBold,
+                    FONT_SIZE_FIELD_LABEL,
+                    indent,
+                    COLOUR_DARK_GREY,
+                    FONT_SIZE_FIELD_LABEL + 4,
+                );
+                cursor.y -= 2;
+
+            } else {
+                // ── Standard field — numbered normally ───────────────────
+
+                fieldNumber++;
+
+                const requiredMark = field.required ? " *" : "";
+                const labelText = `${sectionNumber}.${fieldNumber}. ${field.name}${requiredMark}`;
+
+                const labelLines = wrapText(labelText, nunitoBold, FONT_SIZE_FIELD_LABEL, CONTENT_WIDTH);
+                const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
+                const minFieldHeight = labelHeight + 30;
+                cursor.ensureSpace(minFieldHeight);
+
+                cursor.drawWrappedText(
+                    labelText,
+                    nunitoBold,
+                    FONT_SIZE_FIELD_LABEL,
+                    COLOUR_DARK_GREY,
+                    FONT_SIZE_FIELD_LABEL + 4,
+                );
+                cursor.y -= 2;
+            }
 
             // ── Field description ───────────────────────────────────────
             if (field.description) {
                 const plainFieldDesc = stripMarkdown(field.description);
                 if (plainFieldDesc) {
-                    cursor.drawWrappedText(
-                        plainFieldDesc,
-                        nunitoRegular,
-                        FONT_SIZE_SMALL,
-                        COLOUR_MID_GREY,
-                        LINE_HEIGHT_SMALL,
-                    );
+                    if (isDependentField) {
+                        cursor.drawWrappedTextIndented(
+                            plainFieldDesc,
+                            nunitoRegular,
+                            FONT_SIZE_SMALL,
+                            indent,
+                            COLOUR_MID_GREY,
+                            LINE_HEIGHT_SMALL,
+                        );
+                    } else {
+                        cursor.drawWrappedText(
+                            plainFieldDesc,
+                            nunitoRegular,
+                            FONT_SIZE_SMALL,
+                            COLOUR_MID_GREY,
+                            LINE_HEIGHT_SMALL,
+                        );
+                    }
                     cursor.y -= 4;
                 }
             }
@@ -1220,29 +1306,29 @@ export async function generateApplicationPdf(
             // ── Field widget ────────────────────────────────────────────
             switch (field.type) {
                 case "Input":
-                    renderInputField(cursor, form, field, fieldId, fonts);
+                    renderInputField(cursor, form, field, fieldId, fonts, indent);
                     break;
                 case "Textarea":
-                    renderTextareaField(cursor, form, field, fieldId, fonts);
+                    renderTextareaField(cursor, form, field, fieldId, fonts, indent);
                     break;
                 case "Select":
-                    renderSelectField(cursor, form, field, fieldId, field.slug, fonts, stageSlug);
+                    renderSelectField(cursor, form, field, fieldId, field.slug, fonts, stageSlug, indent);
                     break;
                 case "Radios":
-                    renderRadiosField(cursor, form, field, fieldId, fonts);
+                    renderRadiosField(cursor, form, field, fieldId, fonts, indent);
                     break;
                 case "Checkboxes":
-                    renderCheckboxesField(cursor, form, field, fieldId, fonts);
+                    renderCheckboxesField(cursor, form, field, fieldId, fonts, indent);
                     break;
                 default:
                     // Unknown field type — just show a text field as fallback
-                    renderInputField(cursor, form, field, fieldId, fonts);
+                    renderInputField(cursor, form, field, fieldId, fonts, indent);
                     break;
             }
 
             // Space between fields
             if (fi < fields.length - 1) {
-                cursor.y -= FIELD_GAP;
+                cursor.y -= isDependentField ? FIELD_GAP / 2 : FIELD_GAP;
             }
         }
 
