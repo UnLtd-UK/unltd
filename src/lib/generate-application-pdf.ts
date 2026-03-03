@@ -1219,22 +1219,23 @@ export async function generateApplicationPdf(
                 // Smaller gap to visually tie it to the parent above
                 cursor.y -= FIELD_GAP / 2;
 
-                // Look up the parent field name for the conditional note
-                const parentField = field.dependency ? fieldsBySlug.get(field.dependency) : undefined;
-                const parentName = parentField?.name ?? "the question above";
-                const conditionalNote = `If your answer to '${parentName}' requires more detail, please complete this field:`;
+                // Use the field's own description as the conditional note
+                const conditionalNote = field.description
+                    ? stripMarkdown(field.description)
+                    : null;
 
-                // Conditional note
-                cursor.ensureSpace(30);
-                cursor.drawWrappedTextIndented(
-                    conditionalNote,
-                    nunitoRegular,
-                    FONT_SIZE_SMALL,
-                    indent,
-                    COLOUR_MID_GREY,
-                    LINE_HEIGHT_SMALL,
-                );
-                cursor.y -= 4;
+                if (conditionalNote) {
+                    cursor.ensureSpace(30);
+                    cursor.drawWrappedTextIndented(
+                        conditionalNote,
+                        nunitoRegular,
+                        FONT_SIZE_SMALL,
+                        indent,
+                        COLOUR_MID_GREY,
+                        LINE_HEIGHT_SMALL,
+                    );
+                    cursor.y -= 4;
+                }
 
                 // Field label (no number prefix for dependent fields)
                 const requiredMark = field.required ? " *" : "";
@@ -1277,28 +1278,17 @@ export async function generateApplicationPdf(
                 cursor.y -= 2;
             }
 
-            // ── Field description ───────────────────────────────────────
-            if (field.description) {
+            // ── Field description (skip for dependent fields — already shown as the conditional note)
+            if (!isDependentField && field.description) {
                 const plainFieldDesc = stripMarkdown(field.description);
                 if (plainFieldDesc) {
-                    if (isDependentField) {
-                        cursor.drawWrappedTextIndented(
-                            plainFieldDesc,
-                            nunitoRegular,
-                            FONT_SIZE_SMALL,
-                            indent,
-                            COLOUR_MID_GREY,
-                            LINE_HEIGHT_SMALL,
-                        );
-                    } else {
-                        cursor.drawWrappedText(
-                            plainFieldDesc,
-                            nunitoRegular,
-                            FONT_SIZE_SMALL,
-                            COLOUR_MID_GREY,
-                            LINE_HEIGHT_SMALL,
-                        );
-                    }
+                    cursor.drawWrappedText(
+                        plainFieldDesc,
+                        nunitoRegular,
+                        FONT_SIZE_SMALL,
+                        COLOUR_MID_GREY,
+                        LINE_HEIGHT_SMALL,
+                    );
                     cursor.y -= 4;
                 }
             }
