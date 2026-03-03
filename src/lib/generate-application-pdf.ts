@@ -643,6 +643,39 @@ function renderSelectField(
     });
     dd.setFontSize(FORM_FIELD_FONT_SIZE);
 
+    // ── Dropdown chevron indicator ──────────────────────────────────
+    // Draw a small divider line and downward chevron on the right edge
+    // so the user can tell this is a dropdown, not a text field.
+    const chevronAreaWidth = 20;
+    const chevronX = fieldX + fieldWidth - chevronAreaWidth;
+    const fieldTop = cursor.y;
+    const fieldBottom = cursor.y - DROPDOWN_HEIGHT;
+    const fieldMidY = (fieldTop + fieldBottom) / 2;
+
+    // Vertical divider separating chevron area from field text
+    cursor.page.drawLine({
+        start: { x: chevronX, y: fieldTop },
+        end: { x: chevronX, y: fieldBottom },
+        thickness: 0.75,
+        color: COLOUR_MID_GREY,
+    });
+
+    // Downward-pointing chevron (▾)
+    const chevronCenterX = chevronX + chevronAreaWidth / 2;
+    const chevronHalf = 3;
+    cursor.page.drawLine({
+        start: { x: chevronCenterX - chevronHalf, y: fieldMidY + 2 },
+        end: { x: chevronCenterX, y: fieldMidY - 2 },
+        thickness: 1.25,
+        color: COLOUR_MID_GREY,
+    });
+    cursor.page.drawLine({
+        start: { x: chevronCenterX, y: fieldMidY - 2 },
+        end: { x: chevronCenterX + chevronHalf, y: fieldMidY + 2 },
+        thickness: 1.25,
+        color: COLOUR_MID_GREY,
+    });
+
     // Show a note if locked
     if (isStageField && stageSlug) {
         cursor.y -= DROPDOWN_HEIGHT + FIELD_HINT_GAP;
