@@ -17,6 +17,7 @@ const filterOptions = {
     fields: [
         'id',
         'name',
+        'slug',
         'description',
         'body',
         'type',

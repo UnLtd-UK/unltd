@@ -11,15 +11,29 @@ type DialogButton = {
   onClick?: MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>
 }
 
+type ListItem = {
+  icon: string
+  iconColor?: string
+  text: string
+}
+
+type ContentSection = {
+  title?: string
+  titleIcon?: string
+  variant?: 'default' | 'warning'
+  items: ListItem[]
+}
+
 interface DialogComponentProps {
   title: string
-  description: string
+  description?: string
+  content?: ContentSection[]
   primaryButton?: DialogButton
   secondaryButton?: DialogButton
   icon: string
 }
 
-export default function DialogComponent({ title, description, primaryButton, secondaryButton, icon }: DialogComponentProps) {
+export default function DialogComponent({ title, description, content, primaryButton, secondaryButton, icon }: DialogComponentProps) {
   const [open, setOpen] = useState(true)
 
   const scrollToAnchor = (hash: string) => {
@@ -27,6 +41,44 @@ export default function DialogComponent({ title, description, primaryButton, sec
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
     }
+  }
+
+  const renderContent = () => {
+    if (description) {
+      return <div className="mt-2 text-sm text-violet-700" dangerouslySetInnerHTML={{ __html: description }} />
+    }
+
+    if (!content || content.length === 0) return null
+
+    return (
+      <div className="mt-4 space-y-4">
+        {content.map((section, sectionIndex) => {
+          const isWarning = section.variant === 'warning'
+          const wrapperClasses = isWarning
+            ? 'bg-red-50 border border-red-200 rounded-lg p-4'
+            : ''
+
+          return (
+            <div key={sectionIndex} className={wrapperClasses}>
+              {section.title && (
+                <p className={`font-semibold text-left mb-3 flex items-center gap-2 ${isWarning ? 'text-red-700' : 'text-violet-900'}`}>
+                  {section.titleIcon && <DynamicIcon icon={section.titleIcon} />}
+                  {section.title}
+                </p>
+              )}
+              <ul className={`text-left space-y-3 ${isWarning ? 'text-red-600' : 'text-violet-700'}`}>
+                {section.items.map((item, itemIndex) => (
+                  <li key={itemIndex} className="flex items-start gap-3 text-sm">
+                    <DynamicIcon icon={item.icon} className={`mt-0.5 ${item.iconColor || (isWarning ? 'text-red-600' : 'text-violet-600')}`} />
+                    <span>{item.text}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        })}
+      </div>
+    )
   }
 
   const renderButton = (button: DialogButton, variant: 'primary' | 'secondary', extraClasses = '') => {
@@ -105,8 +157,8 @@ export default function DialogComponent({ title, description, primaryButton, sec
 
     return (
       <div className={wrapperClasses}>
-        {hasPrimary && renderButton(primaryButton!, 'primary', hasSecondary ? 'sm:col-start-2' : '')}
-        {hasSecondary && renderButton(secondaryButton!, 'secondary', hasPrimary ? 'mt-3 sm:mt-0 sm:col-start-1' : '')}
+        {hasPrimary && renderButton(primaryButton!, 'primary', hasSecondary ? 'sm:col-start-1' : '')}
+        {hasSecondary && renderButton(secondaryButton!, 'secondary', hasPrimary ? 'mt-3 sm:mt-0 sm:col-start-2' : '')}
       </div>
     )
   }
@@ -125,18 +177,12 @@ export default function DialogComponent({ title, description, primaryButton, sec
             className="relative transform overflow-hidden rounded-lg bg-violet-50 px-4 pt-5 pb-4 text-left shadow-xl transition-all data-closed:translate-y-4 data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in sm:my-8 sm:w-full sm:max-w-lg sm:p-6 data-closed:sm:translate-y-0 data-closed:sm:scale-95"
           >
             <div>
-              <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-violet-100">
+              <div className="flex size-12 items-center justify-center rounded-full bg-violet-100">
                 <DynamicIcon icon={icon} className="text-lg text-violet-600" aria-hidden="true" />
               </div>
-              <div className="mt-3 text-center sm:mt-5">
-                <DialogTitle as="h3" className="text-base font-semibold text-violet-900">
-                  {title}
-                </DialogTitle>
-                <div className="mt-2">
-                  <p className="text-sm text-violet-700">
-                    {description}
-                  </p>
-                </div>
+              <div className="mt-3 sm:mt-5">
+                <DialogTitle as="h3" className="text-base font-semibold text-violet-900" dangerouslySetInnerHTML={{ __html: title }} />
+                {renderContent()}
               </div>
             </div>
             {renderButtons()}

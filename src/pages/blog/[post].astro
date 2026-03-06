@@ -24,6 +24,8 @@ interface Post {
 
 export async function getStaticPaths() {
   return posts.map((post) => {
+    const slug = post.slug.trim();
+
     let breadcrumbs = [
       {
         name: "Blog",
@@ -31,7 +33,7 @@ export async function getStaticPaths() {
       },
       {
         name: post.title,
-        path: `/blog/${post.slug}`,
+        path: `/blog/${slug}`,
       },
     ];
 
@@ -39,7 +41,7 @@ export async function getStaticPaths() {
 
     let item = {
       params: {
-        post: post.slug,
+        post: slug,
       },
       props: {
         post: post,

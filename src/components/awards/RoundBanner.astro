@@ -1,0 +1,150 @@
+---
+/**
+ * RoundBanner (Static Astro)
+ * Full-width banner showing application round status.
+ * Rendered at build time — rebuilt every ~2 hours via CI.
+ *
+ * States:
+ * - Closed:  slate — "Award Applications Closed"
+ * - Opening: indigo — "Award Applications Opening Soon"
+ * - Open:    emerald — "Award Applications Open"
+ * - Closing: amber/red — "Award Applications Closing Soon"
+ */
+import { getRoundData, getRoundStatus, formatTime } from "./round";
+import Icon from "@components/Icon.astro";
+
+interface Props {
+    eligibilityUrl?: string;
+    awardsUrl?: string;
+}
+
+const {
+    eligibilityUrl = "/awards#eligibility-checker",
+    awardsUrl = "/awards",
+} = Astro.props;
+
+const { currentRound, nextRound, devDateTime } = getRoundData();
+const { state, round: displayRound, urgency, closesCountdown, opensCountdown } =
+    getRoundStatus({ currentRound, nextRound, devDateTime });
+
+// Hide only when there's no round data at all
+const hidden = !displayRound;
+
+// ─── Styling maps ───────────────────────────────────────────────────────
+const styleMap = {
+    opening: {
+        bar: "bg-linear-to-r from-indigo-500 to-indigo-400",
+        badge: "bg-indigo-500/20 text-indigo-400 ring-indigo-500/30",
+        cta: "bg-indigo-500 hover:bg-indigo-400 text-white",
+    },
+    open: {
+        bar: "bg-linear-to-r from-emerald-500 to-emerald-400",
+        badge: "bg-emerald-500/20 text-emerald-400 ring-emerald-500/30",
+        cta: "bg-emerald-500 hover:bg-emerald-400 text-white",
+    },
+    closing: {
+        bar: urgency === "critical"
+            ? "bg-linear-to-r from-red-500 to-red-400"
+            : "bg-linear-to-r from-amber-500 to-amber-400",
+        badge: urgency === "critical"
+            ? "bg-red-500/20 text-red-400 ring-red-500/30"
+            : "bg-amber-500/20 text-amber-400 ring-amber-500/30",
+        cta: urgency === "critical"
+            ? "bg-red-500 hover:bg-red-400 text-white"
+            : "bg-amber-500 hover:bg-amber-400 text-white",
+    },
+    closed: {
+        bar: "bg-linear-to-r from-slate-500 to-slate-400",
+        badge: "bg-slate-500/20 text-slate-400 ring-slate-500/30",
+        cta: "bg-slate-500 hover:bg-slate-400 text-white",
+    },
+} as const;
+
+const s = styleMap[state] ?? styleMap.open;
+
+// ─── Subtitle text ──────────────────────────────────────────────────────
+const dayLabel = (n: number) => n === 1 ? "day" : "days";
+const subtitleParts = (() => {
+    if (state === "opening" && displayRound) {
+        const time = formatTime(displayRound.opensDate);
+        const daysText = opensCountdown.totalDays > 0
+            ? ` (${opensCountdown.totalDays} ${dayLabel(opensCountdown.totalDays)})`
+            : "";
+        return { prefix: "Next round on ", date: `${displayRound.dates.opens} at ${time}`, suffix: daysText };
+    }
+    if ((state === "open" || state === "closing") && displayRound) {
+        const time = formatTime(displayRound.closesDate);
+        const daysText = closesCountdown.totalDays > 0
+            ? ` (${closesCountdown.totalDays} ${dayLabel(closesCountdown.totalDays)} left)`
+            : "";
+        return { prefix: "Closes ", date: `${displayRound.dates.closes} at ${time}`, suffix: daysText };
+    }
+    return null;
+})();
+
+// ─── Badge ──────────────────────────────────────────────────────────────
+const badgeText =
+    state === "opening" ? "Opening Soon" :
+    state === "open" ? "Open" :
+    state === "closing" ? "Closing Soon" :
+    state === "closed" ? "Closed" : "";
+const badgePulse = state === "open" || state === "closing";
+---
+
+{!hidden && (
+    <div class="relative overflow-hidden bg-linear-to-r from-violet-950 via-violet-900 to-violet-950 border-b border-violet-800/50">
+        <!-- Status indicator bar -->
+        <div class={`absolute top-0 left-0 right-0 h-1 ${s.bar}`} />
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <!-- Left: Status and round info -->
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-3 flex-wrap">
+                        <h3 class="text-base font-semibold text-white">
+                            Award Applications
+                        </h3>
+                        <span class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${s.badge}`}>
+                            {badgePulse && (
+                                <span class="relative flex h-1.5 w-1.5">
+                                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-75" />
+                                    <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+                                </span>
+                            )}
+                            {badgeText}
+                        </span>
+                    </div>
+                    {subtitleParts && (
+                        <>
+                            <span class="hidden sm:inline text-violet-500">|</span>
+                            <p class="text-sm text-violet-300">
+                                {subtitleParts.prefix}<span class="font-medium text-white">{subtitleParts.date}</span>
+                                {subtitleParts.suffix && (
+                                    <span class="text-violet-400 ml-1">{subtitleParts.suffix}</span>
+                                )}
+                            </p>
+                        </>
+                    )}
+                </div>
+
+                <!-- Right: CTA -->
+                <div class="flex items-center gap-3 shrink-0">
+                    <a
+                        href={eligibilityUrl}
+                        class={`inline-flex items-center gap-2 px-4 py-2 font-semibold rounded-lg text-sm transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 ${s.cta}`}
+                    >
+                        <Icon name="clipboard-check" style="solid" class="text-xs" />
+                        Check Eligibility
+                    </a>
+                    <a
+                        href={awardsUrl}
+                        class="hidden lg:inline-flex items-center gap-1.5 text-sm font-medium text-amber-400 hover:text-amber-300 transition-colors"
+                    >
+                        View Awards
+                        <Icon name="arrow-right" style="solid" class="text-xs" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+)}

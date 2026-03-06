@@ -127,21 +127,4 @@ let todayDate = moment();
       </div>
     </div>
   </div>
-  {
-    programme.spotlight && (
-      <div class="relative overflow-hidden pt-16">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8 flex-none aspect-video rounded-lg shadow-lg">
-          <iframe
-            class={`w-full h-full object-cover rounded-lg`}
-            src={programme.spotlight.url}
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          />
-        </div>
-      </div>
-    )
-  }
 </div>
