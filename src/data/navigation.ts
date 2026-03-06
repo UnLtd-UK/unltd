@@ -46,14 +46,6 @@ export const navigation = {
                     enabled: true,
                     items: [
                         {
-                            id: 1,
-                            name: "Fundraising",
-                            description: "Support our mission by donating or running a fundraising initiative.",
-                            href: "/fundraising",
-                            icon: "fa-solid fa-piggy-bank",
-                            enabled: true,
-                        },
-                        {
                             id: 2,
                             name: "Partnerships",
                             description: "Collaborate with us by funding or supporting a new or existing programme.",
