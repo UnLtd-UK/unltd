@@ -1,0 +1,418 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Default from "@components/heroes/Default.astro";
+import Icon from "@components/Icon.astro";
+import EmbedLoader from "@components/EmbedLoader.tsx";
+import Faq from "@components/Faq.astro";
+import Faqtemplate from "@components/Faqtemplate.astro";
+
+const name = "Partner With Us Strategically";
+const slug = "programme-partnership";
+const description =
+    "Co-design programmes with UnLtd that drive systemic change and connect your organisation with the UK's most impactful social entrepreneurs.";
+
+const breadcrumbs = [
+    {
+        name: "Get Involved",
+        path: "/get-involved",
+    },
+    {
+        name,
+        path: `/get-involved/${slug}`,
+    },
+];
+
+const partnershipModels = [
+    {
+        title: "Co-Designed Programmes",
+        description:
+            "We work alongside you to build bespoke programmes that address the social issues you care about most — from health inequalities to financial inclusion.",
+        icon: "compass",
+    },
+    {
+        title: "Funding Partnerships",
+        description:
+            "Channel your social investment through our proven model. We find, fund and support the social entrepreneurs best placed to create change in your priority areas.",
+        icon: "hand-holding-heart",
+    },
+    {
+        title: "Research & Insight",
+        description:
+            "Tap into our 20+ years of data and expertise to understand the social enterprise landscape and identify where your investment will have the greatest impact.",
+        icon: "lightbulb",
+    },
+    {
+        title: "Place-Based Partnerships",
+        description:
+            "Focus your impact on specific communities or regions. We connect you with local social entrepreneurs solving problems on the ground.",
+        icon: "map",
+    },
+];
+
+const approachSteps = [
+    {
+        step: 1,
+        title: "Discovery",
+        description:
+            "We listen to your strategic priorities, understand your impact goals and identify where social entrepreneurship can drive the outcomes you're seeking.",
+    },
+    {
+        step: 2,
+        title: "Co-Design",
+        description:
+            "Together, we design a programme — defining scope, selection criteria, grant levels, support packages and success metrics that align with your objectives.",
+    },
+    {
+        step: 3,
+        title: "Delivery",
+        description:
+            "We manage the end-to-end programme — sourcing and selecting social entrepreneurs, distributing funding, providing expert support and tracking progress.",
+    },
+    {
+        step: 4,
+        title: "Evaluation",
+        description:
+            "We measure outcomes against agreed metrics and produce detailed impact reports, helping you demonstrate return on social investment to stakeholders.",
+    },
+];
+
+const stats = [
+    {
+        value: "100+",
+        label: "Programmes delivered",
+        icon: "clipboard-check",
+    },
+    {
+        value: "18,000+",
+        label: "Social entrepreneurs supported",
+        icon: "users",
+    },
+    {
+        value: "£60m+",
+        label: "Invested in social ventures",
+        icon: "sterling-sign",
+    },
+    {
+        value: "85%",
+        label: "Still trading after 3 years",
+        icon: "chart-line",
+    },
+];
+
+const testimonials = [
+    {
+        quote: "Our partnership with UnLtd has allowed us to support social entrepreneurs tackling health inequalities. The team's expertise in designing and delivering programmes has been invaluable.",
+        name: "Dr James Chen",
+        role: "Head of Social Impact",
+        organisation: "AstraZeneca Foundation",
+    },
+    {
+        quote: "UnLtd brought deep expertise in social entrepreneurship and a rigorous approach to programme design. Together, we've supported over 200 ventures focused on financial inclusion across the UK.",
+        name: "Maria Rodriguez",
+        role: "Director of Social Investment",
+        organisation: "Lloyds Banking Group",
+    },
+];
+
+const caseStudy = {
+    title: "Lloyds Banking Group: Building Financial Resilience",
+    description:
+        "Our multi-year partnership with Lloyds has supported over 200 social entrepreneurs focused on financial inclusion, reaching underserved communities across the UK. Together, we designed a programme that identifies and funds ventures tackling the root causes of financial exclusion.",
+    stats: [
+        { value: "200+", label: "Entrepreneurs supported" },
+        { value: "£2.5m", label: "Grant funding distributed" },
+        { value: "50,000+", label: "People reached" },
+    ],
+};
+
+const faqs = [
+    {
+        question: "What types of organisations do you partner with?",
+        answer: "We partner with corporates, foundations, government bodies and public sector organisations. Whether you're a FTSE 100 company, a family foundation or a local authority, we can design a programme that fits your goals and budget.",
+    },
+    {
+        question: "How long does a typical partnership last?",
+        answer: "Partnerships range from one-year pilot programmes to multi-year strategic commitments. Many of our partners start with a focused pilot and then scale up based on results. We'll work with you to find the right duration and scope.",
+    },
+    {
+        question: "What does the investment look like?",
+        answer: "Partnership investment varies depending on scope, scale and duration. It typically includes programme design and management fees, grant funding for social entrepreneurs, and support delivery costs. We'll discuss this transparently during our initial conversations.",
+    },
+    {
+        question: "How do you select the social entrepreneurs?",
+        answer: "We use a rigorous, multi-stage selection process tailored to each programme's criteria. This typically includes an open call for applications, eligibility screening, expert assessment and panel review. We draw on our network of 18,000+ social entrepreneurs and actively reach out to underrepresented communities.",
+    },
+    {
+        question: "Can we involve our employees in the programme?",
+        answer: "Absolutely. Many of our programme partnerships include an employee engagement element — from mentoring and pro-bono support to skills workshops. This adds value for your people while strengthening the ventures we support. See our [corporate volunteering](/get-involved/corporate-volunteering) page for more.",
+    },
+];
+---
+
+<Template name={name} description={description}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <Default name={name} description={description} />
+
+        <!-- Introduction -->
+        <section class="pb-12">
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                <p class="text-xl text-violet-300 leading-relaxed">
+                    For over 20 years, UnLtd has been the UK's leading
+                    foundation for social entrepreneurs. We've supported 18,000+
+                    founders, invested over £60 million and built a deep
+                    understanding of what it takes to create lasting social
+                    change. <strong
+                        >We're looking for partners who share that ambition.</strong
+                    >
+                </p>
+                <p class="text-violet-400">
+                    Our programme partnerships go beyond traditional
+                    grant-making or CSR. We work with organisations to co-design
+                    targeted programmes that find, fund and support the social
+                    entrepreneurs best placed to tackle the issues that matter
+                    to you — from health and wellbeing to employment, education
+                    and climate.
+                </p>
+            </div>
+        </section>
+
+        <!-- Partnership Models -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Ways to partner
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    Every partnership is different. Here are some of the ways
+                    organisations work with us.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {
+                    partnershipModels.map((model) => (
+                        <div class="rounded-2xl border border-emerald-200 dark:border-emerald-700 bg-emerald-100 dark:bg-emerald-900/30 p-8">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
+                                    <Icon
+                                        name={model.icon}
+                                        style="solid"
+                                        class="text-xl"
+                                    />
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-violet-100">
+                                        {model.title}
+                                    </h3>
+                                    <p class="text-violet-300 mt-2">
+                                        {model.description}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Our Approach -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Our approach
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    A proven process that delivers results for your organisation
+                    and the communities you want to reach.
+                </p>
+            </div>
+            <div class="relative max-w-3xl mx-auto">
+                <div
+                    class="absolute left-6 top-0 bottom-0 w-0.5 bg-emerald-600/30"
+                >
+                </div>
+                <div class="space-y-12">
+                    {
+                        approachSteps.map((step) => (
+                            <div class="relative flex items-start gap-6 pl-2">
+                                <div class="relative z-10 flex items-center justify-center w-9 h-9 rounded-full bg-emerald-600 text-white text-sm font-bold shrink-0">
+                                    {step.step}
+                                </div>
+                                <div class="pt-1">
+                                    <h3 class="text-lg font-bold text-violet-100">
+                                        {step.title}
+                                    </h3>
+                                    <p class="text-violet-300 mt-1">
+                                        {step.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Stats -->
+        <section class="pb-20">
+            <div
+                class="grid grid-cols-2 lg:grid-cols-4 gap-6 bg-violet-900/50 rounded-2xl p-8 border border-violet-700/50"
+            >
+                {
+                    stats.map((stat) => (
+                        <div class="text-center">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-600/20 flex items-center justify-center mx-auto mb-3">
+                                <Icon
+                                    name={stat.icon}
+                                    style="solid"
+                                    class="text-xl text-emerald-400"
+                                />
+                            </div>
+                            <div class="text-2xl font-bold text-emerald-400">
+                                {stat.value}
+                            </div>
+                            <div class="text-sm text-violet-300 mt-1">
+                                {stat.label}
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Case Study -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Partnership in action
+                </h2>
+            </div>
+            <article
+                class="rounded-2xl border border-violet-700/50 bg-violet-900/30 overflow-hidden"
+            >
+                <div class="p-8 lg:p-10">
+                    <div class="flex flex-col lg:flex-row gap-8">
+                        <div class="lg:w-2/3">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-12 h-12 rounded-xl bg-emerald-600 flex items-center justify-center"
+                                >
+                                    <Icon
+                                        name="landmark"
+                                        style="solid"
+                                        class="text-xl text-white"
+                                    />
+                                </div>
+                                <span
+                                    class="inline-flex items-center rounded-full bg-emerald-800/50 px-3 py-1 text-xs font-medium text-emerald-200"
+                                >
+                                    Programme Partnership
+                                </span>
+                            </div>
+                            <h3 class="text-xl font-bold text-violet-100 mb-3">
+                                {caseStudy.title}
+                            </h3>
+                            <p class="text-violet-300 leading-relaxed">
+                                {caseStudy.description}
+                            </p>
+                        </div>
+                        <div
+                            class="lg:w-1/3 lg:border-l lg:border-violet-700/50 lg:pl-8"
+                        >
+                            <h4
+                                class="text-sm font-semibold text-violet-400 uppercase tracking-wide mb-4"
+                            >
+                                Key Results
+                            </h4>
+                            <div class="space-y-4">
+                                {
+                                    caseStudy.stats.map((stat) => (
+                                        <div>
+                                            <div class="text-2xl font-bold text-emerald-400">
+                                                {stat.value}
+                                            </div>
+                                            <div class="text-sm text-violet-300">
+                                                {stat.label}
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    What our partners say
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {
+                    testimonials.map((testimonial) => (
+                        <figure class="bg-violet-900/30 rounded-2xl p-8 border border-violet-700/50 flex flex-col">
+                            <blockquote class="grow">
+                                <Icon
+                                    name="quote-left"
+                                    style="solid"
+                                    class="text-emerald-600 text-2xl mb-4"
+                                />
+                                <p class="text-violet-200 leading-relaxed">
+                                    "{testimonial.quote}"
+                                </p>
+                            </blockquote>
+                            <figcaption class="mt-6 pt-6 border-t border-violet-700/50">
+                                <div class="font-semibold text-violet-100">
+                                    {testimonial.name}
+                                </div>
+                                <div class="text-sm text-violet-400">
+                                    {testimonial.role},{" "}
+                                    {testimonial.organisation}
+                                </div>
+                            </figcaption>
+                        </figure>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Typeform Embed -->
+        <section class="pb-20">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Explore a partnership
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    Tell us about your organisation and your impact goals. We'll
+                    arrange a meeting to discuss how we can work together.
+                </p>
+            </div>
+            <div
+                class="relative w-full overflow-hidden rounded-2xl border border-violet-700/50"
+                style="padding-bottom: 150%;"
+            >
+                <EmbedLoader
+                    client:load
+                    src="https://unltduk.typeform.com/to/PARTNERSHIP"
+                    title="Programme partnership enquiry form"
+                    className="absolute inset-0 w-full h-full"
+                />
+            </div>
+        </section>
+
+        <!-- FAQs -->
+        <Faqtemplate title="Frequently asked questions">
+            {
+                faqs.map((faq, i) => (
+                    <Faq question={faq.question} answer={faq.answer} i={i} />
+                ))
+            }
+        </Faqtemplate>
+    </Container>
+</Template>
