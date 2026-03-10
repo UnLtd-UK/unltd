@@ -1,0 +1,350 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Default from "@components/heroes/Default.astro";
+import Icon from "@components/Icon.astro";
+import EmbedLoader from "@components/EmbedLoader.tsx";
+import Faq from "@components/Faq.astro";
+import Faqtemplate from "@components/Faqtemplate.astro";
+
+const name = "Give as an Individual";
+const slug = "donate";
+const description =
+    "Your donation directly supports social entrepreneurs who are tackling inequality, building stronger communities and changing lives across the UK.";
+
+const breadcrumbs = [
+    {
+        name: "Get Involved",
+        path: "/get-involved",
+    },
+    {
+        name,
+        path: `/get-involved/${slug}`,
+    },
+];
+
+const donationImpact = [
+    {
+        amount: "£25",
+        description:
+            "Provides a social entrepreneur with access to a peer networking session, connecting them with other founders facing similar challenges.",
+        icon: "comments",
+    },
+    {
+        amount: "£50",
+        description:
+            "Funds a one-to-one mentoring session between a skilled volunteer and a social entrepreneur working on their growth strategy.",
+        icon: "hands-helping",
+    },
+    {
+        amount: "£250",
+        description:
+            "Covers the cost of a social entrepreneur attending a specialist workshop on topics like fundraising, impact measurement or digital marketing.",
+        icon: "lightbulb",
+    },
+    {
+        amount: "£500",
+        description:
+            "Helps fund the early-stage assessment and support planning for a new social entrepreneur entering our programme.",
+        icon: "clipboard-check",
+    },
+    {
+        amount: "£1,000",
+        description:
+            "Contributes towards an early-stage award, giving a social entrepreneur the seed funding they need to test their idea and start creating impact.",
+        icon: "rocket-launch",
+    },
+    {
+        amount: "£5,000",
+        description:
+            "Funds a complete support package for one social entrepreneur — including grant funding, mentoring, networking and specialist workshops.",
+        icon: "award",
+    },
+];
+
+const stats = [
+    {
+        value: "18,000+",
+        label: "Social entrepreneurs supported since 2003",
+        icon: "users",
+    },
+    {
+        value: "85%",
+        label: "Still trading after 3 years",
+        icon: "chart-line",
+    },
+    {
+        value: "2.5m+",
+        label: "Lives impacted annually",
+        icon: "heart-pulse",
+    },
+    {
+        value: "£60m+",
+        label: "Invested in social ventures",
+        icon: "sterling-sign",
+    },
+];
+
+const testimonials = [
+    {
+        quote: "I started supporting UnLtd because I believe in the power of people to solve problems. Every update I receive about the entrepreneurs they've backed reinforces why this is the most meaningful donation I make each year.",
+        name: "Priya Sharma",
+        role: "Individual Supporter",
+    },
+    {
+        quote: "As someone who's benefited from social enterprises in my own community, giving back through UnLtd felt right. Knowing my donation goes directly to supporting the next generation of changemakers is incredibly motivating.",
+        name: "James Hartley",
+        role: "Monthly Donor",
+    },
+];
+
+const otherWays = [
+    {
+        title: "Payroll Giving",
+        description:
+            "Donate straight from your salary before tax. It's a simple, tax-efficient way to give regularly. Ask your employer about setting up payroll giving to UnLtd.",
+        icon: "building",
+    },
+    {
+        title: "Legacy Giving",
+        description:
+            "Leave a lasting impact by including UnLtd in your will. A legacy gift ensures that future social entrepreneurs receive the support they need to create change.",
+        icon: "heart",
+    },
+    {
+        title: "Fundraise for Us",
+        description:
+            "Run a marathon, host a bake sale or organise your own event. However you choose to fundraise, every pound raised goes towards supporting social entrepreneurs.",
+        icon: "star",
+    },
+];
+
+const faqs = [
+    {
+        question: "How is my donation used?",
+        answer: "Your donation goes directly towards finding, funding and supporting social entrepreneurs across the UK. This includes grant funding for early-stage ventures, one-to-one mentoring, specialist workshops, peer networking and impact measurement. We're committed to transparency — our annual report details exactly how funds are allocated.",
+    },
+    {
+        question: "Can I claim Gift Aid on my donation?",
+        answer: "Yes. If you're a UK taxpayer, Gift Aid allows us to claim an extra 25p for every £1 you donate at no additional cost to you. We'll ask about Gift Aid eligibility when you make your donation.",
+    },
+    {
+        question: "Can I set up a regular donation?",
+        answer: "Absolutely. Regular giving helps us plan ahead and ensures a steady flow of support for social entrepreneurs. You can set up a monthly, quarterly or annual donation. You can change or cancel your regular gift at any time.",
+    },
+    {
+        question: "Is my donation tax-deductible?",
+        answer: "UnLtd is a registered charity (number 1090393). Donations from UK taxpayers are eligible for Gift Aid, and corporate donations may qualify for Corporation Tax relief. For donations from outside the UK, tax treatment depends on your local regulations.",
+    },
+    {
+        question: "Can I donate in memory of someone?",
+        answer: "Yes, we welcome donations made in memory of a loved one. Please mention this in the form and we'll ensure your gift is acknowledged appropriately.",
+    },
+    {
+        question: "Who can I contact with questions about donating?",
+        answer: "If you have any questions about making a donation, please get in touch with our team at [donations@unltd.org.uk](mailto:donations@unltd.org.uk) or visit our [contact page](/contact).",
+    },
+];
+---
+
+<Template name={name} description={description}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <Default name={name} description={description} />
+
+        <!-- Introduction -->
+        <section class="pb-12">
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                <p class="text-xl text-violet-300 leading-relaxed">
+                    Behind every donation is a social entrepreneur who gets the
+                    chance to turn their idea into reality. Your generosity
+                    funds the grants, mentoring and support that help people
+                    build ventures tackling poverty, inequality, loneliness and
+                    more.
+                </p>
+                <p class="text-violet-400">
+                    Since 2003, donations from individuals like you have helped
+                    us support over 18,000 social entrepreneurs — and the
+                    communities they serve. Whether it's a one-off gift or a
+                    monthly commitment, every contribution makes a difference.
+                </p>
+            </div>
+        </section>
+
+        <!-- Donation Impact -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Your donation makes a difference
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    Here's how your support translates into real impact for
+                    social entrepreneurs.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {
+                    donationImpact.map((tier) => (
+                        <div class="rounded-2xl border border-rose-200 dark:border-rose-700 bg-rose-100 dark:bg-rose-900/30 p-6">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center shrink-0">
+                                    <Icon
+                                        name={tier.icon}
+                                        style="solid"
+                                        class="text-lg"
+                                    />
+                                </div>
+                                <span class="text-2xl font-bold text-rose-400">
+                                    {tier.amount}
+                                </span>
+                            </div>
+                            <p class="text-violet-300 text-sm">
+                                {tier.description}
+                            </p>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Impact Stats -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    The impact so far
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    Your donations are part of a movement that's been
+                    transforming lives for over two decades.
+                </p>
+            </div>
+            <div
+                class="grid grid-cols-2 lg:grid-cols-4 gap-6 bg-violet-900/50 rounded-2xl p-8 border border-violet-700/50"
+            >
+                {
+                    stats.map((stat) => (
+                        <div class="text-center">
+                            <div class="w-12 h-12 rounded-xl bg-rose-600/20 flex items-center justify-center mx-auto mb-3">
+                                <Icon
+                                    name={stat.icon}
+                                    style="solid"
+                                    class="text-xl text-rose-400"
+                                />
+                            </div>
+                            <div class="text-2xl font-bold text-rose-400">
+                                {stat.value}
+                            </div>
+                            <div class="text-sm text-violet-300 mt-1">
+                                {stat.label}
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Why people give
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {
+                    testimonials.map((testimonial) => (
+                        <figure class="bg-violet-900/30 rounded-2xl p-8 border border-violet-700/50 flex flex-col">
+                            <blockquote class="grow">
+                                <Icon
+                                    name="quote-left"
+                                    style="solid"
+                                    class="text-rose-600 text-2xl mb-4"
+                                />
+                                <p class="text-violet-200 leading-relaxed">
+                                    "{testimonial.quote}"
+                                </p>
+                            </blockquote>
+                            <figcaption class="mt-6 pt-6 border-t border-violet-700/50">
+                                <div class="font-semibold text-violet-100">
+                                    {testimonial.name}
+                                </div>
+                                <div class="text-sm text-violet-400">
+                                    {testimonial.role}
+                                </div>
+                            </figcaption>
+                        </figure>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Typeform Embed -->
+        <section class="pb-20">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Make a donation
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    Complete the form below to make your donation. We'll be in
+                    touch to confirm receipt and let you know about the impact
+                    your gift creates.
+                </p>
+            </div>
+            <div
+                class="relative w-full overflow-hidden rounded-2xl border border-violet-700/50"
+                style="padding-bottom: 150%;"
+            >
+                <EmbedLoader
+                    client:load
+                    src="https://unltduk.typeform.com/to/DONATE"
+                    title="Donation form"
+                    className="absolute inset-0 w-full h-full"
+                />
+            </div>
+        </section>
+
+        <!-- Other Ways to Give -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Other ways to give
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    There are many ways to support social entrepreneurs beyond a
+                    direct donation.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {
+                    otherWays.map((way) => (
+                        <div class="bg-violet-900/50 rounded-2xl p-6 border border-violet-700/50 text-center">
+                            <div class="w-14 h-14 rounded-xl bg-rose-600 text-white flex items-center justify-center mx-auto mb-4">
+                                <Icon
+                                    name={way.icon}
+                                    style="solid"
+                                    class="text-2xl"
+                                />
+                            </div>
+                            <h3 class="text-lg font-bold text-violet-100 mb-2">
+                                {way.title}
+                            </h3>
+                            <p class="text-violet-300 text-sm">
+                                {way.description}
+                            </p>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- FAQs -->
+        <Faqtemplate title="Frequently asked questions">
+            {
+                faqs.map((faq, i) => (
+                    <Faq question={faq.question} answer={faq.answer} i={i} />
+                ))
+            }
+        </Faqtemplate>
+    </Container>
+</Template>

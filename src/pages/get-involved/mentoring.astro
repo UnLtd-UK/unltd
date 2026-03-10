@@ -1,0 +1,401 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Default from "@components/heroes/Default.astro";
+import Icon from "@components/Icon.astro";
+import EmbedLoader from "@components/EmbedLoader.tsx";
+import Faq from "@components/Faq.astro";
+import Faqtemplate from "@components/Faqtemplate.astro";
+
+const name = "Volunteer Your Skills";
+const slug = "mentoring";
+const description =
+    "Share your professional expertise with social entrepreneurs who are creating positive change in communities across the UK.";
+
+const breadcrumbs = [
+    {
+        name: "Get Involved",
+        path: "/get-involved",
+    },
+    {
+        name,
+        path: `/get-involved/${slug}`,
+    },
+];
+
+const waysToHelp = [
+    {
+        title: "One-to-One Mentoring",
+        description:
+            "Be matched with a social entrepreneur and provide ongoing guidance on strategy, growth and overcoming challenges. A typical commitment is 2–4 hours per month over 6 months.",
+        icon: "comments",
+    },
+    {
+        title: "Specialist Expertise",
+        description:
+            "Offer your professional skills in a specific area — finance, legal, marketing, technology or HR — to help a venture solve a particular challenge.",
+        icon: "briefcase",
+    },
+    {
+        title: "Pro-Bono Projects",
+        description:
+            "Take on a defined project for a social enterprise, such as building a financial model, creating a marketing strategy or reviewing governance structures.",
+        icon: "laptop",
+    },
+    {
+        title: "Workshop Facilitation",
+        description:
+            "Share your knowledge with groups of social entrepreneurs through interactive workshops on topics like pitching, fundraising or scaling up.",
+        icon: "people-group",
+    },
+];
+
+const journeySteps = [
+    {
+        step: 1,
+        title: "Register Your Interest",
+        description:
+            "Complete the form below with your details, professional background and the skills you'd like to share.",
+    },
+    {
+        step: 2,
+        title: "We Review Your Application",
+        description:
+            "Our team reviews your profile and assesses where your skills would have the greatest impact across our network of social entrepreneurs.",
+    },
+    {
+        step: 3,
+        title: "Introductory Meeting",
+        description:
+            "If there's a good fit, we'll invite you for an informal conversation to learn more about you, your availability and what you want from the experience.",
+    },
+    {
+        step: 4,
+        title: "Join Our Pro-Bono Network",
+        description:
+            "Once accepted, you join our growing community of skilled volunteers. We'll provide an induction and ongoing support throughout your volunteering.",
+    },
+    {
+        step: 5,
+        title: "Get Matched",
+        description:
+            "We match you with a social entrepreneur based on your skills, interests and availability. You'll meet your mentee and agree a plan together.",
+    },
+];
+
+const expectations = [
+    {
+        title: "Time",
+        description:
+            "Most mentoring relationships require 2–4 hours per month. We work around your schedule — meetings can be virtual or in-person.",
+        icon: "clock",
+    },
+    {
+        title: "Skills",
+        description:
+            "We welcome all professional backgrounds. The most common skills our entrepreneurs need are finance, marketing, strategy, legal and technology.",
+        icon: "lightbulb",
+    },
+    {
+        title: "Commitment",
+        description:
+            "We ask for a minimum 6-month commitment to give the relationship time to develop and create real impact.",
+        icon: "handshake",
+    },
+];
+
+const stats = [
+    {
+        value: "500+",
+        label: "Active mentors and volunteers",
+        icon: "users",
+    },
+    {
+        value: "4,500+",
+        label: "Pro-bono hours contributed annually",
+        icon: "clock",
+    },
+    {
+        value: "95%",
+        label: "Mentors would recommend it",
+        icon: "star",
+    },
+    {
+        value: "78%",
+        label: "Mentees report accelerated growth",
+        icon: "rocket",
+    },
+];
+
+const testimonials = [
+    {
+        quote: "Being a mentor with UnLtd has been one of the most rewarding experiences of my career. Seeing the social entrepreneurs I've supported go on to create real change in their communities is incredibly fulfilling.",
+        name: "Sarah Mitchell",
+        role: "Senior Consultant",
+        organisation: "Deloitte",
+    },
+    {
+        quote: "I wanted to use my finance skills for something meaningful. Mentoring through UnLtd gave me the chance to help a social entrepreneur build a sustainable business model — and I learned just as much from them as they did from me.",
+        name: "David Okafor",
+        role: "Finance Director",
+        organisation: "Barclays",
+    },
+];
+
+const faqs = [
+    {
+        question: "What skills do you need?",
+        answer: "We welcome professionals from all backgrounds. The skills most in demand from our social entrepreneurs include finance and accounting, marketing and communications, legal and governance, technology and digital, HR and people management, and strategy and business planning. If you have professional experience you'd like to share, we'd love to hear from you.",
+    },
+    {
+        question: "How much time do I need to commit?",
+        answer: "Most mentoring relationships involve 2–4 hours per month, typically over a 6-month period. For specialist pro-bono projects, the time commitment varies depending on the scope of work. We'll always discuss this upfront so there are no surprises.",
+    },
+    {
+        question: "How does the matching process work?",
+        answer: "We carefully match mentors with social entrepreneurs based on skill set, sector experience, location and availability. Both parties have the opportunity to meet informally before committing, and our team remains on hand to support the relationship throughout.",
+    },
+    {
+        question: "What happens if I'm not selected?",
+        answer: "Not being selected doesn't reflect on your skills or experience — it simply means we don't currently have a match that makes the most of what you offer. We'll keep your details on file and get in touch when a suitable opportunity arises. We also share other ways you can support social entrepreneurs.",
+    },
+    {
+        question: "Do I need prior mentoring experience?",
+        answer: "No. We provide a full induction and mentoring toolkit before you start, along with ongoing support from our team. Many of our best mentors started with no formal mentoring experience — what matters most is your willingness to listen, share and support.",
+    },
+    {
+        question: "Can I volunteer as part of a team from my company?",
+        answer: "Yes! If your company wants to get involved as a group, take a look at our [corporate volunteering](/get-involved/corporate-volunteering) programme, which is designed for team-based employee engagement.",
+    },
+];
+---
+
+<Template name={name} description={description}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <Default name={name} description={description} />
+
+        <!-- Introduction -->
+        <section class="pb-12">
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                <p class="text-xl text-violet-300 leading-relaxed">
+                    Social entrepreneurs are tackling some of the UK's toughest
+                    challenges — but they can't do it alone. Your professional
+                    skills and experience could be exactly what a social venture
+                    needs to grow, sustain itself and reach more people.
+                </p>
+                <p class="text-violet-400">
+                    Whether you can spare a few hours a month or want to take on
+                    a defined project, our pro-bono network connects you
+                    directly with founders who need your expertise. It's
+                    flexible, rewarding and genuinely impactful.
+                </p>
+            </div>
+        </section>
+
+        <!-- Ways to Help -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Ways you can help
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    Choose the type of volunteering that suits your skills and
+                    availability.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {
+                    waysToHelp.map((way) => (
+                        <div class="rounded-2xl border border-violet-200 dark:border-violet-700 bg-violet-100 dark:bg-violet-900/30 p-8">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-violet-600 text-white flex items-center justify-center shrink-0">
+                                    <Icon
+                                        name={way.icon}
+                                        style="solid"
+                                        class="text-xl"
+                                    />
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-violet-100">
+                                        {way.title}
+                                    </h3>
+                                    <p class="text-violet-300 mt-2">
+                                        {way.description}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- The Journey -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    The journey
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    From registering your interest to being matched with a
+                    social entrepreneur.
+                </p>
+            </div>
+            <div class="relative max-w-3xl mx-auto">
+                <div
+                    class="absolute left-6 top-0 bottom-0 w-0.5 bg-violet-600/30"
+                >
+                </div>
+                <div class="space-y-12">
+                    {
+                        journeySteps.map((step) => (
+                            <div class="relative flex items-start gap-6 pl-2">
+                                <div class="relative z-10 flex items-center justify-center w-9 h-9 rounded-full bg-violet-600 text-white text-sm font-bold shrink-0">
+                                    {step.step}
+                                </div>
+                                <div class="pt-1">
+                                    <h3 class="text-lg font-bold text-violet-100">
+                                        {step.title}
+                                    </h3>
+                                    <p class="text-violet-300 mt-1">
+                                        {step.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <!-- What You'll Need -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    What we ask of you
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {
+                    expectations.map((item) => (
+                        <div class="bg-violet-900/50 rounded-2xl p-6 border border-violet-700/50 text-center">
+                            <div class="w-14 h-14 rounded-xl bg-violet-600 text-white flex items-center justify-center mx-auto mb-4">
+                                <Icon
+                                    name={item.icon}
+                                    style="solid"
+                                    class="text-2xl"
+                                />
+                            </div>
+                            <h3 class="text-lg font-bold text-violet-100 mb-2">
+                                {item.title}
+                            </h3>
+                            <p class="text-violet-300 text-sm">
+                                {item.description}
+                            </p>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Impact Stats -->
+        <section class="pb-20">
+            <div
+                class="grid grid-cols-2 lg:grid-cols-4 gap-6 bg-violet-900/50 rounded-2xl p-8 border border-violet-700/50"
+            >
+                {
+                    stats.map((stat) => (
+                        <div class="text-center">
+                            <div class="w-12 h-12 rounded-xl bg-violet-600/20 flex items-center justify-center mx-auto mb-3">
+                                <Icon
+                                    name={stat.icon}
+                                    style="solid"
+                                    class="text-xl text-violet-400"
+                                />
+                            </div>
+                            <div class="text-2xl font-bold text-violet-400">
+                                {stat.value}
+                            </div>
+                            <div class="text-sm text-violet-300 mt-1">
+                                {stat.label}
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Hear from our mentors
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {
+                    testimonials.map((testimonial) => (
+                        <figure class="bg-violet-900/30 rounded-2xl p-8 border border-violet-700/50 flex flex-col">
+                            <blockquote class="grow">
+                                <Icon
+                                    name="quote-left"
+                                    style="solid"
+                                    class="text-violet-600 text-2xl mb-4"
+                                />
+                                <p class="text-violet-200 leading-relaxed">
+                                    "{testimonial.quote}"
+                                </p>
+                            </blockquote>
+                            <figcaption class="mt-6 pt-6 border-t border-violet-700/50">
+                                <div class="font-semibold text-violet-100">
+                                    {testimonial.name}
+                                </div>
+                                <div class="text-sm text-violet-400">
+                                    {testimonial.role},{" "}
+                                    {testimonial.organisation}
+                                </div>
+                            </figcaption>
+                        </figure>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Typeform Embed -->
+        <section class="pb-20">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Register your interest
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    Share your details and we'll be in touch. If your skills
+                    match our current needs, we'll invite you for an informal
+                    conversation. If not, we'll keep you on file and let you
+                    know when a suitable opportunity arises.
+                </p>
+            </div>
+            <div
+                class="relative w-full overflow-hidden rounded-2xl border border-violet-700/50"
+                style="padding-bottom: 150%;"
+            >
+                <EmbedLoader
+                    client:load
+                    src="https://unltduk.typeform.com/to/VOLUNTEER"
+                    title="Volunteer registration form"
+                    className="absolute inset-0 w-full h-full"
+                />
+            </div>
+        </section>
+
+        <!-- FAQs -->
+        <Faqtemplate title="Frequently asked questions">
+            {
+                faqs.map((faq, i) => (
+                    <Faq question={faq.question} answer={faq.answer} i={i} />
+                ))
+            }
+        </Faqtemplate>
+    </Container>
+</Template>
