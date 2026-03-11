@@ -55,19 +55,7 @@ export default defineConfig({
       fallbacks: ["sans-serif"],
     },
   ],
-  security: {
-    csp: {
-      directives: [
-        "default-src 'self'",
-        "img-src 'self' data: https://unltd.directus.app https://*.eventbrite.com https://*.eventbritecdn.com https://*.openfreemap.org",
-        "connect-src 'self' https://unltd.directus.app https://www.eventbriteapi.com https://*.openfreemap.org",
-        "font-src 'self'",
-        "worker-src 'self' blob:",
-        "frame-src 'self' https://*.eventbrite.com https://*.typeform.com https://*.youtube-nocookie.com",
-      ],
-      styleDirective: {
-        resources: ["'self'", "'unsafe-inline'"],
-      },
-    },
-  },
+  // CSP disabled: Alpine.js requires unsafe-eval (uses new Function() for expressions),
+  // which is incompatible with Astro 6's hash-based CSP. Migrating to @alpinejs/csp
+  // would be needed to re-enable this. See: https://alpinejs.dev/essentials/csp
 });
