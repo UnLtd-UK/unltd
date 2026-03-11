@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "private": true,
     "engines": {
-        "node": ">=20"
+        "node": ">=22.12.0"
     },
     "scripts": {
         "dev": "astro dev",
@@ -18,23 +18,16 @@
         "deploy:prod": "astro build && wrangler deploy --env production"
     },
     "dependencies": {
-        "@astrojs/alpinejs": "^0.4.9",
-        "@astrojs/check": "^0.9.6",
-        "@astrojs/db": "^0.19.0",
-        "@astrojs/markdoc": "^0.15.10",
-        "@astrojs/mdx": "^4.3.13",
-        "@astrojs/react": "^4.4.2",
-        "@astrojs/sitemap": "^3.7.0",
+        "@astrojs/alpinejs": "^0.5.0",
+        "@astrojs/check": "^0.9.7",
+        "@astrojs/markdoc": "^1.0.0",
+        "@astrojs/mdx": "^5.0.0",
+        "@astrojs/react": "^5.0.0",
+        "@astrojs/sitemap": "^3.7.1",
         "@awesome.me/kit-0ff725f684": "^1.0.22",
-        "@clerk/astro": "^3.0.1",
+        "@clerk/astro": "^3.0.4",
         "@daviddarnes/storage-form": "^2.0.1",
         "@directus/sdk": "^21.2.0",
-        "@fontsource-variable/caveat": "^5.2.8",
-        "@fontsource-variable/inter": "^5.2.8",
-        "@fontsource-variable/lexend": "^5.2.11",
-        "@fontsource-variable/nunito": "^5.2.7",
-        "@fontsource-variable/outfit": "^5.2.8",
-        "@fontsource-variable/unbounded": "^5.2.8",
         "@fortawesome/fontawesome-svg-core": "^7.2.0",
         "@fortawesome/react-fontawesome": "^3.2.0",
         "@headlessui/react": "2.2.9",
@@ -46,7 +39,7 @@
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "alpinejs": "^3.15.8",
-        "astro": "^5.18.0",
+        "astro": "^6.0.2",
         "boring-avatars": "^2.0.4",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
@@ -71,13 +64,13 @@
         "typescript": "^5.9.3"
     },
     "devDependencies": {
-        "@astrojs/node": "^9.5.4",
+        "@astrojs/node": "^10.0.0",
         "@tailwindcss/aspect-ratio": "^0.4.2",
         "@tailwindcss/forms": "^0.5.11",
         "@tailwindcss/typography": "^0.5.19",
         "baseline-browser-mapping": "^2.10.0",
         "prettier-plugin-astro": "^0.14.1",
         "rimraf": "^6.1.3",
-        "wrangler": "^4.71.0"
+        "wrangler": "^4.72.0"
     }
 }

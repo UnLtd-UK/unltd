@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import "@fontsource-variable/nunito";
+import { Font } from "astro:assets";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 // Import the centralized icon registry (registers icons with library)
@@ -31,6 +31,13 @@ import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" type="image/jpg" href="/favicon.ico" />
         <link rel="sitemap" href="/sitemap-index.xml" />
+
+        <!-- Astro 6 Fonts API -->
+        <Font cssVariable="--font-nunito" preload />
+        <Font cssVariable="--font-unbounded" />
+        <Font cssVariable="--font-caveat" />
+        <Font cssVariable="--font-outfit" />
+        <Font cssVariable="--font-inter" />
 
         <!-- Primary Meta Tags -->
         <title>{`${name} | UnLtd`}</title>
