@@ -59,6 +59,13 @@ function getRowClass(round: ProcessedRound): string {
     return "";
 }
 
+/** Extract hour in 24h format from an ISO date string, e.g. "09" or "17" */
+function formatHour(iso: string | null): string {
+    if (!iso) return "";
+    const h = new Date(iso).getHours();
+    return h.toString().padStart(2, "0") + ":00";
+}
+
 const hasRounds = allRounds && allRounds.length > 0;
 ---
 
@@ -111,13 +118,19 @@ const hasRounds = allRounds && allRounds.length > 0;
                                     <span
                                         class={`font-medium ${round.id === displayRound?.id ? "text-white" : round.phase === "completed" ? "text-violet-400" : "text-violet-200"}`}
                                     >
-                                        {round.dates.opensShort}
+                                        {round.dates.opensShort}{" "}
+                                        <span class="text-xs opacity-70">
+                                            {formatHour(round.opensDate)}
+                                        </span>
                                     </span>
                                     <span
                                         class={`${round.phase === "completed" ? "text-violet-500" : "text-violet-300"}`}
                                     >
                                         {" "}
-                                        – {round.dates.closesShort}
+                                        – {round.dates.closesShort}{" "}
+                                        <span class="text-xs opacity-70">
+                                            {formatHour(round.closesDate)}
+                                        </span>
                                     </span>
                                 </td>
                                 <td
