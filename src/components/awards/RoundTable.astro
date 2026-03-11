@@ -82,16 +82,13 @@ const hasRounds = allRounds && allRounds.length > 0;
                                 Status
                             </th>
                             <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide">
-                                Opens
-                            </th>
-                            <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide">
-                                Closes
+                                Apply
                             </th>
                             <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide hidden md:table-cell">
-                                Assessment
+                                Application review
                             </th>
                             <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide hidden md:table-cell">
-                                Interview
+                                Panel &amp; recommendation
                             </th>
                             <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide hidden md:table-cell">
                                 Results
@@ -116,11 +113,12 @@ const hasRounds = allRounds && allRounds.length > 0;
                                     >
                                         {round.dates.opensShort}
                                     </span>
-                                </td>
-                                <td
-                                    class={`py-3 px-2 ${round.phase === "completed" ? "text-violet-500" : "text-violet-300"}`}
-                                >
-                                    {round.dates.closesShort}
+                                    <span
+                                        class={`${round.phase === "completed" ? "text-violet-500" : "text-violet-300"}`}
+                                    >
+                                        {" "}
+                                        – {round.dates.closesShort}
+                                    </span>
                                 </td>
                                 <td
                                     class={`py-3 px-2 hidden md:table-cell ${round.phase === "completed" ? "text-violet-500" : "text-violet-300"}`}
