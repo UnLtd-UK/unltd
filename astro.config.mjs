@@ -59,10 +59,11 @@ export default defineConfig({
     csp: {
       directives: [
         "default-src 'self'",
-        "img-src 'self' data: https://unltd.directus.app https://*.eventbrite.com https://*.eventbritecdn.com",
-        "connect-src 'self' https://unltd.directus.app https://www.eventbriteapi.com",
+        "img-src 'self' data: https://unltd.directus.app https://*.eventbrite.com https://*.eventbritecdn.com https://*.openfreemap.org",
+        "connect-src 'self' https://unltd.directus.app https://www.eventbriteapi.com https://*.openfreemap.org",
         "font-src 'self'",
-        "frame-src 'self' https://*.eventbrite.com https://*.typeform.com",
+        "worker-src 'self' blob:",
+        "frame-src 'self' https://*.eventbrite.com https://*.typeform.com https://*.youtube-nocookie.com",
       ],
       styleDirective: {
         resources: ["'self'", "'unsafe-inline'"],
