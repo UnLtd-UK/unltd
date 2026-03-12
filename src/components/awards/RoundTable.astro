@@ -42,7 +42,7 @@ function getStatusLabel(round: ProcessedRound): string {
     if (round.isOpen) return "Open now";
     if (round.phase === "closed") return "Closed";
     if (round.isInAssessment) return "Assessing";
-    if (round.isInInterview) return "Interviewing";
+    if (round.isInInterview) return "Panel";
     if (round.phase === "awaiting-results") return "Assessments complete";
     if (round.isInResults) return "Emailing results";
     if (round.phase === "completed") return "Complete";
