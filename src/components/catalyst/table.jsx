@@ -1,7 +1,7 @@
 'use client'
 
 import { clsx } from 'clsx'
-import { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 import { Link } from './link'
 
 const TableContext = createContext({

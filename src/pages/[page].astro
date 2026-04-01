@@ -6,22 +6,13 @@ import Default from "@components/heroes/Default.astro";
 import Content from "@components/markdoc/Content.astro";
 
 import { marked } from "marked";
-import slugify from "slugify";
 
 import { pages } from "@data/pages.js";
 
 export async function getStaticPaths() {
   return pages.map((page) => {
-    // Use the slug field if it exists and is not empty, otherwise use the page name
-    const pageSlug =
-      page.slug && page.slug.trim() !== ""
-        ? page.slug
-        : slugify(page.name, {
-            lower: true,
-            strict: true,
-            locale: "en",
-            trim: true,
-          });
+    // Use the slug field from Directus
+    const pageSlug = page.slug;
 
     let breadcrumbs = [
       {

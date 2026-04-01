@@ -1,0 +1,217 @@
+---
+import Icon from "@components/Icon.astro";
+import EmbedLoader from "@components/EmbedLoader";
+import { benefits, checkerUrl } from "@data/eligibilityChecker";
+
+// Typeform iframe embed URL (using the form slug from the checker URL)
+const typeformEmbedUrl = `${checkerUrl}?typeform-embed=embed-widget`;
+
+const hero = {
+    eyebrow: "For social entrepreneurs",
+    title: "Awards",
+    description:
+        "You have an idea, or you are already creating positive social impact with your venture and are looking to develop. We combine funding and support specifically tailored to you.",
+};
+
+const navCards = [
+    {
+        href: "#our-award-winners",
+        icon: "award",
+        title: "Our Award Winners",
+        description:
+            "Meet the inspiring entrepreneurs who have received our Awards.",
+    },
+    {
+        href: "#our-awards",
+        icon: "trophy-star",
+        title: "Our Awards",
+        description: "Explore our Starting Up and Scaling Up Awards.",
+    },
+    {
+        href: "#how-applying-works",
+        icon: "route",
+        title: "How applying works",
+        description: "Understand each step of the application journey.",
+    },
+    {
+        href: "#apply",
+        icon: "messages-question",
+        title: "Apply now",
+        description: "First, take our eligibility checker.",
+    },
+    {
+        href: "#application-assistance",
+        icon: "messages-question",
+        title: "Application assistance",
+        description: "Find answers to common questions about Awards.",
+    },
+];
+
+const relatedPages = [
+    {
+        href: "/awards/eligibility-criteria",
+        icon: "check-circle",
+        title: "Eligibility Criteria",
+        description:
+            "Check through the eligibility criteria before you take the Eligibility Checker.",
+    },
+    {
+        href: "/equity-commitments",
+        icon: "hands-holding-heart",
+        title: "Equity Commitments",
+        description:
+            "We are committed to supporting underrepresented entrepreneurs.",
+    },
+];
+
+const checker = {
+    badge: "Required First Step",
+    label: "Eligibility Checker",
+    openLabel: "Open in new tab",
+};
+---
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+    <!-- Left: Hero Content -->
+    <div class="lg:pr-8">
+        <p class="text-base font-semibold leading-7 text-amber-500">
+            {hero.eyebrow}
+        </p>
+        <h1
+            class="mt-2 text-4xl font-bold tracking-tight text-violet-100 sm:text-5xl lg:text-6xl"
+        >
+            {hero.title}
+        </h1>
+        <p
+            class="mt-6 text-lg leading-8 font-medium text-pretty text-violet-300 sm:text-xl/8"
+        >
+            {hero.description}
+        </p>
+
+        <!-- Navigation Cards -->
+        <div class="mt-8 grid grid-cols-2 gap-3">
+            {
+                navCards.map((card) => (
+                    <a
+                        href={card.href}
+                        class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+                    >
+                        <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors">
+                            <Icon
+                                name={card.icon}
+                                style="regular"
+                                class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                            />
+                        </div>
+                        <h3 class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5">
+                            {card.title}
+                            <Icon
+                                name="arrow-down"
+                                style="solid"
+                                class="text-[10px] text-violet-500"
+                            />
+                        </h3>
+                        <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
+                            {card.description}
+                        </p>
+                    </a>
+                ))
+            }
+        </div>
+
+        <!-- Related Pages -->
+        <div class="mt-6">
+            <p
+                class="text-xs text-violet-500 uppercase tracking-wide font-medium mb-3"
+            >
+                Related pages
+            </p>
+            <div class="grid grid-cols-2 gap-3">
+                {
+                    relatedPages.map((page) => (
+                        <a
+                            href={page.href}
+                            class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+                        >
+                            <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors">
+                                <Icon
+                                    name={page.icon}
+                                    style="regular"
+                                    class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                                />
+                            </div>
+                            <h3 class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5">
+                                {page.title}
+                                <Icon
+                                    name="arrow-right"
+                                    style="regular"
+                                    class="text-[10px] text-violet-500"
+                                />
+                            </h3>
+                            <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
+                                {page.description}
+                            </p>
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Right: Eligibility Checker -->
+    <div class="lg:sticky lg:top-8">
+        <div
+            class="bg-violet-950 rounded-2xl overflow-hidden shadow-2xl border border-violet-100"
+        >
+            <div
+                class="bg-violet-100 px-4 py-2.5 border-b border-violet-100 flex items-center justify-between"
+            >
+                <span
+                    class="inline-flex items-center rounded-full bg-amber-500 text-amber-950 px-3 py-1 text-sm font-semibold"
+                >
+                    {checker.badge}
+                </span>
+                <span class="text-sm font-medium text-violet-700"
+                    >{checker.label}</span
+                >
+                <a
+                    href={checkerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-sm font-semibold text-violet-900 hover:text-violet-800 transition-colors"
+                >
+                    {checker.openLabel}
+                    <Icon
+                        name="arrow-up-right-from-square"
+                        style="regular"
+                        class="h-3 w-3"
+                    />
+                </a>
+            </div>
+
+            <div class="relative bg-violet-950 h-[70vh] min-h-125">
+                <EmbedLoader
+                    client:load
+                    src={typeformEmbedUrl}
+                    title={checker.label}
+                    className="w-full h-full"
+                />
+            </div>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-4 my-6">
+            {
+                benefits.map((item) => (
+                    <div class="flex items-center gap-2 text-xs">
+                        <Icon
+                            name={item.iconName}
+                            style={item.iconStyle}
+                            class="h-3.5 w-3.5 text-violet-400"
+                        />
+                        <span class="text-violet-300">{item.text}</span>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</div>

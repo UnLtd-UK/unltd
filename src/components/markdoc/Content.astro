@@ -4,6 +4,7 @@ import Dropdown from "@components/markdoc/Dropdown.astro";
 import Tip from "@components/markdoc/Tip.astro";
 import Heading from "@components/markdoc/Heading.astro";
 import EmbedLoaderHydrator from "@components/EmbedLoaderHydrator";
+import HopeMapHydrator from "@components/HopeMapHydrator";
 import { prepareMarkdown } from "@data/functions/prepareMarkdown.js";
 
 import { marked } from "marked";
@@ -139,3 +140,6 @@ const html = marked.parse(preparedBody);
 
 <!-- Hydrate embed placeholders with React EmbedLoader components -->
 <EmbedLoaderHydrator client:load />
+
+<!-- Hydrate Hope Map embeds in blog post content -->
+<HopeMapHydrator client:load />

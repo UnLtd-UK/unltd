@@ -1,0 +1,3 @@
+# Prevent stale cached PDFs — ensure each deploy serves the latest build
+/awards/downloads/*
+  Cache-Control: public, max-age=0, must-revalidate

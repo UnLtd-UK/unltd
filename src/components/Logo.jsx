@@ -1,3 +1,5 @@
+import React from 'react'
+
 export default function Logo({ styles = { fill: "fill-amber-500" } }) {
     return (
         <svg

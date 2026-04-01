@@ -1,0 +1,145 @@
+---
+/**
+ * RoundButton (Static Astro)
+ * Apply button with contextual state based on round status.
+ * Rendered at build time — rebuilt every ~2 hours via CI.
+ *
+ * States:
+ * - Closed:   disabled "No rounds scheduled"
+ * - Opening:  disabled with date info
+ * - Open:     active "Apply Now" with optional urgency styling
+ * - Closing:  active with urgency colours + countdown
+ */
+import { getRoundData, getRoundStatus } from "./round";
+import Icon from "@components/Icon.astro";
+
+interface Props {
+    applyUrl?: string;
+    variant?: "primary" | "hero";
+    class?: string;
+}
+
+const {
+    applyUrl = "https://unltd.microsoftcrmportals.com/applications",
+    variant = "primary",
+} = Astro.props;
+
+const { currentRound, nextRound, devDateTime } = getRoundData();
+const {
+    state,
+    round: displayRound,
+    urgency,
+    closesCountdown,
+    opensCountdown,
+} = getRoundStatus({ currentRound, nextRound, devDateTime });
+
+const isHeroVariant = variant === "hero";
+
+// Button styling based on urgency (only used for open/closing states)
+const getButtonStyles = () => {
+    if (isHeroVariant) {
+        if (urgency === "critical")
+            return "bg-white text-red-700 hover:bg-red-50";
+        if (urgency === "warning")
+            return "bg-white text-amber-700 hover:bg-amber-50";
+        return "bg-white text-emerald-700 hover:bg-emerald-50";
+    }
+    if (urgency === "critical") return "bg-red-500 text-white hover:bg-red-400";
+    if (urgency === "warning")
+        return "bg-amber-500 text-white hover:bg-amber-400";
+    return "bg-emerald-500 text-white hover:bg-emerald-400";
+};
+
+// Countdown text for closing/opening states
+const countdownLabel = (() => {
+    if (
+        (state === "closing" || state === "open") &&
+        urgency !== "normal" &&
+        !closesCountdown.isExpired
+    ) {
+        if (closesCountdown.totalDays === 0) return "Less than 1 day";
+        return `${closesCountdown.totalDays} ${closesCountdown.totalDays === 1 ? "day" : "days"}`;
+    }
+    return null;
+})();
+
+const opensCountdownLabel = (() => {
+    if (state === "opening" && opensCountdown.totalDays > 0) {
+        return `${opensCountdown.totalDays} ${opensCountdown.totalDays === 1 ? "day" : "days"}`;
+    }
+    return null;
+})();
+---
+
+{/* No rounds at all */}
+{
+    state === "closed" && (
+        <div>
+            <div class="inline-flex items-center gap-2 px-6 py-3 bg-slate-500/20 text-slate-300 font-semibold rounded-xl text-lg ring-1 ring-slate-500/30 cursor-not-allowed">
+                <Icon name="calendar-xmark" style="solid" />
+                <span class="flex flex-col items-start">
+                    <span>No rounds scheduled</span>
+                    <span class="text-xs font-normal text-slate-400">
+                        Check back soon for upcoming application rounds
+                    </span>
+                </span>
+            </div>
+        </div>
+    )
+}
+
+{/* Future round - show when it opens */}
+{
+    state === "opening" && displayRound && (
+        <div>
+            <div class="inline-flex items-center gap-2 px-6 py-3 bg-indigo-500/20 text-white font-semibold rounded-xl text-lg ring-1 ring-indigo-500/30 cursor-not-allowed">
+                <Icon name="clock" style="solid" class="text-indigo-400" />
+                <span>
+                    Applications open{" "}
+                    <span class="text-indigo-300">
+                        {displayRound.dates.opens}
+                    </span>
+                    {opensCountdownLabel && (
+                        <span class="text-xs font-medium text-violet-300 ml-2">
+                            &middot; Opens in{" "}
+                            <span class="font-semibold text-white">
+                                {opensCountdownLabel}
+                            </span>
+                        </span>
+                    )}
+                </span>
+            </div>
+            <p class="text-indigo-200/70 text-sm mt-2">
+                Bookmark this page and come back when applications open
+            </p>
+        </div>
+    )
+}
+
+{/* Open / Closing round - active Apply Now button */}
+{
+    (state === "open" || state === "closing") && (
+        <div>
+            <a
+                href={applyUrl}
+                target="_blank"
+                class={`inline-flex items-center gap-3 px-8 py-4 font-bold rounded-xl text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 ${getButtonStyles()}`}
+            >
+                <span class="flex flex-col items-start">
+                    <span class="flex items-center gap-2">
+                        Apply Now
+                        <Icon name="arrow-up-right-from-square" style="solid" />
+                    </span>
+                    {countdownLabel && (
+                        <span class="text-xs font-medium opacity-90">
+                            {urgency === "critical"
+                                ? "Closes in"
+                                : "Deadline in"}{" "}
+                            {countdownLabel}
+                        </span>
+                    )}
+                </span>
+            </a>
+        </div>
+    )
+}

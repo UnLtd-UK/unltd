@@ -1,3 +1,4 @@
+import React from 'react'
 import PopoverComp from './Popover.jsx';
 import { Popover } from '@headlessui/react'
 
@@ -10,9 +11,9 @@ export default function PanelComp({ navs, styles }) {
         <Popover.Group className="hidden lg:flex lg:gap-x-12">
             {navs.filter(isEnabled).map((nav, i) => (
                 isStandardLink(nav) ? (
-                    <a 
-                        key={nav.id || i} 
-                        href={nav.href} 
+                    <a
+                        key={nav.id || i}
+                        href={nav.href}
                         className={`text-sm font-semibold leading-6 ${styles.text}`}
                     >
                         {nav.name}
