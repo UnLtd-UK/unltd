@@ -100,25 +100,10 @@ const deriveStage = (tradingStatus) => {
 };
 
 /**
- * Get applications marked as "new" for the refactored eligibility pages
- * These are applications that have the new field set to true in Directus
- */
-export const getNewApplications = () => {
-    return applications.filter(app => app.new === true);
-};
-
-/**
  * Get an application by its slug
  */
 export const getApplicationBySlug = (slug) => {
     return applications.find(app => app.slug === slug);
-};
-
-/**
- * Get a new application by its slug (only from apps with new: true)
- */
-export const getNewApplicationBySlug = (slug) => {
-    return getNewApplications().find(app => app.slug === slug);
 };
 
 /**
@@ -129,7 +114,7 @@ export const getNewApplicationBySlug = (slug) => {
  * Otherwise, derive from trading status mapping.
  */
 export const getApplicationWithAwards = (slug) => {
-    const application = getNewApplicationBySlug(slug);
+    const application = getApplicationBySlug(slug);
     if (!application) return null;
 
     // Derive trading status from existing data

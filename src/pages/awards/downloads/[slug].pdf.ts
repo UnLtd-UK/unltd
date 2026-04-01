@@ -8,11 +8,10 @@
  */
 
 import type { GetStaticPaths } from "astro";
-import { getNewApplications, getApplicationWithAwards } from "@data/applications.js";
+import { applications, getApplicationWithAwards } from "@data/applications.js";
 import { generateApplicationPdf } from "@lib/generate-application-pdf";
 
 export const getStaticPaths: GetStaticPaths = () => {
-    const applications = getNewApplications();
     return applications.map((app) => ({
         params: { slug: app.slug },
     }));
