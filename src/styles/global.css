@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
-@theme {
-    --font-sans: "Nunito Variable", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+@theme inline {
+    --font-sans: var(--font-nunito);
+    --font-ff: var(--font-unbounded);
+    --font-ha: var(--font-caveat);
+    --font-mfc: var(--font-outfit);
+    --font-ate: var(--font-inter);
 }
 
 /* Default icon sizing - icons inherit text size like FontAwesome's default behavior */

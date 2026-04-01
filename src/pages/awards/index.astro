@@ -1,18 +1,42 @@
 ---
 // PROPS
 const props = {
-  name: "Awards",
-  slug: "/awards",
-  description:
-    "You have an idea, or you are already creating a positive social impact with your venture and are looking to develop. We combine funding and support specifically tailored to you. We'll help get you started or to grow.",
+    name: "Awards",
+    slug: "/awards",
+    description:
+        "You have an idea, or you are already creating positive social impact with your venture and are looking to develop. We combine funding and support specifically tailored to you.",
 };
 
 const breadcrumbs = [
-  {
-    name: "Awards",
-    path: "/awards",
-  },
+    {
+        name: "Awards",
+        path: "/awards",
+    },
 ];
+
+// DATA
+// import { rounds } from "@data/rounds.js";
+// import { processAllRounds } from "@utils/application-rounds.js";
+
+// const { currentRound: rawCurrentRound } = processAllRounds(rounds);
+
+// // Prepare round data for the Applying component
+// const currentRound = rawCurrentRound
+//     ? {
+//           type: rawCurrentRound.hasCapacity
+//               ? ("deadline-capacity" as const)
+//               : ("deadline" as const),
+//           opens: new Date(rawCurrentRound.opensDate),
+//           closes: new Date(rawCurrentRound.closesDate),
+//           resultsStart: rawCurrentRound.resultsStart
+//               ? new Date(rawCurrentRound.resultsStart)
+//               : undefined,
+//           resultsEnd: rawCurrentRound.resultsEnd
+//               ? new Date(rawCurrentRound.resultsEnd)
+//               : undefined,
+//           capacityFilled: rawCurrentRound.capacityPercentage ?? undefined,
+//       }
+//     : null;
 
 // LAYOUT
 import Template from "@layouts/Template.astro";
@@ -20,47 +44,47 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 
 // COMPONENTS
-import Header from "@components/awards/Header.astro";
-import Programmes from "@components/awards/Programmes.astro";
-import Steps from "@components/awards/Steps.astro";
-import Questions from "@components/awards/Questions.astro";
-import Eligibility from "@components/awards/Eligibility.astro";
-
-// OTHER
-import moment from "moment";
+import HeroWithChecker from "@components/awards/HeroWithChecker.astro";
+import Awards from "@components/awards/Awards.astro";
+import RoundTable from "@components/awards/RoundTable.astro";
+import RoundStages from "@components/awards/RoundStage.astro";
+import EligibilityChecker from "@components/awards/EligibilityChecker.astro";
 import Sessions from "@components/awards/Sessions.astro";
-let todayDate = moment();
-
-// let activeGrants = rounds.filter((round) => {
-//   let date = new Date();
-//   let roundopen = new Date(round.open);
-//   let roundclose = new Date(round.close);
-//   let fundopen = new Date(round.open);
-//   let fundclose = new Date(round.close);
-
-//   if (
-//     roundopen < date &&
-//     roundclose > date &&
-//     fundopen < date &&
-//     fundclose > date
-//   ) {
-//     return activeGrant;
-//   }
-// });
+import VideoShowcase from "@components/awards/VideoShowcase.astro";
 ---
 
 <Template name={props.name} description={props.description}>
-  <Container>
-    <Breadcrumbs breadcrumbs={breadcrumbs} />
-  </Container>
-  <Header />
-  <!-- <Awards /> -->
-  <!-- <Typeform /> -->
-  <Programmes />
-  <Container>
-    <Sessions />
-  </Container>
-  <!-- <Eligibility client:load /> -->
-  <Steps />
-  <Questions />
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+    </Container>
+    <Container id="hero" class="bg-violet-950 py-16 mt-8">
+        <HeroWithChecker />
+    </Container>
+    <Container id="our-award-winners" class="bg-violet-900 py-16 mt-8">
+        <VideoShowcase />
+    </Container>
+    <Container id="our-awards" class="bg-violet-950 py-16 mt-8">
+        <Awards />
+    </Container>
+    <Container id="how-applying-works" class="bg-violet-900 py-16 mt-8">
+        <div class="flex flex-col gap-8">
+            <div class="text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-violet-100 mb-4">
+                    How applying works
+                </h2>
+                <p class="text-lg text-violet-300 max-w-2xl mx-auto">
+                    Our application process has clear stages so you know exactly
+                    what to expect at every step.
+                </p>
+            </div>
+            <RoundStages />
+            <RoundTable />
+        </div>
+    </Container>
+    <Container id="apply" class="bg-violet-950 py-16 mt-8">
+        <EligibilityChecker />
+    </Container>
+    <Container id="application-assistance" class="bg-violet-900 py-16 mt-8">
+        <Sessions />
+    </Container>
 </Template>

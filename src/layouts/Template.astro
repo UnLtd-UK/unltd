@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import "@fontsource-variable/nunito";
+import { Font } from "astro:assets";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 // Import the centralized icon registry (registers icons with library)
@@ -8,83 +8,84 @@ import "@lib/icons";
 config.autoAddCss = false;
 
 import { palette } from "@data/palette.js";
-import { navigation } from "@data/navigation.js";
+import { navigation } from "@data/navigation.ts";
 
 const {
-  name = "UnLtd",
-  description = "No description",
-  theme = palette["UnLtd"],
+    name = "UnLtd",
+    description = "No description",
+    theme = palette["UnLtd"],
+    noindex = false,
 } = Astro.props.frontmatter || Astro.props;
 
 import Footer from "@components/Footer.astro";
 import Header from "@components/ui/Header.jsx";
-import Banner from "@components/awards/Banner.astro";
+import RoundBanner from "@components/awards/RoundBanner.astro";
 import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
-import { banner } from "@data/banner";
 ---
 
 <!doctype html>
 <html lang="en" class="h-full scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" type="image/jpg" href="/favicon.ico" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" type="image/jpg" href="/favicon.ico" />
+        <link rel="sitemap" href="/sitemap-index.xml" />
 
-    <!-- Primary Meta Tags -->
-    <title>{`${name} | UnLtd`}</title>
-    <meta
-      name="title"
-      content={name ? `${name} | UnLtd` : `No page description | UnLtd`}
-    />
-    <meta
-      name="description"
-      content={description ? description : "No page description"}
-    />
+        <!-- Astro 6 Fonts API -->
+        <Font cssVariable="--font-nunito" preload />
+        <Font cssVariable="--font-unbounded" />
+        <Font cssVariable="--font-caveat" />
+        <Font cssVariable="--font-outfit" />
+        <Font cssVariable="--font-inter" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="" />
-    <meta property="og:url" content="" />
-    <meta
-      property="og:title"
-      content={name ? `${name} | UnLtd` : `No page description | UnLtd`}
-    />
-    <meta
-      property="og:description"
-      content={description ? description : "No page description"}
-    />
-    <meta property="og:image" content="" />
+        <!-- Primary Meta Tags -->
+        <title>{`${name} | UnLtd`}</title>
+        <meta
+            name="title"
+            content={name ? `${name} | UnLtd` : `No page description | UnLtd`}
+        />
+        <meta
+            name="description"
+            content={description ? description : "No page description"}
+        />
 
-    <!-- <script src="https://hub.unltd.org.uk/~gitbook/embed/script.js"></script>
-    <script>
-      window.GitBook("show");
-    </script> -->
-  </head>
-  <body class={`dark ${palette["UnLtd"].bg}`}>
-    <div class="flex flex-col justify-between h-full">
-      {banner.status === "published" && <Banner banner={banner} />}
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="" />
+        <meta property="og:url" content="" />
+        <meta
+            property="og:title"
+            content={name ? `${name} | UnLtd` : `No page description | UnLtd`}
+        />
+        <meta
+            property="og:description"
+            content={description ? description : "No page description"}
+        />
+        <meta property="og:image" content="" />
 
-      <!-- NEW HEADER -->
-      {
-        navigation && (
-          <Header
-            styles={palette["UnLtd"]}
-            navigation={navigation}
-            client:load
-          />
-        )
-      }
+        {noindex && <meta name="robots" content="noindex, nofollow" />}
+    </head>
+    <body class={`dark ${palette["UnLtd"].bg}`}>
+        <div class="flex flex-col justify-between h-full">
+            <RoundBanner />
 
-      <!-- OLD HEADER -->
-      <!-- <Nav /> -->
-      <div class={`${theme.bg}`}>
-        <slot />
-      </div>
-      <Footer />
+            {
+                navigation && (
+                    <Header
+                        styles={palette["UnLtd"]}
+                        navigation={navigation}
+                        client:load
+                    />
+                )
+            }
 
-      <!-- Dev tools (only renders in development) -->
-      <DevDateTimeIndicator />
-    </div>
-  </body>
+            <div class={`${theme.bg}`}>
+                <slot />
+            </div>
+            <Footer />
+
+            <!-- Dev tools (only renders in development) -->
+            <DevDateTimeIndicator />
+        </div>
+    </body>
 </html>

@@ -1,5 +1,5 @@
 import { Popover } from '@headlessui/react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import DynamicIcon from '@components/ui/DynamicIcon';
 
 export default function FeedbackPopover() {

@@ -4,7 +4,6 @@ import Container from "@components/Container.astro";
 import Default from "@components/heroes/Default.astro";
 import Post from "@components/Post.astro";
 import { posts } from "@data/posts.js";
-import slugify from "slugify";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Icon from "@components/Icon.astro";
 
@@ -12,12 +11,7 @@ export function getStaticPaths() {
   const title = "Blog";
   const description = "Read our posts.";
 
-  const slug = slugify(title, {
-    lower: true,
-    strict: true,
-    locale: "en",
-    trim: true,
-  });
+  const slug = "blog";
 
   const yearsArray = [
     ...new Set(posts.map((post) => new Date(post.date_time).getFullYear())),
@@ -130,12 +124,7 @@ const { name, description, posts, years, breadcrumbs } = Astro.props;
       {
         posts.map((post) => (
           <Post
-            slug={slugify(post.title, {
-              lower: true,
-              strict: true,
-              locale: "en",
-              trim: true,
-            })}
+            slug={post.slug}
             title={post.title}
             description={post.description}
             image={{

@@ -1,0 +1,17 @@
+---
+/**
+ * HopeMapEmbed — Astro wrapper for directly embedding the Hope Map in .astro pages.
+ * Imports data at build time and hydrates the React component on the client.
+ *
+ * Usage:
+ *   <HopeMapEmbed />
+ *   <HopeMapEmbed compact={false} />
+ */
+import HopeMapClient from "./HopeMapEmbedClient";
+
+const { compact = true } = Astro.props;
+---
+
+<div class="my-8">
+    <HopeMapClient client:load compact={compact} />
+</div>
