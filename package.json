@@ -15,7 +15,8 @@
     "clear": "rimraf ./src/data/cache/*.json",
     "update": "npx npm-check-updates -u && npm install",
     "deploy:preview": "astro build && wrangler deploy --env preview",
-    "deploy:prod": "astro build && wrangler deploy --env production"
+    "deploy:prod": "astro build && wrangler deploy --env production",
+    "migrate:ghost": "node scripts/migrate-to-ghost.js"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.5.0",
