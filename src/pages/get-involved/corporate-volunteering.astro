@@ -1,0 +1,341 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Default from "@components/heroes/Default.astro";
+import Icon from "@components/Icon.astro";
+import EmbedLoader from "@components/EmbedLoader.tsx";
+import Faq from "@components/Faq.astro";
+import Faqtemplate from "@components/Faqtemplate.astro";
+
+const name = "Engage Your Company";
+const slug = "corporate-volunteering";
+const description =
+    "Unlock the potential of your workforce by connecting them with social entrepreneurs who are changing lives across the UK.";
+
+const breadcrumbs = [
+    {
+        name: "Get Involved",
+        path: "/get-involved",
+    },
+    {
+        name,
+        path: `/get-involved/${slug}`,
+    },
+];
+
+const benefits = [
+    {
+        title: "Bespoke Volunteering Programmes",
+        description:
+            "We design tailored programmes that align with your business priorities and give your employees meaningful, hands-on experience supporting social ventures.",
+        icon: "puzzle-piece",
+    },
+    {
+        title: "Employee Development",
+        description:
+            "Your people gain fresh perspectives, leadership skills and a renewed sense of purpose — all while making a tangible difference in communities.",
+        icon: "users",
+    },
+    {
+        title: "CSR Reporting & Impact",
+        description:
+            "We provide detailed impact reports so you can demonstrate the social value your organisation creates through its partnership with UnLtd.",
+        icon: "chart-line",
+    },
+    {
+        title: "Financial Partnership Opportunities",
+        description:
+            "Go beyond volunteering with co-funded programmes that channel your investment directly into early-stage social enterprises.",
+        icon: "coins",
+    },
+];
+
+const processSteps = [
+    {
+        step: 1,
+        title: "Initial Conversation",
+        description:
+            "We meet with you to understand your organisation's goals, values and what you want your employees to gain from the experience.",
+    },
+    {
+        step: 2,
+        title: "Programme Design",
+        description:
+            "Our team designs a bespoke volunteering programme — from half-day workshops to multi-month mentoring placements — tailored to your workforce.",
+    },
+    {
+        step: 3,
+        title: "Employee Engagement",
+        description:
+            "Your employees are matched with social entrepreneurs, providing skilled support on real business challenges.",
+    },
+    {
+        step: 4,
+        title: "Impact Reporting",
+        description:
+            "We measure and report on the outcomes — for your employees, your business and the social ventures they supported.",
+    },
+];
+
+const stats = [
+    {
+        value: "92%",
+        label: "Employee satisfaction rate",
+        icon: "star",
+    },
+    {
+        value: "50+",
+        label: "Corporate partners to date",
+        icon: "building",
+    },
+    {
+        value: "3,000+",
+        label: "Volunteer hours delivered",
+        icon: "clock",
+    },
+    {
+        value: "500+",
+        label: "Social ventures supported",
+        icon: "rocket",
+    },
+];
+
+const testimonials = [
+    {
+        quote: "The UnLtd mentoring programme has a big impact at Actis, providing examples of how we can think about the world in terms other than purely commercial. Our team comes back energised and with fresh perspectives.",
+        name: "Paul Fletcher",
+        role: "Executive Chairman",
+        organisation: "Actis",
+    },
+    {
+        quote: "Partnering with UnLtd gave our employees the chance to apply their skills in a completely different context. The energy and passion of the social entrepreneurs we worked with was genuinely inspiring.",
+        name: "Rebecca Turner",
+        role: "Head of Corporate Responsibility",
+        organisation: "PwC",
+    },
+];
+
+const faqs = [
+    {
+        question: "What size of organisation can partner with UnLtd?",
+        answer: "We work with organisations of all sizes — from SMEs to FTSE 100 companies. Our programmes are designed to be flexible and can be scaled to suit your workforce, whether that's a team of 10 or 10,000.",
+    },
+    {
+        question: "How much time do employees need to commit?",
+        answer: "It depends on the programme. We offer everything from one-off half-day workshops to longer-term mentoring placements spanning several months. We'll work with you to find the right level of commitment for your people.",
+    },
+    {
+        question: "What skills are most useful?",
+        answer: "Social entrepreneurs benefit from a wide range of professional expertise — finance, marketing, HR, legal, technology, strategy and more. We match your employees' skills to the ventures that need them most.",
+    },
+    {
+        question: "How is impact measured?",
+        answer: "We track outcomes across three dimensions: the development of your employees (skills, confidence, purpose), the progress of the social ventures they support, and the wider social impact created. You'll receive a comprehensive report at the end of each programme.",
+    },
+    {
+        question: "Is there a cost involved?",
+        answer: "Yes, there is a partnership fee which covers programme design, delivery, social entrepreneur matching and impact reporting. We'll discuss pricing during our initial conversation and tailor a package to your budget and goals.",
+    },
+];
+---
+
+<Template name={name} description={description}>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+        <Default name={name} description={description} />
+
+        <!-- Introduction -->
+        <section class="pb-12">
+            <div class="prose prose-lg dark:prose-invert max-w-none">
+                <p class="text-xl text-violet-300 leading-relaxed">
+                    Your employees want more than a pay cheque — they want
+                    purpose. Our corporate volunteering programmes connect your
+                    workforce with social entrepreneurs who are solving real
+                    problems in communities across the UK.
+                </p>
+                <p class="text-violet-400">
+                    Whether it's a one-off team challenge or an ongoing
+                    mentoring programme, we design experiences that develop your
+                    people, strengthen your brand and create lasting social
+                    impact. Over the past 20 years, we've partnered with more
+                    than 50 organisations to deliver meaningful employee
+                    engagement.
+                </p>
+            </div>
+        </section>
+
+        <!-- Benefits Grid -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    What you get
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    A partnership that delivers value for your business, your
+                    people and society.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {
+                    benefits.map((benefit) => (
+                        <div class="rounded-2xl border border-amber-200 dark:border-amber-700 bg-amber-100 dark:bg-amber-900/30 p-8">
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0">
+                                    <Icon
+                                        name={benefit.icon}
+                                        style="solid"
+                                        class="text-xl"
+                                    />
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-violet-100">
+                                        {benefit.title}
+                                    </h3>
+                                    <p class="text-violet-300 mt-2">
+                                        {benefit.description}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    How it works
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    From first conversation to impact report, here's what you
+                    can expect.
+                </p>
+            </div>
+            <div class="relative max-w-3xl mx-auto">
+                <!-- Vertical line -->
+                <div
+                    class="absolute left-6 top-0 bottom-0 w-0.5 bg-amber-600/30"
+                >
+                </div>
+                <div class="space-y-12">
+                    {
+                        processSteps.map((step) => (
+                            <div class="relative flex items-start gap-6 pl-2">
+                                <div class="relative z-10 flex items-center justify-center w-9 h-9 rounded-full bg-amber-600 text-white text-sm font-bold shrink-0">
+                                    {step.step}
+                                </div>
+                                <div class="pt-1">
+                                    <h3 class="text-lg font-bold text-violet-100">
+                                        {step.title}
+                                    </h3>
+                                    <p class="text-violet-300 mt-1">
+                                        {step.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </section>
+
+        <!-- Impact Stats -->
+        <section class="pb-20">
+            <div
+                class="grid grid-cols-2 lg:grid-cols-4 gap-6 bg-violet-900/50 rounded-2xl p-8 border border-violet-700/50"
+            >
+                {
+                    stats.map((stat) => (
+                        <div class="text-center">
+                            <div class="w-12 h-12 rounded-xl bg-amber-600/20 flex items-center justify-center mx-auto mb-3">
+                                <Icon
+                                    name={stat.icon}
+                                    style="solid"
+                                    class="text-xl text-amber-400"
+                                />
+                            </div>
+                            <div class="text-2xl font-bold text-amber-400">
+                                {stat.value}
+                            </div>
+                            <div class="text-sm text-violet-300 mt-1">
+                                {stat.label}
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="pb-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    What our partners say
+                </h2>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {
+                    testimonials.map((testimonial) => (
+                        <figure class="bg-violet-900/30 rounded-2xl p-8 border border-violet-700/50 flex flex-col">
+                            <blockquote class="grow">
+                                <Icon
+                                    name="quote-left"
+                                    style="solid"
+                                    class="text-amber-600 text-2xl mb-4"
+                                />
+                                <p class="text-violet-200 leading-relaxed">
+                                    "{testimonial.quote}"
+                                </p>
+                            </blockquote>
+                            <figcaption class="mt-6 pt-6 border-t border-violet-700/50">
+                                <div class="font-semibold text-violet-100">
+                                    {testimonial.name}
+                                </div>
+                                <div class="text-sm text-violet-400">
+                                    {testimonial.role},{" "}
+                                    {testimonial.organisation}
+                                </div>
+                            </figcaption>
+                        </figure>
+                    ))
+                }
+            </div>
+        </section>
+
+        <!-- Typeform Embed -->
+        <section class="pb-20">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-violet-100 mb-4">
+                    Start your partnership
+                </h2>
+                <p class="text-violet-400 max-w-2xl mx-auto">
+                    Tell us about your organisation and we'll arrange a meeting
+                    to explore how we can work together.
+                </p>
+            </div>
+            <div
+                class="relative w-full overflow-hidden rounded-2xl border border-violet-700/50"
+                style="padding-bottom: 150%;"
+            >
+                <EmbedLoader
+                    client:load
+                    src="https://unltduk.typeform.com/to/CORPORATE"
+                    title="Corporate partnership enquiry form"
+                    className="absolute inset-0 w-full h-full"
+                />
+            </div>
+        </section>
+
+        <!-- FAQs -->
+        <Faqtemplate title="Frequently asked questions">
+            {
+                faqs.map((faq, i) => (
+                    <Faq question={faq.question} answer={faq.answer} i={i} />
+                ))
+            }
+        </Faqtemplate>
+    </Container>
+</Template>

@@ -1,0 +1,16 @@
+---
+const { title } = Astro.props;
+---
+
+<div class="mx-auto max-w-4xl">
+    <h2
+        class="text-4xl font-semibold tracking-tight text-violet-950 sm:text-5xl dark:text-white"
+    >
+        {title}
+    </h2>
+    <dl
+        class="mt-10 space-y-6 divide-y divide-violet-900/10 dark:divide-white/10"
+    >
+        <slot />
+    </dl>
+</div>
