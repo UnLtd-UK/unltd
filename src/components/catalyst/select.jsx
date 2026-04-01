@@ -1,6 +1,6 @@
 import { Select as HeadlessSelect } from '@headlessui/react'
 import { clsx } from 'clsx'
-import { forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 
 export const Select = forwardRef(function Select({ className, multiple, ...props }, ref) {
   return (

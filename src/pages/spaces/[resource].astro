@@ -7,7 +7,6 @@
  * Resources that only belong to restricted spaces are not generated.
  */
 
-import slugify from "slugify";
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
@@ -71,12 +70,7 @@ export async function getStaticPaths() {
     );
 
     for (const resource of guideResources) {
-        const resourceSlug = slugify(resource.name, {
-            lower: true,
-            strict: true,
-            locale: "en",
-            trim: true,
-        });
+        const resourceSlug = resource.slug;
 
         const body = prepareMarkdown(resource.body || "");
         const toc = prepareToc(body);

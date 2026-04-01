@@ -1,0 +1,36 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import HopeMapClient from "@components/HopeMapEmbedClient";
+
+const breadcrumbs = [{ name: "Hope Map", path: "/hope-map" }];
+---
+
+<Template
+    name="Hope Map"
+    description="Discover social entrepreneurs making a difference across the UK"
+>
+    <Container>
+        <Breadcrumbs breadcrumbs={breadcrumbs} />
+
+        <!-- Hero -->
+        <div class="py-12 lg:py-16">
+            <h1
+                class="text-3xl font-bold tracking-tight text-violet-100 sm:text-4xl lg:text-5xl font-ff"
+            >
+                Hope Map
+            </h1>
+            <p class="mt-4 max-w-2xl text-lg text-violet-300">
+                Discover social entrepreneurs making a difference across the
+                United Kingdom. Browse the list or explore the map to find
+                inspiring people working to create positive change.
+            </p>
+        </div>
+
+        <!-- Full-size Hope Map -->
+        <div class="pb-16">
+            <HopeMapClient client:load compact={false} />
+        </div>
+    </Container>
+</Template>

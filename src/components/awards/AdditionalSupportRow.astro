@@ -1,0 +1,109 @@
+---
+/**
+ * AdditionalSupportRow Component
+ * Links to additional support resources for applicants with specific needs
+ */
+
+import Icon from "@components/Icon.astro";
+---
+
+<div class="">
+    <p class="text-sm font-medium text-slate-600 dark:text-slate-300 mb-4">
+        <Icon name="hand-holding-heart" style="solid" class="mr-2" />
+        Need extra support? We're here to help
+    </p>
+    <div class="grid sm:grid-cols-3 gap-4">
+        <!-- Visual Impairment Support -->
+        <a
+            href="mailto:awardapplications@unltd.org.uk"
+            class="group flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all duration-200"
+        >
+            <div
+                class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/50 flex items-center justify-center shrink-0"
+            >
+                <Icon
+                    name="eye"
+                    style="solid"
+                    class="text-blue-600 dark:text-blue-400"
+                />
+            </div>
+            <div class="flex-1 min-w-0">
+                <p
+                    class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                >
+                    Visual Impairment
+                </p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                    Screen reader assistance
+                </p>
+            </div>
+            <Icon
+                name="envelope"
+                style="solid"
+                class="text-slate-400 group-hover:text-blue-500 transition-all"
+            />
+        </a>
+
+        <!-- Additional Needs Support -->
+        <a
+            href="/spaces/assistance-for-those-with-additional-support-needs"
+            class="group flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-600 hover:shadow-md transition-all duration-200"
+        >
+            <div
+                class="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center shrink-0"
+            >
+                <Icon
+                    name="hands-holding-heart"
+                    style="solid"
+                    class="text-emerald-600 dark:text-emerald-400"
+                />
+            </div>
+            <div class="flex-1 min-w-0">
+                <p
+                    class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                >
+                    Additional Needs
+                </p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                    1-to-1 assistance sessions
+                </p>
+            </div>
+            <Icon
+                name="up-right-from-square"
+                style="solid"
+                class="text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all"
+            />
+        </a>
+
+        <!-- Wales Support -->
+        <a
+            href="/spaces/assistance-for-those-living-in-wales"
+            class="group flex items-center gap-3 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-rose-300 dark:hover:border-rose-600 hover:shadow-md transition-all duration-200"
+        >
+            <div
+                class="w-10 h-10 rounded-lg bg-rose-100 dark:bg-rose-900/50 flex items-center justify-center shrink-0"
+            >
+                <Icon
+                    name="dragon"
+                    style="solid"
+                    class="text-rose-600 dark:text-rose-400"
+                />
+            </div>
+            <div class="flex-1 min-w-0">
+                <p
+                    class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                >
+                    Living in Wales
+                </p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                    Local support networks
+                </p>
+            </div>
+            <Icon
+                name="arrow-right"
+                style="solid"
+                class="text-slate-400 group-hover:text-rose-500 group-hover:translate-x-1 transition-all"
+            />
+        </a>
+    </div>
+</div>

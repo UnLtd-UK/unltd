@@ -40,18 +40,6 @@
           "custom_domain": true
         }
       ]
-    },
-    "preview": {
-      "vars": {
-        "DEV": "true",
-        "SHOW_DRAFTS": "true"
-      },
-      "routes": [
-        {
-          "pattern": "preview.unltd.org.uk",
-          "custom_domain": true
-        }
-      ]
     }
   }
 }

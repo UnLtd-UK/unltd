@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import Logo from "@components/Logo.jsx";
 import PanelComp from './Panel.jsx';
