@@ -15,15 +15,11 @@
 import type { GetStaticPaths } from "astro";
 
 // DATA
-import {
-    getNewApplications,
-    getApplicationWithAwards,
-} from "@data/applications.js";
+import { applications, getApplicationWithAwards } from "@data/applications.js";
 
 // STATIC PATHS
 export const getStaticPaths: GetStaticPaths = () => {
-    const newApplications = getNewApplications();
-    return newApplications.map((app) => ({
+    return applications.map((app) => ({
         params: { slug: app.slug },
         props: { applicationData: app },
     }));
