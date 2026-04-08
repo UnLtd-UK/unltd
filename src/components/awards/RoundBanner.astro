@@ -12,6 +12,7 @@
  */
 import { getRoundData, getRoundStatus, formatTime } from "./round";
 import Icon from "@components/Icon.astro";
+import RoundCapacity from "@components/awards/RoundCapacity.astro";
 
 interface Props {
     eligibilityUrl?: string;
@@ -24,7 +25,7 @@ const {
 } = Astro.props;
 
 const { currentRound, nextRound, devDateTime } = getRoundData();
-const { state, round: displayRound, urgency, closesCountdown, opensCountdown } =
+const { state, round: displayRound, urgency, closesCountdown, opensCountdown, closedReason } =
     getRoundStatus({ currentRound, nextRound, devDateTime });
 
 // Hide only when there's no round data at all
@@ -77,7 +78,10 @@ const subtitleParts = (() => {
         const daysText = closesCountdown.totalDays > 0
             ? ` (${closesCountdown.totalDays} ${dayLabel(closesCountdown.totalDays)} left)`
             : "";
-        return { prefix: "Closes ", date: `${displayRound.dates.closes} at ${time}`, suffix: daysText };
+        const capacityText = displayRound.hasCapacity && displayRound.capacityStatus
+            ? ` · ${displayRound.capacityStatus.label}`
+            : "";
+        return { prefix: "Closes ", date: `${displayRound.dates.closes} at ${time}`, suffix: daysText + capacityText };
     }
     return null;
 })();
@@ -87,8 +91,12 @@ const badgeText =
     state === "opening" ? "Opening Soon" :
     state === "open" ? "Open" :
     state === "closing" ? "Closing Soon" :
+    state === "closed" && closedReason === "capacity" ? "Round Full" :
     state === "closed" ? "Closed" : "";
 const badgePulse = state === "open" || state === "closing";
+
+// Show capacity bar when round is open/closing and has capacity tracking
+const showCapacity = (state === "open" || state === "closing") && displayRound?.hasCapacity;
 ---
 
 {!hidden && (
@@ -123,6 +131,17 @@ const badgePulse = state === "open" || state === "closing";
                                     <span class="text-violet-400 ml-1">{subtitleParts.suffix}</span>
                                 )}
                             </p>
+                        </>
+                    )}
+                    {showCapacity && displayRound && (
+                        <>
+                            <span class="hidden sm:inline text-violet-500">|</span>
+                            <RoundCapacity
+                                capacityPercentage={displayRound.capacityPercentage}
+                                hasCapacity={displayRound.hasCapacity}
+                                label={displayRound.capacityStatus?.label}
+                                variant="banner"
+                            />
                         </>
                     )}
                 </div>

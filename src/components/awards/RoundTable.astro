@@ -91,6 +91,9 @@ const hasRounds = allRounds && allRounds.length > 0;
                             <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide">
                                 Apply
                             </th>
+                            <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide">
+                                Capacity
+                            </th>
                             <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide hidden md:table-cell">
                                 Application review
                             </th>
@@ -132,6 +135,20 @@ const hasRounds = allRounds && allRounds.length > 0;
                                             {formatHour(round.closesDate)}
                                         </span>
                                     </span>
+                                </td>
+                                <td class="py-3 px-2">
+                                    {(round.isOpen || round.isUpcoming) &&
+                                    round.hasCapacity ? (
+                                        <span
+                                            class={`text-xs font-medium ${round.capacityPercentage >= 80 ? "text-red-400" : round.capacityPercentage >= 60 ? "text-amber-400" : "text-emerald-400"}`}
+                                        >
+                                            {round.capacityPercentage}%
+                                        </span>
+                                    ) : (
+                                        <span class="text-xs text-violet-500">
+                                            —
+                                        </span>
+                                    )}
                                 </td>
                                 <td
                                     class={`py-3 px-2 hidden md:table-cell ${round.phase === "completed" ? "text-violet-500" : "text-violet-300"}`}

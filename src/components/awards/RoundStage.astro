@@ -1,4 +1,5 @@
 ---
+/* cSpell:words colour colours xmark */
 /**
  * RoundStage Grid (Static Astro)
  * Renders the 3 stage cards (Assessment, Interview, Result) in a 3-column grid.
@@ -8,6 +9,7 @@
 import { getRoundData, getRoundStatus, formatTime } from "./round";
 import { stages, stageColourClasses } from "@data/stages";
 import Icon from "@components/Icon.astro";
+import RoundCapacity from "@components/awards/RoundCapacity.astro";
 
 const { currentRound, nextRound, devDateTime } = getRoundData();
 const {
@@ -68,6 +70,12 @@ const applyStatusColour =
 
 const isAwardsPage =
     Astro.url.pathname === "/awards" || Astro.url.pathname === "/awards/";
+
+// Capacity info for the Apply stage
+const showApplyCapacity =
+    (state === "open" || state === "closing") &&
+    displayRound?.hasCapacity &&
+    displayRound.capacityPercentage > 0;
 ---
 
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
@@ -133,33 +141,52 @@ const isAwardsPage =
                         </div>
                     )}
 
-                    <div class="flex gap-2">
+                    <div class="flex flex-col gap-2">
                         {/* Apply stage: round status badge */}
                         {stage.phase === "apply" && applyBadgeText && (
-                            <span
-                                class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${applyBadgeClass}`}
-                            >
-                                {applyBadgePulse && (
-                                    <span class="relative flex h-1.5 w-1.5">
-                                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-75" />
-                                        <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
-                                    </span>
-                                )}
-                                {!applyBadgePulse && state === "opening" && (
-                                    <Icon
-                                        name="clock"
-                                        style="regular"
-                                        class="text-[10px]"
-                                    />
-                                )}
-                                {applyBadgeText}
-                            </span>
+                            <div>
+                                <span
+                                    class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${applyBadgeClass}`}
+                                >
+                                    {applyBadgePulse && (
+                                        <span class="relative flex h-1.5 w-1.5">
+                                            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-75" />
+                                            <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+                                        </span>
+                                    )}
+                                    {!applyBadgePulse &&
+                                        state === "opening" && (
+                                            <Icon
+                                                name="clock"
+                                                style="regular"
+                                                class="text-[10px]"
+                                            />
+                                        )}
+                                    {applyBadgeText}
+                                </span>
+                            </div>
                         )}
                         {stage.phase === "apply" && applyStatusText && (
                             <p class={`text-xs ${applyStatusColour} mt-1.5`}>
                                 {applyStatusText}
                             </p>
                         )}
+                        {stage.phase === "apply" &&
+                            showApplyCapacity &&
+                            displayRound && (
+                                <div class="mt-2">
+                                    <RoundCapacity
+                                        capacityPercentage={
+                                            displayRound.capacityPercentage
+                                        }
+                                        hasCapacity={displayRound.hasCapacity}
+                                        label={
+                                            displayRound.capacityStatus?.label
+                                        }
+                                        variant="card"
+                                    />
+                                </div>
+                            )}
                         {/* Other stages: Active badge */}
                         {stage.phase !== "apply" && isActive && (
                             <span
@@ -210,7 +237,7 @@ const isAwardsPage =
                             <div class="rounded-lg bg-emerald-500/10 border border-emerald-500/20 p-3 sm:p-4 mb-3">
                                 <div class="flex items-center gap-2 mb-1 sm:mb-2">
                                     <Icon
-                                        name={stage.successful.icon}
+                                        name={stage.successful.icon ?? "circle-check"}
                                         style="solid"
                                         class="text-emerald-400 text-sm"
                                     />
@@ -229,7 +256,7 @@ const isAwardsPage =
                             <div class="rounded-lg bg-white/5 border border-white/10 p-3 sm:p-4">
                                 <div class="flex items-center gap-2 mb-1 sm:mb-2">
                                     <Icon
-                                        name={stage.unsuccessful.icon}
+                                        name={stage.unsuccessful.icon ?? "circle-xmark"}
                                         style="solid"
                                         class="text-violet-400 text-sm"
                                     />
