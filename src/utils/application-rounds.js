@@ -294,11 +294,11 @@ export const getRoundTiming = (round) => {
  * @returns {Object} Capacity status info
  */
 export const getCapacityStatus = (percentage) => {
-    if (percentage === 100) {
+    if (percentage >= 100) {
         return {
             status: 'full',
             label: 'Round Full',
-            description: 'This round has reached capacity. Applications will be assessed in the next round.',
+            description: 'The application portal has closed as we have reached capacity for this round.',
             badgeClass: 'bg-slate-100 text-slate-600 border-slate-200',
             indicatorClass: 'bg-slate-400',
             urgency: 'none'
@@ -351,12 +351,14 @@ export const getCapacityStatus = (percentage) => {
  * @returns {Object} Processed round with all computed properties
  */
 export const processRound = (directusRound, applicationLimit = 650) => {
-    // Check if capacity is enabled for this round
-    // Capacity is disabled when both capacity and capacity_status are 0/null/undefined
-    // We treat null, undefined, and 0 as equivalent for this check
-    const capacityValue = directusRound.capacity ?? 0;
-    const capacityStatusValue = directusRound.capacity_status ?? 0;
-    const hasCapacity = !(capacityValue === 0 && capacityStatusValue === 0);
+    // capacity = max applications for this round (e.g. 650)
+    // capacity_status = current number of applications received (e.g. 325)
+    const capacityLimit = directusRound.capacity ?? 0;
+    const applicationCount = directusRound.capacity_status ?? 0;
+    const hasCapacity = capacityLimit > 0;
+    const capacityPercentage = hasCapacity
+        ? Math.min(100, Math.round((applicationCount / capacityLimit) * 100))
+        : 0;
 
     const round = {
         id: directusRound.id,
@@ -368,8 +370,9 @@ export const processRound = (directusRound, applicationLimit = 650) => {
         interviewEnd: directusRound.interview_ends ?? null,
         resultsStart: directusRound.results_start,
         resultsEnd: directusRound.results_end,
-        applicationLimit: directusRound.capacity ?? applicationLimit,
-        capacityPercentage: directusRound.capacity_status ?? 0,
+        applicationLimit: capacityLimit,
+        applicationCount,
+        capacityPercentage,
         hasCapacity,
 
         // Formatted dates

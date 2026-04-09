@@ -1,0 +1,70 @@
+---
+/**
+ * RoundBadge (Static Astro)
+ * Reusable status badge showing round state + capacity info.
+ * Rendered at build time — rebuilt every ~2 hours via CI.
+ *
+ * Examples:
+ * - "Opening Soon"
+ * - "Open · 50% capacity (325/650)"
+ * - "Closing Soon · 80% capacity (520/650)"
+ * - "Round Full"
+ * - "Closed"
+ */
+import { getRoundData, getRoundStatus } from "./round";
+
+const { currentRound, nextRound, devDateTime } = getRoundData();
+const {
+    state,
+    round: displayRound,
+    urgency,
+    closedReason,
+} = getRoundStatus({ currentRound, nextRound, devDateTime });
+
+// ─── Badge styling ──────────────────────────────────────────────────────
+const badgeClassMap = {
+    opening: "bg-indigo-500/20 text-indigo-400 ring-indigo-500/30",
+    open: "bg-emerald-500/20 text-emerald-400 ring-emerald-500/30",
+    closing:
+        urgency === "critical"
+            ? "bg-red-500/20 text-red-400 ring-red-500/30"
+            : "bg-amber-500/20 text-amber-400 ring-amber-500/30",
+    closed: "bg-slate-500/20 text-slate-400 ring-slate-500/30",
+} as const;
+
+const badgeClass = badgeClassMap[state] ?? badgeClassMap.open;
+
+// ─── Badge text ─────────────────────────────────────────────────────────
+const capacitySuffix = displayRound?.hasCapacity
+    ? ` · ${displayRound.capacityPercentage}% capacity (${displayRound.applicationCount}/${displayRound.applicationLimit})`
+    : "";
+
+const badgeText =
+    state === "opening"
+        ? "Opening Soon"
+        : state === "open"
+          ? `Open${capacitySuffix}`
+          : state === "closing"
+            ? `Closing Soon${capacitySuffix}`
+            : state === "closed" && closedReason === "capacity"
+              ? "Round Full"
+              : state === "closed"
+                ? "Closed"
+                : "";
+
+const badgePulse = state === "open" || state === "closing";
+---
+
+<span
+    class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${badgeClass}`}
+>
+    {
+        badgePulse && (
+            <span class="relative flex h-1.5 w-1.5">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-75" />
+                <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+            </span>
+        )
+    }
+    {badgeText}
+</span>

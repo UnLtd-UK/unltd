@@ -1,4 +1,5 @@
 ---
+/* cSpell:words Directus chatbots personalise */
 /**
  * EligibleHero Component
  * Consolidated hero for the eligibility confirmation page.
@@ -66,8 +67,7 @@ const { state: roundState, round: displayRound } = getRoundStatus({
 });
 const showCapacityWarning =
     (roundState === "open" || roundState === "closing") &&
-    displayRound?.hasCapacity &&
-    displayRound.capacityPercentage >= 60;
+    displayRound?.hasCapacity;
 ---
 
 <section
@@ -124,23 +124,21 @@ const showCapacityWarning =
                                 />
                                 <div class="flex-1">
                                     <p class="text-sm font-semibold text-white mb-1.5">
-                                        {displayRound.capacityStatus?.label ??
-                                            "Filling Up"}
+                                        At {displayRound.capacityPercentage}%
+                                        capacity
                                     </p>
                                     <RoundCapacity
                                         capacityPercentage={
                                             displayRound.capacityPercentage
                                         }
                                         hasCapacity={displayRound.hasCapacity}
-                                        label={
-                                            displayRound.capacityStatus?.label
-                                        }
                                         variant="card"
                                     />
                                     <p class="text-xs text-amber-200/70 mt-1.5">
-                                        {displayRound.capacityStatus
-                                            ?.description ??
-                                            "Limited spots remaining. Apply soon to secure your place."}
+                                        The portal will close when we reach{" "}
+                                        {displayRound.applicationLimit}{" "}
+                                        applications or the deadline passes,
+                                        whichever comes first.
                                     </p>
                                 </div>
                             </div>

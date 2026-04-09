@@ -72,14 +72,15 @@ const opensCountdownLabel = (() => {
     return null;
 })();
 
-// Capacity warning when round is filling up
+// Capacity warning when round has capacity tracking enabled
 const showCapacityWarning =
     (state === "open" || state === "closing") &&
     displayRound?.hasCapacity &&
-    displayRound.capacityPercentage >= 60 &&
     displayRound.capacityPercentage < 100;
 
-const capacityWarningText = displayRound?.capacityStatus?.description ?? "";
+const capacityWarningText = displayRound?.hasCapacity
+    ? `The portal will close when we reach ${displayRound.applicationLimit} applications or the deadline passes, whichever comes first.`
+    : "";
 
 // "Round Full" state: capacity closed but deadline hasn't passed
 const isRoundFull = state === "closed" && closedReason === "capacity";
@@ -177,7 +178,6 @@ const isRoundFull = state === "closed" && closedReason === "capacity";
                     <RoundCapacity
                         capacityPercentage={displayRound.capacityPercentage}
                         hasCapacity={displayRound.hasCapacity}
-                        label={displayRound.capacityStatus?.label}
                         variant="card"
                     />
                     <p class="text-xs text-violet-300/70 mt-1">

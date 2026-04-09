@@ -49,6 +49,8 @@ export interface ProcessedRound {
     resultsEnd: string;
     hasCapacity: boolean;
     capacityPercentage: number;
+    applicationCount: number;
+    applicationLimit: number;
     capacityStatus?: {
         status: string;
         label: string;
@@ -189,6 +191,8 @@ function serializeRound(round: any): ProcessedRound | null {
         resultsEnd: round.resultsEnd ?? "",
         hasCapacity: round.hasCapacity ?? false,
         capacityPercentage: round.capacityPercentage ?? 0,
+        applicationCount: round.applicationCount ?? 0,
+        applicationLimit: round.applicationLimit ?? 0,
         capacityStatus: round.capacityStatus
             ? {
                 status: round.capacityStatus.status,
@@ -245,7 +249,7 @@ export function getRoundData(): RoundDataProps {
         all: rawAll,
         currentRound: rawCurrent,
         nextOpenRound: rawNext,
-    } = processAllRounds(rounds);
+    } = processAllRounds(rounds) as { all: any[]; currentRound: any; nextOpenRound: any };
 
     return {
         currentRound: serializeRound(rawCurrent),
