@@ -59,7 +59,7 @@ export const stages: Stage[] = [
                 icon: "hourglass-half",
                 title: "Submit before deadline",
                 subtitle:
-                    "We assess applications in rounds. Submit before the round closes to be considered.",
+                    "We assess applications in rounds. Submit before the round closes or capacity is full to be considered.",
             },
         ],
         phase: "apply",

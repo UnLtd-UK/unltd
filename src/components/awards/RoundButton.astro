@@ -12,6 +12,7 @@
  */
 import { getRoundData, getRoundStatus } from "./round";
 import Icon from "@components/Icon.astro";
+import RoundCapacity from "@components/awards/RoundCapacity.astro";
 
 interface Props {
     applyUrl?: string;
@@ -31,6 +32,7 @@ const {
     urgency,
     closesCountdown,
     opensCountdown,
+    closedReason,
 } = getRoundStatus({ currentRound, nextRound, devDateTime });
 
 const isHeroVariant = variant === "hero";
@@ -69,11 +71,24 @@ const opensCountdownLabel = (() => {
     }
     return null;
 })();
+
+// Capacity warning when round has capacity tracking enabled
+const showCapacityWarning =
+    (state === "open" || state === "closing") &&
+    displayRound?.hasCapacity &&
+    displayRound.capacityPercentage < 100;
+
+const capacityWarningText = displayRound?.hasCapacity
+    ? `The portal will close when we reach ${displayRound.applicationLimit} applications or the deadline passes, whichever comes first.`
+    : "";
+
+// "Round Full" state: capacity closed but deadline hasn't passed
+const isRoundFull = state === "closed" && closedReason === "capacity";
 ---
 
 {/* No rounds at all */}
 {
-    state === "closed" && (
+    state === "closed" && !isRoundFull && (
         <div>
             <div class="inline-flex items-center gap-2 px-6 py-3 bg-slate-500/20 text-slate-300 font-semibold rounded-xl text-lg ring-1 ring-slate-500/30 cursor-not-allowed">
                 <Icon name="calendar-xmark" style="solid" />
@@ -81,6 +96,24 @@ const opensCountdownLabel = (() => {
                     <span>No rounds scheduled</span>
                     <span class="text-xs font-normal text-slate-400">
                         Check back soon for upcoming application rounds
+                    </span>
+                </span>
+            </div>
+        </div>
+    )
+}
+
+{/* Round full — capacity reached while deadline is still open */}
+{
+    isRoundFull && (
+        <div>
+            <div class="inline-flex items-center gap-2 px-6 py-3 bg-red-500/10 text-red-300 font-semibold rounded-xl text-lg ring-1 ring-red-500/30 cursor-not-allowed">
+                <Icon name="circle-xmark" style="solid" class="text-red-400" />
+                <span class="flex flex-col items-start">
+                    <span>Round Full</span>
+                    <span class="text-xs font-normal text-red-400">
+                        This round has reached capacity. Check back for the next
+                        round.
                     </span>
                 </span>
             </div>
@@ -140,6 +173,18 @@ const opensCountdownLabel = (() => {
                     )}
                 </span>
             </a>
+            {showCapacityWarning && displayRound && (
+                <div class="mt-2">
+                    <RoundCapacity
+                        capacityPercentage={displayRound.capacityPercentage}
+                        hasCapacity={displayRound.hasCapacity}
+                        variant="card"
+                    />
+                    <p class="text-xs text-violet-300/70 mt-1">
+                        {capacityWarningText}
+                    </p>
+                </div>
+            )}
         </div>
     )
 }

@@ -1,4 +1,5 @@
 ---
+/* cSpell:words Directus chatbots personalise */
 /**
  * EligibleHero Component
  * Consolidated hero for the eligibility confirmation page.
@@ -15,6 +16,8 @@ import Icon from "@components/Icon.astro";
 // import AwardCompact from "@components/awards/AwardCompact.astro";
 import Award from "@components/awards/Award.astro";
 import RoundButton from "@components/awards/RoundButton.astro";
+import RoundCapacity from "@components/awards/RoundCapacity.astro";
+import { getRoundData, getRoundStatus } from "@components/awards/round";
 
 interface Props {
     awards: any[];
@@ -54,6 +57,17 @@ const lastUpdated =
 const lastUpdatedText = lastUpdated
     ? `${lastUpdated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} at ${lastUpdated.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`
     : null;
+
+// Get round capacity data
+const { currentRound, nextRound, devDateTime } = getRoundData();
+const { state: roundState, round: displayRound } = getRoundStatus({
+    currentRound,
+    nextRound,
+    devDateTime,
+});
+const showCapacityWarning =
+    (roundState === "open" || roundState === "closing") &&
+    displayRound?.hasCapacity;
 ---
 
 <section
@@ -100,6 +114,36 @@ const lastUpdatedText = lastUpdated
 
                 <!-- Steps: Draft then Apply -->
                 <div class="flex flex-col gap-4">
+                    {
+                        showCapacityWarning && displayRound && (
+                            <div class="flex items-start gap-3 bg-amber-500/10 rounded-lg px-4 py-3 ring-1 ring-amber-500/20">
+                                <Icon
+                                    name="gauge-high"
+                                    style="solid"
+                                    class="text-amber-400 mt-0.5 h-4 w-4 shrink-0"
+                                />
+                                <div class="flex-1">
+                                    <p class="text-sm font-semibold text-white mb-1.5">
+                                        At {displayRound.capacityPercentage}%
+                                        capacity
+                                    </p>
+                                    <RoundCapacity
+                                        capacityPercentage={
+                                            displayRound.capacityPercentage
+                                        }
+                                        hasCapacity={displayRound.hasCapacity}
+                                        variant="card"
+                                    />
+                                    <p class="text-xs text-amber-200/70 mt-1.5">
+                                        The portal will close when we reach{" "}
+                                        {displayRound.applicationLimit}{" "}
+                                        applications or the deadline passes,
+                                        whichever comes first.
+                                    </p>
+                                </div>
+                            </div>
+                        )
+                    }
                     {
                         downloadUrl && (
                             <div class="flex items-start gap-3">
