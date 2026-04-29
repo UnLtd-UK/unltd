@@ -844,8 +844,8 @@ function renderKeyValueField(
         color: COLOUR_SECTION_BG,
     });
 
-    // "Name" header label
-    cursor.page.drawText("Name", {
+    // "Budget Item" header label
+    cursor.page.drawText("Budget Item", {
         x: tableX + 6,
         y: cursor.y - HEADER_HEIGHT + 7,
         size: FONT_SIZE_BODY,
@@ -904,9 +904,9 @@ function renderKeyValueField(
             color: COLOUR_LIGHT_GREY,
         });
 
-        // Name text field (fills left column, no border — table lines are the visual boundary)
-        const nameField = form.createTextField(`${fieldId}.row${i + 1}.name`);
-        nameField.addToPage(cursor.page, {
+        // Budget Item text field (fills left column, no border — table lines are the visual boundary)
+        const budgetItemField = form.createTextField(`${fieldId}.row${i + 1}.budgetItem`);
+        budgetItemField.addToPage(cursor.page, {
             x: tableX + 2,
             y: rowY - ROW_HEIGHT + 2,
             width: nameColWidth - 4,
@@ -914,7 +914,7 @@ function renderKeyValueField(
             borderWidth: 0,
             font: fonts.regular,
         });
-        nameField.setFontSize(FORM_FIELD_FONT_SIZE);
+        budgetItemField.setFontSize(FORM_FIELD_FONT_SIZE);
 
         // Cost text field (fills right column)
         const costField = form.createTextField(`${fieldId}.row${i + 1}.cost`);
@@ -943,7 +943,7 @@ function renderKeyValueField(
 
     cursor.y -= FIELD_HINT_GAP;
     cursor.drawWrappedTextIndented(
-        "Note: This PDF is limited to 10 entries. In the portal, you can add as many key-value pairs as needed.",
+        "Note: This PDF is limited to 10 entries. In the Application Portal, you can add as many entries as needed.",
         fonts.regular,
         FONT_SIZE_SMALL,
         xOffset,

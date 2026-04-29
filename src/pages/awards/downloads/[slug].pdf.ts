@@ -19,7 +19,6 @@ export const getStaticPaths: GetStaticPaths = () => {
 
 export async function GET({ params }: { params: { slug: string } }) {
     const result = getApplicationWithAwards(params.slug);
-
     if (!result) {
         return new Response("Not found", { status: 404 });
     }
