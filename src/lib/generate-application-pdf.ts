@@ -129,6 +129,10 @@ const CHECKBOX_SIZE = 12;
 const DROPDOWN_HEIGHT = 22;
 const FORM_FIELD_FONT_SIZE = 10; // consistent size for all interactive fields
 
+// Key-value field limits
+const PDF_MAX_ENTRIES = 10; // rows shown in the static PDF table
+const PORTAL_MAX_ENTRIES = 25; // entries allowed in the online portal
+
 // ─── Helpers ────────────────────────────────────────────────────────────
 
 /**
@@ -819,7 +823,7 @@ function renderKeyValueField(
     fonts: { bold: PDFFont; regular: PDFFont },
     xOffset = 0,
 ): void {
-    const NUM_ROWS = 10;
+    const NUM_ROWS = PDF_MAX_ENTRIES;
     const ROW_HEIGHT = 22;
     const HEADER_HEIGHT = 22;
     const NAME_COL_RATIO = 0.65;
@@ -943,7 +947,7 @@ function renderKeyValueField(
 
     cursor.y -= FIELD_HINT_GAP;
     cursor.drawWrappedTextIndented(
-        "Note: This PDF is limited to 10 entries. In the Application Portal, you can add as many entries as needed.",
+        `Note: This PDF allows you to add up to ${PDF_MAX_ENTRIES} entries. In the Application Portal, you can have up to ${PORTAL_MAX_ENTRIES} entries.`,
         fonts.regular,
         FONT_SIZE_SMALL,
         xOffset,

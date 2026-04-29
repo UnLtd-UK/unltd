@@ -12,7 +12,7 @@ import { applications, getApplicationWithAwards } from "@data/applications.js";
 import { generateApplicationPdf } from "@lib/generate-application-pdf";
 
 export const getStaticPaths: GetStaticPaths = () => {
-    return applications.map((app) => ({
+    return applications.map((app: { slug: string }) => ({
         params: { slug: app.slug },
     }));
 };
