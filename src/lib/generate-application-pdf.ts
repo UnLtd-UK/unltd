@@ -874,7 +874,6 @@ function renderKeyValueField(
 
     // ── Outer border ────────────────────────────────────────────────
 
-    const tableTop = cursor.y + HEADER_HEIGHT;
     cursor.page.drawRectangle({
         x: tableX,
         y: cursor.y - NUM_ROWS * ROW_HEIGHT,
