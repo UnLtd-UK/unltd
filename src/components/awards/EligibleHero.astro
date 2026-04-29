@@ -115,36 +115,6 @@ const showCapacityWarning =
                 <!-- Steps: Draft then Apply -->
                 <div class="flex flex-col gap-4">
                     {
-                        showCapacityWarning && displayRound && (
-                            <div class="flex items-start gap-3 bg-amber-500/10 rounded-lg px-4 py-3 ring-1 ring-amber-500/20">
-                                <Icon
-                                    name="gauge-high"
-                                    style="solid"
-                                    class="text-amber-400 mt-0.5 h-4 w-4 shrink-0"
-                                />
-                                <div class="flex-1">
-                                    <p class="text-sm font-semibold text-white mb-1.5">
-                                        At {displayRound.capacityPercentage}%
-                                        capacity
-                                    </p>
-                                    <RoundCapacity
-                                        capacityPercentage={
-                                            displayRound.capacityPercentage
-                                        }
-                                        hasCapacity={displayRound.hasCapacity}
-                                        variant="card"
-                                    />
-                                    <p class="text-xs text-amber-200/70 mt-1.5">
-                                        The portal will close when we reach{" "}
-                                        {displayRound.applicationLimit}{" "}
-                                        applications or the deadline passes,
-                                        whichever comes first.
-                                    </p>
-                                </div>
-                            </div>
-                        )
-                    }
-                    {
                         downloadUrl && (
                             <div class="flex items-start gap-3">
                                 <span class="flex items-center justify-center h-7 w-7 rounded-full bg-white/20 text-white text-xs font-bold ring-1 ring-white/30 shrink-0 mt-2.5">
