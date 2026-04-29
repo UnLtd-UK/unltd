@@ -133,7 +133,7 @@ const isRoundFull = state === "closed" && closedReason === "capacity";
                         {displayRound.dates.opens}
                     </span>
                     {opensCountdownLabel && (
-                        <span class="text-xs font-medium text-violet-300 ml-2">
+                        <span class="text-xs font-medium text-amber-300 ml-2">
                             &middot; Opens in{" "}
                             <span class="font-semibold text-white">
                                 {opensCountdownLabel}
@@ -180,7 +180,7 @@ const isRoundFull = state === "closed" && closedReason === "capacity";
                         hasCapacity={displayRound.hasCapacity}
                         variant="card"
                     />
-                    <p class="text-xs text-violet-300/70 mt-1">
+                    <p class="text-xs text-amber-300/80 mt-1">
                         {capacityWarningText}
                     </p>
                 </div>
