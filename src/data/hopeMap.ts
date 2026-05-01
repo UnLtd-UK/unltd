@@ -1,7 +1,6 @@
 /**
  * Hope Map Data & Configuration
  * Static data for the Hope Map — an interactive directory of social entrepreneurs across the UK.
- * Modelled on src/data/topics.ts for the tag configuration pattern.
  */
 
 import type { Coordinates } from './hopeMapLocations';
@@ -15,172 +14,74 @@ export interface HopeMapPerson {
     organisation: string;
     location: string;
     coordinates: Coordinates;
-    description: string;
-    actOfHope: string;
+    /** The tagline is the organisation's logline — a short mission statement. */
+    tagline: string;
+    /** The quote is a personal statement from the social entrepreneur in their own voice. */
+    quote: string;
     websiteUrl: string;
-    tags: string[];
-}
-
-export interface HopeMapTagConfig {
-    label: string;
-    bgClass: string;
-    textClass: string;
-}
-
-// ─── Tag Configuration ───────────────────────────────────────────────────────
-
-export const hopeMapTags: Record<string, HopeMapTagConfig> = {
-    "health": {
-        label: "Health",
-        bgClass: "bg-emerald-500/20",
-        textClass: "text-emerald-300",
-    },
-    "arts-culture": {
-        label: "Arts & Culture",
-        bgClass: "bg-fuchsia-500/20",
-        textClass: "text-fuchsia-300",
-    },
-    "education": {
-        label: "Education",
-        bgClass: "bg-sky-500/20",
-        textClass: "text-sky-300",
-    },
-    "environment": {
-        label: "Environment",
-        bgClass: "bg-green-500/20",
-        textClass: "text-green-300",
-    },
-    "community": {
-        label: "Community",
-        bgClass: "bg-amber-500/20",
-        textClass: "text-amber-300",
-    },
-    "youth": {
-        label: "Youth",
-        bgClass: "bg-violet-500/20",
-        textClass: "text-violet-300",
-    },
-    "employment": {
-        label: "Employment",
-        bgClass: "bg-rose-500/20",
-        textClass: "text-rose-300",
-    },
-    "housing": {
-        label: "Housing",
-        bgClass: "bg-orange-500/20",
-        textClass: "text-orange-300",
-    },
-    "technology": {
-        label: "Technology",
-        bgClass: "bg-cyan-500/20",
-        textClass: "text-cyan-300",
-    },
-    "food": {
-        label: "Food",
-        bgClass: "bg-lime-500/20",
-        textClass: "text-lime-300",
-    },
-};
-
-// ─── Helper Functions ────────────────────────────────────────────────────────
-
-export function getTagConfig(slug: string): HopeMapTagConfig | null {
-    return hopeMapTags[slug] ?? null;
-}
-
-export function getTagLabel(slug: string): string | null {
-    return hopeMapTags[slug]?.label ?? null;
 }
 
 // ─── Seed Data ───────────────────────────────────────────────────────────────
 
 export const hopeMapEntries: HopeMapPerson[] = [
     {
-        id: "1",
-        name: "Sarah Mitchell",
-        organisation: "GreenStart CIC",
-        location: "Newcastle upon Tyne",
-        coordinates: ukCities["Newcastle upon Tyne"],
-        description: "GreenStart supports young people from disadvantaged backgrounds to access green skills training and employment opportunities in the renewable energy sector.",
-        actOfHope: "Every young person we train is one more voice for a sustainable future.",
-        websiteUrl: "https://example.com/greenstart",
-        tags: ["environment", "youth", "employment"],
-    },
-    {
-        id: "2",
-        name: "James Okonkwo",
-        organisation: "Harmony Arts",
-        location: "Manchester",
-        coordinates: ukCities["Manchester"],
-        description: "Harmony Arts uses music and performing arts to improve mental health outcomes for refugees and asylum seekers, building community through creative expression.",
-        actOfHope: "Music is a universal language — it helps people feel at home no matter where they are.",
-        websiteUrl: "https://example.com/harmony-arts",
-        tags: ["arts-culture", "health", "community"],
-    },
-    {
         id: "3",
-        name: "Priya Sharma",
-        organisation: "CodeForward",
-        location: "Birmingham",
-        coordinates: ukCities["Birmingham"],
-        description: "CodeForward provides free coding bootcamps and digital skills workshops for women from ethnic minority backgrounds, helping them transition into tech careers.",
-        actOfHope: "When one woman learns to code, she opens doors for an entire generation.",
-        websiteUrl: "https://example.com/codeforward",
-        tags: ["technology", "education", "employment"],
+        name: "Ash Morgan",
+        organisation: "Ocean Buffer Project",
+        location: "Treverva, near Falmouth, Cornwall",
+        coordinates: ukCities["Falmouth"],
+        tagline: "Simple, community-led carbon removal",
+        quote: "We grow mini oceans on land, using marine algae to remove carbon and give people a hopeful, inclusive, hands-on way to take real climate action in their own community.",
+        websiteUrl: "https://oceanbufferproject.co.uk/",
     },
     {
-        id: "4",
-        name: "Tom Bridges",
-        organisation: "The Food Cycle",
-        location: "Bristol",
-        coordinates: ukCities["Bristol"],
-        description: "The Food Cycle rescues surplus food from supermarkets and restaurants to cook nutritious community meals, tackling food poverty and social isolation together.",
-        actOfHope: "A shared meal can change someone's whole week. That's where hope starts.",
-        websiteUrl: "https://example.com/food-cycle",
-        tags: ["food", "community", "health"],
-    },
-    {
-        id: "5",
-        name: "Aisling Byrne",
-        organisation: "SafeSpace Housing",
-        location: "Belfast",
-        coordinates: ukCities["Belfast"],
-        description: "SafeSpace provides transitional housing and holistic support for young people leaving the care system, ensuring no one falls through the cracks.",
-        actOfHope: "A stable home is the foundation everything else is built on.",
-        websiteUrl: "https://example.com/safespace",
-        tags: ["housing", "youth", "community"],
+        id: "1",
+        name: "Djanira Dju",
+        organisation: "MotherLink",
+        location: "Reading",
+        coordinates: ukCities["Reading"],
+        tagline: "Empowering mums across the UK to navigate the challenges of motherhood",
+        quote: "MotherLink supports mothers facing overwhelm, isolation and financial hardship through accessible support, community connection and practical tools that help rebuild confidence and stability.",
+        websiteUrl: "https://www.motherlink.co.uk/",
     },
     {
         id: "6",
-        name: "Kwame Asante",
-        organisation: "BrightMinds Academy",
-        location: "London",
-        coordinates: ukCities["London"],
-        description: "BrightMinds runs Saturday schools and mentoring programmes for Black Caribbean boys, raising aspirations and academic achievement through culturally relevant education.",
-        actOfHope: "When a young person sees themselves in their teacher, they start to believe in what's possible.",
-        websiteUrl: "https://example.com/brightminds",
-        tags: ["education", "youth"],
+        name: "Ian Timbrell",
+        organisation: "More than Flags and Rainbows",
+        location: "Cardiff, Wales",
+        coordinates: ukCities["Cardiff"],
+        tagline: "Helping schools be more inclusive",
+        quote: "At More Than Flags and Rainbows we work with teachers and pupils to put a stop to bullying and help schools and communities become more LGBTQ+ inclusive.",
+        websiteUrl: "https://www.morethanflagsandrainbows.com/",
     },
     {
-        id: "7",
-        name: "Fiona Campbell",
-        organisation: "Highland Health Collective",
-        location: "Inverness",
-        coordinates: ukCities["Inverness"],
-        description: "The Highland Health Collective brings together peer support workers and wellbeing coaches to address rural mental health isolation across the Scottish Highlands.",
-        actOfHope: "No one should have to struggle alone just because they live far from a city.",
-        websiteUrl: "https://example.com/highland-health",
-        tags: ["health", "community"],
+        id: "4",
+        name: "Khaleda Noon",
+        organisation: "Theatre of the Oppressed Scotland",
+        location: "Edinburgh",
+        coordinates: ukCities["Edinburgh"],
+        tagline: "Theatre, hip-hop and anti-racism",
+        quote: "I use theatre, hip hop education and anti-racist practice to work with young people and communities across Scotland, turning lived experience into creative expression, influencing systems and creating spaces where people feel seen, heard and able to shape change.",
+        websiteUrl: "https://www.toscot.co.uk/",
     },
     {
-        id: "8",
-        name: "Rhys Morgan",
-        organisation: "Creative Valleys",
-        location: "Swansea",
-        coordinates: ukCities["Swansea"],
-        description: "Creative Valleys transforms disused industrial spaces into community arts hubs in the South Wales valleys, fostering local creativity and economic regeneration.",
-        actOfHope: "Art doesn't just fill empty buildings — it fills empty hearts.",
-        websiteUrl: "https://example.com/creative-valleys",
-        tags: ["arts-culture", "community", "employment"],
+        id: "5",
+        name: "Paula Eldridge",
+        organisation: "Tumble Lindy Hop Jive",
+        location: "Llannon, Carmarthenshire, Wales",
+        coordinates: ukCities["Llanelli"],
+        tagline: "Tackling loneliness and exclusion though dance",
+        quote: "Delivering therapeutic dance, whether seated, standing, care homes, community groups, big or small, our impact is evident on the smiles of every face making each and every day special, bringing happiness and joy.",
+        websiteUrl: "https://www.tumblelindy.co.uk/",
+    },
+    {
+        id: "2",
+        name: "Philip Reain-Adair",
+        organisation: "Live Life",
+        location: "Lisburn, NI",
+        coordinates: ukCities["Lisburn"],
+        tagline: "Supporting school leavers and young people with additional needs",
+        quote: "Live Life provides award‑winning services to its participants and the wider disabled community, showcasing inclusion and life‑changing impact through innovation and a collaborative approach.",
+        websiteUrl: "https://www.livelifewellbeingcentre.co.uk/",
     },
 ];

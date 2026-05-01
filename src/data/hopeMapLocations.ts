@@ -48,6 +48,10 @@ export const ukCities: Record<string, Coordinates> = {
     "Peterborough": { lng: -0.2405, lat: 52.5695 },
     "Ipswich": { lng: 1.1557, lat: 52.0567 },
     "Inverness": { lng: -4.2246, lat: 57.4778 },
+    "Reading": { lng: -0.9781, lat: 51.4543 },
+    "Lisburn": { lng: -6.0597, lat: 54.5162 },
+    "Falmouth": { lng: -5.0671, lat: 50.1551 },
+    "Llanelli": { lng: -4.1637, lat: 51.6843 },
 };
 
 /**

@@ -44,6 +44,13 @@ export function prepareMarkdown(content: string): string {
     return line;
   });
 
-  // Join lines back together and return, preserving empty lines for markdown formatting
-  return processedLines.join("\n");
+  // Join lines back together, preserving empty lines for markdown formatting
+  const joined = processedLines.join("\n");
+
+  // Ensure self-closing HopeMapEmbed tags have an explicit closing tag.
+  // In HTML5, <HopeMapEmbed /> is NOT self-closing (only void elements are).
+  // Without a close tag the browser leaves the element open, causing everything
+  // after it to be parsed as its children — which are then lost when the hydrator
+  // calls replaceChild(). Adding </HopeMapEmbed> makes it an empty closed element.
+  return joined.replace(/<HopeMapEmbed\s*\/>/gi, "<HopeMapEmbed></HopeMapEmbed>");
 }

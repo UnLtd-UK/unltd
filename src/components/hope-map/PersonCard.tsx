@@ -3,15 +3,14 @@
  * Used in both ListView (as a grid card) and MapView (in popup).
  */
 
-import type { HopeMapPerson, HopeMapTagConfig } from '../../data/hopeMap';
+import type { HopeMapPerson } from '../../data/hopeMap';
 
 interface PersonCardProps {
     person: HopeMapPerson;
-    tags: Record<string, HopeMapTagConfig>;
     compact?: boolean;
 }
 
-export default function PersonCard({ person, tags, compact = false }: PersonCardProps) {
+export default function PersonCard({ person, compact = false }: PersonCardProps) {
     return (
         <div className={`rounded-xl border border-violet-700/30 bg-violet-950/60 ${compact ? 'p-4' : 'p-5'} transition-all hover:border-violet-600/50 hover:shadow-lg hover:shadow-violet-500/10`}>
             {/* Header */}
@@ -21,6 +20,9 @@ export default function PersonCard({ person, tags, compact = false }: PersonCard
                 </h3>
                 <p className={`font-medium text-violet-300 ${compact ? 'text-sm' : 'text-base'}`}>
                     {person.organisation}
+                </p>
+                <p className={`italic text-violet-400/80 ${compact ? 'text-xs' : 'text-sm'}`}>
+                    {person.tagline}
                 </p>
             </div>
 
@@ -32,33 +34,12 @@ export default function PersonCard({ person, tags, compact = false }: PersonCard
                 <span className="text-sm text-violet-400">{person.location}</span>
             </div>
 
-            {/* Description */}
-            <p className={`mb-3 text-violet-200 ${compact ? 'text-sm line-clamp-2' : 'text-sm'}`}>
-                {person.description}
-            </p>
-
-            {/* Act of Hope Quote */}
+            {/* Quote */}
             <blockquote className="mb-4 border-l-2 border-amber-500/60 pl-3">
-                <p className={`italic text-amber-200/90 ${compact ? 'text-sm line-clamp-2' : 'text-sm'}`}>
-                    &ldquo;{person.actOfHope}&rdquo;
+                <p className="text-sm italic text-amber-200/90">
+                    &ldquo;{person.quote}&rdquo;
                 </p>
             </blockquote>
-
-            {/* Tags */}
-            <div className="mb-3 flex flex-wrap gap-1.5">
-                {person.tags.map((tagSlug) => {
-                    const tag = tags[tagSlug];
-                    if (!tag) return null;
-                    return (
-                        <span
-                            key={tagSlug}
-                            className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${tag.bgClass} ${tag.textClass}`}
-                        >
-                            {tag.label}
-                        </span>
-                    );
-                })}
-            </div>
 
             {/* Website Link */}
             <a

@@ -6,11 +6,10 @@
 import { useEffect, useRef } from 'react';
 import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import type { HopeMapPerson, HopeMapTagConfig } from '../../data/hopeMap';
+import type { HopeMapPerson } from '../../data/hopeMap';
 
 interface MapViewProps {
     entries: HopeMapPerson[];
-    tags: Record<string, HopeMapTagConfig>;
     compact?: boolean;
 }
 
@@ -25,30 +24,21 @@ function escapeHTML(str: string): string {
 }
 
 /** Build HTML string for a marker popup */
-function buildPopupHTML(person: HopeMapPerson, tags: Record<string, HopeMapTagConfig>): string {
-    const tagPills = person.tags
-        .map((slug) => {
-            const tag = tags[slug];
-            if (!tag) return '';
-            return `<span style="display:inline-flex;align-items:center;border-radius:9999px;padding:2px 8px;font-size:11px;font-weight:500;background:rgba(139,92,246,0.15);color:rgb(196,181,253);">${escapeHTML(tag.label)}</span>`;
-        })
-        .filter(Boolean)
-        .join(' ');
+function buildPopupHTML(person: HopeMapPerson): string {
 
     return `
-        <div style="max-width:280px;font-family:inherit;">
-            <h3 style="margin:0 0 2px;font-size:15px;font-weight:600;color:#1e1b4b;">${escapeHTML(person.name)}</h3>
-            <p style="margin:0 0 6px;font-size:13px;font-weight:500;color:#5b21b6;">${escapeHTML(person.organisation)}</p>
-            <p style="margin:0 0 4px;font-size:12px;color:#6d28d9;display:flex;align-items:center;gap:4px;">
-                <svg width="12" height="12" viewBox="0 0 384 512" fill="#7c3aed"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
+        <div style="padding:18px 20px 16px;font-family:inherit;min-width:240px;max-width:300px;">
+            <div style="margin-bottom:12px;padding-right:20px;">
+                <h3 style="margin:0 0 2px;font-size:15px;font-weight:700;color:#1e1b4b;line-height:1.3;">${escapeHTML(person.name)}</h3>
+                <p style="margin:0;font-size:13px;font-weight:600;color:#6d28d9;">${escapeHTML(person.organisation)}</p>                <p style="margin:0;font-size:12px;font-style:italic;color:#7c3aed;opacity:0.75;">${escapeHTML(person.tagline)}</p>            </div>
+            <p style="margin:0 0 10px;font-size:12px;color:#7c3aed;display:flex;align-items:center;gap:4px;">
+                <svg width="11" height="11" viewBox="0 0 384 512" fill="#7c3aed" style="flex-shrink:0;"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
                 ${escapeHTML(person.location)}
             </p>
-            <p style="margin:0 0 6px;font-size:13px;color:#4c1d95;line-height:1.4;">${escapeHTML(person.description)}</p>
-            <blockquote style="margin:0 0 8px;padding-left:10px;border-left:2px solid #f59e0b;">
-                <p style="margin:0;font-size:12px;font-style:italic;color:#92400e;line-height:1.4;">&ldquo;${escapeHTML(person.actOfHope)}&rdquo;</p>
-            </blockquote>
-            <div style="margin-bottom:8px;display:flex;flex-wrap:wrap;gap:4px;">${tagPills}</div>
-            <a href="${escapeHTML(person.websiteUrl)}" target="_blank" rel="noopener noreferrer" style="font-size:13px;font-weight:500;color:#d97706;text-decoration:none;">Visit website &rarr;</a>
+            <div style="margin:0 0 14px;padding:10px 12px;background:rgba(245,158,11,0.08);border-left:3px solid #f59e0b;border-radius:0 6px 6px 0;">
+                <p style="margin:0;font-size:12px;font-style:italic;color:#78350f;line-height:1.5;">&ldquo;${escapeHTML(person.quote)}&rdquo;</p>
+            </div>
+            <a href="${escapeHTML(person.websiteUrl)}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#d97706;text-decoration:none;padding:5px 10px;background:rgba(245,158,11,0.08);border-radius:6px;transition:background 0.15s;">Visit website <svg width="11" height="11" viewBox="0 0 512 512" fill="#d97706"><path d="M320 0c-17.7 0-32 14.3-32 32s14.3 32 32 32h82.7L201.4 265.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L448 109.3V192c0 17.7 14.3 32 32 32s32-14.3 32-32V32c0-17.7-14.3-32-32-32H320zM80 32C35.8 32 0 67.8 0 112V432c0 44.2 35.8 80 80 80H400c44.2 0 80-35.8 80-80V320c0-17.7-14.3-32-32-32s-32 14.3-32 32V432c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16V112c0-8.8 7.2-16 16-16H192c17.7 0 32-14.3 32-32s-14.3-32-32-32H80z"/></svg></a>
         </div>
     `;
 }
@@ -100,7 +90,7 @@ const WORLD_RING: [number, number][] = [
     [-180, -90],   // Close ring — back to start
 ];
 
-export default function MapView({ entries, tags, compact = false }: MapViewProps) {
+export default function MapView({ entries, compact = false }: MapViewProps) {
     const mapContainer = useRef<HTMLDivElement>(null);
     const map = useRef<maplibregl.Map | null>(null);
     const markersRef = useRef<maplibregl.Marker[]>([]);
@@ -194,7 +184,7 @@ export default function MapView({ entries, tags, compact = false }: MapViewProps
             el.addEventListener('mouseleave', () => { inner.style.transform = 'scale(1)'; });
 
             const popup = new maplibregl.Popup({ offset: 20, maxWidth: '320px' })
-                .setHTML(buildPopupHTML(person, tags));
+                .setHTML(buildPopupHTML(person));
 
             const marker = new maplibregl.Marker({ element: el })
                 .setLngLat([person.coordinates.lng, person.coordinates.lat])
@@ -203,7 +193,7 @@ export default function MapView({ entries, tags, compact = false }: MapViewProps
 
             markersRef.current.push(marker);
         });
-    }, [entries, tags]);
+    }, [entries]);
 
     return (
         <div
