@@ -14,16 +14,31 @@ export default function PersonCard({ person, compact = false }: PersonCardProps)
     return (
         <div className={`rounded-xl border border-violet-700/30 bg-violet-950/60 ${compact ? 'p-4' : 'p-5'} transition-all hover:border-violet-600/50 hover:shadow-lg hover:shadow-violet-500/10`}>
             {/* Header */}
-            <div className="mb-3">
-                <h3 className={`font-semibold text-violet-100 ${compact ? 'text-base' : 'text-lg'}`}>
-                    {person.name}
-                </h3>
-                <p className={`font-medium text-violet-300 ${compact ? 'text-sm' : 'text-base'}`}>
-                    {person.organisation}
-                </p>
-                <p className={`italic text-violet-400/80 ${compact ? 'text-xs' : 'text-sm'}`}>
-                    {person.tagline}
-                </p>
+            <div className="mb-3 flex items-start gap-3">
+                {person.imageUrl ? (
+                    <img
+                        src={person.imageUrl}
+                        alt={person.name}
+                        className={`shrink-0 rounded-full object-cover ring-2 ring-violet-600/40 ${compact ? 'h-12 w-12' : 'h-16 w-16'}`}
+                    />
+                ) : (
+                    <div className={`shrink-0 rounded-full bg-violet-800/50 ring-2 ring-violet-600/40 flex items-center justify-center ${compact ? 'h-12 w-12' : 'h-16 w-16'}`}>
+                        <svg className={`text-violet-400 ${compact ? 'h-6 w-6' : 'h-8 w-8'}`} fill="currentColor" viewBox="0 0 448 512" aria-hidden="true">
+                            <path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z" />
+                        </svg>
+                    </div>
+                )}
+                <div className="min-w-0">
+                    <h3 className={`font-semibold text-violet-100 ${compact ? 'text-base' : 'text-lg'}`}>
+                        {person.name}
+                    </h3>
+                    <p className={`font-medium text-violet-300 ${compact ? 'text-sm' : 'text-base'}`}>
+                        {person.organisation}
+                    </p>
+                    <p className={`italic text-violet-400/80 ${compact ? 'text-xs' : 'text-sm'}`}>
+                        {person.tagline}
+                    </p>
+                </div>
             </div>
 
             {/* Location */}

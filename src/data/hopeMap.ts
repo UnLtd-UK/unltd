@@ -19,6 +19,7 @@ export interface HopeMapPerson {
     /** The quote is a personal statement from the social entrepreneur in their own voice. */
     quote: string;
     websiteUrl: string;
+    imageUrl?: string;
 }
 
 // ─── Seed Data ───────────────────────────────────────────────────────────────
@@ -33,6 +34,7 @@ export const hopeMapEntries: HopeMapPerson[] = [
         tagline: "Simple, community-led carbon removal",
         quote: "We grow mini oceans on land, using marine algae to remove carbon and give people a hopeful, inclusive, hands-on way to take real climate action in their own community.",
         websiteUrl: "https://oceanbufferproject.co.uk/",
+        imageUrl: "/img/hope-map/Ash_Morgan.webp",
     },
     {
         id: "1",
@@ -43,6 +45,7 @@ export const hopeMapEntries: HopeMapPerson[] = [
         tagline: "Empowering mums across the UK to navigate the challenges of motherhood",
         quote: "MotherLink supports mothers facing overwhelm, isolation and financial hardship through accessible support, community connection and practical tools that help rebuild confidence and stability.",
         websiteUrl: "https://www.motherlink.co.uk/",
+        imageUrl: "/img/hope-map/Djanira_Dju.webp",
     },
     {
         id: "6",
@@ -53,6 +56,7 @@ export const hopeMapEntries: HopeMapPerson[] = [
         tagline: "Helping schools be more inclusive",
         quote: "At More Than Flags and Rainbows we work with teachers and pupils to put a stop to bullying and help schools and communities become more LGBTQ+ inclusive.",
         websiteUrl: "https://www.morethanflagsandrainbows.com/",
+        imageUrl: "/img/hope-map/Ian_Timbrell.webp",
     },
     {
         id: "4",
@@ -63,6 +67,7 @@ export const hopeMapEntries: HopeMapPerson[] = [
         tagline: "Theatre, hip-hop and anti-racism",
         quote: "I use theatre, hip hop education and anti-racist practice to work with young people and communities across Scotland, turning lived experience into creative expression, influencing systems and creating spaces where people feel seen, heard and able to shape change.",
         websiteUrl: "https://www.toscot.co.uk/",
+        imageUrl: "/img/hope-map/Khaleda_Noon.webp",
     },
     {
         id: "5",
@@ -73,6 +78,7 @@ export const hopeMapEntries: HopeMapPerson[] = [
         tagline: "Tackling loneliness and exclusion though dance",
         quote: "Delivering therapeutic dance, whether seated, standing, care homes, community groups, big or small, our impact is evident on the smiles of every face making each and every day special, bringing happiness and joy.",
         websiteUrl: "https://www.tumblelindy.co.uk/",
+        imageUrl: "/img/hope-map/Paula_Eldridge.webp",
     },
     {
         id: "2",
@@ -83,5 +89,39 @@ export const hopeMapEntries: HopeMapPerson[] = [
         tagline: "Supporting school leavers and young people with additional needs",
         quote: "Live Life provides award‑winning services to its participants and the wider disabled community, showcasing inclusion and life‑changing impact through innovation and a collaborative approach.",
         websiteUrl: "https://www.livelifewellbeingcentre.co.uk/",
+        imageUrl: "/img/hope-map/Philip_Reain-Adair.webp",
+    },
+    {
+        id: "7",
+        name: "Eiman Munro",
+        organisation: "Fractal Spectrum",
+        location: "London",
+        coordinates: ukCities["London"],
+        tagline: "A magazine dedicated to amplifying autistic and neurodivergent perspectives.",
+        quote: "I publish Fractal Spectrum, a biannual periodical that spotlights autistic and neurodivergent voices to help them thrive in the workplace and public spaces, bridging a critical employment gap.",
+        websiteUrl: "https://fractalspectrum.co.uk/",
+        imageUrl: "/img/hope-map/Eiman_Munro.webp",
+    },
+    {
+        id: "8",
+        name: "Matthew Menzies",
+        organisation: "ADHD Remapped",
+        location: "Wythenshawe",
+        coordinates: ukCities["Manchester"],
+        tagline: "Helping people to overcome overwhelm and build confidence to thrive with ADHD.",
+        quote: "Inspired by his own personal journey, Matthew founded ADHD Remapped. He offers coaching, group support and workshops in the hope of changing the lives of other adults with ADHD and Autism.",
+        websiteUrl: "https://www.adhdremapped.com/",
+        imageUrl: "/img/hope-map/Matthew_Menzies.webp",
+    },
+    {
+        id: "9",
+        name: "Tranai Todd",
+        organisation: "Support Through Sport",
+        location: "Nottingham",
+        coordinates: ukCities["Nottingham"],
+        tagline: "Harnessing the power of sport to empower disadvantaged youth and create safer communities",
+        quote: "Support Through Sport harnesses the power of sport and youth work to build brighter futures and create safer communities, providing hope, belonging, and meaningful support to disadvantaged young people.",
+        websiteUrl: "https://supportthroughsport.org.uk/",
+        imageUrl: "/img/hope-map/Tranai_Todd.webp",
     },
 ];

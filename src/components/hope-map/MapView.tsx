@@ -26,11 +26,18 @@ function escapeHTML(str: string): string {
 /** Build HTML string for a marker popup */
 function buildPopupHTML(person: HopeMapPerson): string {
 
+    const avatarHTML = person.imageUrl
+        ? `<img src="${escapeHTML(person.imageUrl)}" alt="${escapeHTML(person.name)}" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid rgba(109,40,217,0.4);" />`
+        : `<div style="width:44px;height:44px;border-radius:50%;background:rgba(109,40,217,0.2);border:2px solid rgba(109,40,217,0.4);flex-shrink:0;display:flex;align-items:center;justify-content:center;"><svg width="20" height="20" viewBox="0 0 448 512" fill="#7c3aed"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"/></svg></div>`;
+
     return `
         <div style="padding:18px 20px 16px;font-family:inherit;min-width:240px;max-width:300px;">
-            <div style="margin-bottom:12px;padding-right:20px;">
+            <div style="margin-bottom:12px;display:flex;align-items:flex-start;gap:10px;padding-right:20px;">
+                ${avatarHTML}
+                <div style="min-width:0;">
                 <h3 style="margin:0 0 2px;font-size:15px;font-weight:700;color:#1e1b4b;line-height:1.3;">${escapeHTML(person.name)}</h3>
                 <p style="margin:0;font-size:13px;font-weight:600;color:#6d28d9;">${escapeHTML(person.organisation)}</p>                <p style="margin:0;font-size:12px;font-style:italic;color:#7c3aed;opacity:0.75;">${escapeHTML(person.tagline)}</p>            </div>
+            </div>
             <p style="margin:0 0 10px;font-size:12px;color:#7c3aed;display:flex;align-items:center;gap:4px;">
                 <svg width="11" height="11" viewBox="0 0 384 512" fill="#7c3aed" style="flex-shrink:0;"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg>
                 ${escapeHTML(person.location)}
@@ -50,7 +57,7 @@ function buildPopupHTML(person: HopeMapPerson): string {
  */
 const UK_MAX_BOUNDS: [[number, number], [number, number]] = [
     [-11, 49.7],   // west south — just south of Cornwall
-    [2, 61],     // east north — just above Shetland
+    [2, 56.4],     // east north — just above Shetland
 ];
 
 /**
