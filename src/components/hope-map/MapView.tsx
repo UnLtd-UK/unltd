@@ -57,7 +57,7 @@ function buildPopupHTML(person: HopeMapPerson): string {
  */
 const UK_MAX_BOUNDS: [[number, number], [number, number]] = [
     [-11, 49.7],   // west south — just south of Cornwall
-    [2, 56.4],     // east north — just above Shetland
+    [2, 57.8],     // east north — just above Shetland
 ];
 
 /**
@@ -206,7 +206,7 @@ export default function MapView({ entries, compact = false }: MapViewProps) {
         <div
             ref={mapContainer}
             className="w-full rounded-lg overflow-hidden ring-1 ring-violet-700/50"
-            style={{ height: compact ? 'max(400px, 65vh)' : 'calc(100vh - 10rem)' }}
+            style={{ aspectRatio: '1 / 1' }}
             aria-label="Hope Map showing locations of social entrepreneurs across the UK"
             role="application"
         />

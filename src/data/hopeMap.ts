@@ -124,4 +124,15 @@ export const hopeMapEntries: HopeMapPerson[] = [
         websiteUrl: "https://supportthroughsport.org.uk/",
         imageUrl: "/img/hope-map/Tranai_Todd.webp",
     },
+    {
+        id: "10",
+        name: "Johannes Petersen",
+        organisation: "aban",
+        location: "Inverness",
+        coordinates: ukCities["Inverness"],
+        tagline: "Adventure Learning Community",
+        quote: "Now more than ever, children need time out in nature, away from screens. Since 2021 we've been helping children in Inverness rediscover adventure & friendship in the great outdoors",
+        websiteUrl: "https://www.aban.scot/",
+        imageUrl: "/img/hope-map/Johannes_Petersen.webp",
+    },
 ];
