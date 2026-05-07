@@ -1,4 +1,5 @@
 import { getCollection } from './load.js';
+import { getBritishTime } from '../utils/british-time.ts';
 
 const collection = "posts";
 const name = "posts";
@@ -7,47 +8,6 @@ console.log(`Show Drafts: ${showDrafts}`);
 const statusFilter = showDrafts
     ? { _in: ['published', 'draft'] }
     : { _eq: 'published' };
-
-// Function to get current time in British timezone (either GMT or BST depending on DST)
-function getBritishTime() {
-    const now = new Date();
-
-    // Format in British timezone (en-GB locale with Europe/London timezone)
-    const britishFormatter = new Intl.DateTimeFormat('en-GB', {
-        timeZone: 'Europe/London',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false
-    });
-
-    // Get formatted parts
-    const parts = britishFormatter.formatToParts(now);
-    const britishDateObj = {};
-
-    // Convert parts to an object for easy access
-    parts.forEach(part => {
-        britishDateObj[part.type] = part.value;
-    });
-
-    // Format as ISO-like string for date comparison (YYYY-MM-DD)
-    const britishDate = `${britishDateObj.year}-${britishDateObj.month}-${britishDateObj.day}`;
-
-    // Create properly formatted ISO strings that represent British local time
-    const britishCurrentTime = `${britishDate}T${britishDateObj.hour}:${britishDateObj.minute}:${britishDateObj.second}.000Z`;
-    const britishEndOfDay = `${britishDate}T23:59:59.999Z`;
-
-    return {
-        now: now,
-        isoDate: britishDate,
-        endOfDay: britishEndOfDay,
-        currentTime: britishCurrentTime,
-        formatted: `${britishDate} ${britishDateObj.hour}:${britishDateObj.minute}:${britishDateObj.second}`
-    };
-}
 
 const britishTime = getBritishTime();
 
