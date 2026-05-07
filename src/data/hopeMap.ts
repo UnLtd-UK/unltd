@@ -127,7 +127,7 @@ export const hopeMapEntries: HopeMapPerson[] = [
     {
         id: "10",
         name: "Johannes Petersen",
-        organisation: "aban",
+        organisation: "Àban",
         location: "Inverness",
         coordinates: ukCities["Inverness"],
         tagline: "Adventure Learning Community",
