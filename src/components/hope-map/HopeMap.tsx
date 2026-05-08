@@ -3,8 +3,8 @@
  * Manages view toggle (list/map), tag filtering, and renders the active view.
  */
 
-import { useState, useMemo } from 'react';
-import type { HopeMapPerson, HopeMapTagConfig } from '../../data/hopeMap';
+import { useState } from 'react';
+import type { HopeMapPerson } from '../../data/hopeMap';
 import ListView from './ListView';
 import MapView from './MapView';
 
@@ -12,30 +12,12 @@ type ViewMode = 'list' | 'map';
 
 interface HopeMapProps {
     entries: HopeMapPerson[];
-    tags: Record<string, HopeMapTagConfig>;
     compact?: boolean;
     onExpand?: () => void;
 }
 
-export default function HopeMap({ entries, tags, compact = false, onExpand }: HopeMapProps) {
+export default function HopeMap({ entries, compact = false, onExpand }: HopeMapProps) {
     const [view, setView] = useState<ViewMode>('list');
-    const [activeTag, setActiveTag] = useState<string | null>(null);
-
-    // Derive the set of tags actually used by the entries
-    const availableTags = useMemo(() => {
-        const slugs = new Set(entries.flatMap((e) => e.tags));
-        return Object.entries(tags).filter(([slug]) => slugs.has(slug));
-    }, [entries, tags]);
-
-    // Filter entries by active tag
-    const filteredEntries = useMemo(() => {
-        if (!activeTag) return entries;
-        return entries.filter((e) => e.tags.includes(activeTag));
-    }, [entries, activeTag]);
-
-    const toggleTag = (slug: string) => {
-        setActiveTag((prev) => (prev === slug ? null : slug));
-    };
 
     return (
         <div className="space-y-4">
@@ -47,8 +29,8 @@ export default function HopeMap({ entries, tags, compact = false, onExpand }: Ho
                         type="button"
                         onClick={() => setView('list')}
                         className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${view === 'list'
-                                ? 'bg-violet-600/80 text-white ring-1 ring-violet-500/50 shadow-lg shadow-violet-500/20'
-                                : 'text-violet-400 hover:text-violet-300 hover:bg-violet-800/30'
+                            ? 'bg-violet-600/80 text-white ring-1 ring-violet-500/50 shadow-lg shadow-violet-500/20'
+                            : 'text-violet-400 hover:text-violet-300 hover:bg-violet-800/30'
                             }`}
                     >
                         <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 512 512" aria-hidden="true">
@@ -60,8 +42,8 @@ export default function HopeMap({ entries, tags, compact = false, onExpand }: Ho
                         type="button"
                         onClick={() => setView('map')}
                         className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${view === 'map'
-                                ? 'bg-violet-600/80 text-white ring-1 ring-violet-500/50 shadow-lg shadow-violet-500/20'
-                                : 'text-violet-400 hover:text-violet-300 hover:bg-violet-800/30'
+                            ? 'bg-violet-600/80 text-white ring-1 ring-violet-500/50 shadow-lg shadow-violet-500/20'
+                            : 'text-violet-400 hover:text-violet-300 hover:bg-violet-800/30'
                             }`}
                     >
                         <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 576 512" aria-hidden="true">
@@ -89,52 +71,16 @@ export default function HopeMap({ entries, tags, compact = false, onExpand }: Ho
                 </div>
             </div>
 
-            {/* Tag Filters */}
-            {availableTags.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                    {availableTags.map(([slug, tag]) => {
-                        const isActive = activeTag === slug;
-                        return (
-                            <button
-                                key={slug}
-                                type="button"
-                                onClick={() => toggleTag(slug)}
-                                className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition-all duration-150 ${isActive
-                                        ? `${tag.bgClass} ${tag.textClass} ring-1 ring-current`
-                                        : 'bg-violet-900/40 text-violet-400 hover:bg-violet-800/50 hover:text-violet-300'
-                                    }`}
-                            >
-                                {tag.label}
-                                {isActive && (
-                                    <svg className="ml-1.5 h-3 w-3" fill="currentColor" viewBox="0 0 384 512" aria-hidden="true">
-                                        <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
-                                    </svg>
-                                )}
-                            </button>
-                        );
-                    })}
-                    {activeTag && (
-                        <button
-                            type="button"
-                            onClick={() => setActiveTag(null)}
-                            className="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium text-violet-400 hover:text-violet-300 transition-colors"
-                        >
-                            Clear filter
-                        </button>
-                    )}
-                </div>
-            )}
-
             {/* Active View */}
             {view === 'list' ? (
-                <ListView entries={filteredEntries} tags={tags} compact={compact} />
+                <ListView entries={entries} compact={compact} />
             ) : (
-                <MapView entries={filteredEntries} tags={tags} compact={compact} />
+                <MapView entries={entries} compact={compact} />
             )}
 
             {/* Entry count */}
             <p className="text-xs text-violet-500">
-                Showing {filteredEntries.length} of {entries.length} {entries.length === 1 ? 'person' : 'people'}
+                {entries.length} {entries.length === 1 ? 'person' : 'people'}
             </p>
         </div>
     );

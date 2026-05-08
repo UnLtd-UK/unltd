@@ -4,17 +4,16 @@
  */
 
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
-import type { HopeMapPerson, HopeMapTagConfig } from '../../data/hopeMap';
+import type { HopeMapPerson } from '../../data/hopeMap';
 import HopeMap from './HopeMap';
 
 interface HopeMapDialogProps {
     open: boolean;
     onClose: () => void;
     entries: HopeMapPerson[];
-    tags: Record<string, HopeMapTagConfig>;
 }
 
-export default function HopeMapDialog({ open, onClose, entries, tags }: HopeMapDialogProps) {
+export default function HopeMapDialog({ open, onClose, entries }: HopeMapDialogProps) {
     return (
         <Dialog open={open} onClose={onClose} className="relative z-50">
             <DialogBackdrop
@@ -47,7 +46,7 @@ export default function HopeMapDialog({ open, onClose, entries, tags }: HopeMapD
                         </div>
 
                         {/* Full-size Hope Map */}
-                        <HopeMap entries={entries} tags={tags} compact={false} />
+                        <HopeMap entries={entries} compact={false} />
                     </DialogPanel>
                 </div>
             </div>
