@@ -77,7 +77,7 @@ export const hopeMapEntries: HopeMapPerson[] = [
         coordinates: ukCities["Llanelli"],
         tagline: "Tackling loneliness and exclusion though dance",
         quote: "Delivering therapeutic dance, whether seated, standing, care homes, community groups, big or small, our impact is evident on the smiles of every face making each and every day special, bringing happiness and joy.",
-        websiteUrl: "https://www.tumblelindy.co.uk/",
+        websiteUrl: "https://www.tumblelindyhopjive.co.uk/",
         imageUrl: "/img/hope-map/Paula_Eldridge.webp",
     },
     {
