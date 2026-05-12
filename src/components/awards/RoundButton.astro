@@ -112,8 +112,13 @@ const isRoundFull = state === "closed" && closedReason === "capacity";
                 <span class="flex flex-col items-start">
                     <span>Round Full</span>
                     <span class="text-xs font-normal text-red-400">
-                        This round has reached capacity. Check back for the next
-                        round.
+                        This round has reached capacity.{" "}
+                        <a
+                            href="/awards/#how-applying-works"
+                            class="underline hover:text-red-300"
+                        >
+                            Find out about the next round.
+                        </a>
                     </span>
                 </span>
             </div>

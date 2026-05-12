@@ -159,12 +159,14 @@ const showCapacityWarning =
                         <div class="flex flex-col">
                             <RoundButton variant="hero" />
                             {
-                                downloadUrl && (
-                                    <p class="text-xs text-emerald-200/70 mt-1.5 ml-0.5">
-                                        Once you've drafted your answers, submit
-                                        them here
-                                    </p>
-                                )
+                                downloadUrl &&
+                                    (roundState === "open" ||
+                                        roundState === "closing") && (
+                                        <p class="text-xs text-emerald-200/70 mt-1.5 ml-0.5">
+                                            Once you've drafted your answers,
+                                            submit them here
+                                        </p>
+                                    )
                             }
                         </div>
                     </div>
