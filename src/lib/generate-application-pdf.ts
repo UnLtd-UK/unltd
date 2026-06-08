@@ -41,7 +41,7 @@ interface FieldData {
             code?: string;
             description?: string;
         }>;
-        max_length?: number;
+        helper_text?: string;
         prefix?: string;
         suffix?: string;
         date_updated?: string;
@@ -550,7 +550,19 @@ function renderInputField(
     });
     tf.setFontSize(FORM_FIELD_FONT_SIZE);
 
-    cursor.y -= TEXT_FIELD_HEIGHT + 8;
+    if (field.helper_text) {
+        cursor.y -= TEXT_FIELD_HEIGHT + FIELD_HINT_GAP;
+        cursor.drawWrappedText(
+            field.helper_text,
+            fonts.regular,
+            FONT_SIZE_SMALL,
+            COLOUR_MID_GREY,
+            LINE_HEIGHT_SMALL,
+        );
+        cursor.y -= 4;
+    } else {
+        cursor.y -= TEXT_FIELD_HEIGHT + 8;
+    }
 }
 
 function renderTextareaField(
@@ -580,14 +592,10 @@ function renderTextareaField(
     });
     tf.setFontSize(FORM_FIELD_FONT_SIZE);
 
-    if (field.max_length) {
-        const maxLen = typeof field.max_length === 'string' ? parseInt(field.max_length, 10) : field.max_length;
-        if (!isNaN(maxLen) && maxLen > 0) {
-            tf.setMaxLength(maxLen);
-        }
+    if (field.helper_text) {
         cursor.y -= TEXTAREA_HEIGHT + FIELD_HINT_GAP;
         cursor.drawWrappedText(
-            `Maximum ${maxLen.toLocaleString()} characters`,
+            field.helper_text,
             fonts.regular,
             FONT_SIZE_SMALL,
             COLOUR_MID_GREY,
