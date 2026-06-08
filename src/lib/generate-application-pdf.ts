@@ -70,7 +70,7 @@ interface AwardData {
     name: string;
     grant: number;
     stage: string;
-    programme: { name: string };
+    programme: { name: string; code?: string };
 }
 
 interface GeneratePdfOptions {
@@ -1138,7 +1138,9 @@ export async function generateApplicationPdf(
         for (const award of awards) {
             const stageLabel = award.stage === "starting-up" ? "Starting Up" : "Scaling Up";
             const grantFormatted = award.grant ? `up to \u00A3${award.grant.toLocaleString("en-GB")}` : "";
-            const awardLine = `\u2022  ${stageLabel} — ${award.programme.name}${grantFormatted ? ` (${grantFormatted})` : ""}`;
+            const ageText = award.programme.code === "ffp" ? "open to anyone age 16-30" : "open to anyone age 16+";
+            const awardDetails = [grantFormatted, ageText].filter(Boolean).join(", ");
+            const awardLine = `\u2022  ${stageLabel} \u2014 ${award.programme.name}${awardDetails ? ` (${awardDetails})` : ""}`;
             cursor.drawWrappedText(
                 sanitiseForPdf(awardLine),
                 nunitoRegular,
