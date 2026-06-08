@@ -1094,6 +1094,15 @@ export async function generateApplicationPdf(
         COLOUR_DARK_GREY,
         LINE_HEIGHT_BODY,
     );
+    cursor.y -= 6;
+
+    cursor.drawWrappedText(
+        "Before you start, please ensure you save the PDF to your device to avoid losing your answers.",
+        nunitoBold,
+        FONT_SIZE_BODY,
+        COLOUR_DARK_GREY,
+        LINE_HEIGHT_BODY,
+    );
     cursor.y -= 10;
 
     // Divider
