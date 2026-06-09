@@ -41,7 +41,7 @@ interface FieldData {
             code?: string;
             description?: string;
         }>;
-        max_length?: number;
+        helper_text?: string;
         prefix?: string;
         suffix?: string;
         date_updated?: string;
@@ -70,7 +70,7 @@ interface AwardData {
     name: string;
     grant: number;
     stage: string;
-    programme: { name: string };
+    programme: { name: string; code?: string };
 }
 
 interface GeneratePdfOptions {
@@ -550,7 +550,19 @@ function renderInputField(
     });
     tf.setFontSize(FORM_FIELD_FONT_SIZE);
 
-    cursor.y -= TEXT_FIELD_HEIGHT + 8;
+    if (field.helper_text) {
+        cursor.y -= TEXT_FIELD_HEIGHT + FIELD_HINT_GAP;
+        cursor.drawWrappedText(
+            field.helper_text,
+            fonts.regular,
+            FONT_SIZE_SMALL,
+            COLOUR_MID_GREY,
+            LINE_HEIGHT_SMALL,
+        );
+        cursor.y -= 4;
+    } else {
+        cursor.y -= TEXT_FIELD_HEIGHT + 8;
+    }
 }
 
 function renderTextareaField(
@@ -580,14 +592,10 @@ function renderTextareaField(
     });
     tf.setFontSize(FORM_FIELD_FONT_SIZE);
 
-    if (field.max_length) {
-        const maxLen = typeof field.max_length === 'string' ? parseInt(field.max_length, 10) : field.max_length;
-        if (!isNaN(maxLen) && maxLen > 0) {
-            tf.setMaxLength(maxLen);
-        }
+    if (field.helper_text) {
         cursor.y -= TEXTAREA_HEIGHT + FIELD_HINT_GAP;
         cursor.drawWrappedText(
-            `Maximum ${maxLen.toLocaleString()} characters`,
+            field.helper_text,
             fonts.regular,
             FONT_SIZE_SMALL,
             COLOUR_MID_GREY,
@@ -1086,6 +1094,15 @@ export async function generateApplicationPdf(
         COLOUR_DARK_GREY,
         LINE_HEIGHT_BODY,
     );
+    cursor.y -= 6;
+
+    cursor.drawWrappedText(
+        "Before you start, please ensure you save the PDF to your device to avoid losing your answers.",
+        nunitoBold,
+        FONT_SIZE_BODY,
+        COLOUR_DARK_GREY,
+        LINE_HEIGHT_BODY,
+    );
     cursor.y -= 10;
 
     // Divider
@@ -1121,7 +1138,11 @@ export async function generateApplicationPdf(
         for (const award of awards) {
             const stageLabel = award.stage === "starting-up" ? "Starting Up" : "Scaling Up";
             const grantFormatted = award.grant ? `up to \u00A3${award.grant.toLocaleString("en-GB")}` : "";
-            const awardLine = `\u2022  ${stageLabel} — ${award.programme.name}${grantFormatted ? ` (${grantFormatted})` : ""}`;
+            const ageText = award.programme.code === "ff"
+                ? "open to anyone aged 16 to 30"
+                : "open to anyone aged 16 and over";
+            const awardDetails = [grantFormatted, ageText].filter(Boolean).join(", ");
+            const awardLine = `\u2022  ${stageLabel} \u2014 ${award.programme.name}${awardDetails ? ` (${awardDetails})` : ""}`;
             cursor.drawWrappedText(
                 sanitiseForPdf(awardLine),
                 nunitoRegular,
