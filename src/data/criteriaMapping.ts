@@ -37,12 +37,12 @@ export const socialVentureCriteria: CriterionMapping[] = [
     { slug: 'no_political_religious_campaign', name: 'Your social venture involves activities that are against the law, against public policy, or could cause harm or division between people or communities', category: 'social_venture' },
     { slug: 'more_than_awareness_raising', name: 'Your social venture does more than raise awareness of a social issue', category: 'social_venture' },
     { slug: 'financially_sustainable', name: 'Your social venture has the potential to be financially sustainable with our support', category: 'social_venture' },
-    { slug: 'incorporation_timeframe', name: 'Your social venture has been incorporated for less than 4 years', category: 'social_venture' },
-    { slug: 'started_trading', name: 'Your social ventures trading history', category: 'social_venture' },
-    { slug: 'sector_classification', name: 'Your social ventures areas of focus', category: 'social_venture' },
-    { slug: 'last_year_turnover', name: "In it's last financial year your social ventures turnover was less than £250,000", category: 'social_venture' },
-    { slug: 'earned_18k_traded_income', name: 'In the last 12 months, your social venture has earned over £18,000 in traded income', category: 'social_venture' },
-    { slug: 'social_venture_previously', name: 'You have not received the same Award type for the same social venture previously', category: 'social_venture' },
+    { slug: 'incorporation_timeframe', name: "Your social venture's incorporation history", category: 'social_venture' },
+    { slug: 'started_trading', name: "Your social venture's trading history", category: 'social_venture' },
+    { slug: 'sector_classification', name: "Your social venture's areas of focus", category: 'social_venture' },
+    { slug: 'last_year_turnover', name: "In its last financial year, your social venture's turnover was less than £250,000", category: 'social_venture' },
+    { slug: 'earned_18k_traded_income', name: "In the last 12 months, your social venture has earned over £18,000 in traded income", category: 'social_venture' },
+    { slug: 'social_venture_previously', name: "You have not received the same Award type for the same social venture previously", category: 'social_venture' },
 ];
 
 /** All criteria combined */
