@@ -75,7 +75,7 @@
     "wrangler": "^4.103.0"
   },
   "overrides": {
-    "vite": "^7"
+    "vite": "^8"
   },
   "allowScripts": {
     "better-sqlite3@12.10.0": true,
