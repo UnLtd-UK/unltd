@@ -47,7 +47,7 @@ const navCards = [
     },
 ];
 
-const relatedPages = [
+const usefulResources = [
     {
         href: "/awards/eligibility-criteria",
         icon: "check-circle",
@@ -61,6 +61,13 @@ const relatedPages = [
         title: "Equity Commitments",
         description:
             "We are committed to supporting underrepresented entrepreneurs.",
+    },
+    {
+        href: "/spaces/award-budget-guidelines/",
+        icon: "piggy-bank",
+        title: "Award Budget Guidelines",
+        description:
+            "This guidance covers budget preparation, managing your Award spend, and what to do if things change.",
     },
 ];
 
@@ -124,32 +131,32 @@ const checker = {
             <p
                 class="text-xs text-violet-500 uppercase tracking-wide font-medium mb-3"
             >
-                Related pages
+                Useful pages & resources
             </p>
             <div class="grid grid-cols-2 gap-3">
                 {
-                    relatedPages.map((page) => (
+                    usefulResources.map((resource) => (
                         <a
-                            href={page.href}
-                            class="group block bg-violet-900/50 rounded-xl p-4 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
+                            href={resource.href}
+                            class="group block bg-violet-900/50 rounded-xl p-3 border border-violet-800 hover:bg-violet-800/50 hover:border-violet-600 transition-all duration-200"
                         >
-                            <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-violet-800/50 mb-3 group-hover:bg-violet-700/50 transition-colors">
+                            <div class="flex items-center justify-center w-7 h-7 rounded-lg bg-violet-800/50 mb-2 group-hover:bg-violet-700/50 transition-colors">
                                 <Icon
-                                    name={page.icon}
+                                    name={resource.icon}
                                     style="regular"
-                                    class="text-lg text-violet-400 group-hover:text-amber-400 transition-colors"
+                                    class="text-sm text-violet-400 group-hover:text-amber-400 transition-colors"
                                 />
                             </div>
-                            <h3 class="font-semibold text-white text-sm mb-1 flex items-center gap-1.5">
-                                {page.title}
+                            <h3 class="font-semibold text-white text-xs mb-0.5 flex items-center gap-1">
+                                {resource.title}
                                 <Icon
                                     name="arrow-right"
                                     style="regular"
-                                    class="text-[10px] text-violet-500"
+                                    class="text-[9px] text-violet-500"
                                 />
                             </h3>
-                            <p class="text-violet-400 text-xs leading-relaxed line-clamp-2">
-                                {page.description}
+                            <p class="text-violet-400 text-xs leading-tight line-clamp-2">
+                                {resource.description}
                             </p>
                         </a>
                     ))
