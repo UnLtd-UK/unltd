@@ -16,6 +16,7 @@
 import { rounds } from "@data/rounds.js";
 import { processAllRounds } from "@utils/application-rounds.js";
 import { getDevDateTimeString } from "@config/dev.config.js";
+import { parseRoundDate } from "@utils/round-date.js";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -283,8 +284,8 @@ export function getRoundStatus({
     if (!currentRound && !nextRound) {
         // No rounds at all
     } else if (currentRound) {
-        const opens = new Date(currentRound.opensDate);
-        const closes = new Date(currentRound.closesDate);
+        const opens = parseRoundDate(currentRound.opensDate);
+        const closes = parseRoundDate(currentRound.closesDate);
 
         if (now < opens) {
             displayRound = currentRound;
@@ -328,11 +329,11 @@ export function getRoundStatus({
     // ── Countdowns (static snapshot) ────────────────────────────────────
 
     const closesCountdown = calculateCountdown(
-        displayRound ? new Date(displayRound.closesDate).getTime() - now.getTime() : 0,
+        displayRound ? parseRoundDate(displayRound.closesDate).getTime() - now.getTime() : 0,
     );
 
     const opensCountdown = calculateCountdown(
-        displayRound ? new Date(displayRound.opensDate).getTime() - now.getTime() : 0,
+        displayRound ? parseRoundDate(displayRound.opensDate).getTime() - now.getTime() : 0,
     );
 
     // ── Label & urgency ─────────────────────────────────────────────────
