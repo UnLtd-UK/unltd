@@ -4,6 +4,7 @@
  */
 
 import { getCurrentDate } from '@config/dev.config.js';
+import { parseRoundDate } from '@utils/round-date.js';
 
 /**
  * Format an ISO date string for display
@@ -82,14 +83,14 @@ export const RoundPhase = {
  */
 export const getRoundPhase = (round) => {
     const now = getCurrentDate();
-    const opens = new Date(round.opensDate);
-    const closes = new Date(round.closesDate);
-    const assessmentStart = new Date(round.assessmentStart);
-    const assessmentEnd = new Date(round.assessmentEnd);
-    const interviewStart = round.interviewStart ? new Date(round.interviewStart) : null;
-    const interviewEnd = round.interviewEnd ? new Date(round.interviewEnd) : null;
-    const resultsStart = new Date(round.resultsStart);
-    const resultsEnd = new Date(round.resultsEnd);
+    const opens = parseRoundDate(round.opensDate);
+    const closes = parseRoundDate(round.closesDate);
+    const assessmentStart = parseRoundDate(round.assessmentStart);
+    const assessmentEnd = parseRoundDate(round.assessmentEnd);
+    const interviewStart = round.interviewStart ? parseRoundDate(round.interviewStart) : null;
+    const interviewEnd = round.interviewEnd ? parseRoundDate(round.interviewEnd) : null;
+    const resultsStart = parseRoundDate(round.resultsStart);
+    const resultsEnd = parseRoundDate(round.resultsEnd);
 
     if (now < opens) {
         return RoundPhase.UPCOMING;
@@ -212,12 +213,12 @@ export const getPhaseInfo = (phase, round) => {
  */
 export const getRoundTiming = (round) => {
     const now = getCurrentDate();
-    const opens = new Date(round.opensDate);
-    const closes = new Date(round.closesDate);
-    const assessmentStart = new Date(round.assessmentStart);
-    const assessmentEnd = new Date(round.assessmentEnd);
-    const resultsStart = new Date(round.resultsStart);
-    const resultsEnd = new Date(round.resultsEnd);
+    const opens = parseRoundDate(round.opensDate);
+    const closes = parseRoundDate(round.closesDate);
+    const assessmentStart = parseRoundDate(round.assessmentStart);
+    const assessmentEnd = parseRoundDate(round.assessmentEnd);
+    const resultsStart = parseRoundDate(round.resultsStart);
+    const resultsEnd = parseRoundDate(round.resultsEnd);
 
     // Total duration of application window
     const totalApplicationDays = daysBetween(opens, closes);
@@ -528,7 +529,7 @@ export const getRoundName = (round) => {
  */
 export const isClosingToday = (round) => {
     if (!round?.closesDate) return false;
-    const closeDate = new Date(round.closesDate);
+    const closeDate = parseRoundDate(round.closesDate);
     const today = getCurrentDate();
     return closeDate.toDateString() === today.toDateString();
 };
@@ -540,7 +541,7 @@ export const isClosingToday = (round) => {
  */
 export const isClosingWithin24Hours = (round) => {
     if (!round?.closesDate) return false;
-    const closeDate = new Date(round.closesDate);
+    const closeDate = parseRoundDate(round.closesDate);
     const now = getCurrentDate();
     const hoursRemaining = (closeDate - now) / (1000 * 60 * 60);
     return hoursRemaining > 0 && hoursRemaining <= 24;
@@ -553,7 +554,7 @@ export const isClosingWithin24Hours = (round) => {
  */
 export const isClosingWithin48Hours = (round) => {
     if (!round?.closesDate) return false;
-    const closeDate = new Date(round.closesDate);
+    const closeDate = parseRoundDate(round.closesDate);
     const now = getCurrentDate();
     const hoursRemaining = (closeDate - now) / (1000 * 60 * 60);
     return hoursRemaining > 0 && hoursRemaining <= 48;
@@ -566,7 +567,7 @@ export const isClosingWithin48Hours = (round) => {
  */
 export const isClosingWithin7Days = (round) => {
     if (!round?.closesDate) return false;
-    const closeDate = new Date(round.closesDate);
+    const closeDate = parseRoundDate(round.closesDate);
     const now = getCurrentDate();
     const daysRemaining = (closeDate - now) / (1000 * 60 * 60 * 24);
     return daysRemaining > 0 && daysRemaining <= 7;
@@ -591,7 +592,7 @@ export const getDeadlineUrgency = (round) => {
 export const getTimeUntilClose = (round) => {
     if (!round?.closesDate) return null;
 
-    const closeDate = new Date(round.closesDate);
+    const closeDate = parseRoundDate(round.closesDate);
     const now = getCurrentDate();
     const difference = closeDate - now;
 
