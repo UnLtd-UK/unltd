@@ -86,7 +86,27 @@ import {
                                                     ]}
                                                 >
                                                     <td class="py-4 px-4 text-sm text-slate-700">
-                                                        {criterion.name}
+                                                        <span class="inline-flex items-start gap-1.5">
+                                                            <span>
+                                                                {criterion.name}
+                                                            </span>
+                                                            {criterion.learnMoreUrl && (
+                                                                <a
+                                                                    href={
+                                                                        criterion.learnMoreUrl
+                                                                    }
+                                                                    class="shrink-0 text-violet-400 hover:text-violet-600 mt-0.5"
+                                                                    aria-label={`Learn more about: ${criterion.name}`}
+                                                                    title="Learn more"
+                                                                >
+                                                                    <Icon
+                                                                        name="circle-question"
+                                                                        style="regular"
+                                                                        class="h-3.5 w-3.5"
+                                                                    />
+                                                                </a>
+                                                            )}
+                                                        </span>
                                                     </td>
                                                     {awardKeys.map((code) => {
                                                         const value =

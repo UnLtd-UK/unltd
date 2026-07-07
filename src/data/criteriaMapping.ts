@@ -9,6 +9,8 @@ export interface CriterionMapping {
     slug: string;
     name: string;
     category: 'social_entrepreneur' | 'social_venture';
+    /** Optional URL to a page/FAQ where users can learn more about this criterion */
+    learnMoreUrl?: string;
 }
 
 /**
@@ -32,7 +34,7 @@ export const socialVentureCriteria: CriterionMapping[] = [
     { slug: 'social_purpose_driven', name: 'Your social venture clearly driven by a social purpose', category: 'social_venture' },
     { slug: 'clear_need_demonstrated', name: 'You can demonstrate a clear need for your social venture', category: 'social_venture' },
     { slug: 'benefits_uk_people_places', name: 'Your social venture mainly benefits people or places within the UK', category: 'social_venture' },
-    { slug: 'activities_running_4_years', name: 'You are applying to fund activities that have already been running for more than four years', category: 'social_venture' },
+    { slug: 'activities_running_4_years', name: 'You are applying to fund activities that have already been running for more than four years', category: 'social_venture', learnMoreUrl: '/awards#faq-how-do-you-determine-whether-activities-have-been-running-for-four-years-or-more' },
     { slug: 'lawful_not_discriminatory', name: 'Your social venture involves political or religious campaigning', category: 'social_venture' },
     { slug: 'no_political_religious_campaign', name: 'Your social venture involves activities that are against the law, against public policy, or could cause harm or division between people or communities', category: 'social_venture' },
     { slug: 'more_than_awareness_raising', name: 'Your social venture does more than raise awareness of a social issue', category: 'social_venture' },

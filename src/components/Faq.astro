@@ -1,13 +1,41 @@
 ---
 import Icon from "@components/Icon.astro";
+import slugify from "slugify";
 const { question, answer, i } = Astro.props;
 import { marked } from "marked";
+
+// Always prefix with "faq-" so individual FAQ deep links never clash with
+// the main "#faq" section anchor used elsewhere on the page.
+const slug = `faq-${slugify(question, {
+  lower: true,
+  strict: true,
+  locale: "en",
+  trim: true,
+})}`;
 ---
 
-<div class="py-4 first:pt-0" x-data="{ open: false }">
+<div
+  class="py-4 first:pt-0 scroll-mt-8 rounded-xl transition-colors duration-700"
+  id={slug}
+  x-data="{ open: false, highlighted: false }"
+  x-init={`
+    const targetHash = '#${slug}';
+    const activateFromHash = () => {
+      if (window.location.hash === targetHash) {
+        open = true;
+        highlighted = true;
+        $nextTick(() => $el.scrollIntoView({ behavior: 'smooth', block: 'center' }));
+        setTimeout(() => { highlighted = false }, 2500);
+      }
+    };
+    activateFromHash();
+    window.addEventListener('hashchange', activateFromHash);
+  `}
+  x-bind:class="{ 'ring-2 ring-amber-400 dark:ring-amber-500 bg-amber-50/70 dark:bg-amber-900/20 -mx-4 px-4': highlighted }"
+>
   <dt>
     <button
-      x-on:click="open = ! open"
+      x-on:click={`open = ! open; if (open) { history.replaceState(null, '', '#${slug}') }`}
       type="button"
       class="flex w-full items-center justify-between text-left text-violet-800 dark:text-violet-200 cursor-pointer"
       aria-controls={`faq-${i + 1}`}

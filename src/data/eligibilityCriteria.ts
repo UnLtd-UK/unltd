@@ -24,6 +24,7 @@ export interface EligibilityCriterion {
     slug: string;
     name: string;
     awards: Record<AwardCode, EligibilityValue>;
+    learnMoreUrl?: string;
 }
 
 export interface EligibilityCategory {
@@ -38,6 +39,7 @@ function buildCriteria(mappings: CriterionMapping[]): EligibilityCriterion[] {
     return mappings.map((mapping) => ({
         slug: mapping.slug,
         name: mapping.name,
+        learnMoreUrl: mapping.learnMoreUrl,
         awards: Object.fromEntries(
             awards.map((award) => [
                 award.code,
