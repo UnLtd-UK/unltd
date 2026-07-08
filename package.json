@@ -28,7 +28,7 @@
     "@daviddarnes/storage-form": "^2.0.1",
     "@directus/sdk": "^23.0.0",
     "@fortawesome/fontawesome-svg-core": "^7.3.0",
-    "@fortawesome/react-fontawesome": "^3.3.1",
+    "@fortawesome/react-fontawesome": "^3.4.0",
     "@headlessui/react": "2.2.10",
     "@heroicons/react": "^2.2.0",
     "@pdf-lib/fontkit": "^1.1.1",
@@ -42,7 +42,7 @@
     "boring-avatars": "^2.0.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "emdash": "^0.28.0",
+    "emdash": "^0.28.1",
     "jsdom": "^29.1.1",
     "lucide-react": "^1.23.0",
     "maplibre-gl": "^5.24.0",
@@ -72,7 +72,7 @@
     "baseline-browser-mapping": "^2.10.42",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.1.3",
-    "wrangler": "^4.107.0"
+    "wrangler": "^4.108.0"
   },
   "overrides": {
     "vite": "^8"
