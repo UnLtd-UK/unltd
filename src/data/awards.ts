@@ -140,6 +140,17 @@ interface DirectusAward {
 const rawAwards: DirectusAward[] = await getCollection(collection, collectionName, filterOptions, attach);
 
 /**
+ * Maps each programme to its theme colour, keyed by slug (unique) rather than
+ * `code`, since Directus programme codes are not guaranteed to be unique
+ * (e.g. Fostering Accelerator and Funding Futures Programme both use `ff`).
+ */
+const programmeColours: Record<string, string> = {
+    'millennium-awards-trust': 'amber',
+    'funding-futures-programme': 'purple',
+    'fostering-accelerator': 'red',
+};
+
+/**
  * Transform Directus data to match the Award interface
  */
 export const awards: Award[] = rawAwards.map((award) => ({
@@ -152,7 +163,7 @@ export const awards: Award[] = rawAwards.map((award) => ({
         name: award.programme?.name ?? '',
         code: award.programme?.code ?? '',
         slug: award.programme?.slug ?? '',
-        colour: award.programme?.code === 'mat' ? 'amber' : 'purple',
+        colour: programmeColours[award.programme?.slug ?? ''] ?? 'purple',
         description: award.programme?.description ?? '',
     },
     grantUsability: (award.grant_features ?? []).reduce((acc, feature) => {

@@ -39,6 +39,15 @@ npm run build
 npm run preview
 ```
 
+### Show drafts
+By default only `published` content is fetched from Directus. To include `draft` (and `archived`, where applicable) items — e.g. draft blog posts, resources, programmes — set the `SHOW_DRAFTS` env var when running the dev server or build:
+
+```bash
+SHOW_DRAFTS=true npm run dev
+```
+
+This is checked in [src/data/resources.js](src/data/resources.js), [src/data/programmes.js](src/data/programmes.js), [src/data/subjects.js](src/data/subjects.js) and [src/data/sesm.js](src/data/sesm.js), and is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-feature-preview.yml](.github/workflows/deploy-feature-preview.yml)) and `false` for production ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)).
+
 ## Wrangler
 
 ### Run with Wrangler (local development with worker)

@@ -112,6 +112,25 @@ const palette = {
         "gradient2": "from-blue-200 via-blue-50 dark:from-blue-800 dark:via-blue-950",
         "breadcrumb": "hover:text-blue-900 text-blue-800 dark:hover:text-blue-100 dark:text-blue-200",
         "hover": "hover:bg-blue-100 dark:hover:bg-blue-900"
+    },
+    "Fostering Accelerator": {
+        "font": "font-sans",
+        "bg": "bg-red-100 dark:bg-red-900",
+        "bg2": "bg-red-50 dark:bg-red-950",
+        "bg3": "bg-red-300 hover:bg-red-400 dark:bg-red-700 dark:hover:bg-red-600",
+        "text": "text-red-950 dark:text-red-50",
+        "text2": "text-red-800 dark:text-red-200",
+        "fill": "fill-red-950 dark:fill-red-50",
+        "ring": "ring-red-950/5 dark:ring-red-50/10",
+        "ring2": "ring-red-900/5 dark:ring-red-100/10",
+        "border": "border-red-400 dark:border-red-600",
+        "border2": "border-red-600 dark:border-red-400",
+        "badge": "bg-red-400/50 text-red-600 ring-red-500/10 dark:bg-red-600/50 dark:text-red-200 dark:ring-red-400/20",
+        "divide": "divide-red-200 dark:divide-red-800",
+        "gradient": "from-red-100 via-red-100/40 dark:from-red-900 dark:via-red-900/40",
+        "gradient2": "from-red-200 via-red-50 dark:from-red-800 dark:via-red-950",
+        "breadcrumb": "hover:text-red-900 text-red-800 dark:hover:text-red-100 dark:text-red-200",
+        "hover": "hover:bg-red-100 dark:hover:bg-red-900"
     }
 }
 
