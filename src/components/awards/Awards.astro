@@ -1,6 +1,42 @@
 ---
 import Award from "@components/awards/Award.astro";
-import { awards } from "@data/awards";
+import { getAwardsByStage, type Award as AwardType } from "@data/awards";
+
+interface StageGroup {
+    key: AwardType["stage"];
+    heading: string;
+    description: string;
+}
+
+const stageGroups: StageGroup[] = [
+    {
+        key: "starting-up",
+        heading: "Starting Up Awards",
+        description:
+            "For social entrepreneurs just getting going with their idea.",
+    },
+    {
+        key: "scaling-up",
+        heading: "Scaling Up Awards",
+        description: "For social ventures ready to grow their impact.",
+    },
+    {
+        key: "growth",
+        heading: "Growth Awards",
+        description: "For established social ventures ready to scale further.",
+    },
+];
+
+// Cards are laid out two-per-row (each card takes up the full row on its
+// own on smaller screens). When a stage has an odd number of awards, add a
+// "more coming soon" placeholder so the row doesn't end with an empty gap.
+const groups = stageGroups
+    .map((group) => ({ ...group, awards: getAwardsByStage(group.key) }))
+    .filter((group) => group.awards.length > 0)
+    .map((group) => ({
+        ...group,
+        placeholders: group.awards.length % 2,
+    }));
 ---
 
 <div class="relative mx-auto max-w-2xl lg:max-w-7xl">
@@ -21,7 +57,33 @@ import { awards } from "@data/awards";
         </p>
     </div>
 
-    <div class="grid grid-cols-1 gap-10 lg:grid-cols-4">
-        {awards.map((award) => <Award {...award} />)}
+    <div class="flex flex-col gap-16">
+        {
+            groups.map((group) => (
+                <div>
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-violet-900 dark:text-violet-100">
+                            {group.heading}
+                        </h3>
+                        <p class="mt-1 text-sm text-violet-700 dark:text-violet-300">
+                            {group.description}
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {group.awards.map((award) => (
+                            <Award {...award} />
+                        ))}
+                        {Array.from({ length: group.placeholders }).map(() => (
+                            <div class="hidden md:flex items-center justify-center rounded-4xl border-2 border-dashed border-violet-300/60 dark:border-violet-700/60 p-10 text-center">
+                                <p class="text-sm text-violet-500 dark:text-violet-400">
+                                    More {group.heading} coming soon
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))
+        }
     </div>
 </div>

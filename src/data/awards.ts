@@ -6,8 +6,10 @@
  * Award codes follow the pattern: {stage}-{programme}
  * - st = Starting Up
  * - sc = Scaling Up
+ * - gr = Growth
  * - mat = Millennium Awards Trust
  * - ffp = Funding Futures Programme
+ * - fa  = Fostering Accelerator
  */
 
 import { getCollection } from './load.js';
@@ -59,7 +61,7 @@ export interface EligibilityCriteria {
 export interface Award {
     code: string;
     name: string;
-    stage: 'starting-up' | 'scaling-up';
+    stage: 'starting-up' | 'scaling-up' | 'growth';
     grant: number;
     programme: Programme;
     grantUsability: Record<string, boolean>;
@@ -151,12 +153,28 @@ const programmeColours: Record<string, string> = {
 };
 
 /**
+ * Maps an award's code prefix (e.g. `st-mat` -> `st`) to its stage.
+ * Falls back to `growth` for any new/unrecognised prefix so new award
+ * types don't silently get miscategorised as Scaling Up.
+ */
+const stagePrefixes: Record<string, Award['stage']> = {
+    st: 'starting-up',
+    sc: 'scaling-up',
+    gr: 'growth',
+};
+
+const getStageFromCode = (code: string): Award['stage'] => {
+    const prefix = code.split('-')[0];
+    return stagePrefixes[prefix] ?? 'growth';
+};
+
+/**
  * Transform Directus data to match the Award interface
  */
 export const awards: Award[] = rawAwards.map((award) => ({
     code: award.code,
     name: award.name,
-    stage: award.code.startsWith('st') ? 'starting-up' : 'scaling-up',
+    stage: getStageFromCode(award.code),
     grant: award.grant_amount,
     programme: {
         icon: award.programme?.icon ?? '',
@@ -229,4 +247,11 @@ export const getAwardByName = (name: string): Award | undefined => {
  */
 export const getAwardsByProgramme = (code: string): Award[] => {
     return awards.filter(award => award.programme.code === code);
+};
+
+/**
+ * Helper to get awards by stage (starting-up, scaling-up, growth)
+ */
+export const getAwardsByStage = (stage: Award['stage']): Award[] => {
+    return awards.filter(award => award.stage === stage);
 };
