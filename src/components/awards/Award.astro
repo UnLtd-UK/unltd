@@ -29,6 +29,13 @@ interface AwardProps {
     grantUsability: GrantUsability;
     programmeServices: ProgrammeService[];
     eligibility?: EligibilityCriteria;
+    /**
+     * "wide" (default): grant and programme sections sit side-by-side in a
+     * row on md+ screens - used on the /awards page.
+     * "slim": grant and programme sections are stacked in a single column -
+     * used on application-generated eligibility pages.
+     */
+    variant?: "wide" | "slim";
 }
 
 const {
@@ -41,7 +48,10 @@ const {
     grantUsability,
     programmeServices,
     eligibility,
+    variant = "wide",
 } = Astro.props as AwardProps;
+
+const isSlim = variant === "slim";
 
 // Theme tokens for programme colours on different card backgrounds
 const colourThemes = {
@@ -160,7 +170,7 @@ const ageLabel =
         class="grid grid-cols-1 rounded-4xl p-2 py-2 shadow-md shadow-black/5 dark:shadow-none"
     >
         <div class:list={["rounded-3xl py-3", cardBg, cardShadow, cardRing]}>
-            <div class="md:grid md:grid-cols-2">
+            <div class:list={[!isSlim && "md:grid md:grid-cols-2"]}>
                 <!-- Left column: Award name + Grant Information -->
                 <div>
                     <!-- Section 1: Award Name -->
@@ -235,10 +245,11 @@ const ageLabel =
                     </div>
                 </div>
 
-                <!-- Right column: Programme Information (same row as the card on md+) -->
+                <!-- Right column: Programme Information (same row as the card on md+, unless slim) -->
                 <div
                     class:list={[
-                        "border-t border-dotted md:border-t-0 md:border-l",
+                        "border-t border-dotted",
+                        !isSlim && "md:border-t-0 md:border-l",
                         dividerBorder,
                     ]}
                 >

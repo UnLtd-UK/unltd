@@ -15,6 +15,7 @@ const filterOptions = {
     },
     fields: [
         '*',
+        'awards.awards_id.code',
         'resources.resources_id.id',
         'resources.resources_id.name',
         'resources.resources_id.slug',
@@ -121,8 +122,16 @@ export const getApplicationWithAwards = (slug) => {
     const tradingStatus = application.trading_status || deriveTradingStatus(application);
     const stage = application.stage || deriveStage(tradingStatus);
 
-    // Get award codes - either from Directus field or derive from trading status
-    const awardCodes = application.award_codes || tradingStatusToAwards[tradingStatus] || [];
+    // Award codes: prefer the awards actually linked to this application in
+    // Directus (application.awards, an M2M relation). Only fall back to
+    // guessing from the trading status if nothing is linked, so we never
+    // silently show the wrong awards for a correctly-linked application.
+    const linkedAwardCodes = (application.awards ?? [])
+        .map((relation) => relation?.awards_id?.code)
+        .filter(Boolean);
+    const awardCodes = linkedAwardCodes.length > 0
+        ? linkedAwardCodes
+        : (application.award_codes || tradingStatusToAwards[tradingStatus] || []);
     const awards = getAwardsByCodes(awardCodes);
 
     // Trading description derived from stage_text or trading status
