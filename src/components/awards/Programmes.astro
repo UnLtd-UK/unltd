@@ -57,7 +57,7 @@ const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
               programme.image && programme.image.id ? programme.image.id : false
             }
             icon={programme.icon}
-            styles={palette[programme.name]}
+            styles={palette[programme.name] ?? palette["UnLtd"]}
             name={programme.name}
             logo={
               programme.logo && programme.logo.id ? programme.logo.id : false

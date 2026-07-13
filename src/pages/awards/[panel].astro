@@ -103,7 +103,7 @@ const {
                                 locale: "en",
                                 trim: true,
                             })}`}
-                            class={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${palette[programme.name].badge} ring-1 ring-inset gap-1`}
+                            class={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ${(palette[programme.name] ?? palette["UnLtd"]).badge} ring-1 ring-inset gap-1`}
                         >
                             <DynamicIcon icon={programme.icon} />
                             <span>{programme.name}</span>

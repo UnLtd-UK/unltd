@@ -33,7 +33,7 @@ import ProgrammeSmall from "@components/awards/programme/ProgrammeSmall.astro";
             : false
         }
         icon={programme.icon}
-        styles={palette[programme.name]}
+        styles={palette[programme.name] ?? palette["UnLtd"]}
         name={programme.name}
         logo={
           programme.logo && programme.logo.id
