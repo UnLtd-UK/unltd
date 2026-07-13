@@ -51,8 +51,8 @@ jobs:
           # Convert branch name to valid worker name (lowercase, replace / with -)
           BRANCH="${{ github.ref_name }}"
           WORKER_NAME=$(echo "$BRANCH" | tr '/' '-' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g')
-          echo "name=unltd-${WORKER_NAME}" >> $GITHUB_OUTPUT
-          echo "Worker name: unltd-${WORKER_NAME}"
+          echo "name=${WORKER_NAME}" >> $GITHUB_OUTPUT
+          echo "Worker name: ${WORKER_NAME}"
 
       - name: Deploy preview worker
         run: |

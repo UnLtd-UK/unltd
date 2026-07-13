@@ -28,18 +28,6 @@
           "custom_domain": true
         }
       ]
-    },
-    "draft": {
-      "vars": {
-        "DEV": "false",
-        "SHOW_DRAFTS": "true"
-      },
-      "routes": [
-        {
-          "pattern": "draft.unltd.org.uk",
-          "custom_domain": true
-        }
-      ]
     }
   }
 }

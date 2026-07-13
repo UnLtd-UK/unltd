@@ -86,7 +86,7 @@ git checkout -b feature/your-feature-name
 Pushing to any `feature/*`, `fix/*`, or `chore/*` branch automatically deploys a preview:
 
 ```
-https://unltd-feature-your-feature-name.unltd.workers.dev
+https://feature-your-feature-name.unltd.workers.dev
 ```
 
 The preview URL will be commented on your PR automatically.

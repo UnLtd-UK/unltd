@@ -48,4 +48,4 @@ jobs:
         run: npm run build
 
       - name: Deploy worker
-        run: npx wrangler deploy --env draft
+        run: npx wrangler deploy --name draft --compatibility-date 2025-11-17

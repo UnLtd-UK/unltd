@@ -32,8 +32,8 @@ jobs:
         run: |
           BRANCH="${{ steps.branch.outputs.name }}"
           WORKER_NAME=$(echo "$BRANCH" | tr '/' '-' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g')
-          echo "name=unltd-${WORKER_NAME}" >> $GITHUB_OUTPUT
-          echo "Worker to delete: unltd-${WORKER_NAME}"
+          echo "name=${WORKER_NAME}" >> $GITHUB_OUTPUT
+          echo "Worker to delete: ${WORKER_NAME}"
 
       - name: Delete Cloudflare Worker
         run: |
