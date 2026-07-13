@@ -81,24 +81,26 @@ export async function getStaticPaths() {
 }
 
 const { programme } = Astro.props as { programme: Programme };
+
+// Fall back to the default UnLtd theme when a programme doesn't have a
+// dedicated palette entry yet (e.g. newly added programmes awaiting a
+// finalised colour), so the build doesn't crash on missing palette data.
+const theme = palette[programme.name] ?? palette["UnLtd"];
 ---
 
 <Template
   name={programme.name}
   description={programme.description}
-  theme={palette[programme.name]}
+  theme={theme}
 >
-  <Container bg={palette[programme.name].bg}>
-    <Breadcrumbs
-      breadcrumbs={programme.breadcrumbs}
-      styles={palette[programme.name]}
-    />
+  <Container bg={theme.bg}>
+    <Breadcrumbs breadcrumbs={programme.breadcrumbs} styles={theme} />
   </Container>
 
-  <Intro programme={programme} styles={palette[programme.name]} />
+  <Intro programme={programme} styles={theme} />
 
   <Services
-    styles={palette[programme.name]}
+    styles={theme}
     services={programme.services}
     programme={programme}
   />
@@ -107,7 +109,7 @@ const { programme } = Astro.props as { programme: Programme };
     (programme.videos.length > 0 ||
       programme.posts.length > 0 ||
       programme.quotes.length > 0) && (
-      <Content styles={palette[programme.name]} programme={programme} />
+      <Content styles={theme} programme={programme} />
     )
   }
 </Template>
