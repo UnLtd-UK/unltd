@@ -46,7 +46,7 @@ By default only `published` content is fetched from Directus. To include `draft`
 SHOW_DRAFTS=true npm run dev
 ```
 
-This is checked in [src/data/resources.js](src/data/resources.js), [src/data/programmes.js](src/data/programmes.js), [src/data/subjects.js](src/data/subjects.js) and [src/data/sesm.js](src/data/sesm.js), and is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-feature-preview.yml](.github/workflows/deploy-feature-preview.yml)) and `false` for production ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)).
+This is checked in [src/data/resources.js](src/data/resources.js), [src/data/programmes.js](src/data/programmes.js), [src/data/subjects.js](src/data/subjects.js) and [src/data/sesm.js](src/data/sesm.js), and is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-preview.yml](.github/workflows/deploy-preview.yml)) and `false` for production ([.github/workflows/deploy.yml](.github/workflows/deploy.yml)).
 
 ## Wrangler
 
