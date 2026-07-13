@@ -14,7 +14,7 @@
 
 import { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { hopeMapEntries, hopeMapTags } from '../data/hopeMap';
+import { hopeMapEntries } from '../data/hopeMap';
 import HopeMapWithDialog from './hope-map/HopeMapWithDialog';
 
 export default function HopeMapHydrator() {
@@ -40,7 +40,6 @@ export default function HopeMapHydrator() {
             root.render(
                 <HopeMapWithDialog
                     entries={hopeMapEntries}
-                    tags={hopeMapTags}
                     compact={true}
                 />
             );

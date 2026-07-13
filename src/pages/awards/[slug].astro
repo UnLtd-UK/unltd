@@ -19,7 +19,7 @@ import { applications, getApplicationWithAwards } from "@data/applications.js";
 
 // STATIC PATHS
 export const getStaticPaths: GetStaticPaths = () => {
-    return applications.map((app) => ({
+    return applications.map((app: any) => ({
         params: { slug: app.slug },
         props: { applicationData: app },
     }));

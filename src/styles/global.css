@@ -31,3 +31,42 @@ svg[role="img"] {
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+/* ─── Hope Map popup ───────────────────────────────────────────────────────── */
+
+@keyframes hope-map-popup-in {
+    from { opacity: 0; transform: translateY(4px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+.maplibregl-popup-content {
+    padding: 0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.10) !important;
+    border: 1px solid rgba(139, 92, 246, 0.18) !important;
+    overflow: hidden !important;
+    animation: hope-map-popup-in 0.18s ease-out both;
+}
+
+.maplibregl-popup-close-button {
+    top: 10px !important;
+    right: 10px !important;
+    width: 24px !important;
+    height: 24px !important;
+    font-size: 18px !important;
+    line-height: 24px !important;
+    color: #7c3aed !important;
+    border-radius: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.maplibregl-popup-close-button:hover {
+    background: rgba(139, 92, 246, 0.1) !important;
+    color: #4c1d95 !important;
+}
+
+.maplibregl-popup-tip {
+    border-top-color: white !important;
+}

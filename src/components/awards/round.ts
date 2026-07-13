@@ -16,6 +16,7 @@
 import { rounds } from "@data/rounds.js";
 import { processAllRounds } from "@utils/application-rounds.js";
 import { getDevDateTimeString } from "@config/dev.config.js";
+import { parseRoundDate } from "@utils/round-date.js";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 
@@ -49,6 +50,14 @@ export interface ProcessedRound {
     resultsEnd: string;
     hasCapacity: boolean;
     capacityPercentage: number;
+    applicationCount: number;
+    applicationLimit: number;
+    capacityStatus?: {
+        status: string;
+        label: string;
+        description: string;
+        urgency: string;
+    };
     isOpen: boolean;
     isUpcoming: boolean;
     isInAssessment: boolean;
@@ -99,6 +108,9 @@ export interface CountdownState {
     remainingMs: number;
 }
 
+/** Why the round is in 'closed' state */
+export type ClosedReason = "datetime" | "capacity" | null;
+
 export interface RoundStatusResult {
     state: RoundState;
     label: string;
@@ -109,6 +121,7 @@ export interface RoundStatusResult {
     closesCountdown: CountdownState;
     opensCountdown: CountdownState;
     roundName: string;
+    closedReason: ClosedReason;
 }
 
 export interface RoundDataProps {
@@ -179,6 +192,16 @@ function serializeRound(round: any): ProcessedRound | null {
         resultsEnd: round.resultsEnd ?? "",
         hasCapacity: round.hasCapacity ?? false,
         capacityPercentage: round.capacityPercentage ?? 0,
+        applicationCount: round.applicationCount ?? 0,
+        applicationLimit: round.applicationLimit ?? 0,
+        capacityStatus: round.capacityStatus
+            ? {
+                status: round.capacityStatus.status,
+                label: round.capacityStatus.label,
+                description: round.capacityStatus.description,
+                urgency: round.capacityStatus.urgency,
+            }
+            : undefined,
         isOpen: round.isOpen ?? false,
         isUpcoming: round.isUpcoming ?? false,
         isInAssessment: round.isInAssessment ?? false,
@@ -227,7 +250,7 @@ export function getRoundData(): RoundDataProps {
         all: rawAll,
         currentRound: rawCurrent,
         nextOpenRound: rawNext,
-    } = processAllRounds(rounds);
+    } = processAllRounds(rounds) as { all: any[]; currentRound: any; nextOpenRound: any };
 
     return {
         currentRound: serializeRound(rawCurrent),
@@ -256,12 +279,13 @@ export function getRoundStatus({
     let displayRound: ProcessedRound | null = null;
     let state: RoundState = "closed";
     let relevantDate = "";
+    let closedReason: ClosedReason = null;
 
     if (!currentRound && !nextRound) {
         // No rounds at all
     } else if (currentRound) {
-        const opens = new Date(currentRound.opensDate);
-        const closes = new Date(currentRound.closesDate);
+        const opens = parseRoundDate(currentRound.opensDate);
+        const closes = parseRoundDate(currentRound.closesDate);
 
         if (now < opens) {
             displayRound = currentRound;
@@ -278,6 +302,7 @@ export function getRoundStatus({
                     displayRound = currentRound;
                     state = "closed";
                 }
+                closedReason = "capacity";
             } else {
                 const msRemaining = closes.getTime() - now.getTime();
                 displayRound = currentRound;
@@ -304,11 +329,11 @@ export function getRoundStatus({
     // ── Countdowns (static snapshot) ────────────────────────────────────
 
     const closesCountdown = calculateCountdown(
-        displayRound ? new Date(displayRound.closesDate).getTime() - now.getTime() : 0,
+        displayRound ? parseRoundDate(displayRound.closesDate).getTime() - now.getTime() : 0,
     );
 
     const opensCountdown = calculateCountdown(
-        displayRound ? new Date(displayRound.opensDate).getTime() - now.getTime() : 0,
+        displayRound ? parseRoundDate(displayRound.opensDate).getTime() - now.getTime() : 0,
     );
 
     // ── Label & urgency ─────────────────────────────────────────────────
@@ -347,5 +372,6 @@ export function getRoundStatus({
         closesCountdown,
         opensCountdown,
         roundName: getRoundName(displayRound),
+        closedReason,
     };
 }

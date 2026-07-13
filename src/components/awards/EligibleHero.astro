@@ -1,4 +1,5 @@
 ---
+/* cSpell:words Directus chatbots personalise */
 /**
  * EligibleHero Component
  * Consolidated hero for the eligibility confirmation page.
@@ -15,6 +16,8 @@ import Icon from "@components/Icon.astro";
 // import AwardCompact from "@components/awards/AwardCompact.astro";
 import Award from "@components/awards/Award.astro";
 import RoundButton from "@components/awards/RoundButton.astro";
+import RoundCapacity from "@components/awards/RoundCapacity.astro";
+import { getRoundData, getRoundStatus } from "@components/awards/round";
 
 interface Props {
     awards: any[];
@@ -54,6 +57,17 @@ const lastUpdated =
 const lastUpdatedText = lastUpdated
     ? `${lastUpdated.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} at ${lastUpdated.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`
     : null;
+
+// Get round capacity data
+const { currentRound, nextRound, devDateTime } = getRoundData();
+const { state: roundState, round: displayRound } = getRoundStatus({
+    currentRound,
+    nextRound,
+    devDateTime,
+});
+const showCapacityWarning =
+    (roundState === "open" || roundState === "closing") &&
+    displayRound?.hasCapacity;
 ---
 
 <section
@@ -145,12 +159,16 @@ const lastUpdatedText = lastUpdated
                         <div class="flex flex-col">
                             <RoundButton variant="hero" />
                             {
-                                downloadUrl && (
-                                    <p class="text-xs text-emerald-200/70 mt-1.5 ml-0.5">
-                                        Once you've drafted your answers, submit
-                                        them here
-                                    </p>
-                                )
+                                downloadUrl &&
+                                    (roundState === "open" ||
+                                        roundState === "closing") && (
+                                        <p class="text-xs text-emerald-200/70 mt-1.5 ml-0.5">
+                                            Once you've drafted your answers,
+                                            submit them here. <br />
+                                            Please note you will need to
+                                            register on the portal.
+                                        </p>
+                                    )
                             }
                         </div>
                     </div>

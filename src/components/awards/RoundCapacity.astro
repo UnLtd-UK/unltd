@@ -1,0 +1,100 @@
+---
+/**
+ * RoundCapacity (Static Astro)
+ * 5-segment capacity bar showing how full a round is.
+ * Each segment = 20%. Colour shifts from emerald → amber → red as capacity fills.
+ * Only renders when capacity tracking is enabled (hasCapacity = true).
+ *
+ * Variants:
+ * - banner:  compact inline for RoundBanner
+ * - card:    medium size for stage cards and eligible hero
+ * - table:   minimal for table rows
+ */
+interface Props {
+    capacityPercentage: number;
+    hasCapacity: boolean;
+    label?: string;
+    variant?: "banner" | "card" | "table";
+}
+
+const {
+    capacityPercentage,
+    hasCapacity,
+    label,
+    variant = "card",
+} = Astro.props;
+
+if (!hasCapacity) return;
+
+// Number of filled segments (each = 20%)
+const filledSegments = Math.min(5, Math.ceil(capacityPercentage / 20));
+
+// Colour based on capacity percentage
+const getSegmentColour = (pct: number) => {
+    if (pct >= 80) return { filled: "bg-red-500", empty: "bg-red-500/20" };
+    if (pct >= 60) return { filled: "bg-amber-500", empty: "bg-amber-500/20" };
+    return { filled: "bg-emerald-500", empty: "bg-emerald-500/20" };
+};
+
+const colours = getSegmentColour(capacityPercentage);
+
+// Label text from capacityStatus or fallback
+const statusLabel =
+    label ||
+    (capacityPercentage >= 100
+        ? "Round Full"
+        : capacityPercentage >= 80
+          ? "Almost Full"
+          : capacityPercentage >= 60
+            ? "Filling Up"
+            : capacityPercentage >= 40
+              ? "Moderate"
+              : "Available");
+
+const labelColour =
+    capacityPercentage >= 80
+        ? "text-red-400"
+        : capacityPercentage >= 60
+          ? "text-amber-400"
+          : "text-emerald-400";
+
+// Size classes per variant
+const sizeClasses = {
+    banner: { segment: "h-1.5 flex-1", gap: "gap-0.5", wrapper: "w-20" },
+    card: { segment: "h-2 flex-1", gap: "gap-1", wrapper: "w-full max-w-40" },
+    table: { segment: "h-1 flex-1", gap: "gap-0.5", wrapper: "w-16" },
+} as const;
+
+const size = sizeClasses[variant];
+---
+
+<div class={`flex items-center gap-2 ${variant === "table" ? "" : ""}`}>
+    {/* Segment bar */}
+    <div
+        class={`flex ${size.gap} ${size.wrapper}`}
+        role="meter"
+        aria-valuenow={capacityPercentage}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`Capacity: ${capacityPercentage}%`}
+    >
+        {
+            Array.from({ length: 5 }).map((_, i) => (
+                <div
+                    class={`${size.segment} rounded-full ${i < filledSegments ? colours.filled : colours.empty}`}
+                />
+            ))
+        }
+    </div>
+
+    {/* Percentage text */}
+    {
+        (variant === "card" || variant === "banner") && (
+            <span
+                class={`text-xs ${variant === "card" ? "font-semibold" : "font-medium"} ${labelColour} whitespace-nowrap`}
+            >
+                At {capacityPercentage}% capacity
+            </span>
+        )
+    }
+</div>

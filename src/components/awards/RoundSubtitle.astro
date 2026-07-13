@@ -1,0 +1,78 @@
+---
+/**
+ * RoundSubtitle (Static Astro)
+ * Reusable subtitle text showing round deadline/capacity info.
+ * Rendered at build time — rebuilt every ~2 hours via CI.
+ *
+ * Examples:
+ * - "Next round on 1 June 2026 at 09:00 (53 days)"
+ * - "Closes at capacity or on 1 June 2026 at 17:00 (14 days left)"
+ * - "Closes 1 June 2026 at 17:00 (14 days left)"
+ */
+import { getRoundData, getRoundStatus, formatTime } from "./round";
+
+const { currentRound, nextRound, devDateTime } = getRoundData();
+const {
+    state,
+    round: displayRound,
+    closesCountdown,
+    opensCountdown,
+} = getRoundStatus({ currentRound, nextRound, devDateTime });
+
+const dayLabel = (n: number) => (n === 1 ? "day" : "days");
+
+const subtitleParts = (() => {
+    if (state === "opening" && displayRound) {
+        const time = formatTime(displayRound.opensDate);
+        const daysText =
+            opensCountdown.totalDays > 0
+                ? ` (${opensCountdown.totalDays} ${dayLabel(opensCountdown.totalDays)})`
+                : "";
+        return {
+            prefix: "Next round on ",
+            date: `${displayRound.dates.opens} at ${time}`,
+            suffix: daysText,
+        };
+    }
+    if ((state === "open" || state === "closing") && displayRound) {
+        const time = formatTime(displayRound.closesDate);
+        const daysText =
+            closesCountdown.totalDays > 0
+                ? ` (${closesCountdown.totalDays} ${dayLabel(closesCountdown.totalDays)} left)`
+                : "";
+        if (displayRound.hasCapacity) {
+            return {
+                text: `Closes at capacity or on ${displayRound.dates.closes} at ${time}${daysText}`,
+            };
+        }
+        return {
+            prefix: "Closes ",
+            date: `${displayRound.dates.closes} at ${time}`,
+            suffix: daysText,
+        };
+    }
+    return null;
+})();
+---
+
+{
+    subtitleParts && (
+        <p class="text-sm text-violet-300">
+            {subtitleParts.text ? (
+                <span class="text-violet-400">{subtitleParts.text}</span>
+            ) : (
+                <>
+                    {subtitleParts.prefix}
+                    <span class="font-medium text-white">
+                        {subtitleParts.date}
+                    </span>
+                    {subtitleParts.suffix && (
+                        <span class="text-violet-400 ml-1">
+                            {subtitleParts.suffix}
+                        </span>
+                    )}
+                </>
+            )}
+        </p>
+    )
+}

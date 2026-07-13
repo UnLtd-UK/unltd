@@ -185,12 +185,7 @@ export const navigation = {
                     name: "Charity Commission for England and Wales",
                     link: "https://apps.charitycommission.gov.uk/Showcharity/RegisterOfCharities/SearchResultHandler.aspx?RegisteredCharityNumber=1090393",
                     number: "1090393",
-                },
-                {
-                    name: "Scottish Charity Regulator",
-                    link: "https://www.oscr.org.uk/about-charities/search-the-register/charity-details?number=SC032445",
-                    number: "SC032445",
-                },
+                }
             ],
             links: [
                 {

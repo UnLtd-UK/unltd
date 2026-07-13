@@ -21,17 +21,25 @@ jobs:
       DEPLOY_ENVIRONMENT: "feature-preview"
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: "22"
+          node-version: "24"
 
       - name: Setup Font Awesome Pro
         run: bash scripts/setup-npmrc.sh
 
+      - name: Cache node modules
+        id: cache-node-modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+
       - name: Install dependencies
+        if: steps.cache-node-modules.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Build site
@@ -53,7 +61,7 @@ jobs:
             --compatibility-date 2025-11-17
 
       - name: Comment preview URL
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const workerName = '${{ steps.worker-name.outputs.name }}';

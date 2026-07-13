@@ -10,8 +10,10 @@
  * - Open:    emerald — "Award Applications Open"
  * - Closing: amber/red — "Award Applications Closing Soon"
  */
-import { getRoundData, getRoundStatus, formatTime } from "./round";
+import { getRoundData, getRoundStatus } from "./round";
 import Icon from "@components/Icon.astro";
+import RoundBadge from "@components/awards/RoundBadge.astro";
+import RoundSubtitle from "@components/awards/RoundSubtitle.astro";
 
 interface Props {
     eligibilityUrl?: string;
@@ -24,7 +26,7 @@ const {
 } = Astro.props;
 
 const { currentRound, nextRound, devDateTime } = getRoundData();
-const { state, round: displayRound, urgency, closesCountdown, opensCountdown } =
+const { state, round: displayRound, urgency } =
     getRoundStatus({ currentRound, nextRound, devDateTime });
 
 // Hide only when there's no round data at all
@@ -61,34 +63,6 @@ const styleMap = {
 } as const;
 
 const s = styleMap[state] ?? styleMap.open;
-
-// ─── Subtitle text ──────────────────────────────────────────────────────
-const dayLabel = (n: number) => n === 1 ? "day" : "days";
-const subtitleParts = (() => {
-    if (state === "opening" && displayRound) {
-        const time = formatTime(displayRound.opensDate);
-        const daysText = opensCountdown.totalDays > 0
-            ? ` (${opensCountdown.totalDays} ${dayLabel(opensCountdown.totalDays)})`
-            : "";
-        return { prefix: "Next round on ", date: `${displayRound.dates.opens} at ${time}`, suffix: daysText };
-    }
-    if ((state === "open" || state === "closing") && displayRound) {
-        const time = formatTime(displayRound.closesDate);
-        const daysText = closesCountdown.totalDays > 0
-            ? ` (${closesCountdown.totalDays} ${dayLabel(closesCountdown.totalDays)} left)`
-            : "";
-        return { prefix: "Closes ", date: `${displayRound.dates.closes} at ${time}`, suffix: daysText };
-    }
-    return null;
-})();
-
-// ─── Badge ──────────────────────────────────────────────────────────────
-const badgeText =
-    state === "opening" ? "Opening Soon" :
-    state === "open" ? "Open" :
-    state === "closing" ? "Closing Soon" :
-    state === "closed" ? "Closed" : "";
-const badgePulse = state === "open" || state === "closing";
 ---
 
 {!hidden && (
@@ -104,27 +78,11 @@ const badgePulse = state === "open" || state === "closing";
                         <h3 class="text-base font-semibold text-white">
                             Award Applications
                         </h3>
-                        <span class={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ${s.badge}`}>
-                            {badgePulse && (
-                                <span class="relative flex h-1.5 w-1.5">
-                                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-75" />
-                                    <span class="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
-                                </span>
-                            )}
-                            {badgeText}
-                        </span>
+                        <RoundBadge />
                     </div>
-                    {subtitleParts && (
-                        <>
+
                             <span class="hidden sm:inline text-violet-500">|</span>
-                            <p class="text-sm text-violet-300">
-                                {subtitleParts.prefix}<span class="font-medium text-white">{subtitleParts.date}</span>
-                                {subtitleParts.suffix && (
-                                    <span class="text-violet-400 ml-1">{subtitleParts.suffix}</span>
-                                )}
-                            </p>
-                        </>
-                    )}
+                    <RoundSubtitle />
                 </div>
 
                 <!-- Right: CTA -->

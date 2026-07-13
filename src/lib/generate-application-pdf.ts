@@ -41,7 +41,7 @@ interface FieldData {
             code?: string;
             description?: string;
         }>;
-        max_length?: number;
+        helper_text?: string;
         prefix?: string;
         suffix?: string;
         date_updated?: string;
@@ -70,7 +70,7 @@ interface AwardData {
     name: string;
     grant: number;
     stage: string;
-    programme: { name: string };
+    programme: { name: string; code?: string };
 }
 
 interface GeneratePdfOptions {
@@ -128,6 +128,10 @@ const RADIO_SIZE = 12;
 const CHECKBOX_SIZE = 12;
 const DROPDOWN_HEIGHT = 22;
 const FORM_FIELD_FONT_SIZE = 10; // consistent size for all interactive fields
+
+// Key-value field limits
+const PDF_MAX_ENTRIES = 10; // rows shown in the static PDF table
+const PORTAL_MAX_ENTRIES = 25; // entries allowed in the online portal
 
 // ─── Helpers ────────────────────────────────────────────────────────────
 
@@ -546,7 +550,19 @@ function renderInputField(
     });
     tf.setFontSize(FORM_FIELD_FONT_SIZE);
 
-    cursor.y -= TEXT_FIELD_HEIGHT + 8;
+    if (field.helper_text) {
+        cursor.y -= TEXT_FIELD_HEIGHT + FIELD_HINT_GAP;
+        cursor.drawWrappedText(
+            field.helper_text,
+            fonts.regular,
+            FONT_SIZE_SMALL,
+            COLOUR_MID_GREY,
+            LINE_HEIGHT_SMALL,
+        );
+        cursor.y -= 4;
+    } else {
+        cursor.y -= TEXT_FIELD_HEIGHT + 8;
+    }
 }
 
 function renderTextareaField(
@@ -576,14 +592,10 @@ function renderTextareaField(
     });
     tf.setFontSize(FORM_FIELD_FONT_SIZE);
 
-    if (field.max_length) {
-        const maxLen = typeof field.max_length === 'string' ? parseInt(field.max_length, 10) : field.max_length;
-        if (!isNaN(maxLen) && maxLen > 0) {
-            tf.setMaxLength(maxLen);
-        }
+    if (field.helper_text) {
         cursor.y -= TEXTAREA_HEIGHT + FIELD_HINT_GAP;
         cursor.drawWrappedText(
-            `Maximum ${maxLen.toLocaleString()} characters`,
+            field.helper_text,
             fonts.regular,
             FONT_SIZE_SMALL,
             COLOUR_MID_GREY,
@@ -811,6 +823,148 @@ function renderCheckboxesField(
     cursor.y -= 4;
 }
 
+function renderKeyValueField(
+    cursor: PageCursor,
+    form: ReturnType<PDFDocument["getForm"]>,
+    field: FieldData["fields_id"],
+    fieldId: string,
+    fonts: { bold: PDFFont; regular: PDFFont },
+    xOffset = 0,
+): void {
+    const NUM_ROWS = PDF_MAX_ENTRIES;
+    const ROW_HEIGHT = 22;
+    const HEADER_HEIGHT = 22;
+    const NAME_COL_RATIO = 0.65;
+
+    const tableX = MARGIN_LEFT + xOffset;
+    const tableWidth = CONTENT_WIDTH - xOffset;
+    const nameColWidth = tableWidth * NAME_COL_RATIO;
+    const costColWidth = tableWidth - nameColWidth;
+    const totalTableHeight = HEADER_HEIGHT + NUM_ROWS * ROW_HEIGHT;
+
+    // Ensure the whole table + disclaimer fits on one page
+    cursor.ensureSpace(totalTableHeight + 30);
+
+    // ── Header row ──────────────────────────────────────────────────
+
+    // Header background
+    cursor.page.drawRectangle({
+        x: tableX,
+        y: cursor.y - HEADER_HEIGHT,
+        width: tableWidth,
+        height: HEADER_HEIGHT,
+        color: COLOUR_SECTION_BG,
+    });
+
+    // "Budget Item" header label
+    cursor.page.drawText("Budget Item", {
+        x: tableX + 6,
+        y: cursor.y - HEADER_HEIGHT + 7,
+        size: FONT_SIZE_BODY,
+        font: fonts.bold,
+        color: COLOUR_VIOLET,
+    });
+
+    // "Cost" header label
+    cursor.page.drawText("Cost", {
+        x: tableX + nameColWidth + 6,
+        y: cursor.y - HEADER_HEIGHT + 7,
+        size: FONT_SIZE_BODY,
+        font: fonts.bold,
+        color: COLOUR_VIOLET,
+    });
+
+    // Vertical column divider in header
+    cursor.page.drawLine({
+        start: { x: tableX + nameColWidth, y: cursor.y },
+        end: { x: tableX + nameColWidth, y: cursor.y - HEADER_HEIGHT },
+        thickness: 0.75,
+        color: COLOUR_LIGHT_GREY,
+    });
+
+    cursor.y -= HEADER_HEIGHT;
+
+    // ── Outer border ────────────────────────────────────────────────
+
+    cursor.page.drawRectangle({
+        x: tableX,
+        y: cursor.y - NUM_ROWS * ROW_HEIGHT,
+        width: tableWidth,
+        height: totalTableHeight,
+        borderColor: COLOUR_LIGHT_GREY,
+        borderWidth: 0.75,
+    });
+
+    // ── Data rows ───────────────────────────────────────────────────
+
+    for (let i = 0; i < NUM_ROWS; i++) {
+        const rowY = cursor.y;
+
+        // Horizontal row top border
+        cursor.page.drawLine({
+            start: { x: tableX, y: rowY },
+            end: { x: tableX + tableWidth, y: rowY },
+            thickness: 0.5,
+            color: COLOUR_LIGHT_GREY,
+        });
+
+        // Vertical column divider
+        cursor.page.drawLine({
+            start: { x: tableX + nameColWidth, y: rowY },
+            end: { x: tableX + nameColWidth, y: rowY - ROW_HEIGHT },
+            thickness: 0.75,
+            color: COLOUR_LIGHT_GREY,
+        });
+
+        // Budget Item text field (fills left column, no border — table lines are the visual boundary)
+        const budgetItemField = form.createTextField(`${fieldId}.row${i + 1}.budgetItem`);
+        budgetItemField.addToPage(cursor.page, {
+            x: tableX + 2,
+            y: rowY - ROW_HEIGHT + 2,
+            width: nameColWidth - 4,
+            height: ROW_HEIGHT - 4,
+            borderWidth: 0,
+            font: fonts.regular,
+        });
+        budgetItemField.setFontSize(FORM_FIELD_FONT_SIZE);
+
+        // Cost text field (fills right column)
+        const costField = form.createTextField(`${fieldId}.row${i + 1}.cost`);
+        costField.addToPage(cursor.page, {
+            x: tableX + nameColWidth + 2,
+            y: rowY - ROW_HEIGHT + 2,
+            width: costColWidth - 4,
+            height: ROW_HEIGHT - 4,
+            borderWidth: 0,
+            font: fonts.regular,
+        });
+        costField.setFontSize(FORM_FIELD_FONT_SIZE);
+
+        cursor.y -= ROW_HEIGHT;
+    }
+
+    // Bottom border of last row
+    cursor.page.drawLine({
+        start: { x: tableX, y: cursor.y },
+        end: { x: tableX + tableWidth, y: cursor.y },
+        thickness: 0.5,
+        color: COLOUR_LIGHT_GREY,
+    });
+
+    // ── Disclaimer ──────────────────────────────────────────────────
+
+    cursor.y -= FIELD_HINT_GAP;
+    cursor.drawWrappedTextIndented(
+        `Note: This PDF allows you to add up to ${PDF_MAX_ENTRIES} entries. In the Application Portal, you can have up to ${PORTAL_MAX_ENTRIES} entries.`,
+        fonts.regular,
+        FONT_SIZE_SMALL,
+        xOffset,
+        COLOUR_MID_GREY,
+        LINE_HEIGHT_SMALL,
+    );
+    cursor.y -= 4;
+}
+
 // ─── Main generator ─────────────────────────────────────────────────────
 
 export async function generateApplicationPdf(
@@ -940,6 +1094,15 @@ export async function generateApplicationPdf(
         COLOUR_DARK_GREY,
         LINE_HEIGHT_BODY,
     );
+    cursor.y -= 6;
+
+    cursor.drawWrappedText(
+        "Before you start, please ensure you save the PDF to your device to avoid losing your answers.",
+        nunitoBold,
+        FONT_SIZE_BODY,
+        COLOUR_DARK_GREY,
+        LINE_HEIGHT_BODY,
+    );
     cursor.y -= 10;
 
     // Divider
@@ -975,7 +1138,11 @@ export async function generateApplicationPdf(
         for (const award of awards) {
             const stageLabel = award.stage === "starting-up" ? "Starting Up" : "Scaling Up";
             const grantFormatted = award.grant ? `up to \u00A3${award.grant.toLocaleString("en-GB")}` : "";
-            const awardLine = `\u2022  ${stageLabel} — ${award.programme.name}${grantFormatted ? ` (${grantFormatted})` : ""}`;
+            const ageText = award.programme.code === "ff"
+                ? "open to anyone aged 16 to 30"
+                : "open to anyone aged 16 and over";
+            const awardDetails = [grantFormatted, ageText].filter(Boolean).join(", ");
+            const awardLine = `\u2022  ${stageLabel} \u2014 ${award.programme.name}${awardDetails ? ` (${awardDetails})` : ""}`;
             cursor.drawWrappedText(
                 sanitiseForPdf(awardLine),
                 nunitoRegular,
@@ -1342,6 +1509,9 @@ export async function generateApplicationPdf(
                     break;
                 case "Checkboxes":
                     renderCheckboxesField(cursor, form, field, fieldId, fonts, indent);
+                    break;
+                case "key-value":
+                    renderKeyValueField(cursor, form, field, fieldId, fonts, indent);
                     break;
                 default:
                     // Unknown field type — just show a text field as fallback

@@ -1,10 +1,12 @@
 ---
 import Icon from "@components/Icon.astro";
+import { getBritishFakeUTCNow } from "@utils/british-time";
 const { title, slug, image, published, tag, description, author, status } =
     Astro.props;
 
 const isScheduled =
-    status === "published" && new Date(published).getTime() > Date.now();
+    status === "published" &&
+    new Date(published).getTime() > getBritishFakeUTCNow();
 ---
 
 <li class="col-span-1 divide-y divide-gray-200 rounded-lg">

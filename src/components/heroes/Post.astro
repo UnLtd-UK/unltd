@@ -1,9 +1,11 @@
 ---
+import { getBritishFakeUTCNow } from "@utils/british-time";
 const { name, image, description, published, author, tag, status } =
     Astro.props.frontmatter || Astro.props;
 
 const isScheduled =
-    status === "published" && new Date(published).getTime() > Date.now();
+    status === "published" &&
+    new Date(published).getTime() > getBritishFakeUTCNow();
 ---
 
 <section
