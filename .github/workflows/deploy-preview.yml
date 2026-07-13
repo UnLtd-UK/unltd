@@ -1,4 +1,4 @@
-name: Deploy Feature Preview
+name: Deploy Preview
 
 on:
   push:
@@ -9,15 +9,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy-feature-preview:
-    name: Deploy feature preview
+  deploy-preview:
+    name: Deploy preview
     runs-on: ubuntu-latest
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       EVENTBRITE_PRIVATE_TOKEN: ${{ secrets.EVENTBRITE_PRIVATE_TOKEN }}
       FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
-      SHOW_DRAFTS: "false"
+      SHOW_DRAFTS: "true"
       DEPLOY_ENVIRONMENT: "feature-preview"
     steps:
       - name: Checkout repo
@@ -33,7 +33,7 @@ jobs:
 
       - name: Cache node modules
         id: cache-node-modules
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: node_modules
           key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
@@ -51,10 +51,10 @@ jobs:
           # Convert branch name to valid worker name (lowercase, replace / with -)
           BRANCH="${{ github.ref_name }}"
           WORKER_NAME=$(echo "$BRANCH" | tr '/' '-' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g')
-          echo "name=unltd-${WORKER_NAME}" >> $GITHUB_OUTPUT
-          echo "Worker name: unltd-${WORKER_NAME}"
+          echo "name=${WORKER_NAME}" >> $GITHUB_OUTPUT
+          echo "Worker name: ${WORKER_NAME}"
 
-      - name: Deploy feature preview worker
+      - name: Deploy preview worker
         run: |
           npx wrangler deploy \
             --name ${{ steps.worker-name.outputs.name }} \
