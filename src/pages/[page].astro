@@ -36,13 +36,26 @@ export async function getStaticPaths() {
   });
 }
 
-const { name, description, body, breadcrumbs } = Astro.props;
+const { name, description, body, breadcrumbs, last_updated, date_updated } =
+  Astro.props;
+
+const lastUpdatedText =
+  last_updated && date_updated
+    ? `${new Date(date_updated).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} at ${new Date(date_updated).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`
+    : null;
 ---
 
 <Template name={name} description={description}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
     <Default name={name} description={description} />
+    {
+      lastUpdatedText && (
+        <p class="text-sm text-violet-300 -mt-4 mb-6">
+          Last updated: {lastUpdatedText}
+        </p>
+      )
+    }
     <div class="pb-20">
       <Content body={body} />
     </div>
