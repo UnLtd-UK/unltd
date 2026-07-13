@@ -115,22 +115,22 @@ const palette = {
     },
     "Fostering Accelerator": {
         "font": "font-sans",
-        "bg": "bg-red-100 dark:bg-red-900",
-        "bg2": "bg-red-50 dark:bg-red-950",
-        "bg3": "bg-red-300 hover:bg-red-400 dark:bg-red-700 dark:hover:bg-red-600",
-        "text": "text-red-950 dark:text-red-50",
-        "text2": "text-red-800 dark:text-red-200",
-        "fill": "fill-red-950 dark:fill-red-50",
-        "ring": "ring-red-950/5 dark:ring-red-50/10",
-        "ring2": "ring-red-900/5 dark:ring-red-100/10",
-        "border": "border-red-400 dark:border-red-600",
-        "border2": "border-red-600 dark:border-red-400",
-        "badge": "bg-red-400/50 text-red-600 ring-red-500/10 dark:bg-red-600/50 dark:text-red-200 dark:ring-red-400/20",
-        "divide": "divide-red-200 dark:divide-red-800",
-        "gradient": "from-red-100 via-red-100/40 dark:from-red-900 dark:via-red-900/40",
-        "gradient2": "from-red-200 via-red-50 dark:from-red-800 dark:via-red-950",
-        "breadcrumb": "hover:text-red-900 text-red-800 dark:hover:text-red-100 dark:text-red-200",
-        "hover": "hover:bg-red-100 dark:hover:bg-red-900"
+        "bg": "bg-rose-100 dark:bg-rose-200",
+        "bg2": "bg-rose-50 dark:bg-rose-300",
+        "bg3": "bg-rose-300 hover:bg-rose-400 dark:bg-rose-300 dark:hover:bg-rose-400",
+        "text": "text-rose-950 dark:text-rose-950",
+        "text2": "text-rose-800 dark:text-rose-800",
+        "fill": "fill-rose-950 dark:fill-rose-950",
+        "ring": "ring-rose-950/5 dark:ring-rose-950/5",
+        "ring2": "ring-rose-900/5 dark:ring-rose-900/5",
+        "border": "border-rose-400 dark:border-rose-400",
+        "border2": "border-rose-600 dark:border-rose-600",
+        "badge": "bg-rose-400/50 text-rose-600 ring-rose-500/10 dark:bg-rose-400/50 dark:text-rose-600 dark:ring-rose-500/20",
+        "divide": "divide-rose-200 dark:divide-rose-200",
+        "gradient": "from-rose-100 via-rose-100/40 dark:from-rose-100 dark:via-rose-100/40",
+        "gradient2": "from-rose-200 via-rose-50 dark:from-rose-200 dark:via-rose-50",
+        "breadcrumb": "hover:text-rose-900 text-rose-800 dark:hover:text-rose-900 dark:text-rose-800",
+        "hover": "hover:bg-rose-100 dark:hover:bg-rose-100"
     }
 }
 
