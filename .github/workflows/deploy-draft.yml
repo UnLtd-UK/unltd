@@ -1,4 +1,4 @@
-name: Deploy Draft Preview
+name: Deploy Draft
 
 on:
   push:
@@ -48,4 +48,4 @@ jobs:
         run: npm run build
 
       - name: Deploy worker
-        run: npx wrangler deploy --name draft --compatibility-date 2025-11-17
+        run: npx wrangler deploy --name draft
