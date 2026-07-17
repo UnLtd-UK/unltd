@@ -113,7 +113,7 @@ const palette = {
         "breadcrumb": "hover:text-blue-900 text-blue-800 dark:hover:text-blue-100 dark:text-blue-200",
         "hover": "hover:bg-blue-100 dark:hover:bg-blue-900"
     },
-    "Fostering Accelerator": {
+    "Foster Care Resilience Fund": {
         "font": "font-sans",
         "bg": "bg-rose-100 dark:bg-rose-200",
         "bg2": "bg-rose-50 dark:bg-rose-300",

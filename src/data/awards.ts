@@ -9,7 +9,7 @@
  * - gr = Growth
  * - mat = Millennium Awards Trust
  * - ffp = Funding Futures Programme
- * - fa  = Fostering Accelerator
+ * - fa  = Foster Care Resilience Fund
  */
 
 import { getCollection } from './load.js';
@@ -144,7 +144,7 @@ const rawAwards: DirectusAward[] = await getCollection(collection, collectionNam
 /**
  * Maps each programme to its theme colour, keyed by slug (unique) rather than
  * `code`, since Directus programme codes are not guaranteed to be unique
- * (e.g. Fostering Accelerator and Funding Futures Programme both use `ff`).
+ * (e.g. Foster Care Resilience Fund and Funding Futures Programme both use `ff`).
  */
 const programmeColours: Record<string, string> = {
     'millennium-awards-trust': 'amber',
