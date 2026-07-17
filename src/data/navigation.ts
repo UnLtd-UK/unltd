@@ -30,6 +30,14 @@ export const navigation = {
                             enabled: true,
                         },
                         {
+                            id: 1,
+                            name: "Foster Care Resilience Fund",
+                            description: "Up to £30,000 for social entrepreneurs tackling the UK foster care shortage",
+                            href: "/awards/foster-care-resilience-fund",
+                            icon: "fa-solid fa-hands-holding-child",
+                            enabled: true,
+                        },
+                        {
                             id: 2,
                             name: "Growth Impact Fund",
                             description: "Investment & services for social ventures",
