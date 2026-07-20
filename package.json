@@ -41,7 +41,6 @@
     "boring-avatars": "^2.0.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "emdash": "^0.29.0",
     "jsdom": "^29.1.1",
     "lucide-react": "^1.25.0",
     "maplibre-gl": "^5.24.0",
