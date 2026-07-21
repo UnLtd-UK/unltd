@@ -70,7 +70,8 @@ export interface Award {
 const collection = "awards";
 const collectionName = "awards";
 
-const showDrafts = process.env.SHOW_DRAFTS === 'true';
+// const showDrafts = process.env.SHOW_DRAFTS === 'true';
+const showDrafts = process.env.SHOW_DRAFTS === 'false';
 const statusFilter = showDrafts
     ? { _in: ['published', 'draft'] }
     : { _eq: 'published' };
