@@ -4,7 +4,6 @@ const { partners, styles, name } = Astro.props;
 
 <div class={``}>
     <div class="mx-auto max-w-7xl">
-        
         <h2
             class={`uppercase text-lg font-semibold leading-8 ${styles.font} ${styles.text}`}
         >
@@ -14,15 +13,17 @@ const { partners, styles, name } = Astro.props;
             class="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5"
         >
             {
-                partners.map((partner) => (
-                    <img
-                        class="col-span-2 max-h-20 w-full object-contain lg:col-span-1"
-                        src={`https://unltd.directus.app/assets/${partner.organisations_id.logo.id}`}
-                        alt={partner.name}
-                        width="158"
-                        height="48"
-                    />
-                ))
+                partners
+                    .filter((partner) => partner?.organisations_id?.logo?.id)
+                    .map((partner) => (
+                        <img
+                            class="col-span-2 max-h-20 w-full object-contain lg:col-span-1"
+                            src={`https://unltd.directus.app/assets/${partner.organisations_id.logo.id}`}
+                            alt={partner.name}
+                            width="158"
+                            height="48"
+                        />
+                    ))
             }
         </div>
     </div>
