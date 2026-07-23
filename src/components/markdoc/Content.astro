@@ -70,19 +70,21 @@ renderer.link = function ({ href, title, tokens }) {
   return `<a href="${href}"${titleAttr}>${text}</a>`;
 };
 
-// Custom image renderer to support per-image sizing and alignment from markdown.
-// Content editors set the markdown image "title" (quoted text after the URL)
-// to a space-separated combination of a size keyword and/or an alignment
-// keyword to control the image's width and horizontal position. No title (or
-// unrecognised words) keeps the default full-width, centred behaviour.
+// Custom image renderer to support per-image sizing, alignment, and corner
+// styling from markdown. Content editors set the markdown image "title"
+// (quoted text after the URL) to a space-separated combination of a size
+// keyword, an alignment keyword, and/or "square" to control the image's
+// width, horizontal position, and border radius. No title (or unrecognised
+// words) keeps the default full-width, centred, rounded-corner behaviour.
 //
 //   ![Henry Smith Foundation logo](https://.../logo.png "half")
 //   ![Henry Smith Foundation logo](https://.../logo.png "half left")
-//   ![Henry Smith Foundation logo](https://.../logo.png "small right")
+//   ![Henry Smith Foundation logo](https://.../logo.png "small right square")
 //
-// Widths are marked `!important` (Tailwind v4's trailing `!` syntax) because
-// they otherwise tie in specificity with the `prose-img:w-full` rule applied
-// to every image in this container, and lose the cascade order tie-break.
+// Widths and the "square" override are marked `!important` (Tailwind v4's
+// trailing `!` syntax) because they otherwise tie in specificity with the
+// `prose-img:w-full` / `prose-img:rounded-md` rules applied to every image in
+// this container, and lose the cascade order tie-break.
 const IMAGE_WIDTH_CLASSES: Record<string, string> = {
   half: "sm:w-1/2!",
   third: "sm:w-1/3!",
@@ -97,6 +99,10 @@ const IMAGE_ALIGN_CLASSES: Record<string, string> = {
   right: "ml-auto mr-0",
 };
 
+const IMAGE_RADIUS_CLASSES: Record<string, string> = {
+  square: "rounded-none!",
+};
+
 renderer.image = function ({ href, title, text }) {
   const tokens = (title || "")
     .trim()
@@ -105,12 +111,14 @@ renderer.image = function ({ href, title, text }) {
     .filter(Boolean);
   const sizeKey = tokens.find((token) => token in IMAGE_WIDTH_CLASSES);
   const alignKey = tokens.find((token) => token in IMAGE_ALIGN_CLASSES);
+  const radiusKey = tokens.find((token) => token in IMAGE_RADIUS_CLASSES);
 
   // Only apply an alignment class once a size (or explicit alignment) is
   // requested - a full-width image has no room to be aligned within.
   const classes = [
     sizeKey ? IMAGE_WIDTH_CLASSES[sizeKey] : "",
     sizeKey || alignKey ? IMAGE_ALIGN_CLASSES[alignKey ?? "center"] : "",
+    radiusKey ? IMAGE_RADIUS_CLASSES[radiusKey] : "",
   ]
     .filter(Boolean)
     .join(" ");
