@@ -70,6 +70,56 @@ renderer.link = function ({ href, title, tokens }) {
   return `<a href="${href}"${titleAttr}>${text}</a>`;
 };
 
+// Custom image renderer to support per-image sizing and alignment from markdown.
+// Content editors set the markdown image "title" (quoted text after the URL)
+// to a space-separated combination of a size keyword and/or an alignment
+// keyword to control the image's width and horizontal position. No title (or
+// unrecognised words) keeps the default full-width, centred behaviour.
+//
+//   ![Henry Smith Foundation logo](https://.../logo.png "half")
+//   ![Henry Smith Foundation logo](https://.../logo.png "half left")
+//   ![Henry Smith Foundation logo](https://.../logo.png "small right")
+//
+// Widths are marked `!important` (Tailwind v4's trailing `!` syntax) because
+// they otherwise tie in specificity with the `prose-img:w-full` rule applied
+// to every image in this container, and lose the cascade order tie-break.
+const IMAGE_WIDTH_CLASSES: Record<string, string> = {
+  half: "sm:w-1/2!",
+  third: "sm:w-1/3!",
+  quarter: "sm:w-1/4!",
+  small: "max-w-xs!",
+};
+
+const IMAGE_ALIGN_CLASSES: Record<string, string> = {
+  left: "ml-0 mr-auto",
+  center: "mx-auto",
+  centre: "mx-auto",
+  right: "ml-auto mr-0",
+};
+
+renderer.image = function ({ href, title, text }) {
+  const tokens = (title || "")
+    .trim()
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(Boolean);
+  const sizeKey = tokens.find((token) => token in IMAGE_WIDTH_CLASSES);
+  const alignKey = tokens.find((token) => token in IMAGE_ALIGN_CLASSES);
+
+  // Only apply an alignment class once a size (or explicit alignment) is
+  // requested - a full-width image has no room to be aligned within.
+  const classes = [
+    sizeKey ? IMAGE_WIDTH_CLASSES[sizeKey] : "",
+    sizeKey || alignKey ? IMAGE_ALIGN_CLASSES[alignKey ?? "center"] : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  const classAttr = classes ? ` class="${classes}"` : "";
+
+  return `<img src="${href}" alt="${text}"${classAttr} loading="lazy" />`;
+};
+
 marked.use({ renderer });
 const html = marked.parse(preparedBody);
 ---
