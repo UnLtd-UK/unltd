@@ -18,18 +18,24 @@ export interface Event {
   start: EventDate;
   end: EventDate;
   organization_id?: string;
+  organizer_id?: string;
   venue_id?: string | null;
   venue?: { name?: string };
   logo?: { url?: string };
   online_event?: boolean;
   status?: string;
+  listed?: boolean;
+  shareable?: boolean;
   is_series?: boolean;
   series_id?: string | null;
 }
 
 type RuntimeEnv = Record<string, string | undefined>;
 
-const EVENT_DESCRIPTION_PREFIXES = ["for social entrepreneurs", "for social entrepreneurs"];
+// Only events organised under this Eventbrite Organizer profile ("UnLtd - Foundation
+// for Social Entrepreneurs", https://www.eventbrite.co.uk/o/unltd-foundation-for-social-entrepreneurs-4248932779)
+// that Eventbrite has marked as publicly listed should appear on the Awards page.
+const EVENTBRITE_PROGRAMME_ORGANIZER_ID = "4248932779";
 
 function getRuntimeEnv(): RuntimeEnv {
   const globalContext = globalThis as unknown as {
@@ -144,9 +150,9 @@ const EVENTBRITE_TOKEN = await resolveEventbriteToken(runtimeEnv);
 
 type FetchProgrammeEventsOptions = {
   organisationId?: string;
+  organizerId?: string;
   status?: string;
   orderBy?: string;
-  descriptionPrefixes?: string[];
 };
 
 export async function fetchProgrammeEvents(
@@ -158,11 +164,9 @@ export async function fetchProgrammeEvents(
     }
 
     const organisationId = options.organisationId ?? EVENTBRITE_ORGANISATION_ID;
+    const organizerId = options.organizerId ?? EVENTBRITE_PROGRAMME_ORGANIZER_ID;
     const status = options.status ?? "live";
     const orderBy = options.orderBy ?? "start_asc";
-    const descriptionPrefixes = (options.descriptionPrefixes ?? EVENT_DESCRIPTION_PREFIXES)
-      .map((prefix) => prefix?.trim().toLowerCase())
-      .filter((prefix): prefix is string => Boolean(prefix && prefix.length > 0));
 
     const response = await fetch(
       `https://www.eventbriteapi.com/v3/organizations/${organisationId}/events/?status=${encodeURIComponent(status)}&order_by=${encodeURIComponent(orderBy)}`,
@@ -182,19 +186,12 @@ export async function fetchProgrammeEvents(
     const data = await response.json();
     const events: Event[] = Array.isArray(data?.events) ? data.events : [];
 
-    if (descriptionPrefixes.length === 0) {
-      return events;
-    }
-
-    return events.filter((event) => {
-      const description = event.description?.text ?? event.summary ?? "";
-      const normalised = description.trim().toLowerCase();
-      if (!normalised) {
-        return false;
-      }
-
-      return descriptionPrefixes.some((prefix) => normalised.startsWith(prefix));
-    });
+    // Only show events belonging to the target Organizer profile, and only those
+    // Eventbrite has marked as publicly listed (excludes private/unlisted Award
+    // Winner-only sessions, which share the same Organizer but aren't public).
+    return events.filter(
+      (event) => event.organizer_id === organizerId && event.listed === true,
+    );
   } catch (error) {
     console.error("Error fetching Eventbrite organisation events:", error);
     return [];
