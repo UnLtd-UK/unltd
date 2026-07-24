@@ -25,10 +25,21 @@
     "not_found_handling": "404-page"
   },
   // Required by @astrojs/cloudflare's defaults: Workers KV for the Sessions
-  // API (auto-provisioned by Wrangler on deploy) and the Images binding for
-  // its default 'cloudflare-binding' image service. Without these, any use of
-  // Astro.session or astro:assets Image transforms would fail at runtime.
-  "kv_namespaces": [{ "binding": "SESSION" }],
+  // API and the Images binding for its default 'cloudflare-binding' image
+  // service. Without these, any use of Astro.session or astro:assets Image
+  // transforms would fail at runtime.
+  //
+  // IMPORTANT: "id" is pinned explicitly rather than left for Wrangler to
+  // auto-provision. Auto-provisioning only works once per namespace title —
+  // every subsequent deploy of the same worker (e.g. the 2-hourly cron
+  // redeploys, or a second push to the same feature branch) tries to create
+  // ANOTHER namespace with the same title and fails with "a namespace with
+  // this account ID and title already exists [code: 10014]", crashing the
+  // whole deploy. This shared namespace ("unltd-preview-session") is used by
+  // ALL ephemeral per-branch preview deploys (deploy-preview.yml, which uses
+  // `--name <branch>` with no matching env block) — sessions aren't sensitive
+  // enough to need per-branch isolation.
+  "kv_namespaces": [{ "binding": "SESSION", "id": "de01c0c8d4a945c68572f2e3bb2a68c5" }],
   "images": { "binding": "IMAGES" },
   "observability": {
     "enabled": true,
@@ -47,7 +58,9 @@
       },
       // Named environments don't inherit top-level kv_namespaces/images —
       // must be redeclared here or the deployed worker loses these bindings.
-      "kv_namespaces": [{ "binding": "SESSION" }],
+      // Pinned to the pre-existing "unltd-production-session" namespace ID
+      // (see note above re: auto-provisioning failing on repeat deploys).
+      "kv_namespaces": [{ "binding": "SESSION", "id": "059745ad29db4bb88e2e3d2daf83a752" }],
       "images": { "binding": "IMAGES" },
       "routes": [
         {
@@ -61,7 +74,8 @@
         "DEV": "false",
         "SHOW_DRAFTS": "true"
       },
-      "kv_namespaces": [{ "binding": "SESSION" }],
+      // Pinned to the pre-existing "draft-session" namespace ID.
+      "kv_namespaces": [{ "binding": "SESSION", "id": "b19fb97c13fb4f6d8ec6b5a7fe5aff7b" }],
       "images": { "binding": "IMAGES" }
     }
   }
