@@ -1,0 +1,36 @@
+// Local-only Wrangler config used exclusively by the @astrojs/cloudflare
+// adapter (see astro.config.mjs `cloudflare({ configPath: ... })`) for
+// `astro dev` / `astro build` / `astro preview`.
+//
+// This is intentionally separate from wrangler.jsonc: that file's `main`
+// points at ./dist/worker/index.js, which is produced by the unrelated
+// `wrangler pages functions build` step (compiling functions/*.ts). The
+// Cloudflare adapter needs to own its own worker entrypoint, so it can't
+// share that file. Do NOT use this config for deployment — wrangler.jsonc
+// remains the source of truth for `wrangler deploy`.
+//
+// IMPORTANT: do NOT add `"compatibility_flags": ["nodejs_compat"]` here.
+// It causes on-demand (SSR) routes to render a literal "[object Object]"
+// body instead of HTML. Root cause: nodejs_compat provides a native
+// `process` global that satisfies astro core's `isNode` runtime check
+// (`Object.prototype.toString.call(process) === "[object process]"`),
+// which makes Astro pick its Node.js-specific async-iterable streaming
+// path instead of the Web ReadableStream path — the resulting body isn't
+// a valid Response BodyInit in workerd. Confirmed via `wrangler dev`
+// directly against the built worker (dist/server), not just `astro
+// preview`. If a future dependency genuinely needs node:fs/node:path at
+// on-demand request time, this will need a different fix (e.g. removing
+// the dependency from the on-demand route's import tree) rather than
+// re-enabling this flag.
+{
+  "name": "unltd",
+  "compatibility_date": "2025-11-17",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  "vars": {
+    "DEV": "true",
+    "SHOW_DRAFTS": "true"
+  }
+}

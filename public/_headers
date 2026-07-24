@@ -1,3 +1,8 @@
 # Prevent stale cached PDFs — ensure each deploy serves the latest build
 /awards/downloads/*
   Cache-Control: public, max-age=0, must-revalidate
+
+# Directus live preview: only allow the Directus Data Studio to iframe this route
+/blog/*/preview
+  Content-Security-Policy: frame-ancestors https://unltd.directus.app
+  X-Robots-Tag: noindex, nofollow

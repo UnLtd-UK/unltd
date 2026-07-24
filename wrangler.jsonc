@@ -1,12 +1,35 @@
 {
   "name": "unltd",
   "compatibility_date": "2025-11-17",
-  "main": "./dist/worker/index.js",
+  // Points at the actual worker entry produced by `astro build` (the
+  // @astrojs/cloudflare adapter). NOTE: the docs' package-import form
+  // ("@astrojs/cloudflare/entrypoints/server") only resolves when Wrangler is
+  // invoked *through* the adapter's own tooling (astro dev/build/preview) —
+  // it does NOT resolve for a standalone `wrangler deploy` CLI call like this
+  // one, so we point directly at the built file instead. This replaces the
+  // old Pages-Functions pipeline (functions/*.ts -> dist/worker/index.js),
+  // which has been removed.
+  "main": "./dist/server/entry.mjs",
+  // Matches the adapter's own generated config: the build output is already
+  // bundled into ESM chunks, so let Wrangler load them as-is rather than
+  // re-bundling (required for the chunked dist/server output to work).
+  "no_bundle": true,
+  "rules": [{ "type": "ESModule", "globs": ["**/*.js", "**/*.mjs"] }],
   "assets": {
-    "directory": "./dist",
+    // Astro's Cloudflare adapter outputs static assets to dist/client (and the
+    // worker bundle to dist/server) — NOT flat into dist/ like the old
+    // static-only build did. Do not point this at "./dist" or it will also
+    // try to serve the worker bundle as static assets.
+    "directory": "./dist/client",
     "binding": "ASSETS",
     "not_found_handling": "404-page"
   },
+  // Required by @astrojs/cloudflare's defaults: Workers KV for the Sessions
+  // API (auto-provisioned by Wrangler on deploy) and the Images binding for
+  // its default 'cloudflare-binding' image service. Without these, any use of
+  // Astro.session or astro:assets Image transforms would fail at runtime.
+  "kv_namespaces": [{ "binding": "SESSION" }],
+  "images": { "binding": "IMAGES" },
   "observability": {
     "enabled": true,
     "head_sampling_rate": 1
@@ -22,6 +45,10 @@
         "DEV": "false",
         "SHOW_DRAFTS": "false"
       },
+      // Named environments don't inherit top-level kv_namespaces/images —
+      // must be redeclared here or the deployed worker loses these bindings.
+      "kv_namespaces": [{ "binding": "SESSION" }],
+      "images": { "binding": "IMAGES" },
       "routes": [
         {
           "pattern": "unltd.org.uk",
@@ -34,12 +61,8 @@
         "DEV": "false",
         "SHOW_DRAFTS": "true"
       },
-      "routes": [
-        {
-          "pattern": "draft.unltd.org.uk",
-          "custom_domain": true
-        }
-      ]
+      "kv_namespaces": [{ "binding": "SESSION" }],
+      "images": { "binding": "IMAGES" }
     }
   }
 }

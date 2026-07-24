@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /blog/*/preview
 
 Sitemap: https://unltd.org.uk/sitemap-index.xml

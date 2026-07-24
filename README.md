@@ -56,9 +56,9 @@ npm run dev
 ```
 This runs the Astro dev server with Wrangler integration for local worker development.
 
-### Deploy preview environment
+### Deploy draft environment
 ```bash
-npm run deploy:preview
+npm run deploy:draft
 ```
 
 ### Deploy production environment

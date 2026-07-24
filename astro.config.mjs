@@ -1,15 +1,36 @@
-import { defineConfig, fontProviders } from "astro/config";
+import { defineConfig, fontProviders, envField } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import alpinejs from "@astrojs/alpinejs";
 import react from "@astrojs/react";
 import markdoc from "@astrojs/markdoc";
 import sitemap from "@astrojs/sitemap";
+import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [alpinejs(), react(), markdoc(), sitemap()],
   site: 'https://unltd.org.uk',
   trailingSlash: 'never',
+  // Output stays fully static by default; @astrojs/cloudflare only adds
+  // on-demand rendering capability for routes that opt in via
+  // `export const prerender = false` (e.g. src/pages/blog/[post]/preview.astro).
+  // Uses a dedicated local-only Wrangler config (see wrangler.astro.jsonc) so
+  // it doesn't conflict with wrangler.jsonc's `main`, which is owned by the
+  // separate `wrangler pages functions build` step for functions/*.ts.
+  // prerenderEnvironment stays "node" (not the adapter's default "workerd")
+  // because existing data loaders (src/data/load.js, src/lib/generate-application-pdf.ts)
+  // use Node's fs/path APIs at build time, which the workerd sandbox doesn't support.
+  // NOTE: do NOT add nodejs_compat to wrangler.astro.jsonc — it breaks on-demand
+  // rendering (see comment in that file for details).
+  adapter: cloudflare({
+    configPath: "./wrangler.astro.jsonc",
+    prerenderEnvironment: "node",
+  }),
+  env: {
+    schema: {
+      DIRECTUS_PREVIEW_TOKEN: envField.string({ context: "server", access: "secret" }),
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },

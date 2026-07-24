@@ -48,4 +48,4 @@ jobs:
         run: npm run build
 
       - name: Deploy worker
-        run: npx wrangler deploy --env production
+        run: npx wrangler deploy --config wrangler.jsonc --env production
