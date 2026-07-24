@@ -1,0 +1,143 @@
+---
+// Live preview route for Directus. Unlike the static /blog/[post] route,
+// this always fetches fresh from Directus (bypassing the build-time cache in
+// src/data/posts.js) and is gated behind a shared secret token, so Directus's
+// Data Studio can show unpublished/draft changes in an iframe before they go live.
+//
+// Note: this intentionally does NOT use @layouts/Template.astro. Template.astro
+// pulls in site chrome (Header/Footer/RoundBanner) that relies on data modules
+// with top-level `await fetch(...)` calls — fine for build-time static
+// prerendering, but Cloudflare Workers disallows I/O at module/global scope
+// on a live, on-demand request ("Disallowed operation called within global
+// scope"). This route uses a minimal, self-contained shell instead.
+export const prerender = false;
+
+import "../../../styles/global.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import { Font } from "astro:assets";
+import { config } from "@fortawesome/fontawesome-svg-core";
+import "@lib/icons";
+config.autoAddCss = false;
+
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import HeroPost from "@components/heroes/Post.astro";
+import Content from "@components/markdoc/Content.astro";
+
+import { client, readItems, withToken } from "@lib/directus";
+import { DIRECTUS_PREVIEW_TOKEN } from "astro:env/server";
+import { palette } from "@data/palette.js";
+
+interface Post {
+    title: string;
+    description: string;
+    tag: string;
+    slug: string;
+    image: string;
+    image_alt: string;
+    image_caption: string;
+    author_name: string;
+    author_position: string;
+    body: string;
+    date_time: string;
+    status: string;
+}
+
+const { post: slug } = Astro.params;
+const token = Astro.url.searchParams.get("token");
+const expectedToken = DIRECTUS_PREVIEW_TOKEN;
+
+if (!token || !expectedToken || token !== expectedToken) {
+    return new Response("Forbidden", { status: 403 });
+}
+
+let post: Post | undefined;
+
+try {
+    const posts = await client.request(
+        withToken(
+            token,
+            readItems("posts", {
+                filter: { slug: { _eq: slug } },
+                limit: 1,
+                fields: [
+                    "title",
+                    "description",
+                    "tag",
+                    "slug",
+                    "image",
+                    "image_alt",
+                    "image_caption",
+                    "author_name",
+                    "author_position",
+                    "body",
+                    "date_time",
+                    "status",
+                ],
+            }),
+        ),
+    );
+
+    post = posts?.[0] as Post | undefined;
+} catch (error) {
+    console.error("Live preview: failed to fetch post from Directus:", error);
+    return new Response("Failed to fetch preview content", { status: 502 });
+}
+
+if (!post) {
+    return new Response("Not found", { status: 404 });
+}
+
+const breadcrumbs = [
+    { name: "Blog", path: "/blog" },
+    { name: post.title, path: `/blog/${post.slug}` },
+];
+---
+
+<!doctype html>
+<html lang="en" class="h-full scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Astro 6 Fonts API -->
+        <Font cssVariable="--font-nunito" preload />
+        <Font cssVariable="--font-unbounded" />
+        <Font cssVariable="--font-caveat" />
+        <Font cssVariable="--font-outfit" />
+        <Font cssVariable="--font-inter" />
+
+        <title>{`${post.title} | UnLtd (Live Preview)`}</title>
+        <meta name="description" content={post.description} />
+        <meta name="robots" content="noindex, nofollow" />
+    </head>
+    <body class={`dark ${palette["UnLtd"].bg}`}>
+        <div
+            class="bg-amber-400 text-amber-950 text-center text-sm font-semibold py-2"
+        >
+            Live Preview — this content may be unpublished or a draft
+        </div>
+        <Container>
+            <Breadcrumbs breadcrumbs={breadcrumbs} />
+            <HeroPost
+                name={post.title}
+                description={post.description}
+                tag={post.tag}
+                image={{
+                    url: post.image,
+                    alt: post.image_alt,
+                    caption: post.image_caption,
+                }}
+                published={post.date_time}
+                author={{
+                    name: post.author_name,
+                    position: post.author_position,
+                }}
+                status={post.status}
+            />
+            <div class="py-12">
+                <Content body={post.body} />
+            </div>
+        </Container>
+    </body>
+</html>

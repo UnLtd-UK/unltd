@@ -4,7 +4,10 @@ import { marked } from "marked";
 import Container from "@components/Container.astro"
 import { rounds } from "@data/rounds.js";
 import moment from "moment";
-import { steps } from "@data/steps.js";
+// FIXME: pre-existing broken import (file did not exist); this component appears
+// unused anywhere in the codebase. Pointed at an existing data module purely to
+// stop Vite's dependency scan from crashing (unrelated to Directus live preview work).
+import { rounds as steps } from "@data/rounds.js";
 import Content from "@components/markdoc/Content.astro";
 
 import slugify from "slugify";
