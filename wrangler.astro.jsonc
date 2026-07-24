@@ -22,15 +22,22 @@
 // on-demand request time, this will need a different fix (e.g. removing
 // the dependency from the on-demand route's import tree) rather than
 // re-enabling this flag.
+// CRITICAL: do NOT put "vars" here (e.g. DEV/SHOW_DRAFTS). Because this file
+// is referenced UNCONDITIONALLY by astro.config.mjs's `configPath` for every
+// `astro build` (including real production/draft CI builds, not just local
+// dev), the Cloudflare adapter injects whatever is declared here into
+// process.env — silently overriding the real CI job's SHOW_DRAFTS/DEV env
+// vars. This caused draft/unpublished content to leak into the production
+// static build (confirmed 2026-07-24: SHOW_DRAFTS=false in the shell/CI env
+// was overridden to "true" by this file's old `vars` block). Local dev should
+// keep using the existing documented workflow instead: `SHOW_DRAFTS=true npm
+// run dev` (see README.md), which sets it via the shell/process env directly
+// and is NOT clobbered as long as this file declares no vars.
 {
   "name": "unltd",
   "compatibility_date": "2025-11-17",
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS"
-  },
-  "vars": {
-    "DEV": "true",
-    "SHOW_DRAFTS": "true"
   }
 }
