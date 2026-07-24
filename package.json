@@ -9,13 +9,13 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && npx wrangler pages functions build --outdir=./dist/worker && npx wrangler deploy --dry-run --env=\"\"",
+    "build": "astro build && npx wrangler deploy --config wrangler.jsonc --dry-run",
     "preview": "astro preview",
     "astro": "astro",
     "clear": "rimraf ./src/data/cache/*.json",
     "update": "npx npm-check-updates -u && npm install",
-    "deploy:preview": "astro build && wrangler deploy --env preview",
-    "deploy:prod": "astro build && wrangler deploy --env production",
+    "deploy:draft": "astro build && wrangler deploy --config wrangler.jsonc --env draft",
+    "deploy:prod": "astro build && wrangler deploy --config wrangler.jsonc --env production",
     "migrate:ghost": "node scripts/migrate-to-ghost.js"
   },
   "dependencies": {
