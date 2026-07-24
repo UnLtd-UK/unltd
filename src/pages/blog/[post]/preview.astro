@@ -48,7 +48,10 @@ const token = Astro.url.searchParams.get("token");
 const expectedToken = DIRECTUS_PREVIEW_TOKEN;
 
 if (!token || !expectedToken || token !== expectedToken) {
-    return new Response("Forbidden", { status: 403 });
+    return new Response("Forbidden", {
+        status: 403,
+        headers: { "Cache-Control": "no-store" },
+    });
 }
 
 let post: Post | undefined;
@@ -81,22 +84,33 @@ try {
     post = posts?.[0] as Post | undefined;
 } catch (error) {
     console.error("Live preview: failed to fetch post from Directus:", error);
-    return new Response("Failed to fetch preview content", { status: 502 });
+    return new Response("Failed to fetch preview content", {
+        status: 502,
+        headers: { "Cache-Control": "no-store" },
+    });
 }
 
 if (!post) {
-    return new Response("Not found", { status: 404 });
+    return new Response("Not found", {
+        status: 404,
+        headers: { "Cache-Control": "no-store" },
+    });
 }
 
 // NOTE: public/_headers rules do NOT apply to on-demand (Worker-rendered)
 // routes — they only apply to static assets. The CSP/X-Robots-Tag rule added
 // there for `/blog/*/preview` has never actually applied to this route, so
 // it must be set directly on the response here instead.
+// Cache-Control: no-store is also critical here — this route must never be
+// cached (by Cloudflare's edge or browsers), since it always needs to fetch
+// live/fresh content from Directus. A cached response (even a stale error)
+// would otherwise get stuck being served indefinitely at some edge nodes.
 Astro.response.headers.set(
     "Content-Security-Policy",
     "frame-ancestors https://unltd.directus.app",
 );
 Astro.response.headers.set("X-Robots-Tag", "noindex, nofollow");
+Astro.response.headers.set("Cache-Control", "no-store");
 
 const breadcrumbs = [
     { name: "Blog", path: "/blog" },
