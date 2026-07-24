@@ -28,7 +28,11 @@ export default defineConfig({
   }),
   env: {
     schema: {
-      DIRECTUS_PREVIEW_TOKEN: envField.string({ context: "server", access: "secret" }),
+      // `optional: true` is deliberate: if this secret isn't set on a given
+      // deployed Worker (e.g. it was never pushed via `wrangler secret put`),
+      // we want the preview route to fail gracefully with its own 403
+      // "Forbidden" response, not a hard 500 from schema validation.
+      DIRECTUS_PREVIEW_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
     },
   },
   vite: {
