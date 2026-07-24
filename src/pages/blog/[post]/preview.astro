@@ -88,6 +88,16 @@ if (!post) {
     return new Response("Not found", { status: 404 });
 }
 
+// NOTE: public/_headers rules do NOT apply to on-demand (Worker-rendered)
+// routes — they only apply to static assets. The CSP/X-Robots-Tag rule added
+// there for `/blog/*/preview` has never actually applied to this route, so
+// it must be set directly on the response here instead.
+Astro.response.headers.set(
+    "Content-Security-Policy",
+    "frame-ancestors https://unltd.directus.app",
+);
+Astro.response.headers.set("X-Robots-Tag", "noindex, nofollow");
+
 const breadcrumbs = [
     { name: "Blog", path: "/blog" },
     { name: post.title, path: `/blog/${post.slug}` },
