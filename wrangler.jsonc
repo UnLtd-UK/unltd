@@ -22,7 +22,19 @@
     // try to serve the worker bundle as static assets.
     "directory": "./dist/client",
     "binding": "ASSETS",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    // CRITICAL: without this, Cloudflare checks static assets FIRST for every
+    // request and only invokes the Worker if nothing matches. On-demand
+    // routes like /blog/*/preview never match a static file, but a cached
+    // "not found" result can still be served directly from the assets/CDN
+    // layer for certain request shapes (confirmed: real browser requests with
+    // `Accept: text/html`/`sec-fetch-dest: document` headers hit a cached 404
+    // at the edge, completely bypassing our Worker — even after adding
+    // `Cache-Control: no-store` to every response in preview.astro, since the
+    // Worker was never being invoked at all for those requests). Forcing the
+    // Worker to run first for this path bypasses the assets-layer cache
+    // entirely, so our own no-store headers actually take effect.
+    "run_worker_first": ["/blog/*/preview"]
   },
   // Required by @astrojs/cloudflare's defaults: Workers KV for the Sessions
   // API and the Images binding for its default 'cloudflare-binding' image
