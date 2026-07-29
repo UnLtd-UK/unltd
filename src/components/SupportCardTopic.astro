@@ -1,7 +1,10 @@
 ---
 import Icon from "@components/Icon.astro";
 const { support, type } = Astro.props;
-import topics from "@data/json/topics.json";
+// FIXME: pre-existing broken import (file did not exist); this component appears
+// unused anywhere in the codebase. Pointed at an existing data module purely to
+// stop Vite's dependency scan from crashing (unrelated to Directus live preview work).
+import { topicConfig as topics } from "@data/topics";
 
 let topic;
 

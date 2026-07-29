@@ -57,6 +57,7 @@ jobs:
       - name: Deploy preview worker
         run: |
           npx wrangler deploy \
+            --config wrangler.jsonc \
             --name ${{ steps.worker-name.outputs.name }} \
             --compatibility-date 2025-11-17
 

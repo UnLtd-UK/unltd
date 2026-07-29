@@ -1,12 +1,58 @@
 {
   "name": "unltd",
   "compatibility_date": "2025-11-17",
-  "main": "./dist/worker/index.js",
+  // Points at the actual worker entry produced by `astro build` (the
+  // @astrojs/cloudflare adapter). NOTE: the docs' package-import form
+  // ("@astrojs/cloudflare/entrypoints/server") only resolves when Wrangler is
+  // invoked *through* the adapter's own tooling (astro dev/build/preview) —
+  // it does NOT resolve for a standalone `wrangler deploy` CLI call like this
+  // one, so we point directly at the built file instead. This replaces the
+  // old Pages-Functions pipeline (functions/*.ts -> dist/worker/index.js),
+  // which has been removed.
+  "main": "./dist/server/entry.mjs",
+  // Matches the adapter's own generated config: the build output is already
+  // bundled into ESM chunks, so let Wrangler load them as-is rather than
+  // re-bundling (required for the chunked dist/server output to work).
+  "no_bundle": true,
+  "rules": [{ "type": "ESModule", "globs": ["**/*.js", "**/*.mjs"] }],
   "assets": {
-    "directory": "./dist",
+    // Astro's Cloudflare adapter outputs static assets to dist/client (and the
+    // worker bundle to dist/server) — NOT flat into dist/ like the old
+    // static-only build did. Do not point this at "./dist" or it will also
+    // try to serve the worker bundle as static assets.
+    "directory": "./dist/client",
     "binding": "ASSETS",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    // CRITICAL: without this, Cloudflare checks static assets FIRST for every
+    // request and only invokes the Worker if nothing matches. On-demand
+    // routes like /blog/*/preview never match a static file, but a cached
+    // "not found" result can still be served directly from the assets/CDN
+    // layer for certain request shapes (confirmed: real browser requests with
+    // `Accept: text/html`/`sec-fetch-dest: document` headers hit a cached 404
+    // at the edge, completely bypassing our Worker — even after adding
+    // `Cache-Control: no-store` to every response in preview.astro, since the
+    // Worker was never being invoked at all for those requests). Forcing the
+    // Worker to run first for this path bypasses the assets-layer cache
+    // entirely, so our own no-store headers actually take effect.
+    "run_worker_first": ["/blog/*/preview"]
   },
+  // Required by @astrojs/cloudflare's defaults: Workers KV for the Sessions
+  // API and the Images binding for its default 'cloudflare-binding' image
+  // service. Without these, any use of Astro.session or astro:assets Image
+  // transforms would fail at runtime.
+  //
+  // IMPORTANT: "id" is pinned explicitly rather than left for Wrangler to
+  // auto-provision. Auto-provisioning only works once per namespace title —
+  // every subsequent deploy of the same worker (e.g. the 2-hourly cron
+  // redeploys, or a second push to the same feature branch) tries to create
+  // ANOTHER namespace with the same title and fails with "a namespace with
+  // this account ID and title already exists [code: 10014]", crashing the
+  // whole deploy. This shared namespace ("unltd-preview-session") is used by
+  // ALL ephemeral per-branch preview deploys (deploy-preview.yml, which uses
+  // `--name <branch>` with no matching env block) — sessions aren't sensitive
+  // enough to need per-branch isolation.
+  "kv_namespaces": [{ "binding": "SESSION", "id": "de01c0c8d4a945c68572f2e3bb2a68c5" }],
+  "images": { "binding": "IMAGES" },
   "observability": {
     "enabled": true,
     "head_sampling_rate": 1
@@ -22,6 +68,12 @@
         "DEV": "false",
         "SHOW_DRAFTS": "false"
       },
+      // Named environments don't inherit top-level kv_namespaces/images —
+      // must be redeclared here or the deployed worker loses these bindings.
+      // Pinned to the pre-existing "unltd-production-session" namespace ID
+      // (see note above re: auto-provisioning failing on repeat deploys).
+      "kv_namespaces": [{ "binding": "SESSION", "id": "059745ad29db4bb88e2e3d2daf83a752" }],
+      "images": { "binding": "IMAGES" },
       "routes": [
         {
           "pattern": "unltd.org.uk",
@@ -34,12 +86,9 @@
         "DEV": "false",
         "SHOW_DRAFTS": "true"
       },
-      "routes": [
-        {
-          "pattern": "draft.unltd.org.uk",
-          "custom_domain": true
-        }
-      ]
+      // Pinned to the pre-existing "draft-session" namespace ID.
+      "kv_namespaces": [{ "binding": "SESSION", "id": "b19fb97c13fb4f6d8ec6b5a7fe5aff7b" }],
+      "images": { "binding": "IMAGES" }
     }
   }
 }
