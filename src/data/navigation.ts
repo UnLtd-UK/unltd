@@ -31,9 +31,9 @@ export const navigation = {
                         },
                         {
                             id: 1,
-                            name: "Foster Care Resilience Fund",
-                            description: "Up to £30,000 for social entrepreneurs tackling the UK foster care shortage",
-                            href: "/foster-care-resilience-fund",
+                            name: "Fostering Innovation Accelerator",
+                            description: "Up to £30,000 for social entrepreneurs tackling foster care challenges at a systemic level",
+                            href: "/fostering-innovation-accelerator",
                             icon: "fa-solid fa-hands-holding-child",
                             enabled: true,
                         },
