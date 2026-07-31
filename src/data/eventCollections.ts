@@ -160,7 +160,8 @@ export async function fetchProgrammeEvents(
 ): Promise<Event[]> {
   try {
     if (!EVENTBRITE_TOKEN) {
-      throw new Error("Eventbrite private token is not configured");
+      console.warn("Eventbrite private token is not configured - no events will be shown");
+      return [];
     }
 
     const organisationId = options.organisationId ?? EVENTBRITE_ORGANISATION_ID;
@@ -180,7 +181,9 @@ export async function fetchProgrammeEvents(
     );
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch events for organisation ${organisationId}`);
+      const errorText = await response.text().catch(() => 'Unable to read error response');
+      console.error(`Eventbrite API error (${response.status} ${response.statusText}):`, errorText);
+      return [];
     }
 
     const data = await response.json();
