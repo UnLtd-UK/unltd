@@ -13,7 +13,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "clear": "rimraf ./src/data/cache/*.json",
-    "update": "npx npm-check-updates -u && npm install",
+    "update": "npx npm-check-updates -u -x typescript && npm install",
     "deploy:draft": "astro build && wrangler deploy --config wrangler.jsonc --env draft",
     "deploy:prod": "astro build && wrangler deploy --config wrangler.jsonc --env production",
     "migrate:ghost": "node scripts/migrate-to-ghost.js"
@@ -35,8 +35,8 @@
     "@pdf-lib/fontkit": "^1.1.1",
     "@tailwindcss/vite": "^4.3.3",
     "@types/alpinejs": "^3.13.11",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
     "alpinejs": "^3.15.12",
     "astro": "^7.1.6",
     "boring-avatars": "^2.0.4",
@@ -44,7 +44,7 @@
     "clsx": "^2.1.1",
     "jsdom": "^30.0.1",
     "lucide-react": "^1.28.0",
-    "maplibre-gl": "^6.0.0",
+    "maplibre-gl": "^6.1.0",
     "marked": "^18.0.7",
     "marked-gfm-heading-id": "^4.1.4",
     "micromodal": "^0.7.0",
@@ -71,7 +71,7 @@
     "baseline-browser-mapping": "^2.11.8",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.1.3",
-    "wrangler": "^4.115.0"
+    "wrangler": "^4.116.0"
   },
   "overrides": {
     "vite": "^8"
