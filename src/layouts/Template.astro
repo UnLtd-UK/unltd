@@ -22,7 +22,6 @@ import Header from "@components/ui/Header.jsx";
 import RoundBanner from "@components/awards/RoundBanner.astro";
 import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
 import ScamAlertBanner from "@components/ScamAlertBanner";
-import TypeformOutageBanner from "@components/TypeformOutageBanner";
 import FloatingAtBottomCentered from "@components/FloatingAtBottomCentered.astro";
 ---
 
@@ -71,8 +70,6 @@ import FloatingAtBottomCentered from "@components/FloatingAtBottomCentered.astro
     <body class={`dark ${palette["UnLtd"].bg}`}>
         <div class="flex flex-col justify-between h-full">
             <!-- <ScamAlertBanner client:load /> -->
-            <!-- TEMPORARY (added 2026-08-07): remove once Typeform is back online -->
-            <TypeformOutageBanner client:load />
             <RoundBanner />
 
             {
