@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpRightFromSquare } from '@awesome.me/kit-0ff725f684/icons/classic/solid';
+import { faUpRightFromSquare, faTriangleExclamation } from '@awesome.me/kit-0ff725f684/icons/classic/solid';
 import '../types/zaraz.d';
 import {
     PLATFORMS,
@@ -130,6 +130,27 @@ export default function EmbedLoader({
                 <p className={EMBED_STYLES.error.text}>
                     This embed platform is not configured. Please contact the site administrator.
                 </p>
+            </div>
+        );
+    }
+
+    // Provider outage: show a notice instead of the embed (regardless of consent state)
+    if (platformConfig.outage) {
+        return (
+            <div className={`${EMBED_STYLES.outage.container} ${className}`}>
+                <FontAwesomeIcon icon={faTriangleExclamation} className={EMBED_STYLES.outage.icon} />
+                <p className={EMBED_STYLES.outage.title}>{platformConfig.name} is temporarily unavailable</p>
+                <p className={EMBED_STYLES.outage.text}>{platformConfig.outage.message}</p>
+                {platformConfig.outage.statusUrl && (
+                    <a
+                        href={platformConfig.outage.statusUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={EMBED_STYLES.outage.link}
+                    >
+                        Check {platformConfig.name} status <FontAwesomeIcon icon={faUpRightFromSquare} className="ml-1" />
+                    </a>
+                )}
             </div>
         );
     }
