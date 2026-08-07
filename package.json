@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@astrojs/alpinejs": "^1.0.0",
-    "@astrojs/cloudflare": "^14.1.7",
+    "@astrojs/cloudflare": "^14.2.0",
     "@astrojs/markdoc": "^2.0.6",
     "@astrojs/mdx": "^7.0.5",
     "@astrojs/react": "^6.0.2",
@@ -38,14 +38,14 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
     "alpinejs": "^3.15.12",
-    "astro": "^7.1.6",
+    "astro": "^7.2.0",
     "boring-avatars": "^2.0.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "jsdom": "^30.0.1",
-    "lucide-react": "^1.28.0",
-    "maplibre-gl": "^6.1.0",
-    "marked": "^18.0.7",
+    "lucide-react": "^1.30.0",
+    "maplibre-gl": "^6.2.0",
+    "marked": "^18.0.9",
     "marked-gfm-heading-id": "^4.1.4",
     "micromodal": "^0.7.0",
     "moment": "^2.30.1",
@@ -64,14 +64,14 @@
     "typescript": "^7.0.2"
   },
   "devDependencies": {
-    "@astrojs/node": "^11.0.3",
+    "@astrojs/node": "^11.1.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.20",
-    "baseline-browser-mapping": "^2.11.8",
+    "baseline-browser-mapping": "^2.11.12",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.1.3",
-    "wrangler": "^4.117.0"
+    "wrangler": "^4.120.0"
   },
   "overrides": {
     "vite": "^8"

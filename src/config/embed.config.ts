@@ -43,6 +43,11 @@ export interface PlatformConfig {
     consentPurposeId: string;
     /** URL patterns to match (checked with includes()) */
     urlPatterns: string[];
+    /** Set when the provider is having an outage — shows a notice instead of the embed. Remove once resolved. */
+    outage?: {
+        message: string;
+        statusUrl?: string;
+    };
 }
 
 export const PLATFORMS: PlatformConfig[] = [
@@ -61,6 +66,11 @@ export const PLATFORMS: PlatformConfig[] = [
         type: 'form',
         consentPurposeId: CONSENT_PURPOSE_IDS.FORMS,
         urlPatterns: ['typeform.com'],
+        // TEMPORARY (added 2026-08-07): Typeform outage — remove this `outage` block once Typeform is back online.
+        outage: {
+            message: "Typeform is currently experiencing an outage, so this form is temporarily unavailable. We apologise for the inconvenience this causes — please check back shortly.",
+            statusUrl: 'https://isdown.app/status/typeform',
+        },
     },
 ];
 
@@ -113,5 +123,13 @@ export const EMBED_STYLES = {
     error: {
         container: 'relative w-full h-full flex items-center justify-center bg-violet-950 border border-red-800/50 rounded-md p-6',
         text: 'text-red-400 text-sm text-center',
+    },
+    /** Outage state (platform.outage is set) */
+    outage: {
+        container: 'relative w-full h-full flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-violet-950 to-violet-900 border border-amber-700/50 rounded-md p-6 text-center',
+        icon: 'text-amber-500 text-2xl',
+        title: 'text-base font-semibold text-white',
+        text: 'text-sm text-violet-300 max-w-sm leading-relaxed',
+        link: 'text-xs font-medium text-amber-400 hover:text-amber-300 underline underline-offset-2 transition-colors',
     },
 } as const;
