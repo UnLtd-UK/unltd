@@ -43,7 +43,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "jsdom": "^30.0.1",
-    "lucide-react": "^1.30.0",
+    "lucide-react": "^1.31.0",
     "maplibre-gl": "^6.2.0",
     "marked": "^18.0.9",
     "marked-gfm-heading-id": "^4.1.4",
@@ -68,7 +68,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/typography": "^0.5.20",
-    "baseline-browser-mapping": "^2.11.12",
+    "baseline-browser-mapping": "^2.11.13",
     "prettier-plugin-astro": "^0.14.1",
     "rimraf": "^6.1.3",
     "wrangler": "^4.120.0"
