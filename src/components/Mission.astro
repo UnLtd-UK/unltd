@@ -27,10 +27,10 @@ const { data } = Astro.props;
                 >
                     {
                         data.statistics.map((stat) => (
-                            <div class="flex flex-col bg-violet-950 gap-4 p-8">
+                            <div class="flex flex-col items-center bg-violet-950 gap-4 p-8">
                                 <DynamicIcon
                                     icon={stat.icon}
-                                    class="text-6xl text-violet-200"
+                                    class="shrink-0 text-6xl text-violet-200"
                                 />
                                 <div>
                                     <dd class="text-lg font-semibold tracking-tight text-violet-100">
