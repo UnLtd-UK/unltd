@@ -8,10 +8,14 @@
     --font-ate: var(--font-inter);
 }
 
-/* Default icon sizing - icons inherit text size like FontAwesome's default behavior */
+/* Default icon sizing - icons inherit text size like FontAwesome's default behavior.
+   `overflow: visible` matches FontAwesome's own stylesheet: some icon glyphs (e.g. "award")
+   intentionally draw slightly outside their declared viewBox for optical balance, and
+   without this the browser's default overflow:hidden on <svg> clips those edges. */
 svg[role="img"] {
     height: 1em;
     width: 1em;
+    overflow: visible;
     vertical-align: -0.125em;
     fill: currentColor;
 }
