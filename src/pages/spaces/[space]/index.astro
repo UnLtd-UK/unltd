@@ -511,7 +511,7 @@ const isUnlisted = !!space.unlisted;
                     </div>
 
                     {/* Main Content - View by Type */}
-                    <main id="view-by-type" class="flex-1 min-w-0 space-y-12">
+                    <div id="view-by-type" class="flex-1 min-w-0 space-y-12">
                         {/* Events Section */}
                         {events.length > 0 && (
                             <section id="events" class="scroll-mt-24">
@@ -746,10 +746,10 @@ const isUnlisted = !!space.unlisted;
                                 </div>
                             </section>
                         )}
-                    </main>
+                    </div>
 
                     {/* Main Content - View by Topic (hidden by default) */}
-                    <main
+                    <div
                         id="view-by-topic"
                         class="hidden flex-1 min-w-0 space-y-12"
                     >
@@ -934,7 +934,7 @@ const isUnlisted = !!space.unlisted;
                                 </section>
                             );
                         })}
-                    </main>
+                    </div>
                 </div>
             ) : (
                 <div class="text-center py-16">
