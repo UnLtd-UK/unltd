@@ -39,7 +39,7 @@ const isScheduled =
                 <div class="mt-8 flex items-center gap-x-4 text-xs">
                     <time
                         datetime={published}
-                        class="text-violet-600 dark:text-violet-400"
+                        class="text-violet-600 dark:text-violet-300"
                     >
                         {
                             new Date(published).toLocaleDateString("en-GB", {
@@ -82,13 +82,13 @@ const isScheduled =
                     </h3>
                     <p class="text-xs text-violet-700 dark:text-violet-300">
                         By {author.name}, <span
-                            class="text-violet-600 dark:text-violet-400"
+                            class="text-violet-600 dark:text-violet-300"
                             >{author.position}</span
                         >
                     </p>
                 </div>
                 <p
-                    class="mt-5 text-sm leading-6 text-violet-600 dark:text-violet-400"
+                    class="mt-5 text-sm leading-6 text-violet-600 dark:text-violet-300"
                 >
                     {description}
                 </p>

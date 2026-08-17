@@ -32,14 +32,12 @@ const { data } = Astro.props;
                                     icon={stat.icon}
                                     class="shrink-0 text-6xl text-violet-200"
                                 />
-                                <div>
-                                    <dd class="text-lg font-semibold tracking-tight text-violet-100">
-                                        {stat.title}
-                                    </dd>
-                                    <dt class="text-sm font-semibold leading-6 text-violet-300">
-                                        {stat.text}
-                                    </dt>
-                                </div>
+                                <dt class="text-lg font-semibold tracking-tight text-violet-100">
+                                    {stat.title}
+                                </dt>
+                                <dd class="text-sm font-semibold leading-6 text-violet-300">
+                                    {stat.text}
+                                </dd>
                             </div>
                         ))
                     }

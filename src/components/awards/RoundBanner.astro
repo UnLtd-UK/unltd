@@ -37,12 +37,13 @@ const styleMap = {
     opening: {
         bar: "bg-linear-to-r from-indigo-500 to-indigo-400",
         badge: "bg-indigo-500/20 text-indigo-400 ring-indigo-500/30",
-        cta: "bg-indigo-500 hover:bg-indigo-400 text-white",
+        // darker shade needed for WCAG AA contrast (4.5:1) with white CTA text
+        cta: "bg-indigo-600 hover:bg-indigo-500 text-white",
     },
     open: {
         bar: "bg-linear-to-r from-emerald-500 to-emerald-400",
         badge: "bg-emerald-500/20 text-emerald-400 ring-emerald-500/30",
-        cta: "bg-emerald-500 hover:bg-emerald-400 text-white",
+        cta: "bg-emerald-700 hover:bg-emerald-600 text-white",
     },
     closing: {
         bar: urgency === "critical"
@@ -52,13 +53,13 @@ const styleMap = {
             ? "bg-red-500/20 text-red-400 ring-red-500/30"
             : "bg-amber-500/20 text-amber-400 ring-amber-500/30",
         cta: urgency === "critical"
-            ? "bg-red-500 hover:bg-red-400 text-white"
-            : "bg-amber-500 hover:bg-amber-400 text-white",
+            ? "bg-red-600 hover:bg-red-500 text-white"
+            : "bg-amber-700 hover:bg-amber-600 text-white",
     },
     closed: {
         bar: "bg-linear-to-r from-slate-500 to-slate-400",
         badge: "bg-slate-500/20 text-slate-400 ring-slate-500/30",
-        cta: "bg-slate-500 hover:bg-slate-400 text-white",
+        cta: "bg-slate-600 hover:bg-slate-500 text-white",
     },
 } as const;
 
