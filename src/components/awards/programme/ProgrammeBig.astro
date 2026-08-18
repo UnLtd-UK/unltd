@@ -39,11 +39,14 @@ const {
   <div
     class="col-span-2 lg:row-span-3 rounded-t-2xl lg:rounded-l-2xl relative isolate flex flex-col justify-end overflow-hidden px-10 py-10"
   >
-    <img
+    <Image
       src={isValidUrl(image)
         ? image
-        : `https://unltd.directus.app/assets/${image}?width=600`}
+        : `https://unltd.directus.app/assets/${image}`}
       alt=""
+      width={1200}
+      height={630}
+      layout="full-width"
       class="absolute inset-0 -z-10 h-full w-full object-cover"
     />
     <div class={`absolute inset-0 -z-10 opacity-80 ${styles.bg}`}></div>
@@ -83,10 +86,13 @@ const {
               partners
                 .filter((partner) => partner?.organisations_id?.logo?.id)
                 .map((partner) => (
-                  <img
+                  <Image
                     class="h-8"
                     src={`https://unltd.directus.app/assets/${partner.organisations_id.logo.id}`}
-                    alt={partner.name}
+                    alt={partner.organisations_id.name || ""}
+                    width={200}
+                    height={64}
+                    fit="contain"
                   />
                 ))
             }

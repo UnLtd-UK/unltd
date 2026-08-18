@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro";
+import { Image } from "astro:assets";
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
@@ -143,10 +144,12 @@ const {
                             <div class="basis-1/3">
                                 {
                                     panel_chair.person.image && (
-                                        <img
+                                        <Image
                                             class="aspect-4/5 w-52 flex-none rounded-2xl object-cover"
                                             src={`https://unltd.directus.app/assets/${panel_chair.person.image}`}
                                             alt=""
+                                            width={416}
+                                            height={520}
                                         />
                                     )
                                 }
@@ -268,10 +271,12 @@ const {
                                     <div class="basis-1/3">
                                         {social_entrepreneur.positions_id.person
                                             .image && (
-                                            <img
+                                            <Image
                                                 class="aspect-4/5 w-52 flex-none rounded-2xl object-cover"
                                                 src={`https://unltd.directus.app/assets/${social_entrepreneur.positions_id.person.image}`}
                                                 alt=""
+                                                width={416}
+                                                height={520}
                                             />
                                         )}
                                     </div>
@@ -392,7 +397,7 @@ const {
                                         class="absolute inset-0 flex items-center"
                                         aria-hidden="true"
                                     >
-                                        <div class="w-full border-t border-violet-300"></div>
+                                        <div class="w-full border-t border-violet-300" />
                                     </div>
                                     <div class="relative flex justify-start">
                                         <span class="bg-violet-950 pr-3 text-3xl font-semibold text-violet-100">
@@ -405,10 +410,12 @@ const {
                                         <div class="basis-1/3">
                                             {unltd_colleague.positions_id.person
                                                 .image && (
-                                                <img
+                                                <Image
                                                     class="aspect-4/5 w-52 flex-none rounded-2xl object-cover"
                                                     src={`https://unltd.directus.app/assets/${unltd_colleague.positions_id.person.image}`}
                                                     alt=""
+                                                    width={416}
+                                                    height={520}
                                                 />
                                             )}
                                         </div>

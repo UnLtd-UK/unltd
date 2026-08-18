@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import Icon from "@components/Icon.astro";
 import { getBritishFakeUTCNow } from "@utils/british-time";
 const { title, slug, image, published, tag, description, author, status } =
@@ -19,9 +20,12 @@ const isScheduled =
             >
                 {
                     image.url !== null ? (
-                        <img
+                        <Image
                             src={`https://unltd.directus.app/assets/${image.url}`}
                             alt=""
+                            width={800}
+                            height={512}
+                            layout="full-width"
                             class="absolute inset-0 w-full h-full object-cover rounded-2xl"
                         />
                     ) : (

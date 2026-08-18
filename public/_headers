@@ -6,3 +6,18 @@
 /blog/*/preview
   Content-Security-Policy: frame-ancestors https://unltd.directus.app
   X-Robots-Tag: noindex, nofollow
+
+# Vite/Astro fingerprints these filenames on every build, so they're safe to cache forever
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fontsource files are also content-hashed
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/svg/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Not content-hashed: a replaced file under the same name needs a cache purge
+/img/*
+  Cache-Control: public, max-age=604800

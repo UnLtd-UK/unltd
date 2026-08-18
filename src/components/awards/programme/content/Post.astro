@@ -1,5 +1,6 @@
 ---
 const { post, styles } = Astro.props;
+import { Image } from "astro:assets";
 import slugify from "slugify";
 import moment from "moment";
 ---
@@ -8,11 +9,14 @@ import moment from "moment";
     <div
         class={`relative aspect-video w-full overflow-hidden rounded-2xl shadow-lg`}
     >
-        <img
+        <Image
             src={post.id.image !== null && post.id.image.id !== null
-                ? `https://unltd.directus.app/assets/${post.id.image.id}?width=600&height=340`
+                ? `https://unltd.directus.app/assets/${post.id.image.id}`
                 : `/img/blog/${slugify(post.tag || "default", { lower: true, strict: true, locale: "en", trim: true })}.webp`}
             alt={post.id.title}
+            width={800}
+            height={450}
+            layout="full-width"
             class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
         />
         <div
