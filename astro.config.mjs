@@ -41,6 +41,12 @@ export default defineConfig({
       noExternal: ['react', 'react-dom']
     }
   },
+  image: {
+    // Allows astro:assets <Image>/<Picture> to fetch, resize and reformat
+    // Directus-hosted remote images at build time instead of passing them
+    // through unprocessed.
+    domains: ["unltd.directus.app"],
+  },
   fonts: [
     {
       provider: fontProviders.fontsource(),
