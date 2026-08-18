@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 const { partners, styles, name } = Astro.props;
 ---
 
@@ -16,12 +17,13 @@ const { partners, styles, name } = Astro.props;
                 partners
                     .filter((partner) => partner?.organisations_id?.logo?.id)
                     .map((partner) => (
-                        <img
+                        <Image
                             class="col-span-2 max-h-20 w-full object-contain lg:col-span-1"
                             src={`https://unltd.directus.app/assets/${partner.organisations_id.logo.id}`}
-                            alt={partner.name}
-                            width="158"
-                            height="48"
+                            alt={partner.organisations_id.name || ""}
+                            width={158}
+                            height={48}
+                            fit="contain"
                         />
                     ))
             }

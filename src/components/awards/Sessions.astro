@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import Icon from "@components/Icon.astro";
 import Faq from "@components/Faq.astro";
 import { programmes } from "@data/programmes.js";
@@ -492,9 +493,12 @@ const ONE_TO_ONE_BOOKING_URL =
                             class="text-xs text-violet-500 dark:text-violet-400"
                             >Supported by</span
                         >
-                        <img
+                        <Image
                             src="https://unltd.directus.app/assets/35376360-023e-4468-b23d-f6f32640ad2d.webp"
                             alt="Welsh Government"
+                            width={200}
+                            height={48}
+                            fit="contain"
                             class="h-12 w-auto"
                         />
                     </div>
