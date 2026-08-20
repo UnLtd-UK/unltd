@@ -216,6 +216,17 @@ const lastUpdated = resource.date_updated
             </button>
         </div>
 
+        <script is:inline define:vars={{ resourceSlug, resourceName: resource.name, resourceType: resource.type, readingTime }}>
+            document.addEventListener('DOMContentLoaded', function () {
+              window.posthog?.capture('resource_viewed', {
+                resource_slug: resourceSlug,
+                resource_name: resourceName,
+                resource_type: resourceType,
+                reading_time_mins: readingTime,
+              });
+            });
+        </script>
+
         <script is:inline>
             document
                 .getElementById("share-button")

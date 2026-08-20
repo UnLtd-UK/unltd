@@ -161,6 +161,7 @@ const isRoundFull = state === "closed" && closedReason === "capacity";
             <a
                 href={applyUrl}
                 target="_blank"
+                id="apply-now-btn"
                 class={`inline-flex items-center gap-3 px-8 py-4 font-bold rounded-xl text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 ${getButtonStyles()}`}
             >
                 <span class="flex flex-col items-start">
@@ -193,3 +194,14 @@ const isRoundFull = state === "closed" && closedReason === "capacity";
         </div>
     )
 }
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var applyBtn = document.getElementById('apply-now-btn');
+    if (applyBtn) {
+      applyBtn.addEventListener('click', function () {
+        window.posthog?.capture('apply_now_clicked');
+      });
+    }
+  });
+</script>

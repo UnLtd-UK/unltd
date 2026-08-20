@@ -44,4 +44,10 @@ const description =
             </div>
         </div>
     </div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.posthog?.capture('contact_form_submitted');
+  });
+</script>
 </Template>
