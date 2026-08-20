@@ -116,6 +116,11 @@ export default function MapView({ entries, compact = false }: MapViewProps) {
             maxZoom: 14,
         });
 
+        // Contain worker and tile failures so they are logged, not thrown at the window
+        map.current.on('error', (e) => {
+            console.error('MapView: MapLibre error', e.error ?? e);
+        });
+
         map.current.addControl(new maplibregl.NavigationControl(), 'top-right');
 
         // After the style loads, add an opaque mask over everything outside the UK

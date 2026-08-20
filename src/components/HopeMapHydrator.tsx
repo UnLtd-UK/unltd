@@ -15,7 +15,6 @@
 import { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { hopeMapEntries } from '../data/hopeMap';
-import HopeMapWithDialog from './hope-map/HopeMapWithDialog';
 
 export default function HopeMapHydrator() {
     useEffect(() => {
@@ -23,26 +22,32 @@ export default function HopeMapHydrator() {
         // <HopeMapEmbed /> in markdown becomes <hopemapembed> in the DOM.
         const targets = document.querySelectorAll('hopemapembed');
 
-        targets.forEach((target) => {
-            // Skip if already hydrated
-            if (target.getAttribute('data-hydrated') === 'true') return;
+        // Only load maplibre-gl and the map component when a target exists.
+        // This keeps the map worker and bundle off pages with no map.
+        if (targets.length === 0) return;
 
-            // Create wrapper div
-            const wrapper = document.createElement('div');
-            wrapper.className = 'my-8 not-prose';
-            wrapper.setAttribute('data-hope-map-hydrated', 'true');
+        import('./hope-map/HopeMapWithDialog').then(({ default: HopeMapWithDialog }) => {
+            targets.forEach((target) => {
+                // Skip if already hydrated
+                if (target.getAttribute('data-hydrated') === 'true') return;
 
-            // Replace the original element
-            target.parentNode?.replaceChild(wrapper, target);
+                // Create wrapper div
+                const wrapper = document.createElement('div');
+                wrapper.className = 'my-8 not-prose';
+                wrapper.setAttribute('data-hope-map-hydrated', 'true');
 
-            // Mount React component
-            const root = createRoot(wrapper);
-            root.render(
-                <HopeMapWithDialog
-                    entries={hopeMapEntries}
-                    compact={true}
-                />
-            );
+                // Replace the original element
+                target.parentNode?.replaceChild(wrapper, target);
+
+                // Mount React component
+                const root = createRoot(wrapper);
+                root.render(
+                    <HopeMapWithDialog
+                        entries={hopeMapEntries}
+                        compact={true}
+                    />
+                );
+            });
         });
     }, []);
 
