@@ -60,6 +60,7 @@ const isRestricted = !!password && password.trim().length > 0;
                 if (enteredPassword === correctPassword) {
                     // Correct password - store in localStorage
                     localStorage.setItem(storageKey, 'authenticated');
+                    window.posthog?.capture('space_unlocked', { space_slug: spaceSlug, space_name: spaceName });
                 gate.remove();
                     } else {
                         // Wrong password - try again

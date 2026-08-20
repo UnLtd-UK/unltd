@@ -23,6 +23,7 @@ import RoundBanner from "@components/awards/RoundBanner.astro";
 import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
 import ScamAlertBanner from "@components/ScamAlertBanner";
 import FloatingAtBottomCentered from "@components/FloatingAtBottomCentered.astro";
+import PostHog from "@components/posthog.astro";
 ---
 
 <!doctype html>
@@ -68,6 +69,7 @@ import FloatingAtBottomCentered from "@components/FloatingAtBottomCentered.astro
         <meta property="og:image" content="" />
 
         {noindex && <meta name="robots" content="noindex, nofollow" />}
+        <PostHog />
     </head>
     <body class={`dark ${palette["UnLtd"].bg}`}>
         <div class="flex flex-col justify-between h-full">

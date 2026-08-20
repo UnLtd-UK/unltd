@@ -70,6 +70,16 @@ import Sessions from "@components/awards/Sessions.astro";
 ---
 
 <Template name={pageTitle} description={pageDescription} noindex={true}>
+
+<script is:inline define:vars={{ slug, awardsCount: awards?.length ?? 0 }}>
+  // Track eligibility confirmation — user successfully completed the Typeform checker
+  document.addEventListener('DOMContentLoaded', function () {
+    window.posthog?.capture('eligibility_confirmed', {
+      application_slug: slug,
+      awards_count: awardsCount,
+    });
+  });
+</script>
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
     </Container>
