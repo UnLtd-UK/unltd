@@ -30,6 +30,7 @@ export default function HopeMapHydrator() {
             targets.forEach((target) => {
                 // Skip if already hydrated
                 if (target.getAttribute('data-hydrated') === 'true') return;
+                target.setAttribute('data-hydrated', 'true');
 
                 // Create wrapper div
                 const wrapper = document.createElement('div');
@@ -48,6 +49,9 @@ export default function HopeMapHydrator() {
                     />
                 );
             });
+        }).catch((err) => {
+            // Contain a failed chunk load instead of an unhandled rejection
+            console.error('HopeMapHydrator: failed to load Hope Map', err);
         });
     }, []);
 
