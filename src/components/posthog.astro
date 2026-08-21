@@ -6,6 +6,28 @@ const apiKey = import.meta.env.PUBLIC_POSTHOG_PROJECT_TOKEN;
 const apiHost = import.meta.env.PUBLIC_POSTHOG_HOST;
 ---
 <script is:inline define:vars={{ apiKey, apiHost }}>
+  // Remove personal data from the URL before PostHog starts.
+  // Applicants reach /awards/{slug}?email=... through a Typeform redirect.
+  // Without this step the email enters pageviews, events, and session recordings.
+  (function () {
+    var PII_PARAMS = ['email'];
+    window.__redactedQueryParams = {};
+    try {
+      var url = new URL(window.location.href);
+      var changed = false;
+      PII_PARAMS.forEach(function (key) {
+        if (url.searchParams.has(key)) {
+          window.__redactedQueryParams[key] = url.searchParams.get(key);
+          url.searchParams.delete(key);
+          changed = true;
+        }
+      });
+      if (changed) {
+        window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
+      }
+    } catch (e) {}
+  })();
+
   if (!apiKey) {
     if (typeof window !== 'undefined' && window.location.hostname !== 'unltd.org.uk') {
       console.warn('PUBLIC_POSTHOG_PROJECT_TOKEN variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once PUBLIC_POSTHOG_PROJECT_TOKEN is configured');
@@ -19,6 +41,18 @@ const apiHost = import.meta.env.PUBLIC_POSTHOG_HOST;
       // so server-side events (if any) join the same person session.
       tracing_headers: [window.location.hostname],
       enableExceptionAutocapture: true,
+      // Fallback: redact an email query parameter that still reaches an event.
+      before_send: function (event) {
+        if (!event || !event.properties) return event;
+        var URL_PROPS = ['$current_url', '$referrer', '$initial_current_url', '$initial_referrer'];
+        URL_PROPS.forEach(function (key) {
+          var value = event.properties[key];
+          if (typeof value === 'string') {
+            event.properties[key] = value.replace(/([?&]email=)[^&#]*/gi, '$1redacted');
+          }
+        });
+        return event;
+      },
     });
   }
 </script>
