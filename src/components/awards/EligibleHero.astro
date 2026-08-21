@@ -71,7 +71,7 @@ const showCapacityWarning =
 ---
 
 <section
-    x-data="{ email: new URLSearchParams(window.location.search).get('email') }"
+    x-data="{ email: (window.__redactedQueryParams && window.__redactedQueryParams.email) || null }"
 >
     <div class="max-w-7xl mx-auto">
         <!-- Hero Header -->
