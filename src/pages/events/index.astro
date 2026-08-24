@@ -16,30 +16,39 @@ const breadcrumbs = [
 ---
 
 <Template name={name} description={description} breadcrumbs={breadcrumbs}>
-  <Container>
-    <div class="py-12 sm:py-12">
-        <div class="mx-auto max-w-7xl flex flex-col gap-2">
-            <div class="mx-auto max-w-2xl lg:mx-0">
-                <h2
-                    class="mt-2 text-4xl font-bold tracking-tight text-violet-200 sm:text-6xl"
-                >
-                    Events
-                </h2>
-                <p class="mt-6 text-lg leading-8 text-violet-400">
-                    Anim aute id magna aliqua ad ad non deserunt sunt. Qui
-                    irure qui lorem cupidatat commodo. Elit sunt amet fugiat
-                    veniam occaecat fugiat aliqua.
-                </p>
+    <Container>
+        <div class="py-12 sm:py-12">
+            <div class="mx-auto max-w-7xl flex flex-col gap-2">
+                <div class="mx-auto max-w-2xl lg:mx-0">
+                    <h2
+                        class="mt-2 text-4xl font-bold tracking-tight text-violet-200 sm:text-6xl"
+                    >
+                        Events
+                    </h2>
+                    <p class="mt-6 text-lg leading-8 text-violet-400">
+                        Anim aute id magna aliqua ad ad non deserunt sunt. Qui
+                        irure qui lorem cupidatat commodo. Elit sunt amet fugiat
+                        veniam occaecat fugiat aliqua.
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      {collectionsArray.map(collection => (
-        <a href={`/events/${collection.slug}`} class="block bg-white border border-gray-200 rounded-lg p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-200">
-          <h2 class="text-xl font-semibold text-amber-500 mb-4">{collection.name}</h2>
-          <p class="text-gray-600 leading-relaxed">{collection.description}</p>
-        </a>
-      ))}
-    </div>
-  </Container>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {
+                collectionsArray.map((collection) => (
+                    <a
+                        href={`/events/${collection.slug}`}
+                        class="block bg-white border border-gray-200 rounded-lg p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-200"
+                    >
+                        <h2 class="text-xl font-semibold text-amber-700 mb-4">
+                            {collection.name}
+                        </h2>
+                        <p class="text-gray-600 leading-relaxed">
+                            {collection.description}
+                        </p>
+                    </a>
+                ))
+            }
+        </div>
+    </Container>
 </Template>

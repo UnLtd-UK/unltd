@@ -41,7 +41,9 @@ renderer.heading = function ({ tokens, depth, text }) {
 
 // Custom link renderer to open external links in new tab and support button syntax
 renderer.link = function ({ href, title, tokens }) {
-  const text = this.parser.parseInline(tokens);
+  const parsedText = this.parser.parseInline(tokens);
+  // Fall back to the URL itself so legacy/migrated content never renders an empty, unreadable link
+  const text = parsedText.replace(/<[^>]*>/g, "").trim() ? parsedText : href;
   const titleAttr = title ? ` title="${title}"` : "";
 
   // Check if this is a button link (href starts with !)
@@ -279,10 +281,87 @@ function groupAdjacentImageParagraphs(tokens: any[]) {
   return result;
 }
 
+// Legacy Word/Ghost-exported posts link footnote markers to `#_ftnN`/`#_ftnrefN`
+// (or a bare numbered `#N`/`#name` pointing at a "References"/"Citations" list)
+// but the actual named anchors those links depended on were dropped somewhere
+// in the Ghost -> Directus migration, leaving dangling same-page links that
+// axe/pa11y flag as broken. Since both halves of a `_ftn`/`_ftnref` pair are
+// still present as links in the content, we can recover the missing anchor by
+// tagging the *other* link in the pair with the id this one needs. For the
+// simpler single-citation style, fall back to tagging the matching item in
+// the References/Citations list.
+function fixFootnoteAnchors(html: string) {
+  const definedIds = new Set(
+    [...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]),
+  );
+  const referencedIds = new Set(
+    [...html.matchAll(/<a href="#([^"]+)"/g)].map((m) => m[1]),
+  );
+  const brokenIds = [...referencedIds].filter((id) => !definedIds.has(id));
+
+  let fixed = html;
+
+  for (const id of brokenIds) {
+    const ftnMatch = id.match(/^_ftn(ref)?(\d+)$/);
+    if (ftnMatch) {
+      const mirrorId = ftnMatch[1]
+        ? `_ftn${ftnMatch[2]}`
+        : `_ftnref${ftnMatch[2]}`;
+      const mirrorLink = new RegExp(`<a href="#${mirrorId}"([^>]*)>`);
+      if (mirrorLink.test(fixed)) {
+        fixed = fixed.replace(
+          mirrorLink,
+          `<a href="#${mirrorId}" id="${id}"$1>`,
+        );
+      } else {
+        // No surviving counterpart anywhere in the content - the original
+        // footnote text was lost in migration, so there's nothing to link to.
+        fixed = fixed.replace(
+          new RegExp(`<a href="#${id}"([^>]*)>([\\s\\S]*?)</a>`),
+          "<span$1>$2</span>",
+        );
+      }
+      continue;
+    }
+
+    const linkMatch = fixed.match(
+      new RegExp(`<a href="#${id}"[^>]*>\\s*\\[?(\\d+)\\]?\\s*</a>`),
+    );
+    const refIndex = linkMatch ? parseInt(linkMatch[1], 10) : null;
+    // Headings up to h3 are auto-wrapped in a self-link (see prepareMarkdown.ts),
+    // so "References"/"Citations" isn't always immediately followed by the
+    // closing tag - just require it to appear before the heading closes.
+    const sectionMatch = fixed.match(
+      /<h[1-6][^>]*>\s*(?:References|Citations)\b[\s\S]*?<\/h[1-6]>([\s\S]*?)(?=<h[1-6]|$)/i,
+    );
+    if (!refIndex || !sectionMatch) continue;
+
+    let count = 0;
+    const newSectionBody = sectionMatch[1].replace(/<(li|p)>/g, (tag, name) => {
+      count += 1;
+      return count === refIndex ? `<${name} id="${id}">` : tag;
+    });
+    if (newSectionBody !== sectionMatch[1]) {
+      fixed =
+        fixed.slice(0, sectionMatch.index) +
+        sectionMatch[0].slice(
+          0,
+          sectionMatch[0].length - sectionMatch[1].length,
+        ) +
+        newSectionBody +
+        fixed.slice(sectionMatch.index! + sectionMatch[0].length);
+    }
+  }
+
+  return fixed;
+}
+
 marked.use({ renderer });
-const html = marked.parser(
-  groupAdjacentImageParagraphs(
-    splitTrailingImageFromParagraphs(marked.lexer(preparedBody)),
+const html = fixFootnoteAnchors(
+  marked.parser(
+    groupAdjacentImageParagraphs(
+      splitTrailingImageFromParagraphs(marked.lexer(preparedBody)),
+    ),
   ),
 );
 ---

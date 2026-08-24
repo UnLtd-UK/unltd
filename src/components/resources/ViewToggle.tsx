@@ -51,7 +51,7 @@ export default function ViewToggle({
                 <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-violet-600/80 text-white">
                     <span className="text-sm font-medium">By Type</span>
                 </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-lg text-violet-400">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-lg text-violet-300">
                     <span className="text-sm font-medium">By Topic</span>
                 </div>
             </div>
@@ -72,7 +72,7 @@ export default function ViewToggle({
                     className={({ checked }) =>
                         `flex items-center gap-2 px-4 py-2 rounded-lg cursor-pointer transition-all duration-200 ${checked
                             ? "bg-violet-600/80 text-white ring-1 ring-violet-500/50 shadow-lg shadow-violet-500/20"
-                            : "text-violet-400 hover:text-violet-300 hover:bg-violet-800/30"
+                            : "text-violet-300 hover:text-violet-200 hover:bg-violet-800/30"
                         }`
                     }
                 >

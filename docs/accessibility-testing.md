@@ -19,7 +19,8 @@ This repo has two independent accessibility checks:
 | `npm run build:test` | Runs `npm run build` (site build + wrangler dry-run deploy check), then `npm run test`. Use this when you want one command that builds **and** verifies accessibility. |
 
 For quick local iteration, prefer `npm run lint:a11y` — it's the one you'll run most often while
-editing components. Run `npm run build:test` before opening a PR, or rely on the CI workflow below.
+editing components. Run `npm run build:test` before opening a PR — these checks are local-only
+and do not run in CI (see below).
 
 ## How the sitemap scan works
 
@@ -56,6 +57,6 @@ Shared scan rules (WCAG level, timeout, ignored severities, Chrome flags) live i
 
 ## CI
 
-[.github/workflows/accessibility.yml](/.github/workflows/accessibility.yml) runs on every PR to
-`main`, weekly (to catch CMS-only content regressions), and on demand. It builds the site, then
-runs `npm run lint:a11y` and `npm run test:a11y` in sequence.
+Accessibility checks are intentionally **not** run in GitHub Actions — the full sitemap scan is too
+slow for CI turnaround. Run `npm run build:test` (or `npm run test` against an existing build)
+locally before opening a PR instead.
