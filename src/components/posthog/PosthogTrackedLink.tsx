@@ -55,6 +55,8 @@ const PosthogTrackedLink = ({
     eventName,
     eventProperties,
     onClick,
+    href,
+    children,
     ...rest
 }: PosthogTrackedLinkProps) => {
     const handleClick = useCallback(
@@ -75,7 +77,11 @@ const PosthogTrackedLink = ({
         [eventName, eventProperties, onClick],
     );
 
-    return <a {...rest} onClick={handleClick} />;
+    return (
+        <a {...rest} href={href} onClick={handleClick}>
+            {children}
+        </a>
+    );
 };
 
 export default PosthogTrackedLink;

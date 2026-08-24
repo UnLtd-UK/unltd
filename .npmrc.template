@@ -1,3 +1,7 @@
 @awesome.me:registry=https://npm.fontawesome.com/
 @fortawesome:registry=https://npm.fontawesome.com/
 //npm.fontawesome.com/:_authToken=${FONTAWESOME_NPM_AUTH_TOKEN}
+
+# @typescript-eslint/parser peer-depends on typescript <6.1, but this project
+# intentionally runs typescript@7. See scripts/link-eslint-typescript.cjs.
+legacy-peer-deps=true

@@ -71,12 +71,13 @@ function openTab(element) {
 
     <!-- Desktop -->
     <div class="hidden lg:block border-b border-violet-300">
-      <nav class="-mb-px flex space-x-8">
+      <div class="-mb-px flex space-x-8" role="tablist">
         {
           parentItems.map((parentItem, parentItemIndex) => (
             <button
               id={`${parentItem.slug}`}
               type="button"
+              role="tab"
               data-tabs="text-amber-600"
               onclick={`openTab(this)`}
               class={`whitespace-nowrap pb-4 px-1 font-medium text-sm transition ease-in-out delay-50 duration-300 border-transparent text-violet-500 hover:text-violet-700 hover:border-violet-300 ${
@@ -88,7 +89,7 @@ function openTab(element) {
             </button>
           ))
         }
-      </nav>
+      </div>
     </div>
   </div>
 

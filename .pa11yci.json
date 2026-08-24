@@ -1,0 +1,20 @@
+{
+    "defaults": {
+        "standard": "WCAG2AA",
+        "runners": [
+            "axe",
+            "htmlcs"
+        ],
+        "timeout": 30000,
+        "wait": 500,
+        "chromeLaunchConfig": {
+            "args": [
+                "--no-sandbox",
+                "--disable-dev-shm-usage"
+            ]
+        },
+        "ignore": [
+            "warning"
+        ]
+    }
+}
