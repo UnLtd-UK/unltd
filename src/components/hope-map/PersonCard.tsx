@@ -35,7 +35,7 @@ export default function PersonCard({ person, compact = false }: PersonCardProps)
                     <p className={`font-medium text-violet-300 ${compact ? 'text-sm' : 'text-base'}`}>
                         {person.organisation}
                     </p>
-                    <p className={`italic text-violet-400/80 ${compact ? 'text-xs' : 'text-sm'}`}>
+                    <p className={`italic text-violet-300 ${compact ? 'text-xs' : 'text-sm'}`}>
                         {person.tagline}
                     </p>
                 </div>

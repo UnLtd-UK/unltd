@@ -79,7 +79,7 @@ export default function HopeMap({ entries, compact = false, onExpand }: HopeMapP
             )}
 
             {/* Entry count */}
-            <p className="text-xs text-violet-500">
+            <p className="text-xs text-violet-300">
                 {entries.length} {entries.length === 1 ? 'person' : 'people'}
             </p>
         </div>

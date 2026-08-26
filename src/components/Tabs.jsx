@@ -34,7 +34,7 @@ export default function TabComponent(props) {
                     {
                         types.map((type, i) => (
                             <TabPanel key={i}>
-                                <ul role="list" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                                <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                                     {posts.filter(post => post.tag === type).map((post) => (
                                         <li className="col-span-1 divide-y divide-gray-200 rounded-lg shadow-sm" key={post.id}>
                                             <a href={`/blog/${post.slug}`}>
