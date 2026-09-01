@@ -30,15 +30,15 @@ export const navigation = {
                             enabled: true,
                         },
                         {
-                            id: 1,
+                            id: 2,
                             name: "Fostering Innovation Accelerator",
                             description: "Up to £30,000 for social entrepreneurs tackling foster care challenges at a systemic level",
                             href: "/fostering-innovation-accelerator",
                             icon: "fa-solid fa-hands-holding-child",
-                            enabled: true,
+                            enabled: false,
                         },
                         {
-                            id: 2,
+                            id: 3,
                             name: "Growth Impact Fund",
                             description: "Investment & services for social ventures",
                             href: "https://growthimpactfund.org.uk",
