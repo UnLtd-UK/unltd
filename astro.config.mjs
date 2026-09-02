@@ -33,6 +33,10 @@ export default defineConfig({
       // we want the preview route to fail gracefully with its own 403
       // "Forbidden" response, not a hard 500 from schema validation.
       DIRECTUS_PREVIEW_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
+      // Full-access Directus token used for server-side reads now that the
+      // public API role is disabled. Distinct from DIRECTUS_PREVIEW_TOKEN,
+      // which is only the shared secret gating this route's URL.
+      DIRECTUS_API_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
     },
   },
   vite: {

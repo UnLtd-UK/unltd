@@ -18,6 +18,7 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       EVENTBRITE_PRIVATE_TOKEN: ${{ secrets.EVENTBRITE_PRIVATE_TOKEN }}
       FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+      DIRECTUS_API_TOKEN: ${{ secrets.DIRECTUS_API_TOKEN }}
       SHOW_DRAFTS: "true"
     steps:
       - name: Checkout repo

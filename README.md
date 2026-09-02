@@ -8,6 +8,7 @@ Add the following to `.dev.vars`:
 ```
 FONTAWESOME_NPM_AUTH_TOKEN=your-token-here
 EVENTBRITE_PRIVATE_TOKEN=your-token-here
+DIRECTUS_API_TOKEN=your-token-here
 ```
 
 ### 2. Generate .npmrc
