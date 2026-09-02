@@ -1,5 +1,8 @@
 import fs from 'fs/promises';
-import { createDirectus, rest, readItems } from '@directus/sdk';
+import { createDirectus, rest, readItems, withToken } from '@directus/sdk';
+import { resolveEnvVar } from '../lib/env.ts';
+
+const DIRECTUS_API_TOKEN = await resolveEnvVar('DIRECTUS_API_TOKEN');
 
 async function fetchData(collection, name, collectionUrl, filterOptions, attach) {
     try {
@@ -7,7 +10,7 @@ async function fetchData(collection, name, collectionUrl, filterOptions, attach)
         const client = createDirectus('https://unltd.directus.app').with(rest());
 
         const response = await client.request(
-            readItems(collection, filterOptions)
+            withToken(DIRECTUS_API_TOKEN, readItems(collection, filterOptions))
         );
 
         if (attach == true) {

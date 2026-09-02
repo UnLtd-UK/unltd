@@ -25,7 +25,7 @@ import HeroPost from "@components/heroes/Post.astro";
 import Content from "@components/markdoc/Content.astro";
 
 import { client, readItems, withToken } from "@lib/directus";
-import { DIRECTUS_PREVIEW_TOKEN } from "astro:env/server";
+import { DIRECTUS_PREVIEW_TOKEN, DIRECTUS_API_TOKEN } from "astro:env/server";
 import { palette } from "@data/palette.js";
 
 interface Post {
@@ -54,12 +54,21 @@ if (!token || !expectedToken || token !== expectedToken) {
     });
 }
 
+if (!DIRECTUS_API_TOKEN) {
+    return new Response("Failed to fetch preview content", {
+        status: 502,
+        headers: { "Cache-Control": "no-store" },
+    });
+}
+
+const directusApiToken: string = DIRECTUS_API_TOKEN;
+
 let post: Post | undefined;
 
 try {
     const posts = await client.request(
         withToken(
-            token,
+            directusApiToken,
             readItems("posts", {
                 filter: { slug: { _eq: slug } },
                 limit: 1,
