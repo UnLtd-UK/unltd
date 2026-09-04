@@ -72,6 +72,13 @@ export const PLATFORMS: PlatformConfig[] = [
 export const CONSENT_COOKIE_NAME = 'zaraz-consent';
 
 // =============================================================================
+// EMBED LOAD TIMEOUT
+// =============================================================================
+
+/** How long to wait for an embed iframe to load before showing the fallback */
+export const EMBED_LOAD_TIMEOUT_MS = 8000;
+
+// =============================================================================
 // ANALYTICS CONFIGURATION
 // =============================================================================
 
@@ -113,5 +120,11 @@ export const EMBED_STYLES = {
     error: {
         container: 'relative w-full h-full flex items-center justify-center bg-violet-950 border border-red-800/50 rounded-md p-6',
         text: 'text-red-400 text-sm text-center',
+    },
+    /** Fallback when the embed iframe fails to load in time */
+    fallback: {
+        container: 'absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-violet-950 to-violet-900 rounded-md p-6 text-center',
+        text: 'text-sm text-violet-300 max-w-xs leading-relaxed',
+        button: 'inline-flex items-center px-4 py-2 text-sm font-semibold text-amber-950 bg-amber-500 hover:bg-amber-400 rounded-md transition-colors focus:outline-hidden focus:ring-2 focus:ring-amber-400/50',
     },
 } as const;
