@@ -97,9 +97,6 @@ const hasRounds = allRounds && allRounds.length > 0;
                             <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide">
                                 Apply
                             </th>
-                            <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide">
-                                Capacity
-                            </th>
                             <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide hidden md:table-cell">
                                 Application review
                             </th>
@@ -139,23 +136,6 @@ const hasRounds = allRounds && allRounds.length > 0;
                                             {formatHour(round.closesDate)}
                                         </span>
                                     </span>
-                                </td>
-                                <td class="py-3 px-2">
-                                    {round.hasCapacity ? (
-                                        <span
-                                            class={`text-xs font-medium ${round.capacityPercentage >= 80 ? "text-red-400" : round.capacityPercentage >= 60 ? "text-amber-400" : "text-emerald-400"}`}
-                                        >
-                                            {round.applicationCount}/
-                                            {round.applicationLimit}{" "}
-                                            <span>
-                                                ({round.capacityPercentage}%)
-                                            </span>
-                                        </span>
-                                    ) : (
-                                        <span class="text-xs text-violet-300 italic">
-                                            No limit
-                                        </span>
-                                    )}
                                 </td>
                                 <td class="py-3 px-2 hidden md:table-cell text-violet-300">
                                     {round.dates.assessmentStartShort} –{" "}
