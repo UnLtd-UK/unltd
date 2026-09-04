@@ -34,8 +34,8 @@ export const forms = [
             title: "Before contacting us, please first ensure you've read the information contained on our Awards page",
             description: "If you haven’t been able to find the answer to your question on our website, you can email us.",
             primaryButton: {
-                text: "Go to our Awards page",
-                href: "/awards"
+                text: "Go to our Awards FAQs",
+                href: "/awards#faq"
             },
             secondaryButton: {
                 text: "Email us",
