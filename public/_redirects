@@ -106,10 +106,20 @@
 /resources/understanding-your-target-audience-and-defining-your-value-proposition /spaces/understanding-your-target-audience-and-defining-your-value-proposition
 
 /awards/trading-under-1-year/ /awards/trading-for-less-than-1-year/
-/awards/trading-under-1-year /awards/trading-for-less-than-1-year
-
+awards/trading-under-1-year /awards/trading-for-less-than-1-year/
 /awards/forming-an-idea/ /awards/not-yet-trading/
 /awards/forming-an-idea /awards/not-yet-trading/
+
+/login/ https://unltd.microsoftcrmportals.com/applications
+/login https://unltd.microsoftcrmportals.com/applications
+/LOGIN/ https://unltd.microsoftcrmportals.com/applications
+/LOGIN https://unltd.microsoftcrmportals.com/applications
+/signin/ https://unltd.microsoftcrmportals.com/applications
+/signin https://unltd.microsoftcrmportals.com/applications
+/sign-in/ https://unltd.microsoftcrmportals.com/applications
+/sign-in https://unltd.microsoftcrmportals.com/applications
+/awards/login/ https://unltd.microsoftcrmportals.com/applications
+/awards/login https://unltd.microsoftcrmportals.com/applications
 
 /faq /awards#faq
 /faqs /awards#faq
