@@ -51,17 +51,17 @@ export default function FeedbackPopover() {
 
                                 <div className="flex justify-stretch">
                                     <input type="radio" id="issue" name="type" disabled={isSubmitting} value="issue" className="hidden peer/option1" />
-                                    <label for="issue" className="flex gap-1 items-center cursor-pointer bg-white px-4 py-2 text-xs font-sans border-2 border-gray-700 rounded-full 
+                                    <label htmlFor="issue" className="flex gap-1 items-center cursor-pointer bg-white px-4 py-2 text-xs font-sans border-2 border-gray-700 rounded-full 
             peer-checked/option1:bg-yellow-200 peer-checked/option1:border-yellow-600 
             peer-focus/option1:border-dashed peer-focus/option1:border-yellow-700 
             hover:bg-yellow-100 transition"><DynamicIcon icon="fa-solid fa-triangle-exclamation" className="text-yellow-800" /><span className="text-yellow-900">Issue</span></label>
                                     <input type="radio" id="improvement" name="type" disabled={isSubmitting} value="improvement" className="hidden peer/option2" />
-                                    <label for="improvement" className="flex gap-1 items-center cursor-pointer bg-white px-4 py-2 text-xs font-sans border-2 border-gray-700 rounded-full 
+                                    <label htmlFor="improvement" className="flex gap-1 items-center cursor-pointer bg-white px-4 py-2 text-xs font-sans border-2 border-gray-700 rounded-full 
             peer-checked/option2:bg-blue-200 peer-checked/option2:border-blue-600 
             peer-focus/option2:border-dashed peer-focus/option2:border-blue-700 
             hover:bg-blue-100 transition"><DynamicIcon icon="fa-solid fa-lightbulb" className="text-blue-800" /><span className="text-blue-900">Improvement</span></label>
                                     <input type="radio" id="other" name="type" disabled={isSubmitting} value="other" className="hidden peer/option3" />
-                                    <label for="other" className="flex gap-1 items-center cursor-pointer bg-white px-4 py-2 text-xs font-sans border-2 border-gray-700 rounded-full 
+                                    <label htmlFor="other" className="flex gap-1 items-center cursor-pointer bg-white px-4 py-2 text-xs font-sans border-2 border-gray-700 rounded-full 
             peer-checked/option3:bg-green-200 peer-checked/option3:border-green-600 
             peer-focus/option3:border-dashed peer-focus/option3:border-green-700 
             hover:bg-green-100 transition"><DynamicIcon icon="fa-solid fa-ellipsis" className="text-green-800" /><span className="text-green-900">Other</span></label>
@@ -69,12 +69,12 @@ export default function FeedbackPopover() {
                             </fieldset>
                         </div>
                         <div className="">
-                            <label className="block text-xs font-medium text-violet-100">Email</label>
-                            <input disabled={isSubmitting} name="email" type="email" className="p-2 mt-1 block w-full rounded-md border border-violet-400 text-violet-200 shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm" />
+                            <label htmlFor="feedback-email" className="block text-xs font-medium text-violet-100">Email</label>
+                            <input disabled={isSubmitting} id="feedback-email" name="email" type="email" className="p-2 mt-1 block w-full rounded-md border border-violet-400 text-violet-200 shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm" />
                         </div>
                         <div className="">
-                            <label className="block text-xs font-medium text-violet-100">Message</label>
-                            <textarea disabled={isSubmitting} name="message" rows="4" className="p-2 mt-1 block w-full rounded-md border border-violet-400 text-violet-200 shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"></textarea>
+                            <label htmlFor="feedback-message" className="block text-xs font-medium text-violet-100">Message</label>
+                            <textarea disabled={isSubmitting} id="feedback-message" name="message" rows="4" className="p-2 mt-1 block w-full rounded-md border border-violet-400 text-violet-200 shadow-sm focus:border-violet-500 focus:ring-violet-500 sm:text-sm"></textarea>
                         </div>
 
                         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer
@@ -82,12 +82,12 @@ export default function FeedbackPopover() {
                         <div className="sm:col-span-2">
                             <div className="flex justify-between text-sm leading-6">
                                 <label
-                                    for="Cloudflare"
+                                    htmlFor="Cloudflare"
                                     className="block text-xs font-medium text-violet-100"
                                 >Verification</label>
                             </div>
                             <div className="mt-2.5">
-                                <div className="cf-turnstile" data-sitekey="0x4AAAAAAA7WX5YoqLQOPiIW"></div>
+                                <div id="Cloudflare" className="cf-turnstile" data-sitekey="0x4AAAAAAA7WX5YoqLQOPiIW"></div>
                             </div>
                         </div>
 

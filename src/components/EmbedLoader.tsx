@@ -8,6 +8,7 @@ import {
     PRODUCTION_HOSTNAME,
     FORCE_CONSENT_CHECK,
     EMBED_STYLES,
+    EMBED_LOAD_TIMEOUT_MS,
     type PlatformConfig,
 } from '../config/embed.config';
 
@@ -118,6 +119,8 @@ export default function EmbedLoader({
 }: EmbedLoaderProps) {
     const [hasConsent, setHasConsent] = useState<boolean | null>(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [iframeLoaded, setIframeLoaded] = useState(false);
+    const [embedFailed, setEmbedFailed] = useState(false);
 
     // Get platform config from URL
     const platformConfig = getPlatformConfig(src);
@@ -217,6 +220,28 @@ export default function EmbedLoader({
         };
     }, [checkConsentStatus, handleConsentGranted, handleZarazConsentUpdated]);
 
+    // Show the fallback if the iframe does not load in time
+    useEffect(() => {
+        if (!hasConsent || iframeLoaded) return;
+        const timer = setTimeout(() => {
+            setEmbedFailed(true);
+            window.posthog?.capture('embed_load_failed', {
+                platform: platformConfig.name,
+                src,
+            });
+        }, EMBED_LOAD_TIMEOUT_MS);
+        return () => clearTimeout(timer);
+    }, [hasConsent, iframeLoaded, platformConfig.name, src]);
+
+    // Iframe reported a successful load
+    const handleIframeLoad = () => {
+        setIframeLoaded(true);
+        setEmbedFailed(false);
+        window.posthog?.capture('embed_loaded', {
+            platform: platformConfig.name,
+        });
+    };
+
     // Handle "Load Content" button click
     const handleLoadEmbed = () => {
         // Update via Zaraz API if available (this is the source of truth)
@@ -247,15 +272,33 @@ export default function EmbedLoader({
     // Show iframe if consent is granted
     if (hasConsent) {
         return (
-            <iframe
-                src={embedSrc}
-                title={title}
-                frameBorder="0"
-                allow="fullscreen; autoplay; encrypted-media"
-                allowFullScreen
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-                className={`${EMBED_STYLES.iframe} ${className}`}
-            />
+            <>
+                <iframe
+                    src={embedSrc}
+                    title={title}
+                    frameBorder="0"
+                    allow="fullscreen; autoplay; encrypted-media"
+                    allowFullScreen
+                    onLoad={handleIframeLoad}
+                    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                    className={`${EMBED_STYLES.iframe} ${className}`}
+                />
+                {embedFailed && !iframeLoaded && (
+                    <div className={`${EMBED_STYLES.fallback.container} ${className}`}>
+                        <p className={EMBED_STYLES.fallback.text}>
+                            The {platformConfig.name} form is taking longer than expected to load.
+                        </p>
+                        <a
+                            href={src}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={EMBED_STYLES.fallback.button}
+                        >
+                            Open on {platformConfig.name} <FontAwesomeIcon icon={faUpRightFromSquare} className="ml-1" />
+                        </a>
+                    </div>
+                )}
+            </>
         );
     }
 

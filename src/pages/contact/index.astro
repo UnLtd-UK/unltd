@@ -26,10 +26,7 @@ const top = {
   <Container>
     <Breadcrumbs breadcrumbs={top.breadcrumbs} />
     <Default name={top.name} description={top.description} />
-    <ul
-      role="list"
-      class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-    >
+    <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {
         forms.map((form) => (
           <li class="col-span-1 divide-y p-10 divide-violet-200 rounded-lg border border-violet-700 bg-violet-900 shadow-xs">
@@ -45,14 +42,14 @@ const top = {
                 <h3 class="text-base font-semibold leading-7 text-violet-800 dark:text-violet-200">
                   {form.name}
                 </h3>
-                <p class="leading-5 text-xs text-violet-700 dark:text-violet-400">
+                <p class="leading-5 text-xs text-violet-300">
                   {form.description}
                 </p>
               </div>
               <p class="mt-4">
                 <a
                   href={`/contact/${form.slug}`}
-                  class="text-sm font-semibold leading-6 text-amber-600"
+                  class="text-sm font-semibold leading-6 text-amber-400"
                 >
                   Go to form <span aria-hidden="true">&rarr;</span>
                 </a>

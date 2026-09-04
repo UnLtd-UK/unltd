@@ -22,18 +22,19 @@ function isAtCapacity(round: ProcessedRound): boolean {
 }
 
 function getStatusBadgeClass(round: ProcessedRound): string {
+    // Shades picked so white badge text keeps 4.5:1 contrast against the violet-950 card at 80% opacity
     if (round.isUpcoming)
         return "bg-indigo-500/80 text-white border border-indigo-400/50";
     if (round.isOpen && !isAtCapacity(round))
-        return "bg-emerald-500/80 text-white border border-emerald-400/50";
+        return "bg-emerald-600/80 text-white border border-emerald-400/50";
     if (round.isOpen || round.phase === "closed")
         return "bg-slate-600/80 text-white border border-slate-500/50";
     if (round.isInAssessment)
-        return "bg-amber-500/80 text-white border border-amber-400/50";
+        return "bg-amber-700/80 text-white border border-amber-400/50";
     if (round.isInInterview)
-        return "bg-yellow-500/80 text-white border border-yellow-400/50";
+        return "bg-yellow-700/80 text-white border border-yellow-400/50";
     if (round.phase === "awaiting-results")
-        return "bg-sky-500/80 text-white border border-sky-400/50";
+        return "bg-sky-600/80 text-white border border-sky-400/50";
     if (round.isInResults)
         return "bg-violet-500/80 text-white border border-violet-400/50";
     if (round.phase === "completed")
@@ -59,7 +60,8 @@ function getRowClass(round: ProcessedRound): string {
     }
     if (round.isOpen) return "bg-emerald-900/20";
     if (round.isUpcoming) return "bg-indigo-900/10";
-    if (round.phase === "completed") return "opacity-60";
+    // No opacity here: it compounds with the text colours below and drops well below
+    // the 4.5:1 contrast threshold. "Complete" status is already conveyed by the badge.
     return "";
 }
 
@@ -95,9 +97,6 @@ const hasRounds = allRounds && allRounds.length > 0;
                             <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide">
                                 Apply
                             </th>
-                            <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide">
-                                Capacity
-                            </th>
                             <th class="text-left py-3 px-2 font-semibold text-violet-300 text-xs uppercase tracking-wide hidden md:table-cell">
                                 Application review
                             </th>
@@ -123,57 +122,32 @@ const hasRounds = allRounds && allRounds.length > 0;
                                 </td>
                                 <td class="py-3 px-2">
                                     <span
-                                        class={`font-medium ${round.id === displayRound?.id ? "text-white" : round.phase === "completed" ? "text-violet-400" : "text-violet-200"}`}
+                                        class={`font-medium ${round.id === displayRound?.id ? "text-white" : "text-violet-200"}`}
                                     >
                                         {round.dates.opensShort}{" "}
-                                        <span class="text-xs opacity-70">
+                                        <span class="text-xs">
                                             {formatHour(round.opensDate)}
                                         </span>
                                     </span>
-                                    <span
-                                        class={`${round.phase === "completed" ? "text-violet-500" : "text-violet-300"}`}
-                                    >
+                                    <span class="text-violet-300">
                                         {" "}
                                         – {round.dates.closesShort}{" "}
-                                        <span class="text-xs opacity-70">
+                                        <span class="text-xs">
                                             {formatHour(round.closesDate)}
                                         </span>
                                     </span>
                                 </td>
-                                <td class="py-3 px-2">
-                                    {round.hasCapacity ? (
-                                        <span
-                                            class={`text-xs font-medium ${round.capacityPercentage >= 80 ? "text-red-400" : round.capacityPercentage >= 60 ? "text-amber-400" : "text-emerald-400"}`}
-                                        >
-                                            {round.applicationCount}/
-                                            {round.applicationLimit}{" "}
-                                            <span class="opacity-70">
-                                                ({round.capacityPercentage}%)
-                                            </span>
-                                        </span>
-                                    ) : (
-                                        <span class="text-xs text-violet-400 italic">
-                                            No limit
-                                        </span>
-                                    )}
-                                </td>
-                                <td
-                                    class={`py-3 px-2 hidden md:table-cell ${round.phase === "completed" ? "text-violet-500" : "text-violet-300"}`}
-                                >
+                                <td class="py-3 px-2 hidden md:table-cell text-violet-300">
                                     {round.dates.assessmentStartShort} –{" "}
                                     {round.dates.assessmentEndShort}
                                 </td>
-                                <td
-                                    class={`py-3 px-2 hidden md:table-cell ${round.phase === "completed" ? "text-violet-500" : "text-violet-300"}`}
-                                >
+                                <td class="py-3 px-2 hidden md:table-cell text-violet-300">
                                     {round.dates.interviewStartShort &&
                                     round.dates.interviewEndShort
                                         ? `${round.dates.interviewStartShort} – ${round.dates.interviewEndShort}`
                                         : "—"}
                                 </td>
-                                <td
-                                    class={`py-3 px-2 hidden md:table-cell ${round.phase === "completed" ? "text-violet-500" : "text-violet-300"}`}
-                                >
+                                <td class="py-3 px-2 hidden md:table-cell text-violet-300">
                                     {round.dates.resultsStartShort} –{" "}
                                     {round.dates.resultsEndShort}
                                 </td>

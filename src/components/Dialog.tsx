@@ -1,6 +1,6 @@
 'use client'
 
-import { type MouseEventHandler, useState } from 'react'
+import { type MouseEventHandler, useRef, useState } from 'react'
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import DynamicIcon from './ui/DynamicIcon'
 
@@ -35,6 +35,8 @@ interface DialogComponentProps {
 
 export default function DialogComponent({ title, description, content, primaryButton, secondaryButton, icon }: DialogComponentProps) {
   const [open, setOpen] = useState(true)
+  // Headless UI focuses this element instead of relying on the native autoFocus attribute.
+  const initialFocusRef = useRef<HTMLElement | null>(null)
 
   const scrollToAnchor = (hash: string) => {
     const element = document.querySelector(hash)
@@ -110,7 +112,7 @@ export default function DialogComponent({ title, description, content, primaryBu
           target={isExternal ? '_blank' : '_self'}
           rel={isExternal ? 'noreferrer noopener' : undefined}
           className={className}
-          autoFocus={button.autoFocus}
+          ref={button.autoFocus ? (node) => { initialFocusRef.current = node } : undefined}
         >
           <span>{button.text}</span>
           {variant === 'primary' && isExternal && <DynamicIcon icon="fa-solid fa-arrow-up-right-from-square" className="text-xs" />}
@@ -128,7 +130,7 @@ export default function DialogComponent({ title, description, content, primaryBu
         type="button"
         onClick={handleClick}
         className={className}
-        autoFocus={button.autoFocus}
+        ref={button.autoFocus ? (node) => { initialFocusRef.current = node } : undefined}
       >
         {button.text}
       </button>
@@ -164,7 +166,7 @@ export default function DialogComponent({ title, description, content, primaryBu
   }
 
   return (
-    <Dialog open={open} onClose={() => setOpen(false)} className="relative z-10">
+    <Dialog open={open} onClose={() => setOpen(false)} initialFocus={initialFocusRef} className="relative z-10">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in backdrop-blur-xs "

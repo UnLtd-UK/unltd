@@ -1,6 +1,8 @@
-import { createDirectus, rest, readItems } from '@directus/sdk';
+import { createDirectus, rest, readItems, withToken } from '@directus/sdk';
+import { resolveEnvVar } from '../lib/env.ts';
 
 const client = createDirectus('https://unltd.directus.app').with(rest());
+const DIRECTUS_API_TOKEN = await resolveEnvVar('DIRECTUS_API_TOKEN');
 
 const showDrafts = process.env.SHOW_DRAFTS === 'true';
 const statusFilter = showDrafts
@@ -8,7 +10,7 @@ const statusFilter = showDrafts
     : { _eq: 'published' };
 
 const sesm = await client.request(
-    readItems('positions', {
+    withToken(DIRECTUS_API_TOKEN, readItems('positions', {
         sort: ['person.name'],
         filter: {
             status: statusFilter,
@@ -19,7 +21,7 @@ const sesm = await client.request(
             }
         },
         fields: ['*.*'],
-    })
+    }))
 );
 
 export { sesm }
