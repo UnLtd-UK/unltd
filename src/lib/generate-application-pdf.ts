@@ -521,8 +521,8 @@ function renderInputField(
         cursor.ensureSpace(40);
         cursor.drawWrappedTextWithLink(
             "File uploads must be submitted via the Application Portal at ",
-            "portal.unltd.org.uk",
-            "https://portal.unltd.org.uk",
+            "unltd.microsoftcrmportals.com/applications",
+            "https://unltd.microsoftcrmportals.com/applications",
             "",
             fonts.regular,
             FONT_SIZE_BODY,
