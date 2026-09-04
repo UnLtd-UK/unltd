@@ -108,13 +108,13 @@
 /awards/trading-under-1-year/ /awards/trading-for-less-than-1-year/
 awards/trading-under-1-year /awards/trading-for-less-than-1-year
 
-/login/ https://portal.unltd.org.uk
-/login https://portal.unltd.org.uk
-/LOGIN/ https://portal.unltd.org.uk
-/LOGIN https://portal.unltd.org.uk
-/signin/ https://portal.unltd.org.uk
-/signin https://portal.unltd.org.uk
-/sign-in/ https://portal.unltd.org.uk
-/sign-in https://portal.unltd.org.uk
-/awards/login/ https://portal.unltd.org.uk
-/awards/login https://portal.unltd.org.uk
+/login/ https://unltd.microsoftcrmportals.com/applications
+/login https://unltd.microsoftcrmportals.com/applications
+/LOGIN/ https://unltd.microsoftcrmportals.com/applications
+/LOGIN https://unltd.microsoftcrmportals.com/applications
+/signin/ https://unltd.microsoftcrmportals.com/applications
+/signin https://unltd.microsoftcrmportals.com/applications
+/sign-in/ https://unltd.microsoftcrmportals.com/applications
+/sign-in https://unltd.microsoftcrmportals.com/applications
+/awards/login/ https://unltd.microsoftcrmportals.com/applications
+/awards/login https://unltd.microsoftcrmportals.com/applications
