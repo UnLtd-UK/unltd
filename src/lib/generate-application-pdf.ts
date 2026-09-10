@@ -1271,14 +1271,13 @@ export async function generateApplicationPdf(
     // ── Where to apply — DO NOT EMAIL warning ───────────────────────
 
     const warningHeading = "DO NOT email us this form — This is NOT how you apply.";
-    const warningBody_before = "This PDF is for drafting your answers offline only. Do not email this form to UnLtd. We will not accept emailed applications.";
+    const warningBody_before = "This PDF is for drafting your answers offline only. Do not email this form to UnLtd. We will not accept emailed applications. The email address you entered in the eligibility checker was only used to send your result. It did not create a portal account or password.";
     const warningSteps = [
         "How to submit your application:",
         `1. Go to: ${applyUrl}`,
-        "2. Click 'Apply now'",
-        "3. Sign up or sign in to the Application Portal",
-        "4. Start your application online",
-        "5. Copy and paste your drafted answers from this PDF into the online form",
+        "2. Create a portal account and password, or sign in if you already have an account",
+        "3. Start your application online",
+        "4. Copy and paste your drafted answers from this PDF into the online form",
     ];
     const warningBody = [warningBody_before, "", ...warningSteps].join("\n");
 
@@ -1538,7 +1537,8 @@ export async function generateApplicationPdf(
         "This PDF is for drafting only. We do not accept emailed applications.",
         "",
         `To apply, go to: ${applyUrl}`,
-        "Click 'Apply now', sign up or sign in, and submit your application through the online portal.",
+        "The email address you entered in the eligibility checker only sent your result; it did not create a portal account or password.",
+        "Create an account and password, or sign in if you already have an account, then submit through the portal.",
         "You can copy and paste your answers from this PDF into the online form.",
     ].join("\n");
 

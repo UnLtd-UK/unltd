@@ -46,6 +46,7 @@ const {
       alt=""
       width={1200}
       height={630}
+      format="webp"
       layout="full-width"
       class="absolute inset-0 -z-10 h-full w-full object-cover"
     />
@@ -92,6 +93,7 @@ const {
                     alt={partner.organisations_id.name || ""}
                     width={200}
                     height={64}
+                    format="webp"
                     fit="contain"
                   />
                 ))
@@ -129,6 +131,7 @@ const {
                       <Image
                         width="32"
                         height="32"
+                        format="webp"
                         class={`inline-block h-8 w-8 rounded-full border-2 ${styles.border}`}
                         src={`https://unltd.directus.app/assets/${employee.person.image}?height=64`}
                         alt={`${employee.person.name}`}

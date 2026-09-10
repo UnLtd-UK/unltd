@@ -159,16 +159,21 @@ const showCapacityWarning =
                         <div class="flex flex-col">
                             <RoundButton variant="hero" />
                             {
-                                downloadUrl &&
-                                    (roundState === "open" ||
-                                        roundState === "closing") && (
-                                        <p class="text-xs text-emerald-200/70 mt-1.5 ml-0.5">
-                                            Once you've drafted your answers,
-                                            submit them here. <br />
-                                            Please note you will need to
-                                            register on the portal.
-                                        </p>
-                                    )
+                                (roundState === "open" ||
+                                    roundState === "closing") && (
+                                    <p class="max-w-xl rounded-lg bg-white/10 px-3 py-2 text-sm text-emerald-100 ring-1 ring-white/20 mt-2">
+                                        <strong class="text-white">
+                                            The email address you entered in
+                                            the eligibility checker was only
+                                            used to send you a link to this
+                                            page. It did not create a portal
+                                            account or password.
+                                        </strong>{" "}
+                                        First-time applicants must create an
+                                        account and password. If you already
+                                        have a portal account, sign in.
+                                    </p>
+                                )
                             }
                         </div>
                     </div>
