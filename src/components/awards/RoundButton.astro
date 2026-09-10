@@ -7,7 +7,7 @@
  * States:
  * - Closed:   disabled "No rounds scheduled"
  * - Opening:  disabled with date info
- * - Open:     active "Apply Now" with optional urgency styling
+ * - Open:     active account/sign-in CTA with optional urgency styling
  * - Closing:  active with urgency colours + countdown
  */
 import { getRoundData, getRoundStatus } from "./round";
@@ -154,7 +154,7 @@ const isRoundFull = state === "closed" && closedReason === "capacity";
     )
 }
 
-{/* Open / Closing round - active Apply Now button */}
+{/* Open / Closing round - active application button */}
 {
     (state === "open" || state === "closing") && (
         <div>
@@ -165,9 +165,13 @@ const isRoundFull = state === "closed" && closedReason === "capacity";
                 class={`inline-flex items-center gap-3 px-8 py-4 font-bold rounded-xl text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:scale-105 ${getButtonStyles()}`}
             >
                 <span class="flex flex-col items-start">
-                    <span class="flex items-center gap-2">
-                        Apply Now
-                        <Icon name="arrow-up-right-from-square" style="solid" />
+                    <span class="flex items-center gap-2 text-left">
+                        <span>Create account or sign in to apply</span>
+                        <Icon
+                            name="arrow-up-right-from-square"
+                            style="solid"
+                            class="shrink-0"
+                        />
                     </span>
                     {countdownLabel && (
                         <span class="text-xs font-medium">
