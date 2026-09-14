@@ -21,6 +21,7 @@ import Footer from "@components/Footer.astro";
 import Header from "@components/ui/Header.jsx";
 import RoundBanner from "@components/awards/RoundBanner.astro";
 import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
+import GitBookEmbed from "@components/GitBookEmbed.astro";
 // import ScamAlertBanner from "@components/ScamAlertBanner";
 // import FloatingAtBottomCentered from "@components/FloatingAtBottomCentered.astro";
 import PostHog from "@components/posthog.astro";
@@ -90,6 +91,8 @@ import PostHog from "@components/posthog.astro";
                 <slot />
             </main>
             <Footer />
+
+            <GitBookEmbed />
 
             <!-- Dev tools (only renders in development) -->
             <DevDateTimeIndicator />
