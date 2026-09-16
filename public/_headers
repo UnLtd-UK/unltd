@@ -2,6 +2,14 @@
 /awards/downloads/*
   Cache-Control: public, max-age=0, must-revalidate
 
+# Eligibility pages receive the applicant email as a query parameter via the
+# Typeform redirect (e.g. /awards/not-yet-trading?email=...). A stale cached copy
+# predates the email redaction in src/components/posthog.astro and re-sends the
+# email to analytics and recordings. Never store these pages, so every load runs
+# the current redaction. The more specific /awards/downloads/* rule above wins.
+/awards/*
+  Cache-Control: no-store
+
 # Directus live preview: only allow the Directus Data Studio to iframe this route
 /blog/*/preview
   Content-Security-Policy: frame-ancestors https://unltd.directus.app
