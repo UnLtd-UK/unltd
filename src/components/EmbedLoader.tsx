@@ -8,7 +8,8 @@ import {
     PRODUCTION_HOSTNAME,
     FORCE_CONSENT_CHECK,
     EMBED_STYLES,
-    EMBED_LOAD_TIMEOUT_MS,
+    EMBED_FALLBACK_DELAY_MS,
+    EMBED_FAILURE_TIMEOUT_MS,
     type PlatformConfig,
 } from '../config/embed.config';
 
@@ -220,17 +221,25 @@ export default function EmbedLoader({
         };
     }, [checkConsentStatus, handleConsentGranted, handleZarazConsentUpdated]);
 
-    // Show the fallback if the iframe does not load in time
+    // Show the fallback link early for slow connections, and record a failure
+    // only if the iframe still has not loaded much later. Both timers are
+    // cleared as soon as the iframe loads, so a slow-but-successful load never
+    // counts as a failure.
     useEffect(() => {
         if (!hasConsent || iframeLoaded) return;
-        const timer = setTimeout(() => {
+        const fallbackTimer = setTimeout(() => {
             setEmbedFailed(true);
+        }, EMBED_FALLBACK_DELAY_MS);
+        const failureTimer = setTimeout(() => {
             window.posthog?.capture('embed_load_failed', {
                 platform: platformConfig.name,
                 src,
             });
-        }, EMBED_LOAD_TIMEOUT_MS);
-        return () => clearTimeout(timer);
+        }, EMBED_FAILURE_TIMEOUT_MS);
+        return () => {
+            clearTimeout(fallbackTimer);
+            clearTimeout(failureTimer);
+        };
     }, [hasConsent, iframeLoaded, platformConfig.name, src]);
 
     // Iframe reported a successful load
