@@ -13,6 +13,7 @@
 import { getRoundData, getRoundStatus } from "./round";
 import Icon from "@components/Icon.astro";
 import RoundBadge from "@components/awards/RoundBadge.astro";
+import RoundCapacity from "@components/awards/RoundCapacity.astro";
 import RoundSubtitle from "@components/awards/RoundSubtitle.astro";
 
 interface Props {
@@ -74,16 +75,25 @@ const s = styleMap[state] ?? styleMap.open;
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <!-- Left: Status and round info -->
-                <div class="flex items-center gap-3">
-                    <div class="flex items-center gap-3 flex-wrap">
-                        <h3 class="text-base font-semibold text-white">
-                            Award Applications
-                        </h3>
-                        <RoundBadge />
-                    </div>
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <h3 class="text-base font-semibold text-white">
+                                Award Applications
+                            </h3>
+                            <RoundBadge />
+                        </div>
 
-                            <span class="hidden sm:inline text-violet-500">|</span>
-                    <RoundSubtitle />
+                        <span class="hidden sm:inline text-violet-500">|</span>
+                        <RoundSubtitle />
+                    </div>
+                    {displayRound.hasCapacity && (
+                        <RoundCapacity
+                            capacityPercentage={displayRound.capacityPercentage}
+                            hasCapacity={displayRound.hasCapacity}
+                            variant="banner"
+                        />
+                    )}
                 </div>
 
                 <!-- Right: CTA -->
