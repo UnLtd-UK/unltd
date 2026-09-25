@@ -1,6 +1,16 @@
 ---
-import { Image } from "astro:assets";
-const { partners, styles, name } = Astro.props;
+interface Partner {
+    organisations_id?: {
+        logo?: { id?: string } | null;
+        name?: string | null;
+    } | null;
+}
+
+const { partners, styles, name } = Astro.props as {
+    partners: Partner[];
+    styles: Record<string, string>;
+    name: string;
+};
 ---
 
 <div class={``}>
@@ -15,16 +25,21 @@ const { partners, styles, name } = Astro.props;
         >
             {
                 partners
-                    .filter((partner) => partner?.organisations_id?.logo?.id)
+                    .filter((partner): partner is Partner & {
+                        organisations_id: {
+                            logo: { id: string };
+                            name?: string | null;
+                        };
+                    } => Boolean(partner?.organisations_id?.logo?.id))
                     .map((partner) => (
-                        <Image
+                        <img
                             class="col-span-2 max-h-20 w-full object-contain lg:col-span-1"
                             src={`https://unltd.directus.app/assets/${partner.organisations_id.logo.id}`}
                             alt={partner.organisations_id.name || ""}
                             width={158}
                             height={48}
-                            format="webp"
-                            fit="contain"
+                            loading="lazy"
+                            decoding="async"
                         />
                     ))
             }

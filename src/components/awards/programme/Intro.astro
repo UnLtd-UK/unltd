@@ -76,14 +76,14 @@ let todayDate = moment();
 
             {
               programme.logo ? (
-                <Image
+                <img
                   src={`https://unltd.directus.app/assets/${programme.logo.id}`}
                   width={600}
                   height={200}
-                  format="webp"
-                  fit="contain"
                   class="w-96"
                   alt=""
+                  loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <h1 class={`text-6xl font-bold ${styles.text} ${styles.font}`}>
