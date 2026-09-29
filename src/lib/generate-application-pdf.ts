@@ -41,6 +41,7 @@ interface FieldData {
             code?: string;
             description?: string;
         }>;
+        guidance?: string;
         helper_text?: string;
         prefix?: string;
         suffix?: string;
@@ -108,6 +109,10 @@ const LINE_HEIGHT_SMALL = 11;
 const FIELD_GAP = 20; // space between fields
 const SECTION_GAP = 30; // space between sections
 const DEPENDENCY_INDENT = 20; // left indent for fields that depend on a parent field
+const GUIDANCE_PADDING = 8;
+const GUIDANCE_ACCENT_WIDTH = 3;
+const GUIDANCE_TEXT_GAP = 5;
+const GUIDANCE_BOTTOM_GAP = 6;
 
 // Colours
 const COLOUR_BLACK = rgb(0, 0, 0);
@@ -500,6 +505,107 @@ class PageCursor {
         }
 
         this.y -= lh;
+    }
+}
+
+function getGuidanceCalloutLayout(
+    guidance: string | undefined,
+    font: PDFFont,
+    xOffset = 0,
+): { lines: string[]; height: number } | null {
+    const text = guidance ? stripMarkdown(guidance) : "";
+    if (!text) return null;
+
+    const width = CONTENT_WIDTH - xOffset;
+    const textWidth = width
+        - GUIDANCE_PADDING * 2
+        - GUIDANCE_ACCENT_WIDTH
+        - GUIDANCE_TEXT_GAP;
+    const lines = wrapText(text, font, FONT_SIZE_SMALL, textWidth);
+    const height = GUIDANCE_PADDING * 2
+        + LINE_HEIGHT_SMALL
+        + lines.length * LINE_HEIGHT_SMALL;
+
+    return { lines, height };
+}
+
+function renderGuidanceCallout(
+    cursor: PageCursor,
+    guidance: string | undefined,
+    fonts: { bold: PDFFont; regular: PDFFont },
+    xOffset = 0,
+): void {
+    const layout = getGuidanceCalloutLayout(guidance, fonts.regular, xOffset);
+    if (!layout) return;
+
+    cursor.ensureSpace(layout.height + GUIDANCE_BOTTOM_GAP);
+
+    const x = MARGIN_LEFT + xOffset;
+    const width = CONTENT_WIDTH - xOffset;
+    const bottom = cursor.y - layout.height;
+    const textX = x
+        + GUIDANCE_PADDING
+        + GUIDANCE_ACCENT_WIDTH
+        + GUIDANCE_TEXT_GAP;
+
+    cursor.page.drawRectangle({
+        x,
+        y: bottom,
+        width,
+        height: layout.height,
+        color: COLOUR_SECTION_BG,
+        borderColor: COLOUR_LIGHT_GREY,
+        borderWidth: 0.75,
+    });
+    cursor.page.drawRectangle({
+        x,
+        y: bottom,
+        width: GUIDANCE_ACCENT_WIDTH,
+        height: layout.height,
+        color: COLOUR_VIOLET,
+    });
+
+    let textY = cursor.y - GUIDANCE_PADDING - FONT_SIZE_SMALL;
+    cursor.page.drawText("Guidance", {
+        x: textX,
+        y: textY,
+        size: FONT_SIZE_SMALL,
+        font: fonts.bold,
+        color: COLOUR_VIOLET,
+    });
+    textY -= LINE_HEIGHT_SMALL;
+
+    for (const line of layout.lines) {
+        if (line) {
+            cursor.page.drawText(line, {
+                x: textX,
+                y: textY,
+                size: FONT_SIZE_SMALL,
+                font: fonts.regular,
+                color: COLOUR_DARK_GREY,
+            });
+        }
+        textY -= line ? LINE_HEIGHT_SMALL : LINE_HEIGHT_SMALL * 0.5;
+    }
+
+    cursor.y = bottom - GUIDANCE_BOTTOM_GAP;
+}
+
+function getGuidedFieldControlHeight(field: FieldData["fields_id"]): number {
+    switch (field.type) {
+        case "Textarea":
+            return TEXTAREA_HEIGHT + 6;
+        case "Select":
+            return field.select_options?.length ? DROPDOWN_HEIGHT + 6 : 0;
+        case "Radios":
+            return field.select_options?.length ? RADIO_SIZE + 8 : 0;
+        case "Checkboxes":
+            return field.select_options?.length ? CHECKBOX_SIZE + 8 : 0;
+        case "key-value":
+            return 22 + PDF_MAX_ENTRIES * 22 + 30;
+        case "Input":
+        default:
+            return field.input_type === "file" ? 40 : TEXT_FIELD_HEIGHT + 6;
     }
 }
 
@@ -1411,6 +1517,17 @@ export async function generateApplicationPdf(
             const indent = isDependentField ? DEPENDENCY_INDENT : 0;
             const fieldWidth = CONTENT_WIDTH - indent;
             const fieldId = `${section.slug}.${field.slug}`;
+            const guidanceLayout = getGuidanceCalloutLayout(
+                field.guidance,
+                nunitoRegular,
+                indent,
+            );
+            const guidanceHeight = guidanceLayout
+                ? guidanceLayout.height + GUIDANCE_BOTTOM_GAP
+                : 0;
+            const guidedControlHeight = guidanceLayout
+                ? getGuidedFieldControlHeight(field)
+                : 0;
 
             if (isDependentField) {
                 // ── Dependent field — rendered indented below its parent ─
@@ -1442,7 +1559,9 @@ export async function generateApplicationPdf(
 
                 const labelLines = wrapText(labelText, nunitoBold, FONT_SIZE_FIELD_LABEL, fieldWidth);
                 const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
-                cursor.ensureSpace(labelHeight + 30);
+                cursor.ensureSpace(
+                    labelHeight + guidanceHeight + guidedControlHeight + 30,
+                );
 
                 cursor.drawWrappedTextIndented(
                     labelText,
@@ -1464,7 +1583,10 @@ export async function generateApplicationPdf(
 
                 const labelLines = wrapText(labelText, nunitoBold, FONT_SIZE_FIELD_LABEL, CONTENT_WIDTH);
                 const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
-                const minFieldHeight = labelHeight + 30;
+                const minFieldHeight = labelHeight
+                    + guidanceHeight
+                    + guidedControlHeight
+                    + 30;
                 cursor.ensureSpace(minFieldHeight);
 
                 cursor.drawWrappedText(
@@ -1491,6 +1613,8 @@ export async function generateApplicationPdf(
                     cursor.y -= 4;
                 }
             }
+
+            renderGuidanceCallout(cursor, field.guidance, fonts, indent);
 
             // ── Field widget ────────────────────────────────────────────
             switch (field.type) {
