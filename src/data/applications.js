@@ -50,16 +50,16 @@ applications = applications.map((app) => {
         portal_text = "Forming: I have an idea";
         stage_text = "is an idea or not yet trading";
     } else if (normalizedName.includes('less than 1 year')) {
-        portal_value = "i-ve-been-trading-for-less-than-1-year";
-        portal_text = "I've been trading for less than 1 year";
+        portal_value = "i've-been-trading-for-less-than-one-year";
+        portal_text = "I've been trading for less than one year";
         stage_text = "has been trading for less than 1 year";
     } else if (normalizedName.includes('more than 1 year')) {
-        portal_value = "i-ve-been-trading-for-1-year";
-        portal_text = "I've been trading for 1 year";
+        portal_value = "i've-been-trading-for-one-year-or-more";
+        portal_text = "I've been trading for one year or more";
         stage_text = "has been trading for more than 1 year";
     } else if (normalizedName.includes('between') && normalizedName.includes('four years')) {
-        portal_value = "i-ve-been-trading-for-1-year";
-        portal_text = "I've been trading for 1 year";
+        portal_value = "i've-been-trading-for-one-year-or-more";
+        portal_text = "I've been trading for one year or more";
         stage_text = "has been trading for 1 to 4 years";
     }
 
@@ -87,8 +87,8 @@ const tradingStatusToAwards = {
  */
 const deriveTradingStatus = (app) => {
     if (app.portal_value === "forming-i-have-an-idea") return 'idea';
-    if (app.portal_value === "i-ve-been-trading-for-less-than-1-year") return 'under-1-year';
-    if (app.portal_value === "i-ve-been-trading-for-1-year") return 'under-4-years';
+    if (app.portal_value === "i've-been-trading-for-less-than-one-year") return 'under-1-year';
+    if (app.portal_value === "i've-been-trading-for-one-year-or-more") return 'under-4-years';
     return 'idea'; // Default
 };
 

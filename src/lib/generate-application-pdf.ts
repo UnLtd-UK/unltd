@@ -741,6 +741,7 @@ function renderSelectField(
     dd.addOptions(options);
 
     // Auto-select and lock the stage field
+    let stageLocked = false;
     if (isStageField && stageSlug) {
         const matchingOption = field.select_options?.find(
             (o) => o.slug?.trim() === stageSlug.trim(),
@@ -748,6 +749,11 @@ function renderSelectField(
         if (matchingOption) {
             dd.select(sanitiseForPdf(matchingOption.name));
             dd.enableReadOnly();
+            stageLocked = true;
+        } else {
+            console.warn(
+                `[pdf] No stage option matches "${stageSlug}"; options: ${field.select_options?.map((o) => o.slug).join(", ")}`,
+            );
         }
     }
 
@@ -758,7 +764,7 @@ function renderSelectField(
         height: DROPDOWN_HEIGHT,
         borderWidth: 1,
         borderColor: COLOUR_MID_GREY,
-        backgroundColor: isStageField && stageSlug
+        backgroundColor: stageLocked
             ? rgb(0.93, 0.93, 0.93)
             : rgb(0.97, 0.97, 0.97),
         font: fonts.regular,
@@ -799,7 +805,7 @@ function renderSelectField(
     });
 
     // Show a note if locked
-    if (isStageField && stageSlug) {
+    if (stageLocked) {
         cursor.y -= DROPDOWN_HEIGHT + FIELD_HINT_GAP;
         cursor.drawWrappedText(
             "This answer is pre-selected because the remaining questions are specific to this stage.",

@@ -37,7 +37,7 @@ export async function GET({ params }: { params: { slug: string } }) {
     const pdfBytes = await generateApplicationPdf({
         applicationName: application.name,
         slug: application.slug,
-        stageSlug: application.stage,
+        stageSlug: application.portal_value,
         stageText: application.stage_text,
         sections: application.sections ?? [],
         includeDrafts: showDrafts,
