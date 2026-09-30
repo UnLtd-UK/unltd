@@ -56,6 +56,7 @@ interface SectionData {
         name: string;
         slug: string;
         status?: string;
+        guidance?: string;
         description?: string;
         fields: FieldData[];
         date_updated?: string;
@@ -82,6 +83,7 @@ interface GeneratePdfOptions {
     stageSlug?: string;
     stageText?: string;
     sections: SectionData[];
+    includeDrafts?: boolean;
     awards?: AwardData[];
     resources?: ResourceData[];
     tradingDescription?: string;
@@ -114,7 +116,7 @@ const DEPENDENCY_INDENT = 20; // left indent for fields that depend on a parent 
 const GUIDANCE_PADDING = 8;
 const GUIDANCE_ACCENT_WIDTH = 3;
 const GUIDANCE_TEXT_GAP = 5;
-const GUIDANCE_BOTTOM_GAP = 6;
+const GUIDANCE_BOTTOM_GAP = 12;
 
 // Colours
 const COLOUR_BLACK = rgb(0, 0, 0);
@@ -1073,13 +1075,19 @@ function renderKeyValueField(
     cursor.y -= 4;
 }
 
-function getPublishedSections(sections: SectionData[]): SectionData[] {
+function getVisibleSections(
+    sections: SectionData[],
+    includeDrafts: boolean,
+): SectionData[] {
+    const isVisibleStatus = (status?: string) =>
+        status === "published" || (includeDrafts && status === "draft");
+
     return sections.flatMap((sectionRelation) => {
         const section = sectionRelation.sections_id;
-        if (section?.status !== "published") return [];
+        if (!section || !isVisibleStatus(section.status)) return [];
 
         const fields = (section.fields ?? []).filter(
-            (fieldRelation) => fieldRelation.fields_id?.status === "published",
+            (fieldRelation) => isVisibleStatus(fieldRelation.fields_id?.status),
         );
 
         return [{
@@ -1103,10 +1111,11 @@ export async function generateApplicationPdf(
         stageSlug,
         stageText,
         sections: inputSections,
+        includeDrafts = false,
         awards,
         resources,
     } = options;
-    const sections = getPublishedSections(inputSections);
+    const sections = getVisibleSections(inputSections, includeDrafts);
 
     // Find the most recent date_updated across all sections and fields
     const allDates: number[] = [];
@@ -1489,9 +1498,16 @@ export async function generateApplicationPdf(
 
         const sectionNumber = si + 1;
         const sectionTitle = `${sectionNumber}. ${section.name}`;
+        const sectionGuidanceLayout = getGuidanceCalloutLayout(
+            section.guidance,
+            nunitoRegular,
+        );
+        const sectionGuidanceHeight = sectionGuidanceLayout
+            ? sectionGuidanceLayout.height + GUIDANCE_BOTTOM_GAP
+            : 0;
 
-        // Section heading — ensure room for heading + a bit of content
-        cursor.ensureSpace(60);
+        // Keep the section heading and its guidance together.
+        cursor.ensureSpace(Math.max(60, 36 + sectionGuidanceHeight));
 
         // Section heading background
         const headingHeight = 28;
@@ -1511,6 +1527,8 @@ export async function generateApplicationPdf(
             color: COLOUR_VIOLET,
         });
         cursor.y -= headingHeight + 8;
+
+        renderGuidanceCallout(cursor, section.guidance, fonts);
 
         // Section description
         if (section.description) {
@@ -1558,30 +1576,26 @@ export async function generateApplicationPdf(
             const guidedControlHeight = guidanceLayout
                 ? getGuidedFieldControlHeight(field)
                 : 0;
+            const plainFieldDesc = field.description
+                ? stripMarkdown(field.description)
+                : "";
+            const descriptionLines = plainFieldDesc
+                ? wrapText(
+                    plainFieldDesc,
+                    nunitoRegular,
+                    FONT_SIZE_SMALL,
+                    fieldWidth,
+                )
+                : [];
+            const descriptionHeight = descriptionLines.length
+                ? descriptionLines.length * LINE_HEIGHT_SMALL + 4
+                : 0;
 
             if (isDependentField) {
                 // ── Dependent field — rendered indented below its parent ─
 
                 // Smaller gap to visually tie it to the parent above
                 cursor.y -= FIELD_GAP / 2;
-
-                // Use the field's own description as the conditional note
-                const conditionalNote = field.description
-                    ? stripMarkdown(field.description)
-                    : null;
-
-                if (conditionalNote) {
-                    cursor.ensureSpace(30);
-                    cursor.drawWrappedTextIndented(
-                        conditionalNote,
-                        nunitoRegular,
-                        FONT_SIZE_SMALL,
-                        indent,
-                        COLOUR_MID_GREY,
-                        LINE_HEIGHT_SMALL,
-                    );
-                    cursor.y -= 4;
-                }
 
                 // Field label (no number prefix for dependent fields)
                 const requiredMark = field.required ? " *" : "";
@@ -1590,7 +1604,11 @@ export async function generateApplicationPdf(
                 const labelLines = wrapText(labelText, nunitoBold, FONT_SIZE_FIELD_LABEL, fieldWidth);
                 const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
                 cursor.ensureSpace(
-                    labelHeight + guidanceHeight + guidedControlHeight + 30,
+                    labelHeight
+                    + guidanceHeight
+                    + descriptionHeight
+                    + guidedControlHeight
+                    + 30,
                 );
 
                 cursor.drawWrappedTextIndented(
@@ -1615,6 +1633,7 @@ export async function generateApplicationPdf(
                 const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
                 const minFieldHeight = labelHeight
                     + guidanceHeight
+                    + descriptionHeight
                     + guidedControlHeight
                     + 30;
                 cursor.ensureSpace(minFieldHeight);
@@ -1629,10 +1648,20 @@ export async function generateApplicationPdf(
                 cursor.y -= 2;
             }
 
-            // ── Field description (skip for dependent fields — already shown as the conditional note)
-            if (!isDependentField && field.description) {
-                const plainFieldDesc = stripMarkdown(field.description);
-                if (plainFieldDesc) {
+            renderGuidanceCallout(cursor, field.guidance, fonts, indent);
+
+            // Dependent-field descriptions act as conditional notes.
+            if (plainFieldDesc) {
+                if (isDependentField) {
+                    cursor.drawWrappedTextIndented(
+                        plainFieldDesc,
+                        nunitoRegular,
+                        FONT_SIZE_SMALL,
+                        indent,
+                        COLOUR_MID_GREY,
+                        LINE_HEIGHT_SMALL,
+                    );
+                } else {
                     cursor.drawWrappedText(
                         plainFieldDesc,
                         nunitoRegular,
@@ -1640,11 +1669,9 @@ export async function generateApplicationPdf(
                         COLOUR_MID_GREY,
                         LINE_HEIGHT_SMALL,
                     );
-                    cursor.y -= 4;
                 }
+                cursor.y -= 4;
             }
-
-            renderGuidanceCallout(cursor, field.guidance, fonts, indent);
 
             // ── Field widget ────────────────────────────────────────────
             switch (field.type) {
