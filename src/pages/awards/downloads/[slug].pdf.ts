@@ -12,14 +12,16 @@ import { applications, getApplicationWithAwards } from "@data/applications.js";
 import { generateApplicationPdf } from "@lib/generate-application-pdf";
 
 export const getStaticPaths: GetStaticPaths = () => {
-    return applications.map((app: { slug: string }) => ({
-        params: { slug: app.slug },
-    }));
+    return applications
+        .filter((app: { status?: string }) => app.status === "published")
+        .map((app: { slug: string }) => ({
+            params: { slug: app.slug },
+        }));
 };
 
 export async function GET({ params }: { params: { slug: string } }) {
     const result = getApplicationWithAwards(params.slug);
-    if (!result) {
+    if (!result || result.application.status !== "published") {
         return new Response("Not found", { status: 404 });
     }
 

@@ -32,6 +32,7 @@ interface FieldData {
         name: string;
         description?: string;
         slug: string;
+        status?: string;
         type: string; // "Input" | "Select" | "Textarea" | "Radios" | "Checkboxes"
         input_type?: string; // "text" | "email" | "number" | "file" etc.
         required?: boolean;
@@ -47,17 +48,18 @@ interface FieldData {
         suffix?: string;
         date_updated?: string;
         dependency?: string; // slug of parent field — if set, this field is shown indented below its parent
-    };
+    } | null;
 }
 
 interface SectionData {
     sections_id: {
         name: string;
         slug: string;
+        status?: string;
         description?: string;
         fields: FieldData[];
         date_updated?: string;
-    };
+    } | null;
 }
 
 interface ResourceData {
@@ -1071,12 +1073,40 @@ function renderKeyValueField(
     cursor.y -= 4;
 }
 
+function getPublishedSections(sections: SectionData[]): SectionData[] {
+    return sections.flatMap((sectionRelation) => {
+        const section = sectionRelation.sections_id;
+        if (section?.status !== "published") return [];
+
+        const fields = (section.fields ?? []).filter(
+            (fieldRelation) => fieldRelation.fields_id?.status === "published",
+        );
+
+        return [{
+            ...sectionRelation,
+            sections_id: {
+                ...section,
+                fields,
+            },
+        }];
+    });
+}
+
 // ─── Main generator ─────────────────────────────────────────────────────
 
 export async function generateApplicationPdf(
     options: GeneratePdfOptions,
 ): Promise<Uint8Array> {
-    const { applicationName, slug, stageSlug, stageText, sections, awards, resources } = options;
+    const {
+        applicationName,
+        slug,
+        stageSlug,
+        stageText,
+        sections: inputSections,
+        awards,
+        resources,
+    } = options;
+    const sections = getPublishedSections(inputSections);
 
     // Find the most recent date_updated across all sections and fields
     const allDates: number[] = [];
