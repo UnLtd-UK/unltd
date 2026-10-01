@@ -40,9 +40,9 @@ export const navigation = {
                         {
                             id: 3,
                             name: "Community Climate Action",
-                            description: "Grant funding of up to £8,000 and support for early-stage social entrepreneurs taking practical action on climate change within their communities",
+                            description: "Awards of up to £8,000 and support for early-stage social entrepreneurs taking practical action on climate change within their communities",
                             href: "/community-climate-action",
-                            icon: "fa-solid fa-globe",
+                            icon: "fa-solid fa-earth-europe",
                             enabled: true,
                         },
                         {
