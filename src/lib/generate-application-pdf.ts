@@ -32,6 +32,7 @@ interface FieldData {
         name: string;
         description?: string;
         slug: string;
+        status?: string;
         type: string; // "Input" | "Select" | "Textarea" | "Radios" | "Checkboxes"
         input_type?: string; // "text" | "email" | "number" | "file" etc.
         required?: boolean;
@@ -41,22 +42,25 @@ interface FieldData {
             code?: string;
             description?: string;
         }>;
+        guidance?: string;
         helper_text?: string;
         prefix?: string;
         suffix?: string;
         date_updated?: string;
         dependency?: string; // slug of parent field — if set, this field is shown indented below its parent
-    };
+    } | null;
 }
 
 interface SectionData {
     sections_id: {
         name: string;
         slug: string;
+        status?: string;
+        guidance?: string;
         description?: string;
         fields: FieldData[];
         date_updated?: string;
-    };
+    } | null;
 }
 
 interface ResourceData {
@@ -79,6 +83,7 @@ interface GeneratePdfOptions {
     stageSlug?: string;
     stageText?: string;
     sections: SectionData[];
+    includeDrafts?: boolean;
     awards?: AwardData[];
     resources?: ResourceData[];
     tradingDescription?: string;
@@ -108,6 +113,10 @@ const LINE_HEIGHT_SMALL = 11;
 const FIELD_GAP = 20; // space between fields
 const SECTION_GAP = 30; // space between sections
 const DEPENDENCY_INDENT = 20; // left indent for fields that depend on a parent field
+const GUIDANCE_PADDING = 8;
+const GUIDANCE_ACCENT_WIDTH = 3;
+const GUIDANCE_TEXT_GAP = 5;
+const GUIDANCE_BOTTOM_GAP = 12;
 
 // Colours
 const COLOUR_BLACK = rgb(0, 0, 0);
@@ -503,6 +512,107 @@ class PageCursor {
     }
 }
 
+function getGuidanceCalloutLayout(
+    guidance: string | undefined,
+    font: PDFFont,
+    xOffset = 0,
+): { lines: string[]; height: number } | null {
+    const text = guidance ? stripMarkdown(guidance) : "";
+    if (!text) return null;
+
+    const width = CONTENT_WIDTH - xOffset;
+    const textWidth = width
+        - GUIDANCE_PADDING * 2
+        - GUIDANCE_ACCENT_WIDTH
+        - GUIDANCE_TEXT_GAP;
+    const lines = wrapText(text, font, FONT_SIZE_SMALL, textWidth);
+    const height = GUIDANCE_PADDING * 2
+        + LINE_HEIGHT_SMALL
+        + lines.length * LINE_HEIGHT_SMALL;
+
+    return { lines, height };
+}
+
+function renderGuidanceCallout(
+    cursor: PageCursor,
+    guidance: string | undefined,
+    fonts: { bold: PDFFont; regular: PDFFont },
+    xOffset = 0,
+): void {
+    const layout = getGuidanceCalloutLayout(guidance, fonts.regular, xOffset);
+    if (!layout) return;
+
+    cursor.ensureSpace(layout.height + GUIDANCE_BOTTOM_GAP);
+
+    const x = MARGIN_LEFT + xOffset;
+    const width = CONTENT_WIDTH - xOffset;
+    const bottom = cursor.y - layout.height;
+    const textX = x
+        + GUIDANCE_PADDING
+        + GUIDANCE_ACCENT_WIDTH
+        + GUIDANCE_TEXT_GAP;
+
+    cursor.page.drawRectangle({
+        x,
+        y: bottom,
+        width,
+        height: layout.height,
+        color: COLOUR_SECTION_BG,
+        borderColor: COLOUR_LIGHT_GREY,
+        borderWidth: 0.75,
+    });
+    cursor.page.drawRectangle({
+        x,
+        y: bottom,
+        width: GUIDANCE_ACCENT_WIDTH,
+        height: layout.height,
+        color: COLOUR_VIOLET,
+    });
+
+    let textY = cursor.y - GUIDANCE_PADDING - FONT_SIZE_SMALL;
+    cursor.page.drawText("Guidance", {
+        x: textX,
+        y: textY,
+        size: FONT_SIZE_SMALL,
+        font: fonts.bold,
+        color: COLOUR_VIOLET,
+    });
+    textY -= LINE_HEIGHT_SMALL;
+
+    for (const line of layout.lines) {
+        if (line) {
+            cursor.page.drawText(line, {
+                x: textX,
+                y: textY,
+                size: FONT_SIZE_SMALL,
+                font: fonts.regular,
+                color: COLOUR_DARK_GREY,
+            });
+        }
+        textY -= line ? LINE_HEIGHT_SMALL : LINE_HEIGHT_SMALL * 0.5;
+    }
+
+    cursor.y = bottom - GUIDANCE_BOTTOM_GAP;
+}
+
+function getGuidedFieldControlHeight(field: FieldData["fields_id"]): number {
+    switch (field.type) {
+        case "Textarea":
+            return TEXTAREA_HEIGHT + 6;
+        case "Select":
+            return field.select_options?.length ? DROPDOWN_HEIGHT + 6 : 0;
+        case "Radios":
+            return field.select_options?.length ? RADIO_SIZE + 8 : 0;
+        case "Checkboxes":
+            return field.select_options?.length ? CHECKBOX_SIZE + 8 : 0;
+        case "key-value":
+            return 22 + PDF_MAX_ENTRIES * 22 + 30;
+        case "Input":
+        default:
+            return field.input_type === "file" ? 40 : TEXT_FIELD_HEIGHT + 6;
+    }
+}
+
 // ─── Field renderers ────────────────────────────────────────────────────
 
 function renderInputField(
@@ -631,6 +741,7 @@ function renderSelectField(
     dd.addOptions(options);
 
     // Auto-select and lock the stage field
+    let stageLocked = false;
     if (isStageField && stageSlug) {
         const matchingOption = field.select_options?.find(
             (o) => o.slug?.trim() === stageSlug.trim(),
@@ -638,6 +749,11 @@ function renderSelectField(
         if (matchingOption) {
             dd.select(sanitiseForPdf(matchingOption.name));
             dd.enableReadOnly();
+            stageLocked = true;
+        } else {
+            console.warn(
+                `[pdf] No stage option matches "${stageSlug}"; options: ${field.select_options?.map((o) => o.slug).join(", ")}`,
+            );
         }
     }
 
@@ -648,7 +764,7 @@ function renderSelectField(
         height: DROPDOWN_HEIGHT,
         borderWidth: 1,
         borderColor: COLOUR_MID_GREY,
-        backgroundColor: isStageField && stageSlug
+        backgroundColor: stageLocked
             ? rgb(0.93, 0.93, 0.93)
             : rgb(0.97, 0.97, 0.97),
         font: fonts.regular,
@@ -689,7 +805,7 @@ function renderSelectField(
     });
 
     // Show a note if locked
-    if (isStageField && stageSlug) {
+    if (stageLocked) {
         cursor.y -= DROPDOWN_HEIGHT + FIELD_HINT_GAP;
         cursor.drawWrappedText(
             "This answer is pre-selected because the remaining questions are specific to this stage.",
@@ -965,12 +1081,47 @@ function renderKeyValueField(
     cursor.y -= 4;
 }
 
+function getVisibleSections(
+    sections: SectionData[],
+    includeDrafts: boolean,
+): SectionData[] {
+    const isVisibleStatus = (status?: string) =>
+        status === "published" || (includeDrafts && status === "draft");
+
+    return sections.flatMap((sectionRelation) => {
+        const section = sectionRelation.sections_id;
+        if (!section || !isVisibleStatus(section.status)) return [];
+
+        const fields = (section.fields ?? []).filter(
+            (fieldRelation) => isVisibleStatus(fieldRelation.fields_id?.status),
+        );
+
+        return [{
+            ...sectionRelation,
+            sections_id: {
+                ...section,
+                fields,
+            },
+        }];
+    });
+}
+
 // ─── Main generator ─────────────────────────────────────────────────────
 
 export async function generateApplicationPdf(
     options: GeneratePdfOptions,
 ): Promise<Uint8Array> {
-    const { applicationName, slug, stageSlug, stageText, sections, awards, resources } = options;
+    const {
+        applicationName,
+        slug,
+        stageSlug,
+        stageText,
+        sections: inputSections,
+        includeDrafts = false,
+        awards,
+        resources,
+    } = options;
+    const sections = getVisibleSections(inputSections, includeDrafts);
 
     // Find the most recent date_updated across all sections and fields
     const allDates: number[] = [];
@@ -1353,9 +1504,16 @@ export async function generateApplicationPdf(
 
         const sectionNumber = si + 1;
         const sectionTitle = `${sectionNumber}. ${section.name}`;
+        const sectionGuidanceLayout = getGuidanceCalloutLayout(
+            section.guidance,
+            nunitoRegular,
+        );
+        const sectionGuidanceHeight = sectionGuidanceLayout
+            ? sectionGuidanceLayout.height + GUIDANCE_BOTTOM_GAP
+            : 0;
 
-        // Section heading — ensure room for heading + a bit of content
-        cursor.ensureSpace(60);
+        // Keep the section heading and its guidance together.
+        cursor.ensureSpace(Math.max(60, 36 + sectionGuidanceHeight));
 
         // Section heading background
         const headingHeight = 28;
@@ -1375,6 +1533,8 @@ export async function generateApplicationPdf(
             color: COLOUR_VIOLET,
         });
         cursor.y -= headingHeight + 8;
+
+        renderGuidanceCallout(cursor, section.guidance, fonts);
 
         // Section description
         if (section.description) {
@@ -1411,6 +1571,31 @@ export async function generateApplicationPdf(
             const indent = isDependentField ? DEPENDENCY_INDENT : 0;
             const fieldWidth = CONTENT_WIDTH - indent;
             const fieldId = `${section.slug}.${field.slug}`;
+            const guidanceLayout = getGuidanceCalloutLayout(
+                field.guidance,
+                nunitoRegular,
+                indent,
+            );
+            const guidanceHeight = guidanceLayout
+                ? guidanceLayout.height + GUIDANCE_BOTTOM_GAP
+                : 0;
+            const guidedControlHeight = guidanceLayout
+                ? getGuidedFieldControlHeight(field)
+                : 0;
+            const plainFieldDesc = field.description
+                ? stripMarkdown(field.description)
+                : "";
+            const descriptionLines = plainFieldDesc
+                ? wrapText(
+                    plainFieldDesc,
+                    nunitoRegular,
+                    FONT_SIZE_SMALL,
+                    fieldWidth,
+                )
+                : [];
+            const descriptionHeight = descriptionLines.length
+                ? descriptionLines.length * LINE_HEIGHT_SMALL + 4
+                : 0;
 
             if (isDependentField) {
                 // ── Dependent field — rendered indented below its parent ─
@@ -1418,31 +1603,19 @@ export async function generateApplicationPdf(
                 // Smaller gap to visually tie it to the parent above
                 cursor.y -= FIELD_GAP / 2;
 
-                // Use the field's own description as the conditional note
-                const conditionalNote = field.description
-                    ? stripMarkdown(field.description)
-                    : null;
-
-                if (conditionalNote) {
-                    cursor.ensureSpace(30);
-                    cursor.drawWrappedTextIndented(
-                        conditionalNote,
-                        nunitoRegular,
-                        FONT_SIZE_SMALL,
-                        indent,
-                        COLOUR_MID_GREY,
-                        LINE_HEIGHT_SMALL,
-                    );
-                    cursor.y -= 4;
-                }
-
                 // Field label (no number prefix for dependent fields)
                 const requiredMark = field.required ? " *" : "";
                 const labelText = `${field.name}${requiredMark}`;
 
                 const labelLines = wrapText(labelText, nunitoBold, FONT_SIZE_FIELD_LABEL, fieldWidth);
                 const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
-                cursor.ensureSpace(labelHeight + 30);
+                cursor.ensureSpace(
+                    labelHeight
+                    + guidanceHeight
+                    + descriptionHeight
+                    + guidedControlHeight
+                    + 30,
+                );
 
                 cursor.drawWrappedTextIndented(
                     labelText,
@@ -1464,7 +1637,11 @@ export async function generateApplicationPdf(
 
                 const labelLines = wrapText(labelText, nunitoBold, FONT_SIZE_FIELD_LABEL, CONTENT_WIDTH);
                 const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
-                const minFieldHeight = labelHeight + 30;
+                const minFieldHeight = labelHeight
+                    + guidanceHeight
+                    + descriptionHeight
+                    + guidedControlHeight
+                    + 30;
                 cursor.ensureSpace(minFieldHeight);
 
                 cursor.drawWrappedText(
@@ -1477,10 +1654,20 @@ export async function generateApplicationPdf(
                 cursor.y -= 2;
             }
 
-            // ── Field description (skip for dependent fields — already shown as the conditional note)
-            if (!isDependentField && field.description) {
-                const plainFieldDesc = stripMarkdown(field.description);
-                if (plainFieldDesc) {
+            renderGuidanceCallout(cursor, field.guidance, fonts, indent);
+
+            // Dependent-field descriptions act as conditional notes.
+            if (plainFieldDesc) {
+                if (isDependentField) {
+                    cursor.drawWrappedTextIndented(
+                        plainFieldDesc,
+                        nunitoRegular,
+                        FONT_SIZE_SMALL,
+                        indent,
+                        COLOUR_MID_GREY,
+                        LINE_HEIGHT_SMALL,
+                    );
+                } else {
                     cursor.drawWrappedText(
                         plainFieldDesc,
                         nunitoRegular,
@@ -1488,8 +1675,8 @@ export async function generateApplicationPdf(
                         COLOUR_MID_GREY,
                         LINE_HEIGHT_SMALL,
                     );
-                    cursor.y -= 4;
                 }
+                cursor.y -= 4;
             }
 
             // ── Field widget ────────────────────────────────────────────

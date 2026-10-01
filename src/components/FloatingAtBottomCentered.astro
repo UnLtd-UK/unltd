@@ -1,8 +1,8 @@
 ---
 import Icon from "./Icon.astro";
 
-const LINK_HREF = "/fostering-innovation-accelerator";
-const DISMISSED_KEY = "fca-banner-dismissed";
+const LINK_HREF = "/community-climate-action";
+const DISMISSED_KEY = "community-climate-action-banner-dismissed";
 
 // Paths where the banner should always show, ignoring any previous dismissal
 // (the dismiss button is also hidden on these paths, since it can't be dismissed here)
@@ -31,7 +31,7 @@ const isForceVisiblePage = FORCE_VISIBLE_PATHS.some(
                 <p class="text-sm/6 text-amber-950">
                     <a href={LINK_HREF}>
                         <strong class="font-semibold">
-                            Fostering Innovation Accelerator
+                            Community Climate Action
                         </strong>
                         <svg
                             viewBox="0 0 2 2"
@@ -40,8 +40,9 @@ const isForceVisiblePage = FORCE_VISIBLE_PATHS.some(
                         >
                             <circle r="1" cx="1" cy="1" />
                         </svg>
-                        A new accelerator for social entrepreneurs tackling
-                        foster care challenges at a systemic level
+                        A new programme offering grant funding of up to £8,000 and support for early-stage
+                        social entrepreneurs taking practical action on climate
+                        change within their communities
                         <svg
                             viewBox="0 0 2 2"
                             aria-hidden="true"

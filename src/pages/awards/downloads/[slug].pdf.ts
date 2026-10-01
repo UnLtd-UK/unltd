@@ -11,15 +11,21 @@ import type { GetStaticPaths } from "astro";
 import { applications, getApplicationWithAwards } from "@data/applications.js";
 import { generateApplicationPdf } from "@lib/generate-application-pdf";
 
+const showDrafts = process.env.SHOW_DRAFTS === "true";
+const isVisibleStatus = (status?: string) =>
+    status === "published" || (showDrafts && status === "draft");
+
 export const getStaticPaths: GetStaticPaths = () => {
-    return applications.map((app: { slug: string }) => ({
-        params: { slug: app.slug },
-    }));
+    return applications
+        .filter((app: { status?: string }) => isVisibleStatus(app.status))
+        .map((app: { slug: string }) => ({
+            params: { slug: app.slug },
+        }));
 };
 
 export async function GET({ params }: { params: { slug: string } }) {
     const result = getApplicationWithAwards(params.slug);
-    if (!result) {
+    if (!result || !isVisibleStatus(result.application.status)) {
         return new Response("Not found", { status: 404 });
     }
 
@@ -31,9 +37,10 @@ export async function GET({ params }: { params: { slug: string } }) {
     const pdfBytes = await generateApplicationPdf({
         applicationName: application.name,
         slug: application.slug,
-        stageSlug: application.stage,
+        stageSlug: application.portal_value,
         stageText: application.stage_text,
         sections: application.sections ?? [],
+        includeDrafts: showDrafts,
         awards,
         resources,
         tradingDescription: application.trading_description,
