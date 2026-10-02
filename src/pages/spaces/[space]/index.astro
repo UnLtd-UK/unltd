@@ -61,6 +61,9 @@ interface Resource {
 }
 
 export async function getStaticPaths() {
+    // Mirrors the Awards page: shows every upcoming listed event, no keyword matching.
+    const ALL_EVENTS_SPACE_SLUG = "social-entrepreneur";
+
     // Filter events by keywords - defined inside getStaticPaths for proper scoping
     function filterEventsByKeywords(
         events: Event[],
@@ -106,10 +109,10 @@ export async function getStaticPaths() {
 
         // Get events for this space
         const keywords = space.eventbrite_keywords || [];
-        const filteredEvents = filterEventsByKeywords(
-            programmeEvents,
-            keywords,
-        );
+        const filteredEvents =
+            spaceSlug === ALL_EVENTS_SPACE_SLUG
+                ? programmeEvents
+                : filterEventsByKeywords(programmeEvents, keywords);
         const upcomingEvents = sortEvents(
             filteredEvents.filter((e) => !isPastEvent(e)),
         );
