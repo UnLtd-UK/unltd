@@ -1293,7 +1293,7 @@ export async function generateApplicationPdf(
                 ? "open to anyone aged 16 to 30"
                 : "open to anyone aged 16 and over";
             const awardDetails = [grantFormatted, ageText].filter(Boolean).join(", ");
-            const awardLine = `\u2022  ${stageLabel} \u2014 ${award.programme.name}${awardDetails ? ` (${awardDetails})` : ""}`;
+            const awardLine = `\u2022  ${stageLabel}${awardDetails ? ` (${awardDetails})` : ""}`;
             cursor.drawWrappedText(
                 sanitiseForPdf(awardLine),
                 nunitoRegular,
