@@ -233,6 +233,192 @@ function wrapText(
     return lines;
 }
 
+// ─── Rich text (text with clickable links) ─────────────────────────────
+
+interface RichSeg {
+    text: string;
+    url?: string;
+}
+type RichLine = RichSeg[];
+
+const SITE_ORIGIN = "https://unltd.org.uk";
+
+const LINK_PATTERN =
+    /<a\s[^>]*?href\s*=\s*["']([^"']*)["'][^>]*>([\s\S]*?)<\/a>|(?<!!)\[([^\]]+)\]\(\s*([^)\s]+)(?:\s+"[^"]*")?\s*\)|(https?:\/\/[^\s<>"')\]]+)/gi;
+
+function normaliseLinkUrl(raw: string): string | undefined {
+    const url = raw.trim();
+    if (/^(https?:\/\/|mailto:|tel:)/i.test(url)) return url;
+    if (url.startsWith("//")) return `https:${url}`;
+    if (url.startsWith("/")) return `${SITE_ORIGIN}${url}`;
+    if (/^[\w-]+(\.[\w-]+)+(\/|$)/.test(url)) return `https://${url}`;
+    return undefined;
+}
+
+/** Replace links (markdown, HTML or bare URLs) with \u0001idx\u0002label\u0003 markers. */
+function markLinks(text: string): { marked: string; urls: string[] } {
+    const urls: string[] = [];
+    const mark = (url: string | undefined, label: string) => {
+        if (!url) return label;
+        urls.push(url);
+        return `\u0001${urls.length - 1}\u0002${label}\u0003`;
+    };
+
+    const marked = text.replace(
+        LINK_PATTERN,
+        (
+            _m: string,
+            aHref?: string,
+            aText?: string,
+            mdText?: string,
+            mdUrl?: string,
+            bare?: string,
+        ) => {
+            if (bare) {
+                const trailing = bare.match(/[.,;:!?]+$/)?.[0] ?? "";
+                const core = trailing ? bare.slice(0, -trailing.length) : bare;
+                return mark(normaliseLinkUrl(core), core) + trailing;
+            }
+            const url = aHref ?? mdUrl ?? "";
+            const label = (aText ?? mdText ?? "")
+                .replace(/<[^>]+>/g, "")
+                .replace(/\s+/g, " ")
+                .trim();
+            return mark(normaliseLinkUrl(url), label || url);
+        },
+    );
+
+    return { marked, urls };
+}
+
+/** Split marked text into paragraphs of words, each word made of link-aware segments. */
+function parseRichWords(
+    marked: string,
+    urls: string[],
+): { segs: RichSeg[]; gapUrl?: string }[][] {
+    return marked.split("\n").map((para) => {
+        const words: { segs: RichSeg[]; gapUrl?: string }[] = [];
+        let segs: RichSeg[] = [];
+        let currentUrl: string | undefined;
+
+        for (let i = 0; i < para.length; i++) {
+            const ch = para[i];
+            if (ch === "\u0001") {
+                const end = para.indexOf("\u0002", i);
+                currentUrl = urls[Number(para.slice(i + 1, end))];
+                i = end;
+            } else if (ch === "\u0003") {
+                currentUrl = undefined;
+            } else if (/\s/.test(ch)) {
+                if (segs.length) {
+                    words.push({ segs, gapUrl: currentUrl });
+                    segs = [];
+                }
+            } else {
+                const last = segs[segs.length - 1];
+                if (last && last.url === currentUrl) last.text += ch;
+                else segs.push({ text: ch, url: currentUrl });
+            }
+        }
+        if (segs.length) words.push({ segs });
+        return words;
+    });
+}
+
+/**
+ * Strip markdown/HTML like stripMarkdown, but keep links and wrap into
+ * lines of segments so link text can be drawn and annotated.
+ * An empty array in the result represents a blank line.
+ */
+function wrapRich(
+    text: string,
+    font: PDFFont,
+    fontSize: number,
+    maxWidth: number,
+): RichLine[] {
+    if (!text) return [];
+    const { marked, urls } = markLinks(text);
+    const cleaned = stripMarkdown(marked);
+    if (!cleaned) return [];
+
+    const spaceWidth = font.widthOfTextAtSize(" ", fontSize);
+    const widthOf = (segs: RichSeg[]) =>
+        segs.reduce((sum, s) => sum + font.widthOfTextAtSize(s.text, fontSize), 0);
+    const append = (line: RichLine, seg: RichSeg) => {
+        const last = line[line.length - 1];
+        if (last && last.url === seg.url) last.text += seg.text;
+        else line.push({ ...seg });
+    };
+
+    const lines: RichLine[] = [];
+    for (const words of parseRichWords(cleaned, urls)) {
+        if (!words.length) {
+            lines.push([]);
+            continue;
+        }
+
+        let line: RichLine = [];
+        let lineWidth = 0;
+        let gapUrl: string | undefined;
+
+        for (const word of words) {
+            const wordWidth = widthOf(word.segs);
+            const needsSpace = line.length > 0;
+            if (needsSpace && lineWidth + spaceWidth + wordWidth > maxWidth) {
+                lines.push(line);
+                line = [];
+                lineWidth = 0;
+            }
+            if (line.length) {
+                append(line, { text: " ", url: gapUrl });
+                lineWidth += spaceWidth;
+            }
+            for (const seg of word.segs) append(line, seg);
+            lineWidth += wordWidth;
+            gapUrl = word.gapUrl;
+        }
+        if (line.length) lines.push(line);
+    }
+    return lines;
+}
+
+function drawRichLine(
+    page: PDFPage,
+    line: RichLine,
+    x: number,
+    y: number,
+    font: PDFFont,
+    fontSize: number,
+    color: ReturnType<typeof rgb>,
+): void {
+    let cursorX = x;
+    for (const seg of line) {
+        const width = font.widthOfTextAtSize(seg.text, fontSize);
+        page.drawText(seg.text, {
+            x: cursorX,
+            y,
+            size: fontSize,
+            font,
+            color: seg.url ? COLOUR_VIOLET : color,
+        });
+        if (seg.url) {
+            page.drawLine({
+                start: { x: cursorX, y: y - 1.5 },
+                end: { x: cursorX + width, y: y - 1.5 },
+                thickness: 0.5,
+                color: COLOUR_VIOLET,
+            });
+            addLinkAnnotation(page, seg.url, [
+                cursorX,
+                y - 2,
+                cursorX + width,
+                y + fontSize,
+            ]);
+        }
+        cursorX += width;
+    }
+}
+
 // ─── Link annotations ──────────────────────────────────────────────────
 
 /**
@@ -420,6 +606,29 @@ class PageCursor {
         }
     }
 
+    /** Draw markdown/HTML text, keeping any links clickable */
+    drawRichText(
+        text: string,
+        font: PDFFont,
+        fontSize: number,
+        color = COLOUR_DARK_GREY,
+        lineHeight?: number,
+        indent = 0,
+    ): void {
+        const lh = lineHeight ?? fontSize + 4;
+        const lines = wrapRich(text, font, fontSize, CONTENT_WIDTH - indent);
+
+        for (const line of lines) {
+            this.ensureSpace(lh);
+            if (line.length === 0) {
+                this.y -= lh * 0.5;
+                continue;
+            }
+            drawRichLine(this.page, line, MARGIN_LEFT + indent, this.y, font, fontSize, color);
+            this.y -= lh;
+        }
+    }
+
     /** Draw a single line of text as a clickable URL link */
     drawLinkedText(
         displayText: string,
@@ -516,16 +725,16 @@ function getGuidanceCalloutLayout(
     guidance: string | undefined,
     font: PDFFont,
     xOffset = 0,
-): { lines: string[]; height: number } | null {
-    const text = guidance ? stripMarkdown(guidance) : "";
-    if (!text) return null;
+): { lines: RichLine[]; height: number } | null {
+    if (!guidance) return null;
 
     const width = CONTENT_WIDTH - xOffset;
     const textWidth = width
         - GUIDANCE_PADDING * 2
         - GUIDANCE_ACCENT_WIDTH
         - GUIDANCE_TEXT_GAP;
-    const lines = wrapText(text, font, FONT_SIZE_SMALL, textWidth);
+    const lines = wrapRich(guidance, font, FONT_SIZE_SMALL, textWidth);
+    if (!lines.length) return null;
     const height = GUIDANCE_PADDING * 2
         + LINE_HEIGHT_SMALL
         + lines.length * LINE_HEIGHT_SMALL;
@@ -580,16 +789,18 @@ function renderGuidanceCallout(
     textY -= LINE_HEIGHT_SMALL;
 
     for (const line of layout.lines) {
-        if (line) {
-            cursor.page.drawText(line, {
-                x: textX,
-                y: textY,
-                size: FONT_SIZE_SMALL,
-                font: fonts.regular,
-                color: COLOUR_DARK_GREY,
-            });
+        if (line.length) {
+            drawRichLine(
+                cursor.page,
+                line,
+                textX,
+                textY,
+                fonts.regular,
+                FONT_SIZE_SMALL,
+                COLOUR_DARK_GREY,
+            );
         }
-        textY -= line ? LINE_HEIGHT_SMALL : LINE_HEIGHT_SMALL * 0.5;
+        textY -= line.length ? LINE_HEIGHT_SMALL : LINE_HEIGHT_SMALL * 0.5;
     }
 
     cursor.y = bottom - GUIDANCE_BOTTOM_GAP;
@@ -1289,11 +1500,7 @@ export async function generateApplicationPdf(
         for (const award of awards) {
             const stageLabel = award.stage === "starting-up" ? "Starting Up" : "Scaling Up";
             const grantFormatted = award.grant ? `up to \u00A3${award.grant.toLocaleString("en-GB")}` : "";
-            const ageText = award.programme.code === "ff"
-                ? "open to anyone aged 16 to 30"
-                : "open to anyone aged 16 and over";
-            const awardDetails = [grantFormatted, ageText].filter(Boolean).join(", ");
-            const awardLine = `\u2022  ${stageLabel} \u2014 ${award.programme.name}${awardDetails ? ` (${awardDetails})` : ""}`;
+            const awardLine = `\u2022  ${stageLabel}${grantFormatted ? ` (${grantFormatted})` : ""}`;
             cursor.drawWrappedText(
                 sanitiseForPdf(awardLine),
                 nunitoRegular,
@@ -1386,13 +1593,13 @@ export async function generateApplicationPdf(
 
             // Resource description
             if (resource.description) {
-                cursor.drawWrappedTextIndented(
-                    stripMarkdown(resource.description),
+                cursor.drawRichText(
+                    resource.description,
                     nunitoRegular,
                     FONT_SIZE_SMALL,
-                    14,
                     COLOUR_MID_GREY,
                     LINE_HEIGHT_SMALL,
+                    14,
                 );
             }
 
@@ -1540,8 +1747,8 @@ export async function generateApplicationPdf(
         if (section.description) {
             const plainDesc = stripMarkdown(section.description);
             if (plainDesc) {
-                cursor.drawWrappedText(
-                    plainDesc,
+                cursor.drawRichText(
+                    section.description,
                     nunitoRegular,
                     FONT_SIZE_BODY,
                     COLOUR_MID_GREY,
@@ -1586,8 +1793,8 @@ export async function generateApplicationPdf(
                 ? stripMarkdown(field.description)
                 : "";
             const descriptionLines = plainFieldDesc
-                ? wrapText(
-                    plainFieldDesc,
+                ? wrapRich(
+                    field.description ?? "",
                     nunitoRegular,
                     FONT_SIZE_SMALL,
                     fieldWidth,
@@ -1658,24 +1865,14 @@ export async function generateApplicationPdf(
 
             // Dependent-field descriptions act as conditional notes.
             if (plainFieldDesc) {
-                if (isDependentField) {
-                    cursor.drawWrappedTextIndented(
-                        plainFieldDesc,
-                        nunitoRegular,
-                        FONT_SIZE_SMALL,
-                        indent,
-                        COLOUR_MID_GREY,
-                        LINE_HEIGHT_SMALL,
-                    );
-                } else {
-                    cursor.drawWrappedText(
-                        plainFieldDesc,
-                        nunitoRegular,
-                        FONT_SIZE_SMALL,
-                        COLOUR_MID_GREY,
-                        LINE_HEIGHT_SMALL,
-                    );
-                }
+                cursor.drawRichText(
+                    field.description ?? "",
+                    nunitoRegular,
+                    FONT_SIZE_SMALL,
+                    COLOUR_MID_GREY,
+                    LINE_HEIGHT_SMALL,
+                    indent,
+                );
                 cursor.y -= 4;
             }
 
