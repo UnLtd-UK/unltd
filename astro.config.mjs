@@ -8,7 +8,10 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [alpinejs(), react(), markdoc(), sitemap()],
+  integrations: [alpinejs(), react(), markdoc(), sitemap({
+    // Token-driven utility pages shouldn't be indexed or a11y-crawled.
+    filter: (page) => !/\/newsletter\/(confirm|unsubscribe)$/.test(page),
+  })],
   site: 'https://unltd.org.uk',
   trailingSlash: 'never',
   // Output stays fully static by default; @astrojs/cloudflare only adds
@@ -37,6 +40,17 @@ export default defineConfig({
       // public API role is disabled. Distinct from DIRECTUS_PREVIEW_TOKEN,
       // which is only the shared secret gating this route's URL.
       DIRECTUS_API_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
+      // Newsletter sign-up (see docs/newsletter.md). All optional so workers
+      // without them (e.g. branch previews) return a graceful 503 from the
+      // newsletter API instead of failing schema validation.
+      RESEND_API_KEY: envField.string({ context: "server", access: "secret", optional: true }),
+      RESEND_SEGMENT_ID: envField.string({ context: "server", access: "secret", optional: true }),
+      RESEND_TOPIC_ID: envField.string({ context: "server", access: "secret", optional: true }),
+      NEWSLETTER_FROM: envField.string({ context: "server", access: "secret", optional: true }),
+      NEWSLETTER_TOKEN_SECRET: envField.string({ context: "server", access: "secret", optional: true }),
+      TURNSTILE_SECRET_KEY: envField.string({ context: "server", access: "secret", optional: true }),
+      // Public Turnstile site key; baked into the static HTML at build time.
+      PUBLIC_TURNSTILE_SITE_KEY: envField.string({ context: "client", access: "public", optional: true }),
     },
   },
   vite: {

@@ -1,0 +1,245 @@
+---
+// Newsletter email form (sign up, or request an unsubscribe verification email).
+// Posts to /api/newsletter/* and is protected by Cloudflare Turnstile + a honeypot.
+import { PUBLIC_TURNSTILE_SITE_KEY } from "astro:env/client";
+
+interface Props {
+    mode?: "subscribe" | "unsubscribe";
+    // Unique per instance: the form appears in the footer and on pages.
+    id?: string;
+    heading?: string;
+    description?: string;
+}
+
+const {
+    mode = "subscribe",
+    id = "newsletter",
+    heading,
+    description,
+} = Astro.props;
+
+const isSubscribe = mode === "subscribe";
+const endpoint = isSubscribe
+    ? "/api/newsletter/subscribe"
+    : "/api/newsletter/unsubscribe-request";
+const buttonLabel = isSubscribe ? "Subscribe" : "Send unsubscribe link";
+---
+
+{
+    PUBLIC_TURNSTILE_SITE_KEY ? (
+        <div data-newsletter-form-root>
+            {heading && (
+                <h3
+                    id={`${id}-heading`}
+                    class="text-sm font-semibold text-slate-900 dark:text-slate-100"
+                >
+                    {heading}
+                </h3>
+            )}
+            {description && (
+                <p
+                    id={`${id}-description`}
+                    class="mt-2 text-sm text-slate-600 dark:text-slate-400"
+                >
+                    {description}
+                </p>
+            )}
+            <form
+                class="mt-4"
+                method="post"
+                action={endpoint}
+                data-newsletter-form
+                data-endpoint={endpoint}
+                data-sitekey={PUBLIC_TURNSTILE_SITE_KEY}
+                aria-labelledby={heading ? `${id}-heading` : undefined}
+                novalidate
+            >
+                <label for={`${id}-email`} class="sr-only">
+                    Email address
+                </label>
+                <div class="flex flex-col gap-3 sm:flex-row">
+                    <input
+                        id={`${id}-email`}
+                        name="email"
+                        type="email"
+                        autocomplete="email"
+                        required
+                        placeholder="you@example.com"
+                        class="min-w-0 flex-auto rounded-full border border-slate-400 bg-white px-4 py-2 text-sm text-slate-900 placeholder:text-slate-500 focus:outline-hidden focus:ring-2 focus:ring-violet-600 dark:border-slate-500 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-400"
+                    />
+                    <button
+                        type="submit"
+                        class="rounded-full bg-violet-700 px-5 py-2 text-sm font-semibold text-white hover:bg-violet-800 focus:outline-hidden focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                        {buttonLabel}
+                    </button>
+                </div>
+                <div
+                    class="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+                    aria-hidden="true"
+                >
+                    <label for={`${id}-website`}>Leave this field empty</label>
+                    <input
+                        id={`${id}-website`}
+                        name="website"
+                        type="text"
+                        tabindex="-1"
+                        autocomplete="off"
+                    />
+                </div>
+                <div class="mt-3" data-turnstile />
+                <p
+                    class="mt-3 min-h-5 text-sm text-slate-700 dark:text-slate-300"
+                    role="status"
+                    aria-live="polite"
+                    data-newsletter-status
+                >
+                </p>
+                {isSubscribe && (
+                    <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">
+                        We'll email you to confirm your address. You can
+                        unsubscribe at any time.
+                    </p>
+                )}
+            </form>
+        </div>
+    ) : (
+        import.meta.env.DEV && (
+            <p class="text-sm text-slate-600 dark:text-slate-400">
+                Newsletter form hidden: set PUBLIC_TURNSTILE_SITE_KEY.
+            </p>
+        )
+    )
+}
+
+<script>
+    interface TurnstileApi {
+        render: (
+            container: HTMLElement,
+            options: Record<string, unknown>,
+        ) => string;
+        reset: (widgetId?: string) => void;
+    }
+    declare global {
+        interface Window {
+            turnstile?: TurnstileApi;
+            __newsletterTurnstileReady?: () => void;
+        }
+    }
+
+    const SCRIPT_SRC =
+        "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__newsletterTurnstileReady";
+
+    const forms = document.querySelectorAll<HTMLFormElement>(
+        "form[data-newsletter-form]",
+    );
+
+    function loadTurnstile(): Promise<TurnstileApi> {
+        return new Promise((resolve, reject) => {
+            if (window.turnstile) return resolve(window.turnstile);
+            window.__newsletterTurnstileReady = () =>
+                resolve(window.turnstile as TurnstileApi);
+            let script = document.querySelector<HTMLScriptElement>(
+                `script[src="${SCRIPT_SRC}"]`,
+            );
+            if (!script) {
+                script = document.createElement("script");
+                script.src = SCRIPT_SRC;
+                script.async = true;
+                document.head.appendChild(script);
+            }
+            script.addEventListener("error", () => {
+                script.remove();
+                reject(new Error("Turnstile failed to load"));
+            });
+        });
+    }
+
+    let turnstilePromise: Promise<TurnstileApi> | undefined;
+
+    forms.forEach((form) => {
+        const status = form.querySelector<HTMLElement>(
+            "[data-newsletter-status]",
+        )!;
+        const button = form.querySelector<HTMLButtonElement>(
+            "button[type=submit]",
+        )!;
+        const container = form.querySelector<HTMLElement>("[data-turnstile]")!;
+        let token = "";
+        let widgetId: string | undefined;
+
+        // Only load Turnstile once the visitor engages, so the footer form
+        // doesn't add a third-party request to every page view.
+        const ensureWidget = () => {
+            const promise = (turnstilePromise ??= loadTurnstile());
+            promise.then((turnstile) => {
+                if (widgetId !== undefined) return;
+                widgetId = turnstile.render(container, {
+                    sitekey: form.dataset.sitekey,
+                    appearance: "interaction-only",
+                    callback: (value: string) => (token = value),
+                    "expired-callback": () => (token = ""),
+                    "error-callback": () => (token = ""),
+                });
+            }).catch(() => {
+                // Allow the next attempt to retry loading the script.
+                if (turnstilePromise === promise) turnstilePromise = undefined;
+            });
+        };
+        form.addEventListener("focusin", ensureWidget, { once: true });
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const data = new FormData(form);
+            const email = String(data.get("email") ?? "").trim();
+
+            if (!email || !form.querySelector<HTMLInputElement>("[name=email]")!.checkValidity()) {
+                status.textContent = "Please enter a valid email address.";
+                form.querySelector<HTMLInputElement>("[name=email]")!.focus();
+                return;
+            }
+            ensureWidget();
+            button.disabled = true;
+            if (!token) {
+                status.textContent = "Verifying you're human…";
+                // Turnstile loads lazily and solves in the background.
+                for (let waited = 0; !token && waited < 10000; waited += 250) {
+                    await new Promise((resolve) => setTimeout(resolve, 250));
+                }
+                if (!token) {
+                    button.disabled = false;
+                    status.textContent =
+                        "We couldn't verify you're human. Please try again.";
+                    return;
+                }
+            }
+
+            status.textContent = "Sending…";
+            try {
+                const response = await fetch(form.dataset.endpoint!, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        email,
+                        website: data.get("website"),
+                        turnstileToken: token,
+                    }),
+                });
+                const result = await response.json().catch(() => ({}));
+                status.textContent =
+                    result.message ??
+                    result.error ??
+                    "Something went wrong. Please try again.";
+                if (response.ok) form.reset();
+            } catch {
+                status.textContent =
+                    "Something went wrong. Please check your connection and try again.";
+            } finally {
+                button.disabled = false;
+                // Tokens are single-use.
+                token = "";
+                if (widgetId !== undefined) window.turnstile?.reset(widgetId);
+            }
+        });
+    });
+</script>

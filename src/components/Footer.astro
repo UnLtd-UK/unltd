@@ -5,6 +5,7 @@ import DynamicIcon from "@components/DynamicIcon.astro";
 import { navigation } from "@data/navigation.ts";
 const nav = navigation.code;
 import Container from "@components/Container.astro";
+import NewsletterSignup from "@components/NewsletterSignup.astro";
 
 import Logo from "@components/Logo.jsx";
 
@@ -170,6 +171,15 @@ const styles = {
           }
         </div>
       </div>
+    </div>
+    <div
+      class="mt-16 max-w-md border-t border-slate-300 pt-8 dark:border-slate-700"
+    >
+      <NewsletterSignup
+        id="newsletter-footer"
+        heading="Subscribe to our newsletter"
+        description="News on our awards, events and the social entrepreneurs we support."
+      />
     </div>
   </Container>
 </footer>

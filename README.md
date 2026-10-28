@@ -11,6 +11,16 @@ EVENTBRITE_PRIVATE_TOKEN=your-token-here
 DIRECTUS_API_TOKEN=your-token-here
 ```
 
+Newsletter sign-up (optional locally; see [docs/newsletter.md](docs/newsletter.md)):
+
+```
+RESEND_API_KEY=your-key-here
+RESEND_SEGMENT_ID=your-segment-id
+NEWSLETTER_TOKEN_SECRET=long-random-string
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
+```
+
 ### 2. Generate .npmrc
 Run the setup script to generate the `.npmrc` file from the template:
 
