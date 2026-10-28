@@ -76,12 +76,21 @@ export async function getContact(config: NewsletterConfig, email: string): Promi
     return { id: data.id, unsubscribed: data.unsubscribed };
 }
 
-async function getList<T>(config: NewsletterConfig, path: string, action: string): Promise<T[]> {
-    const response = await resendFetch(config, path);
-    if (response.status === 404) return [];
-    await assertOk(response, action);
-    const data = (await response.json()) as { data?: T[] };
-    return data.data ?? [];
+async function getList<T extends { id: string }>(config: NewsletterConfig, path: string, action: string): Promise<T[]> {
+    const items: T[] = [];
+    let pagePath = path;
+    for (;;) {
+        const response = await resendFetch(config, pagePath);
+        if (response.status === 404) return items;
+        await assertOk(response, action);
+        const page = (await response.json()) as { data?: T[]; has_more?: boolean };
+        const data = page.data ?? [];
+        items.push(...data);
+        if (!page.has_more || data.length === 0) return items;
+        const url = new URL(pagePath, API);
+        url.searchParams.set("after", data[data.length - 1]!.id);
+        pagePath = `${url.pathname}${url.search}`;
+    }
 }
 
 // Newsletter-scoped membership: the topic opt-in when a topic is configured,
