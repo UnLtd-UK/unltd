@@ -1,0 +1,35 @@
+---
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Container from "@components/Container.astro";
+import NewsletterSignup from "@components/NewsletterSignup.astro";
+import Template from "@layouts/Template.astro";
+
+const name = "UnLtd Newsletter";
+const description =
+    "Sign up to the UnLtd newsletter for news on our awards, events and the social entrepreneurs we support.";
+---
+
+<Template name={name} description={description}>
+    <Container>
+        <Breadcrumbs breadcrumbs={[{ name, path: "/newsletter" }]} />
+    </Container>
+    <div class="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <div class="mx-auto max-w-xl">
+            <h1
+                class="text-4xl font-bold tracking-tight text-violet-200 sm:text-5xl"
+            >
+                {name}
+            </h1>
+            <p class="mt-4 text-base text-violet-300">{description}</p>
+            <div class="mt-8">
+                <NewsletterSignup id="newsletter-page" />
+            </div>
+            <p class="mt-8 text-sm text-violet-300">
+                Already subscribed and want to stop receiving emails? <a
+                    href="/newsletter/unsubscribe"
+                    class="underline hover:text-violet-100">Unsubscribe</a
+                >.
+            </p>
+        </div>
+    </div>
+</Template>

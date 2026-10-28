@@ -1,0 +1,25 @@
+{
+	"mcpServers": {
+		"Astro docs": {
+			"type": "http",
+			"url": "https://mcp.docs.astro.build/mcp",
+			"tools": [
+				"*"
+			]
+		},
+		"emdash-docs": {
+			"type": "http",
+			"url": "https://docs.emdashcms.com/mcp",
+			"tools": [
+				"*"
+			]
+		},
+		"resend": {
+			"type": "http",
+			"url": "https://mcp.resend.com/mcp",
+			"tools": [
+				"*"
+			]
+		}
+	}
+}

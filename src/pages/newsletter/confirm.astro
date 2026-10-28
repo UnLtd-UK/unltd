@@ -1,0 +1,110 @@
+---
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Container from "@components/Container.astro";
+import Template from "@layouts/Template.astro";
+
+const name = "Confirm your subscription";
+const description = "Confirm your email address for the UnLtd newsletter.";
+---
+
+<Template name={name} description={description} noindex>
+    <Container>
+        <Breadcrumbs
+            breadcrumbs={[
+                { name: "UnLtd Newsletter", path: "/newsletter" },
+                { name, path: "/newsletter/confirm" },
+            ]}
+        />
+    </Container>
+    <div class="px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+        <div class="mx-auto max-w-xl" id="newsletter-confirm">
+            <h1
+                class="text-4xl font-bold tracking-tight text-violet-200 sm:text-5xl"
+                id="confirm-heading"
+                tabindex="-1"
+            >
+                {name}
+            </h1>
+            <p
+                class="mt-4 text-base text-violet-300"
+                role="status"
+                aria-live="polite"
+                id="confirm-message"
+            >
+                Confirming your email address…
+            </p>
+            <noscript>
+                <p class="mt-4 text-base text-violet-300">
+                    JavaScript is required to confirm your subscription.
+                </p>
+            </noscript>
+            <p class="mt-8">
+                <a
+                    href="/"
+                    class="inline-flex items-center rounded-full bg-violet-600 px-4 py-2 text-sm font-medium text-white hover:bg-violet-700 focus:outline-hidden focus:ring-2 focus:ring-violet-500 focus:ring-offset-2"
+                    >Go to the homepage</a
+                >
+            </p>
+        </div>
+    </div>
+</Template>
+
+<script>
+    const heading = document.getElementById("confirm-heading")!;
+    const message = document.getElementById("confirm-message")!;
+    const token = new URLSearchParams(location.search).get("token");
+
+    const show = (title: string, text: string) => {
+        heading.textContent = title;
+        message.innerHTML = text;
+    };
+
+    // The token is removed from the address bar once read.
+    history.replaceState(null, "", location.pathname);
+
+    const retryHtml =
+        ' <a class="underline hover:text-violet-100" href="/newsletter">Sign up again</a>.';
+
+    if (!token) {
+        show(
+            "Link not valid",
+            "This confirmation link is missing or incomplete." + retryHtml,
+        );
+    } else {
+        fetch("/api/newsletter/confirm", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token }),
+        })
+            .then(async (response) => {
+                const result = await response.json().catch(() => ({}));
+                if (response.ok) {
+                    show(
+                        "You're subscribed",
+                        "Thank you for confirming. We've sent you a welcome email.",
+                    );
+                } else if (result.error === "expired") {
+                    show(
+                        "Link expired",
+                        "This confirmation link has expired." + retryHtml,
+                    );
+                } else if (result.error === "invalid") {
+                    show(
+                        "Link not valid",
+                        "This confirmation link isn't valid." + retryHtml,
+                    );
+                } else {
+                    show(
+                        "Something went wrong",
+                        "We couldn't confirm your subscription. Please try the link again later.",
+                    );
+                }
+            })
+            .catch(() =>
+                show(
+                    "Something went wrong",
+                    "We couldn't confirm your subscription. Please check your connection and try again.",
+                ),
+            );
+    }
+</script>
