@@ -52,7 +52,12 @@ const description = "Confirm your email address for the UnLtd newsletter.";
 <script>
     const heading = document.getElementById("confirm-heading")!;
     const message = document.getElementById("confirm-message")!;
-    const token = new URLSearchParams(location.search).get("token");
+    // The inline analytics snippet strips the token from the URL before this
+    // script runs, so read it from the values it captured.
+    const token =
+        (window as unknown as { __redactedQueryParams?: Record<string, string> })
+            .__redactedQueryParams?.token ??
+        new URLSearchParams(location.search).get("token");
 
     const show = (title: string, text: string) => {
         heading.textContent = title;

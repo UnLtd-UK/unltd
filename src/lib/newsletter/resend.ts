@@ -76,13 +76,39 @@ export async function getContact(config: NewsletterConfig, email: string): Promi
     return { id: data.id, unsubscribed: data.unsubscribed };
 }
 
+async function getList<T>(config: NewsletterConfig, path: string, action: string): Promise<T[]> {
+    const response = await resendFetch(config, path);
+    if (response.status === 404) return [];
+    await assertOk(response, action);
+    const data = (await response.json()) as { data?: T[] };
+    return data.data ?? [];
+}
+
+// Newsletter-scoped membership: the topic opt-in when a topic is configured,
+// otherwise membership of the newsletter segment. The contact-wide
+// `unsubscribed` flag is never set by this newsletter's unsubscribe.
+async function isInNewsletterScope(config: NewsletterConfig, email: string): Promise<boolean> {
+    if (config.topicId) {
+        const topics = await getList<{ id: string; subscription: string }>(
+            config,
+            `${contactPath(email)}/topics`,
+            "get contact topics",
+        );
+        return topics.some((topic) => topic.id === config.topicId && topic.subscription === "opt_in");
+    }
+    const segments = await getList<{ id: string }>(config, `${contactPath(email)}/segments`, "get contact segments");
+    return segments.some((segment) => segment.id === config.segmentId);
+}
+
 export async function isSubscribed(config: NewsletterConfig, email: string): Promise<boolean> {
     const contact = await getContact(config, email);
-    return contact !== null && !contact.unsubscribed;
+    if (contact === null || contact.unsubscribed) return false;
+    return isInNewsletterScope(config, email);
 }
 
 // Returns whether anything changed, so callers only send the welcome email
-// on a genuine new/re-subscription (confirm links can be replayed).
+// on a genuine new/re-subscription (confirm links can be replayed). Existing
+// contacts are reconciled so a retry repairs partially applied updates.
 export async function subscribeContact(config: NewsletterConfig, email: string): Promise<"subscribed" | "unchanged"> {
     const topics = config.topicId ? [{ id: config.topicId, subscription: "opt_in" }] : undefined;
     const existing = await getContact(config, email);
@@ -101,40 +127,69 @@ export async function subscribeContact(config: NewsletterConfig, email: string):
         return "subscribed";
     }
 
-    if (!existing.unsubscribed) return "unchanged";
+    let changed = false;
 
-    await assertOk(
-        await resendFetch(config, contactPath(email), {
-            method: "PATCH",
-            body: JSON.stringify({ unsubscribed: false }),
-        }),
-        "update contact",
-    );
-    await assertOk(
-        await resendFetch(config, `${contactPath(email)}/segments/${config.segmentId}`, { method: "POST" }),
-        "add contact to segment",
-    );
-    if (topics) {
+    if (existing.unsubscribed) {
         await assertOk(
-            await resendFetch(config, `${contactPath(email)}/topics`, {
+            await resendFetch(config, contactPath(email), {
                 method: "PATCH",
-                body: JSON.stringify({ topics }),
+                body: JSON.stringify({ unsubscribed: false }),
             }),
-            "update contact topics",
+            "update contact",
         );
+        changed = true;
     }
-    return "subscribed";
+
+    const segments = await getList<{ id: string }>(config, `${contactPath(email)}/segments`, "get contact segments");
+    if (!segments.some((segment) => segment.id === config.segmentId)) {
+        await assertOk(
+            await resendFetch(config, `${contactPath(email)}/segments/${config.segmentId}`, { method: "POST" }),
+            "add contact to segment",
+        );
+        changed = true;
+    }
+
+    if (topics) {
+        const current = await getList<{ id: string; subscription: string }>(
+            config,
+            `${contactPath(email)}/topics`,
+            "get contact topics",
+        );
+        if (!current.some((topic) => topic.id === config.topicId && topic.subscription === "opt_in")) {
+            await assertOk(
+                await resendFetch(config, `${contactPath(email)}/topics`, {
+                    method: "PATCH",
+                    body: JSON.stringify({ topics }),
+                }),
+                "update contact topics",
+            );
+            changed = true;
+        }
+    }
+
+    return changed ? "subscribed" : "unchanged";
 }
 
 export async function unsubscribeContact(config: NewsletterConfig, email: string): Promise<void> {
     const existing = await getContact(config, email);
-    if (!existing || existing.unsubscribed) return;
+    if (!existing) return;
+
+    if (config.topicId) {
+        if (!(await isInNewsletterScope(config, email))) return;
+        await assertOk(
+            await resendFetch(config, `${contactPath(email)}/topics`, {
+                method: "PATCH",
+                body: JSON.stringify({ topics: [{ id: config.topicId, subscription: "opt_out" }] }),
+            }),
+            "opt out of topic",
+        );
+        return;
+    }
+
+    if (!(await isInNewsletterScope(config, email))) return;
     await assertOk(
-        await resendFetch(config, contactPath(email), {
-            method: "PATCH",
-            body: JSON.stringify({ unsubscribed: true }),
-        }),
-        "unsubscribe contact",
+        await resendFetch(config, `${contactPath(email)}/segments/${config.segmentId}`, { method: "DELETE" }),
+        "remove contact from segment",
     );
 }
 

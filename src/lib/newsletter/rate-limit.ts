@@ -7,11 +7,13 @@ export async function isRateLimited(key: string, limit: number, windowSeconds: n
     const kv = (env as { SESSION?: KVNamespace }).SESSION;
     if (!kv) return false;
 
-    const kvKey = `newsletter:rl:${key}`;
+    const windowId = Math.floor(Date.now() / (windowSeconds * 1000));
+    const kvKey = `newsletter:rl:${key}:${windowId}`;
     try {
         const current = Number((await kv.get(kvKey)) ?? 0);
         if (current >= limit) return true;
-        // KV requires an expiration TTL of at least 60 seconds.
+        // KV requires an expiration TTL of at least 60 seconds; the window is part
+        // of the key so counts reset at the window boundary.
         await kv.put(kvKey, String(current + 1), { expirationTtl: Math.max(windowSeconds, 60) });
         return false;
     } catch (error) {

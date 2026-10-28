@@ -76,7 +76,12 @@ const description =
 </Template>
 
 <script>
-    const token = new URLSearchParams(location.search).get("token");
+    // The inline analytics snippet strips the token from the URL before this
+    // script runs, so read it from the values it captured.
+    const token =
+        (window as unknown as { __redactedQueryParams?: Record<string, string> })
+            .__redactedQueryParams?.token ??
+        new URLSearchParams(location.search).get("token");
     const heading = document.getElementById("unsubscribe-heading")!;
     const requestStep = document.getElementById("unsubscribe-request")!;
     const confirmStep = document.getElementById("unsubscribe-confirm")!;
