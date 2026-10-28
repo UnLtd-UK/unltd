@@ -58,10 +58,12 @@ export async function verifyToken(
 
     try {
         // subtle.verify compares in constant time.
+        const signatureBytes = fromBase64Url(signature);
+        if (toBase64Url(signatureBytes) !== signature) return { ok: false, reason: "invalid" };
         const valid = await crypto.subtle.verify(
             "HMAC",
             await hmacKey(secret, "verify"),
-            fromBase64Url(signature),
+            signatureBytes,
             encoder.encode(body),
         );
         if (!valid) return { ok: false, reason: "invalid" };
