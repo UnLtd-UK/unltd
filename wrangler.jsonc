@@ -46,10 +46,12 @@
 		// entirely, so our own no-store headers actually take effect.
 		// "/_emdash/*" (admin, API, media files) and "/_image" (EmDash media
 		// transforms) never exist as static files, so they must reach the Worker.
+		// "/.well-known/*" serves EmDash's OAuth discovery documents (MCP sign-in).
 		"run_worker_first": [
 			"/blog/*/preview",
 			"/_emdash/*",
-			"/_image"
+			"/_image",
+			"/.well-known/*"
 		]
 	},
 	// Required by @astrojs/cloudflare's defaults: Workers KV for the Sessions
