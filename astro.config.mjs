@@ -47,7 +47,7 @@ export default defineConfig({
       }),
     ],
     admin: {
-      hiddenNavItems: ["comments"],
+      hiddenNavItems: ["comments", "widgets"],
     }
   })],
   site: 'https://unltd.org.uk',
