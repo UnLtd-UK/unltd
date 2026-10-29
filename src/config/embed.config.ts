@@ -72,11 +72,24 @@ export const PLATFORMS: PlatformConfig[] = [
 export const CONSENT_COOKIE_NAME = 'zaraz-consent';
 
 // =============================================================================
-// EMBED LOAD TIMEOUT
+// EMBED LOAD TIMEOUTS
 // =============================================================================
 
-/** How long to wait for an embed iframe to load before showing the fallback */
-export const EMBED_LOAD_TIMEOUT_MS = 8000;
+/**
+ * How long to wait before showing the fallback "open in a new tab" link.
+ * This is a user-facing escape hatch for slow connections. It is not a failure
+ * signal: heavy embeds (Typeform, YouTube) often load a few seconds after this.
+ */
+export const EMBED_FALLBACK_DELAY_MS = 8000;
+
+/**
+ * How long to wait before recording an `embed_load_failed` analytics event.
+ * This must be long enough that a slow-but-successful load does not count as a
+ * failure. Observed loads reach the iframe well after the fallback delay, so
+ * the failure threshold is much higher. The timer is cancelled the moment the
+ * iframe reports a load, so only embeds that never load are recorded.
+ */
+export const EMBED_FAILURE_TIMEOUT_MS = 45000;
 
 // =============================================================================
 // ANALYTICS CONFIGURATION
