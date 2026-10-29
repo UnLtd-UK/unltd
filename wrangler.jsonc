@@ -76,6 +76,12 @@
 	"images": {
 		"binding": "IMAGES"
 	},
+	// Cloudflare Email Service binding used by EmDash to send email.
+	"send_email": [
+		{
+			"name": "EMAIL"
+		}
+	],
 	// EmDash CMS: D1 for content, R2 for media. Binding names must match
 	// d1()/r2() in astro.config.mjs. There is ONE EmDash instance: every worker
 	// (production and all feature/fix previews) binds the same database and
@@ -123,6 +129,11 @@
 			"images": {
 				"binding": "IMAGES"
 			},
+			"send_email": [
+				{
+					"name": "EMAIL"
+				}
+			],
 			"d1_databases": [
 				{
 					"binding": "DB",

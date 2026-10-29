@@ -8,6 +8,7 @@ import cloudflare from "@astrojs/cloudflare";
 
 import emdash from "emdash/astro";
 import { d1, r2 } from "@emdash-cms/cloudflare";
+import { cloudflareEmail } from "@emdash-cms/cloudflare/plugins";
 
 // Prerendered pages render in Node (prerenderEnvironment: "node" below), where
 // the `cloudflare:workers` module EmDash's middleware imports doesn't exist.
@@ -32,6 +33,14 @@ export default defineConfig({
   integrations: [alpinejs(), react(), markdoc(), sitemap(), emdash({
     database: d1({ binding: "DB" }),
     storage: r2({ binding: "MEDIA" }),
+    // Uses the `EMAIL` send_email binding in wrangler.jsonc. The sender domain
+    // must be onboarded for Cloudflare Email Sending.
+    plugins: [
+      cloudflareEmail({
+        from: { email: "cms@unltd.org.uk", name: "UnLtd CMS" },
+        replyTo: "digital@unltd.org.uk",
+      }),
+    ],
     admin: {
       hiddenNavItems: ["comments"],
     }
