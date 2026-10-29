@@ -28,6 +28,25 @@ const apiHost = import.meta.env.PUBLIC_POSTHOG_HOST;
     } catch (e) {}
   })();
 
+  // Safari shows extension and other hidden scripts as webkit-masked-url://hidden/.
+  // Keep the exception if one or more frames come from a different source.
+  var INJECTED_SCRIPT_SOURCE = /^(webkit-masked-url|safari-extension|safari-web-extension|chrome-extension|moz-extension):/;
+  function isInjectedScriptException(event) {
+    var list = event.properties.$exception_list;
+    if (!Array.isArray(list)) return false;
+    var filenames = [];
+    list.forEach(function (exception) {
+      var frames = exception && exception.stacktrace && exception.stacktrace.frames;
+      if (!Array.isArray(frames)) return;
+      frames.forEach(function (frame) {
+        if (frame && typeof frame.filename === 'string' && frame.filename) filenames.push(frame.filename);
+      });
+    });
+    return filenames.length > 0 && filenames.every(function (filename) {
+      return INJECTED_SCRIPT_SOURCE.test(filename);
+    });
+  }
+
   if (!apiKey) {
     if (typeof window !== 'undefined' && window.location.hostname !== 'unltd.org.uk') {
       console.warn('PUBLIC_POSTHOG_PROJECT_TOKEN variable required by PostHog is missing or un-configured, this causes events to be silently missed. This error stops appearing once PUBLIC_POSTHOG_PROJECT_TOKEN is configured');
@@ -42,8 +61,10 @@ const apiHost = import.meta.env.PUBLIC_POSTHOG_HOST;
       tracing_headers: [window.location.hostname],
       enableExceptionAutocapture: true,
       // Fallback: redact an email query parameter that still reaches an event.
+      // Also drop exceptions that come only from browser extensions or other injected scripts.
       before_send: function (event) {
         if (!event || !event.properties) return event;
+        if (event.event === '$exception' && isInjectedScriptException(event)) return null;
         var URL_PROPS = ['$current_url', '$referrer', '$initial_current_url', '$initial_referrer'];
         URL_PROPS.forEach(function (key) {
           var value = event.properties[key];
