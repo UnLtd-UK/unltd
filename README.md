@@ -9,7 +9,13 @@ Add the following to `.dev.vars`:
 FONTAWESOME_NPM_AUTH_TOKEN=your-token-here
 EVENTBRITE_PRIVATE_TOKEN=your-token-here
 DIRECTUS_API_TOKEN=your-token-here
+EMDASH_TOKEN=your-emdash-api-token
+# Optional: where to read EmDash pages from at build time
+# (defaults to https://unltd.org.uk; a localhost URL needs no token)
+# EMDASH_URL=http://localhost:4321
 ```
+
+Pages are read from the EmDash `pages` collection over its HTTP API when the site builds (see [src/data/pages.ts](src/data/pages.ts)). Create `EMDASH_TOKEN` as an API token with content read access in the EmDash admin, and add it as the `EMDASH_TOKEN` GitHub Actions secret.
 
 ### 2. Generate .npmrc
 Run the setup script to generate the `.npmrc` file from the template:

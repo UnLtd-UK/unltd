@@ -3,52 +3,38 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Default from "@components/heroes/Default.astro";
-import Content from "@components/markdoc/Content.astro";
+import PortableContent from "@components/emdash/PortableContent.astro";
 
-import { marked } from "marked";
+import { pages } from "@data/pages";
 
-import { pages } from "@data/pages.js";
-
-export async function getStaticPaths() {
-  return pages.map((page) => {
-    // Use the slug field from Directus
-    const pageSlug = page.slug;
-
-    let breadcrumbs = [
-      {
-        name: page.name,
-        path: `/${pageSlug}`,
-      },
-    ];
-
-    page.breadcrumbs = breadcrumbs;
-
-    let item = {
-      params: {
-        page: pageSlug,
-      },
-      props: {
-        ...page,
-      },
-    };
-
-    return item;
-  });
+export function getStaticPaths() {
+  return pages.map((page) => ({
+    params: { page: page.slug },
+    props: {
+      title: page.title,
+      subtitle: page.subtitle,
+      content: page.content,
+      showUpdatedAt: page.showUpdatedAt,
+      updatedAt: page.updatedAt,
+      breadcrumbs: [{ name: page.title, path: `/${page.slug}` }],
+    },
+  }));
 }
 
-const { name, description, body, breadcrumbs, last_updated, date_updated } =
+const { title, subtitle, content, breadcrumbs, showUpdatedAt, updatedAt } =
   Astro.props;
 
+const dateOptions = { timeZone: "Europe/London" } as const;
 const lastUpdatedText =
-  last_updated && date_updated
-    ? `${new Date(date_updated).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} at ${new Date(date_updated).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}`
+  showUpdatedAt && updatedAt
+    ? `${new Date(updatedAt).toLocaleDateString("en-GB", { ...dateOptions, day: "numeric", month: "long", year: "numeric" })} at ${new Date(updatedAt).toLocaleTimeString("en-GB", { ...dateOptions, hour: "2-digit", minute: "2-digit" })}`
     : null;
 ---
 
-<Template name={name} description={description}>
+<Template name={title} description={subtitle}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <Default name={name} description={description} />
+    <Default name={title} description={subtitle} />
     {
       lastUpdatedText && (
         <p class="text-sm text-violet-300 -mt-4 mb-6">
@@ -57,7 +43,7 @@ const lastUpdatedText =
       )
     }
     <div class="pb-20">
-      <Content body={body} />
+      <PortableContent value={content} />
     </div>
   </Container>
 </Template>

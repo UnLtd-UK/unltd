@@ -32,6 +32,9 @@ export default defineConfig({
   integrations: [alpinejs(), react(), markdoc(), sitemap(), emdash({
     database: d1({ binding: "DB" }),
     storage: r2({ binding: "MEDIA" }),
+    admin: {
+      hiddenNavItems: ["comments"],
+    }
   })],
   site: 'https://unltd.org.uk',
   trailingSlash: 'never',

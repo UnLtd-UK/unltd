@@ -1,0 +1,40 @@
+---
+import { PortableText } from "emdash/ui";
+import { proseClasses } from "@components/markdoc/proseClasses";
+import Heading from "./Heading.astro";
+import Link from "./Link.astro";
+
+const { value = [] } = Astro.props;
+
+// Give each h2/h3 a unique slug id (the same ids the Markdown renderer made),
+// using EmDash's one-level-lower heading numbering.
+const counts = new Map<string, number>();
+const withIds = value.map((block: any) => {
+  if (block._type !== "block" || !/^h[1-2]$/.test(block.style)) return block;
+  const text = (block.children ?? []).map((c: any) => c.text ?? "").join("");
+  const base = text
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+  const count = (counts.get(base) ?? 0) + 1;
+  counts.set(base, count);
+  return { ...block, headingId: count > 1 ? `${base}-${count - 1}` : base };
+});
+
+const components = {
+  block: {
+    h1: Heading,
+    h2: Heading,
+    h3: Heading,
+    h4: Heading,
+    h5: Heading,
+  },
+  mark: { link: Link },
+};
+---
+
+<div class={proseClasses}>
+  <PortableText value={withIds} components={components} />
+</div>

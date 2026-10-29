@@ -37,13 +37,13 @@ export interface Post {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
-export interface Resourcess {
+export interface Resource {
   id: string;
   slug: string | null;
   status: string;
   title: string;
   subtitle: string;
-  content: PortableTextBlock[];
+  content?: PortableTextBlock[];
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -56,6 +56,6 @@ declare module "emdash" {
   interface EmDashCollections {
     pages: Page;
     posts: Post;
-    resourcess: Resourcess;
+    resources: Resource;
   }
 }
