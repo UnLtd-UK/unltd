@@ -6,9 +6,33 @@ import markdoc from "@astrojs/markdoc";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 
+import emdash from "emdash/astro";
+import { d1, r2 } from "@emdash-cms/cloudflare";
+
+// Prerendered pages render in Node (prerenderEnvironment: "node" below), where
+// the `cloudflare:workers` module EmDash's middleware imports doesn't exist.
+// Stub it for that environment only; on-demand routes still run in workerd.
+const stubCloudflareWorkersInPrerender = {
+  name: "stub-cloudflare-workers-in-prerender",
+  enforce: "pre",
+  resolveId(id) {
+    if (id === "cloudflare:workers" && this.environment?.name === "prerender") {
+      return "\0stub:cloudflare-workers";
+    }
+  },
+  load(id) {
+    if (id === "\0stub:cloudflare-workers") {
+      return "export const waitUntil = undefined; export const env = {};";
+    }
+  },
+};
+
 // https://astro.build/config
 export default defineConfig({
-  integrations: [alpinejs(), react(), markdoc(), sitemap()],
+  integrations: [alpinejs(), react(), markdoc(), sitemap(), emdash({
+    database: d1({ binding: "DB" }),
+    storage: r2({ binding: "MEDIA" }),
+  })],
   site: 'https://unltd.org.uk',
   trailingSlash: 'never',
   // Output stays fully static by default; @astrojs/cloudflare only adds
@@ -40,7 +64,7 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), stubCloudflareWorkersInPrerender],
     ssr: {
       noExternal: ['react', 'react-dom']
     }

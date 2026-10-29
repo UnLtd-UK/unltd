@@ -36,6 +36,12 @@
 {
   "name": "unltd",
   "compatibility_date": "2025-11-17",
+  // Required by EmDash CMS (node:module, node:async_hooks, ...).
+  "compatibility_flags": ["nodejs_compat"],
+  // Local (miniflare) bindings for EmDash CMS (see astro.config.mjs). Binding
+  // names must match d1()/r2() there. No database_id/bucket needed locally.
+  "d1_databases": [{ "binding": "DB", "database_name": "unltd-emdash" }],
+  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "unltd-emdash-media" }],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS"
