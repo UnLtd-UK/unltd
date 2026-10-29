@@ -10,10 +10,11 @@ FONTAWESOME_NPM_AUTH_TOKEN=your-token-here
 EVENTBRITE_PRIVATE_TOKEN=your-token-here
 DIRECTUS_API_TOKEN=your-token-here
 EMDASH_TOKEN=your-emdash-api-token
-# Optional: where to read EmDash pages from at build time
-# (defaults to https://unltd.org.uk; a localhost URL needs no token)
+# EmDash site to read pages from (a localhost URL needs no token)
 # EMDASH_URL=http://localhost:4321
 ```
+
+`EMDASH_URL` is required for builds (`astro dev` defaults to the local server). There is a single EmDash instance: CI reads it from the `EMDASH_URL` GitHub repository variable (Settings > Secrets and variables > Actions > Variables), shared by production and every feature/fix preview, so changing instance means changing one variable. Draft content is previewed in EmDash itself.
 
 Pages are read from the EmDash `pages` collection over its HTTP API when the site builds (see [src/data/pages.ts](src/data/pages.ts)). Create `EMDASH_TOKEN` as an API token with content read access in the EmDash admin, and add it as the `EMDASH_TOKEN` GitHub Actions secret.
 
@@ -62,11 +63,6 @@ This is checked in [src/data/resources.js](src/data/resources.js), [src/data/pro
 npm run dev
 ```
 This runs the Astro dev server with Wrangler integration for local worker development.
-
-### Deploy draft environment
-```bash
-npm run deploy:draft
-```
 
 ### Deploy production environment
 ```bash

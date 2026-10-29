@@ -15,7 +15,6 @@
     "astro": "astro",
     "clear": "rimraf ./src/data/cache/*.json",
     "update": "npx npm-check-updates -u -x typescript,typescript-eslint-ts6 && npm install",
-    "deploy:draft": "astro build && wrangler deploy --config wrangler.jsonc --env draft",
     "deploy:prod": "astro build && wrangler deploy --config wrangler.jsonc --env production",
     "migrate:ghost": "node scripts/migrate-to-ghost.js",
     "test": "npm run lint:a11y && npm run test:a11y",

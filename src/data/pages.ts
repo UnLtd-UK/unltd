@@ -5,9 +5,18 @@ import { resolveEnvVar } from "../lib/env.ts";
 // Pages are fetched over EmDash's HTTP API at build time. The prerender step
 // runs in Node (see astro.config.mjs), where the D1 binding that EmDash's
 // in-process queries need isn't available.
+// `astro dev` serves EmDash itself (with dev-bypass auth), so read from it by
+// default there. Builds must say which EmDash instance to read from.
 const EMDASH_URL = (
-  (await resolveEnvVar("EMDASH_URL")) ?? "https://unltd.org.uk"
+  (await resolveEnvVar("EMDASH_URL")) ??
+  (import.meta.env.DEV ? "http://localhost:4321" : "")
 ).replace(/\/$/, "");
+
+if (!EMDASH_URL) {
+  throw new Error(
+    "EMDASH_URL is required to build pages (the EmDash site to read from, e.g. https://feature-emdash.unltd.workers.dev).",
+  );
+}
 const EMDASH_TOKEN = await resolveEnvVar("EMDASH_TOKEN");
 const showDrafts = process.env.SHOW_DRAFTS === "true";
 const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(EMDASH_URL);
