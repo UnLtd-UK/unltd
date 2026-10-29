@@ -7,7 +7,7 @@ import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 
 import emdash from "emdash/astro";
-import { d1, r2 } from "@emdash-cms/cloudflare";
+import { d1, r2, sandbox } from "@emdash-cms/cloudflare";
 import { cloudflareEmail } from "@emdash-cms/cloudflare/plugins";
 
 // Prerendered pages render in Node (prerenderEnvironment: "node" below), where
@@ -23,7 +23,9 @@ const stubCloudflareWorkersInPrerender = {
   },
   load(id) {
     if (id === "\0stub:cloudflare-workers") {
-      return "export const waitUntil = undefined; export const env = {};";
+      // The sandbox runner (registry plugins) also imports these classes and
+      // `exports`; they are never used while prerendering.
+      return "export const waitUntil = undefined; export const env = {}; export const exports = {}; export class RpcTarget {}; export class WorkerEntrypoint {}; export class DurableObject {}";
     }
   },
 };
@@ -33,6 +35,9 @@ export default defineConfig({
   integrations: [alpinejs(), react(), markdoc(), sitemap(), emdash({
     database: d1({ binding: "DB" }),
     storage: r2({ binding: "MEDIA" }),
+    // Runs registry plugins in isolated Worker Loader sandboxes. Needs the
+    // LOADER worker_loaders binding (Workers paid plan) in wrangler.jsonc.
+    sandboxRunner: sandbox(),
     // Uses the `EMAIL` send_email binding in wrangler.jsonc. The sender domain
     // must be onboarded for Cloudflare Email Sending.
     plugins: [

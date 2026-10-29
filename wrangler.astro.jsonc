@@ -35,6 +35,9 @@
 // and is NOT clobbered as long as this file declares no vars.
 {
   "name": "unltd",
+  // Worker entry compiled by the adapter into dist/server/entry.mjs (which is
+  // what wrangler.jsonc deploys). It re-exports EmDash's PluginBridge.
+  "main": "./src/worker.ts",
   "compatibility_date": "2025-11-17",
   // Required by EmDash CMS (node:module, node:async_hooks, ...).
   "compatibility_flags": ["nodejs_compat"],
@@ -42,6 +45,8 @@
   // names must match d1()/r2() there. No database_id/bucket needed locally.
   "d1_databases": [{ "binding": "DB", "database_name": "unltd-emdash" }],
   "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "unltd-emdash-media" }],
+  // Worker Loader for EmDash's sandboxed (registry) plugins.
+  "worker_loaders": [{ "binding": "LOADER" }],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS"

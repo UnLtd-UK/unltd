@@ -76,6 +76,13 @@
 	"images": {
 		"binding": "IMAGES"
 	},
+	// Worker Loader for EmDash's sandboxed (registry) plugins; requires a Workers
+	// paid plan. Named envs don't inherit it, so it's redeclared below.
+	"worker_loaders": [
+		{
+			"binding": "LOADER"
+		}
+	],
 	// Cloudflare Email Service binding used by EmDash to send email.
 	"send_email": [
 		{
@@ -129,6 +136,11 @@
 			"images": {
 				"binding": "IMAGES"
 			},
+			"worker_loaders": [
+				{
+					"binding": "LOADER"
+				}
+			],
 			"send_email": [
 				{
 					"name": "EMAIL"
