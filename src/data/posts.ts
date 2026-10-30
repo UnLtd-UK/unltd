@@ -1,6 +1,7 @@
 import type { PortableTextBlock } from "emdash";
 import {
   EMDASH_URL,
+  absoluteMediaUrls,
   contentStatuses,
   createEmDashClient,
   emdashRequest,
@@ -110,7 +111,7 @@ async function fetchPosts(): Promise<PostEntry[]> {
       })).filter((author: PostAuthor) => author.name),
       date,
       status: item.status,
-      content: (item.data.content as PortableTextBlock[] | null) ?? [],
+      content: absoluteMediaUrls((item.data.content as PortableTextBlock[] | null) ?? []),
     });
   });
 

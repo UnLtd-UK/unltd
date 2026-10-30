@@ -29,7 +29,6 @@ and do not run in CI (see below).
 build. `npm run test:a11y:scan` fetches the sitemap from the local preview server but rewrites every
 URL from `https://unltd.org.uk` to `http://localhost:4321` before pa11y-ci visits it
 (`--sitemap-find` / `--sitemap-replace`), so it tests your local build, not the live site.
-`--sitemap-exclude /preview` skips draft/preview routes that require auth.
 
 Shared scan rules (WCAG level, timeout, ignored severities, Chrome flags) live in
 [.pa11yci.json](/.pa11yci.json).

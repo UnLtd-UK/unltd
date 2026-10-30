@@ -1,5 +1,5 @@
 import type { PortableTextBlock } from "emdash";
-import { EMDASH_URL, createEmDashClient, showDrafts } from "../lib/emdash.ts";
+import { EMDASH_URL, absoluteMediaUrls, createEmDashClient, showDrafts } from "../lib/emdash.ts";
 
 export interface PageEntry {
   slug: string;
@@ -25,7 +25,7 @@ async function fetchPages(): Promise<PageEntry[]> {
         slug: item.slug,
         title: String(item.data.title ?? ""),
         subtitle: String(item.data.subtitle ?? ""),
-        content: (item.data.content as PortableTextBlock[] | null) ?? [],
+        content: absoluteMediaUrls((item.data.content as PortableTextBlock[] | null) ?? []),
         showUpdatedAt: Boolean(item.data.show_updated_at),
         updatedAt: item.updatedAt,
       });

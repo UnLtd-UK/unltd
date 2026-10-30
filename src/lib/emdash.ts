@@ -1,3 +1,4 @@
+import type { PortableTextBlock } from "emdash";
 import { EmDashClient } from "emdash/client";
 import { resolveEnvVar } from "./env.ts";
 
@@ -37,6 +38,26 @@ export function emdashRequest<T>(client: EmDashClient, method: string, path: str
     request: (method: string, path: string) => Promise<T>;
   };
   return raw.request(method, path);
+}
+
+/**
+ * Images inside Portable Text content are stored as root-relative paths
+ * (`/_emdash/api/media/file/...`). EmDash's image component resolves those
+ * against the site's own address (`site` in astro.config.mjs, i.e. production),
+ * so on a preview deployment, or anywhere that address does not serve the
+ * media, the images 404. It also stops Astro optimising them, because that
+ * address is not an allowed image host. Pointing them at the EmDash instance
+ * the content was read from fixes both.
+ */
+export function absoluteMediaUrls(blocks: PortableTextBlock[]): PortableTextBlock[] {
+  return blocks.map((block) => {
+    const asset = block.asset as { url?: unknown } | undefined;
+    const url = asset?.url;
+    if (typeof url === "string" && url.startsWith("/") && !url.startsWith("//")) {
+      return { ...block, asset: { ...asset, url: `${EMDASH_URL}${url}` } };
+    }
+    return block;
+  });
 }
 
 /** Client for reading content. `what` names the content in the error if no token is set. */
