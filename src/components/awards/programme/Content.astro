@@ -5,7 +5,10 @@ import Video from "@components/awards/programme/content/Video.astro";
 import Quote from "@components/awards/programme/content/Quote.astro";
 import Post from "@components/awards/programme/content/Post.astro";
 import Container from "@components/Container.astro";
+import { posts } from "@data/posts.ts";
+import { parseRoundDate } from "@utils/round-date.js";
 
+// Each item carries `time` (ms) so videos, quotes and posts sort together.
 const contents = [];
 
 // Extract and add videos
@@ -15,7 +18,11 @@ programme.videos.forEach((video) => {
         video.videos_id.date_time &&
         video.videos_id.status == "published"
     ) {
-        contents.push({ id: video.videos_id, type: "video" });
+        contents.push({
+            id: video.videos_id,
+            type: "video",
+            time: parseRoundDate(video.videos_id.date_time).getTime(),
+        });
     }
 });
 
@@ -26,27 +33,36 @@ programme.quotes.forEach((quote) => {
         quote.quotes_id.date_time &&
         quote.quotes_id.status == "published"
     ) {
-        contents.push({ id: quote.quotes_id, type: "quote" });
+        contents.push({
+            id: quote.quotes_id,
+            type: "quote",
+            time: parseRoundDate(quote.quotes_id.date_time).getTime(),
+        });
     }
 });
 
-// Extract and add posts
-programme.posts.forEach((post) => {
-    if (
-        post.posts_id &&
-        post.posts_id.date_time &&
-        post.posts_id.status == "published"
-    ) {
-        contents.push({ id: post.posts_id, type: "post" });
+// Posts: the programme still links to Directus posts, but only the slug is
+// used. The post itself (and whether it is published) comes from EmDash.
+const postsBySlug = new Map(posts.map((post) => [post.slug, post]));
+programme.posts.forEach((link) => {
+    const slug = link.posts_id?.slug?.trim();
+    if (!slug) return;
+    const post = postsBySlug.get(slug);
+    if (!post) {
+        console.warn(
+            `Programme "${programme.slug}" links to post "${slug}", which is not published in EmDash`,
+        );
+        return;
     }
+    contents.push({
+        type: "post",
+        post,
+        time: new Date(post.date).getTime(),
+    });
 });
 
-// Sort contents by date_time
-contents.sort((a, b) => {
-    const dateA = new Date(a.id.date_time).getTime();
-    const dateB = new Date(b.id.date_time).getTime();
-    return dateB - dateA;
-});
+// Newest first
+contents.sort((a, b) => b.time - a.time);
 ---
 
 <div class={`py-16 sm:py-24 ${styles.bg2}`}>
@@ -78,7 +94,7 @@ contents.sort((a, b) => {
                                     <Quote quote={content} styles={styles} />
                                 );
                             case "post":
-                                return <Post post={content} styles={styles} />;
+                                return <Post post={content.post} styles={styles} />;
                             default:
                                 return null;
                         }

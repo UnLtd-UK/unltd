@@ -3,7 +3,8 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Default from "@components/heroes/Default.astro";
 import Post from "@components/Post.astro";
-import { posts } from "@data/posts.js";
+import { posts } from "@data/posts.ts";
+import { postYear } from "@utils/post-format";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Icon from "@components/Icon.astro";
 
@@ -13,18 +14,16 @@ export function getStaticPaths() {
 
   const slug = "blog";
 
-  const yearsArray = [
-    ...new Set(posts.map((post) => new Date(post.date_time).getFullYear())),
-  ].sort((a, b) => b - a);
+  const yearsArray = [...new Set(posts.map((post) => postYear(post.date)))].sort(
+    (a, b) => b - a,
+  );
 
   const years = yearsArray.map((year) => ({
     params: { year: year.toString() },
     props: {
       name: title,
       description: description,
-      posts: posts.filter(
-        (post) => new Date(post.date_time).getFullYear() === year,
-      ),
+      posts: posts.filter((post) => postYear(post.date) === year),
       years: yearsArray,
       breadcrumbs: [
         {
@@ -118,24 +117,7 @@ const { name, description, posts, years, breadcrumbs } = Astro.props;
     </div>
 
     <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        posts.map((post) => (
-          <Post
-            slug={post.slug}
-            title={post.title}
-            description={post.description}
-            image={{
-              url: post.image,
-              alt: post.image_alt,
-              caption: post.image_caption,
-            }}
-            author={{ name: post.author_name, position: post.author_position }}
-            published={post.date_time}
-            tag={post.tag}
-            status={post.status}
-          />
-        ))
-      }
+      {posts.map((post) => <Post post={post} />)}
     </ul>
   </Container>
 </Template>

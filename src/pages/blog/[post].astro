@@ -3,76 +3,36 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import HeroPost from "@components/heroes/Post.astro";
-import Content from "@components/markdoc/Content.astro";
+import PortableContent from "@components/emdash/PortableContent.astro";
 
-import { posts } from "@data/posts.js";
+import { posts } from "@data/posts.ts";
+import type { PostEntry } from "@data/posts.ts";
 
-interface Post {
-  title: string;
-  description: string;
-  tag: string;
-  image: string;
-  image_alt: string;
-  image_caption: string;
-  author_name: string;
-  author_position: string;
-  body: string;
-  date_time: string;
-  status: string;
-  breadcrumbs: Array<{ name: string; slug: string }>;
+export function getStaticPaths() {
+  return posts.map((post) => ({
+    params: { post: post.slug },
+    props: {
+      post,
+      breadcrumbs: [
+        { name: "Blog", path: "/blog" },
+        { name: post.title, path: `/blog/${post.slug}` },
+      ],
+    },
+  }));
 }
 
-export async function getStaticPaths() {
-  return posts.map((post) => {
-    const slug = post.slug.trim();
-
-    let breadcrumbs = [
-      {
-        name: "Blog",
-        path: "/blog",
-      },
-      {
-        name: post.title,
-        path: `/blog/${slug}`,
-      },
-    ];
-
-    post.breadcrumbs = breadcrumbs;
-
-    let item = {
-      params: {
-        post: slug,
-      },
-      props: {
-        post: post,
-      },
-    };
-
-    return item;
-  });
-}
-
-const { post } = Astro.props as { post: Post };
+const { post, breadcrumbs } = Astro.props as {
+  post: PostEntry;
+  breadcrumbs: Array<{ name: string; path: string }>;
+};
 ---
 
-<Template name={post.title} description={post.description}>
+<Template name={post.title} description={post.subtitle}>
   <Container>
-    <Breadcrumbs breadcrumbs={post.breadcrumbs} />
-    <HeroPost
-      name={post.title}
-      description={post.description}
-      tag={post.tag}
-      image={{
-        url: post.image,
-        alt: post.image_alt,
-        caption: post.image_caption,
-      }}
-      published={post.date_time}
-      author={{ name: post.author_name, position: post.author_position }}
-      status={post.status}
-    />
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+    <HeroPost post={post} />
     <div class="py-12">
-      <Content body={post.body} />
+      <PortableContent value={post.content} />
     </div>
   </Container>
 </Template>

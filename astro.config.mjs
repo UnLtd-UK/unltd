@@ -1,14 +1,35 @@
-import { defineConfig, fontProviders, envField } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import alpinejs from "@astrojs/alpinejs";
 import react from "@astrojs/react";
 import markdoc from "@astrojs/markdoc";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
+import fs from "node:fs";
 
 import emdash from "emdash/astro";
 import { d1, r2, sandbox } from "@emdash-cms/cloudflare";
 import { cloudflareEmail } from "@emdash-cms/cloudflare/plugins";
+
+// Host of the EmDash site the build reads posts from (EMDASH_URL, as set in CI
+// or .dev.vars). Post images are served from it, so astro:assets must be
+// allowed to fetch from it.
+function readEmdashHost() {
+  let url = process.env.EMDASH_URL;
+  if (!url) {
+    try {
+      url = fs.readFileSync(".dev.vars", "utf8").match(/^EMDASH_URL\s*=\s*(.+)$/m)?.[1];
+    } catch {
+      // no .dev.vars (e.g. in CI, where EMDASH_URL is set in the environment)
+    }
+  }
+  try {
+    return new URL(url.trim().replace(/^["']|["']$/g, "")).hostname;
+  } catch {
+    return null;
+  }
+}
+const emdashHost = readEmdashHost();
 
 // Prerendered pages render in Node (prerenderEnvironment: "node" below), where
 // the `cloudflare:workers` module EmDash's middleware imports doesn't exist.
@@ -54,7 +75,7 @@ export default defineConfig({
   trailingSlash: 'never',
   // Output stays fully static by default; @astrojs/cloudflare only adds
   // on-demand rendering capability for routes that opt in via
-  // `export const prerender = false` (e.g. src/pages/blog/[post]/preview.astro).
+  // `export const prerender = false` (EmDash's own routes do).
   // Uses a dedicated local-only Wrangler config (see wrangler.astro.jsonc) so
   // it doesn't conflict with wrangler.jsonc's `main`, which is owned by the
   // separate `wrangler pages functions build` step for functions/*.ts.
@@ -67,19 +88,6 @@ export default defineConfig({
     configPath: "./wrangler.astro.jsonc",
     prerenderEnvironment: "node",
   }),
-  env: {
-    schema: {
-      // `optional: true` is deliberate: if this secret isn't set on a given
-      // deployed Worker (e.g. it was never pushed via `wrangler secret put`),
-      // we want the preview route to fail gracefully with its own 403
-      // "Forbidden" response, not a hard 500 from schema validation.
-      DIRECTUS_PREVIEW_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
-      // Full-access Directus token used for server-side reads now that the
-      // public API role is disabled. Distinct from DIRECTUS_PREVIEW_TOKEN,
-      // which is only the shared secret gating this route's URL.
-      DIRECTUS_API_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
-    },
-  },
   vite: {
     plugins: [tailwindcss(), stubCloudflareWorkersInPrerender],
     ssr: {
@@ -88,9 +96,9 @@ export default defineConfig({
   },
   image: {
     // Allows astro:assets <Image>/<Picture> to fetch, resize and reformat
-    // Directus-hosted remote images at build time instead of passing them
-    // through unprocessed.
-    domains: ["unltd.directus.app"],
+    // remote images at build time instead of passing them through unprocessed:
+    // Directus-hosted images, and post images served by the EmDash site.
+    domains: ["unltd.directus.app", ...(emdashHost ? [emdashHost] : [])],
   },
   fonts: [
     {

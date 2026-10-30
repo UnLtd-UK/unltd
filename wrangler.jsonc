@@ -33,22 +33,13 @@
 		"directory": "./dist/client",
 		"binding": "ASSETS",
 		"not_found_handling": "404-page",
-		// CRITICAL: without this, Cloudflare checks static assets FIRST for every
-		// request and only invokes the Worker if nothing matches. On-demand
-		// routes like /blog/*/preview never match a static file, but a cached
-		// "not found" result can still be served directly from the assets/CDN
-		// layer for certain request shapes (confirmed: real browser requests with
-		// `Accept: text/html`/`sec-fetch-dest: document` headers hit a cached 404
-		// at the edge, completely bypassing our Worker — even after adding
-		// `Cache-Control: no-store` to every response in preview.astro, since the
-		// Worker was never being invoked at all for those requests). Forcing the
-		// Worker to run first for this path bypasses the assets-layer cache
-		// entirely, so our own no-store headers actually take effect.
+		// Without this, Cloudflare checks static assets FIRST for every request and
+		// only invokes the Worker if nothing matches. These paths never exist as
+		// static files, so force them to reach the Worker:
 		// "/_emdash/*" (admin, API, media files) and "/_image" (EmDash media
-		// transforms) never exist as static files, so they must reach the Worker.
+		// transforms).
 		// "/.well-known/*" serves EmDash's OAuth discovery documents (MCP sign-in).
 		"run_worker_first": [
-			"/blog/*/preview",
 			"/_emdash/*",
 			"/_image",
 			"/.well-known/*"
