@@ -10,6 +10,7 @@ import fs from "node:fs";
 import emdash from "emdash/astro";
 import { d1, r2, sandbox } from "@emdash-cms/cloudflare";
 import { cloudflareEmail } from "@emdash-cms/cloudflare/plugins";
+import { formsPlugin } from "@emdash-cms/plugin-forms";
 
 // Host of the EmDash site the build reads posts from (EMDASH_URL, as set in CI
 // or .dev.vars). Post images are served from it, so astro:assets must be
@@ -66,6 +67,9 @@ export default defineConfig({
         from: { email: "cms@unltd.org.uk", name: "UnLtd CMS" },
         replyTo: "digital@unltd.org.uk",
       }),
+      formsPlugin({
+        optional: { defaultSpamProtection: "turnstile" }
+      })
     ],
     admin: {
       hiddenNavItems: ["comments", "widgets"],
