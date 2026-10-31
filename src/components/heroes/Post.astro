@@ -1,12 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import { getBritishFakeUTCNow } from "@utils/british-time";
-const { name, image, description, published, author, tag, status } =
-    Astro.props.frontmatter || Astro.props;
+import type { PostEntry } from "@data/posts";
+import { formatAuthors, formatPostDate } from "@utils/post-format";
 
-const isScheduled =
-    status === "published" &&
-    new Date(published).getTime() > getBritishFakeUTCNow();
+const { post } = Astro.props as { post: PostEntry };
+const authors = formatAuthors(post.authors);
 ---
 
 <section
@@ -14,11 +12,11 @@ const isScheduled =
 >
     <div class="basis-1/2">
         {
-            image.url !== null && (
+            post.image && (
                 <figure class="flex flex-col gap-2">
                     <Image
-                        src={`https://unltd.directus.app/assets/${image.url}`}
-                        alt={image.alt ? image.alt : ""}
+                        src={post.image.src}
+                        alt={post.image.alt}
                         width={1600}
                         height={900}
                         format="webp"
@@ -27,9 +25,9 @@ const isScheduled =
                         loading="eager"
                         class=" rounded-2xl"
                     />
-                    {image.caption && (
+                    {post.image.caption && (
                         <figcaption class="text-xs text-violet-300">
-                            {image.caption}
+                            {post.image.caption}
                         </figcaption>
                     )}
                 </figure>
@@ -39,20 +37,22 @@ const isScheduled =
 
     <div class="flex flex-col gap-4 basis-1/2">
         <div class="flex items-center">
-            <span
-                class="rounded-full text-xs bg-violet-100 dark:bg-violet-800 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-300 border border-violet-600"
-            >
-                {tag}
-            </span>
             {
-                status === "draft" && (
+                post.tag && (
+                    <span class="rounded-full text-xs bg-violet-100 dark:bg-violet-800 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-300 border border-violet-600">
+                        {post.tag.label}
+                    </span>
+                )
+            }
+            {
+                post.status === "draft" && (
                     <span class="ml-2 relative z-10 rounded-full bg-red-100 dark:bg-red-900 px-3 py-1.5 font-medium text-red-600 dark:text-red-300">
                         DRAFT
                     </span>
                 )
             }
             {
-                isScheduled && (
+                post.status === "scheduled" && (
                     <span class="ml-2 relative z-10 rounded-full bg-blue-100 dark:bg-blue-900 px-3 py-1.5 font-medium text-blue-600 dark:text-blue-300">
                         SCHEDULED
                     </span>
@@ -64,33 +64,30 @@ const isScheduled =
                 class="text-4xl font-semibold text-violet-700 dark:text-violet-100"
             >
                 <span class=""></span>
-                {name}
+                {post.title}
             </h3>
-            <p class="text-2xl leading-8 text-violet-600 dark:text-violet-300">
-                {description}
-            </p>
+            {
+                post.subtitle && (
+                    <p class="text-2xl leading-8 text-violet-600 dark:text-violet-300">
+                        {post.subtitle}
+                    </p>
+                )
+            }
         </div>
         <div>
-            <p class="text-xs text-violet-600 dark:text-violet-400">
-                By <span class="text-violet-700 dark:text-violet-300"
-                    >{author.name}, {author.position}</span
-                >
-            </p>
+            {
+                authors && (
+                    <p class="text-xs text-violet-600 dark:text-violet-400">
+                        By <span class="text-violet-700 dark:text-violet-300">{authors}</span>
+                    </p>
+                )
+            }
             <time
-                datetime={published}
+                datetime={post.date}
                 class="text-violet-600 dark:text-violet-400 text-xs"
             >
                 Published <span class="text-violet-700 dark:text-violet-300"
-                    >{
-                        new Date(published).toLocaleDateString("en-GB", {
-                            weekday: "short",
-                            hour: "2-digit",
-                            minute: "2-digit",
-                            day: "2-digit",
-                            month: "short",
-                            year: "numeric",
-                        })
-                    }</span
+                    >{formatPostDate(post.date)}</span
                 >
             </time>
         </div>

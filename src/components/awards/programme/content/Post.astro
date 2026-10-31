@@ -1,8 +1,10 @@
 ---
-const { post, styles } = Astro.props;
+const { post, styles } = Astro.props as { post: PostEntry; styles: any };
 import { Image } from "astro:assets";
-import slugify from "slugify";
-import moment from "moment";
+import type { PostEntry } from "@data/posts.ts";
+import { formatShortDate } from "@utils/post-format";
+
+const authorNames = post.authors.map((author) => author.name).join(", ");
 ---
 
 <article class="group relative flex flex-col">
@@ -10,10 +12,10 @@ import moment from "moment";
         class={`relative aspect-video w-full overflow-hidden rounded-2xl shadow-lg`}
     >
         <Image
-            src={post.id.image !== null && post.id.image.id !== null
-                ? `https://unltd.directus.app/assets/${post.id.image.id}`
-                : `/img/blog/${slugify(post.tag || "default", { lower: true, strict: true, locale: "en", trim: true })}.webp`}
-            alt={post.id.title}
+            src={post.image
+                ? post.image.src
+                : `/img/blog/${post.tag?.slug ?? "default"}.webp`}
+            alt={post.title}
             width={800}
             height={450}
             format="webp"
@@ -28,14 +30,14 @@ import moment from "moment";
             <div
                 class={`flex items-center gap-x-2 text-xs ${styles.text} opacity-90`}
             >
-                <time datetime={post.id.date_time}>
-                    {moment(post.id.date_time).format("DD MMM YYYY")}
+                <time datetime={post.date}>
+                    {formatShortDate(post.date)}
                 </time>
                 {
-                    post.id.author_name && (
+                    authorNames && (
                         <>
                             <span>·</span>
-                            <span>{post.id.author_name}</span>
+                            <span>{authorNames}</span>
                         </>
                     )
                 }
@@ -46,17 +48,17 @@ import moment from "moment";
         <h3
             class={`text-base font-semibold leading-6 ${styles.text} group-hover:opacity-80 transition`}
         >
-            <a href={`/blog/${post.id.slug}`}>
+            <a href={`/blog/${post.slug}`}>
                 <span class="absolute inset-0"></span>
-                {post.id.title}
+                {post.title}
             </a>
         </h3>
         {
-            post.id.description && (
+            post.subtitle && (
                 <p
                     class={`mt-2 line-clamp-2 text-sm leading-6 ${styles.text2}`}
                 >
-                    {post.id.description}
+                    {post.subtitle}
                 </p>
             )
         }

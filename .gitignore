@@ -2,6 +2,10 @@
 dist/
 ghost-export/
 
+# Directus -> EmDash posts migration working files
+exports/posts/
+exports/posts-media/
+exports/posts-dry-run/
 # generated types
 .astro/
 

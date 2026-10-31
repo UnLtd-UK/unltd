@@ -1,17 +1,15 @@
 ---
 import { Image } from "astro:assets";
 import Icon from "@components/Icon.astro";
-import { getBritishFakeUTCNow } from "@utils/british-time";
-const { title, slug, image, published, tag, description, author, status } =
-    Astro.props;
+import type { PostEntry } from "@data/posts";
+import { formatAuthors, formatPostDate } from "@utils/post-format";
 
-const isScheduled =
-    status === "published" &&
-    new Date(published).getTime() > getBritishFakeUTCNow();
+const { post } = Astro.props as { post: PostEntry };
+const authors = formatAuthors(post.authors);
 ---
 
 <li class="col-span-1 divide-y divide-gray-200 rounded-lg">
-    <a href={`/blog/${slug}`}>
+    <a href={`/blog/${post.slug}`}>
         <article
             class="flex flex-col items-start justify-between transition hover:bg-violet-100 dark:hover:bg-violet-900 hover:outline-violet-200 hover:dark:outline-violet-800 p-6 rounded-2xl"
         >
@@ -19,9 +17,9 @@ const isScheduled =
                 class="relative w-full h-64 bg-violet-800 rounded-2xl border border-violet-600"
             >
                 {
-                    image.url !== null ? (
+                    post.image ? (
                         <Image
-                            src={`https://unltd.directus.app/assets/${image.url}`}
+                            src={post.image.src}
                             alt=""
                             width={800}
                             height={512}
@@ -43,34 +41,27 @@ const isScheduled =
             <div class="max-w-xl">
                 <div class="mt-8 flex items-center gap-x-4 text-xs">
                     <time
-                        datetime={published}
+                        datetime={post.date}
                         class="text-violet-600 dark:text-violet-300"
                     >
-                        {
-                            new Date(published).toLocaleDateString("en-GB", {
-                                weekday: "short",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                                day: "2-digit",
-                                month: "short",
-                                year: "numeric",
-                            })
-                        }
+                        {formatPostDate(post.date)}
                     </time>
-                    <span
-                        class="relative z-10 rounded-full bg-violet-100 dark:bg-violet-900 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-300"
-                    >
-                        {tag}
-                    </span>
                     {
-                        status === "draft" && (
+                        post.tag && (
+                            <span class="relative z-10 rounded-full bg-violet-100 dark:bg-violet-900 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-300">
+                                {post.tag.label}
+                            </span>
+                        )
+                    }
+                    {
+                        post.status === "draft" && (
                             <span class="relative z-10 rounded-full bg-red-100 dark:bg-red-900 px-3 py-1.5 font-medium text-red-600 dark:text-red-300">
                                 DRAFT
                             </span>
                         )
                     }
                     {
-                        isScheduled && (
+                        post.status === "scheduled" && (
                             <span class="relative z-10 rounded-full bg-blue-100 dark:bg-blue-900 px-3 py-1.5 font-medium text-blue-600 dark:text-blue-300">
                                 SCHEDULED
                             </span>
@@ -83,20 +74,23 @@ const isScheduled =
                         class="mt-3 text-lg font-semibold leading-6 text-violet-700 dark:text-violet-200"
                     >
                         <span class="absolute inset-0"></span>
-                        {title}
+                        {post.title}
                     </h3>
-                    <p class="text-xs text-violet-700 dark:text-violet-300">
-                        By {author.name}, <span
-                            class="text-violet-600 dark:text-violet-300"
-                            >{author.position}</span
-                        >
-                    </p>
+                    {
+                        authors && (
+                            <p class="text-xs text-violet-700 dark:text-violet-300">
+                                By {authors}
+                            </p>
+                        )
+                    }
                 </div>
-                <p
-                    class="mt-5 text-sm leading-6 text-violet-600 dark:text-violet-300"
-                >
-                    {description}
-                </p>
+                {
+                    post.subtitle && (
+                        <p class="mt-5 text-sm leading-6 text-violet-600 dark:text-violet-300">
+                            {post.subtitle}
+                        </p>
+                    )
+                }
             </div>
         </article>
     </a>

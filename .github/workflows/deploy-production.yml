@@ -19,6 +19,8 @@ jobs:
       EVENTBRITE_PRIVATE_TOKEN: ${{ secrets.EVENTBRITE_PRIVATE_TOKEN }}
       FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
       DIRECTUS_API_TOKEN: ${{ secrets.DIRECTUS_API_TOKEN }}
+      EMDASH_TOKEN: ${{ secrets.EMDASH_TOKEN }}
+      EMDASH_URL: ${{ vars.EMDASH_URL }}
       SHOW_DRAFTS: "false"
     steps:
       - name: Checkout repo

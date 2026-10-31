@@ -1,0 +1,18 @@
+---
+import { sanitizeHref } from "emdash";
+
+// External links open in a new tab, matching the old Markdown renderer.
+const { node } = Astro.props;
+const href = sanitizeHref(node?.markDef?.href);
+const siteHost = Astro.site?.hostname ?? "";
+const isExternal =
+  /^https?:\/\//.test(href) && (!siteHost || !href.includes(siteHost));
+---
+
+<a
+  href={href}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
+>
+  <slot />
+</a>
