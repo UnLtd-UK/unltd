@@ -16,8 +16,6 @@
     "clear": "rimraf ./src/data/cache/*.json",
     "update": "npx npm-check-updates -u -x typescript,typescript-eslint-ts6 && npm install",
     "deploy:prod": "astro build && wrangler deploy --config wrangler.jsonc --env production",
-    "migrate:ghost": "node scripts/migrate-to-ghost.js",
-    "migrate:posts": "node scripts/migrate-posts-to-emdash.mjs",
     "test": "npm run lint:a11y && npm run test:a11y",
     "test:a11y": "start-server-and-test preview http://localhost:4321 test:a11y:scan",
     "test:a11y:scan": "pa11y-ci --config .pa11yci.json --sitemap http://localhost:4321/sitemap-index.xml --sitemap-find https://unltd.org.uk --sitemap-replace http://localhost:4321",
@@ -59,7 +57,7 @@
     "moment": "^2.31.0",
     "octokit": "^5.0.5",
     "pdf-lib": "^1.17.1",
-    "posthog-js": "^1.444.0",
+    "posthog-js": "^1.444.2",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
@@ -88,7 +86,7 @@
     "rimraf": "^6.1.3",
     "start-server-and-test": "^3.0.13",
     "typescript-eslint-ts6": "npm:typescript@^6",
-    "wrangler": "^4.156.0"
+    "wrangler": "^4.156.1"
   },
   "overrides": {
     "vite": "^8",

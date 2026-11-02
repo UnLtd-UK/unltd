@@ -67,8 +67,6 @@ Blog posts are managed in the EmDash admin (`/_emdash/admin`), in the **Posts** 
 - **Preview**: use EmDash's editor preview for drafts. There is no separate preview page.
 - **When it goes live**: the site is static, so a published post appears on the next deploy. The production deploy workflow rebuilds every 2 hours ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)), or run it manually from GitHub Actions.
 
-The old Directus posts were copied across with [scripts/migrate-posts-to-emdash.mjs](scripts/migrate-posts-to-emdash.mjs) (`npm run migrate:posts`). How it works, and the plan for moving the site off Directus posts, are in [docs/emdash-migration-plan.md](docs/emdash-migration-plan.md) and [docs/emdash-posts-switchover-plan.md](docs/emdash-posts-switchover-plan.md).
-
 ## Wrangler
 
 ### Run with Wrangler (local development with worker)

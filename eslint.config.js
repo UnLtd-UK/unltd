@@ -37,7 +37,7 @@ export default [
         },
     },
     {
-        ignores: ["dist/**", ".astro/**", "node_modules/**", "ghost-export/**"],
+        ignores: ["dist/**", ".astro/**", "node_modules/**"],
     },
 ];
 
