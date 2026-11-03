@@ -32,7 +32,11 @@
 		// try to serve the worker bundle as static assets.
 		"directory": "./dist/client",
 		"binding": "ASSETS",
-		"not_found_handling": "404-page",
+		// "none" sends any path with no static file to the Worker, so EmDash can
+		// apply the redirects managed in its admin (Redirects) and then render the
+		// 404 page itself. "404-page" would serve 404.html without running the
+		// Worker, so those redirects would never fire.
+		"not_found_handling": "none",
 		// Without this, Cloudflare checks static assets FIRST for every request and
 		// only invokes the Worker if nothing matches. These paths never exist as
 		// static files, so force them to reach the Worker:

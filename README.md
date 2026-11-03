@@ -56,6 +56,14 @@ SHOW_DRAFTS=true npm run dev
 
 For EmDash content (pages, resources and blog posts, via [src/lib/emdash.ts](src/lib/emdash.ts)) this adds `draft` items, and `scheduled` posts as well. For Directus content it adds `draft` (and `archived`, where applicable) items; this is checked in [src/data/programmes.js](src/data/programmes.js), [src/data/subjects.js](src/data/subjects.js) and [src/data/sesm.js](src/data/sesm.js). It is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-preview.yml](.github/workflows/deploy-preview.yml)) and `false` for production ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)).
 
+## Redirects
+
+Redirects within the site are managed in the EmDash admin (`/_emdash/admin`, **Redirects**). They are stored in the EmDash database, so they apply to the preview and production sites alike (both use the same D1 database), and they work for any path that has no page. Paths are matched with or without a trailing slash, and patterns such as `/spaces/[...path]` are supported.
+
+Redirects to other sites can't be managed there (EmDash only accepts site-relative destinations), so those stay in [public/_redirects](public/_redirects).
+
+This relies on `not_found_handling: "none"` in [wrangler.jsonc](wrangler.jsonc) and the catch-all route [src/pages/[...path].astro](src/pages/[...path].astro): together they send paths with no page to the Worker, where EmDash applies the redirect or serves the 404 page.
+
 ## Blog posts
 
 Blog posts are managed in the EmDash admin (`/_emdash/admin`), in the **Posts** collection. They used to be in Directus; that collection is no longer read by the site.
