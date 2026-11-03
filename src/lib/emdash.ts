@@ -40,6 +40,31 @@ export function emdashRequest<T>(client: EmDashClient, method: string, path: str
   return raw.request(method, path);
 }
 
+/** IDs of the entries a reference field points to, in the order chosen in EmDash. */
+export async function referenceChildIds(
+  client: EmDashClient,
+  collection: string,
+  entryId: string,
+  relation: string,
+): Promise<string[]> {
+  const ids: string[] = [];
+  let cursor: string | undefined;
+  do {
+    const query = cursor ? `?cursor=${encodeURIComponent(cursor)}` : "";
+    const page = await emdashRequest<{
+      children: { id: string }[];
+      nextCursor?: string | null;
+    }>(
+      client,
+      "GET",
+      `/content/${collection}/${encodeURIComponent(entryId)}/references/${relation}/children${query}`,
+    );
+    ids.push(...page.children.map((child) => child.id));
+    cursor = page.nextCursor ?? undefined;
+  } while (cursor);
+  return ids;
+}
+
 /**
  * Images inside Portable Text content are stored as root-relative paths
  * (`/_emdash/api/media/file/...`). EmDash's image component resolves those

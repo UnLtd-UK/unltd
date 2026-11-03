@@ -2,19 +2,13 @@
 import { Image } from "astro:assets";
 import Icon from "@components/Icon.astro";
 import Faq from "@components/Faq.astro";
-import { programmes } from "@data/programmes.js";
 import {
     programmeEvents as fetchedProgrammeEvents,
     isPastEvent,
     sortEvents,
 } from "@data/eventCollections";
-import { faq } from "@data/faq.js";
+import { faq } from "@data/faq.ts";
 import Container from "@components/Container.astro";
-
-// Filter programmes to only show those with 'published' status
-const publishedProgrammes = programmes.filter(
-    (programme) => programme.status === "published",
-);
 
 const EVENTBRITE_PROGRAMMES_COLLECTION_URL =
     typeof process !== "undefined" &&

@@ -13,7 +13,7 @@
  * 4. Closing  — Present round closes within 7 days
  */
 
-import { rounds } from "@data/rounds.js";
+import { rounds } from "@data/rounds.ts";
 import { processAllRounds } from "@utils/application-rounds.js";
 import { getDevDateTimeString } from "@config/dev.config.js";
 import { parseRoundDate } from "@utils/round-date.js";

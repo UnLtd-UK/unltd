@@ -1,7 +1,12 @@
 ---
-const { styles, services, programme } = Astro.props;
 import Container from "@components/Container.astro";
 import DynamicIcon from "@components/DynamicIcon.astro";
+import type { ProgrammeService } from "@data/programmes.ts";
+
+const { styles, services } = Astro.props as {
+    styles: Record<string, string>;
+    services: ProgrammeService[];
+};
 ---
 
 <Container>
@@ -28,20 +33,20 @@ import DynamicIcon from "@components/DynamicIcon.astro";
                                 class={`absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full shadow-lg border ${styles.bg} ${styles.border}`}
                             >
                                 <DynamicIcon
-                                    icon={service.services_id.icon}
+                                    icon={service.icon}
                                     class={`text-md ${styles.text2}`}
                                 />
                             </div>
                             <span
                                 class={`text-base ${styles.text} ${styles.font}`}
                             >
-                                {service.services_id.name}
+                                {service.title}
                             </span>
                         </dt>
                         <dd
                             class={`mt-2 text-sm leading-6 ${styles.text2} ${styles.font}`}
                         >
-                            {service.services_id.description}
+                            {service.subtitle}
                         </dd>
                     </div>
                 ))

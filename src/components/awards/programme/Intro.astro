@@ -1,32 +1,36 @@
 ---
 import { Image } from "astro:assets";
 import Icon from "@components/Icon.astro";
-const { programme, styles } = Astro.props;
-import { marked } from "marked";
-import { gfmHeadingId } from "marked-gfm-heading-id";
-marked.use(gfmHeadingId());
-
 import IconBig from "@components/awards/cards/IconBig.astro";
-import Container from "@components/Container.astro";
-import Status from "@components/awards/programme/Status.astro";
-import Partners from "@components/awards/programme/Partners.astro";
+import type { ProgrammeEntry } from "@data/programmes.ts";
 
-import moment from "moment";
-let todayDate = moment();
+const { programme, styles } = Astro.props as {
+  programme: ProgrammeEntry;
+  styles: Record<string, string>;
+};
+
+const paragraphs = programme.subtitle
+  .split(/\n\s*\n/)
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean);
 ---
 
 <div class={`relative isolate overflow-hidden ${styles.bg} py-20`}>
-  <Image
-    src={`https://unltd.directus.app/assets/${programme.image.id}`}
-    alt=""
-    width={1920}
-    height={1080}
-    format="webp"
-    layout="full-width"
-    fetchpriority="high"
-    loading="eager"
-    class="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center brightness-50 blur-xs opacity-30"
-  />
+  {
+    programme.image && (
+      <Image
+        src={programme.image.src}
+        alt=""
+        width={1920}
+        height={1080}
+        format="webp"
+        layout="full-width"
+        fetchpriority="high"
+        loading="eager"
+        class="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center brightness-50 blur-xs opacity-30"
+      />
+    )
+  }
   <div
     class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl"
     aria-hidden="true"
@@ -50,7 +54,7 @@ let todayDate = moment();
   <div class="mx-auto max-w-7xl px-6 lg:px-8 xl:mb-10">
     <div class="col-span-4 flex flex-col gap-8 lg:flex-row">
       <div class="flex flex-col gap-16">
-        <IconBig name={programme.name} icon={programme.icon} styles={styles} />
+        <IconBig name={programme.title} icon={programme.icon} styles={styles} />
         <div class="flex flex-row gap-8 items-center">
           <div class="flex flex-col gap-3">
             <div class="flex flex-row gap-4">
@@ -66,75 +70,32 @@ let todayDate = moment();
                   >Award Programme</span
                 >
               </div>
-              <!-- <Status
-                from={programme.from}
-                till={programme.till}
-                styles={styles}
-                label={programme.label}
-              /> -->
             </div>
 
-            {
-              programme.logo ? (
-                <img
-                  src={`https://unltd.directus.app/assets/${programme.logo.id}`}
-                  width={600}
-                  height={200}
-                  class="w-96"
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                />
-              ) : (
-                <h1 class={`text-6xl font-bold ${styles.text} ${styles.font}`}>
-                  {programme.name}
-                </h1>
-              )
-            }
+            <h1 class={`text-6xl font-bold ${styles.text} ${styles.font}`}>
+              {programme.title}
+            </h1>
           </div>
         </div>
-        <Partners
-          name={programme.name}
-          partners={programme.partners}
-          styles={styles}
-        />
-        {
-          programme.issue && programme.action && programme.outcome ? (
-            <div class="mx-auto  max-w-2xl lg:max-w-none flex flex-col gap-10">
-              <div class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-                <div class="flex flex-col">
-                  <p class={`flex-auto ${styles.text2}`}>{programme.issue}</p>
-                </div>
-                <div class="flex flex-col">
-                  <p class={`flex-auto ${styles.text2}`}>{programme.action}</p>
-                </div>
-                <div class="flex flex-col">
-                  <p class={`flex-auto ${styles.text2}`}>{programme.outcome}</p>
-                </div>
-              </div>
-              <a
-                href="/how-unltd-is-funded"
-                class={`text-xs ${styles.text2} ${styles.font} underline-1 underline`}
-              >
-                Find out where our funding comes from.
-              </a>
-            </div>
-          ) : (
-            <div class="flex flex-col gap-6">
-              <p
-                class={`max-w-4xl text-xl leading-relaxed prose:${styles.text2} prose:${styles.font}`}
-              >
-                {programme.description}
-              </p>
-              <a
-                href="/how-unltd-is-funded"
-                class={`${styles.text2} ${styles.font} text-xs underline-1 underline`}
-              >
-                Find out where this funding comes from.
-              </a>
-            </div>
-          )
-        }
+        <div class="flex flex-col gap-6">
+          <div class="flex max-w-4xl flex-col gap-4">
+            {
+              paragraphs.map((paragraph) => (
+                <p
+                  class={`text-xl leading-relaxed ${styles.text2} ${styles.font}`}
+                >
+                  {paragraph}
+                </p>
+              ))
+            }
+          </div>
+          <a
+            href="/how-unltd-is-funded"
+            class={`${styles.text2} ${styles.font} text-xs underline-1 underline`}
+          >
+            Find out where this funding comes from.
+          </a>
+        </div>
       </div>
     </div>
   </div>

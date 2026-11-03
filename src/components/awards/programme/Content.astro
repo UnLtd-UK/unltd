@@ -1,68 +1,13 @@
 ---
-const { styles, programme } = Astro.props;
-
 import Video from "@components/awards/programme/content/Video.astro";
-import Quote from "@components/awards/programme/content/Quote.astro";
-import Post from "@components/awards/programme/content/Post.astro";
 import Container from "@components/Container.astro";
-import { posts } from "@data/posts.ts";
-import { parseRoundDate } from "@utils/round-date.js";
+import PortableContent from "@components/emdash/PortableContent.astro";
+import type { ProgrammeEntry } from "@data/programmes.ts";
 
-// Each item carries `time` (ms) so videos, quotes and posts sort together.
-const contents = [];
-
-// Extract and add videos
-programme.videos.forEach((video) => {
-    if (
-        video.videos_id &&
-        video.videos_id.date_time &&
-        video.videos_id.status == "published"
-    ) {
-        contents.push({
-            id: video.videos_id,
-            type: "video",
-            time: parseRoundDate(video.videos_id.date_time).getTime(),
-        });
-    }
-});
-
-// Extract and add quotes
-programme.quotes.forEach((quote) => {
-    if (
-        quote.quotes_id &&
-        quote.quotes_id.date_time &&
-        quote.quotes_id.status == "published"
-    ) {
-        contents.push({
-            id: quote.quotes_id,
-            type: "quote",
-            time: parseRoundDate(quote.quotes_id.date_time).getTime(),
-        });
-    }
-});
-
-// Posts: the programme still links to Directus posts, but only the slug is
-// used. The post itself (and whether it is published) comes from EmDash.
-const postsBySlug = new Map(posts.map((post) => [post.slug, post]));
-programme.posts.forEach((link) => {
-    const slug = link.posts_id?.slug?.trim();
-    if (!slug) return;
-    const post = postsBySlug.get(slug);
-    if (!post) {
-        console.warn(
-            `Programme "${programme.slug}" links to post "${slug}", which is not published in EmDash`,
-        );
-        return;
-    }
-    contents.push({
-        type: "post",
-        post,
-        time: new Date(post.date).getTime(),
-    });
-});
-
-// Newest first
-contents.sort((a, b) => b.time - a.time);
+const { styles, programme } = Astro.props as {
+    styles: Record<string, string>;
+    programme: ProgrammeEntry;
+};
 ---
 
 <div class={`py-16 sm:py-24 ${styles.bg2}`}>
@@ -81,26 +26,23 @@ contents.sort((a, b) => b.time - a.time);
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {
-                    contents.map((content) => {
-                        switch (content.type) {
-                            case "video":
-                                return (
-                                    <Video video={content} styles={styles} />
-                                );
-                            case "quote":
-                                return (
-                                    <Quote quote={content} styles={styles} />
-                                );
-                            case "post":
-                                return <Post post={content.post} styles={styles} />;
-                            default:
-                                return null;
-                        }
-                    })
-                }
-            </div>
+            {
+                programme.videos.length > 0 && (
+                    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                        {programme.videos.map((video) => (
+                            <Video video={video} styles={styles} />
+                        ))}
+                    </div>
+                )
+            }
+
+            {
+                programme.content.length > 0 && (
+                    <div class="mt-12">
+                        <PortableContent value={programme.content} />
+                    </div>
+                )
+            }
         </div>
     </Container>
 </div>

@@ -1,6 +1,6 @@
 /**
  * Application Rounds Utility
- * Processes rounds data from Directus with date formatting and status calculations
+ * Processes rounds data (see data/rounds.ts) with date formatting and status calculations
  */
 
 import { getCurrentDate } from '@config/dev.config.js';
@@ -346,8 +346,8 @@ export const getCapacityStatus = (percentage) => {
 };
 
 /**
- * Process a single round from Directus format
- * @param {Object} directusRound - Raw round data from Directus
+ * Process a single round from the format in data/rounds.ts
+ * @param {Object} directusRound - Round from data/rounds.ts
  * @param {number} applicationLimit - Max applications per round (default 650)
  * @returns {Object} Processed round with all computed properties
  */
@@ -433,7 +433,7 @@ export const processRound = (directusRound, applicationLimit = 650) => {
 
 /**
  * Process all rounds and categorize them
- * @param {Array} directusRounds - Array of rounds from Directus
+ * @param {Array} directusRounds - Array of rounds from data/rounds.ts
  * @param {number} applicationLimit - Max applications per round
  * @returns {Object} Processed and categorized rounds
  */
