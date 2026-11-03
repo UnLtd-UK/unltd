@@ -2,6 +2,7 @@ import type { PortableTextBlock } from "emdash";
 import { EMDASH_URL, absoluteMediaUrls, createEmDashClient, showDrafts } from "../lib/emdash.ts";
 
 export interface PageEntry {
+  id: string;
   slug: string;
   title: string;
   subtitle: string;
@@ -22,6 +23,7 @@ async function fetchPages(): Promise<PageEntry[]> {
     })) {
       if (!item.slug) continue;
       pages.push({
+        id: item.id,
         slug: item.slug,
         title: String(item.data.title ?? ""),
         subtitle: String(item.data.subtitle ?? ""),
