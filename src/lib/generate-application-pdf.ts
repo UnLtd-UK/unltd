@@ -1576,10 +1576,10 @@ export async function generateApplicationPdf(
             cursor.ensureSpace(30);
             const resourceUrl = resource.external_url
                 ? (resource.external_url.startsWith("http") ? resource.external_url : `https://${resource.external_url}`)
-                : `https://unltd.org.uk/spaces/${resource.slug}`;
+                : `https://unltd.org.uk/resources/${resource.slug}`;
             const resourceDisplayUrl = resource.external_url
                 ? resource.external_url.replace(/^https?:\/\//, "")
-                : `unltd.org.uk/spaces/${resource.slug}`;
+                : `unltd.org.uk/resources/${resource.slug}`;
 
             // Bold resource name
             cursor.page.drawText(sanitiseForPdf(`\u2022  ${resource.name}`), {

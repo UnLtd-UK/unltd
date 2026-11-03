@@ -3,25 +3,20 @@ import { PortableText } from "emdash/ui";
 import { proseClasses } from "@components/markdoc/proseClasses";
 import Heading from "./Heading.astro";
 import Link from "./Link.astro";
+import { withHeadingIds } from "@data/functions/portableHeadings";
 
 const { value = [] } = Astro.props;
 
-// Give each h2/h3 a unique slug id (the same ids the Markdown renderer made),
-// using EmDash's one-level-lower heading numbering.
-const counts = new Map<string, number>();
-const withIds = value.map((block: any) => {
-  if (block._type !== "block" || !/^h[1-2]$/.test(block.style)) return block;
-  const text = (block.children ?? []).map((c: any) => c.text ?? "").join("");
-  const base = text
-    .toLowerCase()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9\s-]/g, "")
-    .trim()
-    .replace(/\s+/g, "-");
-  const count = (counts.get(base) ?? 0) + 1;
-  counts.set(base, count);
-  return { ...block, headingId: count > 1 ? `${base}-${count - 1}` : base };
-});
+// Give each h2/h3 a unique slug id, using EmDash's one-level-lower heading numbering.
+const withIds = withHeadingIds(value);
+
+// EmDash tables default to light greys, which leave the light prose text
+// unreadable on the dark theme; these variables are what its Table component reads.
+const tableTheme = [
+  "--color-border: #7c3aed",
+  "--color-surface: #4c1d95",
+  "--color-bg-subtle: rgb(139 92 246 / 0.12)",
+].join("; ");
 
 const components = {
   block: {
@@ -35,6 +30,6 @@ const components = {
 };
 ---
 
-<div class={proseClasses}>
+<div class={proseClasses} style={tableTheme}>
   <PortableText value={withIds} components={components} />
 </div>

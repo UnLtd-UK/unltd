@@ -154,7 +154,7 @@ export const navigation = {
             action: {
                 name: "Resources",
                 enabled: true,
-                link: "/spaces/social-entrepreneur",
+                link: "/resources",
             },
             enabled: true,
         },

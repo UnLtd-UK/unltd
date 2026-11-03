@@ -54,7 +54,7 @@ By default only `published` content is fetched. To include drafts — e.g. draft
 SHOW_DRAFTS=true npm run dev
 ```
 
-For EmDash content (pages and blog posts, via [src/lib/emdash.ts](src/lib/emdash.ts)) this adds `draft` items, and `scheduled` posts as well. For Directus content it adds `draft` (and `archived`, where applicable) items; this is checked in [src/data/resources.js](src/data/resources.js), [src/data/programmes.js](src/data/programmes.js), [src/data/subjects.js](src/data/subjects.js) and [src/data/sesm.js](src/data/sesm.js). It is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-preview.yml](.github/workflows/deploy-preview.yml)) and `false` for production ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)).
+For EmDash content (pages, resources and blog posts, via [src/lib/emdash.ts](src/lib/emdash.ts)) this adds `draft` items, and `scheduled` posts as well. For Directus content it adds `draft` (and `archived`, where applicable) items; this is checked in [src/data/programmes.js](src/data/programmes.js), [src/data/subjects.js](src/data/subjects.js) and [src/data/sesm.js](src/data/sesm.js). It is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-preview.yml](.github/workflows/deploy-preview.yml)) and `false` for production ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)).
 
 ## Blog posts
 

@@ -1,0 +1,53 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Default from "@components/heroes/Default.astro";
+import PortableContent from "@components/emdash/PortableContent.astro";
+import TableOfContents from "@components/TableOfContents.astro";
+
+import { resources } from "@data/resources";
+import { headingsToToc } from "@data/functions/portableHeadings";
+
+export function getStaticPaths() {
+  return resources.map((resource) => ({
+    params: { resource: resource.slug },
+    props: {
+      title: resource.title,
+      subtitle: resource.subtitle,
+      content: resource.content,
+      hidden: resource.hidden,
+      toc: headingsToToc(resource.content),
+      breadcrumbs: [
+        { name: "Resources", path: "/resources" },
+        { name: resource.title, path: `/resources/${resource.slug}` },
+      ],
+    },
+  }));
+}
+
+const { title, subtitle, content, hidden, toc, breadcrumbs } = Astro.props;
+---
+
+<Template name={title} description={subtitle} noindex={hidden}>
+  <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+    <Default name={title} description={subtitle} />
+    <div class="flex gap-8 lg:gap-12 pb-16 items-start">
+      {
+        toc.length > 0 && (
+          <aside class="hidden lg:block sticky top-24">
+            <TableOfContents headings={toc} variant="desktop" />
+          </aside>
+        )
+      }
+      <article class="flex-1 min-w-0">
+        <div
+          class="bg-violet-900/30 rounded-2xl ring-1 ring-violet-700/50 p-6 sm:p-8 lg:p-10"
+        >
+          <PortableContent value={content} />
+        </div>
+      </article>
+    </div>
+  </Container>
+</Template>
