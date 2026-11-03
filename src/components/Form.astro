@@ -1,6 +1,6 @@
 ---
 import Icon from "@components/Icon.astro";
-const { endpoint, name, description, email, icon, fields } = Astro.props;
+const { endpoint, name, description, email, fields } = Astro.props;
 
 import Input from "@components/newfields/Input.astro";
 import Textarea from "@components/newfields/Textarea.astro";
@@ -24,16 +24,6 @@ const componentMap = {
           class="absolute inset-y-0 left-0 -z-10 w-full overflow-hidden bg-violet-50 dark:bg-violet-950 lg:w-1/2"
         >
         </div>
-        <div
-          class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg outline outline-offset-2 outline-violet-300 dark:outline-violet-700"
-        >
-          <Icon
-            name={icon.replace("fa-", "")}
-            style="solid"
-            class="text-violet-800 dark:text-violet-200"
-          />
-        </div>
-
         <h2
           class="text-3xl font-bold tracking-tight text-violet-900 dark:text-violet-200 mt-4"
         >

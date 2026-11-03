@@ -208,11 +208,11 @@ export const navigation = {
                     name: "Contact Us",
                     items: [
                         { name: "Find a form", link: "", slug: "contact", icon: "" },
-                        { name: "General", link: "", slug: "contact/general", icon: "" },
-                        { name: "Awards", link: "", slug: "contact/awards", icon: "" },
-                        { name: "Partnerships", link: "", slug: "contact/partnerships", icon: "" },
-                        { name: "Volunteering", link: "", slug: "contact/volunteering", icon: "" },
-                        { name: "Press & Media", link: "", slug: "contact/press-and-media", icon: "" },
+                        { name: "General", link: "", slug: "contact/general-enquiries", icon: "" },
+                        { name: "Awards", link: "", slug: "contact/awards-enquiries", icon: "" },
+                        { name: "Partnerships", link: "", slug: "contact/partnerships-enquiries", icon: "" },
+                        { name: "Volunteering", link: "", slug: "contact/volunteering-enquiries", icon: "" },
+                        { name: "Press & Media", link: "", slug: "contact/press-media-enquiries", icon: "" },
                     ],
                 },
                 {

@@ -4,7 +4,7 @@ import Container from "@components/Container.astro";
 import Default from "@components/heroes/Default.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Form from "@components/Form.astro";
-import { forms } from "@data/forms.js";
+import { forms } from "@data/forms.ts";
 import DialogComponent from "@components/Dialog.tsx";
 
 export async function getStaticPaths() {
@@ -31,7 +31,6 @@ export async function getStaticPaths() {
 const {
   name,
   description,
-  icon,
   slug,
   email,
   worker,
@@ -61,7 +60,6 @@ const {
       name={name}
       description={description}
       email={email}
-      icon={icon}
       fields={fields}
     />
   </Container>
