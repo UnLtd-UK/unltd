@@ -1,19 +1,6 @@
 ---
 import Icon from "@components/Icon.astro";
-const { endpoint, name, description, email, fields } = Astro.props;
-
-import Input from "@components/newfields/Input.astro";
-import Textarea from "@components/newfields/Textarea.astro";
-import Select from "@components/newfields/Select.astro";
-import Cloudflare from "@components/newfields/Cloudflare.astro";
-
-const componentMap = {
-  Input: Input,
-  Textarea: Textarea,
-  Select: Select,
-  Cloudflare: Cloudflare,
-  // Add other component mappings as needed
-};
+const { name, description, email } = Astro.props;
 ---
 
 <div class="relative isolate">
@@ -46,43 +33,5 @@ const componentMap = {
         </div>
       </div>
     </div>
-    <!-- <form
-      action={endpoint}
-      name={name}
-      method="POST"
-      class="px-6 pb-24 pt-20 sm:pb-32 lg:px-8 lg:py-48"
-      data-netlify="true"
-    >
-      <div
-        class="mx-auto max-w-xl lg:mr-0 lg:max-w-lg bg-white dark:bg-violet-900 p-10 rounded-xl shadow"
-      >
-        <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-          {
-            fields.map((field) => {
-              const Component = componentMap[field.component];
-              if (!Component) {
-                return null; // Or handle unknown components as you see fit
-              }
-              return (
-                <Component
-                  name={field.name}
-                  type={field.type}
-                  rows={field.rows}
-                  required={field.required}
-                  options={field.options}
-                />
-              );
-            })
-          }
-        </div>
-        <div class="mt-8 flex justify-end">
-          <button
-            type="submit"
-            class="rounded-md bg-amber-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-xs hover:bg-amber-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
-            >Send message</button
-          >
-        </div>
-      </div>
-    </form> -->
   </div>
 </div>

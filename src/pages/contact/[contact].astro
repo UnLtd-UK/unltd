@@ -33,8 +33,6 @@ const {
   description,
   slug,
   email,
-  worker,
-  fields,
   breadcrumbs,
   dialog,
 } = Astro.props;
@@ -45,22 +43,16 @@ const {
     {
       dialog && (
         <DialogComponent
-          icon={dialog.icon}
+          icon="fa-solid fa-envelope"
           title={dialog.title}
           description={dialog.description}
-          primaryButton={dialog.primaryButton}
-          secondaryButton={dialog.secondaryButton}
+          primaryButton={{ text: dialog.buttonText, href: dialog.buttonUrl }}
+          secondaryButton={{ text: "Email us" }}
           client:load
         />
       )
     }
     <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <Form
-      endpoint={worker}
-      name={name}
-      description={description}
-      email={email}
-      fields={fields}
-    />
+    <Form name={name} description={description} email={email} />
   </Container>
 </Template>
