@@ -3,6 +3,7 @@ import Icon from "@components/Icon.astro";
 import DynamicIcon from "@components/DynamicIcon.astro";
 // NEW FOOTER
 import { navigation } from "@data/navigation.ts";
+import { footerLinks } from "@data/menu.ts";
 const nav = navigation.code;
 import Container from "@components/Container.astro";
 
@@ -93,9 +94,8 @@ const styles = {
       <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
         <div class="md:grid md:grid-cols-2 md:gap-8">
           {
-            nav.footer.links &&
-              nav.footer.links.map((link, index) => {
-                if (index < 2 && Object.keys(link).length !== 0)
+            footerLinks.map((link, index) => {
+                if (index < 2)
                   return (
                     <div class={index == 1 && `mt-10 md:mt-0`}>
                       <h3 class="text-sm font-semibold leading-6 text-slate-700 dark:text-slate-300">
@@ -105,11 +105,11 @@ const styles = {
                         {link.items.map((item, i) => (
                           <li>
                             <a
-                              href={item.link ? item.link : `/${item.slug}`}
+                              href={item.href}
                               class="text-sm leading-6 text-slate-600 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300"
                             >
                               {item.name}
-                              {!item.slug && item.link && (
+                              {item.external && (
                                 <Icon
                                   name="arrow-up-right-from-square"
                                   style="solid"
@@ -132,9 +132,8 @@ const styles = {
         </div>
         <div class="md:grid md:grid-cols-2 md:gap-8">
           {
-            nav.footer.links &&
-              nav.footer.links.map((link, index) => {
-                if (index > 1 && Object.keys(link).length !== 0)
+            footerLinks.map((link, index) => {
+                if (index > 1)
                   return (
                     <div class={index == 3 && `mt-10 md:mt-0`}>
                       <h3 class="text-sm font-semibold leading-6 text-slate-900 dark:text-slate-300">
@@ -144,11 +143,11 @@ const styles = {
                         {link.items.map((item, i) => (
                           <li>
                             <a
-                              href={item.link ? item.link : `/${item.slug}`}
+                              href={item.href}
                               class="text-sm leading-6 text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300"
                             >
                               {item.name}
-                              {!item.slug && item.link && (
+                              {item.external && (
                                 <Icon
                                   name="arrow-up-right-from-square"
                                   style="solid"

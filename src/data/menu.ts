@@ -1,4 +1,5 @@
 import { EMDASH_URL, createEmDashClient, emdashRequest } from "../lib/emdash.ts";
+import { forms } from "./forms.ts";
 import { pages } from "./pages.ts";
 
 interface MenuItem {
@@ -87,35 +88,43 @@ function resolveUrl(item: MenuItem): string | null {
     const page = pages.find((p) => p.id === item.referenceId);
     return page ? `/${page.slug}` : null;
   }
+  if (item.referenceCollection === "forms") {
+    const form = forms.find((f) => f.id === item.referenceId);
+    return form ? `/contact/${form.slug}` : null;
+  }
   return null;
 }
 
-async function fetchHeader() {
-  const client = createEmDashClient("the primary menu");
-  const { items } = await emdashRequest<{ items: MenuItem[] }>(client, "GET", "/menus/primary");
-  const ordered = [...items].sort((a, b) => a.sortOrder - b.sortOrder);
+async function fetchMenuItems(name: string): Promise<MenuItem[]> {
+  const client = createEmDashClient(`the ${name} menu`);
+  const { items } = await emdashRequest<{ items: MenuItem[] }>(client, "GET", `/menus/${name}`);
+  return [...items].sort((a, b) => a.sortOrder - b.sortOrder);
+}
 
-  function toLink(item: MenuItem): NavLink | null {
-    const url = resolveUrl(item);
-    if (!url) {
-      console.warn(`Primary menu item "${item.label}" has no URL (is its page published?), skipping it`);
-      return null;
-    }
-    // Drop the trailing slash on external sites; the dropdown matches on the bare URL.
-    const href = /^https?:\/\//.test(url) ? normaliseUrl(url) : url;
-    const details = LINK_DETAILS[href];
-    const classes = (item.cssClasses ?? "").split(/\s+/).filter(Boolean);
-    return {
-      id: item.id,
-      name: item.label,
-      description: item.titleAttr?.trim() || details?.description || "",
-      href,
-      icon: classes.filter(isIconClass).join(" "),
-      external: /^https?:\/\//.test(href),
-      classes: classes.filter((c) => !isIconClass(c)),
-      enabled: true,
-    };
+function toLink(menu: string, item: MenuItem): NavLink | null {
+  const url = resolveUrl(item);
+  if (!url) {
+    console.warn(`Menu "${menu}" item "${item.label}" has no URL (is its page or form published?), skipping it`);
+    return null;
   }
+  // Drop the trailing slash on external sites; the dropdown matches on the bare URL.
+  const href = /^https?:\/\//.test(url) ? normaliseUrl(url) : url;
+  const details = LINK_DETAILS[href];
+  const classes = (item.cssClasses ?? "").split(/\s+/).filter(Boolean);
+  return {
+    id: item.id,
+    name: item.label,
+    description: item.titleAttr?.trim() || details?.description || "",
+    href,
+    icon: classes.filter(isIconClass).join(" "),
+    external: /^https?:\/\//.test(href),
+    classes: classes.filter((c) => !isIconClass(c)),
+    enabled: true,
+  };
+}
+
+async function fetchHeader() {
+  const ordered = await fetchMenuItems("primary");
 
   const main: NavGroup[] = [];
   let action: { name: string; link: string; enabled: true } | null = null;
@@ -127,7 +136,7 @@ async function fetchHeader() {
     }
     const children = ordered
       .filter((i) => i.parentId === item.id)
-      .flatMap((child) => toLink(child) ?? []);
+      .flatMap((child) => toLink("primary", child) ?? []);
     const url = resolveUrl(item);
 
     if (children.length > 0 || (url && isGroupHeading(url))) {
@@ -144,3 +153,26 @@ async function fetchHeader() {
 }
 
 export const headerNavigation = { code: { header: await fetchHeader() } };
+
+export interface FooterLinkGroup {
+  name: string;
+  items: NavLink[];
+}
+
+// The footer menu is a list of headings (top-level items) each with its links.
+async function fetchFooterLinks(): Promise<FooterLinkGroup[]> {
+  const ordered = await fetchMenuItems("footer");
+  const groups: FooterLinkGroup[] = [];
+
+  for (const heading of ordered.filter((i) => !i.parentId)) {
+    const items = ordered
+      .filter((i) => i.parentId === heading.id)
+      .flatMap((child) => toLink("footer", child) ?? []);
+    if (items.length > 0) groups.push({ name: heading.label, items });
+  }
+
+  console.log(`Loaded footer menu from EmDash (${EMDASH_URL}): ${groups.length} groups`);
+  return groups;
+}
+
+export const footerLinks = await fetchFooterLinks();

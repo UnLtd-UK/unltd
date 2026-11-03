@@ -18,6 +18,7 @@ export interface FormDialog {
 }
 
 export interface FormEntry {
+  id: string;
   slug: string;
   name: string;
   description: string;
@@ -115,6 +116,7 @@ async function fetchForms(): Promise<FormEntry[]> {
         continue;
       }
       bySlug.set(slug, {
+        id: item.id,
         slug,
         name: String(item.data.title ?? "").trim(),
         description: String(item.data.subtitle ?? "").trim(),

@@ -1,17 +1,3 @@
-interface FooterLinkItem {
-    name: string;
-    link: string;
-    slug: string;
-    icon: string;
-    target?: string;
-    description?: string;
-}
-
-interface FooterLinkGroup {
-    name: string;
-    items: FooterLinkItem[];
-}
-
 export const navigation = {
     code: {
         footer: {
@@ -59,43 +45,6 @@ export const navigation = {
                     number: "1090393",
                 }
             ],
-            links: [
-                {
-                    name: "Contact Us",
-                    items: [
-                        { name: "Find a form", link: "", slug: "contact", icon: "" },
-                        { name: "General", link: "", slug: "contact/general-enquiries", icon: "" },
-                        { name: "Awards", link: "", slug: "contact/awards-enquiries", icon: "" },
-                        { name: "Partnerships", link: "", slug: "contact/partnerships-enquiries", icon: "" },
-                        { name: "Volunteering", link: "", slug: "contact/volunteering-enquiries", icon: "" },
-                        { name: "Press & Media", link: "", slug: "contact/press-media-enquiries", icon: "" },
-                    ],
-                },
-                {
-                    name: "Legal",
-                    items: [
-                        { name: "Privacy Policy", link: "", slug: "privacy-policy", icon: "" },
-                        { name: "Complaints Policy", link: "", slug: "complaints-policy", icon: "" },
-                        { name: "Browser Storage Policy", link: "", slug: "browser-storage-policy", icon: "" },
-                        { name: "Photography & Filming Policy", link: "", slug: "photography-and-filming-policy", icon: "" },
-                        { name: "Terms & Conditions", link: "", slug: "terms-and-conditions", icon: "" },
-                    ],
-                },
-                {
-                    name: "Reports & Equity",
-                    items: [
-                        { name: "Financial Reports", link: "", slug: "financial-reports", icon: "" },
-                        { name: "Impact Reports", link: "", slug: "impact-reports", icon: "" },
-                    ],
-                },
-                {
-                    name: "Other",
-                    items: [
-                        { name: "Careers", target: "", link: "", slug: "careers", icon: "" },
-                        { name: "Safeguarding", link: "", slug: "safeguarding", icon: "" },
-                    ],
-                },
-            ] as FooterLinkGroup[],
         },
     },
 };
