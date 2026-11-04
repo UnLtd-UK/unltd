@@ -1,6 +1,8 @@
 ---
 import DynamicIcon from "@components/DynamicIcon.astro";
-const { data } = Astro.props;
+import type { Home } from "@data/home";
+
+const { data } = Astro.props as { data: Home["mission"] };
 ---
 
 <div class="bg-violet-900 py-24 sm:py-32">
@@ -10,14 +12,14 @@ const { data } = Astro.props;
                 <h2
                     class="text-3xl font-bold tracking-tight text-violet-50 sm:text-4xl"
                 >
-                    {data.info_title}
+                    {data.title}
                 </h2>
                 <div class="flex gap-4">
                     <p class="mt-4 text-md leading-8 text-violet-200 w-3/5">
-                        {data.info_text}
+                        {data.text}
                     </p>
                     <p class="mt-4 text-md leading-8 text-violet-200 w-3/5">
-                        {data.info_callout}
+                        {data.callout}
                     </p>
                 </div>
             </div>
