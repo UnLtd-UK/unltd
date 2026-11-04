@@ -3,6 +3,7 @@ import { calculateReadTime } from "./functions/read-time.js";
 import { EMDASH_URL, absoluteMediaUrls, createEmDashClient, showDrafts } from "../lib/emdash.ts";
 
 export interface ResourceEntry {
+  id: string;
   slug: string;
   title: string;
   subtitle: string;
@@ -36,6 +37,7 @@ async function fetchResources(): Promise<ResourceEntry[]> {
       if (!item.slug) continue;
       const content = absoluteMediaUrls((item.data.content as PortableTextBlock[] | null) ?? []);
       resources.push({
+        id: item.id,
         slug: item.slug,
         title: String(item.data.title ?? ""),
         subtitle: String(item.data.subtitle ?? ""),

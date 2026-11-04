@@ -13,6 +13,7 @@
  */
 
 import Icon from "@components/Icon.astro";
+import type { ApplicationEntry } from "@data/applications";
 // import AwardCompact from "@components/awards/AwardCompact.astro";
 import Award from "@components/awards/Award.astro";
 import RoundButton from "@components/awards/RoundButton.astro";
@@ -26,8 +27,8 @@ interface Props {
     };
     /** Path to the generated fillable PDF form */
     downloadUrl?: string;
-    /** The application object from Directus (includes resources M2M) */
-    application?: any;
+    /** The application, including its resources and sections */
+    application?: ApplicationEntry;
 }
 
 const { awards, page, downloadUrl, application } = Astro.props;
@@ -35,21 +36,14 @@ const { awards, page, downloadUrl, application } = Astro.props;
 const isMultipleAwards = awards.length > 1;
 const awardText = isMultipleAwards ? "Awards" : "Award";
 
-// Flatten the M2M junction table to get the actual resource objects
-const resources = (application?.resources ?? [])
-    .map((r: any) => r.resources_id)
-    .filter(Boolean);
+const resources = application?.resources ?? [];
 
-// Find the most recent date_updated across all sections and fields
+// Find the most recent update across all sections and fields
 const allDates: number[] = [];
-for (const sec of application?.sections ?? []) {
-    if (sec.sections_id?.date_updated) {
-        allDates.push(new Date(sec.sections_id.date_updated).getTime());
-    }
-    for (const field of sec.sections_id?.fields ?? []) {
-        if (field.fields_id?.date_updated) {
-            allDates.push(new Date(field.fields_id.date_updated).getTime());
-        }
+for (const section of application?.sections ?? []) {
+    allDates.push(new Date(section.updatedAt).getTime());
+    for (const field of section.fields) {
+        allDates.push(new Date(field.updatedAt).getTime());
     }
 }
 const lastUpdated =
@@ -218,56 +212,32 @@ const showCapacityWarning =
 
                     <ul class="flex flex-col gap-3">
                         {
-                            /* Resources from the application's resources field in Directus */
-                        }
-                        {
-                            resources.map((resource: any) => {
-                                const isExternal = !!resource.external_url;
-                                const href = isExternal
-                                    ? resource.external_url
-                                    : `/resources/${resource.slug}`;
-
-                                return (
-                                    <li>
-                                        <a
-                                            href={href}
-                                            target={
-                                                isExternal
-                                                    ? "_blank"
-                                                    : undefined
-                                            }
-                                            rel={
-                                                isExternal
-                                                    ? "noopener noreferrer"
-                                                    : undefined
-                                            }
-                                            class="group inline-flex items-start gap-2 text-sm transition-colors posthog-resource-link"
-                                            data-resource-name={resource.name}
-                                            data-resource-type={isExternal ? 'external' : 'internal'}
-                                        >
-                                            <Icon
-                                                name={
-                                                    isExternal
-                                                        ? "arrow-up-right-from-square"
-                                                        : "arrow-right"
-                                                }
-                                                style="solid"
-                                                class={`h-3 w-3 shrink-0 mt-1 text-emerald-200 transition-transform ${!isExternal ? "group-hover:translate-x-0.5" : ""}`}
-                                            />
-                                            <span>
-                                                <span class="font-medium text-white underline decoration-emerald-200/40 underline-offset-2 group-hover:decoration-white">
-                                                    {resource.name}
-                                                </span>
-                                                {resource.description && (
-                                                    <span class="block text-xs text-emerald-200/70 mt-0.5 no-underline">
-                                                        {resource.description}
-                                                    </span>
-                                                )}
+                            resources.map((resource) => (
+                                <li>
+                                    <a
+                                        href={`/resources/${resource.slug}`}
+                                        class="group inline-flex items-start gap-2 text-sm transition-colors posthog-resource-link"
+                                        data-resource-name={resource.title}
+                                        data-resource-type="internal"
+                                    >
+                                        <Icon
+                                            name="arrow-right"
+                                            style="solid"
+                                            class="h-3 w-3 shrink-0 mt-1 text-emerald-200 transition-transform group-hover:translate-x-0.5"
+                                        />
+                                        <span>
+                                            <span class="font-medium text-white underline decoration-emerald-200/40 underline-offset-2 group-hover:decoration-white">
+                                                {resource.title}
                                             </span>
-                                        </a>
-                                    </li>
-                                );
-                            })
+                                            {resource.subtitle && (
+                                                <span class="block text-xs text-emerald-200/70 mt-0.5 no-underline">
+                                                    {resource.subtitle}
+                                                </span>
+                                            )}
+                                        </span>
+                                    </a>
+                                </li>
+                            ))
                         }
                     </ul>
                 </div>

@@ -40,6 +40,21 @@ export function emdashRequest<T>(client: EmDashClient, method: string, path: str
   return raw.request(method, path);
 }
 
+/** Maps `items` through an async `fn`, running at most `limit` calls at once. */
+export async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
+  const results = new Array<R>(items.length);
+  let next = 0;
+  await Promise.all(
+    Array.from({ length: Math.min(limit, items.length) }, async () => {
+      while (next < items.length) {
+        const index = next++;
+        results[index] = await fn(items[index]);
+      }
+    }),
+  );
+  return results;
+}
+
 /** IDs of the entries a reference field points to, in the order chosen in EmDash. */
 export async function referenceChildIds(
   client: EmDashClient,

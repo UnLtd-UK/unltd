@@ -15,7 +15,7 @@
 import type { GetStaticPaths } from "astro";
 
 // DATA
-import { applications, getApplicationWithAwards } from "@data/applications.js";
+import { applications, getApplicationBySlug } from "@data/applications";
 
 // STATIC PATHS
 export const getStaticPaths: GetStaticPaths = () => {
@@ -27,13 +27,13 @@ export const getStaticPaths: GetStaticPaths = () => {
 
 // PAGE DATA
 const { slug } = Astro.params;
-const result = getApplicationWithAwards(slug as string);
+const application = getApplicationBySlug(slug as string);
 
-if (!result) {
+if (!application) {
     return Astro.redirect("/404");
 }
 
-const { application, awards } = result;
+const { awards } = application;
 
 // DEBUG: Log awards data
 console.log("DEBUG [slug].astro - slug:", slug);
@@ -43,12 +43,10 @@ console.log(
     awards?.map((a) => a.code),
 );
 
-// Page metadata from Directus (with fallbacks)
-const pageTitle =
-    application.page_title || application.name || "Your Eligibility";
+// Page metadata (the subtitle's first paragraph; later paragraphs are notes)
+const pageTitle = application.title || "Your Eligibility";
 const pageDescription =
-    application.page_description ||
-    application.description ||
+    application.subtitle.split(/\n\s*\n/)[0] ||
     "You're eligible to apply for an UnLtd Award";
 
 // BREADCRUMBS
@@ -91,9 +89,7 @@ import Sessions from "@components/awards/Sessions.astro";
             awards={awards}
             page={{
                 tradingDescription:
-                    application.trading_description ||
-                    application.stage_text ||
-                    "Your social venture qualifies",
+                    application.stageText || "Your social venture qualifies",
             }}
             downloadUrl={`/awards/downloads/${slug}.pdf`}
             application={application}

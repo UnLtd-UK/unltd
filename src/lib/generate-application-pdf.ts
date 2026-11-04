@@ -24,50 +24,18 @@ import {
 import fontkit from "@pdf-lib/fontkit";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import type {
+    ApplicationField,
+    ApplicationSection,
+} from "../data/applications.ts";
+import { APPLICATION_PORTAL_URL } from "../config/links.ts";
 
 // ─── Types ──────────────────────────────────────────────────────────────
 
-interface FieldData {
-    fields_id: {
-        name: string;
-        description?: string;
-        slug: string;
-        status?: string;
-        type: string; // "Input" | "Select" | "Textarea" | "Radios" | "Checkboxes"
-        input_type?: string; // "text" | "email" | "number" | "file" etc.
-        required?: boolean;
-        select_options?: Array<{
-            name: string;
-            slug?: string;
-            code?: string;
-            description?: string;
-        }>;
-        guidance?: string;
-        helper_text?: string;
-        prefix?: string;
-        suffix?: string;
-        date_updated?: string;
-        dependency?: string; // slug of parent field — if set, this field is shown indented below its parent
-    } | null;
-}
-
-interface SectionData {
-    sections_id: {
-        name: string;
-        slug: string;
-        status?: string;
-        guidance?: string;
-        description?: string;
-        fields: FieldData[];
-        date_updated?: string;
-    } | null;
-}
-
 interface ResourceData {
-    name: string;
+    title: string;
     slug: string;
-    description?: string;
-    external_url?: string;
+    subtitle?: string;
 }
 
 interface AwardData {
@@ -78,15 +46,16 @@ interface AwardData {
 }
 
 interface GeneratePdfOptions {
-    applicationName: string;
+    applicationTitle: string;
+    /** Describes the stage, including any note about what selecting it involves. */
+    applicationSubtitle?: string;
     slug: string;
     stageSlug?: string;
     stageText?: string;
-    sections: SectionData[];
+    sections: ApplicationSection[];
     includeDrafts?: boolean;
     awards?: AwardData[];
     resources?: ResourceData[];
-    tradingDescription?: string;
 }
 
 // ─── Constants ──────────────────────────────────────────────────────────
@@ -806,7 +775,7 @@ function renderGuidanceCallout(
     cursor.y = bottom - GUIDANCE_BOTTOM_GAP;
 }
 
-function getGuidedFieldControlHeight(field: FieldData["fields_id"]): number {
+function getGuidedFieldControlHeight(field: ApplicationField): number {
     switch (field.type) {
         case "Textarea":
             return TEXTAREA_HEIGHT + 6;
@@ -816,7 +785,7 @@ function getGuidedFieldControlHeight(field: FieldData["fields_id"]): number {
             return field.select_options?.length ? RADIO_SIZE + 8 : 0;
         case "Checkboxes":
             return field.select_options?.length ? CHECKBOX_SIZE + 8 : 0;
-        case "key-value":
+        case "Key-value":
             return 22 + PDF_MAX_ENTRIES * 22 + 30;
         case "Input":
         default:
@@ -829,7 +798,7 @@ function getGuidedFieldControlHeight(field: FieldData["fields_id"]): number {
 function renderInputField(
     cursor: PageCursor,
     form: ReturnType<PDFDocument["getForm"]>,
-    field: FieldData["fields_id"],
+    field: ApplicationField,
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
     xOffset = 0,
@@ -842,8 +811,8 @@ function renderInputField(
         cursor.ensureSpace(40);
         cursor.drawWrappedTextWithLink(
             "File uploads must be submitted via the Application Portal at ",
-            "unltd.microsoftcrmportals.com/applications",
-            "https://unltd.microsoftcrmportals.com/applications",
+            APPLICATION_PORTAL_URL.replace(/^https:\/\//, ""),
+            APPLICATION_PORTAL_URL,
             "",
             fonts.regular,
             FONT_SIZE_BODY,
@@ -889,7 +858,7 @@ function renderInputField(
 function renderTextareaField(
     cursor: PageCursor,
     form: ReturnType<PDFDocument["getForm"]>,
-    field: FieldData["fields_id"],
+    field: ApplicationField,
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
     xOffset = 0,
@@ -931,7 +900,7 @@ function renderTextareaField(
 function renderSelectField(
     cursor: PageCursor,
     form: ReturnType<PDFDocument["getForm"]>,
-    field: FieldData["fields_id"],
+    field: ApplicationField,
     fieldId: string,
     fieldSlug: string,
     fonts: { bold: PDFFont; regular: PDFFont },
@@ -1034,7 +1003,7 @@ function renderSelectField(
 function renderRadiosField(
     cursor: PageCursor,
     form: ReturnType<PDFDocument["getForm"]>,
-    field: FieldData["fields_id"],
+    field: ApplicationField,
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
     xOffset = 0,
@@ -1099,7 +1068,7 @@ function renderRadiosField(
 function renderCheckboxesField(
     cursor: PageCursor,
     form: ReturnType<PDFDocument["getForm"]>,
-    field: FieldData["fields_id"],
+    field: ApplicationField,
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
     xOffset = 0,
@@ -1153,7 +1122,7 @@ function renderCheckboxesField(
 function renderKeyValueField(
     cursor: PageCursor,
     form: ReturnType<PDFDocument["getForm"]>,
-    field: FieldData["fields_id"],
+    field: ApplicationField,
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
     xOffset = 0,
@@ -1293,28 +1262,18 @@ function renderKeyValueField(
 }
 
 function getVisibleSections(
-    sections: SectionData[],
+    sections: ApplicationSection[],
     includeDrafts: boolean,
-): SectionData[] {
+): ApplicationSection[] {
     const isVisibleStatus = (status?: string) =>
         status === "published" || (includeDrafts && status === "draft");
 
-    return sections.flatMap((sectionRelation) => {
-        const section = sectionRelation.sections_id;
-        if (!section || !isVisibleStatus(section.status)) return [];
-
-        const fields = (section.fields ?? []).filter(
-            (fieldRelation) => isVisibleStatus(fieldRelation.fields_id?.status),
-        );
-
-        return [{
-            ...sectionRelation,
-            sections_id: {
-                ...section,
-                fields,
-            },
-        }];
-    });
+    return sections
+        .filter((section) => isVisibleStatus(section.status))
+        .map((section) => ({
+            ...section,
+            fields: section.fields.filter((field) => isVisibleStatus(field.status)),
+        }));
 }
 
 // ─── Main generator ─────────────────────────────────────────────────────
@@ -1323,7 +1282,8 @@ export async function generateApplicationPdf(
     options: GeneratePdfOptions,
 ): Promise<Uint8Array> {
     const {
-        applicationName,
+        applicationTitle,
+        applicationSubtitle,
         slug,
         stageSlug,
         stageText,
@@ -1334,16 +1294,12 @@ export async function generateApplicationPdf(
     } = options;
     const sections = getVisibleSections(inputSections, includeDrafts);
 
-    // Find the most recent date_updated across all sections and fields
+    // Find the most recent update across all sections and fields
     const allDates: number[] = [];
-    for (const sec of sections) {
-        if (sec.sections_id?.date_updated) {
-            allDates.push(new Date(sec.sections_id.date_updated).getTime());
-        }
-        for (const field of sec.sections_id?.fields ?? []) {
-            if (field.fields_id?.date_updated) {
-                allDates.push(new Date(field.fields_id.date_updated).getTime());
-            }
+    for (const section of sections) {
+        allDates.push(new Date(section.updatedAt).getTime());
+        for (const field of section.fields) {
+            allDates.push(new Date(field.updatedAt).getTime());
         }
     }
     const lastUpdated = allDates.length > 0
@@ -1397,7 +1353,7 @@ export async function generateApplicationPdf(
         firstPage,
         nunitoBold,
         nunitoRegular,
-        applicationName,
+        applicationTitle,
     );
     const form = pdfDoc.getForm();
 
@@ -1476,6 +1432,37 @@ export async function generateApplicationPdf(
     });
     cursor.y -= 10;
 
+    // ── Your stage ──────────────────────────────────────────────────
+
+    if (applicationSubtitle) {
+        cursor.page.drawText(sanitiseForPdf(`Your stage: ${applicationTitle}`), {
+            x: MARGIN_LEFT,
+            y: cursor.y,
+            size: FONT_SIZE_SUBTITLE,
+            font: nunitoBold,
+            color: COLOUR_VIOLET,
+        });
+        cursor.y -= FONT_SIZE_SUBTITLE + 4;
+
+        cursor.drawRichText(
+            applicationSubtitle,
+            nunitoRegular,
+            FONT_SIZE_BODY,
+            COLOUR_DARK_GREY,
+            LINE_HEIGHT_BODY,
+        );
+        cursor.y -= 10;
+
+        // Divider
+        cursor.page.drawLine({
+            start: { x: MARGIN_LEFT, y: cursor.y },
+            end: { x: PAGE_WIDTH - MARGIN_RIGHT, y: cursor.y },
+            thickness: 0.5,
+            color: COLOUR_LIGHT_GREY,
+        });
+        cursor.y -= 10;
+    }
+
     // ── Eligible awards ─────────────────────────────────────────────
 
     if (awards && awards.length > 0) {
@@ -1498,9 +1485,8 @@ export async function generateApplicationPdf(
         cursor.y -= 2;
 
         for (const award of awards) {
-            const stageLabel = award.stage === "starting-up" ? "Starting Up" : "Scaling Up";
             const grantFormatted = award.grant ? `up to \u00A3${award.grant.toLocaleString("en-GB")}` : "";
-            const awardLine = `\u2022  ${stageLabel}${grantFormatted ? ` (${grantFormatted})` : ""}`;
+            const awardLine = `\u2022  ${award.name}${grantFormatted ? ` (${grantFormatted})` : ""}`;
             cursor.drawWrappedText(
                 sanitiseForPdf(awardLine),
                 nunitoRegular,
@@ -1574,15 +1560,11 @@ export async function generateApplicationPdf(
         for (const resource of resources) {
             // Resource title
             cursor.ensureSpace(30);
-            const resourceUrl = resource.external_url
-                ? (resource.external_url.startsWith("http") ? resource.external_url : `https://${resource.external_url}`)
-                : `https://unltd.org.uk/resources/${resource.slug}`;
-            const resourceDisplayUrl = resource.external_url
-                ? resource.external_url.replace(/^https?:\/\//, "")
-                : `unltd.org.uk/resources/${resource.slug}`;
+            const resourceUrl = `https://unltd.org.uk/resources/${resource.slug}`;
+            const resourceDisplayUrl = `unltd.org.uk/resources/${resource.slug}`;
 
             // Bold resource name
-            cursor.page.drawText(sanitiseForPdf(`\u2022  ${resource.name}`), {
+            cursor.page.drawText(sanitiseForPdf(`\u2022  ${resource.title}`), {
                 x: MARGIN_LEFT,
                 y: cursor.y,
                 size: FONT_SIZE_BODY,
@@ -1592,9 +1574,9 @@ export async function generateApplicationPdf(
             cursor.y -= LINE_HEIGHT_BODY;
 
             // Resource description
-            if (resource.description) {
+            if (resource.subtitle) {
                 cursor.drawRichText(
-                    resource.description,
+                    resource.subtitle,
                     nunitoRegular,
                     FONT_SIZE_SMALL,
                     COLOUR_MID_GREY,
@@ -1706,11 +1688,10 @@ export async function generateApplicationPdf(
     // ── Sections ────────────────────────────────────────────────────────
 
     for (let si = 0; si < sections.length; si++) {
-        const section = sections[si].sections_id;
-        if (!section) continue;
+        const section = sections[si];
 
         const sectionNumber = si + 1;
-        const sectionTitle = `${sectionNumber}. ${section.name}`;
+        const sectionTitle = `${sectionNumber}. ${section.title}`;
         const sectionGuidanceLayout = getGuidanceCalloutLayout(
             section.guidance,
             nunitoRegular,
@@ -1743,12 +1724,12 @@ export async function generateApplicationPdf(
 
         renderGuidanceCallout(cursor, section.guidance, fonts);
 
-        // Section description
-        if (section.description) {
-            const plainDesc = stripMarkdown(section.description);
+        // Section subtitle
+        if (section.subtitle) {
+            const plainDesc = stripMarkdown(section.subtitle);
             if (plainDesc) {
                 cursor.drawRichText(
-                    section.description,
+                    section.subtitle,
                     nunitoRegular,
                     FONT_SIZE_BODY,
                     COLOUR_MID_GREY,
@@ -1759,20 +1740,13 @@ export async function generateApplicationPdf(
         }
 
         // Fields
-        const fields = section.fields ?? [];
-
-        // Build a lookup so we can resolve parent field names for dependency notes
-        const fieldsBySlug = new Map<string, FieldData["fields_id"]>();
-        for (const f of fields) {
-            if (f.fields_id?.slug) fieldsBySlug.set(f.fields_id.slug, f.fields_id);
-        }
+        const fields = section.fields;
 
         // Sequential field number — only incremented for non-dependent fields
         let fieldNumber = 0;
 
         for (let fi = 0; fi < fields.length; fi++) {
-            const field = fields[fi].fields_id;
-            if (!field) continue;
+            const field = fields[fi];
 
             const isDependentField = Boolean(field.dependency);
             const indent = isDependentField ? DEPENDENCY_INDENT : 0;
@@ -1789,12 +1763,12 @@ export async function generateApplicationPdf(
             const guidedControlHeight = guidanceLayout
                 ? getGuidedFieldControlHeight(field)
                 : 0;
-            const plainFieldDesc = field.description
-                ? stripMarkdown(field.description)
+            const plainFieldDesc = field.subtitle
+                ? stripMarkdown(field.subtitle)
                 : "";
             const descriptionLines = plainFieldDesc
                 ? wrapRich(
-                    field.description ?? "",
+                    field.subtitle,
                     nunitoRegular,
                     FONT_SIZE_SMALL,
                     fieldWidth,
@@ -1812,7 +1786,7 @@ export async function generateApplicationPdf(
 
                 // Field label (no number prefix for dependent fields)
                 const requiredMark = field.required ? " *" : "";
-                const labelText = `${field.name}${requiredMark}`;
+                const labelText = `${field.title}${requiredMark}`;
 
                 const labelLines = wrapText(labelText, nunitoBold, FONT_SIZE_FIELD_LABEL, fieldWidth);
                 const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
@@ -1840,7 +1814,7 @@ export async function generateApplicationPdf(
                 fieldNumber++;
 
                 const requiredMark = field.required ? " *" : "";
-                const labelText = `${sectionNumber}.${fieldNumber}. ${field.name}${requiredMark}`;
+                const labelText = `${sectionNumber}.${fieldNumber}. ${field.title}${requiredMark}`;
 
                 const labelLines = wrapText(labelText, nunitoBold, FONT_SIZE_FIELD_LABEL, CONTENT_WIDTH);
                 const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
@@ -1866,7 +1840,7 @@ export async function generateApplicationPdf(
             // Dependent-field descriptions act as conditional notes.
             if (plainFieldDesc) {
                 cursor.drawRichText(
-                    field.description ?? "",
+                    field.subtitle,
                     nunitoRegular,
                     FONT_SIZE_SMALL,
                     COLOUR_MID_GREY,
@@ -1893,7 +1867,7 @@ export async function generateApplicationPdf(
                 case "Checkboxes":
                     renderCheckboxesField(cursor, form, field, fieldId, fonts, indent);
                     break;
-                case "key-value":
+                case "Key-value":
                     renderKeyValueField(cursor, form, field, fieldId, fonts, indent);
                     break;
                 default:

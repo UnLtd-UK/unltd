@@ -5,6 +5,7 @@ import {
   contentStatuses,
   createEmDashClient,
   emdashRequest,
+  mapWithConcurrency,
 } from "../lib/emdash.ts";
 
 export interface PostAuthor {
@@ -57,20 +58,6 @@ function toImage(field: any): PostImage | null {
 }
 
 // The list endpoint doesn't include taxonomy terms, so they are read per post.
-async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
-  const results = new Array<R>(items.length);
-  let next = 0;
-  await Promise.all(
-    Array.from({ length: Math.min(limit, items.length) }, async () => {
-      while (next < items.length) {
-        const index = next++;
-        results[index] = await fn(items[index]);
-      }
-    }),
-  );
-  return results;
-}
-
 async function fetchPosts(): Promise<PostEntry[]> {
   const client = createEmDashClient("posts");
   const items: any[] = [];
@@ -120,8 +107,8 @@ async function fetchPosts(): Promise<PostEntry[]> {
   const count = (predicate: (post: PostEntry) => boolean) => posts.filter(predicate).length;
   console.log(
     `Loaded ${posts.length} posts from EmDash (${EMDASH_URL}): ` +
-      `${count((p) => !!p.tag)} with a tag, ${count((p) => p.authors.length > 0)} with a byline, ` +
-      `${count((p) => !!p.image)} with a featured image`,
+    `${count((p) => !!p.tag)} with a tag, ${count((p) => p.authors.length > 0)} with a byline, ` +
+    `${count((p) => !!p.image)} with a featured image`,
   );
 
   return posts;

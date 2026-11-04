@@ -59,8 +59,12 @@ export interface EligibilityCriteria {
 }
 
 export interface Award {
+    /** EmDash product id. */
+    id: string;
     code: string;
     name: string;
+    grantTitle: string;
+    grantDescription: string;
     stage: 'starting-up' | 'scaling-up';
     grant: number;
     programme: Programme;
@@ -111,6 +115,7 @@ function toEligibilityValue(value: unknown): EligibilityValue {
 }
 
 interface Grant {
+    title: string;
     amount: number;
     usage: string[];
 }
@@ -122,6 +127,7 @@ async function fetchAwards(): Promise<Award[]> {
     for (const status of contentStatuses) {
         for await (const item of client.listAll('grants', { status, limit: 100 })) {
             grantsById.set(item.id, {
+                title: String(item.data.title ?? ''),
                 amount: Number(item.data.amount ?? 0),
                 usage: ((item.data.usage as string[] | null) ?? []).map(String),
             });
@@ -157,8 +163,11 @@ async function fetchAwards(): Promise<Award[]> {
         const name = `${stage === 'starting-up' ? 'Starting Up' : 'Scaling Up'} Award ${programme?.title ?? ''}`.trim();
 
         result.push({
+            id: item.id,
             code,
             name,
+            grantTitle: grant?.title ?? '',
+            grantDescription: (grant?.usage ?? []).join(', '),
             stage,
             grant: grant?.amount ?? 0,
             programme: {

@@ -13,6 +13,7 @@
 import { getRoundData, getRoundStatus } from "./round";
 import Icon from "@components/Icon.astro";
 import RoundCapacity from "@components/awards/RoundCapacity.astro";
+import { APPLICATION_PORTAL_URL } from "@config/links";
 
 interface Props {
     applyUrl?: string;
@@ -21,7 +22,7 @@ interface Props {
 }
 
 const {
-    applyUrl = "https://unltd.microsoftcrmportals.com/applications",
+    applyUrl = APPLICATION_PORTAL_URL,
     variant = "primary",
 } = Astro.props;
 
