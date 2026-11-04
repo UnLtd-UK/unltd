@@ -31,13 +31,16 @@ const text = (value: unknown) => String(value ?? "").trim();
 
 // EmDash stores a media field as { meta: { storageKey }, alt, ... } and serves
 // the file from /_emdash/api/media/file/<storageKey>.
-function imageUrl(field: any): string {
+export function imageUrl(field: any): string {
+  if (typeof field?.src === "string" && field.src) {
+    return /^https?:\/\//.test(field.src) ? field.src : `${EMDASH_URL}${field.src}`;
+  }
   const storageKey = field?.meta?.storageKey;
   return storageKey ? `${EMDASH_URL}/_emdash/api/media/file/${storageKey}` : "";
 }
 
-async function fetchTeams(): Promise<TeamEntry[]> {
-  const client = createEmDashClient("people and teams");
+async function fetchPeople(): Promise<Map<string, Person>> {
+  const client = createEmDashClient("people");
 
   const peopleById = new Map<string, Person>();
   for (const status of contentStatuses) {
@@ -57,6 +60,13 @@ async function fetchTeams(): Promise<TeamEntry[]> {
       });
     }
   }
+  return peopleById;
+}
+
+export const peopleById = await fetchPeople();
+
+async function fetchTeams(): Promise<TeamEntry[]> {
+  const client = createEmDashClient("teams");
 
   const items: any[] = [];
   for (const status of contentStatuses) {
