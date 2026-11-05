@@ -1,9 +1,6 @@
 # build output
 dist/
 
-# Local copy of the Directus posts and their media (kept as a backup)
-exports/posts/
-exports/posts-media/
 # generated types
 .astro/
 
