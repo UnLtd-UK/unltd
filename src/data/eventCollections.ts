@@ -24,6 +24,10 @@ export interface Event {
   logo?: { url?: string };
   online_event?: boolean;
   status?: string;
+  event_sales_status?: {
+    sales_status?: string;
+    message_code?: string;
+  } | null;
   listed?: boolean;
   shareable?: boolean;
   is_series?: boolean;
@@ -148,6 +152,17 @@ const EVENTBRITE_ORGANISATION_ID =
 
 const EVENTBRITE_TOKEN = await resolveEventbriteToken(runtimeEnv);
 
+// Eventbrite leaves a cancelled event with status "live" and only flags it via
+// event_sales_status (message_code "event_cancelled"), so check both.
+export function isCancelledEvent(event: Event): boolean {
+  const status = event.status?.toLowerCase();
+  return (
+    status === "canceled" ||
+    status === "cancelled" ||
+    event.event_sales_status?.message_code === "event_cancelled"
+  );
+}
+
 type FetchProgrammeEventsOptions = {
   organisationId?: string;
   organizerId?: string;
@@ -170,7 +185,7 @@ export async function fetchProgrammeEvents(
     const orderBy = options.orderBy ?? "start_asc";
 
     const response = await fetch(
-      `https://www.eventbriteapi.com/v3/organizations/${organisationId}/events/?status=${encodeURIComponent(status)}&order_by=${encodeURIComponent(orderBy)}`,
+      `https://www.eventbriteapi.com/v3/organizations/${organisationId}/events/?status=${encodeURIComponent(status)}&order_by=${encodeURIComponent(orderBy)}&expand=event_sales_status`,
       {
         method: "GET",
         headers: {
@@ -192,8 +207,12 @@ export async function fetchProgrammeEvents(
     // Only show events belonging to the target Organizer profile, and only those
     // Eventbrite has marked as publicly listed (excludes private/unlisted Award
     // Winner-only sessions, which share the same Organizer but aren't public).
+    // Cancelled events are never shown, even if the API returns them.
     return events.filter(
-      (event) => event.organizer_id === organizerId && event.listed === true,
+      (event) =>
+        event.organizer_id === organizerId &&
+        event.listed === true &&
+        !isCancelledEvent(event),
     );
   } catch (error) {
     console.error("Error fetching Eventbrite organisation events:", error);
@@ -215,18 +234,7 @@ export function formatDate(dateString: string) {
   });
 }
 
-export function isPastEvent(event: Event): boolean {
-  const now = new Date();
-  return new Date(event.end.local) < now;
-}
-
-export function sortEvents(events: Event[]): Event[] {
-  return [...events].sort((a, b) => {
-    const aStart = new Date(a.start.local).getTime();
-    const bStart = new Date(b.start.local).getTime();
-    return aStart - bStart;
-  });
-}
+export { isPastEvent, sortEvents } from "../lib/event-helpers.ts";
 
 export const collections = {
   "for-social-entrepreneurs": {

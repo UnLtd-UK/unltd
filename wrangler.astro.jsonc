@@ -9,33 +9,44 @@
 // share that file. Do NOT use this config for deployment — wrangler.jsonc
 // remains the source of truth for `wrangler deploy`.
 //
-// IMPORTANT: do NOT add `"compatibility_flags": ["nodejs_compat"]` here.
-// It causes on-demand (SSR) routes to render a literal "[object Object]"
-// body instead of HTML. Root cause: nodejs_compat provides a native
-// `process` global that satisfies astro core's `isNode` runtime check
-// (`Object.prototype.toString.call(process) === "[object process]"`),
-// which makes Astro pick its Node.js-specific async-iterable streaming
-// path instead of the Web ReadableStream path — the resulting body isn't
-// a valid Response BodyInit in workerd. Confirmed via `wrangler dev`
-// directly against the built worker (dist/server), not just `astro
-// preview`. If a future dependency genuinely needs node:fs/node:path at
-// on-demand request time, this will need a different fix (e.g. removing
-// the dependency from the on-demand route's import tree) rather than
-// re-enabling this flag.
-// CRITICAL: do NOT put "vars" here (e.g. DEV/SHOW_DRAFTS). Because this file
-// is referenced UNCONDITIONALLY by astro.config.mjs's `configPath` for every
-// `astro build` (including real production/draft CI builds, not just local
-// dev), the Cloudflare adapter injects whatever is declared here into
-// process.env — silently overriding the real CI job's SHOW_DRAFTS/DEV env
-// vars. This caused draft/unpublished content to leak into the production
-// static build (confirmed 2026-07-24: SHOW_DRAFTS=false in the shell/CI env
-// was overridden to "true" by this file's old `vars` block). Local dev should
-// keep using the existing documented workflow instead: `SHOW_DRAFTS=true npm
-// run dev` (see README.md), which sets it via the shell/process env directly
-// and is NOT clobbered as long as this file declares no vars.
+// `nodejs_compat` is required (EmDash imports node:* modules) and must match
+// wrangler.jsonc. An older note here said it broke on-demand rendering (a
+// literal "[object Object]" body, because Astro took its Node streaming path
+// in workerd). Astro 7 wraps that body with ReadableStream.from() for workerd,
+// so it no longer applies: the blog, pages and resources render correctly.
+// CRITICAL: do NOT put "vars" here (e.g. DEV). This file is referenced
+// UNCONDITIONALLY by astro.config.mjs's `configPath` for every `astro build`
+// (including real production CI builds, not just local dev), so the Cloudflare
+// adapter injects whatever is declared here into process.env — silently
+// overriding the real CI job's env vars. Set variables in the shell/CI
+// environment instead; they are not clobbered as long as this file declares
+// no vars.
 {
   "name": "unltd",
+  // Worker entry compiled by the adapter into dist/server/entry.mjs (which is
+  // what wrangler.jsonc deploys). It re-exports EmDash's PluginBridge.
+  "main": "./src/worker.ts",
   "compatibility_date": "2025-11-17",
+  // Required by EmDash CMS (node:module, node:async_hooks, ...).
+  "compatibility_flags": ["nodejs_compat"],
+  // EmDash CMS bindings (see astro.config.mjs). Binding names must match
+  // d1()/r2() there. "remote": true makes `astro dev` use the real database and
+  // bucket (the same ones wrangler.jsonc deploys) instead of an empty local
+  // copy, so local dev shows live content. Note that edits made in the dev
+  // admin therefore change live data.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "unltd-emdash",
+      "database_id": "0661c645-a053-4037-9da3-7ec44a17b46d",
+      "remote": true
+    }
+  ],
+  "r2_buckets": [
+    { "binding": "MEDIA", "bucket_name": "unltd-emdash-media", "remote": true }
+  ],
+  // Worker Loader for EmDash's sandboxed (registry) plugins.
+  "worker_loaders": [{ "binding": "LOADER" }],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS"

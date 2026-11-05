@@ -3,124 +3,28 @@ import { Image } from "astro:assets";
 import Icon from "@components/Icon.astro";
 const { team, members = [] } = Astro.props;
 
-const toPronounArray = (value) => {
-  if (!value) return [];
-  if (Array.isArray(value)) {
-    return value.map((item) => `${item}`.trim()).filter(Boolean);
-  }
-  if (typeof value === "string") {
-    return [`${value}`.trim()].filter(Boolean);
-  }
-  return [];
-};
-
-const resolveRoleName = (role) => {
-  if (!role) return "";
-  if (typeof role === "string") return role;
-  if (typeof role === "object") {
-    if ("name" in role && role.name) return role.name;
-    if ("title" in role && role.title) return role.title;
-  }
-  return "";
-};
-
-const resolveRoleStatus = (status) => {
-  if (!status) return null;
-  const label =
-    typeof status === "string"
-      ? status
-      : typeof status === "object" && "name" in status && status.name
-        ? status.name
-        : typeof status === "object" && "label" in status && status.label
-          ? status.label
-          : "";
-
-  if (!label) {
-    return null;
-  }
-
-  return label.toLowerCase() === "active" ? null : label;
-};
-
-const resolveImageId = (image) => {
-  if (!image) return null;
-  if (typeof image === "string") return image;
-  if (typeof image === "object") {
-    if ("id" in image && image.id) return `${image.id}`;
-    if ("image" in image && image.image) return `${image.image}`;
-    if ("url" in image && image.url) return `${image.url}`;
-  }
-  return null;
-};
-
-const buildAssetUrl = (id, height = 128) => {
-  if (!id) return null;
-  const assetId = `${id}`;
-  if (assetId.startsWith("http")) return assetId;
-  return `https://unltd.directus.app/assets/${assetId}?height=${height}`;
-};
-
-const parseSortValue = (value) => {
-  if (typeof value === "number") return value;
-  const numericValue = Number(value);
-  return Number.isFinite(numericValue) ? numericValue : Number.MAX_SAFE_INTEGER;
-};
-
 const collator = new Intl.Collator("en", { sensitivity: "base" });
 
-const getPersonId = (person) => {
+const toMemberDisplay = (person) => {
   if (!person) return null;
-  if (typeof person === "string" || typeof person === "number") {
-    return `${person}`;
-  }
-  if (typeof person === "object" && "id" in person && person.id) {
-    return `${person.id}`;
-  }
-  return null;
-};
-
-const owner = team?.owner;
-const ownerId = getPersonId(owner);
-
-const sortedMembers = [...members]
-  .filter((member) => {
-    if (!member) return false;
-    if (!ownerId) return true;
-    return getPersonId(member) !== ownerId;
-  })
-  .sort((a, b) => {
-    const sortA = parseSortValue(a?.sort);
-    const sortB = parseSortValue(b?.sort);
-
-    if (sortA !== sortB) {
-      return sortA - sortB;
-    }
-
-    const nameA = `${a?.full_name || a?.name || ""}`;
-    const nameB = `${b?.full_name || b?.name || ""}`;
-    return collator.compare(nameA, nameB);
-  });
-
-const toMemberDisplay = (member) => {
-  if (!member) return null;
-
   return {
-    id: getPersonId(member) || null,
-    name: member?.full_name || member?.name || "",
-    pronouns: toPronounArray(member?.pronouns),
-    roleName: resolveRoleName(member?.role),
-    roleStatus: resolveRoleStatus(member?.role_status),
-    avatarSrc: buildAssetUrl(resolveImageId(member?.image), 128),
-    imageAlt:
-      member?.image?.description || member?.full_name || member?.name || "",
-    linkedin: member?.linkedin || null,
+    id: person.id,
+    name: person.name,
+    pronouns: person.pronouns ? [person.pronouns] : [],
+    roleName: person.roleTitle,
+    roleStatus: person.roleStatus || null,
+    avatarSrc: person.image || null,
+    imageAlt: person.imageAlt,
+    linkedin: person.linkedin || null,
   };
 };
 
-const ownerDisplay = owner ? toMemberDisplay(owner) : null;
-const memberDisplays = sortedMembers
-  .map((member) => toMemberDisplay(member))
-  .filter(Boolean);
+const lead = team?.lead ?? null;
+const ownerDisplay = toMemberDisplay(lead);
+const memberDisplays = members
+  .filter((member) => member.id !== lead?.id)
+  .sort((a, b) => collator.compare(a.name, b.name))
+  .map(toMemberDisplay);
 ---
 
 <div class="py-5 sm:py-10">

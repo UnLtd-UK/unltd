@@ -1,7 +1,8 @@
 /**
  * Awards Data
  * 
- * Fetches Award types from Directus with their associated programmes and benefits.
+ * Reads Award types from the EmDash products collection. Each product points
+ * at a programme (with its services) and a grant.
  * 
  * Award codes follow the pattern: {stage}-{programme}
  * - st = Starting Up
@@ -10,7 +11,8 @@
  * - ffp = Funding Futures Programme
  */
 
-import { getCollection } from './load.js';
+import { createEmDashClient, referenceChildIds } from '../lib/emdash.ts';
+import { programmes } from './programmes.ts';
 
 export interface ProgrammeService {
     name: string;
@@ -57,8 +59,12 @@ export interface EligibilityCriteria {
 }
 
 export interface Award {
+    /** EmDash product id. */
+    id: string;
     code: string;
     name: string;
+    grantTitle: string;
+    grantDescription: string;
     stage: 'starting-up' | 'scaling-up';
     grant: number;
     programme: Programme;
@@ -67,131 +73,131 @@ export interface Award {
     eligibility: EligibilityCriteria;
 }
 
-const collection = "awards";
-const collectionName = "awards";
-
-// const showDrafts = process.env.SHOW_DRAFTS === 'true';
-const showDrafts = process.env.SHOW_DRAFTS === 'false';
-const statusFilter = showDrafts
-    ? { _in: ['published', 'draft'] }
-    : { _eq: 'published' };
-
-const filterOptions = {
-    sort: ['sort'],
-    filter: {
-        status: statusFilter
-    },
-    fields: [
-        '*',
-        'programme.*',
-        'programme.services.services_id.*'
-    ],
-};
-
-const attach = false;
-
-interface DirectusProgramme {
-    id: number;
-    name: string;
-    code: string;
-    slug: string;
-    icon: string;
-    description: string;
-    services: Array<{
-        services_id: {
-            name: string;
-            icon: string;
-        };
-    }>;
-}
-
-interface DirectusAward {
-    id: number;
-    code: string;
-    name: string;
-    grant_amount: number;
-    grant_features: string[];
-    programme: DirectusProgramme;
-    // Eligibility criteria fields
-    age: boolean | string | string[] | null;
-    living_in_uk: boolean | string | string[] | null;
-    founder_or_leader: boolean | string | string[] | null;
-    reason_for_funding: boolean | string | string[] | null;
-    funding_academic_qualifications: boolean | string | string[] | null;
-    funding_overseas_travel: boolean | string | string[] | null;
-    funding_pay_others_delivery: boolean | string | string[] | null;
-    needs_financial_non_financial_support: boolean | string | string[] | null;
-    social_purpose_driven: boolean | string | string[] | null;
-    clear_need_demonstrated: boolean | string | string[] | null;
-    benefits_uk_people_places: boolean | string | string[] | null;
-    activities_running_4_years: boolean | string | string[] | null;
-    lawful_not_discriminatory: boolean | string | string[] | null;
-    no_political_religious_campaign: boolean | string | string[] | null;
-    more_than_awareness_raising: boolean | string | string[] | null;
-    financially_sustainable: boolean | string | string[] | null;
-    incorporation_timeframe: boolean | string | string[] | null;
-    started_trading: boolean | string | string[] | null;
-    sector_classification: boolean | string | string[] | null;
-    last_year_turnover: boolean | string | string[] | null;
-    earned_18k_traded_income: boolean | string | string[] | null;
-    financial_data_projections: boolean | string | string[] | null;
-    social_venture_previously: boolean | string | string[] | null;
-}
-
-const rawAwards: DirectusAward[] = await getCollection(collection, collectionName, filterOptions, attach);
+const PROGRAMME_RELATION = 'products_programmes';
+const GRANT_RELATION = 'products_grants';
 
 /**
- * Transform Directus data to match the Award interface
+ * Maps each criterion slug used by the site (see criteriaMapping.ts) to the
+ * field on the EmDash product that holds it.
  */
-export const awards: Award[] = rawAwards.map((award) => ({
-    code: award.code,
-    name: award.name,
-    stage: award.code.startsWith('st') ? 'starting-up' : 'scaling-up',
-    grant: award.grant_amount,
-    programme: {
-        icon: award.programme?.icon ?? '',
-        name: award.programme?.name ?? '',
-        code: award.programme?.code ?? '',
-        slug: award.programme?.slug ?? '',
-        colour: award.programme?.code === 'mat' ? 'amber' : 'purple',
-        description: award.programme?.description ?? '',
-    },
-    grantUsability: (award.grant_features ?? []).reduce((acc, feature) => {
-        acc[feature] = true;
-        return acc;
-    }, {} as Record<string, boolean>),
-    programmeServices: (award.programme?.services ?? [])
-        .filter((s) => s.services_id)
-        .map((s) => ({
-            name: s.services_id.name,
-            icon: s.services_id.icon,
-        })),
-    eligibility: {
-        age: award.age ?? null,
-        living_in_uk: award.living_in_uk ?? null,
-        founder_or_leader: award.founder_or_leader ?? null,
-        reason_for_funding: award.reason_for_funding ?? null,
-        funding_academic_qualifications: award.funding_academic_qualifications ?? null,
-        funding_overseas_travel: award.funding_overseas_travel ?? null,
-        funding_pay_others_delivery: award.funding_pay_others_delivery ?? null,
-        needs_financial_non_financial_support: award.needs_financial_non_financial_support ?? null,
-        social_purpose_driven: award.social_purpose_driven ?? null,
-        clear_need_demonstrated: award.clear_need_demonstrated ?? null,
-        benefits_uk_people_places: award.benefits_uk_people_places ?? null,
-        activities_running_4_years: award.activities_running_4_years ?? null,
-        lawful_not_discriminatory: award.lawful_not_discriminatory ?? null,
-        no_political_religious_campaign: award.no_political_religious_campaign ?? null,
-        more_than_awareness_raising: award.more_than_awareness_raising ?? null,
-        financially_sustainable: award.financially_sustainable ?? null,
-        incorporation_timeframe: award.incorporation_timeframe ?? null,
-        started_trading: award.started_trading ?? null,
-        sector_classification: award.sector_classification ?? null,
-        last_year_turnover: award.last_year_turnover ?? null,
-        earned_18k_traded_income: award.earned_18k_traded_income ?? null,
-        financial_data_projections: award.financial_data_projections ?? null,
-        social_venture_previously: award.social_venture_previously ?? null,
-    },
-}));
+const ELIGIBILITY_FIELDS: Record<keyof EligibilityCriteria, string> = {
+    age: 'your_age',
+    living_in_uk: 'you_are_the_founder_leader_of_the_social_venture',
+    founder_or_leader: 'you_are_currently_living_in_the_uk_and_have_the_right_to_work_i',
+    reason_for_funding: 'you_are_looking_for_funding_to_create_long_term_social_impact',
+    funding_academic_qualifications: 'you_are_applying_primarily_to_fund_formal_or_academic_qualifica',
+    funding_overseas_travel: 'you_are_applying_primarily_to_fund_overseas_travel',
+    funding_pay_others_delivery: 'you_are_applying_primarily_to_pay_others_to_deliver_the_work_on',
+    needs_financial_non_financial_support: 'you_need_both_unltd_s_financial_and_non_financial_support',
+    social_purpose_driven: 'your_social_venture_clearly_driven_by_a_social_purpose',
+    clear_need_demonstrated: 'you_can_demonstrate_a_clear_need_for_your_social_venture',
+    benefits_uk_people_places: 'your_social_venture_mainly_benefits_people_or_places_within_the',
+    activities_running_4_years: 'you_are_applying_to_fund_activities_that_have_already_been_runn',
+    lawful_not_discriminatory: 'your_social_venture_involves_political_or_religious_campaigning',
+    no_political_religious_campaign: 'your_social_venture_involves_activities_that_are_against_the_la',
+    more_than_awareness_raising: 'your_social_venture_does_more_than_raise_awareness_of_a_social',
+    financially_sustainable: 'your_social_venture_has_the_potential_to_be_financially_sustain',
+    incorporation_timeframe: 'your_social_venture_s_incorporation_history',
+    started_trading: 'your_social_venture_s_trading_history',
+    sector_classification: 'your_social_venture_s_areas_of_focus',
+    last_year_turnover: 'your_social_venture_s_turnover_in_the_last_financial_year',
+    earned_18k_traded_income: 'your_social_venture_s_earnings_in_the_last_12_months',
+    social_venture_previously: 'you_have_not_received_the_same_award_type_for_the_same_social_v',
+};
+
+// EmDash boolean fields come back as 1/0; text fields are left empty when not applicable.
+function toEligibilityValue(value: unknown): EligibilityValue {
+    if (value === null || value === undefined || value === '') return null;
+    if (value === 1 || value === true) return true;
+    if (value === 0 || value === false) return false;
+    if (Array.isArray(value)) return value.map(String);
+    return String(value);
+}
+
+interface Grant {
+    title: string;
+    amount: number;
+    usage: string[];
+}
+
+async function fetchAwards(): Promise<Award[]> {
+    const client = createEmDashClient('awards');
+
+    const grantsById = new Map<string, Grant>();
+    for await (const item of client.listAll('grants', { status: 'published', limit: 100 })) {
+        grantsById.set(item.id, {
+            title: String(item.data.title ?? ''),
+            amount: Number(item.data.amount ?? 0),
+            usage: ((item.data.usage as string[] | null) ?? []).map(String),
+        });
+    }
+
+    const items: any[] = [];
+    for await (const item of client.listAll('products', { status: 'published', limit: 100 })) {
+        items.push(item);
+    }
+
+    const result: Award[] = [];
+    for (const item of items) {
+        const code = String(item.data.code ?? '').trim();
+        const title = String(item.data.title ?? '').trim();
+        if (!code) {
+            console.warn(`Product "${title}" has no code, skipping it`);
+            continue;
+        }
+
+        const [programmeId] = await referenceChildIds(client, 'products', item.id, PROGRAMME_RELATION);
+        const [grantId] = await referenceChildIds(client, 'products', item.id, GRANT_RELATION);
+        const programme = programmes.find((p) => p.id === programmeId);
+        const grant = grantId ? grantsById.get(grantId) : undefined;
+        if (!programme) console.warn(`Product "${title}" has no programme in EmDash`);
+        if (!grant) console.warn(`Product "${title}" has no grant in EmDash`);
+
+        const stage = code.startsWith('st') ? 'starting-up' : 'scaling-up';
+        // The cards split the name at the programme, so build it as
+        // "Starting Up Award <programme>" rather than using the product title.
+        const name = `${stage === 'starting-up' ? 'Starting Up' : 'Scaling Up'} Award ${programme?.title ?? ''}`.trim();
+
+        result.push({
+            id: item.id,
+            code,
+            name,
+            grantTitle: grant?.title ?? '',
+            grantDescription: (grant?.usage ?? []).join(', '),
+            stage,
+            grant: grant?.amount ?? 0,
+            programme: {
+                icon: programme?.icon ?? '',
+                name: programme?.title ?? '',
+                code: code.split('-')[1] ?? '',
+                slug: programme?.slug ?? '',
+                colour: programme?.slug === 'millennium-awards-trust' ? 'amber' : 'purple',
+                description: programme?.summary ?? '',
+            },
+            grantUsability: Object.fromEntries((grant?.usage ?? []).map((usage) => [usage, true])),
+            programmeServices: (programme?.services ?? []).map((service) => ({
+                name: service.title,
+                icon: service.icon,
+            })),
+            eligibility: Object.fromEntries(
+                Object.entries(ELIGIBILITY_FIELDS).map(([criterion, field]) => [
+                    criterion,
+                    toEligibilityValue(item.data[field]),
+                ]),
+            ) as unknown as EligibilityCriteria,
+        });
+    }
+
+    // Starting Up before Scaling Up; within a stage, Millennium Awards Trust first
+    const rank = (award: Award) => (award.stage === 'starting-up' ? 0 : 2) + (award.code.endsWith('-mat') ? 0 : 1);
+    result.sort((a, b) => rank(a) - rank(b));
+
+    console.log(`Loaded ${result.length} awards from EmDash products`);
+    return result;
+}
+
+/** The awards, one per EmDash product. */
+export const awards: Award[] = await fetchAwards();
 
 /**
  * Helper to get an award by its code

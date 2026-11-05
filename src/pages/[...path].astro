@@ -1,0 +1,8 @@
+---
+// A path with no page matches no route and would bypass middleware. This
+// catch-all gives those paths a route, so EmDash's redirect middleware
+// (Admin > Redirects) runs first; if no redirect applies it renders the 404 page.
+export const prerender = false;
+
+return Astro.rewrite("/404");
+---

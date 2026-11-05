@@ -1,0 +1,7 @@
+{
+	"version": 1,
+	"baseUrl": "http://localhost:4321",
+	"comments": true,
+	"idempotencyKey": "emdash-cli-export-01M64EMMNYA807PEH000CR9WNW",
+	"operationId": null
+}

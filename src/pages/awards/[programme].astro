@@ -3,112 +3,61 @@ import Template from "@layouts/Template.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Container from "@components/Container.astro";
 import { palette } from "@data/palette.js";
-import Icon from "@components/awards/cards/Icon.astro";
 import Intro from "@components/awards/programme/Intro.astro";
 import Content from "@components/awards/programme/Content.astro";
 import Services from "@components/awards/programme/Services.astro";
-import Criteria from "@components/awards/programme/Criteria.astro";
-import Videos from "@components/awards/programme/Videos.astro";
-import Other from "@components/awards/programme/Other.astro";
-import Banner from "@components/awards/programme/Banner.astro";
-import Grants from "@components/awards/programme/Grants.astro";
 
-import { programmes } from "@data/programmes.js";
-
-import { quotes } from "@data/quotes.js";
-
-import slugify from "slugify";
-
-interface Breadcrumb {
-  name: string;
-  path: string;
-}
-
-interface Programme {
-  id: number;
-  name: string;
-  description: string;
-  slug: string;
-  code: string;
-  icon: string;
-  image: string;
-  logo: string | null;
-  age: string;
-  geography: string;
-  focus: string;
-  stage: string;
-  services: any[];
-  videos: any[];
-  posts: any[];
-  quotes: any[];
-  breadcrumbs?: Breadcrumb[];
-  [key: string]: any;
-}
+import { programmes } from "@data/programmes.ts";
+import type { ProgrammeEntry } from "@data/programmes.ts";
 
 export async function getStaticPaths() {
-  return (programmes as Programme[]).map((programme) => {
-    let slug = slugify(programme.name, {
-      lower: true,
-      strict: true,
-      locale: "en",
-      trim: true,
-    });
-
-    let breadcrumbs = [
-      {
-        name: "Awards",
-        path: "/awards",
-      },
-      {
-        name: programme.name,
-        path: `/awards/${slug}`,
-      },
-    ];
-
-    programme.breadcrumbs = breadcrumbs;
-
-    let item = {
-      params: {
-        programme: slugify(slug),
-      },
-      props: {
-        programme: programme,
-      },
-    };
-
-    return item;
-  });
+  return programmes.map((programme) => ({
+    params: { programme: programme.slug },
+    props: {
+      programme,
+      breadcrumbs: [
+        { name: "Awards", path: "/awards" },
+        { name: programme.title, path: `/awards/${programme.slug}` },
+      ],
+    },
+  }));
 }
 
-const { programme } = Astro.props as { programme: Programme };
+const { programme, breadcrumbs } = Astro.props as {
+  programme: ProgrammeEntry;
+  breadcrumbs: { name: string; path: string }[];
+};
 
 // Fall back to the default UnLtd theme when a programme doesn't have a
 // dedicated palette entry yet (e.g. newly added programmes awaiting a
 // finalised colour), so the build doesn't crash on missing palette data.
-const theme = palette[programme.name] ?? palette["UnLtd"];
+const theme = palette[programme.title] ?? palette["UnLtd"];
+
+const description =
+  programme.summary.length > 160
+    ? `${programme.summary.slice(0, 157).trimEnd()}...`
+    : programme.summary;
 ---
 
 <Template
-  name={programme.name}
-  description={programme.description}
+  name={programme.title}
+  description={description}
   theme={theme}
 >
   <Container bg={theme.bg}>
-    <Breadcrumbs breadcrumbs={programme.breadcrumbs} styles={theme} />
+    <Breadcrumbs breadcrumbs={breadcrumbs} styles={theme} />
   </Container>
 
   <Intro programme={programme} styles={theme} />
 
-  <Services
-    styles={theme}
-    services={programme.services}
-    programme={programme}
-  />
+  {
+    programme.services.length > 0 && (
+      <Services styles={theme} services={programme.services} />
+    )
+  }
 
   {
-    (programme.videos.length > 0 ||
-      programme.posts.length > 0 ||
-      programme.quotes.length > 0) && (
+    (programme.videos.length > 0 || programme.content.length > 0) && (
       <Content styles={theme} programme={programme} />
     )
   }

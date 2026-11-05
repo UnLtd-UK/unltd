@@ -13,7 +13,7 @@
  * 4. Closing  — Present round closes within 7 days
  */
 
-import { rounds } from "@data/rounds.js";
+import type { RoundEntry } from "@data/rounds.ts";
 import { processAllRounds } from "@utils/application-rounds.js";
 import { getDevDateTimeString } from "@config/dev.config.js";
 import { parseRoundDate } from "@utils/round-date.js";
@@ -242,10 +242,19 @@ export function formatTime(isoString: string): string {
 }
 
 /**
+ * The rounds to show: the ones passed in (the Worker gets them from the site
+ * shell), or else those read from EmDash at build time. Imported lazily so the
+ * Worker never runs that build-time fetch.
+ */
+export async function resolveRounds(provided?: RoundEntry[]): Promise<RoundEntry[]> {
+    return provided ?? (await import("@data/rounds.ts")).rounds;
+}
+
+/**
  * Fetch and serialize all round data.
  * Call once in each Astro component's frontmatter.
  */
-export function getRoundData(): RoundDataProps {
+export function getRoundData(rounds: RoundEntry[]): RoundDataProps {
     const {
         all: rawAll,
         currentRound: rawCurrent,

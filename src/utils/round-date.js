@@ -1,8 +1,8 @@
 /**
  * Round date parsing (timezone-safe)
  *
- * Directus returns naive datetime strings with no timezone designator
- * (e.g. "2026-07-01T10:00:00"). `new Date(str)` parses these in the *runtime*
+ * Round data (see data/rounds.ts) uses naive datetime strings with no timezone
+ * designator (e.g. "2026-07-01T10:00:00"). `new Date(str)` parses these in the *runtime*
  * timezone, which differs between local dev (Europe/London, BST) and Cloudflare
  * Workers (UTC). That makes round open/close comparisons an hour off in
  * production during BST — a round that has opened locally still looks closed.
@@ -46,8 +46,8 @@ const londonOffsetMs = (date) => {
 };
 
 /**
- * Parse a Directus datetime string as Europe/London wall-clock time.
- * @param {string} isoString - Datetime string from Directus
+ * Parse a naive round datetime string as Europe/London wall-clock time.
+ * @param {string} isoString - Datetime string, e.g. from data/rounds.ts
  * @returns {Date} Correct absolute instant
  */
 export const parseRoundDate = (isoString) => {

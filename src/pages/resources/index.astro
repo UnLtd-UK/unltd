@@ -1,0 +1,120 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import Default from "@components/heroes/Default.astro";
+import Icon from "@components/Icon.astro";
+import EventCardCompact from "@components/resources/EventCardCompact.astro";
+
+import { getAllResources } from "@lib/resources-runtime";
+import { loadProgrammeEvents } from "@lib/site-shell";
+import { isPastEvent, sortEvents } from "@lib/event-helpers";
+import { CMS_PAGE_CACHE } from "@lib/route-cache";
+
+// Rendered on demand so a new or edited resource shows without a rebuild.
+// Route caching keeps it fast: EmDash tags the response, and publishing purges
+// it. The upcoming events come from the build (Eventbrite), as before.
+export const prerender = false;
+
+const title = "Resources";
+const description =
+  "Information and resources for social entrepreneurs on Awards.";
+
+const breadcrumbs = [{ name: title, path: "/resources" }];
+
+const [{ resources: allResources, cacheHints }, programmeEvents] = await Promise.all([
+  getAllResources(),
+  loadProgrammeEvents(Astro),
+]);
+if (Astro.cache?.enabled) {
+  cacheHints.forEach((hint) => Astro.cache.set(hint));
+  Astro.cache.set(CMS_PAGE_CACHE);
+}
+
+// Hidden resources are only reachable by direct link.
+const resources = allResources.filter((resource) => !resource.hidden);
+
+const events = sortEvents(programmeEvents.filter((e) => !isPastEvent(e)));
+---
+
+<Template name={title} description={description}>
+  <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+    <Default name={title} description={description} />
+
+    <div class="pb-20 space-y-12">
+      {
+        events.length > 0 && (
+          <section id="events" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-500/20 ring-1 ring-cyan-400/30">
+                <Icon
+                  name="calendar-days"
+                  style="solid"
+                  class="h-5 w-5 text-cyan-300"
+                />
+              </div>
+              <div>
+                <h2 class="text-xl font-bold text-violet-100">Events</h2>
+                <p class="text-xs text-violet-400">
+                  Attend and meet your peers
+                </p>
+              </div>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              {events.slice(0, 6).map((event) => (
+                <EventCardCompact event={event} />
+              ))}
+            </div>
+            {events.length > 6 && (
+              <a
+                href="https://www.eventbrite.com/o/unltd-3046207224"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 mt-4 text-sm text-cyan-400 hover:text-cyan-300 transition-colors"
+              >
+                View all {events.length} events
+                <Icon
+                  name="arrow-up-right-from-square"
+                  style="solid"
+                  class="h-3 w-3"
+                />
+              </a>
+            )}
+          </section>
+        )
+      }
+
+      {
+        resources.length > 0 && (
+          <section id="resources" class="scroll-mt-24">
+            <h2 class="sr-only">All resources</h2>
+            <ul class="grid gap-4 sm:grid-cols-2">
+              {resources.map((resource) => (
+                <li>
+                  <a
+                    href={`/resources/${resource.slug}`}
+                    class="group block h-full rounded-2xl bg-violet-900/30 p-5 ring-1 ring-violet-600/30 transition-all duration-300 hover:-translate-y-0.5 hover:ring-violet-400/50 hover:shadow-xl hover:shadow-violet-500/10"
+                  >
+                    <h3 class="text-lg font-semibold text-violet-100 group-hover:text-white transition-colors duration-200">
+                      {resource.title}
+                    </h3>
+                    {resource.subtitle && (
+                      <p class="mt-2 text-sm leading-relaxed text-violet-300/80 line-clamp-3">
+                        {resource.subtitle}
+                      </p>
+                    )}
+                    <p class="mt-3 flex items-center gap-1.5 text-xs text-violet-400">
+                      <Icon name="clock" style="solid" class="h-3 w-3" />
+                      {resource.readTime} min read
+                    </p>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+    </div>
+  </Container>
+</Template>

@@ -4,7 +4,7 @@ import Container from "@components/Container.astro";
 import Default from "@components/heroes/Default.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Form from "@components/Form.astro";
-import { forms } from "@data/forms.js";
+import { forms } from "@data/forms.ts";
 import DialogComponent from "@components/Dialog.tsx";
 
 export async function getStaticPaths() {
@@ -31,11 +31,8 @@ export async function getStaticPaths() {
 const {
   name,
   description,
-  icon,
   slug,
   email,
-  worker,
-  fields,
   breadcrumbs,
   dialog,
 } = Astro.props;
@@ -46,23 +43,16 @@ const {
     {
       dialog && (
         <DialogComponent
-          icon={dialog.icon}
+          icon="fa-solid fa-envelope"
           title={dialog.title}
           description={dialog.description}
-          primaryButton={dialog.primaryButton}
-          secondaryButton={dialog.secondaryButton}
+          primaryButton={{ text: dialog.buttonText, href: dialog.buttonUrl }}
+          secondaryButton={{ text: "Email us" }}
           client:load
         />
       )
     }
     <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <Form
-      endpoint={worker}
-      name={name}
-      description={description}
-      email={email}
-      icon={icon}
-      fields={fields}
-    />
+    <Form name={name} description={description} email={email} />
   </Container>
 </Template>

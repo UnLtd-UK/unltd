@@ -7,14 +7,14 @@ import Things from "@components/Things.astro";
 import Testamonials from "@components/Testamonials.astro";
 import Icon from "@components/Icon.astro";
 import DynamicIcon from "@components/DynamicIcon.astro";
-import { home } from "@data/home.js";
+import { home } from "@data/home";
 const name = "Home";
 const description = "Home description";
 ---
 
 <Template name={name} description={description}>
-  <MainHero data={home} />
-  <Mission data={home} />
+  <MainHero data={home.hero} />
+  <Mission data={home.mission} />
   <div class="bg-violet-950 py-24 sm:py-32">
     <div class="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col gap-10">
       <div>
