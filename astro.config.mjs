@@ -83,7 +83,7 @@ const skipEmdashMiddlewareInPrerender = {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [alpinejs(), react(), sitemap(), emdash({
+  integrations: [alpinejs(), react(), sitemap({ customSitemaps: ["https://unltd.org.uk/sitemap-dynamic.xml"] }), emdash({
     database: d1({ binding: "DB" }),
     storage: r2({ binding: "MEDIA" }),
     // Runs registry plugins in isolated Worker Loader sandboxes. Needs the
@@ -121,17 +121,12 @@ export default defineConfig({
     configPath: "./wrangler.astro.jsonc",
     prerenderEnvironment: "node",
   }),
-  // Route caching for on-demand pages. The blog is rendered per request from
-  // EmDash's database; Cloudflare's cache keeps repeat visits fast. EmDash tags
-  // each response with the content it read and purges those tags when content is
-  // saved or published, so edits show up without a rebuild. maxAge is the fallback
-  // for anything not purged (the header, footer and round banner come from the build).
+  // Route caching for on-demand pages (the blog and CMS pages). Cloudflare's
+  // cache keeps repeat visits fast. EmDash tags each response with the content it
+  // read and purges those tags when content is saved or published, so edits show
+  // up without a rebuild. Pages set their own fallback lifetime (src/lib/route-cache.ts).
   cache: {
     provider: cacheCloudflare(),
-  },
-  routeRules: {
-    "/blog": { maxAge: 600, swr: 3600 },
-    "/blog/[...path]": { maxAge: 600, swr: 3600 },
   },
   vite: {
     plugins: [tailwindcss(), stubCloudflareWorkersInPrerender, skipEmdashMiddlewareInPrerender],

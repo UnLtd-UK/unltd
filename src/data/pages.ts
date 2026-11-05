@@ -1,14 +1,13 @@
-import type { PortableTextBlock } from "emdash";
-import { EMDASH_URL, absoluteMediaUrls, createEmDashClient, showDrafts } from "../lib/emdash.ts";
+import { EMDASH_URL, createEmDashClient, showDrafts } from "../lib/emdash.ts";
 
+/**
+ * Just what the menus need to turn a page reference into a URL. Pages
+ * themselves are rendered on demand (src/lib/pages-runtime.ts), so a page
+ * edit needs no build; a page added to a menu still shows after the next one.
+ */
 export interface PageEntry {
   id: string;
   slug: string;
-  title: string;
-  subtitle: string;
-  content: PortableTextBlock[];
-  showUpdatedAt: boolean;
-  updatedAt: string;
 }
 
 async function fetchPages(): Promise<PageEntry[]> {
@@ -22,15 +21,7 @@ async function fetchPages(): Promise<PageEntry[]> {
       limit: 100,
     })) {
       if (!item.slug) continue;
-      pages.push({
-        id: item.id,
-        slug: item.slug,
-        title: String(item.data.title ?? ""),
-        subtitle: String(item.data.subtitle ?? ""),
-        content: absoluteMediaUrls((item.data.content as PortableTextBlock[] | null) ?? []),
-        showUpdatedAt: Boolean(item.data.show_updated_at),
-        updatedAt: item.updatedAt,
-      });
+      pages.push({ id: item.id, slug: item.slug });
     }
   }
 

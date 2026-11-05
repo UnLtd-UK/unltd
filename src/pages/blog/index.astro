@@ -1,13 +1,17 @@
 ---
 import BlogIndex from "@components/BlogIndex.astro";
 import { getAllPosts, postYears } from "@lib/posts-runtime";
+import { CMS_PAGE_CACHE } from "@lib/route-cache";
 
 // Rendered on demand so a new or edited post shows without a rebuild. Route
 // caching keeps it fast: EmDash tags the response, and publishing purges it.
 export const prerender = false;
 
 const { posts, cacheHints } = await getAllPosts();
-if (Astro.cache?.enabled) cacheHints.forEach((hint) => Astro.cache.set(hint));
+if (Astro.cache?.enabled) {
+  cacheHints.forEach((hint) => Astro.cache.set(hint));
+  Astro.cache.set(CMS_PAGE_CACHE);
+}
 ---
 
 <BlogIndex posts={posts} years={postYears(posts)} />

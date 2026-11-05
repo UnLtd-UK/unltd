@@ -7,6 +7,7 @@ import PortableContent from "@components/emdash/PortableContent.astro";
 import BlogIndex from "@components/BlogIndex.astro";
 import { getAllPosts, getPost, postYears } from "@lib/posts-runtime";
 import { postYear } from "@utils/post-format";
+import { CMS_PAGE_CACHE } from "@lib/route-cache";
 import type { PostEntry } from "@data/posts";
 
 // Rendered on demand so a new or edited post, and an EmDash draft preview,
@@ -24,7 +25,10 @@ if (/^\d{4}$/.test(slug)) {
   const { posts, cacheHints } = await getAllPosts();
   const years = postYears(posts);
   if (!years.includes(year)) return Astro.rewrite("/404");
-  if (Astro.cache?.enabled) cacheHints.forEach((hint) => Astro.cache.set(hint));
+  if (Astro.cache?.enabled) {
+    cacheHints.forEach((hint) => Astro.cache.set(hint));
+    Astro.cache.set(CMS_PAGE_CACHE);
+  }
   listing = { year, years, posts: posts.filter((post) => postYear(post.date) === year) };
 }
 
@@ -34,7 +38,10 @@ if (!listing && !result?.post) return Astro.rewrite("/404");
 if (result && Astro.cache?.enabled) {
   // A draft preview is for one editor, not for the shared cache.
   if (result.isPreview) Astro.cache.set(false);
-  else Astro.cache.set(result.cacheHint);
+  else {
+    Astro.cache.set(result.cacheHint);
+    Astro.cache.set(CMS_PAGE_CACHE);
+  }
 }
 
 const post = result?.post;

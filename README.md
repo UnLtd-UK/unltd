@@ -6,7 +6,7 @@ The UnLtd website, built with [Astro](https://astro.build) and deployed to Cloud
 
 | Content                    | EmDash collection(s)                 | Loaded by                                            |
 | -------------------------- | ------------------------------------ | ---------------------------------------------------- |
-| Pages                      | `pages`                              | [src/data/pages.ts](src/data/pages.ts)               |
+| Pages                      | `pages`                              | [src/lib/pages-runtime.ts](src/lib/pages-runtime.ts) (on demand; menus use [src/data/pages.ts](src/data/pages.ts)) |
 | Blog posts                 | `posts` (+ `tag` taxonomy, bylines)  | [src/lib/posts-runtime.ts](src/lib/posts-runtime.ts) (on demand; the home page uses [src/data/posts.ts](src/data/posts.ts)) |
 | Resources                  | `resources`                          | [src/data/resources.ts](src/data/resources.ts)       |
 | Programmes and services    | `programmes`, `services`             | [src/data/programmes.ts](src/data/programmes.ts)     |
@@ -69,21 +69,27 @@ npm run preview
 ```
 
 ### Show drafts
-By default only `published` content is fetched. To include drafts of the content built into the static pages (pages, resources, programmes and so on), set the `SHOW_DRAFTS` env var when running the dev server or build:
+By default only `published` content is fetched. To include drafts of the content built into the static pages (resources, programmes and so on), set the `SHOW_DRAFTS` env var when running the dev server or build:
 
 ```bash
 SHOW_DRAFTS=true npm run dev
 ```
 
-This adds `draft` items to what is read from EmDash at build time (see [src/lib/emdash.ts](src/lib/emdash.ts)). It is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-preview.yml](.github/workflows/deploy-preview.yml)) and `false` for production ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)). It does not affect the blog: posts are rendered on demand, and drafts are previewed with EmDash's preview link (see [Blog posts](#blog-posts)).
+This adds `draft` items to what is read from EmDash at build time (see [src/lib/emdash.ts](src/lib/emdash.ts)). It is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-preview.yml](.github/workflows/deploy-preview.yml)) and `false` for production ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)). It does not affect the blog or pages: they are rendered on demand, and drafts are previewed with EmDash's preview link (see [Pages](#pages) and [Blog posts](#blog-posts)).
 
 ## Redirects
 
-Redirects within the site are managed in the EmDash admin (`/_emdash/admin`, **Redirects**). They are stored in the EmDash database, so they apply to the preview and production sites alike (both use the same D1 database), and they work for any path that has no page. Paths are matched with or without a trailing slash, and patterns such as `/spaces/[...path]` are supported.
+Redirects within the site are managed in the EmDash admin (`/_emdash/admin`, **Redirects**). They are stored in the EmDash database, so they apply to the preview and production sites alike (both use the same D1 database), and they work for any path that has no page. A page and a redirect from the same path are both live, and the redirect wins: delete a redirect when you publish a page at its path. Paths are matched with or without a trailing slash, and patterns such as `/spaces/[...path]` are supported.
 
 Redirects to other sites can't be managed there (EmDash only accepts site-relative destinations), so those stay in [public/_redirects](public/_redirects).
 
 This relies on `not_found_handling: "none"` in [wrangler.jsonc](wrangler.jsonc) and the catch-all route [src/pages/[...path].astro](src/pages/[...path].astro): together they send paths with no page to the Worker, where EmDash applies the redirect or serves the 404 page.
+
+## Pages
+
+Pages are managed in the EmDash admin, in the **Pages** collection, and are served at `/<slug>`. Like the blog they are rendered on demand ([src/pages/[page].astro](src/pages/[page].astro)), so a new, edited or published page shows without a rebuild, and a draft can be previewed with EmDash's preview link (`/<slug>?_preview=<token>`). Pages with their own file in `src/pages` (such as `awards` and `contact`) take priority over a CMS page with the same slug. The menus still read the page list at build time, so a new page added to a menu appears in it after the next deploy.
+
+`/sitemap-dynamic.xml` ([src/pages/sitemap-dynamic.xml.ts](src/pages/sitemap-dynamic.xml.ts)) lists the pages and blog posts for search engines and is linked from `sitemap-index.xml`.
 
 ## Blog posts
 
@@ -94,7 +100,7 @@ Blog posts are managed in the EmDash admin (`/_emdash/admin`), in the **Posts** 
 - **Published date**: posts are listed newest first by their published date. To back-date a post, publish it through the API with a `publishedAt` value (`POST /_emdash/api/content/posts/<id>/publish` with `{ "publishedAt": "<ISO date>" }`); this is how the migrated posts kept their original dates.
 - **Images**: upload them to the **Posts** folder in the EmDash media library and give each one alt text.
 - **Preview**: use EmDash's editor preview for drafts (`/blog/<slug>?_preview=<token>`). For the preview link to point at the blog, set the **Posts** collection's URL pattern to `/blog/{slug}` in the EmDash admin.
-- **When it goes live**: the blog (`/blog`, `/blog/<year>`, `/blog/<slug>`) is rendered on demand from EmDash's database, so a published or edited post shows without a rebuild. Responses are route-cached ([astro.config.mjs](astro.config.mjs) `cache` and `routeRules`); EmDash purges the affected pages when content is saved or published, and entries expire after 10 minutes at most. The rest of the site, and the header, footer and round banner shown on blog pages (read from `/site-shell.json`, written at build time), are static and update on the next deploy. The production deploy workflow rebuilds every 2 hours ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)), or run it manually from GitHub Actions.
+- **When it goes live**: the blog (`/blog`, `/blog/<year>`, `/blog/<slug>`) is rendered on demand from EmDash's database, so a published or edited post shows without a rebuild. Responses are route-cached ([astro.config.mjs](astro.config.mjs) `cache`; [src/lib/route-cache.ts](src/lib/route-cache.ts)); EmDash purges the affected pages when content is saved or published, and entries expire after 10 minutes at most. The rest of the site, and the header, footer and round banner shown on blog pages (read from `/site-shell.json`, written at build time), are static and update on the next deploy. The production deploy workflow rebuilds every 2 hours ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)), or run it manually from GitHub Actions.
 
 ## Wrangler
 

@@ -1,15 +1,8 @@
 ---
-// Every page is prerendered, so a path with no page matches no route and would
-// bypass middleware. This catch-all gives those paths a route, so EmDash's
-// redirect middleware (Admin > Redirects) runs first; if no redirect applies it
-// serves the prerendered 404 page.
-import { env } from "cloudflare:workers";
-
+// A path with no page matches no route and would bypass middleware. This
+// catch-all gives those paths a route, so EmDash's redirect middleware
+// (Admin > Redirects) runs first; if no redirect applies it renders the 404 page.
 export const prerender = false;
 
-const page = await env.ASSETS.fetch(new URL("/404", Astro.url));
-return new Response(page.body, {
-  status: 404,
-  headers: { "content-type": "text/html; charset=utf-8" },
-});
+return Astro.rewrite("/404");
 ---

@@ -4,25 +4,32 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Default from "@components/heroes/Default.astro";
 import PortableContent from "@components/emdash/PortableContent.astro";
+import { getPage } from "@lib/pages-runtime";
+import { CMS_PAGE_CACHE } from "@lib/route-cache";
 
-import { pages } from "@data/pages";
+// Rendered on demand so a new or edited page, and an EmDash draft preview,
+// show without a rebuild. Route caching keeps it fast: EmDash tags each
+// response, and publishing purges it. Pages with their own file in src/pages
+// (awards, contact, ...) take priority over this route.
+export const prerender = false;
 
-export function getStaticPaths() {
-  return pages.map((page) => ({
-    params: { page: page.slug },
-    props: {
-      title: page.title,
-      subtitle: page.subtitle,
-      content: page.content,
-      showUpdatedAt: page.showUpdatedAt,
-      updatedAt: page.updatedAt,
-      breadcrumbs: [{ name: page.title, path: `/${page.slug}` }],
-    },
-  }));
+const slug = Astro.params.page;
+if (!slug) return Astro.rewrite("/404");
+
+const { page, isPreview, cacheHint } = await getPage(slug);
+if (!page) return Astro.rewrite("/404");
+
+if (Astro.cache?.enabled) {
+  // A draft preview is for one editor, not for the shared cache.
+  if (isPreview) Astro.cache.set(false);
+  else {
+    Astro.cache.set(cacheHint);
+    Astro.cache.set(CMS_PAGE_CACHE);
+  }
 }
 
-const { title, subtitle, content, breadcrumbs, showUpdatedAt, updatedAt } =
-  Astro.props;
+const { title, subtitle, content, showUpdatedAt, updatedAt } = page;
+const breadcrumbs = [{ name: title, path: `/${page.slug}` }];
 
 const dateOptions = { timeZone: "Europe/London" } as const;
 const lastUpdatedText =
