@@ -1,4 +1,4 @@
-import { getEmDashCollection, getEmDashEntry, type CacheHint, type PortableTextBlock } from "emdash";
+import { getEmDashCollection, getEmDashEntry, type CacheHint, type EditProxy, type PortableTextBlock } from "emdash";
 import { calculateReadTime } from "@data/functions/read-time";
 
 // Reads resources straight from EmDash's database in the Worker, so they are
@@ -13,10 +13,12 @@ export interface RuntimeResource {
   /** Hidden resources are only reachable by direct link, and are not indexed. */
   hidden: boolean;
   readTime: number;
+  /** Spread onto an element to make its field editable on the page (a no-op unless an editor is in edit mode). */
+  edit: EditProxy;
 }
 
 // The generated collection types can lag the real schema, so read entries loosely.
-type Entry = { data: Record<string, any> };
+type Entry = { data: Record<string, any>; edit: EditProxy };
 
 function portableTextToPlain(value: unknown): string {
   if (Array.isArray(value)) return value.map(portableTextToPlain).join(" ");
@@ -37,6 +39,7 @@ const toResource = (entry: Entry): RuntimeResource => {
     content,
     hidden: Boolean(d.hidden),
     readTime: Math.max(1, calculateReadTime(portableTextToPlain(content))),
+    edit: entry.edit,
   };
 };
 
@@ -45,7 +48,7 @@ export async function getResource(
   slug: string,
 ): Promise<{ resource: RuntimeResource | null; isPreview: boolean; cacheHint: CacheHint }> {
   const { entry, isPreview, cacheHint } = await getEmDashEntry("resources", slug);
-  return { resource: entry ? toResource(entry as Entry) : null, isPreview, cacheHint };
+  return { resource: entry ? toResource(entry as unknown as Entry) : null, isPreview, cacheHint };
 }
 
 /** Every published resource, by title (hidden ones included; filter them for listings). */
@@ -59,7 +62,7 @@ export async function getAllResources(): Promise<{ resources: RuntimeResource[];
     if (result.error) throw result.error;
     cacheHints.push(result.cacheHint);
     for (const entry of result.entries) {
-      const resource = toResource(entry as Entry);
+      const resource = toResource(entry as unknown as Entry);
       if (resource.slug) resources.push(resource);
     }
     cursor = result.nextCursor;

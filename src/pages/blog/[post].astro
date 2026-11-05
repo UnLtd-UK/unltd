@@ -36,8 +36,9 @@ const result = listing ? null : await getPost(slug);
 if (!listing && !result?.post) return Astro.rewrite("/404");
 
 if (result && Astro.cache?.enabled) {
-  // A draft preview is for one editor, not for the shared cache.
-  if (result.isPreview) Astro.cache.set(false);
+  // A draft preview or an editor's edit-mode view is for one person, not for the shared cache.
+  const editing = Astro.cookies.get("emdash-edit-mode")?.value === "true";
+  if (result.isPreview || editing) Astro.cache.set(false);
   else {
     Astro.cache.set(result.cacheHint);
     Astro.cache.set(CMS_PAGE_CACHE);
@@ -61,7 +62,7 @@ const breadcrumbs = post
       <Template name={post.title} description={post.subtitle}>
         <Container>
           <Breadcrumbs breadcrumbs={breadcrumbs} />
-          <HeroPost post={post} />
+          <HeroPost post={post} edit={result?.edit} />
           <div class="py-12">
             <PortableContent value={post.content} />
           </div>

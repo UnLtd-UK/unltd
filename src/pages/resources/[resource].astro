@@ -22,15 +22,16 @@ const { resource, isPreview, cacheHint } = await getResource(slug);
 if (!resource) return Astro.rewrite("/404");
 
 if (Astro.cache?.enabled) {
-  // A draft preview is for one editor, not for the shared cache.
-  if (isPreview) Astro.cache.set(false);
+  // A draft preview or an editor's edit-mode view is for one person, not for the shared cache.
+  const editing = Astro.cookies.get("emdash-edit-mode")?.value === "true";
+  if (isPreview || editing) Astro.cache.set(false);
   else {
     Astro.cache.set(cacheHint);
     Astro.cache.set(CMS_PAGE_CACHE);
   }
 }
 
-const { title, subtitle, content, hidden } = resource;
+const { title, subtitle, content, hidden, edit } = resource;
 const toc = headingsToToc(content);
 const breadcrumbs = [
   { name: "Resources", path: "/resources" },
@@ -41,7 +42,7 @@ const breadcrumbs = [
 <Template name={title} description={subtitle} noindex={hidden}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <Default name={title} description={subtitle} />
+    <Default name={title} description={subtitle} nameAttrs={edit.title} descriptionAttrs={edit.subtitle} />
     <div class="flex gap-8 lg:gap-12 pb-16 items-start">
       {
         toc.length > 0 && (
