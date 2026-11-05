@@ -6,10 +6,10 @@ Double opt-in newsletter sign-up backed by [Resend](https://resend.com) Contacts
 
 1. Visitor submits their email (footer form or `/newsletter`) → `POST /api/newsletter/subscribe` (Turnstile + honeypot + KV rate limit).
 2. A confirmation email is sent containing a signed, 24h token link to `/newsletter/confirm?token=…`. **No Resend contact exists yet.**
-3. The confirm page POSTs the token to `/api/newsletter/confirm`, which creates the contact (subscribed, added to the segment/topic) and sends the welcome email when the subscription state changes. Links carry the consent version current when they were issued, so a later subscription choice makes earlier links stale. The version lives in a per-email `NewsletterConsent` Durable Object (strongly consistent), which serialises each redemption: version check, Resend change and version advance. Welcome delivery uses a stable idempotency key to prevent duplicate messages on concurrent confirmations; delivery failure does not undo a successful subscription.
+3. The confirm page POSTs the token to `/api/newsletter/confirm`, which creates the contact (subscribed, added to the segment and opted in to every configured topic) and sends the welcome email when the subscription state changes. Links carry the consent version current when they were issued, so a later subscription choice makes earlier links stale. The version lives in a per-email `NewsletterConsent` Durable Object (strongly consistent), which serialises each redemption: version check, Resend change and version advance. Welcome delivery uses a stable idempotency key to prevent duplicate messages on concurrent confirmations; delivery failure does not undo a successful subscription.
 4. Unsubscribe, either:
    - **From a newsletter:** the `{{{RESEND_UNSUBSCRIBE_URL}}}` link in the broadcast footer (Resend-hosted page; Resend updates the contact).
-   - **On the website:** `/newsletter/unsubscribe` → enter email → verification email (1h signed token, only sent if the address is subscribed; the response is identical either way) → confirm button → opt out of the configured newsletter topic, or remove the contact from the newsletter segment when no topic is configured. This does not unsubscribe the contact from unrelated Resend topics or broadcasts.
+   - **On the website:** `/newsletter/unsubscribe` → enter email → verification email (1h signed token, only sent if the address is subscribed; the response is identical either way) → confirm button → opt out of all configured newsletter topics, or remove the contact from the newsletter segment when no topics are configured. This does not unsubscribe the contact from unrelated Resend topics or broadcasts.
 
 Tokens are HMAC-SHA256 signed with `NEWSLETTER_TOKEN_SECRET` and bound to a purpose, so a confirm link cannot unsubscribe and vice versa. They are also bound to the Resend segment (`RESEND_SEGMENT_ID`), so a Worker configured for a different segment rejects them. Give each preview its own segment and `NEWSLETTER_TOKEN_SECRET` rather than sharing production's.
 
@@ -18,7 +18,7 @@ Tokens are HMAC-SHA256 signed with `NEWSLETTER_TOKEN_SECRET` and bound to a purp
 ### Resend
 - Verify the sending domain (the default sender is `UnLtd <newsletter@unltd.org.uk>`; override with `NEWSLETTER_FROM`).
 - Create a **Segment** for the newsletter and note its ID → `RESEND_SEGMENT_ID`.
-- Optional: create a **Topic** → `RESEND_TOPIC_ID` (lets people manage preferences on Resend's unsubscribe page).
+- Optional: create **Topics** (currently Social Entrepreneur and Partnerships) and set their IDs, comma-separated → `RESEND_TOPIC_IDS`. Subscribers are opted in to all of them and can opt out of each on Resend's unsubscribe page. Update the wording in `NewsletterSignup.astro` if the topics change.
 - Create an API key with sending and contacts access → `RESEND_API_KEY`.
 - Settings → Unsubscribe page: add UnLtd branding.
 - **Every broadcast footer must include** `{{{RESEND_UNSUBSCRIBE_URL}}}`.
@@ -36,7 +36,7 @@ Generate the token secret with e.g. `openssl rand -base64 48`.
 | --------------------------- | ------------------- | ----------------------------------------------- |
 | `RESEND_API_KEY`            | runtime secret      |                                                 |
 | `RESEND_SEGMENT_ID`         | runtime secret      |                                                 |
-| `RESEND_TOPIC_ID`           | runtime secret      | optional                                        |
+| `RESEND_TOPIC_IDS`          | runtime secret      | optional, comma-separated topic IDs             |
 | `NEWSLETTER_FROM`           | runtime secret      | optional                                        |
 | `NEWSLETTER_TOKEN_SECRET`   | runtime secret      | rotating it invalidates outstanding email links |
 | `TURNSTILE_SECRET_KEY`      | runtime secret      |                                                 |

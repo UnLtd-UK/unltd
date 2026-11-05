@@ -75,7 +75,7 @@ const buttonLabel = isSubscribe ? "Subscribe" : "Send unsubscribe link";
                     </button>
                 </div>
                 <div
-                    class="absolute -left-[9999px] h-0 w-0 overflow-hidden"
+                    class="absolute left-[-9999px] h-0 w-0 overflow-hidden"
                     aria-hidden="true"
                 >
                     <label for={`${id}-website`}>Leave this field empty</label>
@@ -97,8 +97,10 @@ const buttonLabel = isSubscribe ? "Subscribe" : "Send unsubscribe link";
                 </p>
                 {isSubscribe && (
                     <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">
-                        We'll email you to confirm your address. You can
-                        unsubscribe at any time.
+                        Subscribing opts you in to our Social Entrepreneur and
+                        Partnerships newsletters. We'll email you to confirm
+                        your address, and you can unsubscribe from either topic
+                        at any time.
                     </p>
                 )}
             </form>

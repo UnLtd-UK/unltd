@@ -142,7 +142,7 @@ export default defineConfig({
       // newsletter API instead of failing schema validation.
       RESEND_API_KEY: envField.string({ context: "server", access: "secret", optional: true }),
       RESEND_SEGMENT_ID: envField.string({ context: "server", access: "secret", optional: true }),
-      RESEND_TOPIC_ID: envField.string({ context: "server", access: "secret", optional: true }),
+      RESEND_TOPIC_IDS: envField.string({ context: "server", access: "secret", optional: true }),
       NEWSLETTER_FROM: envField.string({ context: "server", access: "secret", optional: true }),
       NEWSLETTER_TOKEN_SECRET: envField.string({ context: "server", access: "secret", optional: true }),
       TURNSTILE_SECRET_KEY: envField.string({ context: "server", access: "secret", optional: true }),

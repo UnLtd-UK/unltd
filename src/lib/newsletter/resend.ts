@@ -3,14 +3,15 @@ import {
     NEWSLETTER_TOKEN_SECRET,
     RESEND_API_KEY,
     RESEND_SEGMENT_ID,
-    RESEND_TOPIC_ID,
+    RESEND_TOPIC_IDS,
     TURNSTILE_SECRET_KEY,
 } from "astro:env/server";
 
 export interface NewsletterConfig {
     apiKey: string;
     segmentId: string;
-    topicId?: string;
+    // Topics every subscriber is opted in to; empty means segment-only.
+    topicIds: string[];
     from: string;
     tokenSecret: string;
     turnstileSecret: string;
@@ -25,7 +26,10 @@ export function getNewsletterConfig(): NewsletterConfig | null {
     return {
         apiKey: RESEND_API_KEY,
         segmentId: RESEND_SEGMENT_ID,
-        topicId: RESEND_TOPIC_ID || undefined,
+        topicIds: (RESEND_TOPIC_IDS ?? "")
+            .split(",")
+            .map((id) => id.trim())
+            .filter(Boolean),
         from: NEWSLETTER_FROM || "UnLtd <newsletter@unltd.org.uk>",
         tokenSecret: NEWSLETTER_TOKEN_SECRET,
         turnstileSecret: TURNSTILE_SECRET_KEY,
@@ -93,17 +97,17 @@ async function getList<T extends { id: string }>(config: NewsletterConfig, path:
     }
 }
 
-// Newsletter-scoped membership: the topic opt-in when a topic is configured,
-// otherwise membership of the newsletter segment. The contact-wide
+// Newsletter-scoped membership: an opt-in to any configured topic, or
+// membership of the newsletter segment when no topics are configured. The contact-wide
 // `unsubscribed` flag is never set by this newsletter's unsubscribe.
 async function isInNewsletterScope(config: NewsletterConfig, email: string): Promise<boolean> {
-    if (config.topicId) {
+    if (config.topicIds.length > 0) {
         const topics = await getList<{ id: string; subscription: string }>(
             config,
             `${contactPath(email)}/topics`,
             "get contact topics",
         );
-        return topics.some((topic) => topic.id === config.topicId && topic.subscription === "opt_in");
+        return topics.some((topic) => config.topicIds.includes(topic.id) && topic.subscription === "opt_in");
     }
     const segments = await getList<{ id: string }>(config, `${contactPath(email)}/segments`, "get contact segments");
     return segments.some((segment) => segment.id === config.segmentId);
@@ -119,7 +123,8 @@ export async function isSubscribed(config: NewsletterConfig, email: string): Pro
 // on a genuine new/re-subscription (confirm links can be replayed). Existing
 // contacts are reconciled so a retry repairs partially applied updates.
 export async function subscribeContact(config: NewsletterConfig, email: string): Promise<"subscribed" | "unchanged"> {
-    const topics = config.topicId ? [{ id: config.topicId, subscription: "opt_in" }] : undefined;
+    const topics =
+        config.topicIds.length > 0 ? config.topicIds.map((id) => ({ id, subscription: "opt_in" })) : undefined;
     const existing = await getContact(config, email);
 
     if (!existing) {
@@ -164,7 +169,10 @@ export async function subscribeContact(config: NewsletterConfig, email: string):
             `${contactPath(email)}/topics`,
             "get contact topics",
         );
-        if (!current.some((topic) => topic.id === config.topicId && topic.subscription === "opt_in")) {
+        const allOptedIn = config.topicIds.every((id) =>
+            current.some((topic) => topic.id === id && topic.subscription === "opt_in"),
+        );
+        if (!allOptedIn) {
             await assertOk(
                 await resendFetch(config, `${contactPath(email)}/topics`, {
                     method: "PATCH",
@@ -183,14 +191,16 @@ export async function unsubscribeContact(config: NewsletterConfig, email: string
     const existing = await getContact(config, email);
     if (!existing) return;
 
-    if (config.topicId) {
+    if (config.topicIds.length > 0) {
         if (!(await isInNewsletterScope(config, email))) return;
         await assertOk(
             await resendFetch(config, `${contactPath(email)}/topics`, {
                 method: "PATCH",
-                body: JSON.stringify({ topics: [{ id: config.topicId, subscription: "opt_out" }] }),
+                body: JSON.stringify({
+                    topics: config.topicIds.map((id) => ({ id, subscription: "opt_out" })),
+                }),
             }),
-            "opt out of topic",
+            "opt out of topics",
         );
         return;
     }
