@@ -2,6 +2,7 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 import { clientIp, json, normaliseEmail, readBody, unavailable } from "@lib/newsletter/api";
+import { getNewsletterConsentVersion } from "@lib/newsletter/consent";
 import { confirmationEmail } from "@lib/newsletter/emails";
 import { hashForKey, isRateLimited } from "@lib/newsletter/rate-limit";
 import { getNewsletterConfig, sendEmail } from "@lib/newsletter/resend";
@@ -37,7 +38,8 @@ export const POST: APIRoute = async (context) => {
     if (limited) return json({ error: "Too many requests. Please try again in a few minutes." }, 429);
 
     try {
-        const token = await createToken(config.tokenSecret, email, "confirm");
+        const consentVersion = await getNewsletterConsentVersion(email);
+        const token = await createToken(config.tokenSecret, email, "confirm", undefined, consentVersion);
         const confirmUrl = `${context.url.origin}/newsletter/confirm?token=${encodeURIComponent(token)}`;
         await sendEmail(config, { to: email, ...confirmationEmail(confirmUrl) });
     } catch (error) {

@@ -114,7 +114,7 @@ const description =
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ token }),
                 });
-                const result = await response.json().catch(() => ({}));
+                const result = (await response.json().catch(() => ({}))) as { error?: string };
                 if (response.ok) {
                     finish(
                         "You've been unsubscribed",
@@ -131,6 +131,12 @@ const description =
                     finish(
                         "Link not valid",
                         "This unsubscribe link isn't valid. You can request a new one below.",
+                    );
+                    requestStep.hidden = false;
+                } else if (result.error === "stale") {
+                    finish(
+                        "Link no longer current",
+                        "This unsubscribe link is no longer current. You can request a new one below.",
                     );
                     requestStep.hidden = false;
                 } else {

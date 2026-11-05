@@ -6,10 +6,10 @@ Double opt-in newsletter sign-up backed by [Resend](https://resend.com) Contacts
 
 1. Visitor submits their email (footer form or `/newsletter`) → `POST /api/newsletter/subscribe` (Turnstile + honeypot + KV rate limit).
 2. A confirmation email is sent containing a signed, 24h token link to `/newsletter/confirm?token=…`. **No Resend contact exists yet.**
-3. The confirm page POSTs the token to `/api/newsletter/confirm`, which creates the contact (subscribed, added to the segment/topic) and sends the welcome email. Replaying the link is harmless: the welcome email is only sent when the subscription state actually changes.
+3. The confirm page POSTs the token to `/api/newsletter/confirm`, which creates the contact (subscribed, added to the segment/topic) and sends the welcome email when the subscription state changes. Links carry the consent version current when they were issued, so a later subscription choice makes earlier links stale. Welcome delivery uses a stable idempotency key to prevent duplicate messages on concurrent confirmations; delivery failure does not undo a successful subscription.
 4. Unsubscribe, either:
    - **From a newsletter:** the `{{{RESEND_UNSUBSCRIBE_URL}}}` link in the broadcast footer (Resend-hosted page; Resend updates the contact).
-   - **On the website:** `/newsletter/unsubscribe` → enter email → verification email (1h signed token, only sent if the address is subscribed; the response is identical either way) → confirm button → contact set to `unsubscribed: true`.
+   - **On the website:** `/newsletter/unsubscribe` → enter email → verification email (1h signed token, only sent if the address is subscribed; the response is identical either way) → confirm button → opt out of the configured newsletter topic, or remove the contact from the newsletter segment when no topic is configured. This does not unsubscribe the contact from unrelated Resend topics or broadcasts.
 
 Tokens are HMAC-SHA256 signed with `NEWSLETTER_TOKEN_SECRET` and bound to a purpose, so a confirm link cannot unsubscribe and vice versa.
 
@@ -32,15 +32,15 @@ Tokens are HMAC-SHA256 signed with `NEWSLETTER_TOKEN_SECRET` and bound to a purp
 
 Generate the token secret with e.g. `openssl rand -base64 48`.
 
-| Name | Where | Notes |
-|---|---|---|
-| `RESEND_API_KEY` | runtime secret | |
-| `RESEND_SEGMENT_ID` | runtime secret | |
-| `RESEND_TOPIC_ID` | runtime secret | optional |
-| `NEWSLETTER_FROM` | runtime secret | optional |
-| `NEWSLETTER_TOKEN_SECRET` | runtime secret | rotating it invalidates outstanding email links |
-| `TURNSTILE_SECRET_KEY` | runtime secret | |
-| `PUBLIC_TURNSTILE_SITE_KEY` | build-time variable | |
+| Name                        | Where               | Notes                                           |
+| --------------------------- | ------------------- | ----------------------------------------------- |
+| `RESEND_API_KEY`            | runtime secret      |                                                 |
+| `RESEND_SEGMENT_ID`         | runtime secret      |                                                 |
+| `RESEND_TOPIC_ID`           | runtime secret      | optional                                        |
+| `NEWSLETTER_FROM`           | runtime secret      | optional                                        |
+| `NEWSLETTER_TOKEN_SECRET`   | runtime secret      | rotating it invalidates outstanding email links |
+| `TURNSTILE_SECRET_KEY`      | runtime secret      |                                                 |
+| `PUBLIC_TURNSTILE_SITE_KEY` | build-time variable |                                                 |
 
 Set runtime secrets per environment, for example:
 
@@ -48,7 +48,13 @@ Set runtime secrets per environment, for example:
 npx wrangler secret put RESEND_API_KEY --config wrangler.jsonc --env production
 ```
 
-Branch previews run on the top-level (non-`production`) worker; set the same secrets without `--env` if previews should send email. Workers missing any required secret respond to the newsletter API with a 503; if the site key is missing at build time the form is not rendered.
+Branch previews are separate Workers named from the branch (slashes become hyphens and names are lowercased; for example, `feature/newsletter` becomes `feature-newsletter`). Set the same secrets on that preview worker with `--name`, for example:
+
+```bash
+npx wrangler secret put RESEND_API_KEY --config wrangler.jsonc --name feature-newsletter
+```
+
+Workers missing any required secret respond to the newsletter API with a 503; if the site key is missing at build time the form is not rendered.
 
 ## Local development
 

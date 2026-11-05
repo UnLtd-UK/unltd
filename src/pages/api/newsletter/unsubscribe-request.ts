@@ -2,6 +2,7 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 import { clientIp, json, normaliseEmail, readBody, unavailable } from "@lib/newsletter/api";
+import { getNewsletterConsentVersion } from "@lib/newsletter/consent";
 import { unsubscribeVerificationEmail } from "@lib/newsletter/emails";
 import { hashForKey, isRateLimited } from "@lib/newsletter/rate-limit";
 import { getNewsletterConfig, isSubscribed, sendEmail } from "@lib/newsletter/resend";
@@ -39,7 +40,8 @@ export const POST: APIRoute = async (context) => {
 
     try {
         if (await isSubscribed(config, email)) {
-            const token = await createToken(config.tokenSecret, email, "unsubscribe");
+            const consentVersion = await getNewsletterConsentVersion(email);
+            const token = await createToken(config.tokenSecret, email, "unsubscribe", undefined, consentVersion);
             const url = `${context.url.origin}/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
             await sendEmail(config, { to: email, ...unsubscribeVerificationEmail(url) });
         }

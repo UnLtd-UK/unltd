@@ -82,11 +82,11 @@ const description = "Confirm your email address for the UnLtd newsletter.";
             body: JSON.stringify({ token }),
         })
             .then(async (response) => {
-                const result = await response.json().catch(() => ({}));
+                const result = (await response.json().catch(() => ({}))) as { error?: string };
                 if (response.ok) {
                     show(
                         "You're subscribed",
-                        "Thank you for confirming. We've sent you a welcome email.",
+                        "Thank you for confirming your subscription.",
                     );
                 } else if (result.error === "expired") {
                     show(
@@ -97,6 +97,11 @@ const description = "Confirm your email address for the UnLtd newsletter.";
                     show(
                         "Link not valid",
                         "This confirmation link isn't valid." + retryHtml,
+                    );
+                } else if (result.error === "stale") {
+                    show(
+                        "Link no longer current",
+                        "This confirmation link is no longer current. Please sign up again to subscribe." + retryHtml,
                     );
                 } else {
                     show(

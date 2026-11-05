@@ -6,6 +6,7 @@ export interface TokenPayload {
     email: string;
     purpose: TokenPurpose;
     exp: number; // unix seconds
+    consentVersion: string;
 }
 
 export const TOKEN_TTL_SECONDS: Record<TokenPurpose, number> = {
@@ -36,15 +37,16 @@ export async function createToken(
     email: string,
     purpose: TokenPurpose,
     now: number = Math.floor(Date.now() / 1000),
+    consentVersion = "0",
 ): Promise<string> {
-    const payload: TokenPayload = { email, purpose, exp: now + TOKEN_TTL_SECONDS[purpose] };
+    const payload: TokenPayload = { email, purpose, exp: now + TOKEN_TTL_SECONDS[purpose], consentVersion };
     const body = toBase64Url(encoder.encode(JSON.stringify(payload)));
     const signature = await crypto.subtle.sign("HMAC", await hmacKey(secret, "sign"), encoder.encode(body));
     return `${body}.${toBase64Url(new Uint8Array(signature))}`;
 }
 
 export type VerifyResult =
-    | { ok: true; email: string }
+    | { ok: true; email: string; consentVersion: string }
     | { ok: false; reason: "invalid" | "expired" };
 
 export async function verifyToken(
@@ -69,11 +71,16 @@ export async function verifyToken(
         if (!valid) return { ok: false, reason: "invalid" };
 
         const payload = JSON.parse(new TextDecoder().decode(fromBase64Url(body))) as Partial<TokenPayload>;
-        if (payload.purpose !== purpose || typeof payload.email !== "string" || typeof payload.exp !== "number") {
+        if (
+            payload.purpose !== purpose ||
+            typeof payload.email !== "string" ||
+            typeof payload.exp !== "number" ||
+            (payload.consentVersion !== undefined && typeof payload.consentVersion !== "string")
+        ) {
             return { ok: false, reason: "invalid" };
         }
         if (payload.exp < now) return { ok: false, reason: "expired" };
-        return { ok: true, email: payload.email };
+        return { ok: true, email: payload.email, consentVersion: payload.consentVersion ?? "0" };
     } catch {
         return { ok: false, reason: "invalid" };
     }

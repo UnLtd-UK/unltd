@@ -79,7 +79,7 @@ export async function getContact(config: NewsletterConfig, email: string): Promi
 async function getList<T extends { id: string }>(config: NewsletterConfig, path: string, action: string): Promise<T[]> {
     const items: T[] = [];
     let pagePath = path;
-    for (;;) {
+    for (; ;) {
         const response = await resendFetch(config, pagePath);
         if (response.status === 404) return items;
         await assertOk(response, action);
@@ -210,11 +210,12 @@ export interface OutgoingEmail {
     headers?: Record<string, string>;
 }
 
-export async function sendEmail(config: NewsletterConfig, email: OutgoingEmail): Promise<void> {
+export async function sendEmail(config: NewsletterConfig, email: OutgoingEmail, idempotencyKey?: string): Promise<void> {
     await assertOk(
         await resendFetch(config, "/emails", {
             method: "POST",
             body: JSON.stringify({ from: config.from, ...email }),
+            ...(idempotencyKey && { headers: { "Idempotency-Key": idempotencyKey } }),
         }),
         "send email",
     );
