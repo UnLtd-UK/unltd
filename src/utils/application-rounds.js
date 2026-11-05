@@ -347,30 +347,30 @@ export const getCapacityStatus = (percentage) => {
 
 /**
  * Process a single round from the format in data/rounds.ts
- * @param {Object} directusRound - Round from data/rounds.ts
+ * @param {Object} rawRound - Round from data/rounds.ts
  * @param {number} applicationLimit - Max applications per round (default 650)
  * @returns {Object} Processed round with all computed properties
  */
-export const processRound = (directusRound, applicationLimit = 650) => {
+export const processRound = (rawRound, applicationLimit = 650) => {
     // capacity = max applications for this round (e.g. 650)
     // capacity_status = current number of applications received (e.g. 325)
-    const capacityLimit = directusRound.capacity ?? 0;
-    const applicationCount = directusRound.capacity_status ?? 0;
+    const capacityLimit = rawRound.capacity ?? 0;
+    const applicationCount = rawRound.capacity_status ?? 0;
     const hasCapacity = capacityLimit > 0;
     const capacityPercentage = hasCapacity
         ? Math.min(100, Math.round((applicationCount / capacityLimit) * 100))
         : 0;
 
     const round = {
-        id: directusRound.id,
-        opensDate: directusRound.opens,
-        closesDate: directusRound.closes,
-        assessmentStart: directusRound.assessment_starts,
-        assessmentEnd: directusRound.assessment_ends,
-        interviewStart: directusRound.interview_starts ?? null,
-        interviewEnd: directusRound.interview_ends ?? null,
-        resultsStart: directusRound.results_start,
-        resultsEnd: directusRound.results_end,
+        id: rawRound.id,
+        opensDate: rawRound.opens,
+        closesDate: rawRound.closes,
+        assessmentStart: rawRound.assessment_starts,
+        assessmentEnd: rawRound.assessment_ends,
+        interviewStart: rawRound.interview_starts ?? null,
+        interviewEnd: rawRound.interview_ends ?? null,
+        resultsStart: rawRound.results_start,
+        resultsEnd: rawRound.results_end,
         applicationLimit: capacityLimit,
         applicationCount,
         capacityPercentage,
@@ -378,22 +378,22 @@ export const processRound = (directusRound, applicationLimit = 650) => {
 
         // Formatted dates
         dates: {
-            opens: formatDate(directusRound.opens),
-            opensShort: formatShortDate(directusRound.opens),
-            closes: formatDate(directusRound.closes),
-            closesShort: formatShortDate(directusRound.closes),
-            assessmentStart: formatDate(directusRound.assessment_starts),
-            assessmentStartShort: formatShortDate(directusRound.assessment_starts),
-            assessmentEnd: formatDate(directusRound.assessment_ends),
-            assessmentEndShort: formatShortDate(directusRound.assessment_ends),
-            interviewStart: directusRound.interview_starts ? formatDate(directusRound.interview_starts) : null,
-            interviewStartShort: directusRound.interview_starts ? formatShortDate(directusRound.interview_starts) : null,
-            interviewEnd: directusRound.interview_ends ? formatDate(directusRound.interview_ends) : null,
-            interviewEndShort: directusRound.interview_ends ? formatShortDate(directusRound.interview_ends) : null,
-            resultsStart: formatDate(directusRound.results_start),
-            resultsStartShort: formatShortDate(directusRound.results_start),
-            resultsEnd: formatDate(directusRound.results_end),
-            resultsEndShort: formatShortDate(directusRound.results_end)
+            opens: formatDate(rawRound.opens),
+            opensShort: formatShortDate(rawRound.opens),
+            closes: formatDate(rawRound.closes),
+            closesShort: formatShortDate(rawRound.closes),
+            assessmentStart: formatDate(rawRound.assessment_starts),
+            assessmentStartShort: formatShortDate(rawRound.assessment_starts),
+            assessmentEnd: formatDate(rawRound.assessment_ends),
+            assessmentEndShort: formatShortDate(rawRound.assessment_ends),
+            interviewStart: rawRound.interview_starts ? formatDate(rawRound.interview_starts) : null,
+            interviewStartShort: rawRound.interview_starts ? formatShortDate(rawRound.interview_starts) : null,
+            interviewEnd: rawRound.interview_ends ? formatDate(rawRound.interview_ends) : null,
+            interviewEndShort: rawRound.interview_ends ? formatShortDate(rawRound.interview_ends) : null,
+            resultsStart: formatDate(rawRound.results_start),
+            resultsStartShort: formatShortDate(rawRound.results_start),
+            resultsEnd: formatDate(rawRound.results_end),
+            resultsEndShort: formatShortDate(rawRound.results_end)
         }
     };
 
@@ -433,13 +433,13 @@ export const processRound = (directusRound, applicationLimit = 650) => {
 
 /**
  * Process all rounds and categorize them
- * @param {Array} directusRounds - Array of rounds from data/rounds.ts
+ * @param {Array} rawRounds - Array of rounds from data/rounds.ts
  * @param {number} applicationLimit - Max applications per round
  * @returns {Object} Processed and categorized rounds
  */
-export const processAllRounds = (directusRounds, applicationLimit = 650) => {
+export const processAllRounds = (rawRounds, applicationLimit = 650) => {
     // Handle empty rounds
-    if (!directusRounds || directusRounds.length === 0) {
+    if (!rawRounds || rawRounds.length === 0) {
         return {
             all: [],
             past: [],
@@ -452,7 +452,7 @@ export const processAllRounds = (directusRounds, applicationLimit = 650) => {
         };
     }
 
-    const processed = directusRounds.map(r => processRound(r, applicationLimit));
+    const processed = rawRounds.map(r => processRound(r, applicationLimit));
 
     // Sort by opens date
     processed.sort((a, b) => new Date(a.opensDate) - new Date(b.opensDate));

@@ -2,7 +2,6 @@ import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import alpinejs from "@astrojs/alpinejs";
 import react from "@astrojs/react";
-import markdoc from "@astrojs/markdoc";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
 import fs from "node:fs";
@@ -54,7 +53,7 @@ const stubCloudflareWorkersInPrerender = {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [alpinejs(), react(), markdoc(), sitemap(), emdash({
+  integrations: [alpinejs(), react(), sitemap(), emdash({
     database: d1({ binding: "DB" }),
     storage: r2({ binding: "MEDIA" }),
     // Runs registry plugins in isolated Worker Loader sandboxes. Needs the
@@ -84,8 +83,8 @@ export default defineConfig({
   // it doesn't conflict with wrangler.jsonc's `main`, which is owned by the
   // separate `wrangler pages functions build` step for functions/*.ts.
   // prerenderEnvironment stays "node" (not the adapter's default "workerd")
-  // because existing data loaders (src/data/load.js, src/lib/generate-application-pdf.ts)
-  // use Node's fs/path APIs at build time, which the workerd sandbox doesn't support.
+  // because existing build-time code (src/lib/generate-application-pdf.ts)
+  // uses Node's fs/path APIs, which the workerd sandbox doesn't support.
   // NOTE: do NOT add nodejs_compat to wrangler.astro.jsonc — it breaks on-demand
   // rendering (see comment in that file for details).
   adapter: cloudflare({
@@ -101,8 +100,8 @@ export default defineConfig({
   image: {
     // Allows astro:assets <Image>/<Picture> to fetch, resize and reformat
     // remote images at build time instead of passing them through unprocessed:
-    // Directus-hosted images, and post images served by the EmDash site.
-    domains: ["unltd.directus.app", ...(emdashHost ? [emdashHost] : [])],
+    // images served by the EmDash site.
+    domains: ["feature-emdash.unltd.workers.dev", ...(emdashHost ? [emdashHost] : [])],
   },
   fonts: [
     {

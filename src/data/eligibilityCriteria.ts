@@ -1,7 +1,7 @@
 /**
  * Eligibility Criteria Data
  *
- * Transforms award eligibility data from Directus into a format
+ * Transforms award eligibility data from EmDash into a format
  * suitable for rendering the eligibility comparison table.
  */
 

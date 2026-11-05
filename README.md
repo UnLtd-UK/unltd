@@ -1,5 +1,25 @@
 # UnLtd
 
+The UnLtd website, built with [Astro](https://astro.build) and deployed to Cloudflare Workers. All editable content lives in [EmDash](https://emdashcms.com), the CMS that runs alongside the site (admin at `/_emdash/admin`). The site is static: it reads content from EmDash's HTTP API when it builds, so published changes appear on the next deploy.
+
+## Content
+
+| Content                    | EmDash collection(s)                 | Loaded by                                            |
+| -------------------------- | ------------------------------------ | ---------------------------------------------------- |
+| Pages                      | `pages`                              | [src/data/pages.ts](src/data/pages.ts)               |
+| Blog posts                 | `posts` (+ `tag` taxonomy, bylines)  | [src/data/posts.ts](src/data/posts.ts)               |
+| Resources                  | `resources`                          | [src/data/resources.ts](src/data/resources.ts)       |
+| Programmes and services    | `programmes`, `services`             | [src/data/programmes.ts](src/data/programmes.ts)     |
+| Awards                     | `products`, `grants`                 | [src/data/awards.ts](src/data/awards.ts)             |
+| Award rounds               | `rounds`                             | [src/data/rounds.ts](src/data/rounds.ts)             |
+| Application forms and PDFs | `applications`, `sections`, `fields` | [src/data/applications.ts](src/data/applications.ts) |
+| Award panels               | `panels`, `people`                   | [src/data/panels.ts](src/data/panels.ts)             |
+| People and teams           | `people`, `teams`, `organisations`   | [src/data/people.ts](src/data/people.ts)             |
+| FAQs                       | `faqs`                               | [src/data/faq.ts](src/data/faq.ts)                   |
+| Forms                      | `forms`                              | [src/data/forms.ts](src/data/forms.ts)               |
+
+The home page content is not in EmDash; edit [src/data/home.ts](src/data/home.ts). The shared EmDash client is in [src/lib/emdash.ts](src/lib/emdash.ts).
+
 ## Setup
 
 ### 1. Configure environment variables
@@ -8,15 +28,14 @@ Add the following to `.dev.vars`:
 ```
 FONTAWESOME_NPM_AUTH_TOKEN=your-token-here
 EVENTBRITE_PRIVATE_TOKEN=your-token-here
-DIRECTUS_API_TOKEN=your-token-here
 EMDASH_TOKEN=your-emdash-api-token
-# EmDash site to read pages and blog posts from (a localhost URL needs no token)
+# EmDash site to read content from (a localhost URL needs no token)
 # EMDASH_URL=http://localhost:4321
 ```
 
 `EMDASH_URL` is required for builds (`astro dev` defaults to the local server). There is a single EmDash instance: CI reads it from the `EMDASH_URL` GitHub repository variable (Settings > Secrets and variables > Actions > Variables), shared by production and every feature/fix preview, so changing instance means changing one variable. Draft content is previewed in EmDash itself.
 
-Pages and blog posts are read from the EmDash `pages` and `posts` collections over its HTTP API when the site builds (see [src/data/pages.ts](src/data/pages.ts), [src/data/posts.ts](src/data/posts.ts) and the shared client in [src/lib/emdash.ts](src/lib/emdash.ts)). Create `EMDASH_TOKEN` as an API token with content read access in the EmDash admin, and add it as the `EMDASH_TOKEN` GitHub Actions secret.
+Create `EMDASH_TOKEN` as an API token with content read access in the EmDash admin, and add it as the `EMDASH_TOKEN` GitHub Actions secret.
 
 ### 2. Generate .npmrc
 Run the setup script to generate the `.npmrc` file from the template:
@@ -54,7 +73,7 @@ By default only `published` content is fetched. To include drafts — e.g. draft
 SHOW_DRAFTS=true npm run dev
 ```
 
-For EmDash content (pages, resources and blog posts, via [src/lib/emdash.ts](src/lib/emdash.ts)) this adds `draft` items, and `scheduled` posts as well. For Directus content it adds `draft` (and `archived`, where applicable) items; this is checked in [src/data/programmes.js](src/data/programmes.js), [src/data/subjects.js](src/data/subjects.js) and [src/data/sesm.js](src/data/sesm.js). It is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-preview.yml](.github/workflows/deploy-preview.yml)) and `false` for production ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)).
+This adds `draft` items to everything read from EmDash (see [src/lib/emdash.ts](src/lib/emdash.ts)), and `scheduled` posts as well. It is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-preview.yml](.github/workflows/deploy-preview.yml)) and `false` for production ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)).
 
 ## Redirects
 
@@ -66,7 +85,7 @@ This relies on `not_found_handling: "none"` in [wrangler.jsonc](wrangler.jsonc) 
 
 ## Blog posts
 
-Blog posts are managed in the EmDash admin (`/_emdash/admin`), in the **Posts** collection. They used to be in Directus; that collection is no longer read by the site.
+Blog posts are managed in the EmDash admin (`/_emdash/admin`), in the **Posts** collection.
 
 - **Fields**: title, subtitle (shown under the title and used as the page description), featured image, content, the byline(s) and a **tag** (News, Insights, Stories or How to's; only the first tag is shown). Posts with no byline show no author line.
 - **Slug**: the post's URL is `/blog/<slug>`. Posts also appear under `/blog/<year>` by published date.
