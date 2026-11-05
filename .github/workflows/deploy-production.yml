@@ -6,8 +6,8 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    # Every 2 hours - rebuilds production to keep round status current
-    - cron: "0 */2 * * *"
+    # Daily at 01:00 UTC - rebuilds production to keep round status current
+    - cron: "0 1 * * *"
 
 jobs:
   deploy:
