@@ -11,7 +11,7 @@ Double opt-in newsletter sign-up backed by [Resend](https://resend.com) Contacts
    - **From a newsletter:** the `{{{RESEND_UNSUBSCRIBE_URL}}}` link in the broadcast footer (Resend-hosted page; Resend updates the contact).
    - **On the website:** `/newsletter/unsubscribe` → enter email → verification email (1h signed token, only sent if the address is subscribed; the response is identical either way) → confirm button → opt out of the configured newsletter topic, or remove the contact from the newsletter segment when no topic is configured. This does not unsubscribe the contact from unrelated Resend topics or broadcasts.
 
-Tokens are HMAC-SHA256 signed with `NEWSLETTER_TOKEN_SECRET` and bound to a purpose, so a confirm link cannot unsubscribe and vice versa.
+Tokens are HMAC-SHA256 signed with `NEWSLETTER_TOKEN_SECRET` and bound to a purpose, so a confirm link cannot unsubscribe and vice versa. They are also bound to the Resend segment (`RESEND_SEGMENT_ID`), so a Worker configured for a different segment rejects them. Give each preview its own segment and `NEWSLETTER_TOKEN_SECRET` rather than sharing production's.
 
 ## One-off setup
 

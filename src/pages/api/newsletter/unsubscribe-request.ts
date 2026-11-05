@@ -41,7 +41,7 @@ export const POST: APIRoute = async (context) => {
     try {
         if (await isSubscribed(config, email)) {
             const consentVersion = await getNewsletterConsentVersion(email);
-            const token = await createToken(config.tokenSecret, email, "unsubscribe", undefined, consentVersion);
+            const token = await createToken(config.tokenSecret, email, "unsubscribe", undefined, consentVersion, config.segmentId);
             const url = `${context.url.origin}/newsletter/unsubscribe?token=${encodeURIComponent(token)}`;
             await sendEmail(config, { to: email, ...unsubscribeVerificationEmail(url) });
         }

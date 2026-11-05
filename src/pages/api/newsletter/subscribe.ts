@@ -39,7 +39,7 @@ export const POST: APIRoute = async (context) => {
 
     try {
         const consentVersion = await getNewsletterConsentVersion(email);
-        const token = await createToken(config.tokenSecret, email, "confirm", undefined, consentVersion);
+        const token = await createToken(config.tokenSecret, email, "confirm", undefined, consentVersion, config.segmentId);
         const confirmUrl = `${context.url.origin}/newsletter/confirm?token=${encodeURIComponent(token)}`;
         await sendEmail(config, { to: email, ...confirmationEmail(confirmUrl) });
     } catch (error) {

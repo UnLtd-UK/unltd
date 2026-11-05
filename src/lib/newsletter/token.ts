@@ -7,6 +7,7 @@ export interface TokenPayload {
     purpose: TokenPurpose;
     exp: number; // unix seconds
     consentVersion: string;
+    audience: string; // newsletter list the token is valid for
 }
 
 export const TOKEN_TTL_SECONDS: Record<TokenPurpose, number> = {
@@ -38,8 +39,9 @@ export async function createToken(
     purpose: TokenPurpose,
     now: number = Math.floor(Date.now() / 1000),
     consentVersion = "0",
+    audience = "",
 ): Promise<string> {
-    const payload: TokenPayload = { email, purpose, exp: now + TOKEN_TTL_SECONDS[purpose], consentVersion };
+    const payload: TokenPayload = { email, purpose, exp: now + TOKEN_TTL_SECONDS[purpose], consentVersion, audience };
     const body = toBase64Url(encoder.encode(JSON.stringify(payload)));
     const signature = await crypto.subtle.sign("HMAC", await hmacKey(secret, "sign"), encoder.encode(body));
     return `${body}.${toBase64Url(new Uint8Array(signature))}`;
@@ -54,6 +56,7 @@ export async function verifyToken(
     token: string,
     purpose: TokenPurpose,
     now: number = Math.floor(Date.now() / 1000),
+    audience = "",
 ): Promise<VerifyResult> {
     const [body, signature, ...rest] = token.split(".");
     if (!body || !signature || rest.length > 0) return { ok: false, reason: "invalid" };
@@ -73,8 +76,10 @@ export async function verifyToken(
         const payload = JSON.parse(new TextDecoder().decode(fromBase64Url(body))) as Partial<TokenPayload>;
         if (
             payload.purpose !== purpose ||
+            (payload.audience ?? "") !== audience ||
             typeof payload.email !== "string" ||
             typeof payload.exp !== "number" ||
+            (payload.audience !== undefined && typeof payload.audience !== "string") ||
             (payload.consentVersion !== undefined && typeof payload.consentVersion !== "string")
         ) {
             return { ok: false, reason: "invalid" };

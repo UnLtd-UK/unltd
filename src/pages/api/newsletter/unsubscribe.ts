@@ -14,7 +14,7 @@ export const POST: APIRoute = async (context) => {
     const body = await readBody(context);
     if (!body || typeof body.token !== "string") return json({ error: "invalid" }, 400);
 
-    const result = await verifyToken(config.tokenSecret, body.token, "unsubscribe");
+    const result = await verifyToken(config.tokenSecret, body.token, "unsubscribe", undefined, config.segmentId);
     if (!result.ok) return json({ error: result.reason }, 400);
 
     const limited =
