@@ -1,55 +1,154 @@
-import { defineConfig, fontProviders, envField } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import alpinejs from "@astrojs/alpinejs";
 import react from "@astrojs/react";
-import markdoc from "@astrojs/markdoc";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
+import { cacheCloudflare } from "@astrojs/cloudflare/cache";
+import fs from "node:fs";
+
+import emdash from "emdash/astro";
+import { d1, r2, sandbox } from "@emdash-cms/cloudflare";
+import { cloudflareEmail } from "@emdash-cms/cloudflare/plugins";
+import { formsPlugin } from "@emdash-cms/plugin-forms";
+
+// Host of the EmDash site the build reads posts from (EMDASH_URL, as set in CI
+// or .dev.vars). Post images are served from it, so astro:assets must be
+// allowed to fetch from it.
+function readEmdashHost() {
+  let url = process.env.EMDASH_URL;
+  if (!url) {
+    try {
+      url = fs.readFileSync(".dev.vars", "utf8").match(/^EMDASH_URL\s*=\s*(.+)$/m)?.[1];
+    } catch {
+      // no .dev.vars (e.g. in CI, where EMDASH_URL is set in the environment)
+    }
+  }
+  try {
+    return new URL(url.trim().replace(/^["']|["']$/g, "")).hostname;
+  } catch {
+    return null;
+  }
+}
+const emdashHost = readEmdashHost();
+
+// Prerendered pages render in Node (prerenderEnvironment: "node" below), where
+// the `cloudflare:workers` module EmDash's middleware imports doesn't exist.
+// Stub it for that environment only; on-demand routes still run in workerd.
+const stubCloudflareWorkersInPrerender = {
+  name: "stub-cloudflare-workers-in-prerender",
+  enforce: "pre",
+  resolveId(id) {
+    if (id === "cloudflare:workers" && this.environment?.name === "prerender") {
+      return "\0stub:cloudflare-workers";
+    }
+  },
+  load(id) {
+    if (id === "\0stub:cloudflare-workers") {
+      // The sandbox runner (registry plugins) also imports these classes and
+      // `exports`; they are never used while prerendering.
+      return "export const waitUntil = undefined; export const env = {}; export const exports = {}; export class RpcTarget {}; export class WorkerEntrypoint {}; export class DurableObject {}";
+    }
+  },
+};
+
+// Pages are prerendered in Node and read content over EmDash's HTTP API, so
+// EmDash's request middleware has nothing to do there. Left in, it reads
+// `Astro.request.headers` (warning on every page) and tries to open the D1
+// binding, which only exists in workerd ("runtime init failed"). Replace it
+// with a pass-through for the prerender environment only; on-demand routes
+// (the admin, API and live content) keep the real middleware.
+const EMDASH_MIDDLEWARE = new Set([
+  "emdash/middleware",
+  "emdash/internal/middleware/redirect",
+  "emdash/internal/middleware/setup",
+  "emdash/internal/middleware/auth",
+  "emdash/internal/middleware/media-usage-write-fence",
+  "emdash/internal/middleware/request-context",
+]);
+const skipEmdashMiddlewareInPrerender = {
+  name: "skip-emdash-middleware-in-prerender",
+  enforce: "pre",
+  resolveId(id) {
+    if (EMDASH_MIDDLEWARE.has(id) && this.environment?.name === "prerender") {
+      return "\0stub:emdash-middleware";
+    }
+  },
+  load(id) {
+    if (id === "\0stub:emdash-middleware") {
+      return "export const onRequest = (_context, next) => next(); export default onRequest;";
+    }
+  },
+};
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [alpinejs(), react(), markdoc(), sitemap()],
+  integrations: [alpinejs(), react(), sitemap({ customSitemaps: ["https://unltd.org.uk/sitemap-dynamic.xml"] }), emdash({
+    database: d1({ binding: "DB" }),
+    storage: r2({ binding: "MEDIA" }),
+    // Runs registry plugins in isolated Worker Loader sandboxes. Needs the
+    // LOADER worker_loaders binding (Workers paid plan) in wrangler.jsonc.
+    sandboxRunner: sandbox(),
+    // Uses the `EMAIL` send_email binding in wrangler.jsonc. The sender domain
+    // must be onboarded for Cloudflare Email Sending.
+    plugins: [
+      cloudflareEmail({
+        from: { email: "cms@unltd.org.uk", name: "UnLtd CMS" },
+        replyTo: "digital@unltd.org.uk",
+      }),
+      formsPlugin({
+        optional: { defaultSpamProtection: "turnstile" }
+      })
+    ],
+    admin: {
+      hiddenNavItems: ["comments", "widgets"],
+    },
+    // Public HTML is the same for everyone, so Cloudflare's route cache keeps
+    // working; editors get an "Edit" pill that opens an uncached `?_edit` view
+    // with the visual-editing toolbar. The default ("server") injects the toolbar
+    // only on uncached responses, so behind the cache it comes and goes.
+    toolbar: "client",
+    // Previews and local dev share the production database, so they must not
+    // migrate it: "check" serves a 503 instead of running migrations when the
+    // database is behind the code. Production applies them ("auto"). The deployed
+    // Workers get their mode from EMDASH_MIGRATIONS_MODE in wrangler.jsonc.
+    migrations: { runtime: "auto", dev: "check" },
+  })],
   site: 'https://unltd.org.uk',
   trailingSlash: 'never',
   // Output stays fully static by default; @astrojs/cloudflare only adds
   // on-demand rendering capability for routes that opt in via
-  // `export const prerender = false` (e.g. src/pages/blog/[post]/preview.astro).
+  // `export const prerender = false` (EmDash's own routes do).
   // Uses a dedicated local-only Wrangler config (see wrangler.astro.jsonc) so
   // it doesn't conflict with wrangler.jsonc's `main`, which is owned by the
   // separate `wrangler pages functions build` step for functions/*.ts.
   // prerenderEnvironment stays "node" (not the adapter's default "workerd")
-  // because existing data loaders (src/data/load.js, src/lib/generate-application-pdf.ts)
-  // use Node's fs/path APIs at build time, which the workerd sandbox doesn't support.
-  // NOTE: do NOT add nodejs_compat to wrangler.astro.jsonc — it breaks on-demand
-  // rendering (see comment in that file for details).
+  // because existing build-time code (src/lib/generate-application-pdf.ts)
+  // uses Node's fs/path APIs, which the workerd sandbox doesn't support.
+  // wrangler.astro.jsonc and wrangler.jsonc both enable nodejs_compat, which
+  // EmDash needs.
   adapter: cloudflare({
     configPath: "./wrangler.astro.jsonc",
     prerenderEnvironment: "node",
   }),
-  env: {
-    schema: {
-      // `optional: true` is deliberate: if this secret isn't set on a given
-      // deployed Worker (e.g. it was never pushed via `wrangler secret put`),
-      // we want the preview route to fail gracefully with its own 403
-      // "Forbidden" response, not a hard 500 from schema validation.
-      DIRECTUS_PREVIEW_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
-      // Full-access Directus token used for server-side reads now that the
-      // public API role is disabled. Distinct from DIRECTUS_PREVIEW_TOKEN,
-      // which is only the shared secret gating this route's URL.
-      DIRECTUS_API_TOKEN: envField.string({ context: "server", access: "secret", optional: true }),
-    },
+  // Route caching for on-demand pages (the blog and CMS pages). Cloudflare's
+  // cache keeps repeat visits fast. EmDash tags each response with the content it
+  // read and purges those tags when content is saved or published, so edits show
+  // up without a rebuild. Pages set their own fallback lifetime (src/lib/route-cache.ts).
+  cache: {
+    provider: cacheCloudflare(),
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), stubCloudflareWorkersInPrerender, skipEmdashMiddlewareInPrerender],
     ssr: {
       noExternal: ['react', 'react-dom']
     }
   },
   image: {
     // Allows astro:assets <Image>/<Picture> to fetch, resize and reformat
-    // Directus-hosted remote images at build time instead of passing them
-    // through unprocessed.
-    domains: ["unltd.directus.app"],
+    // remote images at build time instead of passing them through unprocessed:
+    // images served by the EmDash site.
+    domains: emdashHost ? [emdashHost] : [],
   },
   fonts: [
     {

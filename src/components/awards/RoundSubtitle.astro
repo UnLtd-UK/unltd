@@ -9,9 +9,16 @@
  * - "Closes at capacity or on 1 June 2026 at 17:00 (14 days left)"
  * - "Closes 1 June 2026 at 17:00 (14 days left)"
  */
-import { getRoundData, getRoundStatus, formatTime } from "./round";
+import { resolveRounds, getRoundData, getRoundStatus, formatTime } from "./round";
 
-const { currentRound, nextRound, devDateTime } = getRoundData();
+import type { RoundEntry } from "@data/rounds.ts";
+
+interface Props {
+    rounds?: RoundEntry[];
+}
+
+const rounds = await resolveRounds(Astro.props.rounds);
+const { currentRound, nextRound, devDateTime } = getRoundData(rounds);
 const {
     state,
     round: displayRound,

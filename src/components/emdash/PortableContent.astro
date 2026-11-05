@@ -1,0 +1,41 @@
+---
+import { getEditMeta } from "emdash";
+import { PortableText } from "emdash/ui";
+import { proseClasses } from "@components/markdoc/proseClasses";
+import Heading from "./Heading.astro";
+import Link from "./Link.astro";
+import { withHeadingIds } from "@data/functions/portableHeadings";
+
+const { value = [] } = Astro.props;
+
+// In EmDash's edit mode the value carries the metadata that turns it into an
+// inline editor; copying it (to add heading ids) would drop that, so it is
+// passed through as it is.
+const editing = Boolean(getEditMeta(value));
+
+// Give each h2/h3 a unique slug id, using EmDash's one-level-lower heading numbering.
+const withIds = editing ? value : withHeadingIds(value);
+
+// EmDash tables default to light greys, which leave the light prose text
+// unreadable on the dark theme; these variables are what its Table component reads.
+const tableTheme = [
+  "--color-border: #7c3aed",
+  "--color-surface: #4c1d95",
+  "--color-bg-subtle: rgb(139 92 246 / 0.12)",
+].join("; ");
+
+const components = {
+  block: {
+    h1: Heading,
+    h2: Heading,
+    h3: Heading,
+    h4: Heading,
+    h5: Heading,
+  },
+  mark: { link: Link },
+};
+---
+
+<div class={proseClasses} style={tableTheme}>
+  <PortableText value={withIds} components={components} />
+</div>

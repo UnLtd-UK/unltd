@@ -1,1 +1,0 @@
-export { people as positions } from './people.js';
