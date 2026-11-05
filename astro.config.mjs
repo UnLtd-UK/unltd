@@ -1,4 +1,4 @@
-import { defineConfig, fontProviders } from "astro/config";
+import { defineConfig, envField, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import alpinejs from "@astrojs/alpinejs";
 import react from "@astrojs/react";
@@ -83,7 +83,11 @@ const skipEmdashMiddlewareInPrerender = {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [alpinejs(), react(), sitemap({ customSitemaps: ["https://unltd.org.uk/sitemap-dynamic.xml"] }), emdash({
+  integrations: [alpinejs(), react(), sitemap({
+    customSitemaps: ["https://unltd.org.uk/sitemap-dynamic.xml"],
+    // Token-driven utility pages shouldn't be indexed or a11y-crawled.
+    filter: (page) => !/\/newsletter\/(confirm|unsubscribe)$/.test(page),
+  }), emdash({
     database: d1({ binding: "DB" }),
     storage: r2({ binding: "MEDIA" }),
     // Runs registry plugins in isolated Worker Loader sandboxes. Needs the
@@ -131,6 +135,21 @@ export default defineConfig({
     configPath: "./wrangler.astro.jsonc",
     prerenderEnvironment: "node",
   }),
+  env: {
+    schema: {
+      // Newsletter sign-up (see docs/newsletter.md). All optional so workers
+      // without them (e.g. branch previews) return a graceful 503 from the
+      // newsletter API instead of failing schema validation.
+      RESEND_API_KEY: envField.string({ context: "server", access: "secret", optional: true }),
+      RESEND_SEGMENT_ID: envField.string({ context: "server", access: "secret", optional: true }),
+      RESEND_TOPIC_IDS: envField.string({ context: "server", access: "secret", optional: true }),
+      NEWSLETTER_FROM: envField.string({ context: "server", access: "secret", optional: true }),
+      NEWSLETTER_TOKEN_SECRET: envField.string({ context: "server", access: "secret", optional: true }),
+      TURNSTILE_SECRET_KEY: envField.string({ context: "server", access: "secret", optional: true }),
+      // Public Turnstile site key; baked into the static HTML at build time.
+      PUBLIC_TURNSTILE_SITE_KEY: envField.string({ context: "client", access: "public", optional: true }),
+    },
+  },
   // Route caching for on-demand pages (the blog and CMS pages). Cloudflare's
   // cache keeps repeat visits fast. EmDash tags each response with the content it
   // read and purges those tags when content is saved or published, so edits show
