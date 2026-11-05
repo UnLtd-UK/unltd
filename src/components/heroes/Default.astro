@@ -1,5 +1,7 @@
 ---
-const { name, description } = Astro.props;
+// nameAttrs and descriptionAttrs make the title and subtitle editable on the
+// page for an editor in EmDash's edit mode; they are empty otherwise.
+const { name, description, nameAttrs, descriptionAttrs } = Astro.props;
 ---
 
 <div class="py-12 sm:py-12">
@@ -7,10 +9,14 @@ const { name, description } = Astro.props;
         <div class="mx-auto lg:mx-0">
             <h2
                 class="max-w-6xl mt-2 text-4xl font-bold tracking-tight text-violet-200 sm:text-6xl"
+                {...nameAttrs}
             >
                 {name}
             </h2>
-            <p class="max-w-3xl mt-6 text-lg leading-8 text-violet-400">
+            <p
+                class="max-w-3xl mt-6 text-lg leading-8 text-violet-400"
+                {...descriptionAttrs}
+            >
                 {description}
             </p>
         </div>

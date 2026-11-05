@@ -102,7 +102,12 @@ export default defineConfig({
     ],
     admin: {
       hiddenNavItems: ["comments", "widgets"],
-    }
+    },
+    // Public HTML is the same for everyone, so Cloudflare's route cache keeps
+    // working; editors get an "Edit" pill that opens an uncached `?_edit` view
+    // with the visual-editing toolbar. The default ("server") injects the toolbar
+    // only on uncached responses, so behind the cache it comes and goes.
+    toolbar: "client",
   })],
   site: 'https://unltd.org.uk',
   trailingSlash: 'never',

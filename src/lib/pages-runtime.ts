@@ -1,4 +1,4 @@
-import { getEmDashCollection, getEmDashEntry, type CacheHint } from "emdash";
+import { getEmDashCollection, getEmDashEntry, type CacheHint, type EditProxy } from "emdash";
 import type { PortableTextBlock } from "emdash";
 
 // Reads pages straight from EmDash's database in the Worker, so they are
@@ -13,10 +13,12 @@ export interface RuntimePage {
   content: PortableTextBlock[];
   showUpdatedAt: boolean;
   updatedAt: string | null;
+  /** Spread onto an element to make its field editable on the page (a no-op unless an editor is in edit mode). */
+  edit: EditProxy;
 }
 
 // The generated collection types can lag the real schema, so read entries loosely.
-type Entry = { data: Record<string, any> };
+type Entry = { data: Record<string, any>; edit: EditProxy };
 
 const toPage = (entry: Entry): RuntimePage => {
   const d = entry.data;
@@ -27,6 +29,7 @@ const toPage = (entry: Entry): RuntimePage => {
     content: d.content ?? [],
     showUpdatedAt: Boolean(d.show_updated_at),
     updatedAt: d.updatedAt ? new Date(d.updatedAt).toISOString() : null,
+    edit: entry.edit,
   };
 };
 
@@ -35,7 +38,7 @@ export async function getPage(
   slug: string,
 ): Promise<{ page: RuntimePage | null; isPreview: boolean; cacheHint: CacheHint }> {
   const { entry, isPreview, cacheHint } = await getEmDashEntry("pages", slug);
-  return { page: entry ? toPage(entry as Entry) : null, isPreview, cacheHint };
+  return { page: entry ? toPage(entry as unknown as Entry) : null, isPreview, cacheHint };
 }
 
 /** The slug and last change of every published page. */
@@ -52,7 +55,7 @@ export async function getPageSlugs(): Promise<{
     if (result.error) throw result.error;
     cacheHints.push(result.cacheHint);
     for (const entry of result.entries) {
-      const { slug, updatedAt } = toPage(entry as Entry);
+      const { slug, updatedAt } = toPage(entry as unknown as Entry);
       if (slug) pages.push({ slug, updatedAt });
     }
     cursor = result.nextCursor;

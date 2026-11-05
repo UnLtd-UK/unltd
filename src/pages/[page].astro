@@ -20,15 +20,16 @@ const { page, isPreview, cacheHint } = await getPage(slug);
 if (!page) return Astro.rewrite("/404");
 
 if (Astro.cache?.enabled) {
-  // A draft preview is for one editor, not for the shared cache.
-  if (isPreview) Astro.cache.set(false);
+  // A draft preview or an editor's edit-mode view is for one person, not for the shared cache.
+  const editing = Astro.cookies.get("emdash-edit-mode")?.value === "true";
+  if (isPreview || editing) Astro.cache.set(false);
   else {
     Astro.cache.set(cacheHint);
     Astro.cache.set(CMS_PAGE_CACHE);
   }
 }
 
-const { title, subtitle, content, showUpdatedAt, updatedAt } = page;
+const { title, subtitle, content, showUpdatedAt, updatedAt, edit } = page;
 const breadcrumbs = [{ name: title, path: `/${page.slug}` }];
 
 const dateOptions = { timeZone: "Europe/London" } as const;
@@ -41,7 +42,7 @@ const lastUpdatedText =
 <Template name={title} description={subtitle}>
   <Container>
     <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <Default name={title} description={subtitle} />
+    <Default name={title} description={subtitle} nameAttrs={edit.title} descriptionAttrs={edit.subtitle} />
     {
       lastUpdatedText && (
         <p class="text-sm text-violet-300 -mt-4 mb-6">
