@@ -48,7 +48,7 @@ Set runtime secrets per environment, for example:
 npx wrangler secret put RESEND_API_KEY --config wrangler.jsonc --env production
 ```
 
-Repeat for `--env draft` (and previews if needed). Workers missing any required secret respond to the newsletter API with a 503; if the site key is missing at build time the form is not rendered.
+Branch previews run on the top-level (non-`production`) worker; set the same secrets without `--env` if previews should send email. Workers missing any required secret respond to the newsletter API with a 503; if the site key is missing at build time the form is not rendered.
 
 ## Local development
 
