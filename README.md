@@ -37,6 +37,8 @@ EMDASH_TOKEN=your-emdash-api-token
 
 `astro dev` has no local database: [wrangler.astro.jsonc](wrangler.astro.jsonc) binds the real D1 database and R2 bucket with `"remote": true`, so the dev server (including the blog, which is rendered on demand) shows live content, and edits made in the dev admin change live data. This needs `wrangler login`.
 
+Because previews and local dev share the production database, they never run EmDash database migrations: `migrations` in [astro.config.mjs](astro.config.mjs) is `check` in dev, and `EMDASH_MIGRATIONS_MODE` in [wrangler.jsonc](wrangler.jsonc) is `check` for preview Workers and `auto` for production. If a branch upgrades EmDash and the database needs a migration, the preview (or dev server) answers 503 "Database migrations are required" until production is deployed with that EmDash version, which applies it.
+
 Create `EMDASH_TOKEN` as an API token with content read access in the EmDash admin, and add it as the `EMDASH_TOKEN` GitHub Actions secret.
 
 ### 2. Generate .npmrc

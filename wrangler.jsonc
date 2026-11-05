@@ -110,13 +110,18 @@
 		"head_sampling_rate": 1
 	},
 	"workers_dev": true,
+	// EMDASH_MIGRATIONS_MODE: preview Workers share the production database, so
+	// they only check that it is migrated and never run migrations themselves
+	// (a branch with a newer EmDash would otherwise migrate production).
 	"vars": {
-		"DEV": "true"
+		"DEV": "true",
+		"EMDASH_MIGRATIONS_MODE": "check"
 	},
 	"env": {
 		"production": {
 			"vars": {
-				"DEV": "false"
+				"DEV": "false",
+				"EMDASH_MIGRATIONS_MODE": "auto"
 			},
 			// Named environments don't inherit top-level kv_namespaces/images —
 			// must be redeclared here or the deployed worker loses these bindings.
@@ -159,7 +164,14 @@
 					"pattern": "unltd.org.uk",
 					"custom_domain": true
 				}
-			]
+			],
+			// Runs the scheduled() handler in src/worker.ts every minute, which
+			// publishes scheduled content and runs EmDash's maintenance. Only
+			// production has it: preview workers share this database, so a
+			// schedule on each would just repeat the same work.
+			"triggers": {
+				"crons": ["* * * * *"]
+			}
 		}
 	}
 }

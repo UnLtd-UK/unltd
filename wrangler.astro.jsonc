@@ -9,19 +9,11 @@
 // share that file. Do NOT use this config for deployment — wrangler.jsonc
 // remains the source of truth for `wrangler deploy`.
 //
-// IMPORTANT: do NOT add `"compatibility_flags": ["nodejs_compat"]` here.
-// It causes on-demand (SSR) routes to render a literal "[object Object]"
-// body instead of HTML. Root cause: nodejs_compat provides a native
-// `process` global that satisfies astro core's `isNode` runtime check
-// (`Object.prototype.toString.call(process) === "[object process]"`),
-// which makes Astro pick its Node.js-specific async-iterable streaming
-// path instead of the Web ReadableStream path — the resulting body isn't
-// a valid Response BodyInit in workerd. Confirmed via `wrangler dev`
-// directly against the built worker (dist/server), not just `astro
-// preview`. If a future dependency genuinely needs node:fs/node:path at
-// on-demand request time, this will need a different fix (e.g. removing
-// the dependency from the on-demand route's import tree) rather than
-// re-enabling this flag.
+// `nodejs_compat` is required (EmDash imports node:* modules) and must match
+// wrangler.jsonc. An older note here said it broke on-demand rendering (a
+// literal "[object Object]" body, because Astro took its Node streaming path
+// in workerd). Astro 7 wraps that body with ReadableStream.from() for workerd,
+// so it no longer applies: the blog, pages and resources render correctly.
 // CRITICAL: do NOT put "vars" here (e.g. DEV). This file is referenced
 // UNCONDITIONALLY by astro.config.mjs's `configPath` for every `astro build`
 // (including real production CI builds, not just local dev), so the Cloudflare

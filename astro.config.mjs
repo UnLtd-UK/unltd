@@ -108,6 +108,11 @@ export default defineConfig({
     // with the visual-editing toolbar. The default ("server") injects the toolbar
     // only on uncached responses, so behind the cache it comes and goes.
     toolbar: "client",
+    // Previews and local dev share the production database, so they must not
+    // migrate it: "check" serves a 503 instead of running migrations when the
+    // database is behind the code. Production applies them ("auto"). The deployed
+    // Workers get their mode from EMDASH_MIGRATIONS_MODE in wrangler.jsonc.
+    migrations: { runtime: "auto", dev: "check" },
   })],
   site: 'https://unltd.org.uk',
   trailingSlash: 'never',
@@ -120,8 +125,8 @@ export default defineConfig({
   // prerenderEnvironment stays "node" (not the adapter's default "workerd")
   // because existing build-time code (src/lib/generate-application-pdf.ts)
   // uses Node's fs/path APIs, which the workerd sandbox doesn't support.
-  // NOTE: do NOT add nodejs_compat to wrangler.astro.jsonc — it breaks on-demand
-  // rendering (see comment in that file for details).
+  // wrangler.astro.jsonc and wrangler.jsonc both enable nodejs_compat, which
+  // EmDash needs.
   adapter: cloudflare({
     configPath: "./wrangler.astro.jsonc",
     prerenderEnvironment: "node",

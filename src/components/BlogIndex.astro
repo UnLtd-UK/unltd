@@ -19,9 +19,11 @@ const name = "Blog";
 const description = "Read our posts.";
 const { posts, years, year } = Astro.props;
 
+// Absolute, because Breadcrumbs uses them as they are and a relative one
+// would resolve against /blog/<year>.
 const breadcrumbs = [
-  { name, path: "blog" },
-  ...(year ? [{ name: year, path: String(year) }] : []),
+  { name, path: "/blog" },
+  ...(year ? [{ name: year, path: `/blog/${year}` }] : []),
 ];
 ---
 
