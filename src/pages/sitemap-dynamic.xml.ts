@@ -1,8 +1,9 @@
 import type { APIRoute } from "astro";
 import { getAllPosts, postYears } from "@lib/posts-runtime";
 import { getPageSlugs } from "@lib/pages-runtime";
+import { getAllResources } from "@lib/resources-runtime";
 
-// The blog and CMS pages are rendered on demand, so the sitemap integration
+// The blog, CMS pages and resources are rendered on demand, so the sitemap integration
 // can't see them at build time. This lists them from EmDash; the integration
 // links to it from sitemap-index.xml (see `customSitemaps` in astro.config.mjs).
 export const prerender = false;
@@ -11,18 +12,19 @@ const escapeXml = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 export const GET: APIRoute = async ({ site, cache }) => {
-  const [{ posts, cacheHints: postHints }, { pages, cacheHints: pageHints }] = await Promise.all([
-    getAllPosts(),
-    getPageSlugs(),
-  ]);
+  const [{ posts, cacheHints: postHints }, { pages, cacheHints: pageHints }, { resources, cacheHints: resourceHints }] =
+    await Promise.all([getAllPosts(), getPageSlugs(), getAllResources()]);
   if (cache?.enabled) {
-    [...postHints, ...pageHints].forEach((hint) => cache.set(hint));
+    [...postHints, ...pageHints, ...resourceHints].forEach((hint) => cache.set(hint));
     cache.set({ maxAge: 3600, swr: 86400 });
   }
 
   const origin = String(site).replace(/\/$/, "");
   const urls: { path: string; lastmod?: string | null }[] = [
     ...pages.map((page) => ({ path: `/${page.slug}`, lastmod: page.updatedAt })),
+    { path: "/resources" },
+    // Hidden resources are only reachable by direct link, so they are left out.
+    ...resources.filter((resource) => !resource.hidden).map((resource) => ({ path: `/resources/${resource.slug}` })),
     { path: "/blog" },
     ...postYears(posts).map((year) => ({ path: `/blog/${year}` })),
     ...posts.map((post) => ({ path: `/blog/${post.slug}`, lastmod: post.date })),

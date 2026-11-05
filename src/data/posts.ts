@@ -1,7 +1,6 @@
 import type { PortableTextBlock, ImageValue } from "emdash";
 import {
   EMDASH_URL,
-  contentStatuses,
   createEmDashClient,
   emdashRequest,
   mapWithConcurrency,
@@ -68,10 +67,8 @@ export async function latestPosts(limit: number): Promise<PostEntry[]> {
   const client = createEmDashClient("posts");
   const items: any[] = [];
 
-  for (const status of contentStatuses) {
-    for await (const item of client.listAll("posts", { status, limit: 100 })) {
-      if (item.slug) items.push(item);
-    }
+  for await (const item of client.listAll("posts", { status: "published", limit: 100 })) {
+    if (item.slug) items.push(item);
   }
 
   const now = Date.now();

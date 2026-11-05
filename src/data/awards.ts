@@ -11,7 +11,7 @@
  * - ffp = Funding Futures Programme
  */
 
-import { contentStatuses, createEmDashClient, referenceChildIds } from '../lib/emdash.ts';
+import { createEmDashClient, referenceChildIds } from '../lib/emdash.ts';
 import { programmes } from './programmes.ts';
 
 export interface ProgrammeService {
@@ -124,21 +124,17 @@ async function fetchAwards(): Promise<Award[]> {
     const client = createEmDashClient('awards');
 
     const grantsById = new Map<string, Grant>();
-    for (const status of contentStatuses) {
-        for await (const item of client.listAll('grants', { status, limit: 100 })) {
-            grantsById.set(item.id, {
-                title: String(item.data.title ?? ''),
-                amount: Number(item.data.amount ?? 0),
-                usage: ((item.data.usage as string[] | null) ?? []).map(String),
-            });
-        }
+    for await (const item of client.listAll('grants', { status: 'published', limit: 100 })) {
+        grantsById.set(item.id, {
+            title: String(item.data.title ?? ''),
+            amount: Number(item.data.amount ?? 0),
+            usage: ((item.data.usage as string[] | null) ?? []).map(String),
+        });
     }
 
     const items: any[] = [];
-    for (const status of contentStatuses) {
-        for await (const item of client.listAll('products', { status, limit: 100 })) {
-            items.push(item);
-        }
+    for await (const item of client.listAll('products', { status: 'published', limit: 100 })) {
+        items.push(item);
     }
 
     const result: Award[] = [];

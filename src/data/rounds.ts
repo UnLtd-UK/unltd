@@ -1,4 +1,4 @@
-import { EMDASH_URL, contentStatuses, createEmDashClient } from "../lib/emdash.ts";
+import { EMDASH_URL, createEmDashClient } from "../lib/emdash.ts";
 
 /**
  * A round in the shape the round components (utils/application-rounds.js) read.
@@ -46,36 +46,34 @@ async function fetchRounds(): Promise<RoundEntry[]> {
   const client = createEmDashClient("rounds");
   const rounds: RoundEntry[] = [];
 
-  for (const status of contentStatuses) {
-    for await (const item of client.listAll("rounds", { status, limit: 100 })) {
-      const d = item.data;
-      const opens = toLondonWallClock(d.apply_open);
-      const closes = toLondonWallClock(d.apply_close);
-      const assessmentStarts = toLondonWallClock(d.application_review_open);
-      const assessmentEnds = toLondonWallClock(d.application_review_close);
-      const resultsStart = toLondonWallClock(d.result_open);
-      const resultsEnd = toLondonWallClock(d.result_close);
+  for await (const item of client.listAll("rounds", { status: "published", limit: 100 })) {
+    const d = item.data;
+    const opens = toLondonWallClock(d.apply_open);
+    const closes = toLondonWallClock(d.apply_close);
+    const assessmentStarts = toLondonWallClock(d.application_review_open);
+    const assessmentEnds = toLondonWallClock(d.application_review_close);
+    const resultsStart = toLondonWallClock(d.result_open);
+    const resultsEnd = toLondonWallClock(d.result_close);
 
-      if (!opens || !closes || !assessmentStarts || !assessmentEnds || !resultsStart || !resultsEnd) {
-        console.warn(`Round "${d.title}" is missing a date, skipping it`);
-        continue;
-      }
-
-      rounds.push({
-        id: item.id,
-        opens,
-        closes,
-        assessment_starts: assessmentStarts,
-        assessment_ends: assessmentEnds,
-        // Panel & recommendation is the stage that sits between assessment and results
-        interview_starts: toLondonWallClock(d.panel_recommendation_open),
-        interview_ends: toLondonWallClock(d.panel_recommendation_close),
-        results_start: resultsStart,
-        results_end: resultsEnd,
-        capacity: Number(d.capacity ?? 0),
-        capacity_status: Number(d.applications ?? 0),
-      });
+    if (!opens || !closes || !assessmentStarts || !assessmentEnds || !resultsStart || !resultsEnd) {
+      console.warn(`Round "${d.title}" is missing a date, skipping it`);
+      continue;
     }
+
+    rounds.push({
+      id: item.id,
+      opens,
+      closes,
+      assessment_starts: assessmentStarts,
+      assessment_ends: assessmentEnds,
+      // Panel & recommendation is the stage that sits between assessment and results
+      interview_starts: toLondonWallClock(d.panel_recommendation_open),
+      interview_ends: toLondonWallClock(d.panel_recommendation_close),
+      results_start: resultsStart,
+      results_end: resultsEnd,
+      capacity: Number(d.capacity ?? 0),
+      capacity_status: Number(d.applications ?? 0),
+    });
   }
 
   rounds.sort((a, b) => a.opens.localeCompare(b.opens));

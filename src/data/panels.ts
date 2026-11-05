@@ -1,4 +1,4 @@
-import { EMDASH_URL, contentStatuses, createEmDashClient, referenceChildIds } from "../lib/emdash.ts";
+import { EMDASH_URL, createEmDashClient, referenceChildIds } from "../lib/emdash.ts";
 import { imageUrl, peopleById, type Person } from "./people.ts";
 
 export interface PanelMember {
@@ -30,10 +30,8 @@ async function fetchPanels(): Promise<PanelEntry[]> {
     const client = createEmDashClient("panels");
 
     const items: any[] = [];
-    for (const status of contentStatuses) {
-        for await (const item of client.listAll("panels", { status, limit: 100 })) {
-            if (item.slug) items.push(item);
-        }
+    for await (const item of client.listAll("panels", { status: "published", limit: 100 })) {
+        if (item.slug) items.push(item);
     }
 
     const panels: PanelEntry[] = [];

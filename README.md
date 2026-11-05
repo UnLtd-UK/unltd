@@ -8,7 +8,7 @@ The UnLtd website, built with [Astro](https://astro.build) and deployed to Cloud
 | -------------------------- | ------------------------------------ | ---------------------------------------------------- |
 | Pages                      | `pages`                              | [src/lib/pages-runtime.ts](src/lib/pages-runtime.ts) (on demand; menus use [src/data/pages.ts](src/data/pages.ts)) |
 | Blog posts                 | `posts` (+ `tag` taxonomy, bylines)  | [src/lib/posts-runtime.ts](src/lib/posts-runtime.ts) (on demand; the home page uses [src/data/posts.ts](src/data/posts.ts)) |
-| Resources                  | `resources`                          | [src/data/resources.ts](src/data/resources.ts)       |
+| Resources                  | `resources`                          | [src/lib/resources-runtime.ts](src/lib/resources-runtime.ts) (on demand; the application PDFs use [src/data/resources.ts](src/data/resources.ts)) |
 | Programmes and services    | `programmes`, `services`             | [src/data/programmes.ts](src/data/programmes.ts)     |
 | Awards                     | `products`, `grants`                 | [src/data/awards.ts](src/data/awards.ts)             |
 | Award rounds               | `rounds`                             | [src/data/rounds.ts](src/data/rounds.ts)             |
@@ -68,14 +68,8 @@ npm run build
 npm run preview
 ```
 
-### Show drafts
-By default only `published` content is fetched. To include drafts of the content built into the static pages (resources, programmes and so on), set the `SHOW_DRAFTS` env var when running the dev server or build:
-
-```bash
-SHOW_DRAFTS=true npm run dev
-```
-
-This adds `draft` items to what is read from EmDash at build time (see [src/lib/emdash.ts](src/lib/emdash.ts)). It is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-preview.yml](.github/workflows/deploy-preview.yml)) and `false` for production ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)). It does not affect the blog or pages: they are rendered on demand, and drafts are previewed with EmDash's preview link (see [Pages](#pages) and [Blog posts](#blog-posts)).
+### Drafts
+Only `published` content is read at build time. Drafts are previewed in EmDash itself: the blog, pages and resources are rendered on demand, so open a draft with EmDash's preview link (see [Pages](#pages) and [Blog posts](#blog-posts)). Content that is built into the static pages (programmes, awards, people and so on) has no preview: it appears after it is published and the site is next deployed.
 
 ## Redirects
 
@@ -89,7 +83,9 @@ This relies on `not_found_handling: "none"` in [wrangler.jsonc](wrangler.jsonc) 
 
 Pages are managed in the EmDash admin, in the **Pages** collection, and are served at `/<slug>`. Like the blog they are rendered on demand ([src/pages/[page].astro](src/pages/[page].astro)), so a new, edited or published page shows without a rebuild, and a draft can be previewed with EmDash's preview link (`/<slug>?_preview=<token>`). Pages with their own file in `src/pages` (such as `awards` and `contact`) take priority over a CMS page with the same slug. The menus still read the page list at build time, so a new page added to a menu appears in it after the next deploy.
 
-`/sitemap-dynamic.xml` ([src/pages/sitemap-dynamic.xml.ts](src/pages/sitemap-dynamic.xml.ts)) lists the pages and blog posts for search engines and is linked from `sitemap-index.xml`.
+Resources (`/resources` and `/resources/<slug>`) work the same way ([src/pages/resources](src/pages/resources)); set the **Resources** collection's URL pattern to `/resources/{slug}` so the Preview button links correctly. A resource marked hidden is still served at its link but is not listed or indexed. The upcoming events shown on `/resources` come from Eventbrite at build time ([src/pages/programme-events.json.ts](src/pages/programme-events.json.ts)), so they update on the next deploy.
+
+`/sitemap-dynamic.xml` ([src/pages/sitemap-dynamic.xml.ts](src/pages/sitemap-dynamic.xml.ts)) lists the pages, resources and blog posts for search engines and is linked from `sitemap-index.xml`.
 
 ## Blog posts
 

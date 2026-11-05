@@ -8,7 +8,7 @@
  * grant.
  */
 
-import { EMDASH_URL, createEmDashClient, mapWithConcurrency, referenceChildIds, showDrafts } from '../lib/emdash.ts';
+import { EMDASH_URL, createEmDashClient, mapWithConcurrency, referenceChildIds } from '../lib/emdash.ts';
 import { awards, type Award } from './awards.ts';
 import { resources, type ResourceEntry } from './resources.ts';
 
@@ -85,14 +85,11 @@ const text = (value: unknown) => String(value ?? '').trim();
 
 async function fetchApplications(): Promise<ApplicationEntry[]> {
     const client = createEmDashClient('applications');
-    const statuses = showDrafts ? ['published', 'draft'] : ['published'];
 
     const list = async (collection: string) => {
         const items: any[] = [];
-        for (const status of statuses) {
-            for await (const item of client.listAll(collection, { status, limit: 100 })) {
-                if (item.slug) items.push(item);
-            }
+        for await (const item of client.listAll(collection, { status: 'published', limit: 100 })) {
+            if (item.slug) items.push(item);
         }
         return items;
     };

@@ -1,4 +1,4 @@
-import { EMDASH_URL, contentStatuses, createEmDashClient } from "../lib/emdash.ts";
+import { EMDASH_URL, createEmDashClient } from "../lib/emdash.ts";
 
 export interface FaqEntry {
   question: string;
@@ -9,13 +9,11 @@ async function fetchFaqs(): Promise<FaqEntry[]> {
   const client = createEmDashClient("FAQs");
   const faqs: FaqEntry[] = [];
 
-  for (const status of contentStatuses) {
-    for await (const item of client.listAll("faqs", { status, limit: 100 })) {
-      faqs.push({
-        question: String(item.data.title ?? "").trim(),
-        answer: String(item.data.answer ?? "").trim(),
-      });
-    }
+  for await (const item of client.listAll("faqs", { status: "published", limit: 100 })) {
+    faqs.push({
+      question: String(item.data.title ?? "").trim(),
+      answer: String(item.data.answer ?? "").trim(),
+    });
   }
 
   // EmDash FAQs have no manual order, so list them alphabetically.

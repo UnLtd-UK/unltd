@@ -53,7 +53,6 @@ interface GeneratePdfOptions {
     stageSlug?: string;
     stageText?: string;
     sections: ApplicationSection[];
-    includeDrafts?: boolean;
     awards?: AwardData[];
     resources?: ResourceData[];
 }
@@ -1261,12 +1260,8 @@ function renderKeyValueField(
     cursor.y -= 4;
 }
 
-function getVisibleSections(
-    sections: ApplicationSection[],
-    includeDrafts: boolean,
-): ApplicationSection[] {
-    const isVisibleStatus = (status?: string) =>
-        status === "published" || (includeDrafts && status === "draft");
+function getVisibleSections(sections: ApplicationSection[]): ApplicationSection[] {
+    const isVisibleStatus = (status?: string) => status === "published";
 
     return sections
         .filter((section) => isVisibleStatus(section.status))
@@ -1288,11 +1283,10 @@ export async function generateApplicationPdf(
         stageSlug,
         stageText,
         sections: inputSections,
-        includeDrafts = false,
         awards,
         resources,
     } = options;
-    const sections = getVisibleSections(inputSections, includeDrafts);
+    const sections = getVisibleSections(inputSections);
 
     // Find the most recent update across all sections and fields
     const allDates: number[] = [];

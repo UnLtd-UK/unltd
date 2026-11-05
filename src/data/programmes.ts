@@ -2,7 +2,6 @@ import type { PortableTextBlock } from "emdash";
 import {
   EMDASH_URL,
   absoluteMediaUrls,
-  contentStatuses,
   createEmDashClient,
   referenceChildIds,
 } from "../lib/emdash.ts";
@@ -108,15 +107,13 @@ async function fetchProgrammes(): Promise<ProgrammeEntry[]> {
   const client = createEmDashClient("programmes");
 
   const servicesById = new Map<string, ProgrammeService>();
-  for (const status of contentStatuses) {
-    for await (const item of client.listAll("services", { status, limit: 100 })) {
-      servicesById.set(item.id, {
-        slug: String(item.slug ?? ""),
-        title: String(item.data.title ?? "").trim(),
-        subtitle: String(item.data.subtitle ?? "").trim(),
-        icon: serviceIcon(String(item.data.icon ?? "").trim()),
-      });
-    }
+  for await (const item of client.listAll("services", { status: "published", limit: 100 })) {
+    servicesById.set(item.id, {
+      slug: String(item.slug ?? ""),
+      title: String(item.data.title ?? "").trim(),
+      subtitle: String(item.data.subtitle ?? "").trim(),
+      icon: serviceIcon(String(item.data.icon ?? "").trim()),
+    });
   }
 
   async function fetchServices(programmeId: string): Promise<ProgrammeService[]> {
@@ -125,10 +122,8 @@ async function fetchProgrammes(): Promise<ProgrammeEntry[]> {
   }
 
   const items: any[] = [];
-  for (const status of contentStatuses) {
-    for await (const item of client.listAll("programmes", { status, limit: 100 })) {
-      if (item.slug) items.push(item);
-    }
+  for await (const item of client.listAll("programmes", { status: "published", limit: 100 })) {
+    if (item.slug) items.push(item);
   }
 
   const programmes: ProgrammeEntry[] = [];

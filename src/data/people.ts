@@ -1,6 +1,5 @@
 import {
   EMDASH_URL,
-  contentStatuses,
   createEmDashClient,
   referenceChildIds,
 } from "../lib/emdash.ts";
@@ -43,22 +42,20 @@ async function fetchPeople(): Promise<Map<string, Person>> {
   const client = createEmDashClient("people");
 
   const peopleById = new Map<string, Person>();
-  for (const status of contentStatuses) {
-    for await (const item of client.listAll("people", { status, limit: 100 })) {
-      const d = item.data;
-      const name = text(d.title);
-      const roleStatus = text(d.role_status);
-      peopleById.set(item.id, {
-        id: item.id,
-        name,
-        pronouns: text(d.pronouns),
-        roleTitle: text(d.role_title),
-        roleStatus: roleStatus.toLowerCase() === "active" ? "" : roleStatus,
-        linkedin: text(d.linkedin),
-        image: imageUrl(d.image),
-        imageAlt: text(d.image?.alt) || name,
-      });
-    }
+  for await (const item of client.listAll("people", { status: "published", limit: 100 })) {
+    const d = item.data;
+    const name = text(d.title);
+    const roleStatus = text(d.role_status);
+    peopleById.set(item.id, {
+      id: item.id,
+      name,
+      pronouns: text(d.pronouns),
+      roleTitle: text(d.role_title),
+      roleStatus: roleStatus.toLowerCase() === "active" ? "" : roleStatus,
+      linkedin: text(d.linkedin),
+      image: imageUrl(d.image),
+      imageAlt: text(d.image?.alt) || name,
+    });
   }
   return peopleById;
 }
@@ -69,10 +66,8 @@ async function fetchTeams(): Promise<TeamEntry[]> {
   const client = createEmDashClient("teams");
 
   const items: any[] = [];
-  for (const status of contentStatuses) {
-    for await (const item of client.listAll("teams", { status, limit: 100 })) {
-      items.push(item);
-    }
+  for await (const item of client.listAll("teams", { status: "published", limit: 100 })) {
+    items.push(item);
   }
   // Teams have no manual order; they are listed in the order they were created.
   items.sort((a, b) => String(a.createdAt).localeCompare(String(b.createdAt)));

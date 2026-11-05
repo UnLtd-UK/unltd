@@ -11,9 +11,7 @@ import type { GetStaticPaths } from "astro";
 import { applications, getApplicationBySlug } from "@data/applications";
 import { generateApplicationPdf } from "@lib/generate-application-pdf";
 
-const showDrafts = process.env.SHOW_DRAFTS === "true";
-const isVisibleStatus = (status?: string) =>
-    status === "published" || (showDrafts && status === "draft");
+const isVisibleStatus = (status?: string) => status === "published";
 
 export const getStaticPaths: GetStaticPaths = () => {
     return applications
@@ -36,7 +34,6 @@ export async function GET({ params }: { params: { slug: string } }) {
         stageSlug: application.portalValue ?? undefined,
         stageText: application.stageText ?? undefined,
         sections: application.sections,
-        includeDrafts: showDrafts,
         awards: application.awards,
         resources: application.resources,
     });

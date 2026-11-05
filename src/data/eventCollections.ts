@@ -234,18 +234,7 @@ export function formatDate(dateString: string) {
   });
 }
 
-export function isPastEvent(event: Event): boolean {
-  const now = new Date();
-  return new Date(event.end.local) < now;
-}
-
-export function sortEvents(events: Event[]): Event[] {
-  return [...events].sort((a, b) => {
-    const aStart = new Date(a.start.local).getTime();
-    const bStart = new Date(b.start.local).getTime();
-    return aStart - bStart;
-  });
-}
+export { isPastEvent, sortEvents } from "../lib/event-helpers.ts";
 
 export const collections = {
   "for-social-entrepreneurs": {

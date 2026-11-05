@@ -1,4 +1,4 @@
-import { EMDASH_URL, createEmDashClient, showDrafts } from "../lib/emdash.ts";
+import { EMDASH_URL, createEmDashClient } from "../lib/emdash.ts";
 
 /**
  * Just what the menus need to turn a page reference into a URL. Pages
@@ -12,17 +12,11 @@ export interface PageEntry {
 
 async function fetchPages(): Promise<PageEntry[]> {
   const client = createEmDashClient("pages");
-  const statuses = showDrafts ? ["published", "draft"] : ["published"];
   const pages: PageEntry[] = [];
 
-  for (const status of statuses) {
-    for await (const item of client.listAll("pages", {
-      status,
-      limit: 100,
-    })) {
-      if (!item.slug) continue;
-      pages.push({ id: item.id, slug: item.slug });
-    }
+  for await (const item of client.listAll("pages", { status: "published", limit: 100 })) {
+    if (!item.slug) continue;
+    pages.push({ id: item.id, slug: item.slug });
   }
 
   console.log(`Loaded ${pages.length} pages from EmDash (${EMDASH_URL})`);

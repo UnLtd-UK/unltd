@@ -111,14 +111,12 @@
 	},
 	"workers_dev": true,
 	"vars": {
-		"DEV": "true",
-		"SHOW_DRAFTS": "true"
+		"DEV": "true"
 	},
 	"env": {
 		"production": {
 			"vars": {
-				"DEV": "false",
-				"SHOW_DRAFTS": "false"
+				"DEV": "false"
 			},
 			// Named environments don't inherit top-level kv_namespaces/images —
 			// must be redeclared here or the deployed worker loses these bindings.

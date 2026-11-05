@@ -1,6 +1,6 @@
 import type { PortableTextBlock } from "emdash";
 import { calculateReadTime } from "./functions/read-time.js";
-import { EMDASH_URL, absoluteMediaUrls, createEmDashClient, showDrafts } from "../lib/emdash.ts";
+import { EMDASH_URL, absoluteMediaUrls, createEmDashClient } from "../lib/emdash.ts";
 
 export interface ResourceEntry {
   id: string;
@@ -26,27 +26,21 @@ function portableTextToPlain(value: unknown): string {
 
 async function fetchResources(): Promise<ResourceEntry[]> {
   const client = createEmDashClient("resources");
-  const statuses = showDrafts ? ["published", "draft"] : ["published"];
   const resources: ResourceEntry[] = [];
 
-  for (const status of statuses) {
-    for await (const item of client.listAll("resources", {
-      status,
-      limit: 100,
-    })) {
-      if (!item.slug) continue;
-      const content = absoluteMediaUrls((item.data.content as PortableTextBlock[] | null) ?? []);
-      resources.push({
-        id: item.id,
-        slug: item.slug,
-        title: String(item.data.title ?? ""),
-        subtitle: String(item.data.subtitle ?? ""),
-        content,
-        hidden: Boolean(item.data.hidden),
-        readTime: Math.max(1, calculateReadTime(portableTextToPlain(content))),
-        updatedAt: item.updatedAt,
-      });
-    }
+  for await (const item of client.listAll("resources", { status: "published", limit: 100 })) {
+    if (!item.slug) continue;
+    const content = absoluteMediaUrls((item.data.content as PortableTextBlock[] | null) ?? []);
+    resources.push({
+      id: item.id,
+      slug: item.slug,
+      title: String(item.data.title ?? ""),
+      subtitle: String(item.data.subtitle ?? ""),
+      content,
+      hidden: Boolean(item.data.hidden),
+      readTime: Math.max(1, calculateReadTime(portableTextToPlain(content))),
+      updatedAt: item.updatedAt,
+    });
   }
 
   resources.sort((a, b) => a.title.localeCompare(b.title, "en-GB"));

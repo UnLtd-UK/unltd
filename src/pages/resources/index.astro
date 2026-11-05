@@ -6,18 +6,30 @@ import Default from "@components/heroes/Default.astro";
 import Icon from "@components/Icon.astro";
 import EventCardCompact from "@components/resources/EventCardCompact.astro";
 
-import { resources as allResources } from "@data/resources";
-import {
-  programmeEvents,
-  isPastEvent,
-  sortEvents,
-} from "@data/eventCollections";
+import { getAllResources } from "@lib/resources-runtime";
+import { loadProgrammeEvents } from "@lib/site-shell";
+import { isPastEvent, sortEvents } from "@lib/event-helpers";
+import { CMS_PAGE_CACHE } from "@lib/route-cache";
+
+// Rendered on demand so a new or edited resource shows without a rebuild.
+// Route caching keeps it fast: EmDash tags the response, and publishing purges
+// it. The upcoming events come from the build (Eventbrite), as before.
+export const prerender = false;
 
 const title = "Resources";
 const description =
   "Information and resources for social entrepreneurs on Awards.";
 
 const breadcrumbs = [{ name: title, path: "/resources" }];
+
+const [{ resources: allResources, cacheHints }, programmeEvents] = await Promise.all([
+  getAllResources(),
+  loadProgrammeEvents(Astro),
+]);
+if (Astro.cache?.enabled) {
+  cacheHints.forEach((hint) => Astro.cache.set(hint));
+  Astro.cache.set(CMS_PAGE_CACHE);
+}
 
 // Hidden resources are only reachable by direct link.
 const resources = allResources.filter((resource) => !resource.hidden);

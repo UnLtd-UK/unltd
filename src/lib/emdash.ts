@@ -21,14 +21,6 @@ if (!EMDASH_URL) {
 const EMDASH_TOKEN = await resolveEnvVar("EMDASH_TOKEN");
 const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:|\/|$)/.test(EMDASH_URL);
 
-export const showDrafts = process.env.SHOW_DRAFTS === "true";
-console.log(`Show Drafts: ${showDrafts}`);
-
-/** Statuses to read: published content, plus drafts and scheduled when SHOW_DRAFTS=true. */
-export const contentStatuses = showDrafts
-  ? ["published", "scheduled", "draft"]
-  : ["published"];
-
 /**
  * The client has no public method for a post's taxonomy terms, so call its
  * JSON request method (private in the types, available at runtime).

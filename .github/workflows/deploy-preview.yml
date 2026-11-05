@@ -19,7 +19,6 @@ jobs:
       FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
       EMDASH_TOKEN: ${{ secrets.EMDASH_TOKEN }}
       EMDASH_URL: ${{ vars.EMDASH_URL }}
-      SHOW_DRAFTS: "true"
     steps:
       - name: Checkout repo
         uses: actions/checkout@v7
