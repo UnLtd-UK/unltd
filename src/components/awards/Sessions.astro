@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import Icon from "@components/Icon.astro";
 import Faq from "@components/Faq.astro";
 import {
@@ -8,6 +7,7 @@ import {
     sortEvents,
 } from "@data/eventCollections";
 import { faq } from "@data/faq.ts";
+import { getMediaItem } from "@lib/emdash";
 import Container from "@components/Container.astro";
 
 const EVENTBRITE_PROGRAMMES_COLLECTION_URL =
@@ -20,6 +20,11 @@ const EVENTBRITE_PROGRAMMES_COLLECTION_URL =
 const programmeEvents = sortEvents(fetchedProgrammeEvents).filter(
     (event) => event.start?.local && !isPastEvent(event),
 );
+
+// The "Supported by" logo is a media library item, so its alt text is the one
+// set in EmDash.
+const WELSH_GOVERNMENT_LOGO_ID = "01M6F9F2WC752KNDMTFVHB2ZS6";
+const welshGovernmentLogo = await getMediaItem(WELSH_GOVERNMENT_LOGO_ID);
 
 const ONE_TO_ONE_BOOKING_URL =
     "https://outlook.office.com/book/G42610266167744e1ae64a423288c9b38@unltd.org.uk/s/S0ldiSpGkEC1Dt2OXAgVXw2?ismsaljsauthenabled";
@@ -487,12 +492,12 @@ const ONE_TO_ONE_BOOKING_URL =
                             class="text-xs text-violet-500 dark:text-violet-400"
                             >Supported by</span
                         >
-                        <Image
-                            src="/_emdash/api/media/file/01M6F9F2RCKNPGTYXKWXCHJMVB.webp"
-                            alt="Welsh Government"
-                            width={200}
-                            height={48}
-                            fit="contain"
+                        <img
+                            src={welshGovernmentLogo.url}
+                            alt={welshGovernmentLogo.alt}
+                            width={welshGovernmentLogo.width}
+                            height={welshGovernmentLogo.height}
+                            loading="lazy"
                             class="h-12 w-auto"
                         />
                     </div>
