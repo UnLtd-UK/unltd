@@ -148,7 +148,7 @@ export default defineConfig({
     // Allows astro:assets <Image>/<Picture> to fetch, resize and reformat
     // remote images at build time instead of passing them through unprocessed:
     // images served by the EmDash site.
-    domains: ["feature-emdash.unltd.workers.dev", ...(emdashHost ? [emdashHost] : [])],
+    domains: emdashHost ? [emdashHost] : [],
   },
   fonts: [
     {

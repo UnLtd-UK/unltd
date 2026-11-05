@@ -14,7 +14,7 @@ export const EMDASH_URL = (
 
 if (!EMDASH_URL) {
   throw new Error(
-    "EMDASH_URL is required to build pages (the EmDash site to read from, e.g. https://feature-emdash.unltd.workers.dev).",
+    "EMDASH_URL is required to build pages (the EmDash site to read from, e.g. https://unltd.org.uk).",
   );
 }
 
@@ -30,6 +30,28 @@ export function emdashRequest<T>(client: EmDashClient, method: string, path: str
     request: (method: string, path: string) => Promise<T>;
   };
   return raw.request(method, path);
+}
+
+export interface MediaItem {
+  /** Root-relative URL of the file; EmDash serves it on whichever domain the site runs on. */
+  url: string;
+  alt: string;
+  width?: number;
+  height?: number;
+}
+
+/** A media library item by ID, so a page can use its alt text and size from EmDash rather than repeating them. */
+export async function getMediaItem(id: string): Promise<MediaItem> {
+  const client = createEmDashClient("media");
+  const { item } = await emdashRequest<{
+    item: { storageKey: string; alt: string | null; width: number | null; height: number | null };
+  }>(client, "GET", `/media/${encodeURIComponent(id)}`);
+  return {
+    url: `/_emdash/api/media/file/${item.storageKey}`,
+    alt: item.alt?.trim() ?? "",
+    width: item.width ?? undefined,
+    height: item.height ?? undefined,
+  };
 }
 
 /** Maps `items` through an async `fn`, running at most `limit` calls at once. */
