@@ -22,7 +22,9 @@ const isSubscribe = mode === "subscribe";
 const endpoint = isSubscribe
     ? "/api/newsletter/subscribe"
     : "/api/newsletter/unsubscribe-request";
-const buttonLabel = isSubscribe ? "Subscribe" : "Send unsubscribe link";
+const buttonLabel = isSubscribe
+    ? "Send confirmation email"
+    : "Send unsubscribe link";
 ---
 
 {
@@ -97,10 +99,16 @@ const buttonLabel = isSubscribe ? "Subscribe" : "Send unsubscribe link";
                 </p>
                 {isSubscribe && (
                     <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">
-                        Subscribing opts you in to our Social Entrepreneur and
-                        Partnerships newsletters. We'll email you to confirm
-                        your address, and you can unsubscribe from either topic
-                        at any time.
+                        We'll email you a link to confirm. You're not
+                        subscribed until you click it, which opts you in to our
+                        Social Entrepreneur and Partnerships newsletters. You
+                        can unsubscribe from either topic at any time.
+                        Already subscribed?{" "}
+                        <a
+                            href="/newsletter/unsubscribe"
+                            class="underline hover:text-slate-900 dark:hover:text-slate-100"
+                            >Unsubscribe</a
+                        >.
                     </p>
                 )}
             </form>
