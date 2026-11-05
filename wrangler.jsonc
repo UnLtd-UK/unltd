@@ -72,6 +72,11 @@
 			"id": "de01c0c8d4a945c68572f2e3bb2a68c5"
 		}
 	],
+	// Strongly consistent per-email newsletter consent state (see src/lib/newsletter/consent.ts).
+	"durable_objects": {
+		"bindings": [{ "name": "NEWSLETTER_CONSENT", "class_name": "NewsletterConsent" }]
+	},
+	"migrations": [{ "tag": "v1", "new_sqlite_classes": ["NewsletterConsent"] }],
 	"images": {
 		"binding": "IMAGES"
 	},
@@ -135,6 +140,10 @@
 					"id": "059745ad29db4bb88e2e3d2daf83a752"
 				}
 			],
+			"durable_objects": {
+				"bindings": [{ "name": "NEWSLETTER_CONSENT", "class_name": "NewsletterConsent" }]
+			},
+			"migrations": [{ "tag": "v1", "new_sqlite_classes": ["NewsletterConsent"] }],
 			"images": {
 				"binding": "IMAGES"
 			},

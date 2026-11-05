@@ -2,7 +2,7 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 import { clientIp, json, readBody, unavailable } from "@lib/newsletter/api";
-import { advanceNewsletterConsentVersion, getNewsletterConsentVersion } from "@lib/newsletter/consent";
+import { redeemNewsletterConsent } from "@lib/newsletter/consent";
 import { getNewsletterConfig, unsubscribeContact } from "@lib/newsletter/resend";
 import { hashForKey, isRateLimited } from "@lib/newsletter/rate-limit";
 import { verifyToken } from "@lib/newsletter/token";
@@ -23,14 +23,10 @@ export const POST: APIRoute = async (context) => {
     if (limited) return json({ error: "rate" }, 429);
 
     try {
-        if ((await getNewsletterConsentVersion(result.email)) !== result.consentVersion) {
-            return json({ error: "stale" }, 409);
-        }
-
-        await unsubscribeContact(config, result.email);
-        if (!(await advanceNewsletterConsentVersion(result.email, result.consentVersion))) {
-            return json({ error: "stale" }, 409);
-        }
+        const redeemed = await redeemNewsletterConsent(result.email, result.consentVersion, () =>
+            unsubscribeContact(config, result.email),
+        );
+        if (!redeemed.ok) return json({ error: "stale" }, 409);
     } catch (error) {
         console.error("[newsletter] unsubscribe failed", error);
         return json({ error: "server" }, 500);

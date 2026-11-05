@@ -47,6 +47,10 @@
   ],
   // Worker Loader for EmDash's sandboxed (registry) plugins.
   "worker_loaders": [{ "binding": "LOADER" }],
+  "durable_objects": {
+    "bindings": [{ "name": "NEWSLETTER_CONSENT", "class_name": "NewsletterConsent" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["NewsletterConsent"] }],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS"

@@ -2,7 +2,7 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 import { clientIp, json, readBody, unavailable } from "@lib/newsletter/api";
-import { advanceNewsletterConsentVersion, getNewsletterConsentVersion } from "@lib/newsletter/consent";
+import { redeemNewsletterConsent } from "@lib/newsletter/consent";
 import { welcomeEmail } from "@lib/newsletter/emails";
 import { getNewsletterConfig, sendEmail, subscribeContact } from "@lib/newsletter/resend";
 import { hashForKey, isRateLimited } from "@lib/newsletter/rate-limit";
@@ -24,14 +24,11 @@ export const POST: APIRoute = async (context) => {
     if (limited) return json({ error: "rate" }, 429);
 
     try {
-        if ((await getNewsletterConsentVersion(result.email)) !== result.consentVersion) {
-            return json({ error: "stale" }, 409);
-        }
-
-        const outcome = await subscribeContact(config, result.email);
-        if (!(await advanceNewsletterConsentVersion(result.email, result.consentVersion))) {
-            return json({ error: "stale" }, 409);
-        }
+        const redeemed = await redeemNewsletterConsent(result.email, result.consentVersion, () =>
+            subscribeContact(config, result.email),
+        );
+        if (!redeemed.ok) return json({ error: "stale" }, 409);
+        const outcome = redeemed.value;
 
         if (outcome === "subscribed") {
             // Welcome email failure shouldn't undo a successful subscription.
