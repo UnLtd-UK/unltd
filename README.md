@@ -1,6 +1,15 @@
 # UnLtd
 
-The UnLtd website, built with [Astro](https://astro.build) and deployed to Cloudflare Workers. All editable content lives in [EmDash](https://emdashcms.com), the CMS that runs alongside the site (admin at `/_emdash/admin`). The site is static: it reads content from EmDash's HTTP API when it builds, so published changes appear on the next deploy.
+The UnLtd website, built with [Astro](https://astro.build) and deployed to Cloudflare Workers. All editable content lives in [EmDash](https://emdashcms.com), the CMS that runs alongside the site (admin at `/_emdash/admin`). Most of the site is static: it reads content from EmDash's HTTP API when it builds, so published changes appear on the next deploy. The blog, pages and resources are rendered on demand, so they update without a rebuild.
+
+## EmDash links
+
+| What | URL |
+| ---- | --- |
+| Admin | https://unltd.org.uk/_emdash/admin |
+| MCP server | https://unltd.org.uk/_emdash/api/mcp |
+
+The MCP server is for connecting an AI client (such as VS Code) to the CMS. Sign-in uses OAuth, and the connection reads and writes the same content as the admin. Locally, `astro dev` serves both at `http://localhost:4321/_emdash/...`.
 
 ## Content
 
