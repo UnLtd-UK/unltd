@@ -3,7 +3,8 @@ import Icon from "@components/Icon.astro";
 import DynamicIcon from "@components/DynamicIcon.astro";
 // NEW FOOTER
 import { navigation } from "@data/navigation.ts";
-import { footerLinks } from "@data/menu.ts";
+import type { FooterLinkGroup } from "@data/menu.ts";
+const { footerLinks } = Astro.props as { footerLinks: FooterLinkGroup[] };
 const nav = navigation.code;
 import Container from "@components/Container.astro";
 

@@ -4,6 +4,7 @@ import alpinejs from "@astrojs/alpinejs";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import cloudflare from "@astrojs/cloudflare";
+import { cacheCloudflare } from "@astrojs/cloudflare/cache";
 import fs from "node:fs";
 
 import emdash from "emdash/astro";
@@ -51,6 +52,35 @@ const stubCloudflareWorkersInPrerender = {
   },
 };
 
+// Pages are prerendered in Node and read content over EmDash's HTTP API, so
+// EmDash's request middleware has nothing to do there. Left in, it reads
+// `Astro.request.headers` (warning on every page) and tries to open the D1
+// binding, which only exists in workerd ("runtime init failed"). Replace it
+// with a pass-through for the prerender environment only; on-demand routes
+// (the admin, API and live content) keep the real middleware.
+const EMDASH_MIDDLEWARE = new Set([
+  "emdash/middleware",
+  "emdash/internal/middleware/redirect",
+  "emdash/internal/middleware/setup",
+  "emdash/internal/middleware/auth",
+  "emdash/internal/middleware/media-usage-write-fence",
+  "emdash/internal/middleware/request-context",
+]);
+const skipEmdashMiddlewareInPrerender = {
+  name: "skip-emdash-middleware-in-prerender",
+  enforce: "pre",
+  resolveId(id) {
+    if (EMDASH_MIDDLEWARE.has(id) && this.environment?.name === "prerender") {
+      return "\0stub:emdash-middleware";
+    }
+  },
+  load(id) {
+    if (id === "\0stub:emdash-middleware") {
+      return "export const onRequest = (_context, next) => next(); export default onRequest;";
+    }
+  },
+};
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [alpinejs(), react(), sitemap(), emdash({
@@ -91,8 +121,20 @@ export default defineConfig({
     configPath: "./wrangler.astro.jsonc",
     prerenderEnvironment: "node",
   }),
+  // Route caching for on-demand pages. The blog is rendered per request from
+  // EmDash's database; Cloudflare's cache keeps repeat visits fast. EmDash tags
+  // each response with the content it read and purges those tags when content is
+  // saved or published, so edits show up without a rebuild. maxAge is the fallback
+  // for anything not purged (the header, footer and round banner come from the build).
+  cache: {
+    provider: cacheCloudflare(),
+  },
+  routeRules: {
+    "/blog": { maxAge: 600, swr: 3600 },
+    "/blog/[...path]": { maxAge: 600, swr: 3600 },
+  },
   vite: {
-    plugins: [tailwindcss(), stubCloudflareWorkersInPrerender],
+    plugins: [tailwindcss(), stubCloudflareWorkersInPrerender, skipEmdashMiddlewareInPrerender],
     ssr: {
       noExternal: ['react', 'react-dom']
     }

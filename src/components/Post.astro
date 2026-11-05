@@ -1,5 +1,6 @@
 ---
 import { Image } from "astro:assets";
+import { Image as EmDashImage } from "emdash/ui";
 import Icon from "@components/Icon.astro";
 import type { PostEntry } from "@data/posts";
 import { formatAuthors, formatPostDate } from "@utils/post-format";
@@ -17,7 +18,15 @@ const authors = formatAuthors(post.authors);
                 class="relative w-full h-64 bg-violet-800 rounded-2xl border border-violet-600"
             >
                 {
-                    post.image ? (
+                    post.image?.media ? (
+                        <EmDashImage
+                            image={post.image.media}
+                            alt=""
+                            width={800}
+                            height={512}
+                            class="absolute inset-0 w-full h-full object-cover rounded-2xl"
+                        />
+                    ) : post.image ? (
                         <Image
                             src={post.image.src}
                             alt=""

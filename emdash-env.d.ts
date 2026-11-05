@@ -3,7 +3,7 @@
 
 /// <reference types="emdash/locals" />
 
-import type { BylineSummary, ContentBylineCredit, TaxonomyTerm, PortableTextBlock } from "emdash";
+import type { BylineSummary, ContentBylineCredit, TaxonomyTerm, PortableTextBlock, ReferencePage } from "emdash";
 
 export interface Page {
   id: string;
@@ -26,9 +26,9 @@ export interface Post {
   slug: string | null;
   status: string;
   title: string;
+  subtitle: string;
   featured_image?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } };
   content?: PortableTextBlock[];
-  excerpt?: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -43,6 +43,7 @@ export interface Resource {
   status: string;
   title: string;
   subtitle: string;
+  hidden?: boolean;
   content?: PortableTextBlock[];
   createdAt: Date;
   updatedAt: Date;
@@ -52,10 +53,321 @@ export interface Resource {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface Form {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  subtitle: string;
+  email: string;
+  dialog_title?: string;
+  dialog_subtitle?: string;
+  dialog_button?: string;
+  dialog_url?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface People {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  pronouns: "he/him" | "she/her" | "they/them";
+  role_title: "Assistant Impact Analyst" | "Building Manager" | "Business Development Lead" | "Central Services Lead" | "Chair of Trustees" | "Chief Executive Officer" | "Communications Assistant" | "Communications Manager" | "CRM Manager" | "Data Integrity Manager" | "Digital Product Manager" | "Director of Corporate Services" | "Director of Delivery & Investment" | "Director of Impact and Influence" | "Director of People and Culture" | "Director of Social Entrepreneur Support" | "Events Manager" | "Executive Assistant to CEO" | "Finance Assistant" | "Finance Manager" | "Head of Community and Partnerships" | "Head of External Affairs" | "Head of Finance" | "Head of Fundraising" | "Head of Investment" | "Head of Operations" | "Head of Research, Impact, and Learning" | "Head of Social Entrepreneur Support" | "Head of Systems" | "Information Technology Systems Technician" | "Mentoring Support Manager" | "Office & Facilities Coordinator" | "Partnership and Community Engagement Officer" | "People Coordinator" | "Portfolio Manager" | "Pro Bono Support Manager" | "Programme and Support Coordinator" | "Programmes and Partnerships Manager" | "Researcher" | "Senior Researcher" | "Senior Social Impact Analyst" | "Social Entrepreneur Support Administrative Officer" | "Social Entrepreneur Support Lead - Impact" | "Social Entrepreneur Support Manager" | "Social Entrepreneur Workshop Delivery Manager" | "Systems Support Manager" | "Trustee" | "User Journey and Experience Lead" | "User Journey Support Manager" | "Vice Chair of Trustees";
+  role_status?: "Active" | "Parental Leave" | "Temporary Cover" | "Sabbatical";
+  image?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } };
+  linkedin?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Team {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  subtitle: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Organisation {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  logo?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } };
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Product {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  code: string;
+  your_age: string;
+  you_are_the_founder_leader_of_the_social_venture: boolean;
+  you_are_currently_living_in_the_uk_and_have_the_right_to_work_i: boolean;
+  you_are_looking_for_funding_to_create_long_term_social_impact: boolean;
+  you_are_applying_primarily_to_fund_formal_or_academic_qualifica: boolean;
+  you_are_applying_primarily_to_fund_overseas_travel: boolean;
+  you_are_applying_primarily_to_pay_others_to_deliver_the_work_on: boolean;
+  you_need_both_unltd_s_financial_and_non_financial_support: boolean;
+  your_social_venture_clearly_driven_by_a_social_purpose: boolean;
+  you_can_demonstrate_a_clear_need_for_your_social_venture: boolean;
+  your_social_venture_mainly_benefits_people_or_places_within_the: boolean;
+  you_are_applying_to_fund_activities_that_have_already_been_runn: boolean;
+  your_social_venture_involves_political_or_religious_campaigning: boolean;
+  your_social_venture_involves_activities_that_are_against_the_la: boolean;
+  your_social_venture_does_more_than_raise_awareness_of_a_social: boolean;
+  your_social_venture_has_the_potential_to_be_financially_sustain: boolean;
+  your_social_venture_s_incorporation_history: string;
+  your_social_venture_s_trading_history: string;
+  your_social_venture_s_areas_of_focus: string;
+  your_social_venture_s_turnover_in_the_last_financial_year: string;
+  your_social_venture_s_earnings_in_the_last_12_months?: string;
+  you_have_not_received_the_same_award_type_for_the_same_social_v: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Grant {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  amount: number;
+  usage?: ("Social venture costs" | "Social entrepreneur living costs")[];
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Programme {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  subtitle: string;
+  featured_image: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } };
+  content: PortableTextBlock[];
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Service {
+  id: string;
+  slug: string | null;
+  status: string;
+  icon: string;
+  title: string;
+  subtitle: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Round {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  apply_open: string;
+  apply_close: string;
+  application_review_open: string;
+  application_review_close: string;
+  panel_recommendation_open: string;
+  panel_recommendation_close: string;
+  result_open: string;
+  result_close: string;
+  capacity: number;
+  applications: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Faq {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  answer: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Application {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  subtitle?: string;
+  stage?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Section {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  subtitle?: string;
+  guidance?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Field {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  subtitle?: string;
+  required?: boolean;
+  disabled?: boolean;
+  type: "Input" | "Select" | "Textarea" | "Checkboxes" | "Radios" | "Key-value";
+  input_type?: "button" | "checkbox" | "color" | "date" | "datetime-local" | "email" | "file" | "hidden" | "image" | "month" | "number" | "password" | "radio" | "range" | "reset" | "search" | "submit" | "tel" | "text" | "time" | "url" | "week";
+  helper_text?: string;
+  select_options?: unknown;
+  prefix?: string;
+  suffix?: string;
+  guidance?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface Panel {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  programme?: string;
+  team?: string;
+  date: string;
+  panel_members?: { "title"?: string | null; "job_title"?: string | null; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null; "gender_pronouns"?: string | null }[];
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface TeamReferences {
+  team_lead: ReferencePage<People>;
+  team_members: ReferencePage<People>;
+}
+
+export interface ProductReferences {
+  programme: ReferencePage<Programme>;
+  grant: ReferencePage<Grant>;
+}
+
+export interface ProgrammeReferences {
+  organisations: ReferencePage<Organisation>;
+  services: ReferencePage<Service>;
+}
+
+export interface ApplicationReferences {
+  resources: ReferencePage<Resource>;
+  products: ReferencePage<Product>;
+  sections: ReferencePage<Section>;
+}
+
+export interface SectionReferences {
+  fields: ReferencePage<Field>;
+}
+
+export interface FieldReferences {
+  field: ReferencePage<Field>;
+}
+
+export interface PanelReferences {
+  panel_chair: ReferencePage<People>;
+  colleagues: ReferencePage<People>;
+}
+
 declare module "emdash" {
   interface EmDashCollections {
     pages: Page;
     posts: Post;
     resources: Resource;
+    forms: Form;
+    people: People;
+    teams: Team;
+    organisations: Organisation;
+    products: Product;
+    grants: Grant;
+    programmes: Programme;
+    services: Service;
+    rounds: Round;
+    faqs: Faq;
+    applications: Application;
+    sections: Section;
+    fields: Field;
+    panels: Panel;
+  }
+  interface EmDashCollectionReferences {
+    teams: TeamReferences;
+    products: ProductReferences;
+    programmes: ProgrammeReferences;
+    applications: ApplicationReferences;
+    sections: SectionReferences;
+    fields: FieldReferences;
+    panels: PanelReferences;
   }
 }

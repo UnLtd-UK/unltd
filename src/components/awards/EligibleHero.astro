@@ -18,7 +18,7 @@ import type { ApplicationEntry } from "@data/applications";
 import Award from "@components/awards/Award.astro";
 import RoundButton from "@components/awards/RoundButton.astro";
 import RoundCapacity from "@components/awards/RoundCapacity.astro";
-import { getRoundData, getRoundStatus } from "@components/awards/round";
+import { resolveRounds, getRoundData, getRoundStatus } from "@components/awards/round";
 
 interface Props {
     awards: any[];
@@ -53,7 +53,7 @@ const lastUpdatedText = lastUpdated
     : null;
 
 // Get round capacity data
-const { currentRound, nextRound, devDateTime } = getRoundData();
+const { currentRound, nextRound, devDateTime } = getRoundData(await resolveRounds());
 const { state: roundState, round: displayRound } = getRoundStatus({
     currentRound,
     nextRound,

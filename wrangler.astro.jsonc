@@ -41,10 +41,22 @@
   "compatibility_date": "2025-11-17",
   // Required by EmDash CMS (node:module, node:async_hooks, ...).
   "compatibility_flags": ["nodejs_compat"],
-  // Local (miniflare) bindings for EmDash CMS (see astro.config.mjs). Binding
-  // names must match d1()/r2() there. No database_id/bucket needed locally.
-  "d1_databases": [{ "binding": "DB", "database_name": "unltd-emdash" }],
-  "r2_buckets": [{ "binding": "MEDIA", "bucket_name": "unltd-emdash-media" }],
+  // EmDash CMS bindings (see astro.config.mjs). Binding names must match
+  // d1()/r2() there. "remote": true makes `astro dev` use the real database and
+  // bucket (the same ones wrangler.jsonc deploys) instead of an empty local
+  // copy, so local dev shows live content. Note that edits made in the dev
+  // admin therefore change live data.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "unltd-emdash",
+      "database_id": "0661c645-a053-4037-9da3-7ec44a17b46d",
+      "remote": true
+    }
+  ],
+  "r2_buckets": [
+    { "binding": "MEDIA", "bucket_name": "unltd-emdash-media", "remote": true }
+  ],
   // Worker Loader for EmDash's sandboxed (registry) plugins.
   "worker_loaders": [{ "binding": "LOADER" }],
   "assets": {

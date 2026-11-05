@@ -1,7 +1,6 @@
-import type { PortableTextBlock } from "emdash";
+import type { PortableTextBlock, ImageValue } from "emdash";
 import {
   EMDASH_URL,
-  absoluteMediaUrls,
   contentStatuses,
   createEmDashClient,
   emdashRequest,
@@ -16,6 +15,8 @@ export interface PostAuthor {
 export interface PostImage {
   /** Absolute URL of the file on the EmDash site. */
   src: string;
+  /** The EmDash media value, set when the post is read in the Worker; render it with emdash/ui's Image. */
+  media?: ImageValue;
   alt: string;
   caption: string;
   width?: number;
@@ -57,8 +58,13 @@ function toImage(field: any): PostImage | null {
   };
 }
 
-// The list endpoint doesn't include taxonomy terms, so they are read per post.
-async function fetchPosts(): Promise<PostEntry[]> {
+const dateOf = (item: any): string => item.publishedAt ?? item.scheduledAt ?? item.createdAt;
+
+/**
+ * The newest `limit` posts, for the home page. The full blog is rendered on
+ * demand (src/lib/posts-runtime.ts), so the build only reads what it shows.
+ */
+export async function latestPosts(limit: number): Promise<PostEntry[]> {
   const client = createEmDashClient("posts");
   const items: any[] = [];
 
@@ -68,7 +74,15 @@ async function fetchPosts(): Promise<PostEntry[]> {
     }
   }
 
-  const tags = await mapWithConcurrency(items, TERMS_CONCURRENCY, async (item) => {
+  const now = Date.now();
+  const newest = items
+    // A published post dated in the future should not appear yet.
+    .filter((item) => !(item.status === "published" && new Date(dateOf(item)).getTime() > now))
+    .sort((a, b) => new Date(dateOf(b)).getTime() - new Date(dateOf(a)).getTime())
+    .slice(0, limit);
+
+  // The list endpoint doesn't include taxonomy terms, so they are read per post.
+  const tags = await mapWithConcurrency(newest, TERMS_CONCURRENCY, async (item) => {
     const data = await emdashRequest<{ terms: { slug: string; label: string }[] }>(
       client,
       "GET",
@@ -78,40 +92,21 @@ async function fetchPosts(): Promise<PostEntry[]> {
     return term ? { slug: term.slug, label: term.label } : null;
   });
 
-  const now = Date.now();
-  const posts: PostEntry[] = [];
+  const posts = newest.map((item, index): PostEntry => ({
+    slug: String(item.slug).trim(),
+    title: String(item.data.title ?? "").trim(),
+    subtitle: String(item.data.subtitle ?? "").trim(),
+    tag: tags[index],
+    image: toImage(item.data.featured_image),
+    authors: (item.bylines ?? []).map((credit: any) => ({
+      name: String(credit.byline?.displayName ?? ""),
+      jobTitle: String(credit.byline?.customFields?.job_title ?? ""),
+    })).filter((author: PostAuthor) => author.name),
+    date: dateOf(item),
+    status: item.status,
+    content: [],
+  }));
 
-  items.forEach((item, index) => {
-    const date: string = item.publishedAt ?? item.scheduledAt ?? item.createdAt;
-    // A published post dated in the future should not appear yet.
-    if (item.status === "published" && new Date(date).getTime() > now) return;
-
-    posts.push({
-      slug: String(item.slug).trim(),
-      title: String(item.data.title ?? "").trim(),
-      subtitle: String(item.data.subtitle ?? "").trim(),
-      tag: tags[index],
-      image: toImage(item.data.featured_image),
-      authors: (item.bylines ?? []).map((credit: any) => ({
-        name: String(credit.byline?.displayName ?? ""),
-        jobTitle: String(credit.byline?.customFields?.job_title ?? ""),
-      })).filter((author: PostAuthor) => author.name),
-      date,
-      status: item.status,
-      content: absoluteMediaUrls((item.data.content as PortableTextBlock[] | null) ?? []),
-    });
-  });
-
-  posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
-  const count = (predicate: (post: PostEntry) => boolean) => posts.filter(predicate).length;
-  console.log(
-    `Loaded ${posts.length} posts from EmDash (${EMDASH_URL}): ` +
-    `${count((p) => !!p.tag)} with a tag, ${count((p) => p.authors.length > 0)} with a byline, ` +
-    `${count((p) => !!p.image)} with a featured image`,
-  );
-
+  console.log(`Loaded the ${posts.length} latest posts from EmDash (${EMDASH_URL})`);
   return posts;
 }
-
-export const posts = await fetchPosts();

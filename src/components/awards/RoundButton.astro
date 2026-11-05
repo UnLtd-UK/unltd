@@ -10,7 +10,7 @@
  * - Open:     active account/sign-in CTA with optional urgency styling
  * - Closing:  active with urgency colours + countdown
  */
-import { getRoundData, getRoundStatus } from "./round";
+import { resolveRounds, getRoundData, getRoundStatus } from "./round";
 import Icon from "@components/Icon.astro";
 import RoundCapacity from "@components/awards/RoundCapacity.astro";
 import { APPLICATION_PORTAL_URL } from "@config/links";
@@ -26,7 +26,7 @@ const {
     variant = "primary",
 } = Astro.props;
 
-const { currentRound, nextRound, devDateTime } = getRoundData();
+const { currentRound, nextRound, devDateTime } = getRoundData(await resolveRounds());
 const {
     state,
     round: displayRound,

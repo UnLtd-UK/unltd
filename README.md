@@ -7,7 +7,7 @@ The UnLtd website, built with [Astro](https://astro.build) and deployed to Cloud
 | Content                    | EmDash collection(s)                 | Loaded by                                            |
 | -------------------------- | ------------------------------------ | ---------------------------------------------------- |
 | Pages                      | `pages`                              | [src/data/pages.ts](src/data/pages.ts)               |
-| Blog posts                 | `posts` (+ `tag` taxonomy, bylines)  | [src/data/posts.ts](src/data/posts.ts)               |
+| Blog posts                 | `posts` (+ `tag` taxonomy, bylines)  | [src/lib/posts-runtime.ts](src/lib/posts-runtime.ts) (on demand; the home page uses [src/data/posts.ts](src/data/posts.ts)) |
 | Resources                  | `resources`                          | [src/data/resources.ts](src/data/resources.ts)       |
 | Programmes and services    | `programmes`, `services`             | [src/data/programmes.ts](src/data/programmes.ts)     |
 | Awards                     | `products`, `grants`                 | [src/data/awards.ts](src/data/awards.ts)             |
@@ -34,6 +34,8 @@ EMDASH_TOKEN=your-emdash-api-token
 ```
 
 `EMDASH_URL` is required for builds (`astro dev` defaults to the local server). There is a single EmDash instance: CI reads it from the `EMDASH_URL` GitHub repository variable (Settings > Secrets and variables > Actions > Variables), shared by production and every feature/fix preview, so changing instance means changing one variable. Draft content is previewed in EmDash itself.
+
+`astro dev` has no local database: [wrangler.astro.jsonc](wrangler.astro.jsonc) binds the real D1 database and R2 bucket with `"remote": true`, so the dev server (including the blog, which is rendered on demand) shows live content, and edits made in the dev admin change live data. This needs `wrangler login`.
 
 Create `EMDASH_TOKEN` as an API token with content read access in the EmDash admin, and add it as the `EMDASH_TOKEN` GitHub Actions secret.
 
@@ -91,8 +93,8 @@ Blog posts are managed in the EmDash admin (`/_emdash/admin`), in the **Posts** 
 - **Slug**: the post's URL is `/blog/<slug>`. Posts also appear under `/blog/<year>` by published date.
 - **Published date**: posts are listed newest first by their published date. To back-date a post, publish it through the API with a `publishedAt` value (`POST /_emdash/api/content/posts/<id>/publish` with `{ "publishedAt": "<ISO date>" }`); this is how the migrated posts kept their original dates.
 - **Images**: upload them to the **Posts** folder in the EmDash media library and give each one alt text.
-- **Preview**: use EmDash's editor preview for drafts. There is no separate preview page.
-- **When it goes live**: the site is static, so a published post appears on the next deploy. The production deploy workflow rebuilds every 2 hours ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)), or run it manually from GitHub Actions.
+- **Preview**: use EmDash's editor preview for drafts (`/blog/<slug>?_preview=<token>`). For the preview link to point at the blog, set the **Posts** collection's URL pattern to `/blog/{slug}` in the EmDash admin.
+- **When it goes live**: the blog (`/blog`, `/blog/<year>`, `/blog/<slug>`) is rendered on demand from EmDash's database, so a published or edited post shows without a rebuild. Responses are route-cached ([astro.config.mjs](astro.config.mjs) `cache` and `routeRules`); EmDash purges the affected pages when content is saved or published, and entries expire after 10 minutes at most. The rest of the site, and the header, footer and round banner shown on blog pages (read from `/site-shell.json`, written at build time), are static and update on the next deploy. The production deploy workflow rebuilds every 2 hours ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)), or run it manually from GitHub Actions.
 
 ## Wrangler
 

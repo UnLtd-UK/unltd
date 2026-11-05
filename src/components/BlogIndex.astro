@@ -3,61 +3,26 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Default from "@components/heroes/Default.astro";
 import Post from "@components/Post.astro";
-import { posts } from "@data/posts.ts";
-import { postYear } from "@utils/post-format";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Icon from "@components/Icon.astro";
+import type { PostEntry } from "@data/posts";
 
-export function getStaticPaths() {
-  const title = "Blog";
-  const description = "Read our posts.";
-
-  const slug = "blog";
-
-  const yearsArray = [...new Set(posts.map((post) => postYear(post.date)))].sort(
-    (a, b) => b - a,
-  );
-
-  const years = yearsArray.map((year) => ({
-    params: { year: year.toString() },
-    props: {
-      name: title,
-      description: description,
-      posts: posts.filter((post) => postYear(post.date) === year),
-      years: yearsArray,
-      breadcrumbs: [
-        {
-          name: title,
-          path: `/${slug}`,
-        },
-        {
-          name: year,
-          path: year,
-        },
-      ],
-    },
-  }));
-
-  years.push({
-    params: { year: undefined },
-    props: {
-      name: title,
-      description: description,
-      posts: posts,
-      years: yearsArray,
-      breadcrumbs: [
-        {
-          name: title,
-          path: slug,
-        },
-      ],
-    },
-  });
-
-  return years;
+interface Props {
+  posts: PostEntry[];
+  /** Every year with a post, newest first, for the tabs. */
+  years: number[];
+  /** The year being shown; all posts when omitted. */
+  year?: number;
 }
 
-const { name, description, posts, years, breadcrumbs } = Astro.props;
+const name = "Blog";
+const description = "Read our posts.";
+const { posts, years, year } = Astro.props;
+
+const breadcrumbs = [
+  { name, path: "blog" },
+  ...(year ? [{ name: year, path: String(year) }] : []),
+];
 ---
 
 <Template name={name} description={description}>

@@ -1,7 +1,7 @@
 ---
-import { posts } from "@data/posts.ts";
+import { latestPosts } from "@data/posts.ts";
 import Post from "@components/Post.astro";
-const slicedPosts = posts.slice(0, 3);
+const slicedPosts = await latestPosts(3);
 ---
 
 <div class="bg-violet-900 py-24 sm:py-32">

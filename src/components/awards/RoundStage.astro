@@ -6,13 +6,13 @@
  * Highlights the currently active stage based on the round phase.
  * Rendered at build time — rebuilt every ~2 hours via CI.
  */
-import { getRoundData, getRoundStatus, formatTime } from "./round";
+import { resolveRounds, getRoundData, getRoundStatus, formatTime } from "./round";
 import { stages, stageColourClasses } from "@data/stages";
 import Icon from "@components/Icon.astro";
 import RoundBadge from "@components/awards/RoundBadge.astro";
 import RoundSubtitle from "@components/awards/RoundSubtitle.astro";
 
-const { currentRound, nextRound, devDateTime } = getRoundData();
+const { currentRound, nextRound, devDateTime } = getRoundData(await resolveRounds());
 const {
     state,
     urgency,
