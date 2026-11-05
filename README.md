@@ -69,13 +69,13 @@ npm run preview
 ```
 
 ### Show drafts
-By default only `published` content is fetched. To include drafts — e.g. draft blog posts, resources, programmes — set the `SHOW_DRAFTS` env var when running the dev server or build:
+By default only `published` content is fetched. To include drafts of the content built into the static pages (pages, resources, programmes and so on), set the `SHOW_DRAFTS` env var when running the dev server or build:
 
 ```bash
 SHOW_DRAFTS=true npm run dev
 ```
 
-This adds `draft` items to everything read from EmDash (see [src/lib/emdash.ts](src/lib/emdash.ts)), and `scheduled` posts as well. It is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-preview.yml](.github/workflows/deploy-preview.yml)) and `false` for production ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)).
+This adds `draft` items to what is read from EmDash at build time (see [src/lib/emdash.ts](src/lib/emdash.ts)). It is set automatically to `true` for feature preview deploys ([.github/workflows/deploy-preview.yml](.github/workflows/deploy-preview.yml)) and `false` for production ([.github/workflows/deploy-production.yml](.github/workflows/deploy-production.yml)). It does not affect the blog: posts are rendered on demand, and drafts are previewed with EmDash's preview link (see [Blog posts](#blog-posts)).
 
 ## Redirects
 
