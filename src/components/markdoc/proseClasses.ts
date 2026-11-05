@@ -9,8 +9,8 @@ export const proseClasses = `prose
     prose-img:rounded-md
     prose-img:shadow-xs
     prose-img:w-full
-    prose-figcaption:text-violet-300
-    prose-figcaption:text-xs
+    prose-figcaption:text-violet-200
+    prose-figcaption:text-sm
     prose-ul:list-disc
     prose-ul:marker:text-violet-100
     prose-ol:marker:text-violet-100
