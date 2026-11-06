@@ -4,6 +4,7 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import PersonCard from "@components/PersonCard.astro";
+import Icon from "@components/Icon.astro";
 import moment from "moment";
 
 import { panels, type PanelEntry } from "@data/panels";
@@ -44,18 +45,17 @@ const toProfile = (person: PanelEntry["colleagues"][number]) => ({
 });
 
 const chair = panel.chair ? toProfile(panel.chair) : null;
+const colleagues = panel.colleagues.map(toProfile);
 
-const people = [
-    ...panel.members.map((member) => ({
-        name: member.name,
-        pronouns: member.pronouns ? [member.pronouns] : [],
-        roleName: member.jobTitle,
-        avatarSrc: member.image || null,
-        imageAlt: "",
-        linkedin: null,
-    })),
-    ...panel.colleagues.map(toProfile),
-];
+const guests = panel.members.map((member) => ({
+    name: member.name,
+    pronouns: member.pronouns ? [member.pronouns] : [],
+    roleName: member.jobTitle,
+    subtitle: member.subtitle,
+    avatarSrc: member.image || null,
+    imageAlt: "",
+    linkedin: null,
+}));
 ---
 
 <Template
@@ -67,59 +67,70 @@ const people = [
 >
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
-        <div class="py-12">
-            <div class="grid grid-cols-1 gap-x-10 gap-y-20 xl:grid-cols-5">
-                <div class="max-w-2xl xl:col-span-2 xl:sticky xl:top-8 xl:self-start flex flex-col gap-6">
-                    <div class="flex flex-col gap-4">
-                        <h2 class="text-4xl font-bold tracking-tight text-violet-100">
-                            Your Award Panel
-                        </h2>
-                        <p class="text-lg leading-8 text-violet-300">
-                            Hello! We are your panel members; we are looking
-                            forward to meeting you and hearing about your social
-                            venture.
-                        </p>
-                    </div>
+        <div class="flex flex-col gap-12 py-12">
+            <div class="flex flex-col gap-4">
+                <h2 class="text-4xl font-bold tracking-tight text-violet-100">
+                    Your Award Panel
+                </h2>
+                <p class="text-xl font-bold tracking-tight text-violet-100">
+                    {panel.programme} · {date}
+                </p>
+                <p class="text-lg leading-8 text-violet-300">
+                    Hello! We are your panel members; we are looking forward to
+                    meeting you and hearing about your social venture.
+                </p>
+                <a
+                    href="/resources/panel-meeting-guide"
+                    class="inline-flex w-fit items-center gap-2 text-base font-semibold text-amber-400 transition-colors hover:text-amber-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-400"
+                >
+                    Read the panel meeting guide
+                    <Icon name="arrow-right" style="solid" class="text-sm" />
+                </a>
+                <p class="text-xs leading-5 text-violet-300">
+                    UnLtd panels reflect our commitment to inclusion, with over
+                    50% of our panel members identifying as Black, Asian or
+                    minority ethnic and/or disabled, and at a minimum, one panel
+                    member who identifies as Black, Asian or minority ethnic
+                    and/or disabled sitting on each panel.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 gap-x-10 gap-y-12 xl:grid-cols-2 xl:items-start">
+                <div class="flex flex-col gap-6">
                     <dl class="divide-y divide-violet-700 rounded-2xl bg-violet-900 px-6 py-2 ring-1 ring-violet-700">
-                        <div class="py-4">
-                            <dt class="text-xs font-medium uppercase tracking-wide text-violet-300">
-                                Date
-                            </dt>
-                            <dd class="mt-1 text-xl font-bold tracking-tight text-violet-100">
-                                {date}
-                            </dd>
-                        </div>
-                        <div class="py-4">
-                            <dt class="text-xs font-medium uppercase tracking-wide text-violet-300">
-                                Award programme
-                            </dt>
-                            <dd class="mt-1 text-xl font-bold tracking-tight text-violet-100">
-                                {panel.programme}
-                            </dd>
-                        </div>
                         {chair && (
                             <div class="py-4">
                                 <dt class="mb-3 text-xs font-medium uppercase tracking-wide text-violet-300">
-                                    Panel chair
+                                    UnLtd panel chair
                                 </dt>
                                 <dd>
                                     <PersonCard person={chair} showSubtitle />
                                 </dd>
                             </div>
                         )}
+                        {colleagues.length > 0 && (
+                            <div class="py-4">
+                                <dt class="mb-3 text-xs font-medium uppercase tracking-wide text-violet-300">
+                                    UnLtd panel members
+                                </dt>
+                                <dd>
+                                    <ul class="flex flex-col gap-y-6">
+                                        {colleagues.map((person) => (
+                                            <li>
+                                                <PersonCard person={person} showSubtitle />
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </dd>
+                            </div>
+                        )}
                     </dl>
-                    <p class="text-xs leading-5 text-violet-300">
-                        UnLtd panels reflect our commitment to inclusion, with
-                        over 50% of our panel members identifying as Black,
-                        Asian or minority ethnic and/or disabled, and at a
-                        minimum, one panel member who identifies as Black, Asian
-                        or minority ethnic and/or disabled sitting on each
-                        panel.
-                    </p>
                 </div>
-                <div class="xl:col-span-3">
+                <div class="rounded-2xl bg-violet-900 px-6 py-6 ring-1 ring-violet-700">
+                    <h3 class="mb-3 text-xs font-medium uppercase tracking-wide text-violet-300">
+                        Social entrepreneur panel members
+                    </h3>
                     <ul class="flex flex-col gap-y-10">
-                        {people.map((person) => (
+                        {guests.map((person) => (
                             <li>
                                 <PersonCard person={person} showSubtitle />
                             </li>
