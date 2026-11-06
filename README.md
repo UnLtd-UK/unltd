@@ -1,6 +1,6 @@
 # UnLtd
 
-The UnLtd website, built with [Astro](https://astro.build) and deployed to Cloudflare Workers. All editable content lives in [EmDash](https://emdashcms.com), the CMS that runs alongside the site (admin at `/_emdash/admin`). Most of the site is static: it reads content from EmDash's HTTP API when it builds, so published changes appear on the next deploy. The blog, pages and resources are rendered on demand, so they update without a rebuild.
+The UnLtd website, built with [Astro](https://astro.build) and deployed to Cloudflare Workers. All editable content lives in [EmDash](https://emdashcms.com), the CMS that runs alongside the site (admin at `/_emdash/admin`). Most of the site is static: it reads content from EmDash's HTTP API when it builds, so published changes appear on the next deploy. The blog, pages, resources and contact (email) pages are rendered on demand, so they update without a rebuild.
 
 ## EmDash links
 
@@ -25,7 +25,7 @@ The MCP server is for connecting an AI client (such as VS Code) to the CMS. Sign
 | Award panels               | `panels`, `people`                   | [src/data/panels.ts](src/data/panels.ts)             |
 | People and teams           | `people`, `teams`, `organisations`   | [src/data/people.ts](src/data/people.ts)             |
 | FAQs                       | `faqs`                               | [src/data/faq.ts](src/data/faq.ts)                   |
-| Forms                      | `forms`                              | [src/data/forms.ts](src/data/forms.ts)               |
+| Emails (contact pages)     | `forms`                              | [src/lib/emails-runtime.ts](src/lib/emails-runtime.ts) (on demand; the menu uses [src/data/forms.ts](src/data/forms.ts)) |
 
 The home page content is not in EmDash; edit [src/data/home.ts](src/data/home.ts). The shared EmDash client is in [src/lib/emdash.ts](src/lib/emdash.ts).
 
@@ -82,7 +82,7 @@ pnpm preview
 ```
 
 ### Drafts
-Only `published` content is read at build time. Drafts are previewed in EmDash itself: the blog, pages and resources are rendered on demand, so open a draft with EmDash's preview link (see [Pages](#pages) and [Blog posts](#blog-posts)). Content that is built into the static pages (programmes, awards, people and so on) has no preview: it appears after it is published and the site is next deployed.
+Only `published` content is read at build time. Drafts are previewed in EmDash itself: the blog, pages, resources and contact pages are rendered on demand, so open a draft with EmDash's preview link (see [Pages](#pages) and [Blog posts](#blog-posts)). Content that is built into the static pages (programmes, awards, people and so on) has no preview: it appears after it is published and the site is next deployed.
 
 ## Redirects
 
@@ -96,11 +96,13 @@ This relies on `not_found_handling: "none"` in [wrangler.jsonc](wrangler.jsonc) 
 
 Pages are managed in the EmDash admin, in the **Pages** collection, and are served at `/<slug>`. Like the blog they are rendered on demand ([src/pages/[page].astro](src/pages/[page].astro)), so a new, edited or published page shows without a rebuild, and a draft can be previewed with EmDash's preview link (`/<slug>?_preview=<token>`). Pages with their own file in `src/pages` (such as `awards` and `contact`) take priority over a CMS page with the same slug. The menus still read the page list at build time, so a new page added to a menu appears in it after the next deploy.
 
-**Editing on the page**: log in to the admin, then open a page on the site. An **Edit** pill appears; click it to open the page's uncached editing view, where EmDash's toolbar has an **Edit mode** switch. With it on you can edit the title, subtitle and body text in place, and the toolbar shows the draft status and a **Publish** button. This works on pages, resources and blog posts: each route spreads `entry.edit.title` and `entry.edit.subtitle` (EmDash's visual-editing attributes) onto the title and subtitle in [Default.astro](src/components/heroes/Default.astro) (pages and resources) or [heroes/Post.astro](src/components/heroes/Post.astro) (posts), and [PortableContent.astro](src/components/emdash/PortableContent.astro) hands the body straight to EmDash's editor. `toolbar: "client"` in [astro.config.mjs](astro.config.mjs) keeps the public HTML identical for everyone so route caching still works.
+**Editing on the page**: log in to the admin, then open a page on the site. An **Edit** pill appears; click it to open the page's uncached editing view, where EmDash's toolbar has an **Edit mode** switch. With it on you can edit the title, subtitle and body text in place, and the toolbar shows the draft status and a **Publish** button. This works on pages, resources, email (contact) pages and blog posts: each route spreads `entry.edit.title` and `entry.edit.subtitle` (EmDash's visual-editing attributes) onto the title and subtitle in [Default.astro](src/components/heroes/Default.astro) (pages and resources) or [heroes/Post.astro](src/components/heroes/Post.astro) (posts), and [PortableContent.astro](src/components/emdash/PortableContent.astro) hands the body straight to EmDash's editor. `toolbar: "client"` in [astro.config.mjs](astro.config.mjs) keeps the public HTML identical for everyone so route caching still works.
 
 Resources (`/resources` and `/resources/<slug>`) work the same way ([src/pages/resources](src/pages/resources)); set the **Resources** collection's URL pattern to `/resources/{slug}` so the Preview button links correctly. A resource marked hidden is still served at its link but is not listed or indexed. The upcoming events shown on `/resources` come from Eventbrite at build time ([src/pages/programme-events.json.ts](src/pages/programme-events.json.ts)), so they update on the next deploy.
 
-`/sitemap-dynamic.xml` ([src/pages/sitemap-dynamic.xml.ts](src/pages/sitemap-dynamic.xml.ts)) lists the pages, resources and blog posts for search engines and is linked from `sitemap-index.xml`.
+Email pages (`/contact` and `/contact/<slug>`, the **Emails** collection) work the same way ([src/pages/contact](src/pages/contact)): the title, subtitle and email address are editable on the page, while the pop-up dialog fields are edited in the admin panel. Set the collection's URL pattern to `/contact/{slug}` so the Preview button links correctly. The menu still resolves email links at build time, so a new email page appears in the menu on the next deploy.
+
+`/sitemap-dynamic.xml` ([src/pages/sitemap-dynamic.xml.ts](src/pages/sitemap-dynamic.xml.ts)) lists the pages, resources, contact pages and blog posts for search engines and is linked from `sitemap-index.xml`.
 
 ## Blog posts
 
