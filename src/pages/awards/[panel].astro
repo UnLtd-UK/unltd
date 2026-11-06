@@ -44,18 +44,17 @@ const toProfile = (person: PanelEntry["colleagues"][number]) => ({
 });
 
 const chair = panel.chair ? toProfile(panel.chair) : null;
+const colleagues = panel.colleagues.map(toProfile);
 
-const people = [
-    ...panel.members.map((member) => ({
-        name: member.name,
-        pronouns: member.pronouns ? [member.pronouns] : [],
-        roleName: member.jobTitle,
-        avatarSrc: member.image || null,
-        imageAlt: "",
-        linkedin: null,
-    })),
-    ...panel.colleagues.map(toProfile),
-];
+const guests = panel.members.map((member) => ({
+    name: member.name,
+    pronouns: member.pronouns ? [member.pronouns] : [],
+    roleName: member.jobTitle,
+    subtitle: member.subtitle,
+    avatarSrc: member.image || null,
+    imageAlt: "",
+    linkedin: null,
+}));
 ---
 
 <Template
@@ -100,10 +99,26 @@ const people = [
                         {chair && (
                             <div class="py-4">
                                 <dt class="mb-3 text-xs font-medium uppercase tracking-wide text-violet-300">
-                                    Panel chair
+                                    UnLtd panel chair
                                 </dt>
                                 <dd>
                                     <PersonCard person={chair} showSubtitle />
+                                </dd>
+                            </div>
+                        )}
+                        {colleagues.length > 0 && (
+                            <div class="py-4">
+                                <dt class="mb-3 text-xs font-medium uppercase tracking-wide text-violet-300">
+                                    UnLtd panel members
+                                </dt>
+                                <dd>
+                                    <ul class="flex flex-col gap-y-6">
+                                        {colleagues.map((person) => (
+                                            <li>
+                                                <PersonCard person={person} showSubtitle />
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </dd>
                             </div>
                         )}
@@ -118,10 +133,13 @@ const people = [
                     </p>
                 </div>
                 <div class="xl:col-span-3">
+                    <h3 class="mb-6 text-xs font-medium uppercase tracking-wide text-violet-300">
+                        Social entrepreneur panel members
+                    </h3>
                     <ul class="flex flex-col gap-y-10">
-                        {people.map((person) => (
+                        {guests.map((person) => (
                             <li>
-                                <PersonCard person={person} showSubtitle />
+                                <PersonCard person={person} showSubtitle subtitleOpen />
                             </li>
                         ))}
                     </ul>

@@ -5,6 +5,7 @@ export interface PanelMember {
     name: string;
     pronouns: string;
     jobTitle: string;
+    subtitle: string;
     /** Absolute URL of the photo on the EmDash site, or "" for none. */
     image: string;
 }
@@ -54,6 +55,7 @@ async function fetchPanels(): Promise<PanelEntry[]> {
                     name: text(member.title),
                     pronouns: text(member.gender_pronouns),
                     jobTitle: text(member.job_title),
+                    subtitle: text(member.subtitle),
                     image: imageUrl(member.image),
                 }))
                 .filter((member: PanelMember) => member.name),
