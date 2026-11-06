@@ -9,6 +9,7 @@ export interface Person {
   name: string;
   pronouns: string;
   roleTitle: string;
+  subtitle: string;
   /** Anything other than "Active", e.g. "Parental Leave"; empty when active. */
   roleStatus: string;
   linkedin: string;
@@ -51,6 +52,7 @@ async function fetchPeople(): Promise<Map<string, Person>> {
       name,
       pronouns: text(d.pronouns),
       roleTitle: text(d.role_title),
+      subtitle: text(d.subtitle),
       roleStatus: roleStatus.toLowerCase() === "active" ? "" : roleStatus,
       linkedin: text(d.linkedin),
       image: imageUrl(d.image),
