@@ -1,7 +1,12 @@
 ---
 import Icon from "@components/Icon.astro";
 
-const { video, styles } = Astro.props;
+import type { ProgrammeVideo } from "@data/programmes.ts";
+
+const { video, styles } = Astro.props as {
+    video: ProgrammeVideo;
+    styles: Record<string, string>;
+};
 
 // Extract YouTube video ID from various URL formats
 function getYouTubeId(url: string): string | null {
@@ -36,8 +41,8 @@ function getYouTubeThumbnail(url: string): string {
     return "";
 }
 
-const youtubeUrl = getYouTubeUrl(video.id.url);
-const thumbnailUrl = getYouTubeThumbnail(video.id.url);
+const youtubeUrl = getYouTubeUrl(video.url);
+const thumbnailUrl = video.thumbnail || getYouTubeThumbnail(video.url);
 ---
 
 <a
@@ -53,7 +58,7 @@ const thumbnailUrl = getYouTubeThumbnail(video.id.url);
             thumbnailUrl && (
                 <img
                     src={thumbnailUrl}
-                    alt={video.id.title || "Video thumbnail"}
+                    alt={video.title || "Video thumbnail"}
                     class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                     loading="lazy"
                 />
@@ -86,11 +91,11 @@ const thumbnailUrl = getYouTubeThumbnail(video.id.url);
         </div>
     </div>
     {
-        video.id.title && (
+        video.title && (
             <h3
                 class={`mt-4 text-base font-semibold ${styles.text} group-hover:opacity-80 transition`}
             >
-                {video.id.title}
+                {video.title}
             </h3>
         )
     }

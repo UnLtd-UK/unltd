@@ -1,52 +1,13 @@
 ---
-const { styles, programme } = Astro.props;
-
 import Video from "@components/awards/programme/content/Video.astro";
-import Quote from "@components/awards/programme/content/Quote.astro";
-import Post from "@components/awards/programme/content/Post.astro";
 import Container from "@components/Container.astro";
+import PortableContent from "@components/emdash/PortableContent.astro";
+import type { ProgrammeEntry } from "@data/programmes.ts";
 
-const contents = [];
-
-// Extract and add videos
-programme.videos.forEach((video) => {
-    if (
-        video.videos_id &&
-        video.videos_id.date_time &&
-        video.videos_id.status == "published"
-    ) {
-        contents.push({ id: video.videos_id, type: "video" });
-    }
-});
-
-// Extract and add quotes
-programme.quotes.forEach((quote) => {
-    if (
-        quote.quotes_id &&
-        quote.quotes_id.date_time &&
-        quote.quotes_id.status == "published"
-    ) {
-        contents.push({ id: quote.quotes_id, type: "quote" });
-    }
-});
-
-// Extract and add posts
-programme.posts.forEach((post) => {
-    if (
-        post.posts_id &&
-        post.posts_id.date_time &&
-        post.posts_id.status == "published"
-    ) {
-        contents.push({ id: post.posts_id, type: "post" });
-    }
-});
-
-// Sort contents by date_time
-contents.sort((a, b) => {
-    const dateA = new Date(a.id.date_time).getTime();
-    const dateB = new Date(b.id.date_time).getTime();
-    return dateB - dateA;
-});
+const { styles, programme } = Astro.props as {
+    styles: Record<string, string>;
+    programme: ProgrammeEntry;
+};
 ---
 
 <div class={`py-16 sm:py-24 ${styles.bg2}`}>
@@ -65,26 +26,23 @@ contents.sort((a, b) => {
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {
-                    contents.map((content) => {
-                        switch (content.type) {
-                            case "video":
-                                return (
-                                    <Video video={content} styles={styles} />
-                                );
-                            case "quote":
-                                return (
-                                    <Quote quote={content} styles={styles} />
-                                );
-                            case "post":
-                                return <Post post={content} styles={styles} />;
-                            default:
-                                return null;
-                        }
-                    })
-                }
-            </div>
+            {
+                programme.videos.length > 0 && (
+                    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                        {programme.videos.map((video) => (
+                            <Video video={video} styles={styles} />
+                        ))}
+                    </div>
+                )
+            }
+
+            {
+                programme.content.length > 0 && (
+                    <div class="mt-12">
+                        <PortableContent value={programme.content} />
+                    </div>
+                )
+            }
         </div>
     </Container>
 </div>

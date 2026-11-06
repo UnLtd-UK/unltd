@@ -8,13 +8,14 @@ import "@lib/icons";
 config.autoAddCss = false;
 
 import { palette } from "@data/palette.js";
-import { navigation } from "@data/navigation.ts";
+import { loadSiteShell } from "@lib/site-shell";
 
 const {
     name = "UnLtd",
     description = "Funding and support for social entrepreneurs",
     theme = palette["UnLtd"],
     noindex = false,
+    hideFloatingBanner = false,
 } = Astro.props.frontmatter || Astro.props;
 
 import Footer from "@components/Footer.astro";
@@ -23,8 +24,10 @@ import RoundBanner from "@components/awards/RoundBanner.astro";
 import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
 import GitBookEmbed from "@components/GitBookEmbed.astro";
 // import ScamAlertBanner from "@components/ScamAlertBanner";
-// import FloatingAtBottomCentered from "@components/FloatingAtBottomCentered.astro";
+import FloatingAtBottomCentered from "@components/FloatingAtBottomCentered.astro";
 import PostHog from "@components/posthog.astro";
+
+const { navigation, footerLinks, rounds } = await loadSiteShell(Astro);
 ---
 
 <!doctype html>
@@ -35,8 +38,6 @@ import PostHog from "@components/posthog.astro";
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" type="image/jpg" href="/favicon.ico" />
         <link rel="sitemap" href="/sitemap-index.xml" />
-        <!-- Directus serves images site-wide; warm the connection early -->
-        <link rel="preconnect" href="https://unltd.directus.app" crossorigin />
 
         <!-- Astro 6 Fonts API -->
         <Font cssVariable="--font-nunito" preload />
@@ -75,22 +76,21 @@ import PostHog from "@components/posthog.astro";
     <body class={`dark ${palette["UnLtd"].bg}`}>
         <div class="flex flex-col justify-between h-full">
             <!-- <ScamAlertBanner client:load /> -->
-            <RoundBanner />
+            <RoundBanner rounds={rounds} />
 
-            {
-                navigation && (
-                    <Header
-                        styles={palette["UnLtd"]}
-                        navigation={navigation}
-                        client:idle
-                    />
-                )
-            }
+            {navigation && (
+                <Header
+                    styles={palette["UnLtd"]}
+                    navigation={navigation}
+                    client:idle
+                />
+            )}
 
             <main class={`${theme.bg}`}>
                 <slot />
             </main>
-            <Footer />
+            <Footer footerLinks={footerLinks} />
+            {!hideFloatingBanner && <FloatingAtBottomCentered />}
 
             <GitBookEmbed />
 

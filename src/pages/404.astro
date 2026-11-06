@@ -2,6 +2,9 @@
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Container from "@components/Container.astro";
 import Template from "@layouts/Template.astro";
+// On demand so the blog (also on demand) can rewrite to it for a missing post.
+export const prerender = false;
+
 const name = "Page not found";
 const description =
   "The page you are looking for does not exist. Please check the URL in the address bar and try again.";

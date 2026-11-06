@@ -8,35 +8,34 @@
  */
 
 import type { GetStaticPaths } from "astro";
-import { applications, getApplicationWithAwards } from "@data/applications.js";
+import { applications, getApplicationBySlug } from "@data/applications";
 import { generateApplicationPdf } from "@lib/generate-application-pdf";
 
+const isVisibleStatus = (status?: string) => status === "published";
+
 export const getStaticPaths: GetStaticPaths = () => {
-    return applications.map((app: { slug: string }) => ({
-        params: { slug: app.slug },
-    }));
+    return applications
+        .filter((app: { status?: string }) => isVisibleStatus(app.status))
+        .map((app: { slug: string }) => ({
+            params: { slug: app.slug },
+        }));
 };
 
 export async function GET({ params }: { params: { slug: string } }) {
-    const result = getApplicationWithAwards(params.slug);
-    if (!result) {
+    const application = getApplicationBySlug(params.slug);
+    if (!application || !isVisibleStatus(application.status)) {
         return new Response("Not found", { status: 404 });
     }
 
-    const { application, awards } = result;
-
-    // Extract resources from the M2M join
-    const resources = (application.resources ?? []).map((r: any) => r.resources_id).filter(Boolean);
-
     const pdfBytes = await generateApplicationPdf({
-        applicationName: application.name,
+        applicationTitle: application.title,
+        applicationSubtitle: application.subtitle,
         slug: application.slug,
-        stageSlug: application.stage,
-        stageText: application.stage_text,
-        sections: application.sections ?? [],
-        awards,
-        resources,
-        tradingDescription: application.trading_description,
+        stageSlug: application.portalValue ?? undefined,
+        stageText: application.stageText ?? undefined,
+        sections: application.sections,
+        awards: application.awards,
+        resources: application.resources,
     });
 
     return new Response(pdfBytes.buffer as ArrayBuffer, {

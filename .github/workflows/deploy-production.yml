@@ -6,8 +6,8 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    # Every 2 hours - rebuilds production to keep round status current
-    - cron: "0 */2 * * *"
+    # Daily at 01:00 UTC - rebuilds production to keep round status current
+    - cron: "0 1 * * *"
 
 jobs:
   deploy:
@@ -18,35 +18,31 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       EVENTBRITE_PRIVATE_TOKEN: ${{ secrets.EVENTBRITE_PRIVATE_TOKEN }}
       FONTAWESOME_NPM_AUTH_TOKEN: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
-      DIRECTUS_API_TOKEN: ${{ secrets.DIRECTUS_API_TOKEN }}
-      SHOW_DRAFTS: "false"
+      EMDASH_TOKEN: ${{ secrets.EMDASH_TOKEN }}
+      EMDASH_URL: ${{ vars.EMDASH_URL }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v7
         with:
           ref: main
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: "24"
+          cache: pnpm
 
       - name: Setup Font Awesome Pro
         run: bash scripts/setup-npmrc.sh
 
-      - name: Cache node modules
-        id: cache-node-modules
-        uses: actions/cache@v6
-        with:
-          path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
       - name: Install dependencies
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build site
-        run: npm run build
+        run: pnpm run build
 
       - name: Deploy worker
-        run: npx wrangler deploy --config wrangler.jsonc --env production
+        run: pnpm exec wrangler deploy --config wrangler.jsonc --env production

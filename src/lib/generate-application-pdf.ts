@@ -24,46 +24,18 @@ import {
 import fontkit from "@pdf-lib/fontkit";
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import type {
+    ApplicationField,
+    ApplicationSection,
+} from "../data/applications.ts";
+import { APPLICATION_PORTAL_URL } from "../config/links.ts";
 
 // ─── Types ──────────────────────────────────────────────────────────────
 
-interface FieldData {
-    fields_id: {
-        name: string;
-        description?: string;
-        slug: string;
-        type: string; // "Input" | "Select" | "Textarea" | "Radios" | "Checkboxes"
-        input_type?: string; // "text" | "email" | "number" | "file" etc.
-        required?: boolean;
-        select_options?: Array<{
-            name: string;
-            slug?: string;
-            code?: string;
-            description?: string;
-        }>;
-        helper_text?: string;
-        prefix?: string;
-        suffix?: string;
-        date_updated?: string;
-        dependency?: string; // slug of parent field — if set, this field is shown indented below its parent
-    };
-}
-
-interface SectionData {
-    sections_id: {
-        name: string;
-        slug: string;
-        description?: string;
-        fields: FieldData[];
-        date_updated?: string;
-    };
-}
-
 interface ResourceData {
-    name: string;
+    title: string;
     slug: string;
-    description?: string;
-    external_url?: string;
+    subtitle?: string;
 }
 
 interface AwardData {
@@ -74,14 +46,15 @@ interface AwardData {
 }
 
 interface GeneratePdfOptions {
-    applicationName: string;
+    applicationTitle: string;
+    /** Describes the stage, including any note about what selecting it involves. */
+    applicationSubtitle?: string;
     slug: string;
     stageSlug?: string;
     stageText?: string;
-    sections: SectionData[];
+    sections: ApplicationSection[];
     awards?: AwardData[];
     resources?: ResourceData[];
-    tradingDescription?: string;
 }
 
 // ─── Constants ──────────────────────────────────────────────────────────
@@ -108,6 +81,10 @@ const LINE_HEIGHT_SMALL = 11;
 const FIELD_GAP = 20; // space between fields
 const SECTION_GAP = 30; // space between sections
 const DEPENDENCY_INDENT = 20; // left indent for fields that depend on a parent field
+const GUIDANCE_PADDING = 8;
+const GUIDANCE_ACCENT_WIDTH = 3;
+const GUIDANCE_TEXT_GAP = 5;
+const GUIDANCE_BOTTOM_GAP = 12;
 
 // Colours
 const COLOUR_BLACK = rgb(0, 0, 0);
@@ -222,6 +199,192 @@ function wrapText(
     }
 
     return lines;
+}
+
+// ─── Rich text (text with clickable links) ─────────────────────────────
+
+interface RichSeg {
+    text: string;
+    url?: string;
+}
+type RichLine = RichSeg[];
+
+const SITE_ORIGIN = "https://unltd.org.uk";
+
+const LINK_PATTERN =
+    /<a\s[^>]*?href\s*=\s*["']([^"']*)["'][^>]*>([\s\S]*?)<\/a>|(?<!!)\[([^\]]+)\]\(\s*([^)\s]+)(?:\s+"[^"]*")?\s*\)|(https?:\/\/[^\s<>"')\]]+)/gi;
+
+function normaliseLinkUrl(raw: string): string | undefined {
+    const url = raw.trim();
+    if (/^(https?:\/\/|mailto:|tel:)/i.test(url)) return url;
+    if (url.startsWith("//")) return `https:${url}`;
+    if (url.startsWith("/")) return `${SITE_ORIGIN}${url}`;
+    if (/^[\w-]+(\.[\w-]+)+(\/|$)/.test(url)) return `https://${url}`;
+    return undefined;
+}
+
+/** Replace links (markdown, HTML or bare URLs) with \u0001idx\u0002label\u0003 markers. */
+function markLinks(text: string): { marked: string; urls: string[] } {
+    const urls: string[] = [];
+    const mark = (url: string | undefined, label: string) => {
+        if (!url) return label;
+        urls.push(url);
+        return `\u0001${urls.length - 1}\u0002${label}\u0003`;
+    };
+
+    const marked = text.replace(
+        LINK_PATTERN,
+        (
+            _m: string,
+            aHref?: string,
+            aText?: string,
+            mdText?: string,
+            mdUrl?: string,
+            bare?: string,
+        ) => {
+            if (bare) {
+                const trailing = bare.match(/[.,;:!?]+$/)?.[0] ?? "";
+                const core = trailing ? bare.slice(0, -trailing.length) : bare;
+                return mark(normaliseLinkUrl(core), core) + trailing;
+            }
+            const url = aHref ?? mdUrl ?? "";
+            const label = (aText ?? mdText ?? "")
+                .replace(/<[^>]+>/g, "")
+                .replace(/\s+/g, " ")
+                .trim();
+            return mark(normaliseLinkUrl(url), label || url);
+        },
+    );
+
+    return { marked, urls };
+}
+
+/** Split marked text into paragraphs of words, each word made of link-aware segments. */
+function parseRichWords(
+    marked: string,
+    urls: string[],
+): { segs: RichSeg[]; gapUrl?: string }[][] {
+    return marked.split("\n").map((para) => {
+        const words: { segs: RichSeg[]; gapUrl?: string }[] = [];
+        let segs: RichSeg[] = [];
+        let currentUrl: string | undefined;
+
+        for (let i = 0; i < para.length; i++) {
+            const ch = para[i];
+            if (ch === "\u0001") {
+                const end = para.indexOf("\u0002", i);
+                currentUrl = urls[Number(para.slice(i + 1, end))];
+                i = end;
+            } else if (ch === "\u0003") {
+                currentUrl = undefined;
+            } else if (/\s/.test(ch)) {
+                if (segs.length) {
+                    words.push({ segs, gapUrl: currentUrl });
+                    segs = [];
+                }
+            } else {
+                const last = segs[segs.length - 1];
+                if (last && last.url === currentUrl) last.text += ch;
+                else segs.push({ text: ch, url: currentUrl });
+            }
+        }
+        if (segs.length) words.push({ segs });
+        return words;
+    });
+}
+
+/**
+ * Strip markdown/HTML like stripMarkdown, but keep links and wrap into
+ * lines of segments so link text can be drawn and annotated.
+ * An empty array in the result represents a blank line.
+ */
+function wrapRich(
+    text: string,
+    font: PDFFont,
+    fontSize: number,
+    maxWidth: number,
+): RichLine[] {
+    if (!text) return [];
+    const { marked, urls } = markLinks(text);
+    const cleaned = stripMarkdown(marked);
+    if (!cleaned) return [];
+
+    const spaceWidth = font.widthOfTextAtSize(" ", fontSize);
+    const widthOf = (segs: RichSeg[]) =>
+        segs.reduce((sum, s) => sum + font.widthOfTextAtSize(s.text, fontSize), 0);
+    const append = (line: RichLine, seg: RichSeg) => {
+        const last = line[line.length - 1];
+        if (last && last.url === seg.url) last.text += seg.text;
+        else line.push({ ...seg });
+    };
+
+    const lines: RichLine[] = [];
+    for (const words of parseRichWords(cleaned, urls)) {
+        if (!words.length) {
+            lines.push([]);
+            continue;
+        }
+
+        let line: RichLine = [];
+        let lineWidth = 0;
+        let gapUrl: string | undefined;
+
+        for (const word of words) {
+            const wordWidth = widthOf(word.segs);
+            const needsSpace = line.length > 0;
+            if (needsSpace && lineWidth + spaceWidth + wordWidth > maxWidth) {
+                lines.push(line);
+                line = [];
+                lineWidth = 0;
+            }
+            if (line.length) {
+                append(line, { text: " ", url: gapUrl });
+                lineWidth += spaceWidth;
+            }
+            for (const seg of word.segs) append(line, seg);
+            lineWidth += wordWidth;
+            gapUrl = word.gapUrl;
+        }
+        if (line.length) lines.push(line);
+    }
+    return lines;
+}
+
+function drawRichLine(
+    page: PDFPage,
+    line: RichLine,
+    x: number,
+    y: number,
+    font: PDFFont,
+    fontSize: number,
+    color: ReturnType<typeof rgb>,
+): void {
+    let cursorX = x;
+    for (const seg of line) {
+        const width = font.widthOfTextAtSize(seg.text, fontSize);
+        page.drawText(seg.text, {
+            x: cursorX,
+            y,
+            size: fontSize,
+            font,
+            color: seg.url ? COLOUR_VIOLET : color,
+        });
+        if (seg.url) {
+            page.drawLine({
+                start: { x: cursorX, y: y - 1.5 },
+                end: { x: cursorX + width, y: y - 1.5 },
+                thickness: 0.5,
+                color: COLOUR_VIOLET,
+            });
+            addLinkAnnotation(page, seg.url, [
+                cursorX,
+                y - 2,
+                cursorX + width,
+                y + fontSize,
+            ]);
+        }
+        cursorX += width;
+    }
 }
 
 // ─── Link annotations ──────────────────────────────────────────────────
@@ -411,6 +574,29 @@ class PageCursor {
         }
     }
 
+    /** Draw markdown/HTML text, keeping any links clickable */
+    drawRichText(
+        text: string,
+        font: PDFFont,
+        fontSize: number,
+        color = COLOUR_DARK_GREY,
+        lineHeight?: number,
+        indent = 0,
+    ): void {
+        const lh = lineHeight ?? fontSize + 4;
+        const lines = wrapRich(text, font, fontSize, CONTENT_WIDTH - indent);
+
+        for (const line of lines) {
+            this.ensureSpace(lh);
+            if (line.length === 0) {
+                this.y -= lh * 0.5;
+                continue;
+            }
+            drawRichLine(this.page, line, MARGIN_LEFT + indent, this.y, font, fontSize, color);
+            this.y -= lh;
+        }
+    }
+
     /** Draw a single line of text as a clickable URL link */
     drawLinkedText(
         displayText: string,
@@ -503,12 +689,115 @@ class PageCursor {
     }
 }
 
+function getGuidanceCalloutLayout(
+    guidance: string | undefined,
+    font: PDFFont,
+    xOffset = 0,
+): { lines: RichLine[]; height: number } | null {
+    if (!guidance) return null;
+
+    const width = CONTENT_WIDTH - xOffset;
+    const textWidth = width
+        - GUIDANCE_PADDING * 2
+        - GUIDANCE_ACCENT_WIDTH
+        - GUIDANCE_TEXT_GAP;
+    const lines = wrapRich(guidance, font, FONT_SIZE_SMALL, textWidth);
+    if (!lines.length) return null;
+    const height = GUIDANCE_PADDING * 2
+        + LINE_HEIGHT_SMALL
+        + lines.length * LINE_HEIGHT_SMALL;
+
+    return { lines, height };
+}
+
+function renderGuidanceCallout(
+    cursor: PageCursor,
+    guidance: string | undefined,
+    fonts: { bold: PDFFont; regular: PDFFont },
+    xOffset = 0,
+): void {
+    const layout = getGuidanceCalloutLayout(guidance, fonts.regular, xOffset);
+    if (!layout) return;
+
+    cursor.ensureSpace(layout.height + GUIDANCE_BOTTOM_GAP);
+
+    const x = MARGIN_LEFT + xOffset;
+    const width = CONTENT_WIDTH - xOffset;
+    const bottom = cursor.y - layout.height;
+    const textX = x
+        + GUIDANCE_PADDING
+        + GUIDANCE_ACCENT_WIDTH
+        + GUIDANCE_TEXT_GAP;
+
+    cursor.page.drawRectangle({
+        x,
+        y: bottom,
+        width,
+        height: layout.height,
+        color: COLOUR_SECTION_BG,
+        borderColor: COLOUR_LIGHT_GREY,
+        borderWidth: 0.75,
+    });
+    cursor.page.drawRectangle({
+        x,
+        y: bottom,
+        width: GUIDANCE_ACCENT_WIDTH,
+        height: layout.height,
+        color: COLOUR_VIOLET,
+    });
+
+    let textY = cursor.y - GUIDANCE_PADDING - FONT_SIZE_SMALL;
+    cursor.page.drawText("Guidance", {
+        x: textX,
+        y: textY,
+        size: FONT_SIZE_SMALL,
+        font: fonts.bold,
+        color: COLOUR_VIOLET,
+    });
+    textY -= LINE_HEIGHT_SMALL;
+
+    for (const line of layout.lines) {
+        if (line.length) {
+            drawRichLine(
+                cursor.page,
+                line,
+                textX,
+                textY,
+                fonts.regular,
+                FONT_SIZE_SMALL,
+                COLOUR_DARK_GREY,
+            );
+        }
+        textY -= line.length ? LINE_HEIGHT_SMALL : LINE_HEIGHT_SMALL * 0.5;
+    }
+
+    cursor.y = bottom - GUIDANCE_BOTTOM_GAP;
+}
+
+function getGuidedFieldControlHeight(field: ApplicationField): number {
+    switch (field.type) {
+        case "Textarea":
+            return TEXTAREA_HEIGHT + 6;
+        case "Select":
+            return field.select_options?.length ? DROPDOWN_HEIGHT + 6 : 0;
+        case "Radios":
+            return field.select_options?.length ? RADIO_SIZE + 8 : 0;
+        case "Checkboxes":
+            return field.select_options?.length ? CHECKBOX_SIZE + 8 : 0;
+        case "Key-value":
+            return 22 + PDF_MAX_ENTRIES * 22 + 30;
+        case "Input":
+        default:
+            return field.input_type === "file" ? 40 : TEXT_FIELD_HEIGHT + 6;
+    }
+}
+
 // ─── Field renderers ────────────────────────────────────────────────────
 
 function renderInputField(
     cursor: PageCursor,
     form: ReturnType<PDFDocument["getForm"]>,
-    field: FieldData["fields_id"],
+    field: ApplicationField,
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
     xOffset = 0,
@@ -521,8 +810,8 @@ function renderInputField(
         cursor.ensureSpace(40);
         cursor.drawWrappedTextWithLink(
             "File uploads must be submitted via the Application Portal at ",
-            "unltd.microsoftcrmportals.com/applications",
-            "https://unltd.microsoftcrmportals.com/applications",
+            APPLICATION_PORTAL_URL.replace(/^https:\/\//, ""),
+            APPLICATION_PORTAL_URL,
             "",
             fonts.regular,
             FONT_SIZE_BODY,
@@ -568,7 +857,7 @@ function renderInputField(
 function renderTextareaField(
     cursor: PageCursor,
     form: ReturnType<PDFDocument["getForm"]>,
-    field: FieldData["fields_id"],
+    field: ApplicationField,
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
     xOffset = 0,
@@ -610,7 +899,7 @@ function renderTextareaField(
 function renderSelectField(
     cursor: PageCursor,
     form: ReturnType<PDFDocument["getForm"]>,
-    field: FieldData["fields_id"],
+    field: ApplicationField,
     fieldId: string,
     fieldSlug: string,
     fonts: { bold: PDFFont; regular: PDFFont },
@@ -631,6 +920,7 @@ function renderSelectField(
     dd.addOptions(options);
 
     // Auto-select and lock the stage field
+    let stageLocked = false;
     if (isStageField && stageSlug) {
         const matchingOption = field.select_options?.find(
             (o) => o.slug?.trim() === stageSlug.trim(),
@@ -638,6 +928,11 @@ function renderSelectField(
         if (matchingOption) {
             dd.select(sanitiseForPdf(matchingOption.name));
             dd.enableReadOnly();
+            stageLocked = true;
+        } else {
+            console.warn(
+                `[pdf] No stage option matches "${stageSlug}"; options: ${field.select_options?.map((o) => o.slug).join(", ")}`,
+            );
         }
     }
 
@@ -648,7 +943,7 @@ function renderSelectField(
         height: DROPDOWN_HEIGHT,
         borderWidth: 1,
         borderColor: COLOUR_MID_GREY,
-        backgroundColor: isStageField && stageSlug
+        backgroundColor: stageLocked
             ? rgb(0.93, 0.93, 0.93)
             : rgb(0.97, 0.97, 0.97),
         font: fonts.regular,
@@ -689,7 +984,7 @@ function renderSelectField(
     });
 
     // Show a note if locked
-    if (isStageField && stageSlug) {
+    if (stageLocked) {
         cursor.y -= DROPDOWN_HEIGHT + FIELD_HINT_GAP;
         cursor.drawWrappedText(
             "This answer is pre-selected because the remaining questions are specific to this stage.",
@@ -707,7 +1002,7 @@ function renderSelectField(
 function renderRadiosField(
     cursor: PageCursor,
     form: ReturnType<PDFDocument["getForm"]>,
-    field: FieldData["fields_id"],
+    field: ApplicationField,
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
     xOffset = 0,
@@ -772,7 +1067,7 @@ function renderRadiosField(
 function renderCheckboxesField(
     cursor: PageCursor,
     form: ReturnType<PDFDocument["getForm"]>,
-    field: FieldData["fields_id"],
+    field: ApplicationField,
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
     xOffset = 0,
@@ -826,7 +1121,7 @@ function renderCheckboxesField(
 function renderKeyValueField(
     cursor: PageCursor,
     form: ReturnType<PDFDocument["getForm"]>,
-    field: FieldData["fields_id"],
+    field: ApplicationField,
     fieldId: string,
     fonts: { bold: PDFFont; regular: PDFFont },
     xOffset = 0,
@@ -965,23 +1260,40 @@ function renderKeyValueField(
     cursor.y -= 4;
 }
 
+function getVisibleSections(sections: ApplicationSection[]): ApplicationSection[] {
+    const isVisibleStatus = (status?: string) => status === "published";
+
+    return sections
+        .filter((section) => isVisibleStatus(section.status))
+        .map((section) => ({
+            ...section,
+            fields: section.fields.filter((field) => isVisibleStatus(field.status)),
+        }));
+}
+
 // ─── Main generator ─────────────────────────────────────────────────────
 
 export async function generateApplicationPdf(
     options: GeneratePdfOptions,
 ): Promise<Uint8Array> {
-    const { applicationName, slug, stageSlug, stageText, sections, awards, resources } = options;
+    const {
+        applicationTitle,
+        applicationSubtitle,
+        slug,
+        stageSlug,
+        stageText,
+        sections: inputSections,
+        awards,
+        resources,
+    } = options;
+    const sections = getVisibleSections(inputSections);
 
-    // Find the most recent date_updated across all sections and fields
+    // Find the most recent update across all sections and fields
     const allDates: number[] = [];
-    for (const sec of sections) {
-        if (sec.sections_id?.date_updated) {
-            allDates.push(new Date(sec.sections_id.date_updated).getTime());
-        }
-        for (const field of sec.sections_id?.fields ?? []) {
-            if (field.fields_id?.date_updated) {
-                allDates.push(new Date(field.fields_id.date_updated).getTime());
-            }
+    for (const section of sections) {
+        allDates.push(new Date(section.updatedAt).getTime());
+        for (const field of section.fields) {
+            allDates.push(new Date(field.updatedAt).getTime());
         }
     }
     const lastUpdated = allDates.length > 0
@@ -1035,7 +1347,7 @@ export async function generateApplicationPdf(
         firstPage,
         nunitoBold,
         nunitoRegular,
-        applicationName,
+        applicationTitle,
     );
     const form = pdfDoc.getForm();
 
@@ -1114,6 +1426,37 @@ export async function generateApplicationPdf(
     });
     cursor.y -= 10;
 
+    // ── Your stage ──────────────────────────────────────────────────
+
+    if (applicationSubtitle) {
+        cursor.page.drawText(sanitiseForPdf(`Your stage: ${applicationTitle}`), {
+            x: MARGIN_LEFT,
+            y: cursor.y,
+            size: FONT_SIZE_SUBTITLE,
+            font: nunitoBold,
+            color: COLOUR_VIOLET,
+        });
+        cursor.y -= FONT_SIZE_SUBTITLE + 4;
+
+        cursor.drawRichText(
+            applicationSubtitle,
+            nunitoRegular,
+            FONT_SIZE_BODY,
+            COLOUR_DARK_GREY,
+            LINE_HEIGHT_BODY,
+        );
+        cursor.y -= 10;
+
+        // Divider
+        cursor.page.drawLine({
+            start: { x: MARGIN_LEFT, y: cursor.y },
+            end: { x: PAGE_WIDTH - MARGIN_RIGHT, y: cursor.y },
+            thickness: 0.5,
+            color: COLOUR_LIGHT_GREY,
+        });
+        cursor.y -= 10;
+    }
+
     // ── Eligible awards ─────────────────────────────────────────────
 
     if (awards && awards.length > 0) {
@@ -1136,13 +1479,8 @@ export async function generateApplicationPdf(
         cursor.y -= 2;
 
         for (const award of awards) {
-            const stageLabel = award.stage === "starting-up" ? "Starting Up" : "Scaling Up";
             const grantFormatted = award.grant ? `up to \u00A3${award.grant.toLocaleString("en-GB")}` : "";
-            const ageText = award.programme.code === "ff"
-                ? "open to anyone aged 16 to 30"
-                : "open to anyone aged 16 and over";
-            const awardDetails = [grantFormatted, ageText].filter(Boolean).join(", ");
-            const awardLine = `\u2022  ${stageLabel} \u2014 ${award.programme.name}${awardDetails ? ` (${awardDetails})` : ""}`;
+            const awardLine = `\u2022  ${award.name}${grantFormatted ? ` (${grantFormatted})` : ""}`;
             cursor.drawWrappedText(
                 sanitiseForPdf(awardLine),
                 nunitoRegular,
@@ -1216,15 +1554,11 @@ export async function generateApplicationPdf(
         for (const resource of resources) {
             // Resource title
             cursor.ensureSpace(30);
-            const resourceUrl = resource.external_url
-                ? (resource.external_url.startsWith("http") ? resource.external_url : `https://${resource.external_url}`)
-                : `https://unltd.org.uk/spaces/${resource.slug}`;
-            const resourceDisplayUrl = resource.external_url
-                ? resource.external_url.replace(/^https?:\/\//, "")
-                : `unltd.org.uk/spaces/${resource.slug}`;
+            const resourceUrl = `https://unltd.org.uk/resources/${resource.slug}`;
+            const resourceDisplayUrl = `unltd.org.uk/resources/${resource.slug}`;
 
             // Bold resource name
-            cursor.page.drawText(sanitiseForPdf(`\u2022  ${resource.name}`), {
+            cursor.page.drawText(sanitiseForPdf(`\u2022  ${resource.title}`), {
                 x: MARGIN_LEFT,
                 y: cursor.y,
                 size: FONT_SIZE_BODY,
@@ -1234,14 +1568,14 @@ export async function generateApplicationPdf(
             cursor.y -= LINE_HEIGHT_BODY;
 
             // Resource description
-            if (resource.description) {
-                cursor.drawWrappedTextIndented(
-                    stripMarkdown(resource.description),
+            if (resource.subtitle) {
+                cursor.drawRichText(
+                    resource.subtitle,
                     nunitoRegular,
                     FONT_SIZE_SMALL,
-                    14,
                     COLOUR_MID_GREY,
                     LINE_HEIGHT_SMALL,
+                    14,
                 );
             }
 
@@ -1348,14 +1682,20 @@ export async function generateApplicationPdf(
     // ── Sections ────────────────────────────────────────────────────────
 
     for (let si = 0; si < sections.length; si++) {
-        const section = sections[si].sections_id;
-        if (!section) continue;
+        const section = sections[si];
 
         const sectionNumber = si + 1;
-        const sectionTitle = `${sectionNumber}. ${section.name}`;
+        const sectionTitle = `${sectionNumber}. ${section.title}`;
+        const sectionGuidanceLayout = getGuidanceCalloutLayout(
+            section.guidance,
+            nunitoRegular,
+        );
+        const sectionGuidanceHeight = sectionGuidanceLayout
+            ? sectionGuidanceLayout.height + GUIDANCE_BOTTOM_GAP
+            : 0;
 
-        // Section heading — ensure room for heading + a bit of content
-        cursor.ensureSpace(60);
+        // Keep the section heading and its guidance together.
+        cursor.ensureSpace(Math.max(60, 36 + sectionGuidanceHeight));
 
         // Section heading background
         const headingHeight = 28;
@@ -1376,12 +1716,14 @@ export async function generateApplicationPdf(
         });
         cursor.y -= headingHeight + 8;
 
-        // Section description
-        if (section.description) {
-            const plainDesc = stripMarkdown(section.description);
+        renderGuidanceCallout(cursor, section.guidance, fonts);
+
+        // Section subtitle
+        if (section.subtitle) {
+            const plainDesc = stripMarkdown(section.subtitle);
             if (plainDesc) {
-                cursor.drawWrappedText(
-                    plainDesc,
+                cursor.drawRichText(
+                    section.subtitle,
                     nunitoRegular,
                     FONT_SIZE_BODY,
                     COLOUR_MID_GREY,
@@ -1392,25 +1734,43 @@ export async function generateApplicationPdf(
         }
 
         // Fields
-        const fields = section.fields ?? [];
-
-        // Build a lookup so we can resolve parent field names for dependency notes
-        const fieldsBySlug = new Map<string, FieldData["fields_id"]>();
-        for (const f of fields) {
-            if (f.fields_id?.slug) fieldsBySlug.set(f.fields_id.slug, f.fields_id);
-        }
+        const fields = section.fields;
 
         // Sequential field number — only incremented for non-dependent fields
         let fieldNumber = 0;
 
         for (let fi = 0; fi < fields.length; fi++) {
-            const field = fields[fi].fields_id;
-            if (!field) continue;
+            const field = fields[fi];
 
             const isDependentField = Boolean(field.dependency);
             const indent = isDependentField ? DEPENDENCY_INDENT : 0;
             const fieldWidth = CONTENT_WIDTH - indent;
             const fieldId = `${section.slug}.${field.slug}`;
+            const guidanceLayout = getGuidanceCalloutLayout(
+                field.guidance,
+                nunitoRegular,
+                indent,
+            );
+            const guidanceHeight = guidanceLayout
+                ? guidanceLayout.height + GUIDANCE_BOTTOM_GAP
+                : 0;
+            const guidedControlHeight = guidanceLayout
+                ? getGuidedFieldControlHeight(field)
+                : 0;
+            const plainFieldDesc = field.subtitle
+                ? stripMarkdown(field.subtitle)
+                : "";
+            const descriptionLines = plainFieldDesc
+                ? wrapRich(
+                    field.subtitle,
+                    nunitoRegular,
+                    FONT_SIZE_SMALL,
+                    fieldWidth,
+                )
+                : [];
+            const descriptionHeight = descriptionLines.length
+                ? descriptionLines.length * LINE_HEIGHT_SMALL + 4
+                : 0;
 
             if (isDependentField) {
                 // ── Dependent field — rendered indented below its parent ─
@@ -1418,31 +1778,19 @@ export async function generateApplicationPdf(
                 // Smaller gap to visually tie it to the parent above
                 cursor.y -= FIELD_GAP / 2;
 
-                // Use the field's own description as the conditional note
-                const conditionalNote = field.description
-                    ? stripMarkdown(field.description)
-                    : null;
-
-                if (conditionalNote) {
-                    cursor.ensureSpace(30);
-                    cursor.drawWrappedTextIndented(
-                        conditionalNote,
-                        nunitoRegular,
-                        FONT_SIZE_SMALL,
-                        indent,
-                        COLOUR_MID_GREY,
-                        LINE_HEIGHT_SMALL,
-                    );
-                    cursor.y -= 4;
-                }
-
                 // Field label (no number prefix for dependent fields)
                 const requiredMark = field.required ? " *" : "";
-                const labelText = `${field.name}${requiredMark}`;
+                const labelText = `${field.title}${requiredMark}`;
 
                 const labelLines = wrapText(labelText, nunitoBold, FONT_SIZE_FIELD_LABEL, fieldWidth);
                 const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
-                cursor.ensureSpace(labelHeight + 30);
+                cursor.ensureSpace(
+                    labelHeight
+                    + guidanceHeight
+                    + descriptionHeight
+                    + guidedControlHeight
+                    + 30,
+                );
 
                 cursor.drawWrappedTextIndented(
                     labelText,
@@ -1460,11 +1808,15 @@ export async function generateApplicationPdf(
                 fieldNumber++;
 
                 const requiredMark = field.required ? " *" : "";
-                const labelText = `${sectionNumber}.${fieldNumber}. ${field.name}${requiredMark}`;
+                const labelText = `${sectionNumber}.${fieldNumber}. ${field.title}${requiredMark}`;
 
                 const labelLines = wrapText(labelText, nunitoBold, FONT_SIZE_FIELD_LABEL, CONTENT_WIDTH);
                 const labelHeight = labelLines.length * (FONT_SIZE_FIELD_LABEL + 4);
-                const minFieldHeight = labelHeight + 30;
+                const minFieldHeight = labelHeight
+                    + guidanceHeight
+                    + descriptionHeight
+                    + guidedControlHeight
+                    + 30;
                 cursor.ensureSpace(minFieldHeight);
 
                 cursor.drawWrappedText(
@@ -1477,19 +1829,19 @@ export async function generateApplicationPdf(
                 cursor.y -= 2;
             }
 
-            // ── Field description (skip for dependent fields — already shown as the conditional note)
-            if (!isDependentField && field.description) {
-                const plainFieldDesc = stripMarkdown(field.description);
-                if (plainFieldDesc) {
-                    cursor.drawWrappedText(
-                        plainFieldDesc,
-                        nunitoRegular,
-                        FONT_SIZE_SMALL,
-                        COLOUR_MID_GREY,
-                        LINE_HEIGHT_SMALL,
-                    );
-                    cursor.y -= 4;
-                }
+            renderGuidanceCallout(cursor, field.guidance, fonts, indent);
+
+            // Dependent-field descriptions act as conditional notes.
+            if (plainFieldDesc) {
+                cursor.drawRichText(
+                    field.subtitle,
+                    nunitoRegular,
+                    FONT_SIZE_SMALL,
+                    COLOUR_MID_GREY,
+                    LINE_HEIGHT_SMALL,
+                    indent,
+                );
+                cursor.y -= 4;
             }
 
             // ── Field widget ────────────────────────────────────────────
@@ -1509,7 +1861,7 @@ export async function generateApplicationPdf(
                 case "Checkboxes":
                     renderCheckboxesField(cursor, form, field, fieldId, fonts, indent);
                     break;
-                case "key-value":
+                case "Key-value":
                     renderKeyValueField(cursor, form, field, fieldId, fonts, indent);
                     break;
                 default:

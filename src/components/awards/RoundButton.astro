@@ -10,9 +10,10 @@
  * - Open:     active account/sign-in CTA with optional urgency styling
  * - Closing:  active with urgency colours + countdown
  */
-import { getRoundData, getRoundStatus } from "./round";
+import { resolveRounds, getRoundData, getRoundStatus } from "./round";
 import Icon from "@components/Icon.astro";
 import RoundCapacity from "@components/awards/RoundCapacity.astro";
+import { APPLICATION_PORTAL_URL } from "@config/links";
 
 interface Props {
     applyUrl?: string;
@@ -21,11 +22,11 @@ interface Props {
 }
 
 const {
-    applyUrl = "https://unltd.microsoftcrmportals.com/applications",
+    applyUrl = APPLICATION_PORTAL_URL,
     variant = "primary",
 } = Astro.props;
 
-const { currentRound, nextRound, devDateTime } = getRoundData();
+const { currentRound, nextRound, devDateTime } = getRoundData(await resolveRounds());
 const {
     state,
     round: displayRound,
@@ -114,7 +115,7 @@ const isRoundFull = state === "closed" && closedReason === "capacity";
                     <span class="text-xs font-normal text-red-400">
                         This round has reached capacity.{" "}
                         <a
-                            href="/awards/#how-applying-works"
+                            href="/awards#how-applying-works"
                             class="underline hover:text-red-300"
                         >
                             Find out about the next round.

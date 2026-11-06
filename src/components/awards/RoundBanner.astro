@@ -10,22 +10,29 @@
  * - Open:    emerald — "Award Applications Open"
  * - Closing: amber/red — "Award Applications Closing Soon"
  */
-import { getRoundData, getRoundStatus } from "./round";
+import { resolveRounds, getRoundData, getRoundStatus } from "./round";
 import Icon from "@components/Icon.astro";
 import RoundBadge from "@components/awards/RoundBadge.astro";
+import RoundCapacity from "@components/awards/RoundCapacity.astro";
 import RoundSubtitle from "@components/awards/RoundSubtitle.astro";
+import type { RoundEntry } from "@data/rounds.ts";
 
 interface Props {
     eligibilityUrl?: string;
     awardsUrl?: string;
+    /** Rounds to show; read from EmDash at build time when omitted. */
+    rounds?: RoundEntry[];
 }
 
 const {
     eligibilityUrl = "/awards#apply",
     awardsUrl = "/awards",
+    rounds: providedRounds,
 } = Astro.props;
 
-const { currentRound, nextRound, devDateTime } = getRoundData();
+const rounds = await resolveRounds(providedRounds);
+
+const { currentRound, nextRound, devDateTime } = getRoundData(rounds);
 const { state, round: displayRound, urgency } =
     getRoundStatus({ currentRound, nextRound, devDateTime });
 
@@ -74,16 +81,25 @@ const s = styleMap[state] ?? styleMap.open;
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <!-- Left: Status and round info -->
-                <div class="flex items-center gap-3">
-                    <div class="flex items-center gap-3 flex-wrap">
-                        <h3 class="text-base font-semibold text-white">
-                            Award Applications
-                        </h3>
-                        <RoundBadge />
-                    </div>
+                <div class="flex flex-col gap-2">
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-3 flex-wrap">
+                            <h3 class="text-base font-semibold text-white">
+                                Award Applications
+                            </h3>
+                            <RoundBadge rounds={rounds} />
+                        </div>
 
-                            <span class="hidden sm:inline text-violet-500">|</span>
-                    <RoundSubtitle />
+                        <span class="hidden sm:inline text-violet-500">|</span>
+                        <RoundSubtitle rounds={rounds} />
+                    </div>
+                    {displayRound.hasCapacity && (
+                        <RoundCapacity
+                            capacityPercentage={displayRound.capacityPercentage}
+                            hasCapacity={displayRound.hasCapacity}
+                            variant="banner"
+                        />
+                    )}
                 </div>
 
                 <!-- Right: CTA -->

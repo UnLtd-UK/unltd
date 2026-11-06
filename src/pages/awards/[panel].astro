@@ -3,92 +3,59 @@ import type { GetStaticPaths } from "astro";
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
+import PersonCard from "@components/PersonCard.astro";
 import Icon from "@components/Icon.astro";
 import moment from "moment";
 
-import { panels } from "@data/panels.js";
-
-type Person = {
-    image?: string | null;
-    gender_pronouns?: string[] | null;
-    name: string;
-    bio?: string | null;
-    linkedin?: string | null;
-    website?: string | null;
-};
-
-type Position = {
-    person: Person;
-    role: {
-        name: string;
-        organisation?: { name: string } | null;
-    };
-};
-
-type PanelMember = {
-    positions_id: Position;
-};
+import { panels, type PanelEntry } from "@data/panels";
 
 type PanelPageProps = {
-    name: string;
-    date: string;
-    programme: string;
-    social_entrepreneurs: PanelMember[];
-    unltd_colleagues: PanelMember[];
-    panel_chair: Position;
+    panel: PanelEntry;
     breadcrumbs: { name: string; path: string }[];
-    description: string;
 };
 
-export const getStaticPaths = (async () => {
-    try {
-        return panels.map((panel: any) => {
-            const name = `${moment(panel.date).format("DD-MM-YYYY")}`;
-            const slug = panel.name;
-
-            const breadcrumbs = [
-                {
-                    name: "Awards",
-                    path: `/awards`,
-                },
-                {
-                    name: slug,
-                    path: `/awards/${slug}`,
-                },
-            ];
-
-            return {
-                params: {
-                    panel: slug,
-                },
-                props: {
-                    name: name,
-                    date: moment(panel.date).format("dddd, MMMM Do YYYY"),
-                    programme: panel.programme,
-                    social_entrepreneurs: panel.social_entrepreneurs,
-                    unltd_colleagues: panel.unltd_colleagues,
-                    panel_chair: panel.panel_chair,
-                    breadcrumbs: breadcrumbs,
-                    description:
-                        "Hello! We are your panel members; we are looking forward to meeting you and hearing about your social venture.",
-                },
-            };
-        });
-    } catch (error) {
-        console.error("🐛 ", error);
-    }
+export const getStaticPaths = (() => {
+    return panels.map((panel) => ({
+        params: { panel: panel.slug },
+        props: {
+            panel,
+            breadcrumbs: [
+                { name: "Awards", path: "/awards" },
+                { name: panel.slug, path: `/awards/${panel.slug}` },
+            ],
+        },
+    }));
 }) satisfies GetStaticPaths;
 
-const {
-    name,
-    date,
-    programme,
-    social_entrepreneurs,
-    unltd_colleagues,
-    panel_chair,
-    breadcrumbs,
-    description,
-}: PanelPageProps = Astro.props;
+const { panel, breadcrumbs }: PanelPageProps = Astro.props;
+
+const name = moment(panel.date).format("DD-MM-YYYY");
+const date = moment(panel.date).format("dddd, MMMM Do YYYY");
+const description =
+    "Hello! We are your panel members; we are looking forward to meeting you and hearing about your social venture.";
+
+const toProfile = (person: PanelEntry["colleagues"][number]) => ({
+    name: person.name,
+    pronouns: person.pronouns ? [person.pronouns] : [],
+    roleName: person.roleTitle,
+    subtitle: person.subtitle,
+    avatarSrc: person.image || null,
+    imageAlt: person.imageAlt,
+    linkedin: person.linkedin || null,
+});
+
+const chair = panel.chair ? toProfile(panel.chair) : null;
+const colleagues = panel.colleagues.map(toProfile);
+
+const guests = panel.members.map((member) => ({
+    name: member.name,
+    pronouns: member.pronouns ? [member.pronouns] : [],
+    roleName: member.jobTitle,
+    subtitle: member.subtitle,
+    avatarSrc: member.image || null,
+    imageAlt: "",
+    linkedin: null,
+}));
 ---
 
 <Template
@@ -96,475 +63,79 @@ const {
     breadcrumbs={breadcrumbs}
     description={description}
     noindex={true}
+    hideFloatingBanner={true}
 >
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
-        <div class="py-12">
-            <div class="grid grid-cols-1 gap-x-10 gap-y-20 xl:grid-cols-5">
-                <div class="max-w-2xl xl:col-span-2 flex flex-col gap-3">
-                    <div>
-                        <h2
-                            class="text-3xl font-bold tracking-tight text-violet-100"
-                        >
-                            Your Award Panel
-                        </h2>
-                    </div>
-                    <div>
-                        <h3 class="text-base tracking-tight text-violet-300">
-                            Date
-                        </h3>
-                        <p
-                            class="text-xl font-bold tracking-tight text-violet-200"
-                        >
-                            {date}
-                        </p>
-                    </div>
-                    <div>
-                        <h3 class="text-base tracking-tight text-violet-300">
-                            Award programme
-                        </h3>
-                        <p
-                            class="text-xl font-bold tracking-tight text-violet-200"
-                        >
-                            {programme}
-                        </p>
-                    </div>
-                    <p class="mt-6 text-lg leading-8 text-violet-300">
-                        Hello! We are your panel members; we are looking forward
-                        to meeting you and hearing about your social venture.
-                    </p>
-                    <p class="mt-6 text-xs leading-5 text-violet-300">
-                        UnLtd panels reflect our commitment to inclusion, with
-                        over 50% of our panel members identifying as Black,
-                        Asian or minority ethnic and/or disabled, and at a
-                        minimum, one panel member who identifies as Black, Asian
-                        or minority ethnic and/or disabled sitting on each
-                        panel.
-                    </p>
+        <div class="flex flex-col gap-12 py-12">
+            <div class="flex flex-col gap-4">
+                <h2 class="text-4xl font-bold tracking-tight text-violet-100">
+                    Your Award Panel
+                </h2>
+                <p class="text-xl font-bold tracking-tight text-violet-100">
+                    {panel.programme} · {date}
+                </p>
+                <p class="text-lg leading-8 text-violet-300">
+                    Hello! We are your panel members; we are looking forward to
+                    meeting you and hearing about your social venture.
+                </p>
+                <a
+                    href="/resources/panel-meeting-guide"
+                    class="inline-flex w-fit items-center gap-2 text-base font-semibold text-amber-400 transition-colors hover:text-amber-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-400"
+                >
+                    Read the panel meeting guide
+                    <Icon name="arrow-right" style="solid" class="text-sm" />
+                </a>
+                <p class="text-xs leading-5 text-violet-300">
+                    UnLtd panels reflect our commitment to inclusion, with over
+                    50% of our panel members identifying as Black, Asian or
+                    minority ethnic and/or disabled, and at a minimum, one panel
+                    member who identifies as Black, Asian or minority ethnic
+                    and/or disabled sitting on each panel.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 gap-x-10 gap-y-12 xl:grid-cols-2 xl:items-start">
+                <div class="flex flex-col gap-6">
+                    <dl class="divide-y divide-violet-700 rounded-2xl bg-violet-900 px-6 py-2 ring-1 ring-violet-700">
+                        {chair && (
+                            <div class="py-4">
+                                <dt class="mb-3 text-xs font-medium uppercase tracking-wide text-violet-300">
+                                    UnLtd panel chair
+                                </dt>
+                                <dd>
+                                    <PersonCard person={chair} showSubtitle />
+                                </dd>
+                            </div>
+                        )}
+                        {colleagues.length > 0 && (
+                            <div class="py-4">
+                                <dt class="mb-3 text-xs font-medium uppercase tracking-wide text-violet-300">
+                                    UnLtd panel members
+                                </dt>
+                                <dd>
+                                    <ul class="flex flex-col gap-y-6">
+                                        {colleagues.map((person) => (
+                                            <li>
+                                                <PersonCard person={person} showSubtitle />
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </dd>
+                            </div>
+                        )}
+                    </dl>
                 </div>
-                <div class="xl:col-span-3 flex flex-col gap-24">
-                    <div class="relative">
-                        <div
-                            class="absolute inset-0 flex items-center"
-                            aria-hidden="true"
-                        >
-                            <div class="w-full border-t border-violet-300">
-                            </div>
-                        </div>
-                        <div class="relative flex justify-start">
-                            <span
-                                class="bg-violet-950 pr-3 text-3xl font-semibold text-violet-100"
-                                >Panel Chair</span
-                            >
-                        </div>
-                    </div>
-                    <ul class="space-y-12">
-                        <li class="flex flex-col gap-5 sm:flex-row">
-                            <div class="basis-1/3">
-                                {
-                                    panel_chair.person.image && (
-                                        <img
-                                            class="aspect-4/5 w-52 flex-none rounded-2xl object-cover"
-                                            src={`https://unltd.directus.app/assets/${panel_chair.person.image}`}
-                                            alt=""
-                                            width={416}
-                                            height={520}
-                                            loading="lazy"
-                                        />
-                                    )
-                                }
-                            </div>
-
-                            <div class="basis-2/3">
-                                <div>
-                                    <h3
-                                        class="text-lg font-semibold leading-8 tracking-tight text-violet-100"
-                                    >
-                                        {panel_chair.person.name}
-                                    </h3>
-                                    <div class="flex items-center gap-1">
-                                        {
-                                            panel_chair.person
-                                                .gender_pronouns &&
-                                                panel_chair.person
-                                                    .gender_pronouns.length >
-                                                    0 && (
-                                                    <div class="flex gap-1">
-                                                        {panel_chair.person.gender_pronouns?.map(
-                                                            (item) => (
-                                                                <span class="text-xs text-violet-200">
-                                                                    {item}
-                                                                </span>
-                                                            ),
-                                                        )}
-                                                    </div>
-                                                )
-                                        }
-                                        <div></div>
-                                    </div>
-                                </div>
-                                <p class="text-base leading-7 text-violet-300">
-                                    {panel_chair.role.name}{" "}
-                                    {
-                                        panel_chair.role.organisation?.name &&
-                                            `at ${panel_chair.role.organisation.name}`
-                                    }
-                                </p>
-                                <p
-                                    class="mt-6 text-base leading-7 text-violet-200"
-                                >
-                                    {panel_chair.person.bio}
-                                </p>
-                                <ul class="mt-6 flex gap-x-6">
-                                    {
-                                        panel_chair.person.linkedin && (
-                                            <li>
-                                                <a
-                                                    href={
-                                                        panel_chair.person
-                                                            .linkedin
-                                                    }
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    class="text-violet-200 hover:text-violet-400"
-                                                >
-                                                    <span class="sr-only">
-                                                        LinkedIn
-                                                    </span>
-                                                    <Icon
-                                                        name="linkedin"
-                                                        style="brands"
-                                                        class="text-xl"
-                                                    />
-                                                </a>
-                                            </li>
-                                        )
-                                    }
-                                    {
-                                        panel_chair.person.website && (
-                                            <li>
-                                                <a
-                                                    href={
-                                                        panel_chair.person.website.startsWith(
-                                                            "https://",
-                                                        )
-                                                            ? panel_chair.person
-                                                                  .website
-                                                            : `https://${panel_chair.person.website}`
-                                                    }
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    class="text-violet-200 hover:text-violet-400"
-                                                >
-                                                    <span class="sr-only">
-                                                        Website
-                                                    </span>
-                                                    <Icon
-                                                        name="globe"
-                                                        style="regular"
-                                                        class="text-xl"
-                                                    />
-                                                </a>
-                                            </li>
-                                        )
-                                    }
-                                </ul>
-                            </div>
-                        </li>
+                <div class="rounded-2xl bg-violet-900 px-6 py-6 ring-1 ring-violet-700">
+                    <h3 class="mb-3 text-xs font-medium uppercase tracking-wide text-violet-300">
+                        Social entrepreneur panel members
+                    </h3>
+                    <ul class="flex flex-col gap-y-10">
+                        {guests.map((person) => (
+                            <li>
+                                <PersonCard person={person} showSubtitle />
+                            </li>
+                        ))}
                     </ul>
-                    <div class="relative">
-                        <div
-                            class="absolute inset-0 flex items-center"
-                            aria-hidden="true"
-                        >
-                            <div class="w-full border-t border-violet-300">
-                            </div>
-                        </div>
-                        <div class="relative flex justify-start">
-                            <span
-                                class="bg-violet-950 pr-3 text-3xl font-semibold text-violet-100"
-                                >Social Entrepreneurs</span
-                            >
-                        </div>
-                    </div>
-                    <ul class="space-y-12">
-                        {
-                            social_entrepreneurs.map((social_entrepreneur) => (
-                                <li class="flex flex-col gap-5 sm:flex-row">
-                                    <div class="basis-1/3">
-                                        {social_entrepreneur.positions_id.person
-                                            .image && (
-                                            <img
-                                                class="aspect-4/5 w-52 flex-none rounded-2xl object-cover"
-                                                src={`https://unltd.directus.app/assets/${social_entrepreneur.positions_id.person.image}`}
-                                                alt=""
-                                                width={416}
-                                                height={520}
-                                                loading="lazy"
-                                            />
-                                        )}
-                                    </div>
-
-                                    <div class="basis-2/3 ">
-                                        <div>
-                                            <h3 class="text-lg font-semibold leading-8 tracking-tight text-violet-100">
-                                                {
-                                                    social_entrepreneur
-                                                        .positions_id.person
-                                                        .name
-                                                }
-                                            </h3>
-                                            <div class="flex items-center gap-1">
-                                                {social_entrepreneur
-                                                    .positions_id.person
-                                                    .gender_pronouns &&
-                                                    social_entrepreneur
-                                                        .positions_id.person
-                                                        .gender_pronouns
-                                                        .length > 0 && (
-                                                        <div class="flex gap-1">
-                                                            {social_entrepreneur.positions_id.person.gender_pronouns?.map(
-                                                                (item) => (
-                                                                    <span class="text-xs text-violet-200">
-                                                                        {item}
-                                                                    </span>
-                                                                ),
-                                                            )}
-                                                        </div>
-                                                    )}
-                                                <div />
-                                            </div>
-                                        </div>
-                                        <p class="text-base leading-7 text-violet-300">
-                                            {
-                                                social_entrepreneur.positions_id
-                                                    .role.name
-                                            }{" "}
-                                            {social_entrepreneur.positions_id
-                                                .role.organisation?.name &&
-                                                `at ${
-                                                    social_entrepreneur
-                                                        .positions_id.role
-                                                        .organisation.name
-                                                }`}
-                                        </p>
-                                        <p class="mt-6 text-base leading-7 text-violet-200">
-                                            {
-                                                social_entrepreneur.positions_id
-                                                    .person.bio
-                                            }
-                                        </p>
-                                        <ul class="mt-6 flex gap-x-6">
-                                            {social_entrepreneur.positions_id
-                                                .person.linkedin && (
-                                                <li>
-                                                    <a
-                                                        href={
-                                                            social_entrepreneur
-                                                                .positions_id
-                                                                .person.linkedin
-                                                        }
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        class="text-violet-200 hover:text-violet-400"
-                                                    >
-                                                        <span class="sr-only">
-                                                            LinkedIn
-                                                        </span>
-                                                        <Icon
-                                                            name="linkedin"
-                                                            style="brands"
-                                                            class="text-xl"
-                                                        />
-                                                    </a>
-                                                </li>
-                                            )}
-                                            {social_entrepreneur.positions_id
-                                                .person.website && (
-                                                <li>
-                                                    <a
-                                                        href={
-                                                            social_entrepreneur.positions_id.person.website.startsWith(
-                                                                "https://",
-                                                            )
-                                                                ? social_entrepreneur
-                                                                      .positions_id
-                                                                      .person
-                                                                      .website
-                                                                : `https://${social_entrepreneur.positions_id.person.website}`
-                                                        }
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        class="text-violet-200 hover:text-violet-400"
-                                                    >
-                                                        <span class="sr-only">
-                                                            Website
-                                                        </span>
-                                                        <Icon
-                                                            name="globe"
-                                                            style="regular"
-                                                            class="text-xl"
-                                                        />
-                                                    </a>
-                                                </li>
-                                            )}
-                                        </ul>
-                                    </div>
-                                </li>
-                            ))
-                        }
-                    </ul>
-                    {
-                        unltd_colleagues && unltd_colleagues.length > 0 && (
-                            <>
-                                <div class="relative">
-                                    <div
-                                        class="absolute inset-0 flex items-center"
-                                        aria-hidden="true"
-                                    >
-                                        <div class="w-full border-t border-violet-300" />
-                                    </div>
-                                    <div class="relative flex justify-start">
-                                        <span class="bg-violet-950 pr-3 text-3xl font-semibold text-violet-100">
-                                            UnLtd Colleagues
-                                        </span>
-                                    </div>
-                                </div>
-                                <ul class="space-y-12">
-                                    {unltd_colleagues.map((unltd_colleague) => (
-                                        <li class="flex flex-col gap-5 sm:flex-row">
-                                            <div class="basis-1/3">
-                                                {unltd_colleague.positions_id
-                                                    .person.image && (
-                                                    <img
-                                                        class="aspect-4/5 w-52 flex-none rounded-2xl object-cover"
-                                                        src={`https://unltd.directus.app/assets/${unltd_colleague.positions_id.person.image}`}
-                                                        alt=""
-                                                        width={416}
-                                                        height={520}
-                                                        loading="lazy"
-                                                    />
-                                                )}
-                                            </div>
-
-                                            <div class="basis-2/3 ">
-                                                <div>
-                                                    <h3 class="text-lg font-semibold leading-8 tracking-tight text-violet-100">
-                                                        {
-                                                            unltd_colleague
-                                                                .positions_id
-                                                                .person.name
-                                                        }
-                                                    </h3>
-                                                    <div class="flex items-center gap-1">
-                                                        {unltd_colleague
-                                                            .positions_id.person
-                                                            .gender_pronouns &&
-                                                            unltd_colleague
-                                                                .positions_id
-                                                                .person
-                                                                .gender_pronouns
-                                                                .length > 0 && (
-                                                                <div class="flex gap-1">
-                                                                    {unltd_colleague.positions_id.person.gender_pronouns?.map(
-                                                                        (
-                                                                            item,
-                                                                        ) => (
-                                                                            <span class="text-xs text-violet-200">
-                                                                                {
-                                                                                    item
-                                                                                }
-                                                                            </span>
-                                                                        ),
-                                                                    )}
-                                                                </div>
-                                                            )}
-                                                        <div />
-                                                    </div>
-                                                </div>
-                                                <p class="text-base leading-7 text-violet-300">
-                                                    {
-                                                        unltd_colleague
-                                                            .positions_id.role
-                                                            .name
-                                                    }{" "}
-                                                    {unltd_colleague
-                                                        .positions_id.role
-                                                        .organisation?.name &&
-                                                        `at ${unltd_colleague.positions_id.role.organisation.name}`}
-                                                </p>
-                                                <p class="mt-6 text-base leading-7 text-violet-200">
-                                                    {
-                                                        unltd_colleague
-                                                            .positions_id.person
-                                                            .bio
-                                                    }
-                                                </p>
-                                                <ul class="mt-6 flex gap-x-6">
-                                                    {unltd_colleague
-                                                        .positions_id.person
-                                                        .linkedin && (
-                                                        <li>
-                                                            <a
-                                                                href={
-                                                                    unltd_colleague
-                                                                        .positions_id
-                                                                        .person
-                                                                        .linkedin
-                                                                }
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                class="text-violet-200 hover:text-violet-400"
-                                                            >
-                                                                <span class="sr-only">
-                                                                    LinkedIn
-                                                                </span>
-                                                                <Icon
-                                                                    name="linkedin"
-                                                                    style="brands"
-                                                                    class="text-xl"
-                                                                />
-                                                            </a>
-                                                        </li>
-                                                    )}
-                                                    {unltd_colleague
-                                                        .positions_id.person
-                                                        .website && (
-                                                        <li>
-                                                            <a
-                                                                href={
-                                                                    unltd_colleague.positions_id.person.website.startsWith(
-                                                                        "https://",
-                                                                    )
-                                                                        ? unltd_colleague
-                                                                              .positions_id
-                                                                              .person
-                                                                              .website
-                                                                        : `https://${unltd_colleague.positions_id.person.website}`
-                                                                }
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                class="text-violet-200 hover:text-violet-400"
-                                                            >
-                                                                <span class="sr-only">
-                                                                    Website
-                                                                </span>
-                                                                <Icon
-                                                                    name="globe"
-                                                                    style="regular"
-                                                                    class="text-xl"
-                                                                />
-                                                            </a>
-                                                        </li>
-                                                    )}
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </>
-                        )
-                    }
                 </div>
             </div>
         </div>

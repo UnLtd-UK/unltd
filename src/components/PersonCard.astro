@@ -1,0 +1,82 @@
+---
+import { Image } from "astro:assets";
+import Icon from "@components/Icon.astro";
+
+const { person, showSubtitle = false, subtitleOpen = false } = Astro.props;
+---
+
+<div class="flex items-start gap-x-6">
+    {person.avatarSrc ? (
+        <Image
+            class="h-16 w-16 flex-none rounded-full object-cover"
+            src={person.avatarSrc}
+            alt={person.imageAlt ?? ""}
+            width={128}
+            height={128}
+            format="webp"
+            loading="lazy"
+        />
+    ) : (
+        <img
+            class="h-16 w-16 rounded-full object-cover"
+            src="/img/profile.webp"
+            alt="Default profile"
+            loading="lazy"
+        />
+    )}
+    <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-1">
+            <div class="flex flex-wrap items-center gap-2">
+                <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-300 dark:text-violet-200">
+                    {person.name}
+                </h3>
+                {person.pronouns.map((item) => (
+                    <span class="text-xs text-violet-400 dark:text-violet-300">
+                        {item}
+                    </span>
+                ))}
+                {person.linkedin && (
+                    <a
+                        href={person.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-violet-300 transition-colors duration-150 hover:text-violet-500 dark:hover:text-violet-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
+                    >
+                        <span class="sr-only">{person.name} on LinkedIn</span>
+                        <Icon name="linkedin" style="brands" class="text-sm" />
+                    </a>
+                )}
+                {person.badge && (
+                    <span class="rounded-full bg-violet-200/70 dark:bg-violet-700 px-2 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide text-violet-700 dark:text-violet-200">
+                        {person.badge}
+                    </span>
+                )}
+            </div>
+            {person.roleName && (
+                <p class="text-sm leading-5 text-violet-300 dark:text-violet-200">
+                    {person.roleName}{" "}
+                    {person.roleStatus && (
+                        <span class="rounded-full bg-blue-100 dark:bg-blue-900 px-2 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide text-blue-700 dark:text-blue-300">
+                            {person.roleStatus}
+                        </span>
+                    )}
+                </p>
+            )}
+            {showSubtitle && person.subtitle && (
+                <details class="group" open={subtitleOpen}>
+                    <summary class="inline-flex cursor-pointer list-none items-center gap-1 text-xs font-medium text-violet-400 dark:text-violet-300 hover:text-violet-500 dark:hover:text-violet-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500 [&::-webkit-details-marker]:hidden">
+                        <span class="group-open:hidden">About {person.name}</span>
+                        <span class="hidden group-open:inline">Hide</span>
+                        <Icon
+                            name="chevron-down"
+                            class="text-[0.65rem] transition-transform group-open:rotate-180"
+                        />
+                    </summary>
+                    <p class="mt-2 text-sm leading-5 text-violet-400 dark:text-violet-300">
+                        {person.subtitle}
+                    </p>
+                </details>
+            )}
+        </div>
+    </div>
+</div>

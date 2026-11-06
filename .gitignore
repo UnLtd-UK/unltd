@@ -1,6 +1,5 @@
 # build output
 dist/
-ghost-export/
 
 # generated types
 .astro/

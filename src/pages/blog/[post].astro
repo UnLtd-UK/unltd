@@ -3,76 +3,71 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import HeroPost from "@components/heroes/Post.astro";
-import Content from "@components/markdoc/Content.astro";
+import PortableContent from "@components/emdash/PortableContent.astro";
+import BlogIndex from "@components/BlogIndex.astro";
+import { getAllPosts, getPost, postYears } from "@lib/posts-runtime";
+import { postYear } from "@utils/post-format";
+import { CMS_PAGE_CACHE } from "@lib/route-cache";
+import type { PostEntry } from "@data/posts";
 
-import { posts } from "@data/posts.js";
+// Rendered on demand so a new or edited post, and an EmDash draft preview,
+// show without a rebuild. Route caching keeps it fast: EmDash tags each
+// response, and publishing purges it.
+export const prerender = false;
 
-interface Post {
-  title: string;
-  description: string;
-  tag: string;
-  image: string;
-  image_alt: string;
-  image_caption: string;
-  author_name: string;
-  author_position: string;
-  body: string;
-  date_time: string;
-  status: string;
-  breadcrumbs: Array<{ name: string; slug: string }>;
+const slug = Astro.params.post;
+if (!slug) return Astro.rewrite("/404");
+
+// /blog/2025 matches this route too, so it lists that year's posts.
+let listing: { year: number; years: number[]; posts: PostEntry[] } | null = null;
+if (/^\d{4}$/.test(slug)) {
+  const year = Number(slug);
+  const { posts, cacheHints } = await getAllPosts();
+  const years = postYears(posts);
+  if (!years.includes(year)) return Astro.rewrite("/404");
+  if (Astro.cache?.enabled) {
+    cacheHints.forEach((hint) => Astro.cache.set(hint));
+    Astro.cache.set(CMS_PAGE_CACHE);
+  }
+  listing = { year, years, posts: posts.filter((post) => postYear(post.date) === year) };
 }
 
-export async function getStaticPaths() {
-  return posts.map((post) => {
-    const slug = post.slug.trim();
+const result = listing ? null : await getPost(slug);
+if (!listing && !result?.post) return Astro.rewrite("/404");
 
-    let breadcrumbs = [
-      {
-        name: "Blog",
-        path: "/blog",
-      },
-      {
-        name: post.title,
-        path: `/blog/${slug}`,
-      },
-    ];
-
-    post.breadcrumbs = breadcrumbs;
-
-    let item = {
-      params: {
-        post: slug,
-      },
-      props: {
-        post: post,
-      },
-    };
-
-    return item;
-  });
+if (result && Astro.cache?.enabled) {
+  // A draft preview or an editor's edit-mode view is for one person, not for the shared cache.
+  const editing = Astro.cookies.get("emdash-edit-mode")?.value === "true";
+  if (result.isPreview || editing) Astro.cache.set(false);
+  else {
+    Astro.cache.set(result.cacheHint);
+    Astro.cache.set(CMS_PAGE_CACHE);
+  }
 }
 
-const { post } = Astro.props as { post: Post };
+const post = result?.post;
+const breadcrumbs = post
+  ? [
+      { name: "Blog", path: "/blog" },
+      { name: post.title, path: `/blog/${post.slug}` },
+    ]
+  : [];
 ---
 
-<Template name={post.title} description={post.description}>
-  <Container>
-    <Breadcrumbs breadcrumbs={post.breadcrumbs} />
-    <HeroPost
-      name={post.title}
-      description={post.description}
-      tag={post.tag}
-      image={{
-        url: post.image,
-        alt: post.image_alt,
-        caption: post.image_caption,
-      }}
-      published={post.date_time}
-      author={{ name: post.author_name, position: post.author_position }}
-      status={post.status}
-    />
-    <div class="py-12">
-      <Content body={post.body} />
-    </div>
-  </Container>
-</Template>
+{
+  listing ? (
+    <BlogIndex posts={listing.posts} years={listing.years} year={listing.year} />
+  ) : (
+    post && (
+      <Template name={post.title} description={post.subtitle}>
+        <Container>
+          <Breadcrumbs breadcrumbs={breadcrumbs} />
+          <HeroPost post={post} edit={result?.edit} />
+          <div class="py-12">
+            <PortableContent value={post.content} />
+          </div>
+        </Container>
+      </Template>
+    )
+  )
+}
