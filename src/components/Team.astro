@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import Icon from "@components/Icon.astro";
+import PersonCard from "@components/PersonCard.astro";
 const { team, members = [] } = Astro.props;
 
 const collator = new Intl.Collator("en", { sensitivity: "base" });
@@ -13,6 +14,7 @@ const toMemberDisplay = (person) => {
     pronouns: person.pronouns ? [person.pronouns] : [],
     roleName: person.roleTitle,
     roleStatus: person.roleStatus || null,
+    subtitle: person.subtitle,
     avatarSrc: person.image || null,
     imageAlt: person.imageAlt,
     linkedin: person.linkedin || null,
@@ -28,176 +30,101 @@ const memberDisplays = members
 ---
 
 <div class="py-5 sm:py-10">
-  <div
-    class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 bg-violet-100 dark:bg-violet-900 p-28 rounded-3xl"
-  >
+  <div class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 bg-violet-100 dark:bg-violet-900 p-28 rounded-3xl">
     <div class="max-w-2xl flex flex-col gap-8">
-      <h2
-        class="text-3xl font-bold tracking-tight text-violet-600 dark:text-violet-200 sm:text-4xl"
-      >
+      <h2 class="text-3xl font-bold tracking-tight text-violet-600 dark:text-violet-200 sm:text-4xl">
         {team?.name}
       </h2>
       <div class="xl:col-span-2 flex flex-col gap-12">
-        {
-          ownerDisplay && (
-            <div class="flex flex-col gap-6">
-              <div class="flex items-center gap-x-6">
-                {ownerDisplay.avatarSrc ? (
-                  <Image
-                    class="h-16 w-16 rounded-full object-cover"
-                    src={ownerDisplay.avatarSrc}
-                    alt={ownerDisplay.imageAlt}
-                    width={128}
-                    height={128}
-                    format="webp"
-                    loading="lazy"
-                  />
-                ) : (
-                  <img
-                    class="h-16 w-16 rounded-full object-cover"
-                    src="/img/profile.webp"
-                    alt="Default profile"
-                    loading="lazy"
-                  />
-                )}
+        {ownerDisplay && (
+          <div class="flex flex-col gap-6">
+            <div class="flex items-center gap-x-6">
+              {ownerDisplay.avatarSrc ? (
+                <Image
+                  class="h-16 w-16 rounded-full object-cover"
+                  src={ownerDisplay.avatarSrc}
+                  alt={ownerDisplay.imageAlt}
+                  width={128}
+                  height={128}
+                  format="webp"
+                  loading="lazy"
+                />
+              ) : (
+                <img
+                  class="h-16 w-16 rounded-full object-cover"
+                  src="/img/profile.webp"
+                  alt="Default profile"
+                  loading="lazy"
+                />
+              )}
+              <div class="flex flex-col gap-1">
                 <div class="flex flex-col gap-1">
-                  <div class="flex flex-col gap-1">
-                    <div class="flex flex-col items-start gap-2">
-                      <div>
-                        <span class="rounded-full bg-violet-200/70 dark:bg-violet-700 px-2 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide text-violet-700 dark:text-violet-200">
-                          Lead
-                        </span>
-                      </div>
-                      <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-300 dark:text-violet-200">
-                        {ownerDisplay.linkedin ? (
-                          <a
-                            href={ownerDisplay.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="inline-flex items-center gap-2 text-inherit transition-colors duration-150 hover:text-violet-500 dark:hover:text-violet-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
-                          >
-                            {ownerDisplay.name}
-                            <Icon
-                              name="linkedin"
-                              style="brands"
-                              class="text-sm transition-colors duration-150"
-                            />
-                          </a>
-                        ) : (
-                          ownerDisplay.name
-                        )}
-                      </h3>
-                      {ownerDisplay.roleStatus && (
-                        <span class="rounded-full bg-blue-100 dark:bg-blue-900 px-2 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide text-blue-700 dark:text-blue-300">
-                          {ownerDisplay.roleStatus}
-                        </span>
-                      )}
+                  <div class="flex flex-col items-start gap-2">
+                    <div>
+                      <span class="rounded-full bg-violet-200/70 dark:bg-violet-700 px-2 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide text-violet-700 dark:text-violet-200">
+                        Lead
+                      </span>
                     </div>
-                    {ownerDisplay.pronouns.length > 0 && (
-                      <div class="flex flex-wrap gap-1">
-                        {ownerDisplay.pronouns.map((item) => (
-                          <span class="text-xs text-violet-400 dark:text-violet-300">
-                            {item}
-                          </span>
-                        ))}
-                      </div>
+                    <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-300 dark:text-violet-200">
+                      {ownerDisplay.linkedin ? (
+                        <a
+                          href={ownerDisplay.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center gap-2 text-inherit transition-colors duration-150 hover:text-violet-500 dark:hover:text-violet-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
+                        >
+                          {ownerDisplay.name}
+                          <Icon
+                            name="linkedin"
+                            style="brands"
+                            class="text-sm transition-colors duration-150"
+                          />
+                        </a>
+                      ) : (
+                        ownerDisplay.name
+                      )}
+                    </h3>
+                    {ownerDisplay.roleStatus && (
+                      <span class="rounded-full bg-blue-100 dark:bg-blue-900 px-2 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide text-blue-700 dark:text-blue-300">
+                        {ownerDisplay.roleStatus}
+                      </span>
                     )}
-                    <div class="flex flex-col flex-start gap-1">
-                      {ownerDisplay.roleName && (
-                        <p class="text-sm leading-5 text-violet-300 dark:text-violet-200">
-                          {ownerDisplay.roleName}
-                        </p>
-                      )}
+                  </div>
+                  {ownerDisplay.pronouns.length > 0 && (
+                    <div class="flex flex-wrap gap-1">
+                      {ownerDisplay.pronouns.map((item) => (
+                        <span class="text-xs text-violet-400 dark:text-violet-300">
+                          {item}
+                        </span>
+                      ))}
                     </div>
+                  )}
+                  <div class="flex flex-col flex-start gap-1">
+                    {ownerDisplay.roleName && (
+                      <p class="text-sm leading-5 text-violet-300 dark:text-violet-200">
+                        {ownerDisplay.roleName}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-          )
-        }
+          </div>
+        )}
       </div>
-      {
-        team?.description && (
-          <p class="text-lg leading-8 text-violet-600 dark:text-violet-300">
-            {team.description}
-          </p>
-        )
-      }
+      {team?.description && (
+        <p class="text-lg leading-8 text-violet-600 dark:text-violet-300">
+          {team.description}
+        </p>
+      )}
     </div>
     <div class="xl:col-span-2 flex flex-col gap-12">
       <ul class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16">
-        {
-          memberDisplays.map((display) => (
-            <li>
-              <div class="flex items-center gap-x-6">
-                {display.avatarSrc ? (
-                  <Image
-                    class="h-16 w-16 rounded-full object-cover"
-                    src={display.avatarSrc}
-                    alt={display.imageAlt}
-                    width={128}
-                    height={128}
-                    format="webp"
-                    loading="lazy"
-                  />
-                ) : (
-                  <img
-                    class="h-16 w-16 rounded-full object-cover"
-                    src="/img/profile.webp"
-                    alt="Default profile"
-                    loading="lazy"
-                  />
-                )}
-                <div class="flex flex-col gap-1">
-                  <div class="flex flex-col gap-1">
-                    <div class="flex flex-wrap items-center gap-2">
-                      <h3 class="text-base font-semibold leading-7 tracking-tight text-violet-300 dark:text-violet-200">
-                        {display.linkedin ? (
-                          <a
-                            href={display.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="inline-flex items-center gap-2 text-inherit transition-colors duration-150 hover:text-violet-500 dark:hover:text-violet-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-500"
-                          >
-                            {display.name}
-                            <Icon
-                              name="linkedin"
-                              style="brands"
-                              class="text-sm transition-colors duration-150"
-                            />
-                          </a>
-                        ) : (
-                          display.name
-                        )}
-                      </h3>
-                    </div>
-                    {display.pronouns.length > 0 && (
-                      <div class="flex flex-wrap gap-1">
-                        {display.pronouns.map((item) => (
-                          <span class="text-xs text-violet-400 dark:text-violet-300">
-                            {item}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                    <div class="flex flex-col flex-start gap-1">
-                      {display.roleName && (
-                        <p class="text-sm leading-5 text-violet-300 dark:text-violet-200">
-                          {display.roleName}{" "}
-                          {display.roleStatus && (
-                            <span class="rounded-full bg-blue-100 dark:bg-blue-900 px-2 py-0.5 text-[0.65rem] font-medium uppercase tracking-wide text-blue-700 dark:text-blue-300">
-                              {display.roleStatus}
-                            </span>
-                          )}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          ))
-        }
+        {memberDisplays.map((display) => (
+          <li>
+            <PersonCard person={display} />
+          </li>
+        ))}
       </ul>
     </div>
   </div>

@@ -3,7 +3,7 @@ import type { GetStaticPaths } from "astro";
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
-import Icon from "@components/Icon.astro";
+import PersonCard from "@components/PersonCard.astro";
 import moment from "moment";
 
 import { panels, type PanelEntry } from "@data/panels";
@@ -33,35 +33,29 @@ const date = moment(panel.date).format("dddd, MMMM Do YYYY");
 const description =
     "Hello! We are your panel members; we are looking forward to meeting you and hearing about your social venture.";
 
-type Profile = {
-    name: string;
-    pronouns?: string;
-    role: string;
-    image: string;
-    linkedin?: string;
-};
-
-const toProfile = (person: PanelEntry["colleagues"][number]): Profile => ({
+const toProfile = (person: PanelEntry["colleagues"][number]) => ({
     name: person.name,
-    pronouns: person.pronouns,
-    role: person.roleTitle,
-    image: person.image,
-    linkedin: person.linkedin,
+    pronouns: person.pronouns ? [person.pronouns] : [],
+    roleName: person.roleTitle,
+    subtitle: person.subtitle,
+    avatarSrc: person.image || null,
+    imageAlt: person.imageAlt,
+    linkedin: person.linkedin || null,
 });
 
-const sections: { heading: string; people: Profile[] }[] = [
-    { heading: "Panel Chair", people: panel.chair ? [toProfile(panel.chair)] : [] },
-    {
-        heading: "Social Entrepreneurs",
-        people: panel.members.map((member) => ({
-            name: member.name,
-            pronouns: member.pronouns,
-            role: member.jobTitle,
-            image: member.image,
-        })),
-    },
-    { heading: "UnLtd Colleagues", people: panel.colleagues.map(toProfile) },
-].filter((section) => section.people.length > 0);
+const chair = panel.chair ? toProfile(panel.chair) : null;
+
+const people = [
+    ...panel.members.map((member) => ({
+        name: member.name,
+        pronouns: member.pronouns ? [member.pronouns] : [],
+        roleName: member.jobTitle,
+        avatarSrc: member.image || null,
+        imageAlt: "",
+        linkedin: null,
+    })),
+    ...panel.colleagues.map(toProfile),
+];
 ---
 
 <Template
@@ -69,44 +63,52 @@ const sections: { heading: string; people: Profile[] }[] = [
     breadcrumbs={breadcrumbs}
     description={description}
     noindex={true}
+    hideFloatingBanner={true}
 >
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
         <div class="py-12">
             <div class="grid grid-cols-1 gap-x-10 gap-y-20 xl:grid-cols-5">
-                <div class="max-w-2xl xl:col-span-2 flex flex-col gap-3">
-                    <div>
-                        <h2
-                            class="text-3xl font-bold tracking-tight text-violet-100"
-                        >
+                <div class="max-w-2xl xl:col-span-2 xl:sticky xl:top-8 xl:self-start flex flex-col gap-6">
+                    <div class="flex flex-col gap-4">
+                        <h2 class="text-4xl font-bold tracking-tight text-violet-100">
                             Your Award Panel
                         </h2>
-                    </div>
-                    <div>
-                        <h3 class="text-base tracking-tight text-violet-300">
-                            Date
-                        </h3>
-                        <p
-                            class="text-xl font-bold tracking-tight text-violet-200"
-                        >
-                            {date}
+                        <p class="text-lg leading-8 text-violet-300">
+                            Hello! We are your panel members; we are looking
+                            forward to meeting you and hearing about your social
+                            venture.
                         </p>
                     </div>
-                    <div>
-                        <h3 class="text-base tracking-tight text-violet-300">
-                            Award programme
-                        </h3>
-                        <p
-                            class="text-xl font-bold tracking-tight text-violet-200"
-                        >
-                            {panel.programme}
-                        </p>
-                    </div>
-                    <p class="mt-6 text-lg leading-8 text-violet-300">
-                        Hello! We are your panel members; we are looking forward
-                        to meeting you and hearing about your social venture.
-                    </p>
-                    <p class="mt-6 text-xs leading-5 text-violet-300">
+                    <dl class="divide-y divide-violet-700 rounded-2xl bg-violet-900 px-6 py-2 ring-1 ring-violet-700">
+                        <div class="py-4">
+                            <dt class="text-xs font-medium uppercase tracking-wide text-violet-300">
+                                Date
+                            </dt>
+                            <dd class="mt-1 text-xl font-bold tracking-tight text-violet-100">
+                                {date}
+                            </dd>
+                        </div>
+                        <div class="py-4">
+                            <dt class="text-xs font-medium uppercase tracking-wide text-violet-300">
+                                Award programme
+                            </dt>
+                            <dd class="mt-1 text-xl font-bold tracking-tight text-violet-100">
+                                {panel.programme}
+                            </dd>
+                        </div>
+                        {chair && (
+                            <div class="py-4">
+                                <dt class="mb-3 text-xs font-medium uppercase tracking-wide text-violet-300">
+                                    Panel chair
+                                </dt>
+                                <dd>
+                                    <PersonCard person={chair} />
+                                </dd>
+                            </div>
+                        )}
+                    </dl>
+                    <p class="text-xs leading-5 text-violet-300">
                         UnLtd panels reflect our commitment to inclusion, with
                         over 50% of our panel members identifying as Black,
                         Asian or minority ethnic and/or disabled, and at a
@@ -115,83 +117,14 @@ const sections: { heading: string; people: Profile[] }[] = [
                         panel.
                     </p>
                 </div>
-                <div class="xl:col-span-3 flex flex-col gap-24">
-                    {
-                        sections.map((section) => (
-                            <>
-                                <div class="relative">
-                                    <div
-                                        class="absolute inset-0 flex items-center"
-                                        aria-hidden="true"
-                                    >
-                                        <div class="w-full border-t border-violet-300" />
-                                    </div>
-                                    <div class="relative flex justify-start">
-                                        <span class="bg-violet-950 pr-3 text-3xl font-semibold text-violet-100">
-                                            {section.heading}
-                                        </span>
-                                    </div>
-                                </div>
-                                <ul class="space-y-12">
-                                    {section.people.map((person) => (
-                                        <li class="flex flex-col gap-5 sm:flex-row">
-                                            <div class="basis-1/3">
-                                                {person.image && (
-                                                    <img
-                                                        class="aspect-4/5 w-52 flex-none rounded-2xl object-cover"
-                                                        src={person.image}
-                                                        alt=""
-                                                        width={416}
-                                                        height={520}
-                                                        loading="lazy"
-                                                    />
-                                                )}
-                                            </div>
-
-                                            <div class="basis-2/3">
-                                                <div>
-                                                    <h3 class="text-lg font-semibold leading-8 tracking-tight text-violet-100">
-                                                        {person.name}
-                                                    </h3>
-                                                    {person.pronouns && (
-                                                        <span class="text-xs text-violet-200">
-                                                            {person.pronouns}
-                                                        </span>
-                                                    )}
-                                                </div>
-                                                <p class="text-base leading-7 text-violet-300">
-                                                    {person.role}
-                                                </p>
-                                                {person.linkedin && (
-                                                    <ul class="mt-6 flex gap-x-6">
-                                                        <li>
-                                                            <a
-                                                                href={
-                                                                    person.linkedin
-                                                                }
-                                                                target="_blank"
-                                                                rel="noopener noreferrer"
-                                                                class="text-violet-200 hover:text-violet-400"
-                                                            >
-                                                                <span class="sr-only">
-                                                                    LinkedIn
-                                                                </span>
-                                                                <Icon
-                                                                    name="linkedin"
-                                                                    style="brands"
-                                                                    class="text-xl"
-                                                                />
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                )}
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </>
-                        ))
-                    }
+                <div class="xl:col-span-3">
+                    <ul class="flex flex-col gap-y-10">
+                        {people.map((person) => (
+                            <li>
+                                <PersonCard person={person} />
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </div>
