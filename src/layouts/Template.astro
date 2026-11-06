@@ -15,6 +15,7 @@ const {
     description = "Funding and support for social entrepreneurs",
     theme = palette["UnLtd"],
     noindex = false,
+    hideFloatingBanner = false,
 } = Astro.props.frontmatter || Astro.props;
 
 import Footer from "@components/Footer.astro";
@@ -76,21 +77,19 @@ const { navigation, footerLinks, rounds } = await loadSiteShell(Astro);
             <!-- <ScamAlertBanner client:load /> -->
             <RoundBanner rounds={rounds} />
 
-            {
-                navigation && (
-                    <Header
-                        styles={palette["UnLtd"]}
-                        navigation={navigation}
-                        client:idle
-                    />
-                )
-            }
+            {navigation && (
+                <Header
+                    styles={palette["UnLtd"]}
+                    navigation={navigation}
+                    client:idle
+                />
+            )}
 
             <main class={`${theme.bg}`}>
                 <slot />
             </main>
             <Footer footerLinks={footerLinks} />
-            <FloatingAtBottomCentered />
+            {!hideFloatingBanner && <FloatingAtBottomCentered />}
 
             <!-- Dev tools (only renders in development) -->
             <DevDateTimeIndicator />

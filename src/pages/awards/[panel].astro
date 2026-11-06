@@ -43,10 +43,9 @@ const toProfile = (person: PanelEntry["colleagues"][number]) => ({
     linkedin: person.linkedin || null,
 });
 
+const chair = panel.chair ? toProfile(panel.chair) : null;
+
 const people = [
-    ...(panel.chair
-        ? [{ ...toProfile(panel.chair), badge: "Panel Chair" }]
-        : []),
     ...panel.members.map((member) => ({
         name: member.name,
         pronouns: member.pronouns ? [member.pronouns] : [],
@@ -64,38 +63,52 @@ const people = [
     breadcrumbs={breadcrumbs}
     description={description}
     noindex={true}
+    hideFloatingBanner={true}
 >
     <Container>
         <Breadcrumbs breadcrumbs={breadcrumbs} />
         <div class="py-12">
             <div class="grid grid-cols-1 gap-x-10 gap-y-20 xl:grid-cols-5">
-                <div class="max-w-2xl xl:col-span-2 flex flex-col gap-3">
-                    <div>
-                        <h2 class="text-3xl font-bold tracking-tight text-violet-100">
+                <div class="max-w-2xl xl:col-span-2 xl:sticky xl:top-8 xl:self-start flex flex-col gap-6">
+                    <div class="flex flex-col gap-4">
+                        <h2 class="text-4xl font-bold tracking-tight text-violet-100">
                             Your Award Panel
                         </h2>
-                    </div>
-                    <div>
-                        <h3 class="text-base tracking-tight text-violet-300">
-                            Date
-                        </h3>
-                        <p class="text-xl font-bold tracking-tight text-violet-200">
-                            {date}
+                        <p class="text-lg leading-8 text-violet-300">
+                            Hello! We are your panel members; we are looking
+                            forward to meeting you and hearing about your social
+                            venture.
                         </p>
                     </div>
-                    <div>
-                        <h3 class="text-base tracking-tight text-violet-300">
-                            Award programme
-                        </h3>
-                        <p class="text-xl font-bold tracking-tight text-violet-200">
-                            {panel.programme}
-                        </p>
-                    </div>
-                    <p class="mt-6 text-lg leading-8 text-violet-300">
-                        Hello! We are your panel members; we are looking forward
-                        to meeting you and hearing about your social venture.
-                    </p>
-                    <p class="mt-6 text-xs leading-5 text-violet-300">
+                    <dl class="divide-y divide-violet-700 rounded-2xl bg-violet-900 px-6 py-2 ring-1 ring-violet-700">
+                        <div class="py-4">
+                            <dt class="text-xs font-medium uppercase tracking-wide text-violet-300">
+                                Date
+                            </dt>
+                            <dd class="mt-1 text-xl font-bold tracking-tight text-violet-100">
+                                {date}
+                            </dd>
+                        </div>
+                        <div class="py-4">
+                            <dt class="text-xs font-medium uppercase tracking-wide text-violet-300">
+                                Award programme
+                            </dt>
+                            <dd class="mt-1 text-xl font-bold tracking-tight text-violet-100">
+                                {panel.programme}
+                            </dd>
+                        </div>
+                        {chair && (
+                            <div class="py-4">
+                                <dt class="mb-3 text-xs font-medium uppercase tracking-wide text-violet-300">
+                                    Panel chair
+                                </dt>
+                                <dd>
+                                    <PersonCard person={chair} />
+                                </dd>
+                            </div>
+                        )}
+                    </dl>
+                    <p class="text-xs leading-5 text-violet-300">
                         UnLtd panels reflect our commitment to inclusion, with
                         over 50% of our panel members identifying as Black,
                         Asian or minority ethnic and/or disabled, and at a
