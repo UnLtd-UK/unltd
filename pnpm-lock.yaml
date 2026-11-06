@@ -205,6 +205,9 @@ importers:
       '@fortawesome/react-fontawesome':
         specifier: ^3.5.0
         version: 3.5.0(@fortawesome/fontawesome-svg-core@7.3.1)(react@19.3.1)
+      '@gitbook/embed':
+        specifier: ^0.5.1
+        version: 0.5.1(react@19.3.1)
       '@headlessui/react':
         specifier: 2.2.10
         version: 2.2.10(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -1204,6 +1207,25 @@ packages:
     peerDependencies:
       '@fortawesome/fontawesome-svg-core': ~6 || ~7
       react: ^18.0.0 || ^19.0.0
+
+  '@gitbook/api@0.181.0':
+    resolution: {integrity: sha512-tj7bPzty9jlG3zKiZlmvvqalbTCtukmU/BlFB3HPRZM4jQrmLBc+Ya0rOyTpTaLJEH1BZy0U9HGsoCfbP5W8Fg==}
+
+  '@gitbook/embed@0.5.1':
+    resolution: {integrity: sha512-4NZ1qFkWobkojtpahN/R1cTK6W4W3wbhXXuTmx6iqObkg6tV6Es/YN7P0RudwAkIrWUGloJpDljnbi8YYlfV2g==}
+    peerDependencies:
+      react: '*'
+
+  '@gitbook/fontawesome-pro@1.0.23':
+    resolution: {integrity: sha512-igxgeuZvZIDghZhju8vAV3GjznwOUU2RHMGxGLxwf6QhL4soTJIveD+84C6EGQRieX8O1H6b4TOac3Hhom+Jcg==}
+    engines: {node: '>=16'}
+
+  '@gitbook/icons@0.5.0':
+    resolution: {integrity: sha512-OVnL+egquUIfqAAlG01EmvgO+lMh3E/2SfGu8GT0RuE7VogGgLBy5oAY2c1k53TGUbv679fUs6hDc1vNgpvTQw==}
+    engines: {node: '>=20.0.0'}
+    hasBin: true
+    peerDependencies:
+      react: '*'
 
   '@hapi/address@5.1.1':
     resolution: {integrity: sha512-A+po2d/dVoY7cYajycYI43ZbYMXukuopIsqCjh5QzsBCipDtdofHntljDlpccMjIfTy6UOkg+5KPriwYch2bXA==}
@@ -2886,6 +2908,9 @@ packages:
     resolution: {integrity: sha512-r4qEuACygiLfYg6KDQRfaxEwScyIUsf8ETrvS1yJQMRLEMgzV4u9wEUFjdetEOIfjDYHjhcR/fsARFcfNz0hhw==}
     engines: {node: '>= 18.0.0'}
 
+  bidc@0.0.2:
+    resolution: {integrity: sha512-+t2xK8oQEpxYEM+350mMHSx7eZNoOX6SpjqD+p+lDpVwpYVXjkTCfy0N60xyjelZ2AOa8NAg/12uhAX3MuAR0g==}
+
   bidi-js@1.1.0:
     resolution: {integrity: sha512-fX1Onk0tdVPC7obPWB5EbJ1z7NVhLq4m2xZLq2YXBkxzMXIGRpNMU88n0EPgWseKl12J7zXs7qrDxPK4sRs2fg==}
 
@@ -3442,6 +3467,9 @@ packages:
   etag@1.8.1:
     resolution: {integrity: sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==}
     engines: {node: '>= 0.6'}
+
+  event-iterator@2.0.0:
+    resolution: {integrity: sha512-KGft0ldl31BZVV//jj+IAIGCxkvvUkkON+ScH6zfoX+l+omX6001ggyRSpI0Io2Hlro0ThXotswCtfzS8UkIiQ==}
 
   eventsource-parser@3.1.1:
     resolution: {integrity: sha512-EKN1vKAMcZ8MlYMpaNuxN6R9yakzH6uajHcHVTqWJzvu5pWw9DyhbP35HH8MVBQ+dZjAfDxk+A8NiR9KWaXiyQ==}
@@ -6776,6 +6804,28 @@ snapshots:
       '@fortawesome/fontawesome-svg-core': 7.3.1
       react: 19.3.1
 
+  '@gitbook/api@0.181.0':
+    dependencies:
+      event-iterator: 2.0.0
+      eventsource-parser: 3.1.1
+
+  '@gitbook/embed@0.5.1(react@19.3.1)':
+    dependencies:
+      '@gitbook/api': 0.181.0
+      '@gitbook/icons': 0.5.0(react@19.3.1)
+      bidc: 0.0.2
+      react: 19.3.1
+
+  '@gitbook/fontawesome-pro@1.0.23':
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 7.3.1
+
+  '@gitbook/icons@0.5.0(react@19.3.1)':
+    dependencies:
+      '@fortawesome/fontawesome-svg-core': 7.3.1
+      '@gitbook/fontawesome-pro': 1.0.23
+      react: 19.3.1
+
   '@hapi/address@5.1.1':
     dependencies:
       '@hapi/hoek': 11.0.7
@@ -8460,6 +8510,8 @@ snapshots:
       hoopy: 0.1.4
       tryer: 1.0.1
 
+  bidc@0.0.2: {}
+
   bidi-js@1.1.0:
     dependencies:
       require-from-string: 2.0.2
@@ -9183,6 +9235,8 @@ snapshots:
   esutils@2.0.3: {}
 
   etag@1.8.1: {}
+
+  event-iterator@2.0.0: {}
 
   eventsource-parser@3.1.1: {}
 
