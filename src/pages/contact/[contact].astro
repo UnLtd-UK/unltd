@@ -1,41 +1,39 @@
 ---
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
-import Default from "@components/heroes/Default.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Form from "@components/Form.astro";
-import { forms } from "@data/forms.ts";
 import DialogComponent from "@components/Dialog.tsx";
 
-export async function getStaticPaths() {
-  return forms.map((form) => ({
-    params: { contact: form.slug },
-    props: {
-      ...form,
-      breadcrumbs: [
-        {
-          name: "Contact",
-          slug: "contact",
-          path: "/contact",
-        },
-        {
-          name: form.name,
-          slug: form.slug,
-          path: `/contact/${form.slug}`,
-        },
-      ],
-    },
-  }));
+import { getEmail } from "@lib/emails-runtime";
+import { CMS_PAGE_CACHE } from "@lib/route-cache";
+
+// Rendered on demand so a new or edited email page, and an EmDash draft
+// preview, show without a rebuild. Route caching keeps it fast: EmDash tags
+// each response, and publishing purges it.
+export const prerender = false;
+
+const slug = Astro.params.contact;
+if (!slug) return Astro.rewrite("/404");
+
+const { email: entry, isPreview, cacheHint } = await getEmail(slug);
+if (!entry) return Astro.rewrite("/404");
+
+if (Astro.cache?.enabled) {
+  // A draft preview or an editor's edit-mode view is for one person, not for the shared cache.
+  const editing = Astro.cookies.get("emdash-edit-mode")?.value === "true";
+  if (isPreview || editing) Astro.cache.set(false);
+  else {
+    Astro.cache.set(cacheHint);
+    Astro.cache.set(CMS_PAGE_CACHE);
+  }
 }
 
-const {
-  name,
-  description,
-  slug,
-  email,
-  breadcrumbs,
-  dialog,
-} = Astro.props;
+const { name, description, email, dialog, edit } = entry;
+const breadcrumbs = [
+  { name: "Contact", slug: "contact", path: "/contact" },
+  { name, slug: entry.slug, path: `/contact/${entry.slug}` },
+];
 ---
 
 <Template name={name} description={description}>
@@ -53,6 +51,13 @@ const {
       )
     }
     <Breadcrumbs breadcrumbs={breadcrumbs} />
-    <Form name={name} description={description} email={email} />
+    <Form
+      name={name}
+      description={description}
+      email={email}
+      nameAttrs={edit.title}
+      descriptionAttrs={edit.subtitle}
+      emailAttrs={edit.email}
+    />
   </Container>
 </Template>

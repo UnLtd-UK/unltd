@@ -1,6 +1,8 @@
 ---
 import Icon from "@components/Icon.astro";
-const { name, description, email } = Astro.props;
+// The *Attrs props make each field editable on the page for an editor in
+// EmDash's edit mode; they are empty otherwise.
+const { name, description, email, nameAttrs, descriptionAttrs, emailAttrs } = Astro.props;
 ---
 
 <div class="relative isolate">
@@ -13,10 +15,14 @@ const { name, description, email } = Astro.props;
         </div>
         <h2
           class="text-3xl font-bold tracking-tight text-violet-900 dark:text-violet-200 mt-4"
+          {...nameAttrs}
         >
           {name}
         </h2>
-        <p class="mt-6 text-lg leading-8 text-violet-600 dark:text-violet-400">
+        <p
+          class="mt-6 text-lg leading-8 text-violet-600 dark:text-violet-400"
+          {...descriptionAttrs}
+        >
           {description}
         </p>
 
@@ -28,7 +34,8 @@ const { name, description, email } = Astro.props;
           />
           <a
             class="text-violet-700 hover:text-violet-800 dark:text-violet-300 hover:dark:text-violet-200 text-lg leading-8 font-bold underline underline-offset-4 decoration-amber-500 decoration-1 hover:decoration-2"
-            href={`mailto:${email}`}>{email}</a
+            href={`mailto:${email}`}
+            {...emailAttrs}>{email}</a
           >
         </div>
       </div>

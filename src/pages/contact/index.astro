@@ -2,8 +2,13 @@
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Default from "@components/heroes/Default.astro";
-import { forms } from "@data/forms.ts";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
+import { getAllEmails } from "@lib/emails-runtime";
+import { CMS_PAGE_CACHE } from "@lib/route-cache";
+
+// Rendered on demand so a new, renamed or unpublished email page shows without
+// a rebuild. EmDash tags the response, and publishing purges it.
+export const prerender = false;
 
 const name = "Choose The Right Form";
 const slug = "contact";
@@ -19,6 +24,12 @@ const top = {
     },
   ],
 };
+
+const { emails: forms, cacheHints } = await getAllEmails();
+if (Astro.cache?.enabled) {
+  cacheHints.forEach((hint) => Astro.cache.set(hint));
+  Astro.cache.set(CMS_PAGE_CACHE);
+}
 ---
 
 <Template name={top.name} description={top.description}>
