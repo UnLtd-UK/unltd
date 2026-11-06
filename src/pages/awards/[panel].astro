@@ -4,6 +4,7 @@ import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import PersonCard from "@components/PersonCard.astro";
+import Icon from "@components/Icon.astro";
 import moment from "moment";
 
 import { panels, type PanelEntry } from "@data/panels";
@@ -78,6 +79,13 @@ const guests = panel.members.map((member) => ({
                     Hello! We are your panel members; we are looking forward to
                     meeting you and hearing about your social venture.
                 </p>
+                <a
+                    href="/resources/panel-meeting-guide"
+                    class="inline-flex w-fit items-center gap-2 text-base font-semibold text-amber-400 transition-colors hover:text-amber-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-amber-400"
+                >
+                    Read the panel meeting guide
+                    <Icon name="arrow-right" style="solid" class="text-sm" />
+                </a>
                 <p class="text-xs leading-5 text-violet-300">
                     UnLtd panels reflect our commitment to inclusion, with over
                     50% of our panel members identifying as Black, Asian or
