@@ -13,7 +13,7 @@
     "build:test": "pnpm run build && pnpm run test",
     "preview": "astro preview",
     "astro": "astro",
-    "update": "pnpm dlx npm-check-updates -u -x typescript && pnpm install",
+    "update": "pnpm update --latest \"!typescript\"",
     "deploy:prod": "astro build && wrangler deploy --config wrangler.jsonc --env production",
     "test": "pnpm run lint:a11y && pnpm run test:a11y",
     "test:a11y": "start-server-and-test preview http://localhost:4321 test:a11y:scan",
@@ -54,7 +54,7 @@
     "moment": "^2.31.0",
     "octokit": "^5.0.5",
     "pdf-lib": "^1.17.1",
-    "posthog-js": "^1.447.0",
+    "posthog-js": "^1.447.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
@@ -84,5 +84,5 @@
     "start-server-and-test": "^3.0.13",
     "wrangler": "^4.158.0"
   },
-  "packageManager": "pnpm@12.16.1"
+  "packageManager": "pnpm@12.18.0"
 }
