@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import Icon from "@components/Icon.astro";
 
-const { person } = Astro.props;
+const { person, showSubtitle = false } = Astro.props;
 ---
 
 <div class="flex items-start gap-x-6">
@@ -62,7 +62,7 @@ const { person } = Astro.props;
                     )}
                 </p>
             )}
-            {person.subtitle && (
+            {showSubtitle && person.subtitle && (
                 <p class="text-sm leading-5 text-violet-400 dark:text-violet-300">
                     {person.subtitle}
                 </p>

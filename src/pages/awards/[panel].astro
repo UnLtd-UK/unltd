@@ -103,7 +103,7 @@ const people = [
                                     Panel chair
                                 </dt>
                                 <dd>
-                                    <PersonCard person={chair} />
+                                    <PersonCard person={chair} showSubtitle />
                                 </dd>
                             </div>
                         )}
@@ -121,7 +121,7 @@ const people = [
                     <ul class="flex flex-col gap-y-10">
                         {people.map((person) => (
                             <li>
-                                <PersonCard person={person} />
+                                <PersonCard person={person} showSubtitle />
                             </li>
                         ))}
                     </ul>
