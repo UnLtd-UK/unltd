@@ -9,16 +9,16 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build && npx wrangler deploy --config wrangler.jsonc --dry-run",
-    "build:test": "npm run build && npm run test",
+    "build": "astro build && wrangler deploy --config wrangler.jsonc --dry-run",
+    "build:test": "pnpm run build && pnpm run test",
     "preview": "astro preview",
     "astro": "astro",
-    "update": "npx npm-check-updates -u -x typescript,typescript-eslint-ts6 && npm install",
+    "update": "pnpm dlx npm-check-updates -u -x typescript && pnpm install",
     "deploy:prod": "astro build && wrangler deploy --config wrangler.jsonc --env production",
-    "test": "npm run lint:a11y && npm run test:a11y",
+    "test": "pnpm run lint:a11y && pnpm run test:a11y",
     "test:a11y": "start-server-and-test preview http://localhost:4321 test:a11y:scan",
     "test:a11y:scan": "pa11y-ci --config .pa11yci.json --sitemap http://localhost:4321/sitemap-index.xml --sitemap-find https://unltd.org.uk --sitemap-replace http://localhost:4321",
-    "lint:a11y": "node scripts/link-eslint-typescript.cjs && eslint . --ext .astro,.jsx,.tsx"
+    "lint:a11y": "eslint . --ext .astro,.jsx,.tsx"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^1.0.0",
@@ -82,22 +82,7 @@
     "prettier-plugin-astro": "^1.1.2",
     "rimraf": "^6.1.4",
     "start-server-and-test": "^3.0.13",
-    "typescript-eslint-ts6": "npm:typescript@^6",
     "wrangler": "^4.158.0"
   },
-  "overrides": {
-    "vite": "^8",
-    "sharp": "^0.35.4"
-  },
-  "allowScripts": {
-    "better-sqlite3@12.10.0": true,
-    "core-js@3.50.0": false,
-    "esbuild@0.28.2": true,
-    "fsevents@2.3.3": true,
-    "sharp@0.35.4": true,
-    "esbuild@0.28.1": true,
-    "puppeteer@24.43.1": true,
-    "workerd@1.20260820.1": true,
-    "workerd@1.20260908.1": true
-  }
+  "packageManager": "pnpm@12.16.1"
 }

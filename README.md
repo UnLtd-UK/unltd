@@ -51,32 +51,34 @@ Because previews and local dev share the production database, they never run EmD
 Create `EMDASH_TOKEN` as an API token with content read access in the EmDash admin, and add it as the `EMDASH_TOKEN` GitHub Actions secret.
 
 ### 2. Generate .npmrc
-Run the setup script to generate the `.npmrc` file from the template:
+Run the setup script to generate the `.npmrc` file from the template (it needs `FONTAWESOME_NPM_AUTH_TOKEN` in `.dev.vars` or the environment):
 
 ```bash
-npm run setup
+bash scripts/setup-npmrc.sh
 ```
 
 ### 3. Install dependencies
+This project uses [pnpm](https://pnpm.io) (the version is pinned in `package.json`'s `packageManager`; enable it with `corepack enable` or install pnpm directly).
+
 ```bash
-npm install
+pnpm install
 ```
 
 ## Development
 
 ### Run dev server
 ```bash
-npm run dev
+pnpm dev
 ```
 
 ### Build
 ```bash
-npm run build
+pnpm build
 ```
 
 ### Preview
 ```bash
-npm run preview
+pnpm preview
 ```
 
 ### Drafts
@@ -115,13 +117,13 @@ Blog posts are managed in the EmDash admin (`/_emdash/admin`), in the **Posts** 
 
 ### Run with Wrangler (local development with worker)
 ```bash
-npm run dev
+pnpm dev
 ```
 This runs the Astro dev server with Wrangler integration for local worker development.
 
 ### Deploy production environment
 ```bash
-npm run deploy:prod
+pnpm deploy:prod
 ```
 
 ## Git Workflow
