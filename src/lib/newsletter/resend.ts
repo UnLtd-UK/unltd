@@ -187,28 +187,18 @@ export async function subscribeContact(config: NewsletterConfig, email: string):
     return changed ? "subscribed" : "unchanged";
 }
 
+// Marks the contact as unsubscribed in Resend. Segment and topic membership are
+// left untouched; subscribeContact clears the flag again on re-subscription.
 export async function unsubscribeContact(config: NewsletterConfig, email: string): Promise<void> {
     const existing = await getContact(config, email);
-    if (!existing) return;
+    if (!existing || existing.unsubscribed) return;
 
-    if (config.topicIds.length > 0) {
-        if (!(await isInNewsletterScope(config, email))) return;
-        await assertOk(
-            await resendFetch(config, `${contactPath(email)}/topics`, {
-                method: "PATCH",
-                body: JSON.stringify({
-                    topics: config.topicIds.map((id) => ({ id, subscription: "opt_out" })),
-                }),
-            }),
-            "opt out of topics",
-        );
-        return;
-    }
-
-    if (!(await isInNewsletterScope(config, email))) return;
     await assertOk(
-        await resendFetch(config, `${contactPath(email)}/segments/${config.segmentId}`, { method: "DELETE" }),
-        "remove contact from segment",
+        await resendFetch(config, contactPath(email), {
+            method: "PATCH",
+            body: JSON.stringify({ unsubscribed: true }),
+        }),
+        "unsubscribe contact",
     );
 }
 
