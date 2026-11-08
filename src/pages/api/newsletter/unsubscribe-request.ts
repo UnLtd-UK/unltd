@@ -4,7 +4,7 @@ import type { APIRoute } from "astro";
 import { clientIp, json, normaliseEmail, readBody, unavailable } from "@lib/newsletter/api";
 import { getNewsletterConsentVersion } from "@lib/newsletter/consent";
 import { unsubscribeVerificationEmail } from "@lib/newsletter/emails";
-import { hashForKey, isRateLimited } from "@lib/newsletter/rate-limit";
+import { hashForKey, isRateLimited, releaseRateLimit } from "@lib/newsletter/rate-limit";
 import { getNewsletterConfig, isSubscribed, sendEmail } from "@lib/newsletter/resend";
 import { createToken } from "@lib/newsletter/token";
 import { verifyTurnstile } from "@lib/newsletter/turnstile";
@@ -33,9 +33,8 @@ export const POST: APIRoute = async (context) => {
         return json({ error: "We couldn't verify you're human. Please try again." }, 400);
     }
 
-    const limited =
-        (await isRateLimited(`unsubscribe:ip:${ip}`, 10, 3600)) ||
-        (await isRateLimited(`unsubscribe:email:${await hashForKey(email)}`, 1, 600));
+    const emailLimitKey = `unsubscribe:email:${await hashForKey(email)}`;
+    const limited = (await isRateLimited(`unsubscribe:ip:${ip}`, 10, 3600)) || (await isRateLimited(emailLimitKey, 1, 600));
     if (limited) return json({ error: "Too many requests. Please try again in a few minutes." }, 429);
 
     try {
@@ -47,6 +46,7 @@ export const POST: APIRoute = async (context) => {
         }
     } catch (error) {
         console.error("[newsletter] unsubscribe request failed", error);
+        await releaseRateLimit(emailLimitKey, 600);
         return json({ error: "Something went wrong. Please try again later." }, 500);
     }
 

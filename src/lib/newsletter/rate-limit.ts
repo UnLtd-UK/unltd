@@ -22,6 +22,22 @@ export async function isRateLimited(key: string, limit: number, windowSeconds: n
     }
 }
 
+// Gives back one count taken by isRateLimited, so a request that failed on our
+// side (e.g. Resend outage) doesn't lock the user out of retrying.
+export async function releaseRateLimit(key: string, windowSeconds: number): Promise<void> {
+    const kv = (env as { SESSION?: KVNamespace }).SESSION;
+    if (!kv) return;
+
+    const windowId = Math.floor(Date.now() / (windowSeconds * 1000));
+    const kvKey = `newsletter:rl:${key}:${windowId}`;
+    try {
+        const current = Number((await kv.get(kvKey)) ?? 0);
+        if (current > 0) await kv.put(kvKey, String(current - 1), { expirationTtl: Math.max(windowSeconds, 60) });
+    } catch (error) {
+        console.error("[newsletter] rate limit release failed", error);
+    }
+}
+
 export async function hashForKey(value: string): Promise<string> {
     const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value.toLowerCase()));
     return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
