@@ -50,11 +50,11 @@ const colleagues = panel.colleagues.map(toProfile);
 const guests = panel.members.map((member) => ({
     name: member.name,
     pronouns: member.pronouns ? [member.pronouns] : [],
-    roleName: member.jobTitle,
+    roleName: "",
     subtitle: member.subtitle,
     avatarSrc: member.image || null,
-    imageAlt: "",
-    linkedin: null,
+    imageAlt: member.imageAlt,
+    linkedin: member.linkedin || null,
 }));
 ---
 
