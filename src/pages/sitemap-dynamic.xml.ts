@@ -3,8 +3,9 @@ import { getAllPosts, postYears } from "@lib/posts-runtime";
 import { getPageSlugs } from "@lib/pages-runtime";
 import { getAllResources } from "@lib/resources-runtime";
 import { getAllEmails } from "@lib/emails-runtime";
+import { getAllNewsletters } from "@lib/newsletters-runtime";
 
-// The blog, CMS pages, resources and contact pages are rendered on demand, so the sitemap integration
+// The blog, CMS pages, resources, newsletters and contact pages are rendered on demand, so the sitemap integration
 // can't see them at build time. This lists them from EmDash; the integration
 // links to it from sitemap-index.xml (see `customSitemaps` in astro.config.mjs).
 export const prerender = false;
@@ -18,9 +19,16 @@ export const GET: APIRoute = async ({ site, cache }) => {
     { pages, cacheHints: pageHints },
     { resources, cacheHints: resourceHints },
     { emails, cacheHints: emailHints },
-  ] = await Promise.all([getAllPosts(), getPageSlugs(), getAllResources(), getAllEmails()]);
+    { newsletters, cacheHints: newsletterHints },
+  ] = await Promise.all([
+    getAllPosts(),
+    getPageSlugs(),
+    getAllResources(),
+    getAllEmails(),
+    getAllNewsletters(),
+  ]);
   if (cache?.enabled) {
-    [...postHints, ...pageHints, ...resourceHints, ...emailHints].forEach((hint) => cache.set(hint));
+    [...postHints, ...pageHints, ...resourceHints, ...emailHints, ...newsletterHints].forEach((hint) => cache.set(hint));
     cache.set({ maxAge: 3600, swr: 86400 });
   }
 
@@ -32,6 +40,8 @@ export const GET: APIRoute = async ({ site, cache }) => {
     ...resources.filter((resource) => !resource.hidden).map((resource) => ({ path: `/resources/${resource.slug}` })),
     { path: "/contact" },
     ...emails.map((email) => ({ path: `/contact/${email.slug}` })),
+    { path: "/newsletters" },
+    ...newsletters.map((newsletter) => ({ path: `/newsletters/${newsletter.slug}`, lastmod: newsletter.date })),
     { path: "/blog" },
     ...postYears(posts).map((year) => ({ path: `/blog/${year}` })),
     ...posts.map((post) => ({ path: `/blog/${post.slug}`, lastmod: post.date })),
