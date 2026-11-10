@@ -8,7 +8,7 @@ on:
 jobs:
   cleanup-worker:
     name: Delete preview worker
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     # Only run on branch deletion or merged PRs
     if: |
       github.event_name == 'delete' ||

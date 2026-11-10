@@ -11,7 +11,7 @@ on:
 jobs:
   deploy-preview:
     name: Deploy preview
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -24,27 +24,23 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v7
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
           node-version: "24"
+          cache: pnpm
 
       - name: Setup Font Awesome Pro
         run: bash scripts/setup-npmrc.sh
 
-      - name: Cache node modules
-        id: cache-node-modules
-        uses: actions/cache@v6
-        with:
-          path: node_modules
-          key: node-modules-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-
       - name: Install dependencies
-        if: steps.cache-node-modules.outputs.cache-hit != 'true'
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Build site
-        run: npm run build
+        run: pnpm run build
 
       - name: Generate worker name from branch
         id: worker-name
@@ -57,7 +53,7 @@ jobs:
 
       - name: Deploy preview worker
         run: |
-          npx wrangler deploy \
+          pnpm exec wrangler deploy \
             --config wrangler.jsonc \
             --name ${{ steps.worker-name.outputs.name }} \
             --compatibility-date 2025-11-17

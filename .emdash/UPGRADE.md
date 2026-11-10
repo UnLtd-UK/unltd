@@ -246,14 +246,14 @@ No core migrations were added by this upgrade.
 Build the upgraded project and inspect the exact database target:
 
 ```sh
-npm run build
-npm exec -- emdash migrate --status
+pnpm run build
+pnpm exec -- emdash migrate --status
 ```
 
 If the status reports pending migrations, stop before starting or deploying the upgraded application. Follow [Backups and recovery](https://docs.emdashcms.com/guides/backups/) to create a restorable recovery point. A JSON backup is not a recovery point. After a human has reviewed the target and backup, apply the pending migrations:
 
 ```sh
-npm exec -- emdash migrate
+pnpm exec -- emdash migrate
 ```
 
 The command shows the target and asks for confirmation. In a non-interactive shell, add `--expected-target-fingerprint` with the target fingerprint that the status command printed for the reviewed database.
@@ -263,7 +263,7 @@ Deploy the same build artifact with the project's deployment workflow, without r
 Verify the deployed database against that artifact:
 
 ```sh
-npm exec -- emdash migrate --check
+pnpm exec -- emdash migrate --check
 ```
 
 ## Verification

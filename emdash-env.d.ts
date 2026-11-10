@@ -53,6 +53,21 @@ export interface Resource {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface Newsletter {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  subtitle: string;
+  content: PortableTextBlock[];
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 export interface Form {
   id: string;
   slug: string | null;
@@ -77,6 +92,7 @@ export interface People {
   slug: string | null;
   status: string;
   title: string;
+  subtitle?: string;
   pronouns: "he/him" | "she/her" | "they/them";
   role_title: "Assistant Impact Analyst" | "Building Manager" | "Business Development Lead" | "Central Services Lead" | "Chair of Trustees" | "Chief Executive Officer" | "Communications Assistant" | "Communications Manager" | "CRM Manager" | "Data Integrity Manager" | "Digital Product Manager" | "Director of Corporate Services" | "Director of Delivery & Investment" | "Director of Impact and Influence" | "Director of People and Culture" | "Director of Social Entrepreneur Support" | "Events Manager" | "Executive Assistant to CEO" | "Finance Assistant" | "Finance Manager" | "Head of Community and Partnerships" | "Head of External Affairs" | "Head of Finance" | "Head of Fundraising" | "Head of Investment" | "Head of Operations" | "Head of Research, Impact, and Learning" | "Head of Social Entrepreneur Support" | "Head of Systems" | "Information Technology Systems Technician" | "Mentoring Support Manager" | "Office & Facilities Coordinator" | "Partnership and Community Engagement Officer" | "People Coordinator" | "Portfolio Manager" | "Pro Bono Support Manager" | "Programme and Support Coordinator" | "Programmes and Partnerships Manager" | "Researcher" | "Senior Researcher" | "Senior Social Impact Analyst" | "Social Entrepreneur Support Administrative Officer" | "Social Entrepreneur Support Lead - Impact" | "Social Entrepreneur Support Manager" | "Social Entrepreneur Workshop Delivery Manager" | "Systems Support Manager" | "Trustee" | "User Journey and Experience Lead" | "User Journey Support Manager" | "Vice Chair of Trustees";
   role_status?: "Active" | "Parental Leave" | "Temporary Cover" | "Sabbatical";
@@ -298,7 +314,23 @@ export interface Panel {
   programme?: string;
   team?: string;
   date: string;
-  panel_members?: { "title"?: string | null; "job_title"?: string | null; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null; "gender_pronouns"?: string | null }[];
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface SocialEntrepreneur {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  subtitle?: string;
+  gender_pronouns?: "he/him" | "she/her" | "they/them";
+  linkedin?: string;
+  image?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } };
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -339,6 +371,7 @@ export interface FieldReferences {
 export interface PanelReferences {
   panel_chair: ReferencePage<People>;
   colleagues: ReferencePage<People>;
+  social_entrepreneurs: ReferencePage<SocialEntrepreneur>;
 }
 
 declare module "emdash" {
@@ -346,6 +379,7 @@ declare module "emdash" {
     pages: Page;
     posts: Post;
     resources: Resource;
+    newsletters: Newsletter;
     forms: Form;
     people: People;
     teams: Team;
@@ -360,6 +394,7 @@ declare module "emdash" {
     sections: Section;
     fields: Field;
     panels: Panel;
+    social_entrepreneurs: SocialEntrepreneur;
   }
   interface EmDashCollectionReferences {
     teams: TeamReferences;
