@@ -3,6 +3,7 @@ import {
   createEmDashClient,
   referenceChildIds,
 } from "../lib/emdash.ts";
+import { pronounsText } from "../utils/pronouns.ts";
 
 export interface Person {
   id: string;
@@ -50,7 +51,7 @@ async function fetchPeople(): Promise<Map<string, Person>> {
     peopleById.set(item.id, {
       id: item.id,
       name,
-      pronouns: text(d.pronouns),
+      pronouns: pronounsText(d.pronouns),
       roleTitle: text(d.role_title),
       subtitle: text(d.subtitle),
       roleStatus: roleStatus.toLowerCase() === "active" ? "" : roleStatus,
