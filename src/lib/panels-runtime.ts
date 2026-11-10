@@ -1,4 +1,5 @@
 import { getEmDashEntry, type CacheHint, type EditProxy } from "emdash";
+import { pronounsText } from "../utils/pronouns.ts";
 
 // Reads a panel, and the people and social entrepreneurs it references,
 // straight from EmDash's database in the Worker, so it is rendered on demand
@@ -52,7 +53,7 @@ const toPerson = ({ data: d }: ReferenceEntry): PanelPerson => {
   const name = text(d.title);
   return {
     name,
-    pronouns: text(d.pronouns ?? d.gender_pronouns),
+    pronouns: pronounsText(d.pronouns ?? d.gender_pronouns),
     roleTitle: text(d.role_title),
     subtitle: text(d.subtitle),
     linkedin: text(d.linkedin),
