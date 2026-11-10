@@ -1,5 +1,4 @@
 ---
-import type { GetStaticPaths } from "astro";
 import Template from "@layouts/Template.astro";
 import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
@@ -7,34 +6,42 @@ import PersonCard from "@components/PersonCard.astro";
 import Icon from "@components/Icon.astro";
 import moment from "moment";
 
-import { panels, type PanelEntry } from "@data/panels";
+import { getPanel, type PanelPerson } from "@lib/panels-runtime";
+import { CMS_PAGE_CACHE } from "@lib/route-cache";
 
-type PanelPageProps = {
-    panel: PanelEntry;
-    breadcrumbs: { name: string; path: string }[];
-};
+// Rendered on demand so a new or edited panel (or one of the people on it), and
+// an EmDash draft preview, show without a rebuild. Route caching keeps it fast:
+// EmDash tags each response with the panel and everyone it references, and
+// saving any of them purges it.
+export const prerender = false;
 
-export const getStaticPaths = (() => {
-    return panels.map((panel) => ({
-        params: { panel: panel.slug },
-        props: {
-            panel,
-            breadcrumbs: [
-                { name: "Awards", path: "/awards" },
-                { name: panel.slug, path: `/awards/${panel.slug}` },
-            ],
-        },
-    }));
-}) satisfies GetStaticPaths;
+const slug = Astro.params.panel;
+if (!slug) return Astro.rewrite("/404");
 
-const { panel, breadcrumbs }: PanelPageProps = Astro.props;
+const { panel, isPreview, cacheHint } = await getPanel(slug);
+if (!panel) return Astro.rewrite("/404");
+
+if (Astro.cache?.enabled) {
+    // A draft preview or an editor's edit-mode view is for one person, not for the shared cache.
+    const editing = Astro.cookies.get("emdash-edit-mode")?.value === "true";
+    if (isPreview || editing) Astro.cache.set(false);
+    else {
+        Astro.cache.set(cacheHint);
+        Astro.cache.set(CMS_PAGE_CACHE);
+    }
+}
+
+const breadcrumbs = [
+    { name: "Awards", path: "/awards" },
+    { name: panel.slug, path: `/awards/${panel.slug}` },
+];
 
 const name = moment(panel.date).format("DD-MM-YYYY");
 const date = moment(panel.date).format("dddd, MMMM Do YYYY");
 const description =
     "Hello! We are your panel members; we are looking forward to meeting you and hearing about your social venture.";
 
-const toProfile = (person: PanelEntry["colleagues"][number]) => ({
+const toProfile = (person: PanelPerson) => ({
     name: person.name,
     pronouns: person.pronouns ? [person.pronouns] : [],
     roleName: person.roleTitle,
