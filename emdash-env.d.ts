@@ -53,6 +53,21 @@ export interface Resource {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface Newsletter {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  subtitle: string;
+  content: PortableTextBlock[];
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 export interface Form {
   id: string;
   slug: string | null;
@@ -299,7 +314,23 @@ export interface Panel {
   programme?: string;
   team?: string;
   date: string;
-  panel_members?: { "title"?: string | null; "job_title"?: string | null; "image"?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } } | null; "gender_pronouns"?: string | null; "subtitle"?: string | null }[];
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
+export interface SocialEntrepreneur {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  subtitle?: string;
+  gender_pronouns?: "he/him" | "she/her" | "they/them";
+  linkedin?: string;
+  image?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } };
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -340,6 +371,7 @@ export interface FieldReferences {
 export interface PanelReferences {
   panel_chair: ReferencePage<People>;
   colleagues: ReferencePage<People>;
+  social_entrepreneurs: ReferencePage<SocialEntrepreneur>;
 }
 
 declare module "emdash" {
@@ -347,6 +379,7 @@ declare module "emdash" {
     pages: Page;
     posts: Post;
     resources: Resource;
+    newsletters: Newsletter;
     forms: Form;
     people: People;
     teams: Team;
@@ -361,6 +394,7 @@ declare module "emdash" {
     sections: Section;
     fields: Field;
     panels: Panel;
+    social_entrepreneurs: SocialEntrepreneur;
   }
   interface EmDashCollectionReferences {
     teams: TeamReferences;

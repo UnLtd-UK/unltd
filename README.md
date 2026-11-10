@@ -22,7 +22,7 @@ The MCP server is for connecting an AI client (such as VS Code) to the CMS. Sign
 | Awards                     | `products`, `grants`                 | [src/data/awards.ts](src/data/awards.ts)             |
 | Award rounds               | `rounds`                             | [src/data/rounds.ts](src/data/rounds.ts)             |
 | Application forms and PDFs | `applications`, `sections`, `fields` | [src/data/applications.ts](src/data/applications.ts) |
-| Award panels               | `panels`, `people`                   | [src/data/panels.ts](src/data/panels.ts)             |
+| Award panels               | `panels`, `people`, `social_entrepreneurs` | [src/lib/panels-runtime.ts](src/lib/panels-runtime.ts) (on demand; saving a panel or anyone on it refreshes the page) |
 | People and teams           | `people`, `teams`, `organisations`   | [src/data/people.ts](src/data/people.ts)             |
 | FAQs                       | `faqs`                               | [src/data/faq.ts](src/data/faq.ts)                   |
 | Emails (contact pages)     | `forms`                              | [src/lib/emails-runtime.ts](src/lib/emails-runtime.ts) (on demand; the menu uses [src/data/forms.ts](src/data/forms.ts)) |
