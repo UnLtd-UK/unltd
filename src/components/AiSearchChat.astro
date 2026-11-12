@@ -1,0 +1,24 @@
+---
+const AI_SEARCH_URL =
+    "https://06879865-d6e8-4546-a909-13c4fec10eb1.search.ai.cloudflare.com";
+---
+
+<script
+    is:inline
+    type="module"
+    src={`${AI_SEARCH_URL}/assets/v0.0.40/search-snippet.es.js`}
+></script>
+
+<chat-bubble-snippet
+    api-url={`${AI_SEARCH_URL}/chat/completions`}
+    placeholder="How can UnLtd help today?"
+    hide-branding="true"
+></chat-bubble-snippet>
+
+<style is:global>
+    chat-bubble-snippet {
+        --search-snippet-text-color: #201529;
+        --search-snippet-text-secondary: #57497f;
+        --search-snippet-text-description: #2f2b59;
+    }
+</style>
