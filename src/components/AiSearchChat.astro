@@ -1,6 +1,8 @@
 ---
-const AI_SEARCH_URL =
-    "https://06879865-d6e8-4546-a909-13c4fec10eb1.search.ai.cloudflare.com";
+// Base URL of the AI Search public endpoint (no path). The snippet appends
+// /chat/completions itself. Don't use a hostname that is also a Worker custom
+// domain (e.g. a preview's <branch>.unltd.org.uk), or the Worker answers instead.
+const AI_SEARCH_URL = "https://ai.unltd.org.uk";
 ---
 
 <script
@@ -10,7 +12,7 @@ const AI_SEARCH_URL =
 ></script>
 
 <chat-bubble-snippet
-    api-url={`${AI_SEARCH_URL}/chat/completions`}
+    api-url={AI_SEARCH_URL}
     placeholder="How can UnLtd help today?"
     hide-branding="true"
 ></chat-bubble-snippet>
