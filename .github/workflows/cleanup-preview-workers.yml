@@ -31,9 +31,26 @@ jobs:
         id: worker-name
         run: |
           BRANCH="${{ steps.branch.outputs.name }}"
-          WORKER_NAME=$(echo "$BRANCH" | tr '/' '-' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g')
+          WORKER_NAME=$(echo "$BRANCH" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | cut -c1-63 | sed 's/-*$//')
           echo "name=${WORKER_NAME}" >> $GITHUB_OUTPUT
           echo "Worker to delete: ${WORKER_NAME}"
+
+      - name: Delete preview custom domain
+        run: |
+          HOSTNAME="${{ steps.worker-name.outputs.name }}.unltd.org.uk"
+          API="https://api.cloudflare.com/client/v4/accounts/${{ secrets.CLOUDFLARE_ACCOUNT_ID }}/workers/domains"
+          AUTH="Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}"
+
+          DOMAIN_IDS=$(curl -s -H "$AUTH" "$API?hostname=$HOSTNAME" | jq -r '.result[]?.id')
+
+          if [ -z "$DOMAIN_IDS" ]; then
+            echo "ℹ️ No custom domain found for: $HOSTNAME"
+          else
+            for ID in $DOMAIN_IDS; do
+              curl -s -X DELETE -H "$AUTH" "$API/$ID" | jq -c '{success, errors}'
+              echo "Detached custom domain: $HOSTNAME ($ID)"
+            done
+          fi
 
       - name: Delete Cloudflare Worker
         run: |
