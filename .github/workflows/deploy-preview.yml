@@ -45,9 +45,10 @@ jobs:
       - name: Generate worker name from branch
         id: worker-name
         run: |
-          # Convert branch name to valid worker name (lowercase, replace / with -)
+          # Convert branch name to a valid worker name / DNS label (lowercase,
+          # non-alphanumerics become -, max 63 chars, no trailing -)
           BRANCH="${{ github.ref_name }}"
-          WORKER_NAME=$(echo "$BRANCH" | tr '/' '-' | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g')
+          WORKER_NAME=$(echo "$BRANCH" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | cut -c1-63 | sed 's/-*$//')
           echo "name=${WORKER_NAME}" >> $GITHUB_OUTPUT
           echo "Worker name: ${WORKER_NAME}"
 
@@ -56,6 +57,7 @@ jobs:
           pnpm exec wrangler deploy \
             --config wrangler.jsonc \
             --name ${{ steps.worker-name.outputs.name }} \
+            --domain ${{ steps.worker-name.outputs.name }}.unltd.org.uk \
             --compatibility-date 2025-11-17
 
       - name: Comment preview URL
@@ -63,7 +65,7 @@ jobs:
         with:
           script: |
             const workerName = '${{ steps.worker-name.outputs.name }}';
-            const previewUrl = `https://${workerName}.unltd.workers.dev`;
+            const previewUrl = `https://${workerName}.unltd.org.uk`;
 
             // Find associated PR
             const { data: prs } = await github.rest.pulls.list({
