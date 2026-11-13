@@ -1,0 +1,25 @@
+---
+/**
+ * Renders a Phosphor icon as inline SVG on the server.
+ *
+ * Usage: <PhosphorIcon name="file-text" class="h-4 w-4 text-violet-400" />
+ *        <PhosphorIcon name="lifebuoy" weight="fill" class="h-5 w-5" />
+ *
+ * `name` is the icon's name on phosphoricons.com. An empty or unknown name
+ * renders nothing, so a typo in the CMS never breaks a page.
+ */
+import { loadPhosphorIcon, type PhosphorWeight } from "@lib/phosphor";
+
+interface Props {
+  name?: string | null;
+  weight?: PhosphorWeight;
+  class?: string;
+}
+
+const { name, weight = "regular", class: className = "" } = Astro.props;
+
+const icon = name ? await loadPhosphorIcon(Astro, name, weight) : "";
+const svg = icon.replace("<svg ", `<svg aria-hidden="true" class="${className}" `);
+---
+
+{icon && <Fragment set:html={svg} />}

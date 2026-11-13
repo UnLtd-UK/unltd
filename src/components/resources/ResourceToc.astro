@@ -1,0 +1,60 @@
+---
+import type { TocHeading } from "@data/functions/portableHeadings";
+
+interface Props {
+  headings: TocHeading[];
+}
+
+// Headings come from the resource's own content, so this renders nothing for a
+// resource with no h2/h3 sections.
+const headings = Astro.props.headings.filter((heading) => heading.level <= 3);
+---
+
+{
+  headings.length > 0 && (
+    <nav aria-labelledby="on-this-page-title" data-resource-toc>
+      <h2 id="on-this-page-title" class="text-sm font-medium text-violet-100">
+        On this page
+      </h2>
+      <ol class="mt-4 space-y-3 text-sm">
+        {headings.map((heading) => (
+          <li class:list={[heading.level === 3 && "pl-5"]}>
+            <a
+              href={`#${heading.id}`}
+              data-toc-link
+              class="text-violet-400 transition-colors hover:text-violet-100 aria-[current=location]:text-amber-400"
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+<script>
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]"));
+  const targets = links
+    .map((link) => ({ link, el: document.getElementById(link.hash.slice(1)) }))
+    .filter((item): item is { link: HTMLAnchorElement; el: HTMLElement } => item.el !== null);
+
+  function update() {
+    // The last heading that has scrolled past the top of the viewport.
+    let current = targets[0];
+    for (const item of targets) {
+      const offset = parseFloat(getComputedStyle(item.el).scrollMarginTop) || 0;
+      if (item.el.getBoundingClientRect().top - offset - 10 <= 0) current = item;
+      else break;
+    }
+    for (const { link } of targets) {
+      if (current && link === current.link) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    }
+  }
+
+  if (targets.length > 0) {
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+  }
+</script>

@@ -37,12 +37,29 @@ export interface Post {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface Group {
+  id: string;
+  slug: string | null;
+  status: string;
+  icon: string;
+  title: string;
+  subtitle: string;
+  order: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 export interface Resource {
   id: string;
   slug: string | null;
   status: string;
   title: string;
   subtitle: string;
+  icon?: string;
   hidden?: boolean;
   content?: PortableTextBlock[];
   createdAt: Date;
@@ -94,7 +111,7 @@ export interface People {
   title: string;
   subtitle?: string;
   pronouns: "he/him" | "she/her" | "they/them" | "Not specified";
-  role_title: "Assistant Impact Analyst" | "Building Manager" | "Business Development Lead" | "Central Services Lead" | "Chair of Trustees" | "Chief Executive Officer" | "Communications Assistant" | "Communications Manager" | "CRM Manager" | "Data Integrity Manager" | "Digital Product Manager" | "Director of Corporate Services" | "Director of Delivery & Investment" | "Director of Impact and Influence" | "Director of People and Culture" | "Director of Social Entrepreneur Support" | "Events Manager" | "Executive Assistant to CEO" | "Finance Assistant" | "Finance Manager" | "Head of Community and Partnerships" | "Head of External Affairs" | "Head of Finance" | "Head of Fundraising" | "Head of Investment" | "Head of Operations" | "Head of Research, Impact, and Learning" | "Head of Social Entrepreneur Support" | "Head of Systems" | "Information Technology Systems Technician" | "Mentoring Support Manager" | "Office & Facilities Coordinator" | "Partnership and Community Engagement Officer" | "People Coordinator" | "Portfolio Manager" | "Pro Bono Support Manager" | "Programme and Support Coordinator" | "Programmes and Partnerships Manager" | "Researcher" | "Senior Researcher" | "Senior Social Impact Analyst" | "Social Entrepreneur Support Administrative Officer" | "Social Entrepreneur Support Lead - Impact" | "Social Entrepreneur Support Manager" | "Social Entrepreneur Workshop Delivery Manager" | "Systems Support Manager" | "Trustee" | "User Journey and Experience Lead" | "User Journey Support Manager" | "Vice Chair of Trustees";
+  role_title: "Assistant Impact Analyst" | "Building Manager" | "Business Development Lead" | "Central Services Lead" | "Chair of Trustees" | "Chief Executive Officer" | "Communications Assistant" | "Communications Manager" | "CRM Manager" | "Data Integrity Manager" | "Digital Product Manager" | "Director of Corporate Services" | "Director of Delivery & Investment" | "Director of Impact and Influence" | "Director of People and Culture" | "Director of Social Entrepreneur Support" | "Events Manager" | "Executive Assistant to CEO" | "Finance Assistant" | "Finance Manager" | "Head of Community and Partnerships" | "Head of External Affairs" | "Head of Finance" | "Head of Fundraising" | "Head of Investment" | "Head of Operations" | "Head of Research, Impact, and Learning" | "Head of Social Entrepreneur Support" | "Head of Systems" | "Information Technology Systems Technician" | "Mentoring Support Manager" | "Office & Facilities Coordinator" | "Partnership and Community Engagement Officer" | "People Coordinator" | "Portfolio Manager" | "Pro Bono Support Manager" | "Programme and Support Coordinator" | "Programmes and Partnerships Manager" | "Researcher" | "Senior Researcher" | "Senior Social Impact Analyst" | "Social Entrepreneur Support Administrative Officer" | "Social Entrepreneur Support Lead" | "Social Entrepreneur Support Manager" | "Social Entrepreneur Workshop Delivery Manager" | "Systems Support Manager" | "Trustee" | "User Journey and Experience Lead" | "User Journey Support Manager" | "Vice Chair of Trustees";
   role_status?: "Active" | "Parental Leave" | "Temporary Cover" | "Sabbatical";
   image?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown>; darkVariant?: { id: string; src?: string; alt?: string; caption?: string; width?: number; height?: number; filename?: string; mimeType?: string; blurhash?: string; dominantColor?: string; focalX?: number; focalY?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> } };
   linkedin?: string;
@@ -339,6 +356,10 @@ export interface SocialEntrepreneur {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface GroupReferences {
+  resources: ReferencePage<Resource>;
+}
+
 export interface TeamReferences {
   team_lead: ReferencePage<People>;
   team_members: ReferencePage<People>;
@@ -378,6 +399,7 @@ declare module "emdash" {
   interface EmDashCollections {
     pages: Page;
     posts: Post;
+    groups: Group;
     resources: Resource;
     newsletters: Newsletter;
     forms: Form;
@@ -397,6 +419,7 @@ declare module "emdash" {
     social_entrepreneurs: SocialEntrepreneur;
   }
   interface EmDashCollectionReferences {
+    groups: GroupReferences;
     teams: TeamReferences;
     products: ProductReferences;
     programmes: ProgrammeReferences;

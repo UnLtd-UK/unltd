@@ -85,8 +85,12 @@ const skipEmdashMiddlewareInPrerender = {
 export default defineConfig({
   integrations: [alpinejs(), react(), sitemap({
     customSitemaps: ["https://unltd.org.uk/sitemap-dynamic.xml"],
-    // Token-driven utility pages shouldn't be indexed or a11y-crawled.
-    filter: (page) => !/\/newsletter\/(confirm|unsubscribe)$/.test(page),
+    // Exclude token-driven utility pages and icon files from the sitemap.
+    filter: (page) => {
+      const { pathname } = new URL(page);
+      return !/\/newsletter\/(confirm|unsubscribe)$/.test(pathname)
+        && !pathname.startsWith("/ph/");
+    },
   }), emdash({
     database: d1({ binding: "DB" }),
     storage: r2({ binding: "MEDIA" }),
@@ -112,6 +116,10 @@ export default defineConfig({
     // with the visual-editing toolbar. The default ("server") injects the toolbar
     // only on uncached responses, so behind the cache it comes and goes.
     toolbar: "client",
+    // Several editors can work on the same entry at once. Needs the
+    // EMDASH_ROOMS Durable Object binding (production only, in wrangler.jsonc);
+    // without it the editor uses single-editor mode with edit locks.
+    coEditing: true,
     // Previews and local dev share the production database, so they must not
     // migrate it: "check" serves a 503 instead of running migrations when the
     // database is behind the code. Production applies them ("auto"). The deployed

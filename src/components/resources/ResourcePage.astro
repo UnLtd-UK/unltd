@@ -1,0 +1,59 @@
+---
+import Template from "@layouts/Template.astro";
+import Container from "@components/Container.astro";
+import Breadcrumbs from "@components/Breadcrumbs.astro";
+import PortableContent from "@components/emdash/PortableContent.astro";
+import ResourcesLayout from "./ResourcesLayout.astro";
+import ResourceHeader from "./ResourceHeader.astro";
+import ResourceToc from "./ResourceToc.astro";
+import ResourcePrevNext from "./ResourcePrevNext.astro";
+import ResourceEvents from "./ResourceEvents.astro";
+import type { ResourcePageData } from "@lib/resource-page";
+
+type Props = ResourcePageData;
+
+const { resource, groups, events, toc, group, previous, next } = Astro.props;
+const { title, subtitle, content, hidden, edit } = resource;
+
+const breadcrumbs = [
+  { name: "Resources", path: "/resources" },
+  ...(group ? [{ name: group.title, path: `/resources/${group.slug}` }] : []),
+  { name: title, path: group ? `/resources/${group.slug}/${resource.slug}` : `/resources/${resource.slug}` },
+];
+---
+
+<Template name={title} description={subtitle} noindex={hidden}>
+  <Container>
+    <Breadcrumbs breadcrumbs={breadcrumbs} />
+    <ResourcesLayout
+      groups={groups}
+      currentSlug={resource.slug}
+      aside={toc.length > 0 || events.length > 0}
+    >
+      <article>
+        <ResourceHeader
+          title={title}
+          subtitle={subtitle}
+          eyebrow={group?.title}
+          titleAttrs={edit.title}
+          subtitleAttrs={edit.subtitle}
+        />
+        <PortableContent value={content} />
+      </article>
+      <ResourcePrevNext previous={previous} next={next} />
+      <div class="mt-14 border-t border-violet-800 pt-8 xl:hidden">
+        <ResourceEvents events={events} />
+      </div>
+      <Fragment slot="aside">
+        <ResourceToc headings={toc} />
+        {
+          events.length > 0 && (
+            <div class:list={[toc.length > 0 && "mt-10 border-t border-violet-800 pt-8"]}>
+              <ResourceEvents events={events} />
+            </div>
+          )
+        }
+      </Fragment>
+    </ResourcesLayout>
+  </Container>
+</Template>

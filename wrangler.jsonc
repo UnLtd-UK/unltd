@@ -170,6 +170,24 @@
 					"bucket_name": "unltd-emdash-media"
 				}
 			],
+			// Co-editing: each entry's room is an EmDashRoom Durable Object (class
+			// exported from src/worker.ts). Production only: previews share this
+			// database, and without the binding they fall back to single-editor
+			// mode, so two workers never run competing rooms for one entry.
+			"durable_objects": {
+				"bindings": [
+					{
+						"name": "EMDASH_ROOMS",
+						"class_name": "EmDashRoom"
+					}
+				]
+			},
+			"exports": {
+				"EmDashRoom": {
+					"type": "durable-object",
+					"storage": "sqlite"
+				}
+			},
 			"routes": [
 				{
 					"pattern": "unltd.org.uk",

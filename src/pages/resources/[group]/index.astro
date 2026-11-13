@@ -1,0 +1,25 @@
+---
+import ResourcePage from "@components/resources/ResourcePage.astro";
+import { findGroup, loadResourcePage } from "@lib/resource-page";
+
+// /resources/<group> goes to the group's first resource. Resources used to live
+// at /resources/<resource>, so anything else here is treated as one of those
+// old links: it redirects to the resource's page under its group. A resource in
+// no group (hidden, or a draft being previewed) is shown here as it is.
+export const prerender = false;
+
+const segment = Astro.params.group;
+if (!segment) return Astro.rewrite("/404");
+
+// A draft preview link for a resource is never a group link, even if the two share a slug.
+if (!Astro.url.searchParams.has("_preview")) {
+  const { group } = await findGroup(segment);
+  if (group) return Astro.redirect(group.resources[0].href, 302);
+}
+
+const result = await loadResourcePage(Astro, segment);
+if (result.kind === "missing") return Astro.rewrite("/404");
+if (result.kind === "redirect") return Astro.redirect(result.to + Astro.url.search, result.status);
+---
+
+<ResourcePage {...result} />

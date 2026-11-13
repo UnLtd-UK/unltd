@@ -1,0 +1,46 @@
+---
+import Icon from "@components/Icon.astro";
+
+interface Link {
+  title: string;
+  href: string;
+}
+
+interface Props {
+  previous?: Link;
+  next?: Link;
+}
+
+const { previous, next } = Astro.props;
+---
+
+{
+  (previous || next) && (
+    <nav aria-label="Previous and next resource" class="mt-12 flex border-t border-violet-800 pt-6">
+      {previous && (
+        <div>
+          <p class="text-sm font-medium text-violet-100">Previous</p>
+          <a
+            href={previous.href}
+            class="mt-1 flex flex-row-reverse items-center gap-x-1 text-base font-semibold text-violet-300 transition-colors hover:text-violet-100"
+          >
+            {previous.title}
+            <Icon name="arrow-right" style="solid" class="h-3 w-3 -scale-x-100" />
+          </a>
+        </div>
+      )}
+      {next && (
+        <div class="ml-auto text-right">
+          <p class="text-sm font-medium text-violet-100">Next</p>
+          <a
+            href={next.href}
+            class="mt-1 flex items-center gap-x-1 text-base font-semibold text-violet-300 transition-colors hover:text-violet-100"
+          >
+            {next.title}
+            <Icon name="arrow-right" style="solid" class="h-3 w-3" />
+          </a>
+        </div>
+      )}
+    </nav>
+  )
+}
