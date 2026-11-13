@@ -141,9 +141,17 @@
 				}
 			],
 			"durable_objects": {
-				"bindings": [{ "name": "NEWSLETTER_CONSENT", "class_name": "NewsletterConsent" }]
+				"bindings": [
+					{ "name": "NEWSLETTER_CONSENT", "class_name": "NewsletterConsent" },
+					{ "name": "EMDASH_ROOMS", "class_name": "EmDashRoom" }
+				]
 			},
-			"migrations": [{ "tag": "v1", "new_sqlite_classes": ["NewsletterConsent"] }],
+			// Preserve lifecycle history and keep rooms production-only.
+			// Durable Object exports cannot be combined with migrations.
+			"migrations": [
+				{ "tag": "v1", "new_sqlite_classes": ["NewsletterConsent"] },
+				{ "tag": "emdash-rooms", "new_sqlite_classes": ["EmDashRoom"] }
+			],
 			"images": {
 				"binding": "IMAGES"
 			},
@@ -170,24 +178,6 @@
 					"bucket_name": "unltd-emdash-media"
 				}
 			],
-			// Co-editing: each entry's room is an EmDashRoom Durable Object (class
-			// exported from src/worker.ts). Production only: previews share this
-			// database, and without the binding they fall back to single-editor
-			// mode, so two workers never run competing rooms for one entry.
-			"durable_objects": {
-				"bindings": [
-					{
-						"name": "EMDASH_ROOMS",
-						"class_name": "EmDashRoom"
-					}
-				]
-			},
-			"exports": {
-				"EmDashRoom": {
-					"type": "durable-object",
-					"storage": "sqlite"
-				}
-			},
 			"routes": [
 				{
 					"pattern": "unltd.org.uk",
