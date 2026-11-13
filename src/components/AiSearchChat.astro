@@ -1,0 +1,18 @@
+---
+// Base URL of the AI Search public endpoint (no path). The snippet appends
+// /chat/completions itself. Don't use a hostname that is also a Worker custom
+// domain (e.g. a preview's <branch>.unltd.org.uk), or the Worker answers instead.
+const AI_SEARCH_URL = "https://ai.unltd.org.uk";
+---
+
+<script
+    is:inline
+    type="module"
+    src={`${AI_SEARCH_URL}/assets/v0.0.40/search-snippet.es.js`}
+></script>
+
+<chat-bubble-snippet
+    api-url={AI_SEARCH_URL}
+    placeholder="How can UnLtd help today?"
+    hide-branding="true"
+></chat-bubble-snippet>
