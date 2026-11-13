@@ -46,7 +46,9 @@
 		"run_worker_first": [
 			"/_emdash/*",
 			"/_image",
-			"/.well-known/*"
+			"/.well-known/*",
+			// Newsletter API: never a static file, so skip the assets-layer cache.
+			"/api/newsletter/*"
 		]
 	},
 	// Required by @astrojs/cloudflare's defaults: Workers KV for the Sessions
@@ -70,6 +72,11 @@
 			"id": "de01c0c8d4a945c68572f2e3bb2a68c5"
 		}
 	],
+	// Strongly consistent per-email newsletter consent state (see src/lib/newsletter/consent.ts).
+	"durable_objects": {
+		"bindings": [{ "name": "NEWSLETTER_CONSENT", "class_name": "NewsletterConsent" }]
+	},
+	"migrations": [{ "tag": "v1", "new_sqlite_classes": ["NewsletterConsent"] }],
 	"images": {
 		"binding": "IMAGES"
 	},
@@ -133,6 +140,18 @@
 					"id": "059745ad29db4bb88e2e3d2daf83a752"
 				}
 			],
+			"durable_objects": {
+				"bindings": [
+					{ "name": "NEWSLETTER_CONSENT", "class_name": "NewsletterConsent" },
+					{ "name": "EMDASH_ROOMS", "class_name": "EmDashRoom" }
+				]
+			},
+			// Preserve lifecycle history and keep rooms production-only.
+			// Durable Object exports cannot be combined with migrations.
+			"migrations": [
+				{ "tag": "v1", "new_sqlite_classes": ["NewsletterConsent"] },
+				{ "tag": "emdash-rooms", "new_sqlite_classes": ["EmDashRoom"] }
+			],
 			"images": {
 				"binding": "IMAGES"
 			},
@@ -159,24 +178,6 @@
 					"bucket_name": "unltd-emdash-media"
 				}
 			],
-			// Co-editing: each entry's room is an EmDashRoom Durable Object (class
-			// exported from src/worker.ts). Production only: previews share this
-			// database, and without the binding they fall back to single-editor
-			// mode, so two workers never run competing rooms for one entry.
-			"durable_objects": {
-				"bindings": [
-					{
-						"name": "EMDASH_ROOMS",
-						"class_name": "EmDashRoom"
-					}
-				]
-			},
-			"exports": {
-				"EmDashRoom": {
-					"type": "durable-object",
-					"storage": "sqlite"
-				}
-			},
 			"routes": [
 				{
 					"pattern": "unltd.org.uk",

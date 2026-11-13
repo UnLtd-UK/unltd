@@ -4,19 +4,19 @@ The UnLtd website, built with [Astro](https://astro.build) and deployed to Cloud
 
 ## EmDash links
 
-| What | URL |
-| ---- | --- |
-| Admin | https://unltd.org.uk/_emdash/admin |
+| What       | URL                                  |
+| ---------- | ------------------------------------ |
+| Admin      | https://unltd.org.uk/_emdash/admin   |
 | MCP server | https://unltd.org.uk/_emdash/api/mcp |
 
 The MCP server is for connecting an AI client (such as VS Code) to the CMS. Sign-in uses OAuth, and the connection reads and writes the same content as the admin. Locally, `astro dev` serves both at `http://localhost:4321/_emdash/...`.
 
 ## Content
 
-| Content                    | EmDash collection(s)                 | Loaded by                                            |
-| -------------------------- | ------------------------------------ | ---------------------------------------------------- |
-| Pages                      | `pages`                              | [src/lib/pages-runtime.ts](src/lib/pages-runtime.ts) (on demand; menus use [src/data/pages.ts](src/data/pages.ts)) |
-| Blog posts                 | `posts` (+ `tag` taxonomy, bylines)  | [src/lib/posts-runtime.ts](src/lib/posts-runtime.ts) (on demand; the home page uses [src/data/posts.ts](src/data/posts.ts)) |
+| Content                    | EmDash collection(s)                 | Loaded by                                                                                                                                         |
+| -------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Pages                      | `pages`                              | [src/lib/pages-runtime.ts](src/lib/pages-runtime.ts) (on demand; menus use [src/data/pages.ts](src/data/pages.ts))                                |
+| Blog posts                 | `posts` (+ `tag` taxonomy, bylines)  | [src/lib/posts-runtime.ts](src/lib/posts-runtime.ts) (on demand; the home page uses [src/data/posts.ts](src/data/posts.ts))                       |
 | Resources                  | `resources`                          | [src/lib/resources-runtime.ts](src/lib/resources-runtime.ts) (on demand; the application PDFs use [src/data/resources.ts](src/data/resources.ts)) |
 | Programmes and services    | `programmes`, `services`             | [src/data/programmes.ts](src/data/programmes.ts)     |
 | Awards                     | `products`, `grants`                 | [src/data/awards.ts](src/data/awards.ts)             |
@@ -42,6 +42,15 @@ EMDASH_TOKEN=your-emdash-api-token
 # EMDASH_URL=http://localhost:4321
 ```
 
+Newsletter sign-up (optional locally; see [docs/newsletter.md](docs/newsletter.md)):
+
+```
+RESEND_API_KEY=your-key-here
+RESEND_SEGMENT_ID=your-segment-id
+NEWSLETTER_TOKEN_SECRET=long-random-string
+TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
+PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA
+```
 `EMDASH_URL` is required for builds (`astro dev` defaults to the local server). There is a single EmDash instance: CI reads it from the `EMDASH_URL` GitHub repository variable (Settings > Secrets and variables > Actions > Variables), shared by production and every feature/fix preview, so changing instance means changing one variable. Draft content is previewed in EmDash itself.
 
 `astro dev` has no local database: [wrangler.astro.jsonc](wrangler.astro.jsonc) binds the real D1 database and R2 bucket with `"remote": true`, so the dev server (including the blog, which is rendered on demand) shows live content, and edits made in the dev admin change live data. This needs `wrangler login`.
