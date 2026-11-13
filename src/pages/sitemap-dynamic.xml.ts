@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { getAllPosts, postYears } from "@lib/posts-runtime";
 import { getPageSlugs } from "@lib/pages-runtime";
-import { getAllResources } from "@lib/resources-runtime";
+import { getResourceGroups } from "@lib/resources-runtime";
 import { getAllEmails } from "@lib/emails-runtime";
 import { getAllNewsletters } from "@lib/newsletters-runtime";
 
@@ -17,7 +17,7 @@ export const GET: APIRoute = async ({ site, cache }) => {
   const [
     { posts, cacheHints: postHints },
     { pages, cacheHints: pageHints },
-    { resources, cacheHints: resourceHints },
+    { groups, cacheHints: resourceHints },
     { emails, cacheHints: emailHints },
     { newsletters, cacheHints: newsletterHints },
   ] = await Promise.all([
@@ -37,7 +37,7 @@ export const GET: APIRoute = async ({ site, cache }) => {
     ...pages.map((page) => ({ path: `/${page.slug}`, lastmod: page.updatedAt })),
     { path: "/resources" },
     // Hidden resources are only reachable by direct link, so they are left out.
-    ...resources.filter((resource) => !resource.hidden).map((resource) => ({ path: `/resources/${resource.slug}` })),
+    ...groups.flatMap((group) => group.resources.map((resource) => ({ path: resource.href }))),
     { path: "/contact" },
     ...emails.map((email) => ({ path: `/contact/${email.slug}` })),
     { path: "/newsletters" },

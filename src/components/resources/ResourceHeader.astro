@@ -1,0 +1,30 @@
+---
+import type { EditProxy } from "emdash";
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  /** The group the resource sits in, shown above the title. */
+  eyebrow?: string;
+  // Make the title and subtitle editable on the page for an editor in
+  // EmDash's edit mode; they are empty otherwise.
+  titleAttrs?: EditProxy["title"];
+  subtitleAttrs?: EditProxy["subtitle"];
+}
+
+const { title, subtitle, eyebrow, titleAttrs, subtitleAttrs } = Astro.props;
+---
+
+<header class="mb-9 space-y-1">
+  {eyebrow && <p class="text-sm font-medium text-amber-400">{eyebrow}</p>}
+  <h1 class="text-3xl font-bold tracking-tight text-violet-100 sm:text-4xl" {...titleAttrs}>
+    {title}
+  </h1>
+  {
+    subtitle && (
+      <p class="pt-3 text-lg leading-8 text-violet-300" {...subtitleAttrs}>
+        {subtitle}
+      </p>
+    )
+  }
+</header>
