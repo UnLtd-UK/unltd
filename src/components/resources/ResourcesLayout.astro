@@ -1,0 +1,66 @@
+---
+import type { ResourceGroup } from "@lib/resources-runtime";
+import Icon from "@components/Icon.astro";
+import ResourcesNav from "./ResourcesNav.astro";
+
+interface Props {
+  groups: ResourceGroup[];
+  currentSlug?: string;
+  /** Show the right-hand column (the "aside" slot). */
+  aside?: boolean;
+}
+
+const { groups, currentSlug, aside = false } = Astro.props;
+---
+
+<div class="lg:flex">
+  <aside class="hidden lg:block lg:w-56 lg:shrink-0 xl:w-60">
+    <div
+      data-resources-sidebar
+      class="sticky top-6 -ml-0.5 max-h-[calc(100vh-3rem)] overflow-y-auto py-10 pl-0.5 pr-4"
+    >
+      <ResourcesNav groups={groups} currentSlug={currentSlug} />
+    </div>
+  </aside>
+  {/* Inline, so it runs before the first paint: a new page would otherwise start with the sidebar scrolled to the top and then jump. */}
+  <script is:inline>
+    (function () {
+      var sidebar = document.querySelector("[data-resources-sidebar]");
+      var current = sidebar && sidebar.querySelector('[aria-current="page"]');
+      var group = current && current.closest("nav > ul > li");
+      // Bring the current group's heading to the top of the sidebar (the browser stops at the end of the list).
+      if (group && group.querySelector("h2")) sidebar.scrollTop = group.offsetTop - 8;
+    })();
+  </script>
+
+  <details
+    class="group/browse my-6 rounded-xl bg-violet-900/30 ring-1 ring-violet-700/50 lg:hidden"
+  >
+    <summary
+      class="flex cursor-pointer list-none items-center justify-between px-4 py-3 font-medium text-violet-100 [&::-webkit-details-marker]:hidden"
+    >
+      Browse resources
+      <Icon
+        name="chevron-down"
+        style="solid"
+        class="h-3 w-3 text-violet-400 transition-transform group-open/browse:rotate-180"
+      />
+    </summary>
+    <div class="px-4 pb-5 pt-2">
+      <ResourcesNav groups={groups} currentSlug={currentSlug} />
+    </div>
+  </details>
+
+  <div class="min-w-0 flex-1 lg:border-l lg:border-violet-800 lg:pl-10 xl:flex xl:gap-14">
+    <div class="min-w-0 flex-1 py-6 pb-20 lg:py-10 lg:pb-20">
+      <slot />
+    </div>
+    {
+      aside && (
+        <div class="hidden xl:sticky xl:top-6 xl:block xl:max-h-[calc(100vh-3rem)] xl:w-56 xl:flex-none xl:self-start xl:overflow-y-auto xl:py-10">
+          <slot name="aside" />
+        </div>
+      )
+    }
+  </div>
+</div>
