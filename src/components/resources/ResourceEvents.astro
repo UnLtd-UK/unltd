@@ -1,0 +1,69 @@
+---
+import Icon from "@components/Icon.astro";
+import type { Event } from "@data/eventCollections";
+
+interface Props {
+  events: Event[];
+}
+
+const { events } = Astro.props;
+const shown = events.slice(0, 4);
+
+const when = (event: Event) => {
+  const start = new Date(event.start.local);
+  const date = start.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  const time = start.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+  return { date, time, iso: event.start.local };
+};
+---
+
+{
+  shown.length > 0 && (
+    <section aria-label="Upcoming events">
+      <h2 class="text-sm font-medium text-violet-100">Events</h2>
+      <ul class="mt-4 space-y-3 text-sm">
+        {shown.map((event) => {
+          const { date, time, iso } = when(event);
+          return (
+            <li>
+              <a
+                href={event.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group block text-violet-400 transition-colors hover:text-violet-100"
+              >
+                <p class="text-xs font-medium text-violet-200">
+                  <time datetime={iso}>
+                    {date}, {time}
+                  </time>
+                  <span aria-hidden="true"> · </span>
+                  {event.online_event ? "Online" : "In person"}
+                </p>
+                <span class="mt-0.5 block">
+                  {event.name.text}
+                  <Icon
+                    name="arrow-up-right-from-square"
+                    style="solid"
+                    class="ml-1 inline h-2.5 w-2.5 align-baseline"
+                  />
+                  <span class="sr-only"> (opens in a new tab)</span>
+                </span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      {events.length > shown.length && (
+        <a
+          href="https://www.eventbrite.com/o/unltd-3046207224"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-4 inline-flex items-center gap-1.5 text-xs text-violet-300 underline-offset-4 transition-colors hover:text-violet-100 hover:underline"
+        >
+          All {events.length} events
+          <Icon name="arrow-up-right-from-square" style="solid" class="h-2.5 w-2.5" />
+        </a>
+      )}
+    </section>
+  )
+}

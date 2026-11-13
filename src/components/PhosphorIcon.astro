@@ -1,0 +1,39 @@
+---
+/**
+ * Renders a Phosphor icon as inline SVG on the server.
+ *
+ * Usage: <PhosphorIcon name="file-text" class="h-4 w-4 text-violet-400" />
+ *        <PhosphorIcon name="lifebuoy" weight="fill" class="h-5 w-5" />
+ *
+ * `name` is the icon's name on phosphoricons.com. An empty or unknown name
+ * renders nothing, so a typo in the CMS never breaks a page.
+ */
+interface Props {
+  name?: string | null;
+  weight?: "regular" | "fill";
+  class?: string;
+}
+
+const { name, weight = "regular", class: className = "" } = Astro.props;
+
+// Lazy, so each icon is its own module and only the requested one is read.
+const icons = import.meta.glob<string>(
+  "/node_modules/@phosphor-icons/core/assets/{regular,fill}/*.svg",
+  { query: "?raw", import: "default" },
+);
+
+const slug = String(name ?? "")
+  .trim()
+  .toLowerCase()
+  .replace(/^ph-/, "")
+  .replace(/[\s_]+/g, "-");
+
+const load = slug
+  ? icons[
+      `/node_modules/@phosphor-icons/core/assets/${weight}/${slug}${weight === "regular" ? "" : `-${weight}`}.svg`
+    ]
+  : undefined;
+const svg = load ? (await load()).replace("<svg ", `<svg aria-hidden="true" class="${className}" `) : "";
+---
+
+{svg && <Fragment set:html={svg} />}

@@ -1,0 +1,50 @@
+---
+import Icon from "@components/Icon.astro";
+import PhosphorIcon from "@components/PhosphorIcon.astro";
+
+interface Props {
+  href: string;
+  title: string;
+  subtitle?: string;
+  /** A short line under the description, e.g. "3 min read". */
+  meta?: string;
+  metaIcon?: string;
+  /** Phosphor icon name, shown in an app-icon tile above the title. */
+  icon?: string;
+}
+
+const { href, title, subtitle, meta, metaIcon, icon } = Astro.props;
+---
+
+<div class="group relative h-full rounded-xl ring-1 ring-violet-700/50">
+  <div
+    class="absolute -inset-px rounded-xl border-2 border-transparent opacity-0 transition-opacity duration-300 ease-out motion-reduce:transition-none [background:linear-gradient(var(--color-violet-900),var(--color-violet-900))_padding-box,linear-gradient(to_top,var(--color-violet-400),var(--color-amber-400),var(--color-orange-500))_border-box] group-hover:opacity-100 group-focus-within:opacity-100"
+  >
+  </div>
+  <div class="relative h-full overflow-hidden rounded-xl p-6">
+    {
+      icon && (
+        <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br from-violet-600 to-violet-800 text-violet-100 shadow-md shadow-violet-950/50 ring-1 ring-violet-400/30">
+          <PhosphorIcon name={icon} weight="fill" class="h-6 w-6" />
+        </div>
+      )
+    }
+    <h3 class="text-base font-semibold text-violet-100">
+      <a
+        href={href}
+        class="after:absolute after:-inset-px after:rounded-xl after:content-[''] focus-visible:outline-none"
+      >
+        {title}
+      </a>
+    </h3>
+    {subtitle && <p class="mt-2 line-clamp-3 text-sm text-violet-300">{subtitle}</p>}
+    {
+      meta && (
+        <p class="mt-4 flex items-center gap-1.5 text-xs text-violet-400">
+          {metaIcon && <Icon name={metaIcon} style="solid" class="h-3 w-3" />}
+          {meta}
+        </p>
+      )
+    }
+  </div>
+</div>

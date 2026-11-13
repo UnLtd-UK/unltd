@@ -1,0 +1,18 @@
+---
+import ResourcePage from "@components/resources/ResourcePage.astro";
+import { loadResourcePage } from "@lib/resource-page";
+
+// Rendered on demand so a new or edited resource, and an EmDash draft preview,
+// show without a rebuild. Route caching keeps it fast: EmDash tags each
+// response, and publishing purges it.
+export const prerender = false;
+
+const { group, resource } = Astro.params;
+if (!group || !resource) return Astro.rewrite("/404");
+
+const result = await loadResourcePage(Astro, resource, group);
+if (result.kind === "missing") return Astro.rewrite("/404");
+if (result.kind === "redirect") return Astro.redirect(result.to + Astro.url.search, result.status);
+---
+
+<ResourcePage {...result} />
