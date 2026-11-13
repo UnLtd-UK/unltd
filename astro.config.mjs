@@ -83,7 +83,11 @@ const skipEmdashMiddlewareInPrerender = {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [alpinejs(), react(), sitemap({ customSitemaps: ["https://unltd.org.uk/sitemap-dynamic.xml"] }), emdash({
+  integrations: [alpinejs(), react(), sitemap({
+    customSitemaps: ["https://unltd.org.uk/sitemap-dynamic.xml"],
+    // The icon files (src/pages/ph) are not pages.
+    filter: (page) => !new URL(page).pathname.startsWith("/ph/"),
+  }), emdash({
     database: d1({ binding: "DB" }),
     storage: r2({ binding: "MEDIA" }),
     // Runs registry plugins in isolated Worker Loader sandboxes. Needs the

@@ -8,32 +8,18 @@
  * `name` is the icon's name on phosphoricons.com. An empty or unknown name
  * renders nothing, so a typo in the CMS never breaks a page.
  */
+import { loadPhosphorIcon, type PhosphorWeight } from "@lib/phosphor";
+
 interface Props {
   name?: string | null;
-  weight?: "regular" | "fill";
+  weight?: PhosphorWeight;
   class?: string;
 }
 
 const { name, weight = "regular", class: className = "" } = Astro.props;
 
-// Lazy, so each icon is its own module and only the requested one is read.
-const icons = import.meta.glob<string>(
-  "/node_modules/@phosphor-icons/core/assets/{regular,fill}/*.svg",
-  { query: "?raw", import: "default" },
-);
-
-const slug = String(name ?? "")
-  .trim()
-  .toLowerCase()
-  .replace(/^ph-/, "")
-  .replace(/[\s_]+/g, "-");
-
-const load = slug
-  ? icons[
-      `/node_modules/@phosphor-icons/core/assets/${weight}/${slug}${weight === "regular" ? "" : `-${weight}`}.svg`
-    ]
-  : undefined;
-const svg = load ? (await load()).replace("<svg ", `<svg aria-hidden="true" class="${className}" `) : "";
+const icon = name ? await loadPhosphorIcon(Astro, name, weight) : "";
+const svg = icon.replace("<svg ", `<svg aria-hidden="true" class="${className}" `);
 ---
 
-{svg && <Fragment set:html={svg} />}
+{icon && <Fragment set:html={svg} />}
