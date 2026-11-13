@@ -1,0 +1,92 @@
+---
+import type { ResourceGroup } from "@lib/resources-runtime";
+import PhosphorIcon from "@components/PhosphorIcon.astro";
+
+interface Props {
+  groups: ResourceGroup[];
+  /** Slug of the resource being read, or undefined on the index page. */
+  currentSlug?: string;
+}
+
+const { groups, currentSlug } = Astro.props;
+
+const linkBase =
+  "w-full pl-3.5 before:pointer-events-none before:absolute before:top-1/2 before:-left-1 before:h-1.5 before:w-1.5 before:-translate-y-1/2 before:rounded-full";
+const linkActive = "font-semibold text-amber-400";
+const linkIdle = "text-violet-300 hover:text-violet-100";
+const dotActive = "before:bg-amber-400";
+const dotIdle = "before:hidden before:bg-violet-500 hover:before:block";
+---
+
+<nav aria-label="Resources" class="text-base lg:text-sm">
+  <ul class="space-y-9">
+    <li>
+      <ul class="border-l-2 border-violet-800">
+        <li class="relative">
+          <a
+            href="/resources"
+            aria-current={currentSlug ? undefined : "page"}
+            class:list={[
+              linkBase,
+              "flex items-start gap-2",
+              currentSlug ? [linkIdle, dotIdle] : [linkActive, dotActive],
+            ]}
+          >
+            <PhosphorIcon name="house" class="mt-0.5 h-4 w-4 shrink-0" />
+            Getting started
+          </a>
+        </li>
+      </ul>
+    </li>
+    {
+      groups.map((group) => (
+        <li>
+          <h2 class="flex items-center gap-2.5 font-medium text-violet-100">
+            {group.icon && (
+              <span
+                class:list={[
+                  "flex h-7 w-7 shrink-0 items-center justify-center rounded-lg ring-1",
+                  group.resources.some((r) => r.slug === currentSlug)
+                    ? "bg-amber-400/15 text-amber-400 ring-amber-400/40"
+                    : "bg-violet-800/70 text-violet-200 ring-violet-600/50",
+                ]}
+              >
+                <PhosphorIcon name={group.icon} weight="fill" class="h-4 w-4" />
+              </span>
+            )}
+            {group.title}
+          </h2>
+          <ul
+            class="mt-2 space-y-2 border-l-2 border-violet-800 lg:mt-4 lg:space-y-4"
+          >
+            {group.resources.map((resource) => {
+              const active = resource.slug === currentSlug;
+              return (
+                <li class="relative">
+                  <a
+                    href={resource.href}
+                    aria-current={active ? "page" : undefined}
+                    class:list={[
+                      linkBase,
+                      resource.icon ? "flex items-start gap-2" : "block",
+                      active ? dotActive : dotIdle,
+                      active ? linkActive : linkIdle,
+                    ]}
+                  >
+                    {resource.icon && (
+                      <PhosphorIcon
+                        name={resource.icon}
+                        class="mt-0.5 h-4 w-4 shrink-0"
+                      />
+                    )}
+                    {resource.title}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

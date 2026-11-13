@@ -45,6 +45,14 @@
   "r2_buckets": [
     { "binding": "MEDIA", "bucket_name": "unltd-emdash-media", "remote": true }
   ],
+  // Co-editing rooms for `astro dev` (run in a local Durable Object). Not used
+  // for deployment: wrangler.jsonc declares the production binding.
+  "durable_objects": {
+    "bindings": [{ "name": "EMDASH_ROOMS", "class_name": "EmDashRoom" }]
+  },
+  "exports": {
+    "EmDashRoom": { "type": "durable-object", "storage": "sqlite" }
+  },
   // Worker Loader for EmDash's sandboxed (registry) plugins.
   "worker_loaders": [{ "binding": "LOADER" }],
   "assets": {

@@ -37,12 +37,29 @@ export interface Post {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface Group {
+  id: string;
+  slug: string | null;
+  status: string;
+  icon: string;
+  title: string;
+  subtitle: string;
+  order: number;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  byline?: BylineSummary | null;
+  bylines?: ContentBylineCredit[];
+  terms?: Record<string, TaxonomyTerm[]>;
+}
+
 export interface Resource {
   id: string;
   slug: string | null;
   status: string;
   title: string;
   subtitle: string;
+  icon?: string;
   hidden?: boolean;
   content?: PortableTextBlock[];
   createdAt: Date;
@@ -339,6 +356,10 @@ export interface SocialEntrepreneur {
   terms?: Record<string, TaxonomyTerm[]>;
 }
 
+export interface GroupReferences {
+  resources: ReferencePage<Resource>;
+}
+
 export interface TeamReferences {
   team_lead: ReferencePage<People>;
   team_members: ReferencePage<People>;
@@ -378,6 +399,7 @@ declare module "emdash" {
   interface EmDashCollections {
     pages: Page;
     posts: Post;
+    groups: Group;
     resources: Resource;
     newsletters: Newsletter;
     forms: Form;
@@ -397,6 +419,7 @@ declare module "emdash" {
     social_entrepreneurs: SocialEntrepreneur;
   }
   interface EmDashCollectionReferences {
+    groups: GroupReferences;
     teams: TeamReferences;
     products: ProductReferences;
     programmes: ProgrammeReferences;
