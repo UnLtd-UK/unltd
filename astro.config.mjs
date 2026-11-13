@@ -112,6 +112,10 @@ export default defineConfig({
     // with the visual-editing toolbar. The default ("server") injects the toolbar
     // only on uncached responses, so behind the cache it comes and goes.
     toolbar: "client",
+    // Several editors can work on the same entry at once. Needs the
+    // EMDASH_ROOMS Durable Object binding (production only, in wrangler.jsonc);
+    // without it the editor uses single-editor mode with edit locks.
+    coEditing: true,
     // Previews and local dev share the production database, so they must not
     // migrate it: "check" serves a 503 instead of running migrations when the
     // database is behind the code. Production applies them ("auto"). The deployed
