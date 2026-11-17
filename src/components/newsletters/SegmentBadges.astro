@@ -1,0 +1,26 @@
+---
+import type { NewsletterSegment } from "@lib/newsletters-runtime";
+
+interface Props {
+  segments: NewsletterSegment[];
+}
+
+const { segments } = Astro.props;
+---
+
+<ul class="flex flex-wrap gap-2" aria-label="Written for">
+  {
+    segments.length > 0 ? (
+      segments.map((segment) => (
+        <li class="rounded-full border border-violet-500 bg-violet-100 px-3 py-1 text-xs font-medium text-violet-700 dark:bg-violet-800 dark:text-violet-200">
+          {segment.label}
+        </li>
+      ))
+    ) : (
+      // No segment means the edition goes to everyone, as in Resend.
+      <li class="rounded-full border border-violet-500 px-3 py-1 text-xs font-medium text-violet-200">
+        Everyone
+      </li>
+    )
+  }
+</ul>

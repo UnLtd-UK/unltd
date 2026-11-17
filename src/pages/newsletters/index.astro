@@ -5,7 +5,8 @@ import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Default from "@components/heroes/Default.astro";
 import Icon from "@components/Icon.astro";
 
-import { getAllNewsletters } from "@lib/newsletters-runtime";
+import SegmentBadges from "@components/newsletters/SegmentBadges.astro";
+import { getAllNewsletters, segmentsIn } from "@lib/newsletters-runtime";
 import { CMS_PAGE_CACHE } from "@lib/route-cache";
 import { formatLongDate, formatShortDate, postYear } from "@utils/post-format";
 
@@ -19,7 +20,20 @@ const description =
 
 const breadcrumbs = [{ name: title, path: "/newsletters" }];
 
-const { newsletters, cacheHints } = await getAllNewsletters();
+const { newsletters: everyNewsletter, cacheHints } = await getAllNewsletters();
+
+// ?segment=partners shows the editions written for that audience, plus those
+// with no segment, which go to everyone.
+const segments = segmentsIn(everyNewsletter);
+const activeSegment = Astro.url.searchParams.get("segment");
+const newsletters = activeSegment
+  ? everyNewsletter.filter(
+      (newsletter) =>
+        newsletter.segments.length === 0 || newsletter.segments.some((segment) => segment.slug === activeSegment),
+    )
+  : everyNewsletter;
+const activeLabel = segments.find((segment) => segment.slug === activeSegment)?.label;
+
 if (Astro.cache?.enabled) {
   cacheHints.forEach((hint) => Astro.cache.set(hint));
   Astro.cache.set(CMS_PAGE_CACHE);
@@ -42,9 +56,38 @@ for (const newsletter of earlier) {
 
     <div class="pb-20 space-y-14">
       {
+        segments.length > 0 && (
+          <nav aria-label="Filter by segment">
+            <ul class="flex flex-wrap gap-3">
+              {[{ slug: "", label: "All newsletters" }, ...segments].map((segment) => {
+                const current = (segment.slug || null) === activeSegment;
+                return (
+                  <li>
+                    <a
+                      href={segment.slug ? `/newsletters?segment=${segment.slug}` : "/newsletters"}
+                      aria-current={current ? "page" : undefined}
+                      class={`inline-block rounded-full px-4 py-2 text-sm font-semibold ring-1 transition ${
+                        current
+                          ? "bg-amber-400 text-violet-950 ring-amber-400"
+                          : "text-violet-200 ring-violet-600/50 hover:ring-violet-400"
+                      }`}
+                    >
+                      {segment.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        )
+      }
+
+      {
         !latest && (
           <p class="rounded-2xl bg-violet-900/30 p-6 text-violet-300 ring-1 ring-violet-600/30">
-            There are no newsletters to read yet. Check back soon.
+            {activeSegment
+              ? `There are no newsletters for ${activeLabel ?? "this segment"} yet.`
+              : "There are no newsletters to read yet. Check back soon."}
           </p>
         )
       }
@@ -76,6 +119,9 @@ for (const newsletter of earlier) {
                   {latest.subtitle}
                 </p>
               )}
+              <div class="mt-4">
+                <SegmentBadges segments={latest.segments} />
+              </div>
               <span class="mt-6 inline-flex items-center gap-2 text-base font-semibold text-amber-400 group-hover:text-amber-300">
                 Read this edition
                 <Icon name="arrow-right" style="solid" class="text-sm" />
@@ -116,6 +162,9 @@ for (const newsletter of earlier) {
                           {newsletter.subtitle}
                         </span>
                       )}
+                      <span class="mt-2 block">
+                        <SegmentBadges segments={newsletter.segments} />
+                      </span>
                     </span>
                     <Icon
                       name="arrow-right"

@@ -4,6 +4,11 @@ import { getEmDashCollection, getEmDashEntry, type CacheHint, type EditProxy, ty
 // archive is rendered on demand and never needs a build. Do not import this
 // from a prerendered page.
 
+export interface NewsletterSegment {
+  slug: string;
+  label: string;
+}
+
 export interface RuntimeNewsletter {
   slug: string;
   title: string;
@@ -11,6 +16,8 @@ export interface RuntimeNewsletter {
   content: PortableTextBlock[];
   /** When it was published (ISO), the date shown as the edition's date. */
   date: string;
+  /** The audiences this edition was written for (the "segment" taxonomy). */
+  segments: NewsletterSegment[];
   /** Spread onto an element to make its field editable on the page (a no-op unless an editor is in edit mode). */
   edit: EditProxy;
 }
@@ -31,6 +38,7 @@ const toNewsletter = (entry: Entry): RuntimeNewsletter => {
     subtitle: String(d.subtitle ?? "").trim(),
     content: d.content ?? [],
     date: toIso(d.publishedAt ?? d.createdAt),
+    segments: (d.terms?.segment ?? []).map((term: any) => ({ slug: String(term.slug), label: String(term.label) })),
     edit: entry.edit,
   };
 };
@@ -62,4 +70,13 @@ export async function getAllNewsletters(): Promise<{ newsletters: RuntimeNewslet
 
   newsletters.sort((a, b) => b.date.localeCompare(a.date));
   return { newsletters, cacheHints };
+}
+
+/** The segments that at least one of the newsletters belongs to, in the order they first appear. */
+export function segmentsIn(newsletters: RuntimeNewsletter[]): NewsletterSegment[] {
+  const seen = new Map<string, NewsletterSegment>();
+  for (const newsletter of newsletters) {
+    for (const segment of newsletter.segments) if (!seen.has(segment.slug)) seen.set(segment.slug, segment);
+  }
+  return [...seen.values()].sort((a, b) => a.label.localeCompare(b.label));
 }
