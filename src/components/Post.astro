@@ -15,7 +15,7 @@ const authors = formatAuthors(post.authors);
             class="flex flex-col items-start justify-between transition hover:bg-violet-100 dark:hover:bg-violet-900 hover:outline-violet-200 hover:dark:outline-violet-800 p-6 rounded-2xl"
         >
             <div
-                class="relative w-full h-64 bg-violet-800 rounded-2xl border border-violet-600"
+                class="relative w-full aspect-square overflow-hidden bg-violet-800 rounded-2xl border border-violet-600"
             >
                 {
                     post.image?.media ? (
@@ -23,7 +23,7 @@ const authors = formatAuthors(post.authors);
                             image={post.image.media}
                             alt=""
                             width={800}
-                            height={512}
+                            height={800}
                             class="absolute inset-0 w-full h-full object-cover rounded-2xl"
                         />
                     ) : post.image ? (
@@ -31,13 +31,13 @@ const authors = formatAuthors(post.authors);
                             src={post.image.src}
                             alt=""
                             width={800}
-                            height={512}
+                            height={800}
                             format="webp"
                             layout="full-width"
                             class="absolute inset-0 w-full h-full object-cover rounded-2xl"
                         />
                     ) : (
-                        <div class="flex justify-center items-center h-64">
+                        <div class="flex justify-center items-center h-full">
                             <Icon
                                 name="image-slash"
                                 style="solid"
