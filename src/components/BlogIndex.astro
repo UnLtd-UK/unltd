@@ -5,6 +5,8 @@ import Default from "@components/heroes/Default.astro";
 import Post from "@components/Post.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Icon from "@components/Icon.astro";
+import NewsletterShowcase from "@components/newsletters/NewsletterShowcase.astro";
+import type { RuntimeNewsletter } from "@lib/newsletters-runtime";
 import type { PostEntry } from "@data/posts";
 
 interface Props {
@@ -13,11 +15,19 @@ interface Props {
   years: number[];
   /** The year being shown; all posts when omitted. */
   year?: number;
+  /** Latest newsletter editions. Passing this (even empty) shows the signup showcase. */
+  newsletters?: RuntimeNewsletter[];
 }
 
 const name = "Blog";
 const description = "Read our posts.";
-const { posts, years, year } = Astro.props;
+const { posts, years, year, newsletters } = Astro.props;
+
+// One full row on desktop (3 columns).
+const SHOWCASE_AFTER = 3;
+const showcase = newsletters !== undefined;
+const firstPosts = showcase ? posts.slice(0, SHOWCASE_AFTER) : posts;
+const remainingPosts = showcase ? posts.slice(SHOWCASE_AFTER) : [];
 
 // Absolute, because Breadcrumbs uses them as they are and a relative one
 // would resolve against /blog/<year>.
@@ -83,7 +93,15 @@ const breadcrumbs = [
     </div>
 
     <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {posts.map((post) => <Post post={post} />)}
+      {firstPosts.map((post) => <Post post={post} />)}
+      {
+        showcase && (
+          <li class="col-span-full my-6">
+            <NewsletterShowcase newsletters={newsletters} id="newsletter-blog" />
+          </li>
+        )
+      }
+      {remainingPosts.map((post) => <Post post={post} />)}
     </ul>
   </Container>
 </Template>
