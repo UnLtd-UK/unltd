@@ -31,6 +31,26 @@ export function formatShortDate(date: string): string {
   return `${day} ${month} ${postYear(date)}`;
 }
 
+/** "10 November 2026" in UK time. */
+export function formatLongDate(date: string): string {
+  return new Date(date).toLocaleDateString("en-GB", {
+    timeZone: LONDON,
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+/** "10 November 2026, 09:30" in UK time. */
+export function formatLongDateTime(date: string): string {
+  const time = new Date(date).toLocaleTimeString("en-GB", {
+    timeZone: LONDON,
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  return `${formatLongDate(date)}, ${time}`;
+}
+
 /** "Name, Job title" for each author, or an empty string when the post has no byline. */
 export function formatAuthors(authors: PostAuthor[]): string {
   return authors
