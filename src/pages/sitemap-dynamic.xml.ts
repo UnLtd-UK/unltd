@@ -23,7 +23,7 @@ export const GET: APIRoute = async ({ site, cache }) => {
   ] = await Promise.all([
     getAllPosts(),
     getPageSlugs(),
-    getAllResources(),
+    getResourceGroups(),
     getAllEmails(),
     getAllNewsletters(),
   ]);
