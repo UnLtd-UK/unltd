@@ -38,6 +38,8 @@ const { state, round: displayRound, urgency } =
 
 // Hide only when there's no round data at all
 const hidden = !displayRound;
+const showCapacity =
+    (state === "open" || state === "closing") && displayRound?.hasCapacity === true;
 
 // ─── Styling maps ───────────────────────────────────────────────────────
 const styleMap = {
@@ -93,7 +95,7 @@ const s = styleMap[state] ?? styleMap.open;
                         <span class="hidden sm:inline text-violet-500">|</span>
                         <RoundSubtitle rounds={rounds} />
                     </div>
-                    {displayRound.hasCapacity && (
+                    {showCapacity && displayRound && (
                         <RoundCapacity
                             capacityPercentage={displayRound.capacityPercentage}
                             hasCapacity={displayRound.hasCapacity}
