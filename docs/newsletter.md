@@ -18,7 +18,7 @@ Tokens are HMAC-SHA256 signed with `NEWSLETTER_TOKEN_SECRET` and bound to a purp
 ### Resend
 - Verify the sending domain (the default sender is `UnLtd <newsletter@unltd.org.uk>`; override with `NEWSLETTER_FROM`).
 - Create a **Segment** for the newsletter and note its ID → `RESEND_SEGMENT_ID`.
-- Optional: create **Topics** (currently Social Entrepreneur and Partnerships) and set their IDs, comma-separated → `RESEND_TOPIC_IDS`. Subscribers are opted in to all of them and can opt out of each on Resend's unsubscribe page. Update the wording in `NewsletterSignup.astro` if the topics change.
+- Optional: create **Topics** (currently Social Entrepreneurs & Public and Community & Partnerships, matching the newsletter segments) and set their IDs, comma-separated → `RESEND_TOPIC_IDS`. Subscribers are opted in to all of them and can opt out of each on Resend's unsubscribe page. Update the wording in `NewsletterSignup.astro` if the topics change.
 - Create an API key with sending and contacts access → `RESEND_API_KEY`.
 - Settings → Unsubscribe page: add UnLtd branding.
 - **Every broadcast footer must include** `{{{RESEND_UNSUBSCRIBE_URL}}}`.
@@ -63,6 +63,7 @@ Add the variables to `.dev.vars` (see the README). Cloudflare's Turnstile test k
 ## Code map
 
 - `src/components/NewsletterSignup.astro`: form (`mode="subscribe" | "unsubscribe"`)
+- `src/components/newsletters/NewsletterShowcase.astro`: signup plus the latest editions, shown on `/blog`
 - `src/pages/newsletter/{index,confirm,unsubscribe}.astro`: static pages (confirm/unsubscribe are `noindex` and excluded from the sitemap)
 - `src/pages/api/newsletter/*.ts`: on-demand API routes
 - `src/lib/newsletter/`: tokens, Resend client, Turnstile, rate limiting, email templates
