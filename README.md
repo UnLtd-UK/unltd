@@ -18,6 +18,7 @@ The MCP server is for connecting an AI client (such as VS Code) to the CMS. Sign
 | Pages                      | `pages`                              | [src/lib/pages-runtime.ts](src/lib/pages-runtime.ts) (on demand; menus use [src/data/pages.ts](src/data/pages.ts)) |
 | Blog posts                 | `posts` (+ `tag` taxonomy, bylines)  | [src/lib/posts-runtime.ts](src/lib/posts-runtime.ts) (on demand; the home page uses [src/data/posts.ts](src/data/posts.ts)) |
 | Resources                  | `resources`                          | [src/lib/resources-runtime.ts](src/lib/resources-runtime.ts) (on demand; the application PDFs use [src/data/resources.ts](src/data/resources.ts)) |
+| Newsletters                | `newsletters`                        | [src/lib/newsletters-runtime.ts](src/lib/newsletters-runtime.ts) (on demand; the archive is `/newsletters`) |
 | Programmes and services    | `programmes`, `services`             | [src/data/programmes.ts](src/data/programmes.ts)     |
 | Awards                     | `products`, `grants`                 | [src/data/awards.ts](src/data/awards.ts)             |
 | Award rounds               | `rounds`                             | [src/data/rounds.ts](src/data/rounds.ts)             |
