@@ -4,12 +4,12 @@ Double opt-in newsletter sign-up backed by [Resend](https://resend.com) Contacts
 
 ## Flow
 
-1. Visitor submits their email (footer form or `/newsletter`) → `POST /api/newsletter/subscribe` (Turnstile + honeypot + KV rate limit).
-2. A confirmation email is sent containing a signed, 24h token link to `/newsletter/confirm?token=…`. **No Resend contact exists yet.**
+1. Visitor submits their email (footer form or `/newsletters/subscribe`) → `POST /api/newsletter/subscribe` (Turnstile + honeypot + KV rate limit).
+2. A confirmation email is sent containing a signed, 24h token link to `/newsletters/confirm?token=…`. **No Resend contact exists yet.**
 3. The confirm page POSTs the token to `/api/newsletter/confirm`, which creates the contact (subscribed, added to the segment and opted in to every configured topic) and sends the welcome email when the subscription state changes. Links carry the consent version current when they were issued, so a later subscription choice makes earlier links stale. The version lives in a per-email `NewsletterConsent` Durable Object (strongly consistent), which serialises each redemption: version check, Resend change and version advance. Welcome delivery uses a stable idempotency key to prevent duplicate messages on concurrent confirmations; delivery failure does not undo a successful subscription.
 4. Unsubscribe, either:
    - **From a newsletter:** the `{{{RESEND_UNSUBSCRIBE_URL}}}` link in the broadcast footer (Resend-hosted page; Resend updates the contact).
-   - **On the website:** `/newsletter/unsubscribe` → enter email → verification email (1h signed token, only sent if the address is subscribed; the response is identical either way) → confirm button → the contact is marked **unsubscribed** in Resend (a contact-wide status, so they receive no further broadcasts). Segment and topic membership are kept; re-subscribing clears the status.
+   - **On the website:** `/newsletters/unsubscribe` → enter email → verification email (1h signed token, only sent if the address is subscribed; the response is identical either way) → confirm button → the contact is marked **unsubscribed** in Resend (a contact-wide status, so they receive no further broadcasts). Segment and topic membership are kept; re-subscribing clears the status.
 
 Tokens are HMAC-SHA256 signed with `NEWSLETTER_TOKEN_SECRET` and bound to a purpose, so a confirm link cannot unsubscribe and vice versa. They are also bound to the Resend segment (`RESEND_SEGMENT_ID`), so a Worker configured for a different segment rejects them. Give each preview its own segment and `NEWSLETTER_TOKEN_SECRET` rather than sharing production's.
 
@@ -64,6 +64,7 @@ Add the variables to `.dev.vars` (see the README). Cloudflare's Turnstile test k
 
 - `src/components/NewsletterSignup.astro`: form (`mode="subscribe" | "unsubscribe"`)
 - `src/components/newsletters/NewsletterShowcase.astro`: signup plus the latest editions, shown on `/blog`
-- `src/pages/newsletter/{index,confirm,unsubscribe}.astro`: static pages (confirm/unsubscribe are `noindex` and excluded from the sitemap)
+- `src/pages/newsletters/{subscribe,confirm,unsubscribe}.astro`: static pages (confirm/unsubscribe are `noindex` and excluded from the sitemap). `subscribe`, `confirm` and `unsubscribe` are reserved slugs, as they take precedence over `[newsletter].astro`.
+- `src/pages/newsletter/*.astro`: redirects from the old `/newsletter/*` URLs (including links in emails already sent), keeping the token
 - `src/pages/api/newsletter/*.ts`: on-demand API routes
 - `src/lib/newsletter/`: tokens, Resend client, Turnstile, rate limiting, email templates

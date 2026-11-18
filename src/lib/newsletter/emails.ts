@@ -42,7 +42,7 @@ export function confirmationEmail(confirmUrl: string): BuiltEmail {
 }
 
 export function welcomeEmail(origin: string): BuiltEmail {
-    const unsubscribeUrl = `${origin}/newsletter/unsubscribe`;
+    const unsubscribeUrl = `${origin}/newsletters/unsubscribe`;
     return {
         subject: "Welcome to the UnLtd newsletter",
         html: layout(
@@ -60,7 +60,7 @@ export function unsubscribeVerificationEmail(unsubscribeUrl: string): BuiltEmail
     return {
         subject: "Confirm you want to unsubscribe from the UnLtd newsletter",
         html: layout(
-            "Unsubscribe from the newsletter",
+            "Unsubscribe from the newsletters",
             `<p style="margin:0 0 8px;line-height:1.6;">We received a request to unsubscribe this email address from the UnLtd newsletter. Use the button below to confirm.</p>
       ${button(unsubscribeUrl, "Unsubscribe")}
       <p style="margin:0;font-size:13px;color:#6b7280;">This link expires in 1 hour.</p>`,

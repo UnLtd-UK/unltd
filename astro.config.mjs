@@ -88,7 +88,7 @@ export default defineConfig({
     // Exclude token-driven utility pages and icon files from the sitemap.
     filter: (page) => {
       const { pathname } = new URL(page);
-      return !/\/newsletter\/(confirm|unsubscribe)$/.test(pathname)
+      return !/\/newsletters\/(confirm|unsubscribe)$/.test(pathname)
         && !pathname.startsWith("/ph/");
     },
   }), emdash({

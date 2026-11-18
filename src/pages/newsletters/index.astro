@@ -4,6 +4,7 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Default from "@components/heroes/Default.astro";
 import Icon from "@components/Icon.astro";
+import NewsletterShowcase from "@components/newsletters/NewsletterShowcase.astro";
 
 import SegmentBadges from "@components/newsletters/SegmentBadges.astro";
 import { getAllNewsletters, segmentsIn } from "@lib/newsletters-runtime";
@@ -58,6 +59,8 @@ for (const newsletter of earlier) {
     <Default name={title} description={description} />
 
     <div class="pb-20 space-y-14">
+      <NewsletterShowcase newsletters={[]} id="newsletters-page" />
+
       {segments.length > 0 && (
         <nav aria-label="Filter by segment">
           <ul class="flex flex-wrap gap-3">

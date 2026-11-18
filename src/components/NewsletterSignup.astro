@@ -9,6 +9,8 @@ interface Props {
     id?: string;
     heading?: string;
     description?: string;
+    // "violet" for use on a violet background; the default suits the slate footer.
+    tone?: "default" | "violet";
 }
 
 const {
@@ -16,7 +18,21 @@ const {
     id = "newsletter",
     heading,
     description,
+    tone = "default",
 } = Astro.props;
+
+const subtleText =
+    tone === "violet"
+        ? "text-violet-300"
+        : "text-slate-600 dark:text-slate-400";
+const bodyText =
+    tone === "violet"
+        ? "text-violet-200"
+        : "text-slate-700 dark:text-slate-300";
+const linkHover =
+    tone === "violet"
+        ? "hover:text-violet-100"
+        : "hover:text-slate-900 dark:hover:text-slate-100";
 
 const isSubscribe = mode === "subscribe";
 const endpoint = isSubscribe
@@ -41,7 +57,7 @@ const buttonLabel = isSubscribe
             {description && (
                 <p
                     id={`${id}-description`}
-                    class="mt-2 text-sm text-slate-600 dark:text-slate-400"
+                    class={`mt-2 text-sm ${subtleText}`}
                 >
                     {description}
                 </p>
@@ -71,7 +87,7 @@ const buttonLabel = isSubscribe
                     />
                     <button
                         type="submit"
-                        class="rounded-full bg-violet-700 px-5 py-2 text-sm font-semibold text-white hover:bg-violet-800 focus:outline-hidden focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
+                        class="cursor-pointer rounded-full bg-violet-700 px-5 py-2 text-sm font-semibold text-white hover:bg-violet-800 focus:outline-hidden focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
                     >
                         {buttonLabel}
                     </button>
@@ -91,14 +107,14 @@ const buttonLabel = isSubscribe
                 </div>
                 <div class="mt-3" data-turnstile />
                 <p
-                    class="mt-3 min-h-5 text-sm text-slate-700 dark:text-slate-300"
+                    class={`mt-3 min-h-5 text-sm ${bodyText}`}
                     role="status"
                     aria-live="polite"
                     data-newsletter-status
                 >
                 </p>
                 {isSubscribe && (
-                    <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">
+                    <p class={`mt-2 text-xs ${subtleText}`}>
                         We'll email you a link to confirm. You're not
                         subscribed until you click it, which opts you in to our
                         Social Entrepreneurs &amp; Public and Community &amp;
@@ -106,8 +122,8 @@ const buttonLabel = isSubscribe
                         either topic at any time.
                         Already subscribed?{" "}
                         <a
-                            href="/newsletter/unsubscribe"
-                            class="underline hover:text-slate-900 dark:hover:text-slate-100"
+                            href="/newsletters/unsubscribe"
+                            class={`underline ${linkHover}`}
                             >Unsubscribe</a
                         >.
                     </p>

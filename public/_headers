@@ -12,6 +12,12 @@
 
 # The confirm/unsubscribe links carry a signed token in the query string. Keep it
 # out of Referer headers and never store a copy that predates the token redaction.
+/newsletters/confirm
+  Referrer-Policy: no-referrer
+  Cache-Control: no-store
+/newsletters/unsubscribe
+  Referrer-Policy: no-referrer
+  Cache-Control: no-store
 /newsletter/confirm
   Referrer-Policy: no-referrer
   Cache-Control: no-store
