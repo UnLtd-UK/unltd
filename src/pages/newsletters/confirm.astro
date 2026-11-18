@@ -11,7 +11,7 @@ const description = "Confirm your email address for the UnLtd newsletter.";
     <Container>
         <Breadcrumbs
             breadcrumbs={[
-                { name: "UnLtd Newsletters", path: "/newsletters/subscribe" },
+                { name: "Newsletters", path: "/newsletters" },
                 { name, path: "/newsletters/confirm" },
             ]}
         />
@@ -68,7 +68,7 @@ const description = "Confirm your email address for the UnLtd newsletter.";
     history.replaceState(null, "", location.pathname);
 
     const retryHtml =
-        ' <a class="underline hover:text-violet-100" href="/newsletters/subscribe">Sign up again</a>.';
+        ' <a class="underline hover:text-violet-100" href="/newsletters">Sign up again</a>.';
 
     if (!token) {
         show(
