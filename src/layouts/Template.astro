@@ -25,6 +25,7 @@ import DevDateTimeIndicator from "@components/dev/DevDateTimeIndicator.astro";
 // import ScamAlertBanner from "@components/ScamAlertBanner";
 import FloatingAtBottomCentered from "@components/FloatingAtBottomCentered.astro";
 import PostHog from "@components/posthog.astro";
+import AiSearchChat from "@components/AiSearchChat.astro";
 
 const { navigation, footerLinks, rounds } = await loadSiteShell(Astro);
 ---
@@ -94,5 +95,6 @@ const { navigation, footerLinks, rounds } = await loadSiteShell(Astro);
             <!-- Dev tools (only renders in development) -->
             <DevDateTimeIndicator />
         </div>
+        <AiSearchChat />
     </body>
 </html>
