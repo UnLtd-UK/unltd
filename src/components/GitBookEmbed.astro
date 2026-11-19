@@ -1,0 +1,141 @@
+<div class="gitbook-embed" data-gitbook-embed>
+    <button
+        class="gitbook-embed__trigger"
+        type="button"
+        aria-expanded="false"
+        aria-controls="gitbook-embed-panel"
+    >
+        <span aria-hidden="true">?</span>
+        Help
+    </button>
+    <div
+        class="gitbook-embed__panel"
+        id="gitbook-embed-panel"
+        role="dialog"
+        aria-label="UnLtd Hub help"
+        hidden
+    ></div>
+</div>
+
+<script>
+    import { createGitBook } from "@gitbook/embed";
+
+    const container = document.querySelector<HTMLElement>("[data-gitbook-embed]");
+    const trigger = container?.querySelector<HTMLButtonElement>("button");
+    const panel = container?.querySelector<HTMLElement>("[role='dialog']");
+
+    if (container && trigger && panel) {
+        const gitbook = createGitBook({
+            siteURL: "https://hub.unltd.org.uk",
+        });
+        const iframe = document.createElement("iframe");
+        iframe.src = gitbook.getFrameURL({});
+        iframe.title = "UnLtd Hub";
+        iframe.className = "gitbook-embed__frame";
+        panel.append(iframe);
+
+        const frame = gitbook.createFrame(iframe);
+        frame.configure({
+            closeButton: true,
+            suggestions: [
+                "How do I apply for a grant?",
+                "Am I eligible to apply?",
+                "How much can I get?",
+            ],
+        });
+
+        const setOpen = (open: boolean) => {
+            panel.hidden = !open;
+            trigger.setAttribute("aria-expanded", String(open));
+        };
+
+        trigger.addEventListener("click", () => {
+            setOpen(panel.hidden);
+        });
+        frame.on("close", () => {
+            setOpen(false);
+            trigger.focus();
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && !panel.hidden) {
+                setOpen(false);
+                trigger.focus();
+            }
+        });
+    }
+</script>
+
+<style>
+    .gitbook-embed {
+        position: fixed;
+        right: 1rem;
+        bottom: 1rem;
+        z-index: 50;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.75rem;
+    }
+
+    .gitbook-embed__trigger {
+        display: inline-flex;
+        min-height: 3rem;
+        align-items: center;
+        gap: 0.5rem;
+        border: 0;
+        border-radius: 0.5rem;
+        background: #f59e0b;
+        padding: 0.75rem 1rem;
+        color: #451a03;
+        font: 700 1rem/1 var(--font-nunito), sans-serif;
+        box-shadow: 0 0.5rem 1.5rem rgb(0 0 0 / 25%);
+        cursor: pointer;
+    }
+
+    .gitbook-embed__trigger:hover {
+        background: #fbbf24;
+    }
+
+    .gitbook-embed__trigger:focus-visible {
+        outline: 3px solid #fbbf24;
+        outline-offset: 3px;
+    }
+
+    .gitbook-embed__trigger span {
+        display: grid;
+        width: 1.5rem;
+        height: 1.5rem;
+        place-items: center;
+        border: 2px solid currentColor;
+        border-radius: 50%;
+        font-size: 0.875rem;
+    }
+
+    .gitbook-embed__panel {
+        width: min(28rem, calc(100vw - 2rem));
+        height: min(42rem, calc(100dvh - 6.75rem));
+        overflow: hidden;
+        border: 1px solid rgb(255 255 255 / 20%);
+        border-radius: 0.5rem;
+        background: white;
+        box-shadow: 0 1rem 3rem rgb(0 0 0 / 35%);
+    }
+
+    .gitbook-embed__panel[hidden] {
+        display: none;
+    }
+
+    :global(.gitbook-embed__frame) {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        color-scheme: light;
+    }
+
+    @media (max-width: 40rem) {
+        .gitbook-embed__panel {
+            width: calc(100vw - 2rem);
+        }
+    }
+</style>
