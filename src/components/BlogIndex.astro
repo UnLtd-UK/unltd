@@ -5,6 +5,8 @@ import Default from "@components/heroes/Default.astro";
 import Post from "@components/Post.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Icon from "@components/Icon.astro";
+import NewsletterShowcase from "@components/newsletters/NewsletterShowcase.astro";
+import type { RuntimeNewsletter } from "@lib/newsletters-runtime";
 import type { PostEntry } from "@data/posts";
 
 interface Props {
@@ -13,11 +15,39 @@ interface Props {
   years: number[];
   /** The year being shown; all posts when omitted. */
   year?: number;
+  /** Latest newsletter editions. Passing this (even empty) shows the signup showcase. */
+  newsletters?: RuntimeNewsletter[];
 }
 
 const name = "Blog";
 const description = "Read our posts.";
-const { posts, years, year } = Astro.props;
+const { posts: allPosts, years, year, newsletters } = Astro.props;
+
+// Rendering every post at once made the page slow, so list a page at a time.
+const PAGE_SIZE = 36;
+const pageCount = Math.max(1, Math.ceil(allPosts.length / PAGE_SIZE));
+const requestedPage = Number(Astro.url.searchParams.get("page"));
+const page =
+  Number.isInteger(requestedPage) && requestedPage >= 1
+    ? Math.min(requestedPage, pageCount)
+    : 1;
+const posts = allPosts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+const pageHref = (n: number) =>
+  n === 1 ? Astro.url.pathname : `${Astro.url.pathname}?page=${n}`;
+
+// One full row on desktop (3 columns). The showcase is only on the first page.
+const SHOWCASE_AFTER = 3;
+const showcase = newsletters !== undefined && page === 1;
+const firstPosts = showcase ? posts.slice(0, SHOWCASE_AFTER) : posts;
+const remainingPosts = showcase ? posts.slice(SHOWCASE_AFTER) : [];
+
+// Page numbers to link: the first, the last and the neighbours of this page,
+// with null marking a gap.
+const pageLinks: (number | null)[] = [];
+for (let n = 1; n <= pageCount; n++) {
+  if (n === 1 || n === pageCount || Math.abs(n - page) <= 1) pageLinks.push(n);
+  else if (pageLinks[pageLinks.length - 1] !== null) pageLinks.push(null);
+}
 
 // Absolute, because Breadcrumbs uses them as they are and a relative one
 // would resolve against /blog/<year>.
@@ -83,8 +113,64 @@ const breadcrumbs = [
     </div>
 
     <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {posts.map((post) => <Post post={post} />)}
+      {firstPosts.map((post) => <Post post={post} />)}
+      {
+        showcase && (
+          <li class="col-span-full my-6">
+            <NewsletterShowcase newsletters={newsletters} id="newsletter-blog" />
+          </li>
+        )
+      }
+      {remainingPosts.map((post) => <Post post={post} />)}
     </ul>
+
+    {
+      pageCount > 1 && (
+        <nav
+          aria-label="Pagination"
+          class="mt-12 mb-16 flex flex-wrap items-center justify-center gap-2"
+        >
+          {page > 1 && (
+            <a
+              href={pageHref(page - 1)}
+              rel="prev"
+              class="rounded-full px-4 py-2 text-sm font-semibold text-violet-200 ring-1 ring-violet-600/50 hover:ring-violet-400"
+            >
+              Previous
+            </a>
+          )}
+          {pageLinks.map((n) =>
+            n === null ? (
+              <span aria-hidden="true" class="px-1 text-violet-400">
+                …
+              </span>
+            ) : (
+              <a
+                href={pageHref(n)}
+                aria-label={`Page ${n}`}
+                aria-current={n === page ? "page" : undefined}
+                class={`rounded-full px-4 py-2 text-sm font-semibold ring-1 ${
+                  n === page
+                    ? "bg-amber-400 text-violet-950 ring-amber-400"
+                    : "text-violet-200 ring-violet-600/50 hover:ring-violet-400"
+                }`}
+              >
+                {n}
+              </a>
+            ),
+          )}
+          {page < pageCount && (
+            <a
+              href={pageHref(page + 1)}
+              rel="next"
+              class="rounded-full px-4 py-2 text-sm font-semibold text-violet-200 ring-1 ring-violet-600/50 hover:ring-violet-400"
+            >
+              Next
+            </a>
+          )}
+        </nav>
+      )
+    }
   </Container>
 </Template>
 

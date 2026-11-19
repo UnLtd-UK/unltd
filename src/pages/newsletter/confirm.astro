@@ -1,0 +1,14 @@
+---
+// Confirmation links in emails sent before the move still point here. The
+// token travels in the query string, so keep it and never cache the redirect.
+export const prerender = false;
+
+return new Response(null, {
+    status: 307,
+    headers: {
+        Location: `/newsletters/confirm${Astro.url.search}`,
+        "Cache-Control": "no-store",
+        "Referrer-Policy": "no-referrer",
+    },
+});
+---

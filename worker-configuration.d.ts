@@ -17,7 +17,7 @@ interface __BaseEnv_Env {
     TURNSTILE_SECRET_KEY: string;
     RESEND_API_KEY: string;
     RESEND_SEGMENT_ID: string;
-    RESEND_TOPIC_ID: string;
+    RESEND_TOPIC_IDS: string;
     NEWSLETTER_TOKEN_SECRET: string;
     NEWSLETTER_FROM: string;
     EMDASH_URL: string;
@@ -43,7 +43,7 @@ declare namespace Cloudflare {
         TURNSTILE_SECRET_KEY: string;
         RESEND_API_KEY: string;
         RESEND_SEGMENT_ID: string;
-        RESEND_TOPIC_ID: string;
+        RESEND_TOPIC_IDS: string;
         NEWSLETTER_TOKEN_SECRET: string;
         NEWSLETTER_FROM: string;
         EMDASH_URL: string;
@@ -56,7 +56,7 @@ type StringifyValues<EnvType extends Record<string, unknown>> = {
     [Binding in keyof EnvType]: EnvType[Binding] extends string ? EnvType[Binding] : string;
 };
 declare namespace NodeJS {
-    interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "DEV" | "EVENTBRITE_PRIVATE_TOKEN" | "FONTAWESOME_NPM_AUTH_TOKEN" | "TYPEFORM_API" | "PUBLIC_TURNSTILE_SITE_KEY" | "TURNSTILE_SECRET_KEY" | "RESEND_API_KEY" | "RESEND_SEGMENT_ID" | "RESEND_TOPIC_ID" | "NEWSLETTER_TOKEN_SECRET" | "NEWSLETTER_FROM" | "EMDASH_URL" | "EMDASH_TOKEN">> { }
+    interface ProcessEnv extends StringifyValues<Pick<Cloudflare.Env, "DEV" | "EVENTBRITE_PRIVATE_TOKEN" | "FONTAWESOME_NPM_AUTH_TOKEN" | "TYPEFORM_API" | "PUBLIC_TURNSTILE_SITE_KEY" | "TURNSTILE_SECRET_KEY" | "RESEND_API_KEY" | "RESEND_SEGMENT_ID" | "RESEND_TOPIC_IDS" | "NEWSLETTER_TOKEN_SECRET" | "NEWSLETTER_FROM" | "EMDASH_URL" | "EMDASH_TOKEN">> { }
 }
 declare module "*.txt" {
     const value: string;

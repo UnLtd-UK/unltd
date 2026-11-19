@@ -1,5 +1,6 @@
 ---
 import BlogIndex from "@components/BlogIndex.astro";
+import { getAllNewsletters } from "@lib/newsletters-runtime";
 import { getAllPosts, postYears } from "@lib/posts-runtime";
 import { CMS_PAGE_CACHE } from "@lib/route-cache";
 
@@ -8,10 +9,22 @@ import { CMS_PAGE_CACHE } from "@lib/route-cache";
 export const prerender = false;
 
 const { posts, cacheHints } = await getAllPosts();
+// The showcase is a bonus, so a newsletter lookup failure shouldn't take the blog down.
+const { newsletters, cacheHints: newsletterCacheHints } =
+  await getAllNewsletters().catch(() => ({
+    newsletters: [],
+    cacheHints: [],
+  }));
 if (Astro.cache?.enabled) {
-  cacheHints.forEach((hint) => Astro.cache.set(hint));
+  [...cacheHints, ...newsletterCacheHints].forEach((hint) =>
+    Astro.cache.set(hint),
+  );
   Astro.cache.set(CMS_PAGE_CACHE);
 }
 ---
 
-<BlogIndex posts={posts} years={postYears(posts)} />
+<BlogIndex
+  posts={posts}
+  years={postYears(posts)}
+  newsletters={newsletters.slice(0, 2)}
+/>

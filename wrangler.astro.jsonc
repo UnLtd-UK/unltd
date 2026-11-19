@@ -48,13 +48,18 @@
   // Co-editing rooms for `astro dev` (run in a local Durable Object). Not used
   // for deployment: wrangler.jsonc declares the production binding.
   "durable_objects": {
-    "bindings": [{ "name": "EMDASH_ROOMS", "class_name": "EmDashRoom" }]
-  },
-  "exports": {
-    "EmDashRoom": { "type": "durable-object", "storage": "sqlite" }
+    "bindings": [
+      { "name": "EMDASH_ROOMS", "class_name": "EmDashRoom" },
+      { "name": "NEWSLETTER_CONSENT", "class_name": "NewsletterConsent" }
+    ]
   },
   // Worker Loader for EmDash's sandboxed (registry) plugins.
   "worker_loaders": [{ "binding": "LOADER" }],
+  // Keep the existing lifecycle history; exports cannot be used with migrations.
+  "migrations": [
+    { "tag": "v1", "new_sqlite_classes": ["NewsletterConsent"] },
+    { "tag": "emdash-rooms", "new_sqlite_classes": ["EmDashRoom"] }
+  ],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS"

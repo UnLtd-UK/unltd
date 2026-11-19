@@ -7,6 +7,7 @@ import type { FooterLinkGroup } from "@data/menu.ts";
 const { footerLinks } = Astro.props as { footerLinks: FooterLinkGroup[] };
 const nav = navigation.code;
 import Container from "@components/Container.astro";
+import NewsletterSignup from "@components/NewsletterSignup.astro";
 
 import Logo from "@components/Logo.jsx";
 
@@ -98,7 +99,7 @@ const styles = {
             footerLinks.map((link, index) => {
                 if (index < 2)
                   return (
-                    <div class={index == 1 && `mt-10 md:mt-0`}>
+                    <div class={index == 1 ? "mt-10 md:mt-0" : undefined}>
                       <h3 class="text-sm font-semibold leading-6 text-slate-700 dark:text-slate-300">
                         {link.name}
                       </h3>
@@ -136,7 +137,7 @@ const styles = {
             footerLinks.map((link, index) => {
                 if (index > 1)
                   return (
-                    <div class={index == 3 && `mt-10 md:mt-0`}>
+                    <div class={index == 3 ? "mt-10 md:mt-0" : undefined}>
                       <h3 class="text-sm font-semibold leading-6 text-slate-900 dark:text-slate-300">
                         {link.name}
                       </h3>
@@ -170,6 +171,15 @@ const styles = {
           }
         </div>
       </div>
+    </div>
+    <div
+      class="mt-16 max-w-md border-t border-slate-300 pt-8 dark:border-slate-700"
+    >
+      <NewsletterSignup
+        id="newsletter-footer"
+        heading="Subscribe to our newsletters"
+        description="News on our awards, events and the social entrepreneurs we support."
+      />
     </div>
   </Container>
 </footer>

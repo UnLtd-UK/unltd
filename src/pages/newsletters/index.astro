@@ -4,6 +4,7 @@ import Container from "@components/Container.astro";
 import Breadcrumbs from "@components/Breadcrumbs.astro";
 import Default from "@components/heroes/Default.astro";
 import Icon from "@components/Icon.astro";
+import NewsletterSignup from "@components/NewsletterSignup.astro";
 
 import SegmentBadges from "@components/newsletters/SegmentBadges.astro";
 import { getAllNewsletters, segmentsIn } from "@lib/newsletters-runtime";
@@ -58,6 +59,10 @@ for (const newsletter of earlier) {
     <Default name={title} description={description} />
 
     <div class="pb-20 space-y-14">
+      <div class="max-w-2xl rounded-2xl bg-violet-900/30 p-6 ring-1 ring-violet-600/30 [&_form]:mt-0">
+        <NewsletterSignup id="newsletters-page" tone="violet" />
+      </div>
+
       {segments.length > 0 && (
         <nav aria-label="Filter by segment">
           <ul class="flex flex-wrap gap-3">
