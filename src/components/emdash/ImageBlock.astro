@@ -7,11 +7,7 @@ const { node } = Astro.props;
 const asset = node?.asset;
 if (!asset) return null;
 
-const INTERNAL_MEDIA_PREFIX = "/_emdash/api/media/file/";
-let src: string = asset.url || (asset._ref ? `${INTERNAL_MEDIA_PREFIX}${asset._ref}` : "");
-if (src.startsWith(INTERNAL_MEDIA_PREFIX)) {
-  src = Astro.locals.emdash?.getPublicMediaUrl?.(src.slice(INTERNAL_MEDIA_PREFIX.length)) ?? src;
-}
+const src: string = asset.url || (asset._ref ? `/_emdash/api/media/file/${asset._ref}` : "");
 if (!src) return null;
 
 const positive = (value: unknown) => (typeof value === "number" && value > 0 ? value : undefined);
