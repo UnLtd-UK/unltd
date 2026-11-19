@@ -1,6 +1,5 @@
 ---
-import { Image } from "astro:assets";
-import { Image as EmDashImage } from "emdash/ui";
+import CappedImage from "@components/emdash/CappedImage.astro";
 import type { EditProxy } from "emdash";
 import type { PostEntry } from "@data/posts";
 import { formatAuthors, formatPostDate } from "@utils/post-format";
@@ -18,28 +17,19 @@ const authors = formatAuthors(post.authors);
         {
             post.image && (
                 <figure class="flex flex-col gap-2">
-                    {post.image.media ? (
-                        <EmDashImage
-                            image={post.image.media}
-                            alt={post.image.alt}
-                            width={1600}
-                            height={900}
-                            priority
-                            class=" rounded-2xl"
-                        />
-                    ) : (
-                        <Image
-                            src={post.image.src}
-                            alt={post.image.alt}
-                            width={1600}
-                            height={900}
-                            format="webp"
-                            layout="full-width"
-                            fetchpriority="high"
-                            loading="eager"
-                            class=" rounded-2xl"
-                        />
-                    )}
+                    <CappedImage
+                        src={post.image.src}
+                        alt={post.image.alt}
+                        width={post.image.width}
+                        height={post.image.height}
+                        aspectRatio={16 / 9}
+                        sizes="(min-width: 1024px) 640px, (min-width: 768px) 50vw, 100vw"
+                        focalX={post.image.media?.focalX}
+                        focalY={post.image.media?.focalY}
+                        dominantColor={post.image.media?.dominantColor}
+                        priority
+                        class="w-full rounded-2xl"
+                    />
                     {post.image.caption && (
                         <figcaption class="text-sm text-violet-200">
                             {post.image.caption}
@@ -56,20 +46,6 @@ const authors = formatAuthors(post.authors);
                 post.tag && (
                     <span class="rounded-full text-xs bg-violet-100 dark:bg-violet-800 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-300 border border-violet-600">
                         {post.tag.label}
-                    </span>
-                )
-            }
-            {
-                post.status === "draft" && (
-                    <span class="ml-2 relative z-10 rounded-full bg-red-100 dark:bg-red-900 px-3 py-1.5 font-medium text-red-600 dark:text-red-300">
-                        DRAFT
-                    </span>
-                )
-            }
-            {
-                post.status === "scheduled" && (
-                    <span class="ml-2 relative z-10 rounded-full bg-blue-100 dark:bg-blue-900 px-3 py-1.5 font-medium text-blue-600 dark:text-blue-300">
-                        SCHEDULED
                     </span>
                 )
             }

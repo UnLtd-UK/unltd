@@ -1,0 +1,90 @@
+---
+import { getImage } from "astro:assets";
+
+// Every distinct width of an image is a separate billable Cloudflare Images
+// transformation, so this asks for three widths by default, none above 1280px,
+// instead of the 7 to 9 that EmDash's own image components generate.
+const DEFAULT_WIDTHS = [640, 960, 1280];
+
+interface Props {
+  src: string;
+  alt?: string;
+  /** Natural dimensions of the source image. Without both, the image is served as it is. */
+  width?: number;
+  height?: number;
+  /** Crop to this width / height ratio instead of the source's own. */
+  aspectRatio?: number;
+  /** Candidate widths, ascending. Keep this list short. */
+  widths?: number[];
+  sizes?: string;
+  /** From an EmDash media value: where to crop to, and a colour to show while loading. */
+  focalX?: number;
+  focalY?: number;
+  dominantColor?: string;
+  priority?: boolean;
+  class?: string;
+  title?: string;
+}
+
+const {
+  src,
+  alt = "",
+  width,
+  height,
+  aspectRatio,
+  widths: candidates = DEFAULT_WIDTHS,
+  sizes = "(min-width: 1280px) 1280px, 100vw",
+  focalX,
+  focalY,
+  dominantColor,
+  priority = false,
+  class: className,
+  title,
+} = Astro.props;
+
+const ratio = aspectRatio ?? (width && height ? width / height : undefined);
+// Never upscale: keep the widths the source can fill, and top out at its own width or the largest candidate.
+const maxWidth = candidates.at(-1)!;
+const widths = width
+  ? [...new Set([...candidates.filter((w) => w <= width), Math.min(width, maxWidth)])].sort((a, b) => a - b)
+  : candidates;
+const inBounds = (value?: number) => typeof value === "number" && value >= 0 && value <= 1;
+const style =
+  [
+    dominantColor ? `background-color: ${dominantColor};` : "",
+    inBounds(focalX) && inBounds(focalY) ? `object-position: ${focalX! * 100}% ${focalY! * 100}%;` : "",
+  ]
+    .filter(Boolean)
+    .join(" ") || undefined;
+
+const largest = widths.at(-1);
+const absoluteSrc = src.startsWith("/") && !src.startsWith("//") ? new URL(src, Astro.url.origin).href : src;
+
+let optimized: { src: string; srcset?: string; width: number; height: number } | null = null;
+if (ratio && largest && /^https?:\/\//.test(absoluteSrc)) {
+  try {
+    const height = Math.round(largest / ratio);
+    const result = await getImage({ src: absoluteSrc, width: largest, height, widths, sizes, format: "webp", fit: "cover" });
+    if (result.src !== absoluteSrc) {
+      optimized = { src: result.src, srcset: result.srcSet.attribute || undefined, width: largest, height };
+    }
+  } catch {
+    // A host Astro isn't allowed to transform: fall through to the plain image.
+  }
+}
+---
+
+<img
+  src={optimized?.src ?? src}
+  srcset={optimized?.srcset}
+  sizes={optimized?.srcset ? sizes : undefined}
+  alt={alt}
+  title={title}
+  width={optimized?.width ?? width}
+  height={optimized?.height ?? height}
+  loading={priority ? "eager" : "lazy"}
+  fetchpriority={priority ? "high" : undefined}
+  decoding="async"
+  class={className}
+  style={style}
+/>
