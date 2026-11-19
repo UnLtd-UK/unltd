@@ -1,6 +1,5 @@
 ---
-import { Image } from "astro:assets";
-import { Image as EmDashImage } from "emdash/ui";
+import CappedImage from "@components/emdash/CappedImage.astro";
 import Icon from "@components/Icon.astro";
 import type { PostEntry } from "@data/posts";
 import { formatAuthors, formatPostDate } from "@utils/post-format";
@@ -18,22 +17,18 @@ const authors = formatAuthors(post.authors);
                 class="relative w-full h-64 bg-violet-800 rounded-2xl border border-violet-600"
             >
                 {
-                    post.image?.media ? (
-                        <EmDashImage
-                            image={post.image.media}
-                            alt=""
-                            width={800}
-                            height={512}
-                            class="absolute inset-0 w-full h-full object-cover rounded-2xl"
-                        />
-                    ) : post.image ? (
-                        <Image
+                    post.image ? (
+                        <CappedImage
                             src={post.image.src}
                             alt=""
-                            width={800}
-                            height={512}
-                            format="webp"
-                            layout="full-width"
+                            width={post.image.width}
+                            height={post.image.height}
+                            aspectRatio={800 / 512}
+                            widths={[480, 800]}
+                            sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+                            focalX={post.image.media?.focalX}
+                            focalY={post.image.media?.focalY}
+                            dominantColor={post.image.media?.dominantColor}
                             class="absolute inset-0 w-full h-full object-cover rounded-2xl"
                         />
                     ) : (
@@ -59,20 +54,6 @@ const authors = formatAuthors(post.authors);
                         post.tag && (
                             <span class="relative z-10 rounded-full bg-violet-100 dark:bg-violet-900 px-3 py-1.5 font-medium text-violet-600 dark:text-violet-300">
                                 {post.tag.label}
-                            </span>
-                        )
-                    }
-                    {
-                        post.status === "draft" && (
-                            <span class="relative z-10 rounded-full bg-red-100 dark:bg-red-900 px-3 py-1.5 font-medium text-red-600 dark:text-red-300">
-                                DRAFT
-                            </span>
-                        )
-                    }
-                    {
-                        post.status === "scheduled" && (
-                            <span class="relative z-10 rounded-full bg-blue-100 dark:bg-blue-900 px-3 py-1.5 font-medium text-blue-600 dark:text-blue-300">
-                                SCHEDULED
                             </span>
                         )
                     }

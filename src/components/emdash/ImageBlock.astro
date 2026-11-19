@@ -1,0 +1,95 @@
+---
+import CappedImage from "./CappedImage.astro";
+
+// Replaces EmDash's built-in image block so body images request only a few
+// widths (see CappedImage). Link, caption and alignment behave as in EmDash's.
+const { node } = Astro.props;
+const asset = node?.asset;
+if (!asset) return null;
+
+const src: string = asset.url || (asset._ref ? `/_emdash/api/media/file/${asset._ref}` : "");
+if (!src) return null;
+
+const positive = (value: unknown) => (typeof value === "number" && value > 0 ? value : undefined);
+const width = positive(node.width) ?? positive(asset.meta?.width);
+const height = positive(node.height) ?? positive(asset.meta?.height);
+
+const link = typeof node.link === "string" ? { href: node.link } : node.link;
+const href = link?.href && /^(https?:|\/|#|mailto:|tel:)/i.test(link.href) ? link.href : null;
+const blank = href && !href.startsWith("#") && link?.blank === true;
+const dominantColor = node.dominantColor ?? asset.meta?.dominantColor;
+const alignment = node.alignment;
+---
+
+<figure class:list={["emdash-image", alignment && `emdash-image--align-${alignment}`]}>
+  {
+    href ? (
+      <a href={href} target={blank ? "_blank" : undefined} rel={blank ? "noopener noreferrer" : undefined}>
+        <CappedImage
+          src={src}
+          alt={node.alt ?? ""}
+          title={node.title}
+          width={width}
+          height={height}
+          dominantColor={dominantColor}
+        />
+      </a>
+    ) : (
+      <CappedImage
+        src={src}
+        alt={node.alt ?? ""}
+        title={node.title}
+        width={width}
+        height={height}
+        dominantColor={dominantColor}
+      />
+    )
+  }
+  {node.caption && <figcaption>{node.caption}</figcaption>}
+</figure>
+
+<style>
+  .emdash-image {
+    margin: 1.5rem 0;
+  }
+  .emdash-image img {
+    max-width: 100%;
+    height: auto;
+  }
+  .emdash-image figcaption {
+    font-size: 0.875rem;
+    color: var(--emdash-caption-color, var(--color-muted, #666));
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+  .emdash-image--align-left,
+  .emdash-image--align-right {
+    width: fit-content;
+    max-width: 50%;
+  }
+  .emdash-image--align-left {
+    float: left;
+    margin: 0 1.5rem 1rem 0;
+  }
+  .emdash-image--align-right {
+    float: right;
+    margin: 0 0 1rem 1.5rem;
+  }
+  .emdash-image--align-center {
+    width: fit-content;
+    margin-inline: auto;
+  }
+  .emdash-image--align-wide,
+  .emdash-image--align-full {
+    width: 100%;
+  }
+  @media (max-width: 640px) {
+    .emdash-image--align-left,
+    .emdash-image--align-right {
+      float: none;
+      width: 100%;
+      max-width: 100%;
+      margin-inline: 0;
+    }
+  }
+</style>

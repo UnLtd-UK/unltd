@@ -4,6 +4,7 @@ import { PortableText } from "emdash/ui";
 import { proseClasses } from "@components/markdoc/proseClasses";
 import Heading from "./Heading.astro";
 import Link from "./Link.astro";
+import ImageBlock from "./ImageBlock.astro";
 import { withHeadingIds } from "@data/functions/portableHeadings";
 
 const { value = [] } = Astro.props;
@@ -33,6 +34,7 @@ const components = {
     h5: Heading,
   },
   mark: { link: Link },
+  type: { image: ImageBlock },
 };
 ---
 
